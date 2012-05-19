@@ -1,0 +1,318 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><title>MiniKindInferencer</title>
+</head>
+<body>
+<code class="code"></code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<span class="comment">(*&nbsp;&nbsp;Mini,&nbsp;a&nbsp;type&nbsp;inference&nbsp;engine&nbsp;based&nbsp;on&nbsp;constraint&nbsp;solving.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Copyright&nbsp;(C)&nbsp;2006.&nbsp;François&nbsp;Pottier,&nbsp;Yann&nbsp;Régis-Gianas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;and&nbsp;Didier&nbsp;Rémy.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;version&nbsp;2&nbsp;of&nbsp;the&nbsp;License.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,&nbsp;but&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;GNU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Foundation,&nbsp;Inc.,&nbsp;51&nbsp;Franklin&nbsp;Street,&nbsp;Fifth&nbsp;Floor,&nbsp;Boston,&nbsp;MA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;02110-1301&nbsp;USA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+</code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="comment">(*&nbsp;$Id:&nbsp;miniKindInferencer.ml&nbsp;421&nbsp;2006-12-22&nbsp;09:27:42Z&nbsp;regisgia&nbsp;$&nbsp;*)</span><br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** This module implements a simple kind inferencer. *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">CoreAlgebra</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">MultiEquation</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Positions</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">MiniAst</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">MiniTypingExceptions</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Misc</span><br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Ast</span>&nbsp;=&nbsp;<span class="constructor">MiniAst</span><br>
+&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">IdSet</span>&nbsp;=&nbsp;<span class="constructor">Set</span>.<span class="constructor">Make</span>&nbsp;(<span class="keyword">struct</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;compare&nbsp;=&nbsp;compare<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>)<br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">RowDomain</span>&nbsp;=&nbsp;<span class="constructor">BasicSetEquations</span>.<span class="constructor">Make</span>&nbsp;(<span class="keyword">struct</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">include</span>&nbsp;<span class="constructor">IdSet</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print&nbsp;s&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;label&nbsp;=&nbsp;choose&nbsp;s&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fold&nbsp;(<span class="keyword">fun</span>&nbsp;label&nbsp;accu&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;label&nbsp;^&nbsp;<span class="string">"+"</span>&nbsp;^&nbsp;accu<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;(remove&nbsp;label&nbsp;s)&nbsp;label<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Not_found</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">""</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">end</span>)<br>
+<br>
+<span class="keyword">type</span>&nbsp;variable&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;descriptor&nbsp;<span class="constructor">UnionFind</span>.point<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">and</span>&nbsp;descriptor&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;structure&nbsp;:&nbsp;term&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;name&nbsp;:&nbsp;tname;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">mutable</span>&nbsp;constant&nbsp;:&nbsp;bool;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+<span class="keyword">and</span>&nbsp;term&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">App</span>&nbsp;<span class="keyword">of</span>&nbsp;variable&nbsp;*&nbsp;variable<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Row</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">RowDomain</span>.term<br>
+<br>
+<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;variable<br>
+<br>
+<span class="keyword">type</span>&nbsp;env&nbsp;=&nbsp;(tname&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t)&nbsp;*&nbsp;(tname&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit)<br>
+<br>
+<span class="keyword">let</span>&nbsp;count&nbsp;=&nbsp;ref&nbsp;0<br>
+<br>
+<span class="keyword">let</span>&nbsp;new_name&nbsp;()&nbsp;=<br>
+&nbsp;&nbsp;incr&nbsp;count;<br>
+&nbsp;&nbsp;<span class="constructor">TName</span>&nbsp;(<span class="string">"V"</span>&nbsp;^&nbsp;string_of_int&nbsp;!count)<br>
+<br>
+<span class="keyword">let</span>&nbsp;variable&nbsp;?(name&nbsp;:&nbsp;tname&nbsp;option)&nbsp;()&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;constant&nbsp;=&nbsp;(name&nbsp;&lt;&gt;&nbsp;<span class="constructor">None</span>)&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;name&nbsp;=&nbsp;<span class="keyword">match</span>&nbsp;name&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;new_name&nbsp;()&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;n&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;n&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">UnionFind</span>.fresh&nbsp;{&nbsp;structure&nbsp;=&nbsp;<span class="constructor">None</span>;&nbsp;name&nbsp;=&nbsp;name;&nbsp;constant&nbsp;=&nbsp;constant&nbsp;}<br>
+<br>
+<span class="keyword">let</span>&nbsp;structure&nbsp;v&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;(<span class="constructor">UnionFind</span>.find&nbsp;v).structure<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;iter_term&nbsp;f&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">App</span>&nbsp;(t1,&nbsp;t2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;t1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;t2<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;()<br>
+<br>
+<span class="keyword">let</span>&nbsp;iter&nbsp;f&nbsp;v&nbsp;=&nbsp;iter_term&nbsp;f&nbsp;(unSome&nbsp;(structure&nbsp;v))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;lookup&nbsp;id&nbsp;tenv&nbsp;=&nbsp;(fst&nbsp;tenv)&nbsp;id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;bind&nbsp;id&nbsp;t&nbsp;tenv&nbsp;=&nbsp;(snd&nbsp;tenv)&nbsp;id&nbsp;t;&nbsp;tenv<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;term_handler&nbsp;t&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="constructor">UnionFind</span>.fresh&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;=&nbsp;<span class="constructor">TName</span>&nbsp;<span class="string">""</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;structure&nbsp;=&nbsp;<span class="constructor">Some</span>&nbsp;t;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;constant&nbsp;=&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;times&nbsp;=&nbsp;<span class="string">"__x"</span><br>
+<span class="keyword">let</span>&nbsp;arrow&nbsp;=&nbsp;<span class="string">"__=&gt;"</span><br>
+<span class="keyword">let</span>&nbsp;star&nbsp;=&nbsp;<span class="string">"__*"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;count&nbsp;=&nbsp;ref&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;symbol&nbsp;tenv&nbsp;i&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;(fst&nbsp;tenv)&nbsp;i<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;binop&nbsp;op&nbsp;x&nbsp;y&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;w&nbsp;=&nbsp;term_handler&nbsp;(<span class="constructor">App</span>&nbsp;(op,&nbsp;x))&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;term_handler&nbsp;(<span class="constructor">App</span>&nbsp;(w,&nbsp;y))&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;star&nbsp;=<br>
+&nbsp;&nbsp;variable&nbsp;~name:(<span class="constructor">TName</span>&nbsp;<span class="string">"@"</span>)&nbsp;()<br>
+<br>
+<span class="keyword">let</span>&nbsp;arrow&nbsp;=<br>
+&nbsp;&nbsp;variable&nbsp;~name:(<span class="constructor">TName</span>&nbsp;<span class="string">"=&gt;"</span>)&nbsp;()<br>
+<br>
+<span class="keyword">let</span>&nbsp;times&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;variable&nbsp;~name:(<span class="constructor">TName</span>&nbsp;<span class="string">"x"</span>)&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;mkarrow&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;binop&nbsp;arrow<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;mktimes&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;binop&nbsp;times<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;mkconstructor&nbsp;tenv&nbsp;arity&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;arity&nbsp;=&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;star&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;mkarrow&nbsp;star&nbsp;(mkconstructor&nbsp;tenv&nbsp;(arity&nbsp;-&nbsp;1))&nbsp;&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;row&nbsp;d&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;term_handler&nbsp;(<span class="constructor">Row</span>&nbsp;d)<br>
+<br>
+<span class="keyword">let</span>&nbsp;is_star&nbsp;env&nbsp;k&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="constructor">UnionFind</span>.equivalent&nbsp;k&nbsp;star<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;fresh_kind&nbsp;()&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;variable&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;kind_arity&nbsp;env&nbsp;v&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;arrow_sym&nbsp;=&nbsp;symbol&nbsp;env&nbsp;arrow&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;(<span class="constructor">UnionFind</span>.find&nbsp;v).structure&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;is_star&nbsp;env&nbsp;v&nbsp;<span class="keyword">then</span>&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">match</span>&nbsp;t&nbsp;<span class="keyword">with</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">App</span>&nbsp;(s,&nbsp;k)&nbsp;<span class="keyword">when</span>&nbsp;s&nbsp;=&nbsp;arrow_sym&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;1&nbsp;+&nbsp;kind_arity&nbsp;env&nbsp;k<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">App</span>&nbsp;(k,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;kind_arity&nbsp;env&nbsp;k<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;0)<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;print_term&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">App</span>&nbsp;(v1,&nbsp;v2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;[&nbsp;<span class="string">"("</span>&nbsp;;&nbsp;print&nbsp;v1&nbsp;;&nbsp;<span class="string">","</span>&nbsp;;&nbsp;print&nbsp;v2&nbsp;;&nbsp;<span class="string">")"</span>&nbsp;]<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Row</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="string">"Row("</span>^&nbsp;<span class="constructor">RowDomain</span>.print&nbsp;v&nbsp;^&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">and</span>&nbsp;print&nbsp;v&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;(<span class="constructor">UnionFind</span>.find&nbsp;v).structure&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;name&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;print_term&nbsp;t<br>
+<br>
+<span class="keyword">and</span>&nbsp;name&nbsp;v&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;(<span class="constructor">UnionFind</span>.find&nbsp;v).name&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">TName</span>&nbsp;name&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;name<br>
+<br>
+<span class="keyword">let</span>&nbsp;is_constant&nbsp;v&nbsp;=&nbsp;(<span class="constructor">UnionFind</span>.find&nbsp;v).constant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;assign_point&nbsp;k1&nbsp;k2&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;name,&nbsp;has_name&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;is_constant&nbsp;k1&nbsp;<span class="keyword">then</span>&nbsp;name&nbsp;k1,&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;is_constant&nbsp;k2&nbsp;<span class="keyword">then</span>&nbsp;name&nbsp;k2,&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="string">""</span>,&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">UnionFind</span>.union&nbsp;k1&nbsp;k2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;has_name&nbsp;<span class="keyword">then</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">UnionFind</span>.find&nbsp;k2).name&nbsp;&lt;-&nbsp;<span class="constructor">TName</span>&nbsp;name;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">UnionFind</span>.find&nbsp;k2).constant&nbsp;&lt;-&nbsp;<span class="keyword">true</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;assign&nbsp;pos&nbsp;k1&nbsp;k2&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;iter&nbsp;(<span class="keyword">fun</span>&nbsp;k&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">UnionFind</span>.equivalent&nbsp;k1&nbsp;k&nbsp;<span class="keyword">then</span>&nbsp;raise&nbsp;(<span class="constructor">KindError</span>&nbsp;pos))&nbsp;k2;&nbsp;<br>
+&nbsp;&nbsp;assign_point&nbsp;k1&nbsp;k2<br>
+<br>
+<span class="keyword">let</span>&nbsp;occur_check&nbsp;v1&nbsp;v2&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;variables&nbsp;acu&nbsp;v&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;(structure&nbsp;v)&nbsp;<span class="keyword">with</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(<span class="constructor">List</span>.memq&nbsp;v&nbsp;acu)&nbsp;<span class="keyword">then</span>&nbsp;v::acu&nbsp;<span class="keyword">else</span>&nbsp;acu<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">App</span>&nbsp;(v1,&nbsp;v2))&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;variables&nbsp;(variables&nbsp;acu&nbsp;v1)&nbsp;v2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;acu<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vars1&nbsp;=&nbsp;variables&nbsp;[]&nbsp;v1&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;vars2&nbsp;=&nbsp;variables&nbsp;[]&nbsp;v2&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.memq&nbsp;v1&nbsp;vars2&nbsp;<span class="keywordsign">||</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.memq&nbsp;v2&nbsp;vars1&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;unify&nbsp;pos&nbsp;k1&nbsp;k2&nbsp;=&nbsp;<br>
+<span class="comment">(*&nbsp;&nbsp;Printf.eprintf&nbsp;"%s&nbsp;=?=&nbsp;%s\n"&nbsp;(print&nbsp;k1)&nbsp;(print&nbsp;k2);&nbsp;*)</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(<span class="constructor">UnionFind</span>.equivalent&nbsp;k1&nbsp;k2)&nbsp;<span class="keyword">then</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;occur_check&nbsp;k1&nbsp;k2&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">KindError</span>&nbsp;pos);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;structure&nbsp;k1,&nbsp;structure&nbsp;k2&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>,&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;(is_constant&nbsp;k1&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;is_constant&nbsp;k2&nbsp;<span class="keywordsign">&amp;&amp;</span>&nbsp;name&nbsp;k1&nbsp;&lt;&gt;&nbsp;name&nbsp;k2)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">KindError</span>&nbsp;pos);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assign_point&nbsp;k1&nbsp;k2<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;(<span class="constructor">None</span>,&nbsp;_&nbsp;<span class="keywordsign">|</span>&nbsp;_,&nbsp;<span class="constructor">None</span>)&nbsp;<span class="keyword">when</span>&nbsp;is_constant&nbsp;k1&nbsp;<span class="keywordsign">||</span>&nbsp;is_constant&nbsp;k2&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">KindError</span>&nbsp;pos)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">None</span>,&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assign&nbsp;pos&nbsp;k1&nbsp;k2<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_,&nbsp;<span class="constructor">None</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assign&nbsp;pos&nbsp;k2&nbsp;k1<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">App</span>&nbsp;(t1,&nbsp;t2)),&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">App</span>&nbsp;(t1',&nbsp;t2'))&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unify&nbsp;pos&nbsp;t1&nbsp;t1';<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unify&nbsp;pos&nbsp;t2&nbsp;t2'<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Row</span>&nbsp;d1),&nbsp;<span class="constructor">Some</span>&nbsp;(<span class="constructor">Row</span>&nbsp;d2)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">RowDomain</span>.unify&nbsp;d1&nbsp;d2<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">false</span>)<br>
+<br>
+<span class="comment">(*&nbsp;FIXME:&nbsp;Should&nbsp;be&nbsp;done&nbsp;on&nbsp;internal&nbsp;term&nbsp;representation&nbsp;to&nbsp;factorize&nbsp;*)</span><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;infer&nbsp;env&nbsp;t&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;t&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">TypVar</span>&nbsp;(p,&nbsp;id)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lookup&nbsp;id&nbsp;env<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypApp</span>&nbsp;(p,&nbsp;tc,&nbsp;ts)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;k&nbsp;=&nbsp;variable&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;kd&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.fold_right&nbsp;(<span class="keyword">fun</span>&nbsp;t&nbsp;acu&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mkarrow&nbsp;(infer&nbsp;env&nbsp;t)&nbsp;acu)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ts&nbsp;k&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unify&nbsp;p&nbsp;(infer&nbsp;env&nbsp;tc)&nbsp;kd;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypRowCons</span>&nbsp;(p,&nbsp;attributes,&nbsp;t)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(<span class="keyword">fun</span>&nbsp;(_,ta)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;check&nbsp;p&nbsp;env&nbsp;ta&nbsp;star)&nbsp;attributes;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;defined_labels&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.fold_left&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">fun</span>&nbsp;acu&nbsp;(<span class="constructor">LName</span>&nbsp;l,_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">IdSet</span>.mem&nbsp;l&nbsp;acu&nbsp;<span class="keyword">then</span>&nbsp;raise&nbsp;(<span class="constructor">MultipleLabels</span>&nbsp;(p,&nbsp;<span class="constructor">LName</span>&nbsp;l))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="constructor">IdSet</span>.add&nbsp;l&nbsp;acu)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">IdSet</span>.empty&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attributes&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;domain&nbsp;=&nbsp;<span class="constructor">RowDomain</span>.svariable&nbsp;()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;check&nbsp;p&nbsp;env&nbsp;t&nbsp;(row&nbsp;(<span class="constructor">RowDomain</span>.sum&nbsp;defined_labels&nbsp;domain));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;domain<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypRowUniform</span>&nbsp;(p,&nbsp;typ)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;row&nbsp;(<span class="constructor">RowDomain</span>.svariable&nbsp;())<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">and</span>&nbsp;check&nbsp;pos&nbsp;env&nbsp;t&nbsp;k&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;unify&nbsp;pos&nbsp;(infer&nbsp;env&nbsp;t)&nbsp;k<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;intern_kind&nbsp;env&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KStar</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;star&nbsp;<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KTimes</span>&nbsp;(k1,&nbsp;k2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mktimes&nbsp;(intern_kind&nbsp;env&nbsp;k1)&nbsp;(intern_kind&nbsp;env&nbsp;k2)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KArrow</span>&nbsp;(k1,&nbsp;k2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;mkarrow&nbsp;(intern_kind&nbsp;env&nbsp;k1)&nbsp;(intern_kind&nbsp;env&nbsp;k2)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KEmptyRow</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;term_handler&nbsp;(<span class="constructor">Row</span>&nbsp;(<span class="constructor">RowDomain</span>.empty))<br>
+<br>
+</code></body></html>

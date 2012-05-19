@@ -1,0 +1,11 @@
+type t : * = 
+   S : int -> t
+|  K : int * int -> t
+
+
+let add_3_int (x : int) (y: int) (z: int) = 0
+
+let f x = 
+  match x with
+    (S x, K (y, t)) | (K (y, z), S x) => add_3_int x y z
+  end 

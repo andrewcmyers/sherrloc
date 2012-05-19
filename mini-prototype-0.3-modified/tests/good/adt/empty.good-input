@@ -1,0 +1,5 @@
+type t : *
+type f : *
+
+let f (x: t) = ()
+let g (f : f -> unit) = ()

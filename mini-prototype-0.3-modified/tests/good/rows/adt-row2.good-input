@@ -1,0 +1,4 @@
+type t : * -> * =  K : forall a. {l : (pre a); \abs} -> (t a) 
+
+let y =  (K { l =  0} )
+

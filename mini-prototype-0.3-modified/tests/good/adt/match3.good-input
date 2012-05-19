@@ -1,0 +1,8 @@
+type list : * -> * = 
+     Nil : forall a. list a 
+   | Cons : forall a.a -> list a -> list a
+
+let f x = match x with 
+              Nil => 0 
+            | Cons x (Nil) => 1 
+          end

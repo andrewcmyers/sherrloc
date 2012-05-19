@@ -1,0 +1,5 @@
+type fun : * -> * -> * =
+  Fun : forall a b. (a -> b) -> fun a b
+
+let f x = x
+let ff = Fun f 

@@ -1,0 +1,2 @@
+type t : * = K : t
+let f x = match x with K => 0 end

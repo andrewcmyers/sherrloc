@@ -1,0 +1,4 @@
+type triple : * -> * -> * -> * =  
+    D : forall a b c. a * b * c -> (triple a b c) 
+
+let f x =  match x with  (D ((x,y),z)) => x end 

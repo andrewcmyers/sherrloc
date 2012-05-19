@@ -1,0 +1,2 @@
+type t : * = K : t
+let x = K 0

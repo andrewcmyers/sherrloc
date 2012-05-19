@@ -1,0 +1,303 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><title>MiniPrettyPrinter.print_type</title>
+</head>
+<body>
+<code class="code"><span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;print_expression&nbsp;e&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;(<span class="keyword">match</span>&nbsp;e&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EPrimApp</span>&nbsp;(_,&nbsp;<span class="constructor">PCharConstant</span>&nbsp;c,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;(<span class="string">"'"</span>^&nbsp;<span class="constructor">String</span>.make&nbsp;1&nbsp;c&nbsp;^<span class="string">"'"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EPrimApp</span>&nbsp;(_,&nbsp;<span class="constructor">PIntegerConstant</span>&nbsp;i,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;(string_of_int&nbsp;i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EPrimApp</span>&nbsp;(_,&nbsp;<span class="constructor">PUnit</span>,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"()"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EAssertFalse</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"assert&nbsp;false"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EVar</span>&nbsp;(_,&nbsp;<span class="constructor">SName</span>&nbsp;name)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EDCon</span>&nbsp;(_,&nbsp;<span class="constructor">DName</span>&nbsp;<span class="string">"_Unit"</span>,&nbsp;es)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"()"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EDCon</span>&nbsp;(_,&nbsp;<span class="constructor">DName</span>&nbsp;<span class="string">"_Tuple"</span>,&nbsp;es)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">","</span>&nbsp;print_expression&nbsp;es;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EDCon</span>&nbsp;(_,&nbsp;<span class="constructor">DName</span>&nbsp;dname,&nbsp;[])&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;dname;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EDCon</span>&nbsp;(_,&nbsp;<span class="constructor">DName</span>&nbsp;dname,&nbsp;es)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;dname;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;"</span>&nbsp;print_expression&nbsp;es;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ELambda</span>&nbsp;(_,&nbsp;pat,&nbsp;exp)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"\\"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_pattern&nbsp;pat;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"."</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_cut&nbsp;!ppf&nbsp;();&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;exp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EApp</span>&nbsp;(_,&nbsp;t1,&nbsp;t2)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;t1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;t2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EMatch</span>&nbsp;(_,&nbsp;e,&nbsp;cs)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_open_hvbox&nbsp;!ppf&nbsp;0;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"match&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;e;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;with&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_cut&nbsp;!ppf&nbsp;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"|&nbsp;"</span>&nbsp;print_clause&nbsp;cs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"end&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_close_box&nbsp;!ppf&nbsp;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EBinding</span>&nbsp;(_,&nbsp;bd,&nbsp;exp)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_open_box&nbsp;!ppf&nbsp;0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_binding&nbsp;bd;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;in&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;exp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_close_box&nbsp;!ppf&nbsp;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ETypeConstraint</span>&nbsp;(_,&nbsp;exp,&nbsp;ty)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;exp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;:&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;ty;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EForall</span>&nbsp;(_,&nbsp;vs,&nbsp;e)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fprintf&nbsp;!ppf&nbsp;<span class="string">"forall&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"."</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;e<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EExists</span>&nbsp;(_,&nbsp;vs,&nbsp;e)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fprintf&nbsp;!ppf&nbsp;<span class="string">"exists&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;"</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">fun</span>&nbsp;(<span class="constructor">TName</span>&nbsp;x)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;x)&nbsp;vs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"."</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;e<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordEmpty</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"{}"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordAccess</span>&nbsp;(_,&nbsp;exp,&nbsp;<span class="constructor">LName</span>&nbsp;name)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;exp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"."</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;name;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordExtend</span>&nbsp;(_,&nbsp;bds,&nbsp;<span class="constructor">ERecordEmpty</span>&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"{&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_record_binding&nbsp;bds;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"}&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordExtend</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordUpdate</span>&nbsp;(_,&nbsp;exp,&nbsp;<span class="constructor">LName</span>&nbsp;label,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;exp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"."</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;label;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;&lt;-&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;v);<br>
+<br>
+<span class="keyword">and</span>&nbsp;print_record_binding&nbsp;bds&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">";"</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">fun</span>&nbsp;(<span class="constructor">LName</span>&nbsp;name,&nbsp;exp)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;(name^<span class="string">"&nbsp;=&nbsp;"</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;exp)&nbsp;bds<br>
+<br>
+<span class="keyword">and</span>&nbsp;print_binding&nbsp;b&nbsp;=<br>
+&nbsp;&nbsp;(<span class="keyword">match</span>&nbsp;b&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BindValue</span>&nbsp;(pos,&nbsp;vs)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"let&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;and&nbsp;"</span>&nbsp;print_value_definition&nbsp;vs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BindRecValue</span>&nbsp;(pos,&nbsp;vs)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"let&nbsp;rec&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;and&nbsp;"</span>&nbsp;print_value_definition&nbsp;vs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypeDec</span>&nbsp;(_,&nbsp;tds)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"type&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;and&nbsp;"</span>&nbsp;print_type_declaration&nbsp;tds)<br>
+<br>
+<span class="keyword">and</span>&nbsp;print_value_definition&nbsp;(_,&nbsp;tnames,&nbsp;pat,&nbsp;expression)&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;chop_args&nbsp;pat&nbsp;expression&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;(pat,&nbsp;expression)&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;((<span class="constructor">PTypeConstraint</span>&nbsp;(_,&nbsp;<span class="constructor">PVar</span>&nbsp;(m,&nbsp;name),&nbsp;_))&nbsp;<span class="keyword">as</span>&nbsp;p),&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">ELambda</span>(_,&nbsp;pat,&nbsp;expression)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;q,&nbsp;exp&nbsp;=&nbsp;chop_args&nbsp;pat&nbsp;expression&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;::&nbsp;q,&nbsp;exp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;(<span class="constructor">PVar</span>&nbsp;(m,&nbsp;name)&nbsp;<span class="keyword">as</span>&nbsp;p,&nbsp;<span class="constructor">ELambda</span>(_,&nbsp;pat,&nbsp;expression))&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;q,&nbsp;exp&nbsp;=&nbsp;chop_args&nbsp;pat&nbsp;expression&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;::&nbsp;q,&nbsp;exp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;(pat,&nbsp;expression)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[pat],&nbsp;expression<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print&nbsp;(pats,&nbsp;expression)&nbsp;=&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pp_open_box&nbsp;!ppf&nbsp;0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;tnames&nbsp;&lt;&gt;&nbsp;[]&nbsp;<span class="keyword">then</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"forall&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;"</span>&nbsp;(<span class="keyword">fun</span>&nbsp;(<span class="constructor">TName</span>&nbsp;s)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;s)&nbsp;tnames;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"."</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_cut&nbsp;!ppf&nbsp;()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;"</span>&nbsp;print_pattern&nbsp;pats;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;=&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pp_close_box&nbsp;!ppf&nbsp;();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pp_print_cut&nbsp;!ppf&nbsp;();&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print_expression&nbsp;expression;<br>
+&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;(chop_args&nbsp;pat&nbsp;expression)<br>
+<br>
+<span class="keyword">and</span>&nbsp;print_pattern&nbsp;p&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;(<span class="keyword">match</span>&nbsp;p&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PPrimitive</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PVar</span>&nbsp;(_,&nbsp;<span class="constructor">SName</span>&nbsp;name)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PWildcard</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"_"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAlias</span>&nbsp;(_,&nbsp;name,&nbsp;pattern)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_pattern&nbsp;pattern;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;as&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PTypeConstraint</span>&nbsp;(_,&nbsp;pat,&nbsp;ty)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_pattern&nbsp;pat;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;:&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;ty;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PData</span>&nbsp;(_,&nbsp;<span class="constructor">DName</span>&nbsp;<span class="string">"_Unit"</span>,&nbsp;ps)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"()"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PData</span>&nbsp;(_,&nbsp;<span class="constructor">DName</span>&nbsp;<span class="string">"_Tuple"</span>,&nbsp;ps)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ps&nbsp;&lt;&gt;&nbsp;[]&nbsp;<span class="keyword">then</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">","</span>&nbsp;print_pattern&nbsp;ps;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PData</span>&nbsp;(_,&nbsp;<span class="constructor">DName</span>&nbsp;k,&nbsp;ps)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;k;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;ps&nbsp;&lt;&gt;&nbsp;[]&nbsp;<span class="keyword">then</span>&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;"</span>&nbsp;print_pattern&nbsp;ps;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">POr</span>&nbsp;(_,&nbsp;[&nbsp;x&nbsp;])&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAnd</span>&nbsp;(_,&nbsp;[&nbsp;x&nbsp;])&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_pattern&nbsp;x<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAnd</span>&nbsp;(_,&nbsp;ps)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&amp;"</span>&nbsp;print_pattern&nbsp;ps;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">POr</span>&nbsp;(_,&nbsp;ps)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"|"</span>&nbsp;print_pattern&nbsp;ps;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span>);<br>
+<br>
+<span class="keyword">and</span>&nbsp;print_type&nbsp;?paren&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypVar</span>&nbsp;(_,&nbsp;<span class="constructor">TName</span>&nbsp;name)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;name<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypApp</span>&nbsp;(_,&nbsp;<span class="constructor">TypVar</span>(_,&nbsp;<span class="constructor">TName</span>&nbsp;<span class="string">"-&gt;"</span>),&nbsp;[t;&nbsp;t'])&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;paren&nbsp;&lt;&gt;&nbsp;<span class="constructor">None</span>&nbsp;<span class="keyword">then</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;~paren:<span class="keyword">true</span>&nbsp;t;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;-&gt;&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;t';<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;paren&nbsp;&lt;&gt;&nbsp;<span class="constructor">None</span>&nbsp;<span class="keyword">then</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypApp</span>&nbsp;(_,&nbsp;<span class="constructor">TypVar</span>(_,&nbsp;<span class="constructor">TName</span>&nbsp;<span class="string">"*"</span>),&nbsp;[a;&nbsp;b])&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;~paren:<span class="keyword">true</span>&nbsp;a;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;*&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;~paren:<span class="keyword">true</span>&nbsp;b<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypApp</span>&nbsp;(_,&nbsp;t,&nbsp;[])&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;t<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypApp</span>&nbsp;(_,&nbsp;t,&nbsp;ts)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;t;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;"</span>&nbsp;print_type&nbsp;ts;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")"</span>;<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypRowCons</span>&nbsp;(_,&nbsp;ls,&nbsp;ty)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"{"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_label&nbsp;(<span class="constructor">LName</span>&nbsp;l,&nbsp;ty)&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;l;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;:&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;ty<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">";&nbsp;"</span>&nbsp;print_label&nbsp;ls;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">";&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;ty;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"}"</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypRowUniform</span>&nbsp;(_,&nbsp;ty)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"\\"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;ty<br>
+<br>
+<span class="keyword">and</span>&nbsp;print_kind&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">KStar</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"*"</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KArrow</span>&nbsp;(<span class="constructor">KStar</span>,&nbsp;k2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"*&nbsp;-&gt;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_kind&nbsp;k2<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KArrow</span>&nbsp;(k1,&nbsp;k2)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"("</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_kind&nbsp;k1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">")&nbsp;-&gt;&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_kind&nbsp;k2<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">false</span><br>
+<br>
+<span class="keyword">and</span>&nbsp;print_type_declaration&nbsp;(_,&nbsp;kind,&nbsp;<span class="constructor">TName</span>&nbsp;n,&nbsp;typ)&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;pp_open_box&nbsp;!ppf&nbsp;0;<br>
+&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;n;<br>
+&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">":"</span>;<br>
+&nbsp;&nbsp;print_kind&nbsp;kind;<br>
+&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;=&nbsp;"</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;pp_close_box&nbsp;!ppf&nbsp;();<br>
+&nbsp;&nbsp;pp_print_cut&nbsp;!ppf&nbsp;();<br>
+&nbsp;&nbsp;pp_open_box&nbsp;!ppf&nbsp;0;<br>
+&nbsp;&nbsp;print_type_definition&nbsp;typ;<br>
+&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;"</span>;<br>
+&nbsp;&nbsp;pp_close_box&nbsp;!ppf&nbsp;()<br>
+<br>
+<span class="keyword">and</span>&nbsp;print_type_definition&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DAlgebraic</span>&nbsp;ds&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;first&nbsp;=&nbsp;ref&nbsp;<span class="keyword">true</span>&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;print_datatype_def&nbsp;(_,&nbsp;<span class="constructor">DName</span>&nbsp;k,&nbsp;betas,&nbsp;ty)&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!first&nbsp;<span class="keyword">then</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first&nbsp;:=&nbsp;<span class="keyword">false</span>)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;(pp_print_cut&nbsp;!ppf&nbsp;();&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"|&nbsp;"</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;k;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;:&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;betas&nbsp;&lt;&gt;&nbsp;[]&nbsp;<span class="keyword">then</span>&nbsp;<span class="keyword">begin</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"forall&nbsp;"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">"&nbsp;"</span>&nbsp;(<span class="keyword">fun</span>&nbsp;(<span class="constructor">TName</span>&nbsp;s)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;pp_print_string&nbsp;!ppf&nbsp;s)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;betas;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"."</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_type&nbsp;ty<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_separated_list&nbsp;<span class="string">""</span>&nbsp;print_datatype_def&nbsp;ds;<br>
+<br>
+<span class="keyword">and</span>&nbsp;print_clause&nbsp;(_,&nbsp;pat,&nbsp;expression)&nbsp;=<br>
+&nbsp;&nbsp;print_pattern&nbsp;pat;<br>
+&nbsp;&nbsp;pp_print_string&nbsp;!ppf&nbsp;<span class="string">"&nbsp;=&gt;&nbsp;"</span>;<br>
+&nbsp;&nbsp;print_expression&nbsp;expression;<br>
+&nbsp;&nbsp;pp_print_cut&nbsp;!ppf&nbsp;()</code></body></html>

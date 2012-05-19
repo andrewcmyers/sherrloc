@@ -1,0 +1,422 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><title>Solver</title>
+</head>
+<body>
+<code class="code"></code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<span class="comment">(*&nbsp;&nbsp;Mini,&nbsp;a&nbsp;type&nbsp;inference&nbsp;engine&nbsp;based&nbsp;on&nbsp;constraint&nbsp;solving.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Copyright&nbsp;(C)&nbsp;2006.&nbsp;François&nbsp;Pottier,&nbsp;Yann&nbsp;Régis-Gianas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;and&nbsp;Didier&nbsp;Rémy.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;version&nbsp;2&nbsp;of&nbsp;the&nbsp;License.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,&nbsp;but&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;GNU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Foundation,&nbsp;Inc.,&nbsp;51&nbsp;Franklin&nbsp;Street,&nbsp;Fifth&nbsp;Floor,&nbsp;Boston,&nbsp;MA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;02110-1301&nbsp;USA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+</code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="comment">(*&nbsp;$Id:&nbsp;solver.ml&nbsp;421&nbsp;2006-12-22&nbsp;09:27:42Z&nbsp;regisgia&nbsp;$&nbsp;*)</span><br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Positions</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Misc</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Constraint</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Unifier</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">MultiEquation</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">CoreAlgebra</span><br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="constructor">SolverException</span>&nbsp;=<br>
+<span class="keyword">sig</span><br>
+<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** <code class="code"><span class="constructor">TypingError</span></code> is raised when an inconsistency is detected during
+      constraint solving. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">TypingError</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Positions</span>.position<br>
+<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** <code class="code"><span class="constructor">UnboundIdentifier</span></code> is raised when an identifier is undefined in
+      a particular context. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">UnboundIdentifier</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;string<br>
+<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** <code class="code"><span class="constructor">CannotGeneralize</span></code> when the type of an expression cannot be
+      generalized contrary to what is specified by the programmers
+      using type annotations. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">CannotGeneralize</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;variable<br>
+<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** <code class="code"><span class="constructor">NonDistinctVariables</span></code> is raised when two rigid type variables have
+      been unified. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">NonDistinctVariables</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;(variable&nbsp;list)<br>
+<br>
+<span class="keyword">end</span><br>
+<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">TypingError</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Positions</span>.position<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">UnboundIdentifier</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;string<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">CannotGeneralize</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;variable<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">NonDistinctVariables</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;(variable&nbsp;list)<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">Inconsistency</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;tconstraint&nbsp;=&nbsp;<span class="constructor">Constraint</span>.tconstraint<br>
+<br>
+<span class="keyword">type</span>&nbsp;solving_step&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Init</span>&nbsp;<span class="keyword">of</span>&nbsp;tconstraint<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Solve</span>&nbsp;<span class="keyword">of</span>&nbsp;tconstraint<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Solved</span>&nbsp;<span class="keyword">of</span>&nbsp;tconstraint<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">UnifyTerms</span>&nbsp;<span class="keyword">of</span>&nbsp;crterm&nbsp;*&nbsp;crterm<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">UnifyVars</span>&nbsp;<span class="keyword">of</span>&nbsp;variable&nbsp;*&nbsp;variable<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Generalize</span>&nbsp;<span class="keyword">of</span>&nbsp;int&nbsp;*&nbsp;variable&nbsp;list<br>
+<br>
+<span class="keyword">type</span>&nbsp;environment&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EEmpty</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EEnvFrame</span>&nbsp;<span class="keyword">of</span>&nbsp;environment&nbsp;*&nbsp;string&nbsp;*&nbsp;variable<br>
+<br>
+<span class="keyword">let</span>&nbsp;environment_as_list&nbsp;e&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;conv&nbsp;acu&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EEmpty</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acu<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EEnvFrame</span>&nbsp;(env,&nbsp;name,&nbsp;v)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;conv&nbsp;((name,&nbsp;v)::acu)&nbsp;env<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;conv&nbsp;[]&nbsp;e<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code">lookup name env</code> looks for a definition of <code class="code">name</code> within
+    the environment <code class="code">env</code>. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;lookup&nbsp;pos&nbsp;name&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EEnvFrame</span>&nbsp;(env,&nbsp;name',&nbsp;scheme)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;name&nbsp;=&nbsp;name'&nbsp;<span class="keyword">then</span>&nbsp;scheme<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;lookup&nbsp;pos&nbsp;name&nbsp;env<br>
+<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EEmpty</span>&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">UnboundIdentifier</span>&nbsp;(pos,&nbsp;name))<br>
+<br>
+<span class="comment">(*&nbsp;[generalize]&nbsp;*)</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;generalize&nbsp;old_pool&nbsp;young_pool&nbsp;=<br>
+<br>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;We&nbsp;examine&nbsp;the&nbsp;variables&nbsp;in&nbsp;the&nbsp;young&nbsp;pool&nbsp;and&nbsp;sort&nbsp;them&nbsp;by&nbsp;rank<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;using&nbsp;a&nbsp;simple&nbsp;bucket&nbsp;sort&nbsp;mechanism.&nbsp;(Recall&nbsp;that&nbsp;every&nbsp;variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;young&nbsp;pool&nbsp;must&nbsp;have&nbsp;rank&nbsp;less&nbsp;than&nbsp;or&nbsp;equal&nbsp;to&nbsp;the&nbsp;pool's<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number.)&nbsp;&nbsp;These&nbsp;variables&nbsp;are&nbsp;also&nbsp;marked&nbsp;as&nbsp;``young'',&nbsp;so&nbsp;as&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;identifiable&nbsp;in&nbsp;constant&nbsp;time.&nbsp;*)</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;young_number&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;young_pool&nbsp;<span class="keyword">in</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;sorted&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Array</span>.create&nbsp;(young_number&nbsp;+&nbsp;1)&nbsp;[]&nbsp;<span class="keyword">in</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;young&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Mark</span>.fresh()&nbsp;<span class="keyword">in</span><br>
+<br>
+&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(<span class="keyword">fun</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;desc&nbsp;=&nbsp;<span class="constructor">UnionFind</span>.find&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;desc.mark&nbsp;&lt;-&nbsp;young;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;rank&nbsp;=&nbsp;desc.rank&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sorted.(rank)&nbsp;&lt;-&nbsp;v&nbsp;::&nbsp;sorted.(rank)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Invalid_argument</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;invariant&nbsp;is&nbsp;broken.&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;(<span class="constructor">Printf</span>.sprintf&nbsp;<span class="string">"Out&nbsp;of&nbsp;bound&nbsp;when&nbsp;generalizing&nbsp;%s/%s"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string_of_int&nbsp;rank)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(string_of_int&nbsp;(<span class="constructor">Array</span>.length&nbsp;sorted)))<br>
+&nbsp;&nbsp;)&nbsp;(inhabitants&nbsp;young_pool);<br>
+<br>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;Next,&nbsp;we&nbsp;update&nbsp;the&nbsp;ranks&nbsp;of&nbsp;the&nbsp;young&nbsp;variables.&nbsp;One&nbsp;goal&nbsp;is&nbsp;to&nbsp;ensure<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;if&nbsp;[v1]&nbsp;is&nbsp;dominated&nbsp;by&nbsp;[v2],&nbsp;then&nbsp;the&nbsp;rank&nbsp;of&nbsp;[v1]&nbsp;is&nbsp;less&nbsp;than&nbsp;or<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;equal&nbsp;to&nbsp;the&nbsp;rank&nbsp;of&nbsp;[v2],&nbsp;or,&nbsp;in&nbsp;other&nbsp;words,&nbsp;that&nbsp;ranks&nbsp;are<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nonincreasing&nbsp;along&nbsp;any&nbsp;path&nbsp;down&nbsp;the&nbsp;structure&nbsp;of&nbsp;terms.&nbsp;&nbsp;The&nbsp;second<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goal&nbsp;is&nbsp;to&nbsp;ensure&nbsp;that&nbsp;the&nbsp;rank&nbsp;of&nbsp;every&nbsp;young&nbsp;variable&nbsp;is&nbsp;exactly&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maximum&nbsp;of&nbsp;the&nbsp;ranks&nbsp;of&nbsp;the&nbsp;variables&nbsp;that&nbsp;it&nbsp;dominates,&nbsp;if&nbsp;there&nbsp;are<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;process&nbsp;consists&nbsp;of&nbsp;several&nbsp;depth-first&nbsp;traversals&nbsp;of&nbsp;the&nbsp;forest<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;whose&nbsp;entry&nbsp;points&nbsp;are&nbsp;the&nbsp;young&nbsp;variables.&nbsp;Traversals&nbsp;stop&nbsp;at&nbsp;old<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;variables.&nbsp;Roughly&nbsp;speaking,&nbsp;the&nbsp;first&nbsp;goal&nbsp;is&nbsp;achieved&nbsp;on&nbsp;the&nbsp;way<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;down,&nbsp;while&nbsp;the&nbsp;second&nbsp;goal&nbsp;is&nbsp;achieved&nbsp;on&nbsp;the&nbsp;way&nbsp;back&nbsp;up.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;During&nbsp;each&nbsp;traversal,&nbsp;every&nbsp;visited&nbsp;variable&nbsp;is&nbsp;marked&nbsp;as&nbsp;such,&nbsp;so&nbsp;as<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;avoid&nbsp;being&nbsp;visited&nbsp;again.&nbsp;To&nbsp;ensure&nbsp;that&nbsp;visiting&nbsp;every&nbsp;variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;once&nbsp;is&nbsp;enough,&nbsp;traversals&nbsp;whose&nbsp;starting&nbsp;point&nbsp;have&nbsp;lower&nbsp;ranks&nbsp;must<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;performed&nbsp;first.&nbsp;In&nbsp;the&nbsp;absence&nbsp;of&nbsp;cycles,&nbsp;this&nbsp;enforces&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;following&nbsp;invariant:&nbsp;when&nbsp;performing&nbsp;a&nbsp;traversal&nbsp;whose&nbsp;starting&nbsp;point<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;has&nbsp;rank&nbsp;[k],&nbsp;every&nbsp;variable&nbsp;marked&nbsp;as&nbsp;visited&nbsp;has&nbsp;rank&nbsp;[k]&nbsp;or&nbsp;less<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;already.&nbsp;(In&nbsp;the&nbsp;presence&nbsp;of&nbsp;cycles,&nbsp;this&nbsp;algorithm&nbsp;is&nbsp;incomplete&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;may&nbsp;compute&nbsp;ranks&nbsp;that&nbsp;are&nbsp;slightly&nbsp;higher&nbsp;than&nbsp;necessary.)&nbsp;Conversely,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;every&nbsp;non-visited&nbsp;variable&nbsp;must&nbsp;have&nbsp;rank&nbsp;greater&nbsp;than&nbsp;or&nbsp;equal&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[k].&nbsp;This&nbsp;explains&nbsp;why&nbsp;[k]&nbsp;does&nbsp;not&nbsp;need&nbsp;to&nbsp;be&nbsp;updated&nbsp;while&nbsp;going<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;down.&nbsp;*)</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;visited&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Mark</span>.fresh()&nbsp;<span class="keyword">in</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;young_number&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;traverse&nbsp;v&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;desc&nbsp;=&nbsp;<span class="constructor">UnionFind</span>.find&nbsp;v&nbsp;<span class="keyword">in</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;variable&nbsp;is&nbsp;young&nbsp;and&nbsp;was&nbsp;not&nbsp;visited&nbsp;before,&nbsp;we&nbsp;immediately<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mark&nbsp;it&nbsp;as&nbsp;visited&nbsp;(which&nbsp;is&nbsp;important,&nbsp;since&nbsp;terms&nbsp;may&nbsp;be&nbsp;cyclic).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;variable&nbsp;has&nbsp;no&nbsp;structure,&nbsp;we&nbsp;set&nbsp;its&nbsp;rank&nbsp;to&nbsp;[k].&nbsp;If&nbsp;it&nbsp;has<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some&nbsp;structure,&nbsp;we&nbsp;first&nbsp;traverse&nbsp;its&nbsp;sons,&nbsp;then&nbsp;set&nbsp;its&nbsp;rank&nbsp;to&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maximum&nbsp;of&nbsp;their&nbsp;ranks.&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Mark</span>.same&nbsp;desc.mark&nbsp;young&nbsp;<span class="keyword">then</span>&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc.mark&nbsp;&lt;-&nbsp;visited;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc.rank&nbsp;&lt;-&nbsp;<span class="keyword">match</span>&nbsp;desc.structure&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;term&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fold&nbsp;(<span class="keyword">fun</span>&nbsp;son&nbsp;accu&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max&nbsp;(traverse&nbsp;son)&nbsp;accu<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;term&nbsp;<span class="constructor">IntRank</span>.outermost<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;variable&nbsp;isn't&nbsp;marked&nbsp;``young''&nbsp;or&nbsp;``visited'',&nbsp;then&nbsp;it&nbsp;must<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be&nbsp;old.&nbsp;Then,&nbsp;we&nbsp;update&nbsp;its&nbsp;rank,&nbsp;but&nbsp;do&nbsp;not&nbsp;pursue&nbsp;the&nbsp;computation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any&nbsp;further.&nbsp;*)</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(<span class="constructor">Mark</span>.same&nbsp;desc.mark&nbsp;visited)&nbsp;<span class="keyword">then</span>&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc.mark&nbsp;&lt;-&nbsp;visited;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;k&nbsp;&lt;&nbsp;desc.rank&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc.rank&nbsp;&lt;-&nbsp;k<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;the&nbsp;variable&nbsp;was&nbsp;visited&nbsp;before,&nbsp;we&nbsp;do&nbsp;nothing.&nbsp;*)</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;In&nbsp;either&nbsp;case,&nbsp;we&nbsp;return&nbsp;the&nbsp;variable's&nbsp;current&nbsp;(possibly&nbsp;updated)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rank&nbsp;to&nbsp;the&nbsp;caller,&nbsp;so&nbsp;as&nbsp;to&nbsp;allow&nbsp;the&nbsp;maximum&nbsp;computation&nbsp;above.&nbsp;*)</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc.rank<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Misc</span>.iter&nbsp;traverse&nbsp;sorted.(k)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Invalid_argument</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;invariant&nbsp;is&nbsp;broken.&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Out&nbsp;of&nbsp;bound&nbsp;in&nbsp;traverse"</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">done</span>;<br>
+<br>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;rank&nbsp;of&nbsp;every&nbsp;young&nbsp;variable&nbsp;has&nbsp;now&nbsp;been&nbsp;determined&nbsp;as&nbsp;precisely<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;possible.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every&nbsp;young&nbsp;variable&nbsp;that&nbsp;has&nbsp;become&nbsp;an&nbsp;alias&nbsp;for&nbsp;some&nbsp;other&nbsp;(old&nbsp;or<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;young)&nbsp;variable&nbsp;is&nbsp;now&nbsp;dropped.&nbsp;We&nbsp;need&nbsp;only&nbsp;keep&nbsp;one&nbsp;representative<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;each&nbsp;equivalence&nbsp;class.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every&nbsp;young&nbsp;variable&nbsp;whose&nbsp;rank&nbsp;has&nbsp;become&nbsp;strictly&nbsp;less&nbsp;than&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current&nbsp;pool's&nbsp;number&nbsp;may&nbsp;be&nbsp;safely&nbsp;turned&nbsp;into&nbsp;an&nbsp;old&nbsp;variable.&nbsp;We&nbsp;do<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so&nbsp;by&nbsp;moving&nbsp;it&nbsp;into&nbsp;the&nbsp;previous&nbsp;pool.&nbsp;In&nbsp;fact,&nbsp;it&nbsp;would&nbsp;be&nbsp;safe&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move&nbsp;it&nbsp;directly&nbsp;to&nbsp;the&nbsp;pool&nbsp;that&nbsp;corresponds&nbsp;to&nbsp;its&nbsp;rank.&nbsp;However,&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;current&nbsp;implementation,&nbsp;we&nbsp;do&nbsp;not&nbsp;have&nbsp;all&nbsp;pools&nbsp;at&nbsp;hand,&nbsp;but&nbsp;only<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;previous&nbsp;pool.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every&nbsp;young&nbsp;variable&nbsp;whose&nbsp;rank&nbsp;has&nbsp;remained&nbsp;equal&nbsp;to&nbsp;the&nbsp;current<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool's&nbsp;number&nbsp;becomes&nbsp;universally&nbsp;quantified&nbsp;in&nbsp;the&nbsp;type&nbsp;scheme&nbsp;that&nbsp;is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;being&nbsp;created.&nbsp;We&nbsp;set&nbsp;its&nbsp;rank&nbsp;to&nbsp;[none].&nbsp;*)</span><br>
+<br>
+&nbsp;&nbsp;<span class="keyword">for</span>&nbsp;k&nbsp;=&nbsp;0&nbsp;<span class="keyword">to</span>&nbsp;young_number&nbsp;-&nbsp;1&nbsp;<span class="keyword">do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(<span class="keyword">fun</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(<span class="constructor">UnionFind</span>.redundant&nbsp;v)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;register&nbsp;old_pool&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;sorted.(k)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Invalid_argument</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;invariant&nbsp;is&nbsp;broken.&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;<span class="string">"Out&nbsp;of&nbsp;bound&nbsp;in&nbsp;young&nbsp;refresh."</span><br>
+&nbsp;&nbsp;<span class="keyword">done</span>;<br>
+<br>
+&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(<span class="keyword">fun</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(<span class="constructor">UnionFind</span>.redundant&nbsp;v)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;desc&nbsp;=&nbsp;<span class="constructor">UnionFind</span>.find&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;desc.rank&nbsp;&lt;&nbsp;young_number&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;register&nbsp;old_pool&nbsp;v<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc.rank&nbsp;&lt;-&nbsp;<span class="constructor">IntRank</span>.none;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;desc.kind&nbsp;=&nbsp;<span class="constructor">Flexible</span>&nbsp;<span class="keyword">then</span>&nbsp;desc.kind&nbsp;&lt;-&nbsp;<span class="constructor">Rigid</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;)&nbsp;sorted.(young_number)<br>
+<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code">distinct_variables vl</code> checks that the variables in the list <code class="code">vl</code>
+    belong to distinct equivalence classes and that their structure is
+    <code class="code"><span class="constructor">None</span></code>. In other words, they do represent distinct (independent)
+    variables (as opposed to nonvariable terms). *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">DuplicatedMark</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Mark</span>.t<br>
+<span class="keyword">let</span>&nbsp;distinct_variables&nbsp;pos&nbsp;vl&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;m&nbsp;=&nbsp;<span class="constructor">Mark</span>.fresh()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(<span class="keyword">fun</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;desc&nbsp;=&nbsp;<span class="constructor">UnionFind</span>.find&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">match</span>&nbsp;desc.structure&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Some</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">CannotGeneralize</span>&nbsp;(pos,&nbsp;v))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">Mark</span>.same&nbsp;desc.mark&nbsp;m&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">DuplicatedMark</span>&nbsp;m);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc.mark&nbsp;&lt;-&nbsp;m<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;vl<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">DuplicatedMark</span>&nbsp;m&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vl'&nbsp;=&nbsp;<span class="constructor">List</span>.filter&nbsp;(<span class="keyword">fun</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Mark</span>.same&nbsp;(<span class="constructor">UnionFind</span>.find&nbsp;v).mark&nbsp;m)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vl&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">NonDistinctVariables</span>&nbsp;(pos,&nbsp;vl'))&nbsp;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code">generic_variables vl</code> checks that every variable in the list <code class="code">vl</code>
+    has rank <code class="code">none</code>. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;generic_variables&nbsp;pos&nbsp;vl&nbsp;=<br>
+&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(<span class="keyword">fun</span>&nbsp;v&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;desc&nbsp;=&nbsp;<span class="constructor">UnionFind</span>.find&nbsp;v&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;<span class="constructor">IntRank</span>.compare&nbsp;desc.rank&nbsp;<span class="constructor">IntRank</span>.none&nbsp;&lt;&gt;&nbsp;0&nbsp;<span class="keyword">then</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;(<span class="constructor">CannotGeneralize</span>&nbsp;(pos,&nbsp;v)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;vl<br>
+<br>
+<span class="comment">(*&nbsp;[solve]&nbsp;*)</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;solve&nbsp;tracer&nbsp;env&nbsp;pool&nbsp;c&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;final_env&nbsp;=&nbsp;ref&nbsp;env&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;solve&nbsp;env&nbsp;pool&nbsp;c&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pos&nbsp;=&nbsp;cposition&nbsp;c&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solve_constraint&nbsp;env&nbsp;pool&nbsp;c<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Inconsistency</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;(<span class="constructor">TypingError</span>&nbsp;pos)<br>
+<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;solve_constraint&nbsp;env&nbsp;pool&nbsp;c&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tracer&nbsp;(<span class="constructor">Solve</span>&nbsp;c);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">match</span>&nbsp;c&nbsp;<span class="keyword">with</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CTrue</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;()<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CDump</span>&nbsp;_&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_env&nbsp;:=&nbsp;env<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CEquation</span>&nbsp;(pos,&nbsp;term1,&nbsp;term2)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t1,&nbsp;t2&nbsp;=&nbsp;twice&nbsp;(chop&nbsp;pool)&nbsp;term1&nbsp;term2&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tracer&nbsp;(<span class="constructor">UnifyTerms</span>&nbsp;(term1,&nbsp;term2));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unify_terms&nbsp;pos&nbsp;pool&nbsp;t1&nbsp;t2<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CConjunction</span>&nbsp;cl&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(solve&nbsp;env&nbsp;pool)&nbsp;cl<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CLet</span>&nbsp;([&nbsp;<span class="constructor">Scheme</span>&nbsp;(_,&nbsp;[],&nbsp;fqs,&nbsp;c,&nbsp;_)&nbsp;],&nbsp;<span class="constructor">CTrue</span>&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;This&nbsp;encodes&nbsp;an&nbsp;existential&nbsp;constraint.&nbsp;In&nbsp;this&nbsp;restricted<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case,&nbsp;there&nbsp;is&nbsp;no&nbsp;need&nbsp;to&nbsp;stop&nbsp;and&nbsp;generalize.&nbsp;The&nbsp;code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;below&nbsp;is&nbsp;only&nbsp;an&nbsp;optimization&nbsp;of&nbsp;the&nbsp;general&nbsp;case.&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;TEMPORARY&nbsp;traiter&nbsp;un&nbsp;cas&nbsp;plus&nbsp;general&nbsp;que&nbsp;celui-ci?&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(introduce&nbsp;pool)&nbsp;fqs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solve&nbsp;env&nbsp;pool&nbsp;c<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CLet</span>&nbsp;(schemes,&nbsp;c2)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;env'&nbsp;=&nbsp;<span class="constructor">List</span>.fold_left&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">fun</span>&nbsp;env'&nbsp;scheme&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;concat&nbsp;env'&nbsp;(solve_scheme&nbsp;env&nbsp;pool&nbsp;scheme)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;))&nbsp;env&nbsp;schemes&nbsp;<span class="keyword">in</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solve&nbsp;env'&nbsp;pool&nbsp;c2)<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CInstance</span>&nbsp;(pos,&nbsp;<span class="constructor">SName</span>&nbsp;name,&nbsp;term)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t&nbsp;=&nbsp;lookup&nbsp;pos&nbsp;name&nbsp;env&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;instance&nbsp;=&nbsp;instance&nbsp;pool&nbsp;t&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;t'&nbsp;=&nbsp;chop&nbsp;pool&nbsp;term&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unify_terms&nbsp;pos&nbsp;pool&nbsp;instance&nbsp;t'<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">CDisjunction</span>&nbsp;cs&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">false</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tracer&nbsp;(<span class="constructor">Solved</span>&nbsp;c)<br>
+<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;solve_scheme&nbsp;env&nbsp;pool&nbsp;=&nbsp;<span class="keyword">function</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Scheme</span>&nbsp;(_,&nbsp;[],&nbsp;[],&nbsp;c1,&nbsp;header)&nbsp;<span class="keywordsign">-&gt;</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;There&nbsp;are&nbsp;no&nbsp;quantifiers.&nbsp;In&nbsp;this&nbsp;restricted&nbsp;case,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;there&nbsp;is&nbsp;no&nbsp;need&nbsp;to&nbsp;stop&nbsp;and&nbsp;generalize.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;only&nbsp;an&nbsp;optimization&nbsp;of&nbsp;the&nbsp;general&nbsp;case.&nbsp;*)</span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solve&nbsp;env&nbsp;pool&nbsp;c1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">StringMap</span>.map&nbsp;(<span class="keyword">fun</span>&nbsp;(t,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;chop&nbsp;pool&nbsp;t)&nbsp;header<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Scheme</span>&nbsp;(pos,&nbsp;rqs,&nbsp;fqs,&nbsp;c1,&nbsp;header)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;The&nbsp;general&nbsp;case.&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;vars&nbsp;=&nbsp;rqs&nbsp;@&nbsp;fqs&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;pool'&nbsp;=&nbsp;new_pool&nbsp;pool&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(introduce&nbsp;pool')&nbsp;rqs;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.iter&nbsp;(introduce&nbsp;pool')&nbsp;fqs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;header&nbsp;=&nbsp;<span class="constructor">StringMap</span>.map&nbsp;(<span class="keyword">fun</span>&nbsp;(t,&nbsp;_)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;chop&nbsp;pool'&nbsp;t)&nbsp;header&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solve&nbsp;env&nbsp;pool'&nbsp;c1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tracer&nbsp;(<span class="constructor">Generalize</span>&nbsp;(number&nbsp;pool',&nbsp;vars));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;distinct_variables&nbsp;pos&nbsp;rqs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generalize&nbsp;pool&nbsp;pool';<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;generic_variables&nbsp;pos&nbsp;rqs;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;header<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;concat&nbsp;env&nbsp;header&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">StringMap</span>.fold&nbsp;(<span class="keyword">fun</span>&nbsp;name&nbsp;v&nbsp;env&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">EEnvFrame</span>&nbsp;(env,&nbsp;name,&nbsp;v)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;header&nbsp;env<br>
+<br>
+&nbsp;&nbsp;<span class="keyword">and</span>&nbsp;unify_terms&nbsp;pos&nbsp;pool&nbsp;t1&nbsp;t2&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;unify&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~tracer:(<span class="keyword">fun</span>&nbsp;v1&nbsp;v2&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;tracer&nbsp;(<span class="constructor">UnifyVars</span>&nbsp;(v1,&nbsp;v2)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos&nbsp;(register&nbsp;pool)&nbsp;t1&nbsp;t2<br>
+&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;solve&nbsp;env&nbsp;pool&nbsp;c;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!final_env<br>
+&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code">init</code> produces a fresh initial state. It consists of an empty
+    environment and a fresh, empty pool. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;init&nbsp;()&nbsp;=<br>
+&nbsp;&nbsp;<span class="constructor">EEmpty</span>,&nbsp;<span class="constructor">MultiEquation</span>.init&nbsp;()<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The public version of <code class="code">solve</code> starts out with an initial state
+    and produces no result, except possibly an exception. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">let</span>&nbsp;solve&nbsp;?tracer&nbsp;c&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;env,&nbsp;pool&nbsp;=&nbsp;init()&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tracer&nbsp;=&nbsp;default&nbsp;ignore&nbsp;tracer&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;tracer&nbsp;(<span class="constructor">Init</span>&nbsp;c);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;TEMPORARY&nbsp;integrer&nbsp;un&nbsp;occur&nbsp;check&nbsp;ici&nbsp;aussi&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;solve&nbsp;tracer&nbsp;env&nbsp;pool&nbsp;c&nbsp;<br>
+<br>
+</code></body></html>

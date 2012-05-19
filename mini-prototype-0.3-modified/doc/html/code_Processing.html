@@ -1,0 +1,292 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><title>Processing</title>
+</head>
+<body>
+<code class="code"></code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<span class="comment">(*&nbsp;&nbsp;Mini,&nbsp;a&nbsp;type&nbsp;inference&nbsp;engine&nbsp;based&nbsp;on&nbsp;constraint&nbsp;solving.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Copyright&nbsp;(C)&nbsp;2006.&nbsp;François&nbsp;Pottier,&nbsp;Yann&nbsp;Régis-Gianas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;and&nbsp;Didier&nbsp;Rémy.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;version&nbsp;2&nbsp;of&nbsp;the&nbsp;License.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,&nbsp;but&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;GNU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Foundation,&nbsp;Inc.,&nbsp;51&nbsp;Franklin&nbsp;Street,&nbsp;Fifth&nbsp;Floor,&nbsp;Boston,&nbsp;MA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;02110-1301&nbsp;USA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+</code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="comment">(*&nbsp;$Id:&nbsp;processing.ml&nbsp;422&nbsp;2006-12-22&nbsp;09:34:25Z&nbsp;regisgia&nbsp;$&nbsp;*)</span><br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** A simple task manager.
+    It enables the registration of the options and the control
+    of what has to be done by the program. 
+*)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Misc</span><br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <a name="2_Tasks"></a>
+<h2>Tasks</h2> *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="comment">(*&nbsp;FIXME:&nbsp;try&nbsp;to&nbsp;type&nbsp;this.&nbsp;*)</span><br>
+<span class="keyword">type</span>&nbsp;task_name&nbsp;=&nbsp;string<br>
+<span class="keyword">type</span>&nbsp;process_type&nbsp;=&nbsp;task_name&nbsp;<br>
+<span class="keyword">type</span>&nbsp;process_types&nbsp;=&nbsp;process_type&nbsp;list&nbsp;list<br>
+<span class="keyword">type</span>&nbsp;process_data&nbsp;&nbsp;=&nbsp;<span class="constructor">Obj</span>.t<br>
+<span class="keyword">type</span>&nbsp;process_datas&nbsp;=&nbsp;<span class="constructor">Obj</span>.t&nbsp;list<br>
+<br>
+<span class="keyword">type</span>&nbsp;process&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input_type&nbsp;:&nbsp;process_type&nbsp;list&nbsp;list;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output_type:&nbsp;process_type;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;process_types&nbsp;*&nbsp;process_datas&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;process_type&nbsp;*&nbsp;process_data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+<span class="keyword">type</span>&nbsp;options&nbsp;=&nbsp;(<span class="constructor">Arg</span>.key&nbsp;*&nbsp;<span class="constructor">Arg</span>.spec&nbsp;*&nbsp;<span class="constructor">Arg</span>.doc)&nbsp;list&nbsp;*&nbsp;<span class="constructor">Arg</span>.anon_fun<br>
+<br>
+<span class="keyword">type</span>&nbsp;task&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;task_name;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;options;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;depends_on&nbsp;:&nbsp;task_name&nbsp;list&nbsp;list;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;process;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_filled&nbsp;&nbsp;:&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+<span class="keyword">let</span>&nbsp;registered_tasks&nbsp;=&nbsp;<span class="constructor">Hashtbl</span>.create&nbsp;13&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;is_registered&nbsp;tname&nbsp;=<br>
+&nbsp;&nbsp;<span class="constructor">Hashtbl</span>.mem&nbsp;registered_tasks&nbsp;tname<br>
+<br>
+<span class="keyword">let</span>&nbsp;get_registered_tasks&nbsp;()&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;<span class="constructor">Hashtbl</span>.fold&nbsp;(<span class="keyword">fun</span>&nbsp;t&nbsp;_&nbsp;acu&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;::&nbsp;acu)&nbsp;registered_tasks&nbsp;[]<br>
+<br>
+<span class="keyword">let</span>&nbsp;task&nbsp;tname&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">try</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Hashtbl</span>.find&nbsp;registered_tasks&nbsp;tname<br>
+&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Not_found</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;(<span class="string">"Unknown&nbsp;task:&nbsp;"</span>^&nbsp;tname)<br>
+<br>
+<span class="keyword">let</span>&nbsp;as_process_code&nbsp;tname&nbsp;deps&nbsp;(f&nbsp;:&nbsp;<span class="keywordsign">'</span>a&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keywordsign">'</span>b)&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">fun</span>&nbsp;(pts,&nbsp;pds)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;deps&nbsp;=&nbsp;pts&nbsp;<span class="keyword">then</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(tname,&nbsp;(<span class="constructor">Obj</span>.magic&nbsp;f&nbsp;:&nbsp;<span class="constructor">Obj</span>.t&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Obj</span>.t)&nbsp;pds)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;failwith&nbsp;(<span class="string">"Task&nbsp;typing&nbsp;problem&nbsp;during&nbsp;"</span>^tname^<span class="string">"&nbsp;application."</span>)<br>
+<br>
+<span class="comment">(*&nbsp;Caution:&nbsp;the&nbsp;[af]&nbsp;function&nbsp;must&nbsp;only&nbsp;grab&nbsp;the&nbsp;argument,&nbsp;no&nbsp;real&nbsp;action<br>
+&nbsp;&nbsp;&nbsp;can&nbsp;be&nbsp;done&nbsp;until&nbsp;the&nbsp;task&nbsp;is&nbsp;executed&nbsp;by&nbsp;the&nbsp;task&nbsp;manager.&nbsp;*)</span><br>
+<span class="keyword">let</span>&nbsp;register&nbsp;tname&nbsp;((opts,&nbsp;af)&nbsp;<span class="keyword">as</span>&nbsp;options)&nbsp;deps&nbsp;process&nbsp;is_filled&nbsp;=<br>
+<br>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;Check&nbsp;that&nbsp;tname&nbsp;is&nbsp;not&nbsp;already&nbsp;used.&nbsp;*)</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;is_registered&nbsp;tname&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;(<span class="string">"Task&nbsp;registration&nbsp;problem:&nbsp;"</span>^tname<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^<span class="string">"&nbsp;is&nbsp;already&nbsp;registered"</span>)<br>
+<br>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;Check&nbsp;that&nbsp;dependencies&nbsp;are&nbsp;met.&nbsp;*)</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;(<span class="constructor">List</span>.exists&nbsp;(<span class="constructor">List</span>.exists&nbsp;(notf&nbsp;is_registered))&nbsp;deps)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;(<span class="string">"Task&nbsp;registration&nbsp;problem:&nbsp;the&nbsp;dependencies&nbsp;cannot&nbsp;be&nbsp;met&nbsp;for&nbsp;"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^&nbsp;tname&nbsp;^<span class="string">"."</span>)<br>
+<br>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;This&nbsp;registration&nbsp;is&nbsp;consistent.&nbsp;*)</span><br>
+&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Hashtbl</span>.add&nbsp;registered_tasks&nbsp;tname<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;tname;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;options&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;options;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;depends_on&nbsp;=&nbsp;deps;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;input_type&nbsp;&nbsp;=&nbsp;deps;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output_type&nbsp;=&nbsp;tname;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;as_process_code&nbsp;tname&nbsp;deps&nbsp;process<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_filled&nbsp;&nbsp;=&nbsp;is_filled<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <a name="2_Processing"></a>
+<h2>Processing</h2> *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">let</span>&nbsp;deps&nbsp;tname&nbsp;=<br>
+&nbsp;&nbsp;(task&nbsp;tname).depends_on<br>
+<br>
+<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;needed_tasks_until&nbsp;stopper&nbsp;tasks&nbsp;tname&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;try_tasks&nbsp;tasks&nbsp;=&nbsp;<span class="keyword">function</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;raise&nbsp;<span class="constructor">Not_found</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;t&nbsp;::&nbsp;ts&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;needed_tasks_until&nbsp;stopper&nbsp;(t&nbsp;::&nbsp;tasks)&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Not_found</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;try_tasks&nbsp;tasks&nbsp;ts<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;tname&nbsp;=&nbsp;stopper&nbsp;<span class="keyword">then</span>&nbsp;tasks<br>
+&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;deps&nbsp;=&nbsp;deps&nbsp;tname&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;If&nbsp;a&nbsp;task&nbsp;has&nbsp;no&nbsp;deps,&nbsp;it&nbsp;should&nbsp;be&nbsp;an&nbsp;initial&nbsp;task.&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;deps&nbsp;=&nbsp;[]&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;<span class="constructor">Not_found</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ts&nbsp;=&nbsp;<span class="constructor">List</span>.fold_left&nbsp;try_tasks&nbsp;tasks&nbsp;deps&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ts<br>
+<br>
+<span class="keyword">let</span>&nbsp;debug_flag&nbsp;=&nbsp;ref&nbsp;<span class="keyword">false</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;traced_tasks&nbsp;=&nbsp;ref&nbsp;<span class="constructor">StringSet</span>.empty<br>
+<br>
+<span class="keyword">let</span>&nbsp;trace_task&nbsp;tname&nbsp;()&nbsp;=<br>
+&nbsp;&nbsp;traced_tasks&nbsp;:=&nbsp;<span class="constructor">StringSet</span>.add&nbsp;tname&nbsp;(!traced_tasks)<br>
+<br>
+<span class="keyword">let</span>&nbsp;current_task&nbsp;=&nbsp;ref&nbsp;<span class="string">"__no_task"</span><br>
+<br>
+<span class="keyword">let</span>&nbsp;is_task_traced&nbsp;task&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="constructor">StringSet</span>.mem&nbsp;task&nbsp;(!traced_tasks)<br>
+<br>
+<span class="keyword">let</span>&nbsp;is_current_task_traced&nbsp;()&nbsp;=<br>
+&nbsp;&nbsp;is_task_traced&nbsp;(!current_task)&nbsp;<br>
+<br>
+<span class="keyword">let</span>&nbsp;debug&nbsp;s&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;!debug_flag&nbsp;<span class="keywordsign">||</span>&nbsp;is_current_task_traced&nbsp;()&nbsp;<span class="keyword">then</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(output_string&nbsp;stderr&nbsp;(s&nbsp;^&nbsp;<span class="string">"\n"</span>);&nbsp;flush&nbsp;stderr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;todo&nbsp;=&nbsp;ref&nbsp;[]<br>
+<br>
+<span class="keyword">let</span>&nbsp;do_task&nbsp;tname&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(<span class="constructor">List</span>.mem&nbsp;tname&nbsp;(!todo))&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;todo&nbsp;:=&nbsp;tname&nbsp;::&nbsp;(!todo)<br>
+<br>
+<span class="keyword">let</span>&nbsp;add_wanted_tasks&nbsp;tasks&nbsp;=&nbsp;<br>
+&nbsp;<span class="keyword">let</span>&nbsp;insert&nbsp;tasks&nbsp;t&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;deps&nbsp;=&nbsp;(task&nbsp;t).depends_on&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;task_remove&nbsp;t&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;[]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;dts&nbsp;::&nbsp;ts&nbsp;<span class="keyword">when</span>&nbsp;<span class="constructor">List</span>.mem&nbsp;t&nbsp;dts&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;dts&nbsp;::&nbsp;ts&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;dts&nbsp;::&nbsp;ts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;insert_task&nbsp;seen&nbsp;tasks&nbsp;deps&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;deps&nbsp;=&nbsp;[]&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">List</span>.rev&nbsp;seen)&nbsp;@&nbsp;t&nbsp;::&nbsp;tasks<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="keyword">match</span>&nbsp;tasks&nbsp;<span class="keyword">with</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;failwith&nbsp;(<span class="string">"Impossible&nbsp;to&nbsp;do&nbsp;"</span>^t)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;t'&nbsp;::&nbsp;ts&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;insert_task&nbsp;(t'&nbsp;::&nbsp;seen)&nbsp;ts&nbsp;(task_remove&nbsp;t'&nbsp;deps)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;insert_task&nbsp;[]&nbsp;tasks&nbsp;deps<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.fold_left&nbsp;insert&nbsp;tasks&nbsp;(!todo)<br>
+<br>
+<span class="keyword">let</span>&nbsp;processing_options&nbsp;tstart&nbsp;tend&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"--start"</span>&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;<span class="constructor">Arg</span>.<span class="constructor">Set_string</span>&nbsp;tstart&nbsp;&nbsp;,&nbsp;<span class="string">"taskname&nbsp;Task&nbsp;to&nbsp;begin&nbsp;with"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"--end"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;<span class="constructor">Arg</span>.<span class="constructor">Set_string</span>&nbsp;tend&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;<span class="string">"taskname&nbsp;Task&nbsp;to&nbsp;end&nbsp;with"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"--trace-all"</span>,&nbsp;<span class="constructor">Arg</span>.<span class="constructor">Set</span>&nbsp;debug_flag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;<span class="string">"&nbsp;Trace"</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"--do"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;<span class="constructor">Arg</span>.<span class="constructor">String</span>&nbsp;do_task&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;<span class="string">"taskname&nbsp;Do&nbsp;a&nbsp;task"</span><br>
+&nbsp;&nbsp;]<br>
+<br>
+<span class="keyword">let</span>&nbsp;trace_option&nbsp;tname&nbsp;=<br>
+&nbsp;&nbsp;(<span class="string">"--trace-"</span>^tname),&nbsp;<span class="constructor">Arg</span>.<span class="constructor">Unit</span>&nbsp;(trace_task&nbsp;tname),&nbsp;(<span class="string">"&nbsp;Trace&nbsp;"</span>^tname)<br>
+<br>
+<span class="keyword">let</span>&nbsp;options&nbsp;tstart&nbsp;tend&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;options,&nbsp;afs&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Hashtbl</span>.fold&nbsp;(<span class="keyword">fun</span>&nbsp;tname&nbsp;t&nbsp;(opts,&nbsp;afs)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(trace_option&nbsp;tname&nbsp;::&nbsp;fst&nbsp;t.options&nbsp;@&nbsp;opts,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;snd&nbsp;t.options&nbsp;::&nbsp;afs))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;registered_tasks<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;([],&nbsp;[])<br>
+&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Arg</span>.align&nbsp;(processing_options&nbsp;tstart&nbsp;tend&nbsp;@&nbsp;options),&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">fun</span>&nbsp;s&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">List</span>.iter&nbsp;(<span class="keyword">fun</span>&nbsp;f&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;f&nbsp;s)&nbsp;afs<br>
+<br>
+<span class="keyword">let</span>&nbsp;is_valid_initial_task&nbsp;tname&nbsp;=<br>
+&nbsp;&nbsp;is_registered&nbsp;tname&nbsp;<span class="keywordsign">&amp;&amp;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">(*&nbsp;A&nbsp;registered&nbsp;task&nbsp;is&nbsp;a&nbsp;valid&nbsp;initial&nbsp;task&nbsp;if&nbsp;it&nbsp;has<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;been&nbsp;given&nbsp;its&nbsp;inputs&nbsp;as&nbsp;execution&nbsp;arguments.&nbsp;*)</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(task&nbsp;tname).is_filled&nbsp;()<br>
+<br>
+<span class="keyword">let</span>&nbsp;options_analysis&nbsp;default_tstart&nbsp;default_tend&nbsp;usage&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;tstart&nbsp;=&nbsp;ref&nbsp;default_tstart&nbsp;<span class="keyword">and</span>&nbsp;tend&nbsp;=&nbsp;ref&nbsp;default_tend&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;options,&nbsp;anon_funs&nbsp;=&nbsp;options&nbsp;tstart&nbsp;tend&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Arg</span>.parse&nbsp;options&nbsp;anon_funs&nbsp;usage;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;options,&nbsp;!tstart,&nbsp;!tend<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">let</span>&nbsp;execute_tasks&nbsp;options&nbsp;usage&nbsp;tstart&nbsp;tend&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(is_registered&nbsp;tend)&nbsp;<span class="keyword">then</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Arg</span>.usage&nbsp;options&nbsp;usage;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;(tend&nbsp;^&nbsp;<span class="string">"&nbsp;has&nbsp;not&nbsp;been&nbsp;registered."</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(is_valid_initial_task&nbsp;tstart)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Arg</span>.usage&nbsp;options&nbsp;usage;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span>&nbsp;not&nbsp;(is_registered&nbsp;tstart)&nbsp;<span class="keyword">then</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failwith&nbsp;(tstart&nbsp;^&nbsp;<span class="string">"&nbsp;is&nbsp;not&nbsp;a&nbsp;valid&nbsp;initial&nbsp;task."</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Printf</span>.printf&nbsp;<span class="string">"%s&nbsp;is&nbsp;waiting&nbsp;for&nbsp;arguments.\n"</span>&nbsp;tstart;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit&nbsp;0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ntasks&nbsp;=&nbsp;needed_tasks_until&nbsp;tstart&nbsp;[]&nbsp;tend&nbsp;@&nbsp;[&nbsp;tend&nbsp;]&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ntasks_with_todo&nbsp;=&nbsp;add_wanted_tasks&nbsp;ntasks&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;<span class="keyword">rec</span>&nbsp;find_first&nbsp;r&nbsp;=&nbsp;<span class="keyword">function</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;[]&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="keyword">assert</span>&nbsp;<span class="keyword">false</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;t&nbsp;::&nbsp;ts&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">try</span>&nbsp;<span class="constructor">StringMap</span>.find&nbsp;t&nbsp;r&nbsp;<span class="keyword">with</span>&nbsp;<span class="constructor">Not_found</span>&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;find_first&nbsp;r&nbsp;ts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">List</span>.fold_left&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="keyword">fun</span>&nbsp;r&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_task&nbsp;:=&nbsp;t;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;debug&nbsp;(<span class="string">"Processing:&nbsp;"</span>^t);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;input_type&nbsp;=&nbsp;(task&nbsp;t).process.input_type&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;args&nbsp;=&nbsp;<span class="constructor">List</span>.map&nbsp;(find_first&nbsp;r)&nbsp;input_type&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">StringMap</span>.add&nbsp;t&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(snd&nbsp;((task&nbsp;t).process.code&nbsp;(input_type,&nbsp;args)))&nbsp;r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">StringMap</span>.empty<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ntasks_with_todo<br>
+<br>
+<span class="keyword">let</span>&nbsp;execute&nbsp;~default_start&nbsp;~default_end&nbsp;~usage&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;options,&nbsp;tstart,&nbsp;tend&nbsp;=&nbsp;options_analysis&nbsp;default_start&nbsp;default_end&nbsp;usage&nbsp;<br>
+&nbsp;&nbsp;<span class="keyword">in</span>&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ignore&nbsp;(execute_tasks&nbsp;options&nbsp;usage&nbsp;tstart&nbsp;tend)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</code></body></html>

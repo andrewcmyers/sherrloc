@@ -1,0 +1,2 @@
+type t : ( * -> * ) -> * =
+  K : forall f. f int -> t f

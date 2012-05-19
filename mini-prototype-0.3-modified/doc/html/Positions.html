@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Env.html">
+<link rel="next" href="Mark.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><link title="Extended lexing positions" rel="Section" href="#2_Extendedlexingpositions">
+<link title="Accessors" rel="Section" href="#2_Accessors">
+<link title="Position handling" rel="Section" href="#2_Positionhandling">
+<link title="Interaction with the lexer runtime" rel="Section" href="#2_Interactionwiththelexerruntime">
+<title>Positions</title>
+</head>
+<body>
+<div class="navbar"><a href="Env.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Mark.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Positions.html">Positions</a> (<a href="code_Positions.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Positions: <code class="code"><span class="keyword">sig</span></code> <a href="Positions.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>Extension of standard library's positions.<br>
+<hr width="100%">
+<br>
+<a name="2_Extendedlexingpositions"></a>
+<h2>Extended lexing positions</h2><br>
+<pre><span class="keyword">type</span> <a name="TYPEposition"></a><code class="type"></code>position </pre>
+<div class="info">
+Abstract for position in the lexing stream. It does
+    represents non empty interval in the stream.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALundefined_position"></a><a href="code_VALPositions.undefined_position.html">undefined_position</a> : <code class="type"><a href="Positions.html#TYPEposition">position</a></code></pre><div class="info">
+This value is used when an object does not from
+    a particular input location.<br>
+</div>
+<br>
+<a name="2_Accessors"></a>
+<h2>Accessors</h2><br>
+<pre><span class="keyword">val</span> <a name="VALcolumn"></a><a href="code_VALPositions.column.html">column</a> : <code class="type">Lexing.position -> int</code></pre><div class="info">
+<code class="code">column p</code> returns the number of characters from the 
+    beginning of the line of the Lexing.position <code class="code">p</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALline"></a><a href="code_VALPositions.line.html">line</a> : <code class="type">Lexing.position -> int</code></pre><div class="info">
+<code class="code">column p</code> returns the line number of to the Lexing.position <code class="code">p</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcharacters"></a><a href="code_VALPositions.characters.html">characters</a> : <code class="type">Lexing.position -> Lexing.position -> int * int</code></pre><div class="info">
+<code class="code">characters p1 p2</code> returns the character interval 
+    between <code class="code">p1</code> and <code class="code">p2</code> assuming they are located in the same
+    line.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALstart_of_position"></a><a href="code_VALPositions.start_of_position.html">start_of_position</a> : <code class="type"><a href="Positions.html#TYPEposition">position</a> -> Lexing.position</code></pre><pre><span class="keyword">val</span> <a name="VALend_of_position"></a><a href="code_VALPositions.end_of_position.html">end_of_position</a> : <code class="type"><a href="Positions.html#TYPEposition">position</a> -> Lexing.position</code></pre><br>
+<a name="2_Positionhandling"></a>
+<h2>Position handling</h2><br>
+<pre><span class="keyword">val</span> <a name="VALjoin"></a><a href="code_VALPositions.join.html">join</a> : <code class="type"><a href="Positions.html#TYPEposition">position</a> -> <a href="Positions.html#TYPEposition">position</a> -> <a href="Positions.html#TYPEposition">position</a></code></pre><div class="info">
+<code class="code">join p1 p2</code> returns a position that starts where <code class="code">p1</code>
+    starts and stops where <code class="code">p2</code> stops.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALlex_join"></a><a href="code_VALPositions.lex_join.html">lex_join</a> : <code class="type">Lexing.position -> Lexing.position -> <a href="Positions.html#TYPEposition">position</a></code></pre><pre><span class="keyword">val</span> <a name="VALljoinf"></a><a href="code_VALPositions.ljoinf.html">ljoinf</a> : <code class="type">('a -> <a href="Positions.html#TYPEposition">position</a>) -> 'a list -> <a href="Positions.html#TYPEposition">position</a></code></pre><pre><span class="keyword">val</span> <a name="VALjoinf"></a><a href="code_VALPositions.joinf.html">joinf</a> : <code class="type">('a -> <a href="Positions.html#TYPEposition">position</a>) -> 'a -> 'a -> <a href="Positions.html#TYPEposition">position</a></code></pre><pre><span class="keyword">val</span> <a name="VALstring_of_characters"></a><a href="code_VALPositions.string_of_characters.html">string_of_characters</a> : <code class="type">int * int -> string</code></pre><div class="info">
+<code class="code">string_of_characters (c1,c2)</code> returns the standard (Emacs-like) 
+    representation of the character interval (c1,c2).<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALstring_of_lex_pos"></a><a href="code_VALPositions.string_of_lex_pos.html">string_of_lex_pos</a> : <code class="type">Lexing.position -> string</code></pre><div class="info">
+<code class="code">string_of_lex_pos p</code> returns a string representation for
+    the lexing position <code class="code">p</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALstring_of_pos"></a><a href="code_VALPositions.string_of_pos.html">string_of_pos</a> : <code class="type"><a href="Positions.html#TYPEposition">position</a> -> string</code></pre><div class="info">
+<code class="code">string_of_pos p</code> returns the standard (Emacs-like) representation
+    of the position <code class="code">p</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALpos_or_undef"></a><a href="code_VALPositions.pos_or_undef.html">pos_or_undef</a> : <code class="type"><a href="Positions.html#TYPEposition">position</a> option -> <a href="Positions.html#TYPEposition">position</a></code></pre><div class="info">
+<code class="code">pos_or_undef po</code> is the identity function except if po = None,
+    in that case, it returns <code class="code">undefined_position</code>.<br>
+</div>
+<br>
+<a name="2_Interactionwiththelexerruntime"></a>
+<h2>Interaction with the lexer runtime</h2><br>
+<pre><span class="keyword">val</span> <a name="VALcpos"></a><a href="code_VALPositions.cpos.html">cpos</a> : <code class="type">Lexing.lexbuf -> <a href="Positions.html#TYPEposition">position</a></code></pre><div class="info">
+<code class="code">cpos lexbuf</code> returns the current position of the lexer.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALstring_of_cpos"></a><a href="code_VALPositions.string_of_cpos.html">string_of_cpos</a> : <code class="type">Lexing.lexbuf -> string</code></pre><div class="info">
+<code class="code">string_of_cpos p</code> returns a string representation of 
+    the lexer's current position.<br>
+</div>
+</body></html>
