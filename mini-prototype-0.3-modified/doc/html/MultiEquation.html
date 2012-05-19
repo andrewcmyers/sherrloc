@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="CoreAlgebra.html">
+<link rel="next" href="Unifier.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><link title="Multi-equation descriptor" rel="Section" href="#3_Multiequationdescriptor">
+<link title="Pool management" rel="Section" href="#3_Poolmanagement">
+<title>MultiEquation</title>
+</head>
+<body>
+<div class="navbar"><a href="CoreAlgebra.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Unifier.html">Next</a>
+</div>
+<center><h1>Module <a href="type_MultiEquation.html">MultiEquation</a> (<a href="code_MultiEquation.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> MultiEquation: <code class="code"><span class="keyword">sig</span></code> <a href="MultiEquation.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>This module implements a data structure for multi-equations.<br>
+<hr width="100%">
+<br>
+<a name="3_Multiequationdescriptor"></a>
+<h3>Multi-equation descriptor</h3><br>
+<pre><span class="keyword">type</span> <a name="TYPEvariable"></a><code class="type"></code>variable = <code class="type"><a href="MultiEquation.html#TYPEdescriptor">descriptor</a> <a href="UnionFind.html#TYPEpoint">UnionFind.point</a></code> </pre>
+<div class="info">
+The structure of the terms manipulated by a unifier is fixed and
+    made visible to the outside, because it must be accessible to
+    the constraint solver, which is built on top of a unifier.
+<p>
+
+    The unifier relies on a union/find algorithm. A variable is
+    represented as a point of the union/find algorithm.  An
+    equivalence class of points corresponds, roughly speaking, to
+    what is called a ``standard multi-equation'' in the book. Every
+    multi-equation carries a descriptor.<br>
+</div>
+
+<br><code><span class="keyword">type</span> <a name="TYPEdescriptor"></a><code class="type"></code>descriptor = {</code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>structure&nbsp;: <code class="type"><a href="MultiEquation.html#TYPEstructure">structure</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>rank&nbsp;: <code class="type"><a href="IntRank.html#TYPEt">IntRank.t</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>mark&nbsp;: <code class="type"><a href="Mark.html#TYPEt">Mark.t</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>kind&nbsp;: <code class="type"><a href="MultiEquation.html#TYPEvariable_kind">variable_kind</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>name&nbsp;: <code class="type"><a href="MultiEquation.html#TYPEtname">tname</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>pos&nbsp;: <code class="type"><a href="Positions.html#TYPEposition">Positions.position</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span>var&nbsp;: <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> option</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info">
+A descriptor contains several pieces of information, the most
+    important of which is the structure of the multi-equation, or,
+    in other words, its unique non-variable member, if there is one.
+<p>
+
+    If the <code class="code">structure</code> field is <code class="code"><span class="constructor">None</span></code>, then the multi-equation only
+    has variable members. If it is <code class="code"><span class="constructor">Some</span> t</code>, then the multi-equation
+    contains a non-variable member, namely the term <code class="code">t</code>. Note that
+    <code class="code">t</code> is a term whose head symbol belongs to the algebra and whose
+    parameters are again variables. Thus, the unifier works with
+    so-called ``small terms'' only.
+<p>
+
+    The <code class="code">rank</code> field contains the rank currently attached to the
+    multi-equation. As far as the unifier is concerned, ranks have
+    no meaning. The unifier only knows that ranks are totally
+    ordered. When two multi-equations are fused, the smaller rank is
+    kept.
+<p>
+
+    The <code class="code">mark</code> field is transient, and may be used by the unifier's
+    client for any purpose.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEstructure"></a><code class="type"></code>structure = <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> <a href="CoreAlgebra.html#TYPEterm">CoreAlgebra.term</a></code> </pre>
+<div class="info">
+A multi-equation can be related to a term. In that case, it is 
+    structured.<br>
+</div>
+
+<br><code><span class="keyword">type</span> <a name="TYPEvariable_kind"></a><code class="type"></code>variable_kind = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Rigid</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Flexible</span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Constant</span></code></td>
+
+</tr></table>
+
+<div class="info">
+There are two kinds of variable. A <code class="code"><span class="constructor">Flexible</span></code> variable can be
+    unified with other variables or terms. A <code class="code"><span class="constructor">Rigid</span></code> variable cannot.<br>
+</div>
+
+<br><code><span class="keyword">type</span> <a name="TYPEtname"></a><code class="type"></code>tname = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">TName</span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+<div class="info">
+<code class="code">tname</code> is the type of type identifiers.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEcrterm"></a><code class="type"></code>crterm = <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> <a href="CoreAlgebra.html#TYPEarterm">CoreAlgebra.arterm</a></code> </pre>
+<div class="info">
+The type of term of arbitrary depth.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALis_structured"></a><a href="code_VALMultiEquation.is_structured.html">is_structured</a> : <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> -> bool</code></pre><div class="info">
+<code class="code">is_structured v</code> tests if <code class="code">v</code> is related to a term.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALare_equivalent"></a><a href="code_VALMultiEquation.are_equivalent.html">are_equivalent</a> : <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a> -> bool</code></pre><div class="info">
+<code class="code">are_equivalent v1 v2</code> tests if <code class="code">v1</code> and <code class="code">v2</code> are in the same 
+    multi-equation.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALvariable_name"></a><a href="code_VALMultiEquation.variable_name.html">variable_name</a> : <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> -> <a href="MultiEquation.html#TYPEtname">tname</a> option</code></pre><div class="info">
+<code class="code">variable_name v</code> returns the name of <code class="code">v</code> if it exists.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALvariable_structure"></a><a href="code_VALMultiEquation.variable_structure.html">variable_structure</a> : <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> -> <a href="MultiEquation.html#TYPEstructure">structure</a> option</code></pre><div class="info">
+<code class="code">variable_structure v</code> returns the structure of <code class="code">v</code> if it exists.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALexplode"></a><a href="code_VALMultiEquation.explode.html">explode</a> : <code class="type"><a href="MultiEquation.html#TYPEcrterm">crterm</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a> <a href="CoreAlgebra.html#TYPEterm">CoreAlgebra.term</a></code></pre><div class="info">
+<code class="code">explode t</code> converts an arbitrary depth tree into a 1-depth one using
+    variables.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALvariable"></a><a href="code_VALMultiEquation.variable.html">variable</a> : <code class="type"><a href="MultiEquation.html#TYPEvariable_kind">variable_kind</a> -><br>       ?name:<a href="MultiEquation.html#TYPEtname">tname</a> -><br>       ?structure:<a href="MultiEquation.html#TYPEcrterm">crterm</a> -><br>       ?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -> unit -> <a href="MultiEquation.html#TYPEvariable">variable</a></code></pre><div class="info">
+<code class="code">variable()</code> returns a new variable.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALvariable_list"></a><a href="code_VALMultiEquation.variable_list.html">variable_list</a> : <code class="type"><a href="MultiEquation.html#TYPEvariable_kind">variable_kind</a> -><br>       'a list -> <a href="MultiEquation.html#TYPEvariable">variable</a> list * ('a * <a href="MultiEquation.html#TYPEcrterm">crterm</a>) list</code></pre><div class="info">
+<code class="code">variable_list xs</code> allocates a fresh variable for every element in the 
+    list <code class="code">xs</code>, and returns both a list of these variables and an association
+    list that maps elements to variables, viewed as types.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALvariable_list_from_names"></a><a href="code_VALMultiEquation.variable_list_from_names.html">variable_list_from_names</a> : <code class="type">(<a href="MultiEquation.html#TYPEtname">tname</a> -><br>        <a href="MultiEquation.html#TYPEvariable_kind">variable_kind</a> * <a href="MultiEquation.html#TYPEtname">tname</a> option) -><br>       <a href="MultiEquation.html#TYPEtname">tname</a> list -><br>       <a href="MultiEquation.html#TYPEvariable">variable</a> list *<br>       (<a href="MultiEquation.html#TYPEtname">tname</a> * <a href="MultiEquation.html#TYPEcrterm">crterm</a>) list</code></pre><div class="info">
+<code class="code">variable_list_from_strings f xs</code> allocates a fresh variable for every 
+  string in the list <code class="code">xs</code>, and returns both a list of these variables 
+  and an association list that maps elements to variables, viewed as types. 
+  The kind is determined using the provided function <code class="code">f</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALvariable_set"></a><a href="code_VALMultiEquation.variable_set.html">variable_set</a> : <code class="type">(<a href="MultiEquation.html#TYPEtname">tname</a> -><br>        <a href="MultiEquation.html#TYPEvariable_kind">variable_kind</a> * <a href="MultiEquation.html#TYPEtname">tname</a> option) -><br>       Misc.StringSet.t -><br>       <a href="MultiEquation.html#TYPEvariable">variable</a> list *<br>       (<a href="MultiEquation.html#TYPEcrterm">crterm</a> * <a href="Positions.html#TYPEposition">Positions.position</a>) Misc.StringMap.t</code></pre><div class="info">
+<code class="code">variable_set xs</code> allocates a fresh variable for every element in the
+    set <code class="code">xs</code>, and returns both a list of these variables and a map of
+    elements to variables.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALis_rigid"></a><a href="code_VALMultiEquation.is_rigid.html">is_rigid</a> : <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> -> bool</code></pre><div class="info">
+<code class="code">is_rigid v</code> returns true if <code class="code">v</code> is a constant or rigid variable.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALis_flexible"></a><a href="code_VALMultiEquation.is_flexible.html">is_flexible</a> : <code class="type"><a href="MultiEquation.html#TYPEvariable">variable</a> -> bool</code></pre><div class="info">
+<code class="code">is_flexible v</code> returns true if <code class="code">v</code> is a flexible variable.<br>
+</div>
+<br>
+<a name="3_Poolmanagement"></a>
+<h3>Pool management</h3> 
+    The variables are also partitioned into distinct pools. The variable 
+    pools are related to variable binding location.<br>
+<pre><span class="keyword">type</span> <a name="TYPEpool"></a><code class="type"></code>pool </pre>
+<div class="info">
+<code class="code">pool</code> is an abstract type denoting a set of type variables related
+    to a variable binding location.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALinhabitants"></a><a href="code_VALMultiEquation.inhabitants.html">inhabitants</a> : <code class="type"><a href="MultiEquation.html#TYPEpool">pool</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a> list</code></pre><div class="info">
+<code class="code">inhabitants p</code> returns the type variables of a pool.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALnumber"></a><a href="code_VALMultiEquation.number.html">number</a> : <code class="type"><a href="MultiEquation.html#TYPEpool">pool</a> -> int</code></pre><div class="info">
+<code class="code">number p</code> returns the rank of a <code class="code">p</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALnew_pool"></a><a href="code_VALMultiEquation.new_pool.html">new_pool</a> : <code class="type"><a href="MultiEquation.html#TYPEpool">pool</a> -> <a href="MultiEquation.html#TYPEpool">pool</a></code></pre><div class="info">
+<code class="code">new_pool p</code> introduces a new pool with a rank equals to the one of 
+    <code class="code">p</code> + 1.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALinit"></a><a href="code_VALMultiEquation.init.html">init</a> : <code class="type">unit -> <a href="MultiEquation.html#TYPEpool">pool</a></code></pre><div class="info">
+<code class="code">init ()</code> returns a fresh pool.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALregister"></a><a href="code_VALMultiEquation.register.html">register</a> : <code class="type"><a href="MultiEquation.html#TYPEpool">pool</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a> -> unit</code></pre><div class="info">
+<code class="code">register p v</code> adds <code class="code">v</code> into the pool <code class="code">p</code> without modifying the
+    rank of <code class="code">v</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALintroduce"></a><a href="code_VALMultiEquation.introduce.html">introduce</a> : <code class="type"><a href="MultiEquation.html#TYPEpool">pool</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a> -> unit</code></pre><div class="info">
+<code class="code">introduce p v</code> registers <code class="code">v</code> into <code class="code">p</code> and updates its rank 
+    accordingly.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALinstance"></a><a href="code_VALMultiEquation.instance.html">instance</a> : <code class="type"><a href="MultiEquation.html#TYPEpool">pool</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a></code></pre><div class="info">
+<code class="code">instance p v</code> returns a valid instance of <code class="code">v</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALchop"></a><a href="code_VALMultiEquation.chop.html">chop</a> : <code class="type"><a href="MultiEquation.html#TYPEpool">pool</a> -> <a href="MultiEquation.html#TYPEcrterm">crterm</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a></code></pre><div class="info">
+<code class="code">chop p t</code> introduces <code class="code">t</code> into <code class="code">p</code> by registering a variable into <code class="code">p</code> 
+    for each node of its tree maintaining its structure using links between
+    these variables.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALchopi"></a><a href="code_VALMultiEquation.chopi.html">chopi</a> : <code class="type"><a href="IntRank.html#TYPEt">IntRank.t</a> -> <a href="MultiEquation.html#TYPEcrterm">crterm</a> -> <a href="MultiEquation.html#TYPEvariable">variable</a></code></pre><div class="info">
+<code class="code">chopi rank term</code> chops a term. Any freshly created variables
+    receive rank <code class="code">rank</code>, but are not added to any pool.<br>
+</div>
+</body></html>

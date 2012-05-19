@@ -1,0 +1,3 @@
+type t : * = K : int -> int -> t
+
+let x = K 0

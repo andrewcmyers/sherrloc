@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Unifier.html">
+<link rel="next" href="Solver.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><title>Constraint</title>
+</head>
+<body>
+<div class="navbar"><a href="Unifier.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="Solver.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Constraint.html">Constraint</a> (<a href="code_Constraint.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Constraint: <code class="code"><span class="keyword">sig</span></code> <a href="Constraint.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>This module manages a data structure for constraint in a multi-equation
+    framework.<br>
+<hr width="100%">
+<br><code><span class="keyword">type</span> <a name="TYPEsname"></a><code class="type"></code>sname = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">SName</span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+<div class="info">
+<code class="code">sname</code> is the type of the names that are used to refer to type
+    schemes inside constraints. These names are bound by <code class="code"><span class="constructor">CLet</span></code>
+    constraints and referred to by <code class="code"><span class="constructor">CInstance</span></code> constraints.<br>
+</div>
+
+<br><code><span class="keyword">type</span> <a name="TYPEtype_constraint"></a><code class="type">('a, 'b)</code> type_constraint = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">CTrue</span> <span class="keyword">of</span> <code class="type"><a href="Positions.html#TYPEposition">Positions.position</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">CDump</span> <span class="keyword">of</span> <code class="type"><a href="Positions.html#TYPEposition">Positions.position</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">CEquation</span> <span class="keyword">of</span> <code class="type"><a href="Positions.html#TYPEposition">Positions.position</a> * 'a * 'a</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">CConjunction</span> <span class="keyword">of</span> <code class="type">('a, 'b) <a href="Constraint.html#TYPEtype_constraint">type_constraint</a> list</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">CLet</span> <span class="keyword">of</span> <code class="type">('a, 'b) <a href="Constraint.html#TYPEscheme">scheme</a> list * ('a, 'b) <a href="Constraint.html#TYPEtype_constraint">type_constraint</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">CInstance</span> <span class="keyword">of</span> <code class="type"><a href="Positions.html#TYPEposition">Positions.position</a> * <a href="Constraint.html#TYPEsname">sname</a> * 'a</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">CDisjunction</span> <span class="keyword">of</span> <code class="type">('a, 'b) <a href="Constraint.html#TYPEtype_constraint">type_constraint</a> list</code></code></td>
+
+</tr></table>
+
+<div class="info">
+<code class="code">type_constraint</code> defines a syntax for the constraints between 
+    types.<br>
+</div>
+
+<br><code><span class="keyword">type</span> <a name="TYPEscheme"></a><code class="type">('a, 'b)</code> scheme = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Scheme</span> <span class="keyword">of</span> <code class="type"><a href="Positions.html#TYPEposition">Positions.position</a> * 'b list * 'b list * ('a, 'b) <a href="Constraint.html#TYPEtype_constraint">type_constraint</a><br>        * ('a * <a href="Positions.html#TYPEposition">Positions.position</a>) Misc.StringMap.t</code></code></td>
+
+</tr></table>
+
+<div class="info">
+A type scheme is a pair of a constraint <code class="code">c</code> and a header <code class="code">h</code>,
+    wrapped within two sets of universal quantifiers <code class="code">rqs</code> and
+    <code class="code">fqs</code>. The former are considered rigid, while the latter are
+    considered flexible. More precisely, for the type scheme to be
+    considered consistent, the constraint <code class="code">forall rqs.exists fqs.c</code>
+    must hold. Rigid and flexible quantifiers otherwise play the same
+    role, that is, they all end up universally quantified in the type
+    scheme. A header is a mapping of names to types.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEvariable"></a><code class="type"></code>variable = <code class="type"><a href="MultiEquation.html#TYPEvariable">MultiEquation.variable</a></code> </pre>
+<div class="info">
+The variables that appear in contraints are the same as the multi-equation 
+    ones.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEcrterm"></a><code class="type"></code>crterm = <code class="type"><a href="Constraint.html#TYPEvariable">variable</a> <a href="CoreAlgebra.html#TYPEarterm">CoreAlgebra.arterm</a></code> </pre>
+<div class="info">
+The types in contraints are implemented using the internal data structure
+    defined in <a href="CoreAlgebra.html"><code class="code"><span class="constructor">CoreAlgebra</span></code></a>. The same data structure is also used in 
+    <a href="MultiEquation.html"><code class="code"><span class="constructor">MultiEquation</span></code></a>.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEtconstraint"></a><code class="type"></code>tconstraint = <code class="type">(<a href="Constraint.html#TYPEcrterm">crterm</a>, <a href="Constraint.html#TYPEvariable">variable</a>) <a href="Constraint.html#TYPEtype_constraint">type_constraint</a></code> </pre>
+<div class="info">
+Here is an abbreviation for the type constraint structure instantiated using
+    our internal variable and term representations.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEtscheme"></a><code class="type"></code>tscheme = <code class="type">(<a href="Constraint.html#TYPEcrterm">crterm</a>, <a href="Constraint.html#TYPEvariable">variable</a>) <a href="Constraint.html#TYPEscheme">scheme</a></code> </pre>
+<div class="info">
+Here is an abbreviation for the type scheme structure instantiated using
+    out internal variable and term representations.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALcposition"></a><a href="code_VALConstraint.cposition.html">cposition</a> : <code class="type">('a, 'b) <a href="Constraint.html#TYPEtype_constraint">type_constraint</a> -> <a href="Positions.html#TYPEposition">Positions.position</a></code></pre><div class="info">
+<code class="code">cposition c</code> returns the position related to <code class="code">c</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VAL(=?=)"></a><a href="code_VALConstraint.(_equal__questionmark__equal_).html">(=?=)</a> : <code class="type"><a href="Constraint.html#TYPEcrterm">crterm</a> -><br>       <a href="Constraint.html#TYPEcrterm">crterm</a> -> <a href="Positions.html#TYPEposition">Positions.position</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">t1 =?= t2</code> is an equality constraint<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALex"></a><a href="code_VALConstraint.ex.html">ex</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       <a href="Constraint.html#TYPEvariable">variable</a> list -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">ex qs c</code> returns the constraint <code class="code">exists qs.c</code>. We encode existential
+   constraints in terms of <code class="code"><span class="keyword">let</span></code> constraints, since the latter are more
+   general.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfl"></a><a href="code_VALConstraint.fl.html">fl</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       <a href="Constraint.html#TYPEvariable">variable</a> list -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">fl qs c</code> returns the constraint <code class="code">forall qs.c</code>. We encode universal
+   constraints in terms of <code class="code"><span class="keyword">let</span></code> constraints, since the latter are more
+   general.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VAL(<?)"></a><a href="code_VALConstraint.(_lt__questionmark_).html">(&lt;?)</a> : <code class="type"><a href="Constraint.html#TYPEsname">sname</a> -><br>       <a href="Constraint.html#TYPEcrterm">crterm</a> -> <a href="Positions.html#TYPEposition">Positions.position</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">x &lt;? t</code> is a conjunction constraint.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VAL(^)"></a><a href="code_VALConstraint.(_exp_).html">(^)</a> : <code class="type"><a href="Constraint.html#TYPEtconstraint">tconstraint</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">c1 ^ c2</code> is a conjunction constraint.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALconj"></a><a href="code_VALConstraint.conj.html">conj</a> : <code class="type"><a href="Constraint.html#TYPEtconstraint">tconstraint</a> list -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">conj cs</code> builds a conjunction between a list of constraints.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALexists"></a><a href="code_VALConstraint.exists.html">exists</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       (<a href="Constraint.html#TYPEcrterm">crterm</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a>) -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">exists f</code> creates a fresh variable <code class="code">x</code> and returns the constraint
+    <code class="code">exists x.(f x)</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALexists3"></a><a href="code_VALConstraint.exists3.html">exists3</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       (<a href="Constraint.html#TYPEcrterm">crterm</a> -><br>        <a href="Constraint.html#TYPEcrterm">crterm</a> -> <a href="Constraint.html#TYPEcrterm">crterm</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a>) -><br>       <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">exists3 f</code> is a shortcut for 
+    <code class="code">exists (<span class="keyword">fun</span> x <span class="keywordsign">-&gt;</span> exists (<span class="keyword">fun</span> y <span class="keywordsign">-&gt;</span> exists (<span class="keyword">fun</span> z <span class="keywordsign">-&gt;</span> f x y z)))</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALfl"></a><a href="code_VALConstraint.fl.html">fl</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       <a href="Constraint.html#TYPEvariable">variable</a> list -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a> -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">fl vs c</code> returns the constraint <code class="code">forall vs.c</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALexists_list"></a><a href="code_VALConstraint.exists_list.html">exists_list</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       'a list -><br>       (('a * <a href="Constraint.html#TYPEcrterm">crterm</a>) list -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a>) -><br>       <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">exists_list l f</code> associates a fresh variable with every element
+    in the list <code class="code">l</code>, yielding an association list <code class="code">m</code>, and returns
+    the constraint <code class="code">exists m.(f m)</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALforall_list"></a><a href="code_VALConstraint.forall_list.html">forall_list</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       <a href="MultiEquation.html#TYPEtname">MultiEquation.tname</a> list -><br>       ((<a href="MultiEquation.html#TYPEtname">MultiEquation.tname</a> * <a href="Constraint.html#TYPEcrterm">crterm</a>) list -> <a href="Constraint.html#TYPEtconstraint">tconstraint</a>) -><br>       <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">forall_list l f</code> associates a fresh variable with every element
+    in the list <code class="code">l</code>, yielding an association list <code class="code">m</code>, and returns
+    the constraint <code class="code">forall m.(f m)</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALexists_set"></a><a href="code_VALConstraint.exists_set.html">exists_set</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       Misc.StringSet.t -><br>       ((<a href="Constraint.html#TYPEcrterm">crterm</a> * <a href="Positions.html#TYPEposition">Positions.position</a>) Misc.StringMap.t -><br>        <a href="Constraint.html#TYPEtconstraint">tconstraint</a>) -><br>       <a href="Constraint.html#TYPEtconstraint">tconstraint</a></code></pre><div class="info">
+<code class="code">exists_set names f</code> associates a fresh variable with every name in
+    the set <code class="code">names</code>, yielding a map <code class="code">m</code> of names to variables, and returns
+    the constraint <code class="code">exists m.(f m)</code>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmonoscheme"></a><a href="code_VALConstraint.monoscheme.html">monoscheme</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       (<a href="Constraint.html#TYPEcrterm">crterm</a> * <a href="Positions.html#TYPEposition">Positions.position</a>) Misc.StringMap.t -><br>       <a href="Constraint.html#TYPEtscheme">tscheme</a></code></pre><div class="info">
+<code class="code">monoscheme header</code> turns <code class="code">header</code> into a monomorphic type scheme.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALscheme"></a><a href="code_VALConstraint.scheme.html">scheme</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       <a href="Constraint.html#TYPEvariable">variable</a> list -><br>       Misc.StringSet.t -><br>       ((<a href="Constraint.html#TYPEcrterm">crterm</a> * <a href="Positions.html#TYPEposition">Positions.position</a>) Misc.StringMap.t -><br>        <a href="Constraint.html#TYPEtconstraint">tconstraint</a>) -><br>       <a href="Constraint.html#TYPEtscheme">tscheme</a></code></pre><div class="info">
+<code class="code">scheme rqs names f</code> associates a fresh variable with every name in
+    the set <code class="code">names</code>, yielding a map <code class="code">m</code> of names to variables, and returns
+    the type scheme <code class="code">forall rqs m [f m] m</code>, where the variables in <code class="code">rqs</code>
+    are rigid and the variables in <code class="code">m</code> are flexible.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALscheme'"></a><a href="code_VALConstraint.scheme'.html">scheme'</a> : <code class="type">?pos:<a href="Positions.html#TYPEposition">Positions.position</a> -><br>       <a href="Constraint.html#TYPEvariable">variable</a> list -><br>       Misc.StringSet.t -><br>       Misc.StringSet.t -><br>       ((<a href="Constraint.html#TYPEcrterm">crterm</a> * <a href="Positions.html#TYPEposition">Positions.position</a>) Misc.StringMap.t -><br>        <a href="Constraint.html#TYPEtconstraint">tconstraint</a>) -><br>       <a href="Constraint.html#TYPEtscheme">tscheme</a></code></pre><div class="info">
+<code class="code">scheme' rqs rnames fnames f</code> associates a fresh variable with every 
+  name in the set <code class="code">fnames</code> and <code class="code">rnames</code>, yielding a map <code class="code">m</code> of names to 
+  variables, and returns the type scheme <code class="code">forall (rqs @ rm) fm [f m] m</code>, 
+  where the variables in <code class="code">rqs</code> and <code class="code">rm</code> are rigid and the variables in <code class="code">fm</code> 
+  are flexible.<br>
+</div>
+</body></html>

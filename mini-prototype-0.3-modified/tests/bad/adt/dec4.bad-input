@@ -1,0 +1,1 @@
+type list : * -> *  = Eq : forall a. a -> list -> list a

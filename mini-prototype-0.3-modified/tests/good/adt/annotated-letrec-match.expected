@@ -1,0 +1,3 @@
+val O: n
+val f: n -> n -> n
+

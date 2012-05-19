@@ -1,0 +1,3 @@
+type t : * -> * =  K : forall a. a -> t a
+
+let z =  let y = K 0 in match y with K x => x end 

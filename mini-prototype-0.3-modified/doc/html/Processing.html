@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="AstPositions.html">
+<link rel="next" href="ParsingExceptions.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><link title="Tasks" rel="Section" href="#2_Tasks">
+<link title="Processing" rel="Section" href="#2_Processing">
+<title>Processing</title>
+</head>
+<body>
+<div class="navbar"><a href="AstPositions.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="ParsingExceptions.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Processing.html">Processing</a> (<a href="code_Processing.html">.ml</a>)</h1></center>
+<br>
+<pre><span class="keyword">module</span> Processing: <code class="code"><span class="keyword">sig</span></code> <a href="Processing.html">..</a> <code class="code"><span class="keyword">end</span></code></pre>A simple task manager.
+    It enables the registration of the options and the control
+    of what has to be done by the program.<br>
+<hr width="100%">
+<br>
+<a name="2_Tasks"></a>
+<h2>Tasks</h2><br>
+<pre><span class="keyword">type</span> <a name="TYPEtask_name"></a><code class="type"></code>task_name = <code class="type">string</code> </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEprocess_type"></a><code class="type"></code>process_type = <code class="type"><a href="Processing.html#TYPEtask_name">task_name</a></code> </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEprocess_types"></a><code class="type"></code>process_types = <code class="type"><a href="Processing.html#TYPEprocess_type">process_type</a> list list</code> </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEprocess_data"></a><code class="type"></code>process_data </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEprocess_datas"></a><code class="type"></code>process_datas </pre>
+
+<br><code><span class="keyword">type</span> <a name="TYPEprocess"></a><code class="type"></code>process = {</code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code>input_type&nbsp;: <code class="type"><a href="Processing.html#TYPEprocess_type">process_type</a> list list</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code>output_type&nbsp;: <code class="type"><a href="Processing.html#TYPEprocess_type">process_type</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code>code&nbsp;: <code class="type"><a href="Processing.html#TYPEprocess_types">process_types</a> * <a href="Processing.html#TYPEprocess_datas">process_datas</a> -><br>       <a href="Processing.html#TYPEprocess_type">process_type</a> * <a href="Processing.html#TYPEprocess_data">process_data</a></code>;</code></td>
+
+</tr></table>
+}
+
+
+<pre><span class="keyword">type</span> <a name="TYPEtask"></a><code class="type"></code>task </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEoptions"></a><code class="type"></code>options = <code class="type">(Arg.key * Arg.spec * Arg.doc) list * Arg.anon_fun</code> </pre>
+
+<pre><span class="keyword">val</span> <a name="VALregister"></a><a href="code_VALProcessing.register.html">register</a> : <code class="type"><a href="Processing.html#TYPEtask_name">task_name</a> -><br>       <a href="Processing.html#TYPEoptions">options</a> -><br>       <a href="Processing.html#TYPEtask_name">task_name</a> list list -> ('a -> 'b) -> (unit -> bool) -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALis_task_traced"></a><a href="code_VALProcessing.is_task_traced.html">is_task_traced</a> : <code class="type"><a href="Processing.html#TYPEtask_name">task_name</a> -> bool</code></pre><pre><span class="keyword">val</span> <a name="VALget_registered_tasks"></a><a href="code_VALProcessing.get_registered_tasks.html">get_registered_tasks</a> : <code class="type">unit -> <a href="Processing.html#TYPEtask_name">task_name</a> list</code></pre><br>
+<a name="2_Processing"></a>
+<h2>Processing</h2><br>
+<pre><span class="keyword">val</span> <a name="VALexecute"></a><a href="code_VALProcessing.execute.html">execute</a> : <code class="type">default_start:<a href="Processing.html#TYPEtask_name">task_name</a> -><br>       default_end:<a href="Processing.html#TYPEtask_name">task_name</a> -> usage:string -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALdebug"></a><a href="code_VALProcessing.debug.html">debug</a> : <code class="type">string -> unit</code></pre></body></html>

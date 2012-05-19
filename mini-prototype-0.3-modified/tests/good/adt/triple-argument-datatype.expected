@@ -1,0 +1,3 @@
+val D: forall a b c. (a * b * c) -> triple a b c
+val f: forall a b c. triple a b c -> a
+

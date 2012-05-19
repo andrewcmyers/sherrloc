@@ -1,0 +1,3 @@
+val x1: int
+val x2: unit
+

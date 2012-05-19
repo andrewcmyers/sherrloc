@@ -1,0 +1,3 @@
+val D: forall a b. (a * b) -> pair a b
+val f: forall a b. pair a b -> a
+

@@ -1,0 +1,168 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><title>MiniAst</title>
+</head>
+<body>
+<code class="code"></code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<span class="comment">(*&nbsp;&nbsp;Mini,&nbsp;a&nbsp;type&nbsp;inference&nbsp;engine&nbsp;based&nbsp;on&nbsp;constraint&nbsp;solving.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Copyright&nbsp;(C)&nbsp;2006.&nbsp;François&nbsp;Pottier,&nbsp;Yann&nbsp;Régis-Gianas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;and&nbsp;Didier&nbsp;Rémy.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;version&nbsp;2&nbsp;of&nbsp;the&nbsp;License.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,&nbsp;but&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;GNU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Foundation,&nbsp;Inc.,&nbsp;51&nbsp;Franklin&nbsp;Street,&nbsp;Fifth&nbsp;Floor,&nbsp;Boston,&nbsp;MA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;02110-1301&nbsp;USA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+</code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="comment">(*&nbsp;$Id:&nbsp;miniAst.ml&nbsp;421&nbsp;2006-12-22&nbsp;09:27:42Z&nbsp;regisgia&nbsp;$&nbsp;*)</span><br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** The abstract syntax of programs *)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Positions</span><br>
+<br>
+<span class="keyword">type</span>&nbsp;program&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;binding&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;binding&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BindValue</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;value_definition&nbsp;list<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BindRecValue</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;value_definition&nbsp;list<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypeDec</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;type_declaration&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;expression&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** Core ML. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EVar</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;name&nbsp;<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ELambda</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;pattern&nbsp;*&nbsp;expression<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EApp</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;expression&nbsp;*&nbsp;expression<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EBinding</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;binding&nbsp;*&nbsp;expression<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EPrimApp</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;primitive&nbsp;*&nbsp;expression&nbsp;list<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EForall</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname&nbsp;list&nbsp;*&nbsp;expression<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EExists</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname&nbsp;list&nbsp;*&nbsp;expression<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** Type annotations. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ETypeConstraint</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;expression&nbsp;*&nbsp;typ<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** Algebraic datatypes. *)</span></td></tr></table><code class="code">&nbsp;<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EDCon</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;dname&nbsp;*&nbsp;expression&nbsp;list<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EMatch</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;expression&nbsp;*&nbsp;(clause&nbsp;list)<br>
+<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** Records. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordEmpty</span>&nbsp;<span class="keyword">of</span>&nbsp;position<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordAccess</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;expression&nbsp;*&nbsp;lname<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordExtend</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;record_binding&nbsp;list&nbsp;*&nbsp;expression<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">ERecordUpdate</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;expression&nbsp;*&nbsp;lname&nbsp;*&nbsp;expression<br>
+<br>
+&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;</td><td><span class="comment">(** Misc. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">EAssertFalse</span>&nbsp;<span class="keyword">of</span>&nbsp;position<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** Program identifiers. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;name&nbsp;=&nbsp;<span class="constructor">Constraint</span>.sname&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">SName</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** Type variable names. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;tname&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">MultiEquation</span>.tname<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** Data constructors. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;dname&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">DName</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** Record labels. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;lname&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">CoreAlgebra</span>.lname<br>
+&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** Constant. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;primitive&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PIntegerConstant</span>&nbsp;<span class="keyword">of</span>&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** Integer constant. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PCharConstant</span>&nbsp;<span class="keyword">of</span>&nbsp;char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** Character constant. *)</span></td></tr></table><code class="code"><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PUnit</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><span class="comment">(** Unit constant. *)</span></td></tr></table><code class="code"><br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** Pattern matching clause. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;clause&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;*&nbsp;pattern&nbsp;*&nbsp;expression<br>
+<br>
+<span class="keyword">and</span>&nbsp;record_binding&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lname&nbsp;*&nbsp;expression<br>
+<br>
+<span class="keyword">and</span>&nbsp;type_declaration&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;*&nbsp;kind&nbsp;*&nbsp;tname&nbsp;*&nbsp;type_definition<br>
+<br>
+<span class="keyword">and</span>&nbsp;type_definition&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">DAlgebraic</span>&nbsp;<span class="keyword">of</span>&nbsp;(position&nbsp;*&nbsp;dname&nbsp;*&nbsp;tname&nbsp;list&nbsp;*&nbsp;typ)&nbsp;list<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** A value definition consists of a list of explicit universal
+    quantifiers, a pattern, and an expression. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">and</span>&nbsp;value_definition&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position&nbsp;*&nbsp;tname&nbsp;list&nbsp;*&nbsp;pattern&nbsp;*&nbsp;expression<br>
+<br>
+<span class="keyword">and</span>&nbsp;pattern&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PVar</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;name<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PWildcard</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAlias</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;name&nbsp;*&nbsp;pattern<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PTypeConstraint</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;pattern&nbsp;*&nbsp;typ<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PPrimitive</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;primitive<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PData</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;dname&nbsp;*&nbsp;pattern&nbsp;list<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PAnd</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;pattern&nbsp;list<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">POr</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;pattern&nbsp;list<br>
+<br>
+<span class="keyword">and</span>&nbsp;kind&nbsp;=&nbsp;<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KStar</span><br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KTimes</span>&nbsp;<span class="keyword">of</span>&nbsp;kind&nbsp;*&nbsp;kind<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KArrow</span>&nbsp;<span class="keyword">of</span>&nbsp;kind&nbsp;*&nbsp;kind<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">KEmptyRow</span>&nbsp;<br>
+<br>
+<span class="keyword">and</span>&nbsp;typ&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypVar</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypApp</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;typ&nbsp;*&nbsp;typ&nbsp;list&nbsp;<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypRowCons</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;(lname&nbsp;*&nbsp;typ)&nbsp;list&nbsp;*&nbsp;typ<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">TypRowUniform</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;typ<br>
+<br>
+<br>
+</code></body></html>

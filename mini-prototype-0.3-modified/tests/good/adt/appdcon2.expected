@@ -1,0 +1,4 @@
+val Fun: forall a b. (a -> b) -> fun a b
+val f: forall a. a -> a
+val ff: forall a. fun a a
+

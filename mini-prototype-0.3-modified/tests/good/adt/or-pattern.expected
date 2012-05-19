@@ -1,0 +1,5 @@
+val K: (int * int) -> t
+val S: int -> t
+val add_3_int: int -> int -> int -> int
+val f: (t * t) -> int
+
