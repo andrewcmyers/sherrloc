@@ -1,0 +1,52 @@
+<project name="diagnostic" default="javacup" basedir=".">
+	<description>
+    Build file for general error diagnostic
+   </description>
+
+	<!-- set global properties for this build -->
+	<property name="src" location="${basedir}/src"/>
+	<property name="constraint" location="${src}/constraint"/>
+	<property name="parse" location="${constraint}/parse" />
+	<property name="build" location="${basedir}/build"/>
+	<property name="lib" location="${basedir}/lib"/>
+
+	<available file="${lib}/JFlex.jar" type="file" property="jflex.jar.available" />
+	<available file="${lib}/java-cup-11a.jar" type="file" property="javacup.jar.available" />
+
+	<path id="libraries">
+		<fileset dir="${lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!--
+	<uptodate property="scanner.src.uptodate" srcfile="etc/GrammarScanner.flex" targetfile="src/beaver/spec/parser/GrammarScanner.java" />
+	<uptodate property="parser.src.uptodate" srcfile="etc/beaver.grammar" targetfile="src/beaver/spec/parser/GrammarParser.java" />
+	-->
+
+	<target name="lexer" if="jflex.jar.available" description="creat jflex files">
+		<taskdef name="jflex" classname="JFlex.anttask.JFlexTask" classpathref="libraries" />
+		<jflex
+		    file="${parse}/constraint.flex"
+		/>
+	</target>
+
+	<target name="javacup" if="javacup.jar.available" depends="lexer" description="creat java cup files">
+		<java jar="${lib}/java-cup-11a.jar" fork="true">
+			<arg value="-destdir"/>
+			<arg value="${parse}"/>
+			<arg value="${parse}/constraint.cup"/>
+		</java>
+	</target>
+	
+	<target name="clean" description="clean up" >
+	    <delete dir="${build}"/>
+	    <delete dir="${dist}"/>
+	</target>
+	
+	<!--
+	<target name="diagnostic" depends="lexer">
+	</target>
+	-->
+
+</project>
