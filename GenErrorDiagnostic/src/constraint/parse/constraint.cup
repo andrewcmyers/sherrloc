@@ -1,0 +1,143 @@
+// CUP specification for a set-based constraint language (no actions)
+package constraint.parse;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import java_cup.runtime.*;
+import constraint.ast.CompondElement;
+import constraint.ast.Constructor;
+import constraint.ast.Element;
+import constraint.ast.Equation;
+import constraint.ast.Relation;
+import constraint.ast.Variable;
+
+action code {: 
+				Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
+				Map<String, Variable> variables = new HashMap<String, Variable>(); 
+			:};
+						
+/* Terminals (tokens returned by the scanner). */
+terminal            CONSTRACTOR;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, STAR, AT;
+terminal Integer    INTEGER_LITERAL;
+terminal String     IDENTIFIER, STRING_LITERAL;
+
+/* Non terminals */
+non terminal List<Equation>		cons_spec, equations;
+non terminal 					constructors, constructor;
+non terminal Equation 			equation;
+non terminal Element			term, element, cons;
+non terminal String           	id, position;
+non terminal Integer			arity;
+non terminal List<Element>		element_list;
+
+/* Precedences */
+precedence right ARROW;
+precedence left  STAR;
+
+/* The grammar */
+cons_spec 	::=  constructors 	{: 
+									constructors.put("arrow", new Constructor("arrow", 2));
+									constructors.put("pair",  new Constructor("pair", 2)); 
+								:} 
+				 equations:l
+			{: RESULT = l; :}			
+			| {: 
+					constructors.put("arrow", new Constructor("arrow", 2));
+					constructors.put("pair",  new Constructor("pair", 2)); 
+			  :} 
+			equations:l
+			{: RESULT = l; :}
+			;
+
+constructors ::= constructors constructor
+			| constructor;
+			
+constructor  ::= CONSTRACTOR id:s arity:a
+			{: constructors.put( s, new Constructor(s, a)); :}
+			;
+
+id        	::= IDENTIFIER:s
+			{: RESULT = s; :} 
+			;
+			
+arity		::= INTEGER_LITERAL:a
+			{: RESULT = a; :};
+
+equations 	::= equations:l equation:e 
+            {: l.add(e); RESULT = l; :}
+            | 
+            equation:e
+            {: List<Equation> list = new ArrayList<Equation>(); list.add(e); RESULT = list; :}
+            ;
+            
+equation 	::= term:e1 EQ term:e2 SEMICOLON position:p
+			{: RESULT = new Equation (e1, e2, Relation.EQ, p); :}  
+            | term:e1 LEQ term:e2 SEMICOLON position:p
+         	{: RESULT = new Equation (e1, e2, Relation.LEQ, p); :}
+            | term:e1 GEQ term:e2 SEMICOLON  position:p
+            {: RESULT = new Equation (e2, e1, Relation.LEQ, p); :}
+            ;
+            
+position	::= AT STRING_LITERAL:s
+			{: RESULT = s; :}
+			| /* no information */
+			{: RESULT = ""; :}
+			;
+            
+term     	::=  term:t1 ARROW term:t2
+			{: 	List<Element> l = new ArrayList<Element>();
+				l.add(t1);
+				l.add(t2);  
+				RESULT = new CompondElement ("", constructors.get("arrow"), l);
+			:}
+			| term:t1 STAR term:t2
+			{: 	
+				List<Element> l = new ArrayList<Element>();
+				l.add(t1);
+				l.add(t2);  
+				RESULT = new CompondElement ("", constructors.get("pair"), l); 
+			:}
+			| cons:cons element_list:l
+			{: 	Constructor c = (Constructor) cons;
+				if (c.getArity() != l.size()) throw new Error("Constractor takes wrong number of parameters: "+
+			   						"expecting "+c.getArity()+" getting "+l.size());
+			    RESULT = new CompondElement ("", c, l); 
+			:}
+			| element:e
+			{: RESULT = e; :}
+			;
+		
+element_list ::= element_list:l element:t
+			{: l.add(t); RESULT = l; :}
+			| element:e
+			{: List<Element> l = new ArrayList<Element>();  l.add(e); RESULT = l; :}
+			;
+			
+cons		::= IDENTIFIER:s
+			{:
+				if (constructors.containsKey(s)) {
+					RESULT = constructors.get(s);
+				} 
+			   	else throw new Error("\"s\" is not a constructor");
+			:}
+			;
+
+/* a single element is either a variable or a constructor with 0 arity */
+element		::= IDENTIFIER:s position:p
+			{: 	
+				if (constructors.containsKey(s)) {
+					RESULT = constructors.get(s);
+				} 
+			   	else {
+			   		if (!(variables.containsKey(s)))
+			   			variables.put (s, new Variable(s,p));
+			   		RESULT = variables.get(s);
+			   	}			   	  
+			 :}
+			 | LPAREN term:t RPAREN 
+			 {:  RESULT = t; :}
+			 ;
