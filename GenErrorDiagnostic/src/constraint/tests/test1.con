@@ -1,0 +1,15 @@
+/* This simple exmple is generated from the following program:
+   let v1 = (let id x:char = x in id 10)
+*/
+
+CONSTRACTOR char 0
+CONSTRACTOR int 0
+
+b = a;
+d = c;
+f = e;
+g = char;
+f = char;
+h = int;
+c = e -> g;
+d = h -> a;
