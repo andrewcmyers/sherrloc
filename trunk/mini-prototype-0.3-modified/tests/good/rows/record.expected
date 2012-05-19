@@ -1,0 +1,2 @@
+val f: forall a b. { a: a ; b } -> { a: pre int ; b }
+

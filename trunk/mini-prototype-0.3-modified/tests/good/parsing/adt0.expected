@@ -1,0 +1,3 @@
+val K: int -> t
+val x: t
+

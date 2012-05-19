@@ -1,0 +1,7 @@
+type list : * -> * =  Nil : forall a. list a 
+                    | Cons : forall a. a * list a -> list a
+
+let rec forall b c. map (f : b -> c) (l : list b) = 
+ (match l with  
+         Nil => Nil
+       | Cons (x,q) => (Cons ((f x),((map f) q))) end  : (list c))

@@ -1,0 +1,4 @@
+type list : * -> * =  Nil : forall a. list a 
+                    | Cons : forall a. a * (list a) -> (list a) 
+
+let id l =  let (Nil ) =  l in (Nil)

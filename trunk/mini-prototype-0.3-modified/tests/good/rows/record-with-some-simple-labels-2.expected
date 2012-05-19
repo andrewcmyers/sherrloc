@@ -1,0 +1,2 @@
+val f: forall a. a -> { l1: pre a ; l2: pre unit ; \ abs }
+

@@ -1,0 +1,5 @@
+val x: { \ abs }
+val y: { l: pre int ; \ abs }
+val z: { l: pre int ; m: pre unit ; \ abs }
+val w: { l: pre unit ; m: pre unit ; \ abs }
+

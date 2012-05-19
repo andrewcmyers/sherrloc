@@ -1,0 +1,19 @@
+type map : ( * -> * ) -> * -> * -> * = forall f a b.
+   Map : ((a -> b) -> f a -> f b) -> map f a b
+
+let id map x =
+  match map with
+    Map f => f (\x. x) x
+  end 
+
+type list : * -> * = forall a. 
+  Nil : list a
+| Cons : a -> list a -> list a
+
+let rec map_list f l =
+match l with
+    Nil => Nil
+  | Cons a q => Cons (f a) (map_list f q)
+end
+
+let id_list = id (Map map_list)

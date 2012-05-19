@@ -1,0 +1,2 @@
+val f: forall a b c. { l: a ; b } -> c -> { l: pre c ; b }
+

@@ -1,0 +1,5 @@
+type list : * -> * = 
+  Nil : forall a. list a 
+| Cons : forall a. a -> list a -> list a
+
+let l = Cons 0 Nil

@@ -1,0 +1,2 @@
+type eq : * -> * -> * =
+   Eq : forall a b. eq a b

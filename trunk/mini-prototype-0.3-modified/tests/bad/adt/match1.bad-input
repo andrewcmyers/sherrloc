@@ -1,0 +1,8 @@
+type t : * -> * = 
+    K : forall a. a -> t a -> t a 
+  | Z : forall a. t a
+
+let f x = 
+   match x with
+      K 0 (K Z Z) => 0
+   end

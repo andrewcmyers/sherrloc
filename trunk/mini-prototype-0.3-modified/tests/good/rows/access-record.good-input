@@ -1,0 +1,14 @@
+let x =  { } 
+
+let y =  x.l <- 1
+
+let l1 =  y.l
+
+let z =  y.m <- ()
+
+let w =  z.l <- ()
+
+let l2 =  w.l
+
+let m1 =  w.m
+

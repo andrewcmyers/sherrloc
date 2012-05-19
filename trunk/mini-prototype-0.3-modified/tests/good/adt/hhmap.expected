@@ -1,0 +1,7 @@
+val Map: forall a b c. ((a -> b) -> c a -> c b) -> map c a b
+val id: forall a b. map a b b -> a b -> a b
+val Cons: forall a. a -> list a -> list a
+val Nil: forall a. list a
+val map_list: forall a b. (a -> b) -> list a -> list b
+val id_list: forall a. list a -> list a
+

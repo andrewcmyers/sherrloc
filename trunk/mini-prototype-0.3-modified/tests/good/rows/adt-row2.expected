@@ -1,0 +1,3 @@
+val K: forall a. { l: pre a ; \ abs } -> t a
+val y: t int
+

@@ -1,0 +1,139 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="PrettyPrinter" rel="Chapter" href="PrettyPrinter.html">
+<link title="InfiniteArray" rel="Chapter" href="InfiniteArray.html">
+<link title="Misc" rel="Chapter" href="Misc.html">
+<link title="Env" rel="Chapter" href="Env.html">
+<link title="Positions" rel="Chapter" href="Positions.html">
+<link title="Mark" rel="Chapter" href="Mark.html">
+<link title="UnionFind" rel="Chapter" href="UnionFind.html">
+<link title="AstPositions" rel="Chapter" href="AstPositions.html">
+<link title="Processing" rel="Chapter" href="Processing.html">
+<link title="ParsingExceptions" rel="Chapter" href="ParsingExceptions.html">
+<link title="BasicSetEquations" rel="Chapter" href="BasicSetEquations.html">
+<link title="IntRank" rel="Chapter" href="IntRank.html">
+<link title="CoreAlgebra" rel="Chapter" href="CoreAlgebra.html">
+<link title="MultiEquation" rel="Chapter" href="MultiEquation.html">
+<link title="Unifier" rel="Chapter" href="Unifier.html">
+<link title="Constraint" rel="Chapter" href="Constraint.html">
+<link title="Solver" rel="Chapter" href="Solver.html">
+<link title="MiniAst" rel="Chapter" href="MiniAst.html">
+<link title="MiniAlgebra" rel="Chapter" href="MiniAlgebra.html">
+<link title="Print" rel="Chapter" href="Print.html">
+<link title="ConstraintPrettyPrinter" rel="Chapter" href="ConstraintPrettyPrinter.html">
+<link title="MiniTypingExceptions" rel="Chapter" href="MiniTypingExceptions.html">
+<link title="MiniPrettyPrinter" rel="Chapter" href="MiniPrettyPrinter.html">
+<link title="MiniKindInferencer" rel="Chapter" href="MiniKindInferencer.html">
+<link title="MiniTypingEnvironment" rel="Chapter" href="MiniTypingEnvironment.html">
+<link title="MiniTypes" rel="Chapter" href="MiniTypes.html">
+<link title="MiniInfer" rel="Chapter" href="MiniInfer.html">
+<link title="MiniSyntacticAnalysis" rel="Chapter" href="MiniSyntacticAnalysis.html">
+<link title="MiniConstraintPrinter" rel="Chapter" href="MiniConstraintPrinter.html">
+<link title="MiniSolver" rel="Chapter" href="MiniSolver.html">
+<link title="Errors" rel="Chapter" href="Errors.html"><title>MiniTypingExceptions</title>
+</head>
+<body>
+<code class="code"></code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<span class="comment">(*&nbsp;&nbsp;Mini,&nbsp;a&nbsp;type&nbsp;inference&nbsp;engine&nbsp;based&nbsp;on&nbsp;constraint&nbsp;solving.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Copyright&nbsp;(C)&nbsp;2006.&nbsp;François&nbsp;Pottier,&nbsp;Yann&nbsp;Régis-Gianas&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;and&nbsp;Didier&nbsp;Rémy.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;free&nbsp;software;&nbsp;you&nbsp;can&nbsp;redistribute&nbsp;it&nbsp;and/or&nbsp;modify&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;it&nbsp;under&nbsp;the&nbsp;terms&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;as&nbsp;published&nbsp;by&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;the&nbsp;Free&nbsp;Software&nbsp;Foundation;&nbsp;version&nbsp;2&nbsp;of&nbsp;the&nbsp;License.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;This&nbsp;program&nbsp;is&nbsp;distributed&nbsp;in&nbsp;the&nbsp;hope&nbsp;that&nbsp;it&nbsp;will&nbsp;be&nbsp;useful,&nbsp;but&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;WITHOUT&nbsp;ANY&nbsp;WARRANTY;&nbsp;without&nbsp;even&nbsp;the&nbsp;implied&nbsp;warranty&nbsp;of&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;MERCHANTABILITY&nbsp;or&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE.&nbsp;&nbsp;See&nbsp;the&nbsp;GNU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;General&nbsp;Public&nbsp;License&nbsp;for&nbsp;more&nbsp;details.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;You&nbsp;should&nbsp;have&nbsp;received&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;GNU&nbsp;General&nbsp;Public&nbsp;License&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;along&nbsp;with&nbsp;this&nbsp;program;&nbsp;if&nbsp;not,&nbsp;write&nbsp;to&nbsp;the&nbsp;Free&nbsp;Software&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;Foundation,&nbsp;Inc.,&nbsp;51&nbsp;Franklin&nbsp;Street,&nbsp;Fifth&nbsp;Floor,&nbsp;Boston,&nbsp;MA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;02110-1301&nbsp;USA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+<span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
+</code><table><tr><td></td><td><span class="comment">(**************************************************************************)</span></td></tr></table><code class="code"><br>
+<br>
+<span class="comment">(*&nbsp;$Id:&nbsp;miniTypingExceptions.ml&nbsp;421&nbsp;2006-12-22&nbsp;09:27:42Z&nbsp;regisgia&nbsp;$&nbsp;*)</span><br>
+<br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">MiniAst</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">MultiEquation</span><br>
+<span class="keyword">open</span>&nbsp;<span class="constructor">Positions</span><br>
+<br>
+<span class="keyword">module</span>&nbsp;<span class="constructor">Algebra</span>&nbsp;=&nbsp;<span class="constructor">MiniAlgebra</span><br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** This module provides the typing exceptions for the Mini language. *)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** <a name="2_Exceptions"></a>
+<h2>Exceptions</h2> *)</span></td></tr></table><code class="code"><br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">UnboundTypeIdentifier</span></code> is raised when an unbound type identifier
+    is found. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">UnboundTypeIdentifier</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">InvalidTypeVariableIdentifier</span></code> is raised when a type variable is 
+      overwriting a type constructor. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">InvalidTypeVariableIdentifier</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname<br>
+&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">UnboundDataConstructor</span></code> is raised when a constructor identifier is
+    used although it has not been defined. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">UnboundDataConstructor</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;dname&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">InvalidDataConstructorDefinition</span></code> is raised when a data constructor
+    scheme is not legal. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">InvalidDataConstructorDefinition</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;dname<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">UnboundTypeVariable</span></code> is raised when a variable identifier is
+    used although it has not been defined. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">UnboundTypeVariable</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">MultipleLabels</span></code> is raised when the user has built a record 
+    with two fields with the same name. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">MultipleLabels</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;lname<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">NonLinearPattern</span></code> is raised when at least two occurrences of a variable 
+    appear in a pattern. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">NonLinearPattern</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">NotEnoughPatternArgts</span>&nbsp;<span class="keyword">of</span>&nbsp;position<br>
+<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">InvalidNumberOfTypeVariable</span>&nbsp;<span class="keyword">of</span>&nbsp;position<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** This exception is raised by <code class="code">unify</code> when a system of equations
+    is found to be unsatisfiable. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">CannotUnifyHeadWithTerm</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname&nbsp;*&nbsp;crterm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">CannotGeneralize</span></code> when the type of an expression cannot be
+    generalized contrary to what is specified by the programmers
+    using type annotations. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">CannotGeneralize</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;crterm<br>
+<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">NonDistinctVariables</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;(variable&nbsp;list)&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** This exception is raised when a match is not complete. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">NonExhaustiveMatch</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;pattern<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">UnboundIdentifier</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname<br>
+<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">UnboundTypeConstructor</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;tname<br>
+<br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">KindError</span>&nbsp;<span class="keyword">of</span>&nbsp;position<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">RecursiveDefMustBeVariable</span></code> is raised in case of bad formed 
+    recursive value definition. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">RecursiveDefMustBeVariable</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;<br>
+<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">InvalidDisjunctionPattern</span></code> is raised when the subpatterns of a 
+    disjunction pattern do not bind the same variables. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">InvalidDisjunctionPattern</span>&nbsp;<span class="keyword">of</span>&nbsp;position<br>
+&nbsp;&nbsp;<br>
+</code><table><tr><td></td><td><span class="comment">(** <code class="code"><span class="constructor">PartialDataConstructorApplication</span></code> is raised when a data constructor's
+    arity is not respected by the programmer. *)</span></td></tr></table><code class="code"><br>
+<span class="keyword">exception</span>&nbsp;<span class="constructor">PartialDataConstructorApplication</span>&nbsp;<span class="keyword">of</span>&nbsp;position&nbsp;*&nbsp;int&nbsp;*&nbsp;int<br>
+</code></body></html>
