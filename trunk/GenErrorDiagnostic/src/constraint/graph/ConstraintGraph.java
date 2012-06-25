@@ -370,18 +370,18 @@ public class ConstraintGraph extends Graph {
 						// id = id id
 						if (shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestID[sIndex][tIndex]) {
 							shortestID[sIndex][tIndex] = shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex];
-//							idPath[sIndex][tIndex].clear();
-//							idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
-//							idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
+							idPath[sIndex][tIndex].clear();
+							idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
+							idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
 //							System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
 						}
 
 						// left := left id
 						if (shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex]) {
 							shortestLeft[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex];
-//							leftPath[sIndex][tIndex].clear();
-//							leftPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
-//							leftPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
+							leftPath[sIndex][tIndex].clear();
+							leftPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
+							leftPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
 							leftCondition[sIndex][tIndex] = leftCondition[sIndex][fIndex];
 //							System.out.println(start+"-left-"+from+"-id-"+to+" implies "+start+"-left-"+to);
 						}
@@ -393,9 +393,9 @@ public class ConstraintGraph extends Graph {
 								RightEdge e = getRightEdge(from, to);
 								if (leftCondition[sIndex][fIndex].matches(e.cons)) {
 									shortestID[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + 1;
-//									idPath[sIndex][tIndex].clear();
-//									idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
-//									idPath[sIndex][tIndex].add(e);
+									idPath[sIndex][tIndex].clear();
+									idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
+									idPath[sIndex][tIndex].add(e);
 //									System.out.println(start + "-left-" + from + "-right-" + to + " implies " + start + "-id-" + to);
 								}
 							}
