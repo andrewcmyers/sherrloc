@@ -135,7 +135,7 @@ class ConstraintPath {
     		return (getFirst().equals(getLast()));
     }
     
-	public String toString(Graph graph) {
+	public String toString( ) {
 		// boolean detail = shouldReport(detailedMessage);
 		boolean detail = false;
 		String ret = "";

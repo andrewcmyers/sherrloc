@@ -76,6 +76,15 @@ public abstract class Graph {
     	return null;
     }
     
+    protected RightEdge getRightEdge (Node from, Node to) {
+    	List<ReductionEdge> edges = getReductionEdges(from, to);
+    	for (Edge edge : edges) {
+    		if (edge instanceof RightEdge)
+    			return ((RightEdge)edge);
+    	}
+    	return null;
+    }
+    
     public boolean hasEdge (Node from, Node to) {
     	return edges.get(from).containsKey(to);
     }

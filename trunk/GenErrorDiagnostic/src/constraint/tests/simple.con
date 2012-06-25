@@ -1,0 +1,11 @@
+/* a very simple test case
+*/
+
+CONSTRACTOR char 0
+CONSTRACTOR int 0
+
+c = d;
+f = char;
+h = int;
+c = f -> g;
+d = h -> a;
