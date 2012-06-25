@@ -11,7 +11,7 @@ import constraint.parse.parser;
 public class Analysis {
 	public static void main(String[] args) {
 		try {
-		    parser p = new parser(new GrmLexer(new FileReader("src/constraint/tests/test2.con")));
+		    parser p = new parser(new GrmLexer(new FileReader("src/constraint/tests/test5.con")));
 		    List<Equation> result = (List<Equation>) p.parse().value;
 		    for (Equation e: result) {
 		    	System.out.println( e.toString());

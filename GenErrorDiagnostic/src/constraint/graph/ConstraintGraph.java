@@ -31,8 +31,11 @@ public class ConstraintGraph extends Graph {
     List<ConstraintPath> errorPaths;
     boolean SHOW_WHOLE_GRAPH=false;
     boolean SYMMENTRIC = true;
+	int MAX = 10000;
 	List[][] idPath;
 	List[][] leftPath;
+	int[][] shortestID;
+	int[][] shortestLeft;
 
     public ConstraintGraph (List<Equation> equations) {
         this.equations = equations;
@@ -294,6 +297,12 @@ public class ConstraintGraph extends Graph {
 		
 		// first, add all equation edges as constructor edge "id", constructor edge as left or right edge
 		List<Edge> edges = getAllEdges();
+		boolean[][] hasRightEdge = new boolean[size][size];
+		for (Node start : allNodes) {
+			for (Node end : allNodes) {
+				hasRightEdge[getIndex(start)][getIndex(end)] = false;
+			}
+		}
 		System.out.println(edges.size()+" edges in graph");
 
 		// generate the initial CFG graph
@@ -307,6 +316,7 @@ public class ConstraintGraph extends Graph {
 				ConstructorEdge e = (ConstructorEdge) edge;
 				if (e.getCondition().isReverse()) {
 					addReductionEdge(e.from, e.to, new RightEdge(e.getCondition(), e.from, e.to, list));
+					hasRightEdge[getIndex(e.from)][getIndex(e.to)] = true;
 				}
 				else {
 					addReductionEdge(e.from, e.to, new LeftEdge (e.getCondition(), e.from, e.to, list));
@@ -315,16 +325,17 @@ public class ConstraintGraph extends Graph {
 		}
 		
 		List<Edge> alledges = getAllReductionEdges();
-		int[][] shortestID = new int[size][size];
-		int[][] shortestLeft = new int[size][size];
+		shortestID = new int[size][size];
+		shortestLeft = new int[size][size];
+		EdgeCondition[][] leftCondition = new EdgeCondition[size][size];
 		
 		// Step 1: initialize graph, fix 10000 later
 		for (Node start : allNodes) {
 			for (Node end : allNodes) {
 				idPath[getIndex(start)][getIndex(end)] = new ArrayList<Edge>();
 				leftPath[getIndex(start)][getIndex(end)] = new ArrayList<Edge>();
-				shortestID[getIndex(start)][getIndex(end)] = 10000;
-				shortestLeft[getIndex(start)][getIndex(end)] = 10000;
+				shortestID[getIndex(start)][getIndex(end)] = MAX;
+				shortestLeft[getIndex(start)][getIndex(end)] = MAX;
 			}
 		}
 		
@@ -341,48 +352,56 @@ public class ConstraintGraph extends Graph {
 			if (e instanceof LeftEdge) {
 				shortestLeft[getIndex(e.from)][getIndex(e.to)] = 1;
 				leftPath[getIndex(e.from)][getIndex(e.to)].add(e);
+				leftCondition[getIndex(e.from)][getIndex(e.to)] = ((LeftEdge)e).cons;
 			}
 		}
 
 		// Step 2: relax edges repeatedly
-		for (int i = 1; i <= allNodes.size(); i++) {
-			for (Node start : allNodes) {
-				for (Edge e : alledges) {
-					Node from = e.from;
-					Node to = e.to;
+		int counter = 0;
+		for (Node start : allNodes) {
+			System.out.println(++counter);
+			for (int i = 1; i <= 50; i++) {  // TODO: fix me
+				for (Node to : allNodes) {
+					for (Node from : allNodes) {
+						int sIndex = getIndex(start);
+						int fIndex = getIndex(from);
+						int tIndex = getIndex(to);
 
-					if (e instanceof IdEdge) {
 						// id = id id
-						if (shortestID[getIndex(start)][getIndex(from)] + 1 < shortestID[getIndex(start)][getIndex(to)]) {
-							shortestID[getIndex(start)][getIndex(to)] = shortestID[getIndex(start)][getIndex(from)] + 1;
-							idPath[getIndex(start)][getIndex(to)].clear();
-							idPath[getIndex(start)][getIndex(to)]
-									.addAll(idPath[getIndex(start)][getIndex(from)]);
-							idPath[getIndex(start)][getIndex(to)].add(e);
-							System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
+						if (shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestID[sIndex][tIndex]) {
+							shortestID[sIndex][tIndex] = shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex];
+//							idPath[sIndex][tIndex].clear();
+//							idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
+//							idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
+//							System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
 						}
 
 						// left := left id
-						if (shortestLeft[getIndex(start)][getIndex(from)] + 1 < shortestLeft[getIndex(start)][getIndex(to)]) {
-							shortestLeft[getIndex(start)][getIndex(to)] = shortestLeft[getIndex(start)][getIndex(from)] + 1;
-							leftPath[getIndex(start)][getIndex(to)].clear();
-							leftPath[getIndex(start)][getIndex(to)]
-									.addAll(leftPath[getIndex(start)][getIndex(from)]);
-							leftPath[getIndex(start)][getIndex(to)].add(e);
-							System.out.println(start+"-left-"+from+"-id-"+to+" implies "+start+"-left-"+to);
+						if (shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex]) {
+							shortestLeft[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex];
+//							leftPath[sIndex][tIndex].clear();
+//							leftPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
+//							leftPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
+							leftCondition[sIndex][tIndex] = leftCondition[sIndex][fIndex];
+//							System.out.println(start+"-left-"+from+"-id-"+to+" implies "+start+"-left-"+to);
 						}
-					} else if (e instanceof RightEdge) {
+					
 						// id = left right
-						if (shortestLeft[getIndex(start)][getIndex(from)] + 1 < shortestID[getIndex(start)][getIndex(to)]) {
-							shortestID[getIndex(start)][getIndex(to)] = shortestLeft[getIndex(start)][getIndex(from)] + 1;
-							idPath[getIndex(start)][getIndex(to)].clear();
-							idPath[getIndex(start)][getIndex(to)]
-									.addAll(leftPath[getIndex(start)][getIndex(from)]);
-							idPath[getIndex(start)][getIndex(to)].add(e);
-							System.out.println(start+"-left-"+from+"-right-"+to+" implies "+start+"-id-"+to);
+						if (hasRightEdge[fIndex][tIndex]) {
+							if (shortestLeft[sIndex][fIndex] + 1 < shortestID[sIndex][tIndex]) {
+								// first check that left and right edges can be cancelled
+								RightEdge e = getRightEdge(from, to);
+								if (leftCondition[sIndex][fIndex].matches(e.cons)) {
+									shortestID[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + 1;
+//									idPath[sIndex][tIndex].clear();
+//									idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
+//									idPath[sIndex][tIndex].add(e);
+//									System.out.println(start + "-left-" + from + "-right-" + to + " implies " + start + "-id-" + to);
+								}
+							}
 						}
 					}
-					// do we need to handle the case when the edges is the left
+					
 					// part of reduction rules?
 				}
 			}
@@ -521,10 +540,10 @@ public class ConstraintGraph extends Graph {
 			for (ElementNode end : endNodes) {
 				if (start.e.equals(end.e))
 					continue;
-				if ( idPath[getIndex(start)][getIndex(end)].size()!=0 && SYMMENTRIC && (getIndex(start) < getIndex(end))) {
+				if ( shortestID[getIndex(start)][getIndex(end)]!=MAX && SYMMENTRIC && (getIndex(start) < getIndex(end))) {
 					System.out.println("reporting path between "+start+" "+end);
 					ConstraintPath path = new ConstraintPath(idPath[getIndex(start)][getIndex(end)]);
-					System.out.println(path.toString(this));
+					System.out.println(path.toString());
 					path.increaseTotal();
 					errorPaths.add(path);
 				}
