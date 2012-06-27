@@ -5,7 +5,7 @@ import java.util.List;
 
 /* a special edge corresponds to nonterminal left */
 public class LeftEdge extends ReductionEdge {
-	EdgeCondition cons;
+	public EdgeCondition cons;
 	
 	public LeftEdge(EdgeCondition cons, Node from, Node to, List<Edge> edges) {
 		super(from, to, edges);
