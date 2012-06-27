@@ -1,6 +1,5 @@
 package constraint.graph;
 
-import java.util.List;
 import java.util.Map;
 
 import constraint.ast.Element;
