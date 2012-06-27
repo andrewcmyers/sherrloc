@@ -67,24 +67,24 @@ public class ElementNode extends Node {
         return ret;
     }
 
-	public String printReductionLinkToDotString() {
-		String ret = "";
-		Map<Node, List<ReductionEdge>> neighbors = g.getReductionNeighbors(this);
-		for (Node node : neighbors.keySet()) {
-			ElementNode n = (ElementNode) node;
-			for (Edge edge : neighbors.get(n)) {
-				if (n.shouldprint) {
-					if (edge.isDirected())
-						ret += this.uid + "->" + n.uid + " [label=\""
-								+ edge.toDotString() + "\"];\n";
-					else if (g.getIndex(this) < g.getIndex(n))
-						ret += this.uid + "->" + n.uid + " [dir=both label=\""
-								+ edge.toDotString() + "\"];\n";
-				}
-			}
-		}
-		return ret;
-	}
+//	public String printReductionLinkToDotString() {
+//		String ret = "";
+//		Map<Node, List<ReductionEdge>> neighbors = g.getReductionNeighbors(this);
+//		for (Node node : neighbors.keySet()) {
+//			ElementNode n = (ElementNode) node;
+//			for (Edge edge : neighbors.get(n)) {
+//				if (n.shouldprint) {
+//					if (edge.isDirected())
+//						ret += this.uid + "->" + n.uid + " [label=\""
+//								+ edge.toDotString() + "\"];\n";
+//					else if (g.getIndex(this) < g.getIndex(n))
+//						ret += this.uid + "->" + n.uid + " [dir=both label=\""
+//								+ edge.toDotString() + "\"];\n";
+//				}
+//			}
+//		}
+//		return ret;
+//	}
     
     // get the position of current node and out links that links to printable nodes
 //    public Set<Integer> getPositions () {

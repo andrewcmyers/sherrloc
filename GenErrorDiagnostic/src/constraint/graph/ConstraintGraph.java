@@ -19,6 +19,9 @@ import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.Equation;
 import constraint.ast.Relation;
+import constraint.graph.pathfinder.ExistancePathFinder;
+import constraint.graph.pathfinder.PathFinder;
+import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.graph.visitor.SlicingVisitor;
 import constraint.graph.visitor.ToDotVisitor;
 
@@ -31,11 +34,6 @@ public class ConstraintGraph extends Graph {
     List<ConstraintPath> errorPaths;
     boolean SHOW_WHOLE_GRAPH=false;
     boolean SYMMENTRIC = true;
-	int MAX = 10000;
-	List[][] idPath;
-	List[][] leftPath;
-	int[][] shortestID;
-	int[][] shortestLeft;
 
     public ConstraintGraph (List<Equation> equations) {
         this.equations = equations;
@@ -217,7 +215,6 @@ public class ConstraintGraph extends Graph {
         }
         System.out.println("Total nodes after static: " + eleToNode.size());
         generated = true;
-        saturation();
         genErrorPaths();
     }
     
@@ -271,251 +268,7 @@ public class ConstraintGraph extends Graph {
     public void slicing () {
         List<Node> visited = new ArrayList<Node>();
         acceptForward(new SlicingVisitor(), visited);
-    }
-       
-    /**
-     * This algorithm follows the CFL-Reachablity algorithm described in paper
-     * interconvertibility of set constraints and context-free language reachability
-     * by David Melski and Thomas Reps
-     * The complexity is O (|\Sigma|^3 n^3), where \Sigma is grammar size, n is # of nodes
-     * 
-     * Here is the grammar we use:
-     * id := left right | id id
-     * left := left id
-     * In order to find the (shortest) reduction path for error diagnostic, we use the
-     * dynamic programming algorithm proposed by CHRIS BARRETT, RIKO JACOB, AND MADHAV MARATHE
-     * The idea is that we are interested in the shortest path from two nodes, that can be
-     * derived from the nonterminal "id" in grammar
-     */
-	public void saturation() {
-		// a working list of all edges
-		List<Edge> workingList = new ArrayList<Edge>();
-		
-		int size = allNodes.size();
-		idPath = new List[size][size];
-		leftPath = new List[size][size];
-		
-		// first, add all equation edges as constructor edge "id", constructor edge as left or right edge
-		List<Edge> edges = getAllEdges();
-		boolean[][] hasRightEdge = new boolean[size][size];
-		for (Node start : allNodes) {
-			for (Node end : allNodes) {
-				hasRightEdge[getIndex(start)][getIndex(end)] = false;
-			}
-		}
-		System.out.println(edges.size()+" edges in graph");
-
-		// generate the initial CFG graph
-		for (Edge edge : edges) {
-			List<Edge> list = new ArrayList<Edge>();
-			list.add(edge);
-			if (edge instanceof EquationEdge) {
-				addReductionEdge(edge.from, edge.to, new IdEdge(edge.from, edge.to, list));
-			}
-			else if (edge instanceof ConstructorEdge) {
-				ConstructorEdge e = (ConstructorEdge) edge;
-				if (e.getCondition().isReverse()) {
-					addReductionEdge(e.from, e.to, new RightEdge(e.getCondition(), e.from, e.to, list));
-					hasRightEdge[getIndex(e.from)][getIndex(e.to)] = true;
-				}
-				else {
-					addReductionEdge(e.from, e.to, new LeftEdge (e.getCondition(), e.from, e.to, list));
-				}
-			}
-		}
-		
-		List<Edge> alledges = getAllReductionEdges();
-		shortestID = new int[size][size];
-		shortestLeft = new int[size][size];
-		EdgeCondition[][] leftCondition = new EdgeCondition[size][size];
-		
-		// Step 1: initialize graph, fix 10000 later
-		for (Node start : allNodes) {
-			for (Node end : allNodes) {
-				idPath[getIndex(start)][getIndex(end)] = new ArrayList<Edge>();
-				leftPath[getIndex(start)][getIndex(end)] = new ArrayList<Edge>();
-				shortestID[getIndex(start)][getIndex(end)] = MAX;
-				shortestLeft[getIndex(start)][getIndex(end)] = MAX;
-			}
-		}
-		
-		for (Node n : allNodes) {
-			shortestID[getIndex(n)][getIndex(n)] = 0;
-		}
-		
-		for (Edge e : alledges) {
-			if (e instanceof IdEdge) {
-				shortestID[getIndex(e.from)][getIndex(e.to)] = 1;
-				idPath[getIndex(e.from)][getIndex(e.to)].add(e);
-			}
-			
-			if (e instanceof LeftEdge) {
-				shortestLeft[getIndex(e.from)][getIndex(e.to)] = 1;
-				leftPath[getIndex(e.from)][getIndex(e.to)].add(e);
-				leftCondition[getIndex(e.from)][getIndex(e.to)] = ((LeftEdge)e).cons;
-			}
-		}
-
-		// Step 2: relax edges repeatedly
-		int counter = 0;
-		for (Node start : allNodes) {
-			System.out.println(++counter);
-			for (int i = 1; i <= 50; i++) {  // TODO: fix me
-				for (Node to : allNodes) {
-					for (Node from : allNodes) {
-						int sIndex = getIndex(start);
-						int fIndex = getIndex(from);
-						int tIndex = getIndex(to);
-
-						// id = id id
-						if (shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestID[sIndex][tIndex]) {
-							shortestID[sIndex][tIndex] = shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex];
-							idPath[sIndex][tIndex].clear();
-							idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
-							idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
-//							System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
-						}
-
-						// left := left id
-						if (shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex]) {
-							shortestLeft[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex];
-							leftPath[sIndex][tIndex].clear();
-							leftPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
-							leftPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
-							leftCondition[sIndex][tIndex] = leftCondition[sIndex][fIndex];
-//							System.out.println(start+"-left-"+from+"-id-"+to+" implies "+start+"-left-"+to);
-						}
-					
-						// id = left right
-						if (hasRightEdge[fIndex][tIndex]) {
-							if (shortestLeft[sIndex][fIndex] + 1 < shortestID[sIndex][tIndex]) {
-								// first check that left and right edges can be cancelled
-								RightEdge e = getRightEdge(from, to);
-								if (leftCondition[sIndex][fIndex].matches(e.cons)) {
-									shortestID[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + 1;
-									idPath[sIndex][tIndex].clear();
-									idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
-									idPath[sIndex][tIndex].add(e);
-//									System.out.println(start + "-left-" + from + "-right-" + to + " implies " + start + "-id-" + to);
-								}
-							}
-						}
-					}
-					
-					// part of reduction rules?
-				}
-			}
-		}
-	}
-		
-//		workingList.addAll(getAllReductionEdges());
-//		
-//		System.out.println(workingList.size()+" edges in total to handle");
-//		
-//		while (workingList.size() != 0) {
-//			Edge currentedge = workingList.get(0);
-//			workingList.remove(0);
-//
-//			// first, look for production of the form A := B. Skip since no
-//			// production is of this form
-//
-//			// Suppose the current reduction edge has form B<i,j>, look for
-//			// productions with form A := B C
-//			// for C<j,k> add edge A<i,j>
-//			List<ReductionEdge> toAdd = new ArrayList<ReductionEdge>();
-//			
-//			for (Node to : allNodes) {
-//				if (!currentedge.from.equals(to)) {
-//					Node from = currentedge.from;
-//					for (Edge e : getReductionEdges(currentedge.to, to)) {
-//						ReductionEdge newedge = null;
-//						
-//						// id := id id
-//						if (currentedge instanceof IdEdge
-//								&& e instanceof IdEdge) {
-//							List<Edge> list = new ArrayList<Edge>();
-//							list.addAll(((IdEdge)currentedge).edges);
-//							list.addAll(((IdEdge)e).edges);
-//							newedge = new IdEdge(from, to, list);
-//						}
-//						
-//						// id := left right
-//						else if (currentedge instanceof LeftEdge && e instanceof RightEdge
-//								&& ((LeftEdge)currentedge).cons.matches(((RightEdge)e).cons)) {
-//							List<Edge> list = new ArrayList<Edge>();
-//							list.addAll(((LeftEdge)currentedge).edges);
-//							list.addAll(((RightEdge)e).edges);
-//							newedge = new IdEdge(from, to, list);
-//						}
-//						
-//						// left := left id
-//						else if (currentedge instanceof LeftEdge
-//								&& e instanceof IdEdge) {
-//							List<Edge> list = new ArrayList<Edge>();
-//							list.addAll(((LeftEdge)currentedge).edges);
-//							list.addAll(((IdEdge)e).edges);
-//							newedge = new LeftEdge(
-//									((LeftEdge) currentedge).cons, from, to, list);
-//						}
-//
-//						if (newedge != null && !hasReductionEdge(newedge)) {
-//							toAdd.add(newedge);
-//						}
-//					}
-//				}
-//			}
-//				
-//			// Suppose the current reduction edge has form B<i,j>, look for
-//			// productions with form A := C B
-//			// for C<k,i> add edge A<k,j>
-////			for (Node from : allNodes) {
-////				if (!currentedge.to.equals(from)) {
-////					Node to = currentedge.to;
-////					for (Edge e : getReductionEdges(from, currentedge.from)) {
-////						ReductionEdge newedge = null;
-//////						System.out.println ("testing "+from+"->"+currentedge.from+"->"+currentedge.to);
-////						
-////						// id := id id
-////						if (e instanceof IdEdge
-////								&& currentedge instanceof IdEdge) {
-////							List<Edge> list = new ArrayList<Edge>();
-////							list.addAll(((IdEdge)e).edges);
-////							list.addAll(((IdEdge)currentedge).edges);
-////							newedge = new IdEdge(from, to, list);
-////						}
-////						
-////						// id := left right
-////						else if (e instanceof LeftEdge && currentedge instanceof RightEdge 
-////								&& ((LeftEdge)e).cons.matches(((RightEdge)currentedge).cons)) {
-////							List<Edge> list = new ArrayList<Edge>();
-////							list.addAll(((LeftEdge)e).edges);
-////							list.addAll(((RightEdge)currentedge).edges);
-////							newedge = new IdEdge(from, to, list);
-////						}
-////						
-////						// left := left id
-////						else if (e instanceof LeftEdge
-////								&& currentedge instanceof IdEdge) {
-////							List<Edge> list = new ArrayList<Edge>();
-////							list.addAll(((LeftEdge)e).edges);
-////							list.addAll(((IdEdge)currentedge).edges);
-////							newedge = new LeftEdge(
-////									((LeftEdge) e).cons, from, to, list);
-////						}
-////
-////						if (newedge != null && !hasReductionEdge(newedge)) {
-////							toAdd.add(newedge);
-////						}
-////					}
-////				}
-////			}
-////			
-////			
-////			for (ReductionEdge edge : toAdd) {
-////				addReductionEdge(edge.from, edge.to, edge);
-////				workingList.add(edge);	
-////			}
-//	}
+    }		
     
     public void genErrorPaths () {
         if (!generated) generateGraph();
@@ -536,13 +289,17 @@ public class ConstraintGraph extends Graph {
         System.out.println("Total end nodes before path generaton: " + endNodes.size());
         
 		System.out.println("Total nodes: " + startNodes.size() * endNodes.size());
+		PathFinder finder = new ExistancePathFinder(this);
+//		PathFinder finder = new ShortestPathFinder(this);
+		
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
 				if (start.e.equals(end.e))
 					continue;
-				if ( shortestID[getIndex(start)][getIndex(end)]!=MAX && SYMMENTRIC && (getIndex(start) < getIndex(end))) {
+				List<Edge> l = finder.getPath(start, end);
+				if ( l!=null && SYMMENTRIC && (getIndex(start) < getIndex(end))) {
 					System.out.println("reporting path between "+start+" "+end);
-					ConstraintPath path = new ConstraintPath(idPath[getIndex(start)][getIndex(end)]);
+					ConstraintPath path = new ConstraintPath(l);
 					System.out.println(path.toString());
 					path.increaseTotal();
 					errorPaths.add(path);

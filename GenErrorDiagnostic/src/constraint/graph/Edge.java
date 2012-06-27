@@ -1,7 +1,7 @@
 package constraint.graph;
 
 
-abstract class Edge implements Comparable<Edge>{
+abstract public class Edge implements Comparable<Edge>{
 	int count;
     boolean iscause = false;
     Node from;
