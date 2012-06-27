@@ -21,7 +21,6 @@ import constraint.ast.Equation;
 import constraint.ast.Relation;
 import constraint.graph.pathfinder.ExistancePathFinder;
 import constraint.graph.pathfinder.PathFinder;
-import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.graph.visitor.SlicingVisitor;
 import constraint.graph.visitor.ToDotVisitor;
 
@@ -152,7 +151,7 @@ public class ConstraintGraph extends Graph {
          * 2. flow from a meet label to components
          */
         // only need to handle nodes in the graph
-        List<ElementNode> workingList = new ArrayList(eleToNode.values());
+        List<ElementNode> workingList = new ArrayList<ElementNode>(eleToNode.values());
         Set<ElementNode> processed = new HashSet<ElementNode>();
         
         // we need to handle constructors
