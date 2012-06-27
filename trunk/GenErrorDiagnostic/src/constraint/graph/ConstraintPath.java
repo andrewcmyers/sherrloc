@@ -139,6 +139,8 @@ class ConstraintPath {
 		// boolean detail = shouldReport(detailedMessage);
 		boolean detail = false;
 		String ret = "";
+		
+		if (edges.size()==0) return "";
 
 		// System.out.println("Checking one equation in env: "+path.env);
 		ret += "\n----Start of one path----\n";
