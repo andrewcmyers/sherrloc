@@ -19,8 +19,8 @@ import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.Equation;
 import constraint.ast.Relation;
-import constraint.graph.pathfinder.ExistancePathFinder;
 import constraint.graph.pathfinder.PathFinder;
+import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.graph.visitor.SlicingVisitor;
 import constraint.graph.visitor.ToDotVisitor;
 
@@ -288,8 +288,8 @@ public class ConstraintGraph extends Graph {
         System.out.println("Total end nodes before path generaton: " + endNodes.size());
         
 		System.out.println("Total nodes: " + startNodes.size() * endNodes.size());
-		PathFinder finder = new ExistancePathFinder(this);
-//		PathFinder finder = new ShortestPathFinder(this);
+//		PathFinder finder = new ExistancePathFinder(this);
+		PathFinder finder = new ShortestPathFinder(this);
 		
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
@@ -299,12 +299,14 @@ public class ConstraintGraph extends Graph {
 				if ( l!=null && SYMMENTRIC && (getIndex(start) < getIndex(end))) {
 					System.out.println("reporting path between "+start+" "+end);
 					ConstraintPath path = new ConstraintPath(l);
-					System.out.println(path.toString());
+//					System.out.println(path.toString());
 					path.increaseTotal();
 					errorPaths.add(path);
 				}
 			}
 		}
+		
+		System.out.println("*** Found "+errorPaths.size() + " in total");
 	}
     
     void printRank () {
