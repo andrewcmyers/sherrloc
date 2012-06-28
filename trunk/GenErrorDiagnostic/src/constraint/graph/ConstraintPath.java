@@ -1,9 +1,8 @@
 package constraint.graph;
 
-import java.util.ArrayList;
 import java.util.List;
 
-class ConstraintPath {
+public class ConstraintPath {
     List<Edge> edges;
 //    LabelEnv env;
 //    LinkedHashMap<AccessPath, AccessPath> accesspath = new LinkedHashMap<AccessPath, AccessPath>();

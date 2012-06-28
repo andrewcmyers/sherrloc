@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import constraint.graph.visitor.DFSPathFinder;
+import constraint.graph.visitor.DFSPathVisitor;
 import constraint.graph.visitor.LabellingVisitor;
 import constraint.graph.visitor.NodeVisitor;
 
@@ -61,7 +61,7 @@ public abstract class Graph {
 //    }
     
     public List<Node> getPathDFS (Node start, Node end) {
-    	DFSPathFinder finder = new DFSPathFinder(end, false);
+    	DFSPathVisitor finder = new DFSPathVisitor(end, false);
         List<Node> visited = new ArrayList<Node>();
         acceptForward (start, finder, visited);
         return finder.getResults();

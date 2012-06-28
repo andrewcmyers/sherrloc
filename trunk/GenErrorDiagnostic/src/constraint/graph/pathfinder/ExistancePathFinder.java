@@ -78,7 +78,6 @@ public class ExistancePathFinder extends CFLPathFinder {
 			}
 			
 			// handle the case when current edge is on the left
-			
 			for (Node to : g.getAllNodes()) {
 				if (!currentedge.getFrom().equals(to)) {
 					Node from = currentedge.getFrom();
@@ -134,7 +133,7 @@ public class ExistancePathFinder extends CFLPathFinder {
 		if (getIdEdge(start, end)==null)
 			return null;
 		else
-			return new ArrayList<Edge>();
+			return getIdEdge(start,end).getEdges();
 	}
 
 }
