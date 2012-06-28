@@ -84,10 +84,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 
 		// Step 2: relax edges repeatedly
-		int counter = 0;
-		for (Node start : allNodes) {
-			System.out.println(++counter);
-			for (int i = 1; i <= 50; i++) {  // TODO: fix me
+		for (int i = 1; i <= 50; i++) {  // TODO: fix me
+			for (Node start : allNodes) {
 				for (Node to : allNodes) {
 					for (Node from : allNodes) {
 						int sIndex = g.getIndex(start);
