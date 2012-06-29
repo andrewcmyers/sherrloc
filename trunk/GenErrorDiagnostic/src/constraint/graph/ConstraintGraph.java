@@ -309,19 +309,12 @@ public class ConstraintGraph extends Graph {
 		System.out.println("*** Found "+errorPaths.size() + " in total");
 	}
     
-    void printRank () {
-    	Set<Edge> allEdges = new HashSet<Edge>();
-    	for (ConstraintPath path : errorPaths) {
-    		for (Edge e : path.edges) {
-    			allEdges.add(e);
-    		}
-    	}
-    	
-        Edge[] all = allEdges.toArray(new Edge[allEdges.size()]);
+    void printRank () {    	
+        Equation[] all = equations.toArray(new Equation[equations.size()]);
         Arrays.sort(all); 
-        for (Edge edge : all) {
-            if (edge.getCount()>0) 
-                System.out.println(edge.getRank() + ": " + edge.toString());
+        for (Equation equ : all) {
+            if (equ.getRank() >0) 
+                System.out.println(equ.getRank() + ": " + equ.toString());
         }
     }
     

@@ -54,4 +54,9 @@ public class EquationEdge extends Edge {
     public boolean isDirected() {
     	return false;
     }
+    
+    @Override
+    public void setCause() {
+    	equ.setCause();
+    }
 }

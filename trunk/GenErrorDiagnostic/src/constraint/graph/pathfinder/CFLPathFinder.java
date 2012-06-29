@@ -116,7 +116,6 @@ abstract public class CFLPathFinder extends PathFinder {
 	@Override
 	void initialize() {
 		
-		// first, add all equation edges as constructor edge "id", constructor edge as left or right edge
 		List<Edge> edges = g.getAllEdges();
 		for (Node start : g.getAllNodes()) {
 			for (Node end : g.getAllNodes()) {
@@ -132,6 +131,8 @@ abstract public class CFLPathFinder extends PathFinder {
 			Node to   = edge.getTo();
 			
 			list.add(edge);
+			
+			// add equation edge as "id" edge, constructor edge as left or right edge
 			if (edge instanceof EquationEdge) {
 				addReductionEdge(from, to, new IdEdge(from, to, list));
 			}
