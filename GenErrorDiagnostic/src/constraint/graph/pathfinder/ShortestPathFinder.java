@@ -106,7 +106,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
 						idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
 						queue.offer(new IdEdge(edge.getFrom(), to, idPath[sIndex][tIndex]));
-								System.out.println(edge.getFrom()+"-id-"+to);
+//								System.out.println(edge.getFrom()+"-id-"+to);
 					}
 				}
 	
@@ -132,7 +132,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
 							idPath[sIndex][tIndex].addAll(((RightEdge)e).getEdges());
 							queue.offer(new IdEdge(edge.getFrom(), to, idPath[sIndex][tIndex]));
-									System.out.println(edge.getFrom() + "-id-" + to);
+//									System.out.println(edge.getFrom() + "-id-" + to);
 						}
 					}
 				}
@@ -152,7 +152,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
 						idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
 						queue.offer(new IdEdge(from, edge.getTo(), idPath[sIndex][tIndex]));
-											System.out.println(from+"-id-"+edge.getTo());
+//											System.out.println(from+"-id-"+edge.getTo());
 					}
 	
 					// left := left id
@@ -177,7 +177,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
 							idPath[sIndex][tIndex].addAll(((RightEdge)edge).getEdges());
 							queue.offer(new IdEdge(from, edge.getTo(), idPath[sIndex][tIndex]));
-												System.out.println(from + "-id-" + edge.getTo());
+//												System.out.println(from + "-id-" + edge.getTo());
 						}
 					}
 				}
