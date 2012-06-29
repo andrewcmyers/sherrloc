@@ -25,4 +25,9 @@ public class MeetEdge extends Edge {
 	public boolean isDirected() {
 		return true;
 	}
+	
+	@Override
+	public void setCause() {
+		// do nothing
+	}
 }
