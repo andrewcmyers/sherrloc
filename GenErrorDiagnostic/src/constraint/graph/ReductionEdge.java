@@ -28,4 +28,12 @@ public class ReductionEdge extends Edge {
 	public List<Edge> getEdges() {
 		return edges;
 	}
+	
+	public int compareTo(Edge n) {
+		if (n instanceof ReductionEdge) {
+			return Double.compare(edges.size(), ((ReductionEdge) n).edges.size());
+		}
+		else
+			return super.compareTo(n);
+    }
 }
