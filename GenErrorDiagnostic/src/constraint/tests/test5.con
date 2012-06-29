@@ -3,6 +3,7 @@ CONSTRACTOR int 0
 CONSTRACTOR firsttype 3
 CONSTRACTOR secondtype 2
 
+b = a;@"line 20, characters 5-10"
 d = c;@"line 20, characters 11-12"
 d = e;@"line 21, characters 11-12"
 g = f;@"line 22, characters 13-14"

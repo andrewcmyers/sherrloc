@@ -5,11 +5,11 @@
 CONSTRACTOR char 0
 CONSTRACTOR int 0
 
-b = a;
-d = c;
-f = e;
-g = char;
-f = char;
-h = int;
-c = e -> g;
-d = h -> a;
+b = a;@"line 1, characters 4-6"
+d = c;@"line 1, characters 14-16"
+f = e;@"line 1, characters 17-18"
+g = char;@"line 1, characters 18-27"
+f = char;@"line 1, characters 26-27"
+c = e -> g;@"line 1, characters 17-27"
+d = h -> a;@"line 1, characters 31-33"
+h = int;@"line 1, characters 34-36"
