@@ -90,7 +90,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// use the priority queue as a working list, and update the table
 		while (!queue.isEmpty()) {
 			ReductionEdge edge = queue.poll();
-			List<ReductionEdge> toAdd  = new ArrayList<ReductionEdge>();
 			
 			// when edge is the left part of reduction
 			for (Node to : allNodes) {
@@ -106,8 +105,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 						idPath[sIndex][tIndex].clear();
 						idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
 						idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
-						toAdd.add(new IdEdge(edge.getFrom(), to, idPath[sIndex][tIndex]));
-	//							System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
+						queue.offer(new IdEdge(edge.getFrom(), to, idPath[sIndex][tIndex]));
+								System.out.println(edge.getFrom()+"-id-"+to);
 					}
 				}
 	
@@ -133,7 +132,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
 							idPath[sIndex][tIndex].addAll(((RightEdge)e).getEdges());
 							queue.offer(new IdEdge(edge.getFrom(), to, idPath[sIndex][tIndex]));
-//									System.out.println(start + "-left-" + from + "-right-" + to + " implies " + start + "-id-" + to);
+									System.out.println(edge.getFrom() + "-id-" + to);
 						}
 					}
 				}
@@ -153,7 +152,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
 						idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
 						queue.offer(new IdEdge(from, edge.getTo(), idPath[sIndex][tIndex]));
-	//										System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
+											System.out.println(from+"-id-"+edge.getTo());
 					}
 	
 					// left := left id
@@ -178,7 +177,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
 							idPath[sIndex][tIndex].addAll(((RightEdge)edge).getEdges());
 							queue.offer(new IdEdge(from, edge.getTo(), idPath[sIndex][tIndex]));
-//												System.out.println(start + "-left-" + from + "-right-" + to + " implies " + start + "-id-" + to);
+												System.out.println(from + "-id-" + edge.getTo());
 						}
 					}
 				}

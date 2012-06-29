@@ -29,4 +29,9 @@ public class ConstructorEdge extends Edge {
 	public boolean isDirected() {
 		return true;
 	}
+	
+	@Override
+	public void setCause() {
+		// do nothing, fix me later
+	}
 }

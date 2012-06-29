@@ -2,10 +2,11 @@ package constraint.ast;
 
 import java.util.List;
 
-public class Equation {	
+public class Equation implements Comparable<Equation> {	
 	Element e1, e2;
 	Relation r;
 	String info;
+	int count=0;
 	
 	public Equation(Element e1, Element e2, Relation r, String info) {
 		this.e1 = e1;
@@ -39,6 +40,20 @@ public class Equation {
 		List<Variable> ret = e1.getVars();
 		ret.addAll(e2.getVars());
 		return ret;
-	}	
+	}
 	
+	public void setCause () {
+		count ++;
+	}
+	
+	public double getRank () {
+    	return count;
+//        return ((double)count)/((double)totalcount);
+    }
+    
+    public int compareTo(Equation n) {
+        double rank1 = getRank();
+        double rank2 = n.getRank();
+        return Double.compare(rank2, rank1);
+    }
 }

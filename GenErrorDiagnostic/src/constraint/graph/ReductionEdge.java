@@ -5,7 +5,7 @@ import java.util.List;
 /*
  * Special edges used in CFL-reachability algorithm
  */
-public class ReductionEdge extends Edge {
+public class ReductionEdge extends Edge implements Comparable<ReductionEdge> {
 	List<Edge> edges;
 	
 	public ReductionEdge(Node from, Node to, List<Edge> edges) {
@@ -29,11 +29,12 @@ public class ReductionEdge extends Edge {
 		return edges;
 	}
 	
-	public int compareTo(Edge n) {
-		if (n instanceof ReductionEdge) {
-			return Double.compare(edges.size(), ((ReductionEdge) n).edges.size());
-		}
-		else
-			return super.compareTo(n);
-    }
+	public int compareTo(ReductionEdge n) {
+		return Double.compare(edges.size(), ((ReductionEdge) n).edges.size());
+	}
+	
+	@Override
+	public void setCause() {
+		// do nothing
+	}
 }
