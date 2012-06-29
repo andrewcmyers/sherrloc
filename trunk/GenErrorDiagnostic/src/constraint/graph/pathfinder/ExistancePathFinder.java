@@ -28,7 +28,7 @@ public class ExistancePathFinder extends CFLPathFinder {
 //		 Suppose the current reduction edge has form B<i,j>, look for
 //		 productions with form A := C B
 //		 for C<k,i> add edge A<k,j>
-		List<Edge> workingList = getAllReductionEdges();
+		List<ReductionEdge> workingList = getAllReductionEdges();
 		
 		while ( !workingList.isEmpty()) {
 			Edge currentedge = workingList.remove(0);

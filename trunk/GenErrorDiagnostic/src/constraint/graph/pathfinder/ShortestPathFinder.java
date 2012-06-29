@@ -2,6 +2,7 @@ package constraint.graph.pathfinder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import constraint.graph.Edge;
 import constraint.graph.EdgeCondition;
@@ -9,6 +10,7 @@ import constraint.graph.Graph;
 import constraint.graph.IdEdge;
 import constraint.graph.LeftEdge;
 import constraint.graph.Node;
+import constraint.graph.ReductionEdge;
 import constraint.graph.RightEdge;
 
 public class ShortestPathFinder extends CFLPathFinder {
@@ -44,7 +46,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		
 		List<Node> allNodes = g.getAllNodes();
 		int size = allNodes.size();
-		List<Edge> alledges = getAllReductionEdges();
+		List<ReductionEdge> alledges = getAllReductionEdges();
 		
 		shortestID = new int[size][size];
 		shortestLeft = new int[size][size];
@@ -73,61 +75,112 @@ public class ShortestPathFinder extends CFLPathFinder {
 			
 			if (e instanceof IdEdge) {
 				shortestID[fIndex][tIndex] = 1;
-				idPath[fIndex][tIndex].add(e);
+				idPath[fIndex][tIndex].addAll(((IdEdge) e).getEdges());
 			}
 			
 			if (e instanceof LeftEdge) {
 				shortestLeft[fIndex][tIndex] = 1;
-				leftPath[fIndex][tIndex].add(e);
+				leftPath[fIndex][tIndex].addAll(((LeftEdge) e).getEdges());
 				leftCondition[fIndex][tIndex] = ((LeftEdge)e).cons;
 			}
 		}
 
-		// Step 2: relax edges repeatedly
-		for (int i = 1; i <= 50; i++) {  // TODO: fix me
-			for (Node start : allNodes) {
-				for (Node to : allNodes) {
-					for (Node from : allNodes) {
-						int sIndex = g.getIndex(start);
-						int fIndex = g.getIndex(from);
-						int tIndex = g.getIndex(to);
+		PriorityQueue<ReductionEdge> queue = new PriorityQueue<ReductionEdge>(alledges);
+		
+		// use the priority queue as a working list, and update the table
+		while (!queue.isEmpty()) {
+			ReductionEdge edge = queue.poll();
+			List<ReductionEdge> toAdd  = new ArrayList<ReductionEdge>();
+			
+			// when edge is the left part of reduction
+			for (Node to : allNodes) {
+				int sIndex = g.getIndex(edge.getFrom());
+				int fIndex = g.getIndex(edge.getTo());
+				int tIndex = g.getIndex(to);
+				Node from = edge.getTo();
 
-						// id = id id
-						if (shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestID[sIndex][tIndex]) {
-							shortestID[sIndex][tIndex] = shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex];
+				// id = id id
+				if (edge instanceof IdEdge) {
+					if (shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestID[sIndex][tIndex]) {
+						shortestID[sIndex][tIndex] = shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex];
+						idPath[sIndex][tIndex].clear();
+						idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
+						idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
+						toAdd.add(new IdEdge(edge.getFrom(), to, idPath[sIndex][tIndex]));
+	//							System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
+					}
+				}
+	
+				else if (edge instanceof LeftEdge) {
+					// left := left id
+					if (shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex]) {
+						shortestLeft[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex];
+						leftPath[sIndex][tIndex].clear();
+						leftPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
+						leftPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
+						leftCondition[sIndex][tIndex] = leftCondition[sIndex][fIndex];
+						queue.offer(new LeftEdge(leftCondition[sIndex][tIndex], edge.getFrom(), to, leftPath[sIndex][tIndex]));
+	//							System.out.println(start+"-left-"+from+"-id-"+to+" implies "+start+"-left-"+to);
+					}
+			
+				// id = left right
+					else if (shortestLeft[sIndex][fIndex] + 1 < shortestID[sIndex][tIndex]) {
+						// first check that left and right edges can be cancelled
+						RightEdge e = getRightEdge(from, to);
+						if (e!=null && leftCondition[sIndex][fIndex].matches(e.cons)) {
+							shortestID[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + 1;
 							idPath[sIndex][tIndex].clear();
-							idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
-							idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
-//							System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
-						}
-
-						// left := left id
-						if (shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex]) {
-							shortestLeft[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex];
-							leftPath[sIndex][tIndex].clear();
-							leftPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
-							leftPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
-							leftCondition[sIndex][tIndex] = leftCondition[sIndex][fIndex];
-//							System.out.println(start+"-left-"+from+"-id-"+to+" implies "+start+"-left-"+to);
-						}
-					
-						// id = left right
-						if (hasRightEdge[fIndex][tIndex]) {
-							if (shortestLeft[sIndex][fIndex] + 1 < shortestID[sIndex][tIndex]) {
-								// first check that left and right edges can be cancelled
-								RightEdge e = getRightEdge(from, to);
-								if (leftCondition[sIndex][fIndex].matches(e.cons)) {
-									shortestID[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + 1;
-									idPath[sIndex][tIndex].clear();
-									idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
-									idPath[sIndex][tIndex].add(e);
+							idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
+							idPath[sIndex][tIndex].addAll(((RightEdge)e).getEdges());
+							queue.offer(new IdEdge(edge.getFrom(), to, idPath[sIndex][tIndex]));
 //									System.out.println(start + "-left-" + from + "-right-" + to + " implies " + start + "-id-" + to);
-								}
-							}
 						}
 					}
-					
-					// part of reduction rules?
+				}
+			}
+			
+			// when edge is right part of reduction
+			for (Node from : allNodes) {
+				int sIndex = g.getIndex(from);
+				int fIndex = g.getIndex(edge.getFrom());
+				int tIndex = g.getIndex(edge.getTo());
+
+				// id = id id
+				if (edge instanceof IdEdge) {
+					if (shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestID[sIndex][tIndex]) {
+						shortestID[sIndex][tIndex] = shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex];
+						idPath[sIndex][tIndex].clear();
+						idPath[sIndex][tIndex].addAll(idPath[sIndex][fIndex]);
+						idPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
+						queue.offer(new IdEdge(from, edge.getTo(), idPath[sIndex][tIndex]));
+	//										System.out.println(start+"-id-"+from+"-id-"+to+" implies "+start+"-id-"+to);
+					}
+	
+					// left := left id
+					if (shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex]) {
+						shortestLeft[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + shortestID[fIndex][tIndex];
+						leftPath[sIndex][tIndex].clear();
+						leftPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
+						leftPath[sIndex][tIndex].addAll(idPath[fIndex][tIndex]);
+						leftCondition[sIndex][tIndex] = leftCondition[sIndex][fIndex];
+						queue.offer(new LeftEdge(leftCondition[sIndex][tIndex], from, edge.getTo(), leftPath[sIndex][tIndex]));
+	//										System.out.println(start+"-left-"+from+"-id-"+to+" implies "+start+"-left-"+to);
+					}
+				}
+			
+				// id = left right
+				if (edge instanceof RightEdge) {
+					if (shortestLeft[sIndex][fIndex] + 1 < shortestID[sIndex][tIndex]) {
+						// first check that left and right edges can be cancelled
+						if (leftCondition[sIndex][fIndex].matches(((RightEdge)edge).cons)) {
+							shortestID[sIndex][tIndex] = shortestLeft[sIndex][fIndex] + 1;
+							idPath[sIndex][tIndex].clear();
+							idPath[sIndex][tIndex].addAll(leftPath[sIndex][fIndex]);
+							idPath[sIndex][tIndex].addAll(((RightEdge)edge).getEdges());
+							queue.offer(new IdEdge(from, edge.getTo(), idPath[sIndex][tIndex]));
+//												System.out.println(start + "-left-" + from + "-right-" + to + " implies " + start + "-id-" + to);
+						}
+					}
 				}
 			}
 		}

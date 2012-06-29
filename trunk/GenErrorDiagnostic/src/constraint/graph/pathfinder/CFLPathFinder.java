@@ -43,8 +43,8 @@ abstract public class CFLPathFinder extends PathFinder {
     	reductionEdges.get(from).get(to).add(edge);
     }
     
-    protected List<Edge> getAllReductionEdges ( ) {
-    	List<Edge> ret =  new ArrayList<Edge>();
+    protected List<ReductionEdge> getAllReductionEdges ( ) {
+    	List<ReductionEdge> ret =  new ArrayList<ReductionEdge>();
     	for (Node n : g.getAllNodes()) {
     		for (Node next : reductionEdges.get(n).keySet()) {
     			ret.addAll(reductionEdges.get(n).get(next));
