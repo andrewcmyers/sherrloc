@@ -299,8 +299,8 @@ public class ConstraintGraph extends Graph {
 				if ( l!=null && SYMMENTRIC && (getIndex(start) < getIndex(end))) {
 					System.out.println("reporting path between "+start+" "+end);
 					ConstraintPath path = new ConstraintPath(l);
-//					System.out.println(path.toString());
-					path.increaseTotal();
+					System.out.println(path.toString());
+//					path.increaseTotal();
 					errorPaths.add(path);
 				}
 			}
@@ -310,7 +310,13 @@ public class ConstraintGraph extends Graph {
 	}
     
     void printRank () {
-//    	List<Edge> allEdges = allEdges();
+    	Set<Edge> allEdges = new HashSet<Edge>();
+    	for (ConstraintPath path : errorPaths) {
+    		for (Edge e : path.edges) {
+    			allEdges.add(e);
+    		}
+    	}
+    	
         Edge[] all = allEdges.toArray(new Edge[allEdges.size()]);
         Arrays.sort(all); 
         for (Edge edge : all) {
