@@ -1,7 +1,7 @@
 /* This is a artifactual set of constraints to test the constructors
 */
-CONSTRACTOR list 1
-CONSTRACTOR int 0
+CONSTRUCTOR list 1
+CONSTRUCTOR int 0
 
 a = b;
 b = c;

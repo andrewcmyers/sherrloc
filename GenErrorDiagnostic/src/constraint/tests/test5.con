@@ -1,7 +1,7 @@
-CONSTRACTOR char 0
-CONSTRACTOR int 0
-CONSTRACTOR firsttype 3
-CONSTRACTOR secondtype 2
+CONSTRUCTOR char 0
+CONSTRUCTOR int 0
+CONSTRUCTOR firsttype 3
+CONSTRUCTOR secondtype 2
 
 b = a;@"line 20, characters 5-10"
 d = c;@"line 20, characters 11-12"

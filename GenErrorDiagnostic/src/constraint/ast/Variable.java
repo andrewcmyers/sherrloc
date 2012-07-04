@@ -18,10 +18,20 @@ public class Variable extends Element {
 		return true;
 	}
 	
-	public boolean equals(Object o) {
+	public boolean leq (Object o) {
 		if (o instanceof Variable) {
 			return this==o;
 		}
+		return false;
+	}
+	
+	@Override
+	public boolean isStart() {
+		return false;
+	}
+	
+	@Override
+	public boolean isEnd() {
 		return false;
 	}
 }
