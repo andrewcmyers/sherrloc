@@ -15,10 +15,14 @@ import java.util.Map;
 import java.util.Set;
 
 import constraint.ast.CompondElement;
-import constraint.ast.Constructor;
 import constraint.ast.Element;
+import constraint.ast.Environment;
 import constraint.ast.Equation;
+import constraint.ast.JoinElement;
+import constraint.ast.MeetElement;
 import constraint.ast.Relation;
+import constraint.calculus.DefaultOracle;
+import constraint.calculus.Oracle;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.graph.visitor.SlicingVisitor;
@@ -197,19 +201,28 @@ public class ConstraintGraph extends Graph {
 //                    addEdge(getNode(lbl), getNode(component), staticEdge);
 //                }
 //            }
-            if (e instanceof CompondElement) {
+            
+            if (e instanceof CompondElement){
             	CompondElement ce = (CompondElement) e;
             	compset = ce.getElements();
-              
+            	
             	int index=0;
-              for (Element element : compset) {
-                  ElementNode srcnode = getNode(element);
-                  index++;
-                  if (!processed.contains(element) && !workingList.contains(element))
-                      workingList.add(getNode(element));
-                  addEdge(srcnode, currentnode, new ConstructorEdge(new EdgeCondition(ce.getCons(), index, false), srcnode, currentnode));
-                  addEdge(currentnode, srcnode, new ConstructorEdge(new EdgeCondition(ce.getCons(), index, true), currentnode, srcnode));
-              }
+                for (Element element : compset) {
+                    ElementNode srcnode = getNode(element);
+                    index++;
+                    if (!processed.contains(element) && !workingList.contains(element))
+                        workingList.add(getNode(element));
+                    if (e instanceof MeetElement) {
+                    	addEdge(currentnode, srcnode, new MeetEdge(currentnode, srcnode));
+                    }
+                    else if (e instanceof JoinElement) {
+                    	addEdge(srcnode, currentnode, new JoinEdge(srcnode, currentnode));
+                    }
+                    else {
+                    	addEdge(srcnode, currentnode, new ConstructorEdge(new EdgeCondition(ce.getCons(), index, false), srcnode, currentnode));
+                    	addEdge(currentnode, srcnode, new ConstructorEdge(new EdgeCondition(ce.getCons(), index, true), currentnode, srcnode));
+                    }
+                }
             }
         }
         System.out.println("Total nodes after static: " + eleToNode.size());
@@ -274,14 +287,16 @@ public class ConstraintGraph extends Graph {
         // only the labels without varables can serve as end nodes
         ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
+        Oracle ora = new DefaultOracle();
+        Environment env = new Environment();
         
         System.out.println("Total nodes before path generaton: " + eleToNode.size());        
         
         for (Element element : eleToNode.keySet()) {
-            if (element instanceof Constructor || element instanceof CompondElement) {                    
+            if (element.isStart())                    
             	startNodes.add(eleToNode.get(element));
-				endNodes.add(eleToNode.get(element));
-            }
+			if (element.isEnd())
+            	endNodes.add(eleToNode.get(element));
         }
         
         System.out.println("Total start nodes before path generaton: " + startNodes.size());
@@ -293,10 +308,11 @@ public class ConstraintGraph extends Graph {
 		
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
-				if (start.e.equals(end.e))
+//				if (ora.leq(env, start.e, end.e))
+				if (start.e.leq(end.e))
 					continue;
 				List<Edge> l = finder.getPath(start, end);
-				if ( l!=null && SYMMENTRIC && (getIndex(start) < getIndex(end))) {
+				if ( l!=null && (!SYMMENTRIC || (getIndex(start) < getIndex(end)))) {
 					System.out.println("reporting path between "+start+" "+end);
 					ConstraintPath path = new ConstraintPath(l);
 					System.out.println(path.toString());
