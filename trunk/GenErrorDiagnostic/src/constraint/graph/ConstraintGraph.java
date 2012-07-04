@@ -36,13 +36,14 @@ public class ConstraintGraph extends Graph {
     List<Equation> equations;
     List<ConstraintPath> errorPaths;
     boolean SHOW_WHOLE_GRAPH=false;
-    boolean SYMMENTRIC = true;
+    boolean SYMMENTRIC;
 
-    public ConstraintGraph (List<Equation> equations) {
+    public ConstraintGraph (List<Equation> equations, boolean symmentric) {
         this.equations = equations;
         generated = false;
         files = new HashSet<String>();
         this.errorPaths = new ArrayList<ConstraintPath>();
+        this.SYMMENTRIC = symmentric;
     }
     
     Set<String> files;                                          // source codes involved
@@ -309,7 +310,7 @@ public class ConstraintGraph extends Graph {
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
 //				if (ora.leq(env, start.e, end.e))
-				if (start.e.equals(end.e))
+				if (ora.leq(env, start.e, end.e))
 					continue;
 				List<Edge> l = finder.getPath(start, end);
 				if ( l!=null && (!SYMMENTRIC || (getIndex(start) < getIndex(end)))) {
@@ -324,6 +325,11 @@ public class ConstraintGraph extends Graph {
 		
 		System.out.println("*** Found "+errorPaths.size() + " in total");
 	}
+    
+    public int getPathNumber () {
+    	if (!generated) generateGraph();
+    	return errorPaths.size();
+    }
     
     void printRank () {    	
         Equation[] all = equations.toArray(new Equation[equations.size()]);
