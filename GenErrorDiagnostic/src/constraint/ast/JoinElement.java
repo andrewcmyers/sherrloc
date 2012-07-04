@@ -23,7 +23,7 @@ public class JoinElement extends CompondElement {
 	}
 
 	@Override
-	public boolean leq(Object o) {
+	public boolean equals (Object o) {
 		if (this == o)
 			return true;
 		

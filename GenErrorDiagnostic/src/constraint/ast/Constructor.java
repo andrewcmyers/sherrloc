@@ -35,7 +35,7 @@ public class Constructor extends Element {
 		return false;
 	}
 	
-	public boolean leq (Object o) {
+	public boolean equals(Object o) {
 		if (o instanceof Constructor) {
 			return this==o;
 		}
@@ -43,12 +43,13 @@ public class Constructor extends Element {
 	}
 	
 	@Override
-	public boolean isEnd() {
+	public boolean isStart() {
 		return true;
 	}
 	
 	@Override
-	public boolean isStart() {
+	public boolean isEnd() {
 		return true;
 	}
+	
 }

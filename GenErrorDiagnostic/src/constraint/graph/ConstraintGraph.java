@@ -309,7 +309,7 @@ public class ConstraintGraph extends Graph {
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
 //				if (ora.leq(env, start.e, end.e))
-				if (start.e.leq(end.e))
+				if (start.e.equals(end.e))
 					continue;
 				List<Edge> l = finder.getPath(start, end);
 				if ( l!=null && (!SYMMENTRIC || (getIndex(start) < getIndex(end)))) {

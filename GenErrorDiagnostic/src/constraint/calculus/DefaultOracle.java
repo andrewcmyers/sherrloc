@@ -19,6 +19,6 @@ public class DefaultOracle implements Oracle {
 			return true;
 		if (e1 instanceof MeetElement && ((MeetElement)e1).getElements().contains(e2))
 			return true;
-		return e1.leq(e2);
+		return e1.equals(e2);
 	}
 }
