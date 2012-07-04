@@ -27,5 +27,9 @@ public abstract class Element {
 	
 	abstract public boolean hasVars ();
 	
-	abstract public boolean equals (Object o);
+	abstract public boolean leq (Object o);
+	
+	abstract public boolean isStart ();
+	
+	abstract public boolean isEnd ();
 }

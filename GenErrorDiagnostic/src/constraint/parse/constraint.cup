@@ -10,6 +10,8 @@ import java_cup.runtime.*;
 import constraint.ast.CompondElement;
 import constraint.ast.Constructor;
 import constraint.ast.Element;
+import constraint.ast.MeetElement;
+import constraint.ast.JoinElement;
 import constraint.ast.Equation;
 import constraint.ast.Relation;
 import constraint.ast.Variable;
@@ -20,8 +22,8 @@ action code {:
 			:};
 						
 /* Terminals (tokens returned by the scanner). */
-terminal            CONSTRACTOR;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, STAR, AT;
+terminal            CONSTRUCTOR;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, STAR, AT, JOIN, MEET;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
@@ -35,19 +37,23 @@ non terminal Integer			arity;
 non terminal List<Element>		element_list;
 
 /* Precedences */
-precedence right ARROW;
+precedence right ARROW, MEET, JOIN;
 precedence left  STAR;
 
 /* The grammar */
 cons_spec 	::=  constructors 	{: 
 									constructors.put("arrow", new Constructor("arrow", 2));
-									constructors.put("pair",  new Constructor("pair", 2)); 
+									constructors.put("pair",  new Constructor("pair", 2));
+									constructors.put("join",  new Constructor("join", 2));
+									constructors.put("meet",  new Constructor("meet", 2)); 
 								:} 
 				 equations:l
 			{: RESULT = l; :}			
 			| {: 
 					constructors.put("arrow", new Constructor("arrow", 2));
 					constructors.put("pair",  new Constructor("pair", 2)); 
+					constructors.put("join",  new Constructor("join", 2));
+					constructors.put("meet",  new Constructor("meet", 2));
 			  :} 
 			equations:l
 			{: RESULT = l; :}
@@ -56,7 +62,7 @@ cons_spec 	::=  constructors 	{:
 constructors ::= constructors constructor
 			| constructor;
 			
-constructor  ::= CONSTRACTOR id:s arity:a
+constructor  ::= CONSTRUCTOR id:s arity:a
 			{: constructors.put( s, new Constructor(s, a)); :}
 			;
 
@@ -101,9 +107,23 @@ term     	::=  term:t1 ARROW term:t2
 				l.add(t2);  
 				RESULT = new CompondElement ("", constructors.get("pair"), l); 
 			:}
+			| term:t1 JOIN term:t2
+			{: 	
+				List<Element> l = new ArrayList<Element>();
+				l.add(t1);
+				l.add(t2);  
+				RESULT = new JoinElement ("", constructors.get("join"), l); 
+			:}
+			| term:t1 MEET term:t2
+			{: 	
+				List<Element> l = new ArrayList<Element>();
+				l.add(t1);
+				l.add(t2);  
+				RESULT = new MeetElement ("", constructors.get("meet"), l); 
+			:}
 			| cons:cons element_list:l
 			{: 	Constructor c = (Constructor) cons;
-				if (c.getArity() != l.size()) throw new Error("Constractor takes wrong number of parameters: "+
+				if (c.getArity() != l.size()) throw new Error("Constructor takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
 			    RESULT = new CompondElement ("", c, l); 
 			:}

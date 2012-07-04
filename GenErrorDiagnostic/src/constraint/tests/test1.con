@@ -2,8 +2,8 @@
    let v1 = (let id x:char = x in id 10)
 */
 
-CONSTRACTOR char 0
-CONSTRACTOR int 0
+CONSTRUCTOR char 0
+CONSTRUCTOR int 0
 
 b = a;@"line 1, characters 4-6"
 d = c;@"line 1, characters 14-16"
