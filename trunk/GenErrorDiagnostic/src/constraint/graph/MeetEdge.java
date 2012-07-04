@@ -5,9 +5,8 @@ package constraint.graph;
  * The singlton design patten is used to save memory consumption
  */
 public class MeetEdge extends Edge {
-	private static MeetEdge edge=null;
 	
-	private MeetEdge(Node from, Node to) {
+	public MeetEdge(Node from, Node to) {
 		super(from, to);
 	}
 		

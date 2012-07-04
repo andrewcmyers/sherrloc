@@ -35,11 +35,20 @@ public class Constructor extends Element {
 		return false;
 	}
 	
-	public boolean equals(Object o) {
+	public boolean leq (Object o) {
 		if (o instanceof Constructor) {
 			return this==o;
 		}
 		return false;
 	}
 	
+	@Override
+	public boolean isEnd() {
+		return true;
+	}
+	
+	@Override
+	public boolean isStart() {
+		return true;
+	}
 }

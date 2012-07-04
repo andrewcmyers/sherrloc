@@ -5,9 +5,8 @@ package constraint.graph;
  * The singlton design patten is used to save memory consumption
  */
 public class JoinEdge extends Edge {
-	private static JoinEdge edge=null;
 	
-	private JoinEdge(Node from, Node to) {
+	public JoinEdge(Node from, Node to) {
 		super(from, to);
 	}
 	

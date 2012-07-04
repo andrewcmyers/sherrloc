@@ -12,9 +12,9 @@
       in map (\x. 1) Nil (* should be map Nil (\x. 1) *)
   	)
 */
-CONSTRACTOR char 0
-CONSTRACTOR int 0
-CONSTRACTOR list 1
+CONSTRUCTOR char 0
+CONSTRUCTOR int 0
+CONSTRUCTOR list 1
 
 b = a;@"line 4, characters 4-5"
 d = c;@"line 5, characters 14-15"

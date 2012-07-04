@@ -1,8 +1,8 @@
 /* a very simple test case
 */
 
-CONSTRACTOR char 0
-CONSTRACTOR int 0
+CONSTRUCTOR char 0
+CONSTRUCTOR int 0
 
 c = d;
 f = char;
