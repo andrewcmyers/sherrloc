@@ -10,7 +10,9 @@ import constraint.graph.Edge;
 import constraint.graph.EquationEdge;
 import constraint.graph.Graph;
 import constraint.graph.IdEdge;
+import constraint.graph.JoinEdge;
 import constraint.graph.LeftEdge;
+import constraint.graph.MeetEdge;
 import constraint.graph.Node;
 import constraint.graph.ReductionEdge;
 import constraint.graph.RightEdge;
@@ -133,7 +135,7 @@ abstract public class CFLPathFinder extends PathFinder {
 			list.add(edge);
 			
 			// add equation edge as "id" edge, constructor edge as left or right edge
-			if (edge instanceof EquationEdge) {
+			if (edge instanceof EquationEdge || edge instanceof MeetEdge || edge instanceof JoinEdge) {
 				addReductionEdge(from, to, new IdEdge(from, to, list));
 			}
 			else if (edge instanceof ConstructorEdge) {
