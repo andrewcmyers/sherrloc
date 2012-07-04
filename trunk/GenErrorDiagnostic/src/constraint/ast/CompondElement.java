@@ -37,12 +37,13 @@ public class CompondElement extends Element {
 		return ret;
 	}
 	
-	protected String infixToString() {
+	public String infixToString () {
 		String symbol = cons.toString();
 		String ret = "";
+		// infix
 		ret += "("+elements.get(0).toString() + ")";
 		for (int j=1; j<elements.size(); j++)
-			ret += symbol + "(" + elements.get(j).toString() + ")";	
+			ret += symbol + "(" + elements.get(j).toString() + ")";
 		return ret;
 	}
 	
@@ -60,15 +61,12 @@ public class CompondElement extends Element {
 		return false;
 	}
 	
-	public boolean leq (Object o) {
-		if (this==o)
-			return true;
-		
+	public boolean equals(Object o) {
 		if (o instanceof CompondElement) {
 			CompondElement ce = (CompondElement)o;
-			if (cons.leq(ce.cons) && ce.getElements().size()==elements.size()) {
+			if (cons.equals(ce.cons) && ce.getElements().size()==elements.size()) {
 				for (int i=0; i<elements.size(); i++)
-					if (!elements.get(i).leq(ce.getElements().get(i))) 
+					if (!elements.get(i).equals(ce.getElements().get(i))) 
 						break;
 				return true;
 			}
@@ -84,12 +82,13 @@ public class CompondElement extends Element {
 		return ret;
 	}
 	
+	@Override
 	public boolean isStart() {
 		return true;
 	}
 	
+	@Override
 	public boolean isEnd() {
 		return true;
 	}
-	
 }

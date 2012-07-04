@@ -18,7 +18,7 @@ public class Variable extends Element {
 		return true;
 	}
 	
-	public boolean leq (Object o) {
+	public boolean equals(Object o) {
 		if (o instanceof Variable) {
 			return this==o;
 		}
