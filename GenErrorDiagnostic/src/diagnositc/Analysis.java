@@ -9,16 +9,24 @@ import constraint.parse.GrmLexer;
 import constraint.parse.parser;
 
 public class Analysis {
+	
 	public static void main(String[] args) {
 		try {
-		    parser p = new parser(new GrmLexer(new FileReader("src/constraint/tests/test5.con")));
-		    List<Equation> result = (List<Equation>) p.parse().value;
-		    for (Equation e: result) {
-		    	System.out.println( e.toString());
-		    }
-		    ConstraintGraph graph = new ConstraintGraph(result);
-		    graph.writeToDotFile();
-		  }
-		  catch (Exception e) {e.printStackTrace();}
+			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/test5.con", true);
+			graph.writeToDotFile();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	static public ConstraintGraph getConstraintGraph (String input, boolean symmentric) throws Exception {
+	    parser p = new parser(new GrmLexer(new FileReader(input)));
+	    List<Equation> result = (List<Equation>) p.parse().value;
+//	    for (Equation e: result) {
+//	    	System.out.println( e.toString());
+//	    }
+	    ConstraintGraph graph = new ConstraintGraph(result, symmentric);
+	    return graph;
 	}
 }

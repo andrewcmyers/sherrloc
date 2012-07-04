@@ -35,14 +35,14 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 %% 
 /* keywords */
 
-<YYINITIAL> "CONSTRUCTOR"           { System.out.println("cons"); return symbol(sym.CONSTRUCTOR); }
-<YYINITIAL> "JOIN"           		{ System.out.println("join"); return symbol(sym.JOIN); }
-<YYINITIAL> "MEET"           		{ System.out.println("meet"); return symbol(sym.MEET); }
+<YYINITIAL> "CONSTRUCTOR"           { return symbol(sym.CONSTRUCTOR); }
+<YYINITIAL> "JOIN"           		{ return symbol(sym.JOIN); }
+<YYINITIAL> "MEET"           		{ return symbol(sym.MEET); }
 
 
 <YYINITIAL> {
   	/* identifiers */ 
-  	{Identifier}                   { System.out.println(yytext()); return symbol(sym.IDENTIFIER, yytext()); }
+  	{Identifier}                   { return symbol(sym.IDENTIFIER, yytext()); }
  
   	/* literals */
   	{DecIntegerLiteral}            { return symbol(sym.INTEGER_LITERAL, new Integer(yytext())); }
@@ -50,7 +50,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 
   	/* operators */
   	"="                            { return symbol(sym.EQ); }
-  	"<="                           { System.out.println("<="); return symbol(sym.LEQ); }
+  	"<="                           { return symbol(sym.LEQ); }
   	">="                           { return symbol(sym.GEQ); }
   	"->"                           { return symbol(sym.ARROW); }
   	";"    						   { return symbol(sym.SEMICOLON); }
