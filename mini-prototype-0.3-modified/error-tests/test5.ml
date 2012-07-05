@@ -1,26 +1,60 @@
-(* Type constructor clash.
+(* Type constructor clash involving datatype declarations.
+  *
+  * The programming error is that we wrote 'c instead of 'b in
+  * Green's definition.  The slicer accurately reports the parts
+  * of the datatypes involved in the type errors.
   *)
+ 
+type firsttype: * -> * -> * -> *      = forall a b c.
+                           Red    : (a * b * c) -> firsttype a b c
+                         | Blue   : (a * b * c) -> firsttype a b c
+                         | Pink   : (a * b * c) -> firsttype a b c
+                         | Green  : (a * b * c) -> firsttype a b b
+                         | Yellow : (a * b * c) -> firsttype a b c
+                         | Orange : (a * b * c) -> firsttype a b c
 
-type list : * -> * = Nil : forall a. list a
-                | Cons : forall a. a * list a -> list a
+type secondtype: * -> * -> *   = forall a b.
+                        SpeCol : ((firsttype a a b) * b) -> secondtype a b 
+                      | UniCol : ((firsttype a a a) * b) -> secondtype a b
 
-type foldl : * -> *
- 
-let average weight list =
-     let iterator (x,(sum,length)) = (sum + weight x, length + 1)
-     and (sum,length) = foldl iterator (0,0) list
-     in sum + length (* should be sum/length *)
- 
-let find_best weight lists =
-     let average1 = average weight
-         let iterator (list,(best,max)) =
-             let avg_list = average1 list
-             in if avg_list > max
-                then (list,avg_list)
-                else (best,max)
-             end
-         val (best,_) = foldl iterator (nil,0) lists
-     in best
-     end
- 
-val find_best_simple = find_best 1
+let  trans t =
+     match t with 
+     Red    (x, y, z) =>  Blue   (y, x, z)
+   | Blue   (x, y, z) =>  Pink   (y, x, z)
+   | Pink   (x, y, z) =>  Green  (y, x, z)
+   | Green  (x, y, z) =>  Yellow (y, x, z)
+   | Yellow (x, y, z) =>  Orange (y, x, z)
+   | Orange (x, y, z) =>  Red    (y, x, z)
+   end
+
+let touni t =
+     match t with 
+     Red    (x, _, _) => Red    (x, x, x)
+   | Blue   (x, _, _) => Blue   (x, x, x)
+   | Pink   (x, _, _) => Pink   (x, x, x)
+   | Green  (x, _, _) => Green  (x, x, x)
+   | Yellow (x, _, _) => Yellow (x, x, x)
+   | Orange (x, _, _) => Orange (x, x, x)
+   end
+
+let  getLast t =
+     match t with 
+     Red    (_, _, z) => z
+   | Blue   (_, _, z) => z
+   | Pink   (_, _, z) => z
+   | Green  (_, _, z) => z
+   | Yellow (_, _, z) => z
+   | Orange (_, _, z) => z
+   end
+
+let  pretrans x =
+     match x with
+     SpeCol (col, b) =>
+     (*if b = getLast col
+     then*)  SpeCol (trans col, b)
+     (* else UniCol (touni col, b)) *)
+   | UniCol (_,_)  => x
+   end
+
+let x = SpeCol (Red (2, 2, 'a'), 'b')
+let y = pretrans x

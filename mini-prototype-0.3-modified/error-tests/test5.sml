@@ -1,22 +1,41 @@
-(* Type constructor clash.
+(* Type constructor clash involving datatype declarations.
+  *
+  * The programming error is that we wrote 'c instead of 'b in
+  * Green's definition.  The slicer accurately reports the parts
+  * of the datatypes involved in the type errors.
   *)
  
-fun average weight list =
-     let fun iterator (x,(sum,length)) = (sum + weight x, length + 1)
-         val (sum,length) = foldl iterator (0,0) list
-     in sum div length
-     end
- 
-fun find_best weight lists =
-     let val average1 = average weight
-         fun iterator (list,(best,max)) =
-             let val avg_list = average1 list
-             in if avg_list > max
-                then (list,avg_list)
-                else (best,max)
-             end
-         val (best,_) = foldl iterator (nil,0) lists
-     in best
-     end
- 
-val find_best_simple = find_best 1
+ datatype ('a, 'b, 'c) t = Red    of 'a * 'b * 'c
+                         | Blue   of 'a * 'b * 'c
+                         | Pink   of 'a * 'b * 'c
+                         | Green  of 'a * 'b * 'b
+                         | Yellow of 'a * 'b * 'c
+                         | Orange of 'a * 'b * 'c
+ datatype ('a, 'b) u = SpeCol of ('a, 'a, 'b) t * 'b
+                     | UniCol of ('a, 'a, 'a) t * 'b
+ fun trans (Red    (x, y, z)) = Blue   (y, x, z)
+   | trans (Blue   (x, y, z)) = Pink   (y, x, z)
+   | trans (Pink   (x, y, z)) = Green  (y, x, z)
+   | trans (Green  (x, y, z)) = Yellow (y, x, z)
+   | trans (Yellow (x, y, z)) = Orange (y, x, z)
+   | trans (Orange (x, y, z)) = Red    (y, x, z)
+ fun touni (Red    (x, _, _)) = Red    (x, x, x)
+   | touni (Blue   (x, _, _)) = Blue   (x, x, x)
+   | touni (Pink   (x, _, _)) = Pink   (x, x, x)
+   | touni (Green  (x, _, _)) = Green  (x, x, x)
+   | touni (Yellow (x, _, _)) = Yellow (x, x, x)
+   | touni (Orange (x, _, _)) = Orange (x, x, x)
+ fun getLast (Red    (_, _, z)) = z
+   | getLast (Blue   (_, _, z)) = z
+   | getLast (Pink   (_, _, z)) = z
+   | getLast (Green  (_, _, z)) = z
+   | getLast (Yellow (_, _, z)) = z
+   | getLast (Orange (_, _, z)) = z
+ fun pretrans (SpeCol (col, b)) =
+     if b = getLast col
+     then SpeCol (trans col, b)
+     else UniCol (touni col, b)
+   | pretrans x = x
+ val x = SpeCol (Red (2, 2, false), true)
+ val y = pretrans x
+

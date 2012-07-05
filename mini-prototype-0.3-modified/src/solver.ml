@@ -292,7 +292,7 @@ let solve tracer env pool c =
 
        | CEquation (pos, term1, term2) ->
 	   let t1, t2 = twice (chop pool) term1 term2 in
-             Printf.printf "%s = %s;@\"%s\"\n" (print_term false term1) (print_term false term2) (string_of_pos pos);
+             Printf.printf "%s == %s;@\"%s\"\n" (print_term false term1) (print_term false term2) (string_of_pos pos);
 	     tracer (UnifyTerms (term1, term2));
 	     (* unify_terms pos pool t1 t2 *)
 
@@ -318,7 +318,7 @@ let solve tracer env pool c =
 	   let t = lookup pos name env in
 	   let instance = instance pool t in
 	   let t' = chop pool term in
-             Printf.printf "%s = %s;@\"%s\"\n" (print_variable false t) (print_term false term) (string_of_pos pos);
+             Printf.printf "%s == %s;@\"%s\"\n" (print_variable false t) (print_term false term) (string_of_pos pos);
 	     (* unify_terms pos pool instance t' *)
 
        | CDisjunction cs -> 
