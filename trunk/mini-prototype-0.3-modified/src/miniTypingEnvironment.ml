@@ -200,7 +200,6 @@ let rigid_args rt =
   List.fold_left (fun acu -> 
 	    function 
 		TVariable v -> 
-                  print_string ("*");
 		  if (UnionFind.find v).kind = Rigid then v :: acu
 		  else acu
 	      | _ -> acu) []
@@ -222,7 +221,7 @@ let is_regular_datacon_scheme tenv kvars kt =
   let rigid_args = rigid_args rt in
     (* Check that all the tycon arguments are distinct rigid variables. *)
     List.for_all (fun v -> List.memq v kvars) rigid_args 
-    && (print_int (List.length rigid_args); print_int (List.length kvars); List.length rigid_args == List.length kvars)
+    && List.length rigid_args == List.length kvars
 
 (** [find_algebraic_datatypes env k] looks for all the data
     constructor that are related to the data constructor [k]. *)

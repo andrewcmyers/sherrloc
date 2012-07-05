@@ -7,5 +7,5 @@ let x = (
       Nil => Nil 
     | Cons (x,q) => Cons (f x, map q f)  
     end
-  in map (\x. 1) Nil (* should be map f q *)
-  )
+  in map (\x. 1) Nil (* should be map Nil (\x. 1) *)
+)
