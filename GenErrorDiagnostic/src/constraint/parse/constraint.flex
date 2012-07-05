@@ -6,6 +6,7 @@ import java_cup.runtime.*;
 %public
 %class GrmLexer
 %cup
+%unicode
 
 %{
   StringBuffer string = new StringBuffer();
@@ -22,7 +23,7 @@ LineBreak		= \r|\n|\r\n
 WhiteSpace     	= {LineBreak} | [ \t\f]
 InputCharacter = [^\r\n]
 
-Identifier = [:jletter:] [:jletterdigit:]*
+Identifier = ([:jletter:]|_) ([:jletterdigit:] | - | >)*
 DecIntegerLiteral = 0 | [1-9][0-9]*
 
 /* comments */
@@ -36,8 +37,10 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 /* keywords */
 
 <YYINITIAL> "CONSTRUCTOR"           { return symbol(sym.CONSTRUCTOR); }
-<YYINITIAL> "JOIN"           		{ return symbol(sym.JOIN); }
 <YYINITIAL> "MEET"           		{ return symbol(sym.MEET); }
+<YYINITIAL> "\u2293" 				{ return symbol(sym.MEET); }        /* ⊓ */
+<YYINITIAL> "JOIN"           		{ return symbol(sym.JOIN); }
+<YYINITIAL> "\u2294" 				{ return symbol(sym.JOIN); }        /* ⊔ */
 
 
 <YYINITIAL> {
@@ -49,7 +52,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	"\""                           { string.setLength(0); yybegin(INFO); }
 
   	/* operators */
-  	"="                            { return symbol(sym.EQ); }
+  	"=="                            { return symbol(sym.EQ); }
   	"<="                           { return symbol(sym.LEQ); }
   	">="                           { return symbol(sym.GEQ); }
   	"->"                           { return symbol(sym.ARROW); }

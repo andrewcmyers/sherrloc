@@ -1,10 +1,10 @@
 CONSTRUCTOR caller_pc 0
-CONSTRUCTOR px 0
-CONSTRUCTOR bot 0
+CONSTRUCTOR px->py 0
+CONSTRUCTOR _->_ 0
 
-y = caller_pc JOIN px@"test.jif:8,17-18";
-caller_pc <= y@"test.jif:8,19-20";
-y JOIN caller_pc <= x@"test.jif:9,12-13";
-z = caller_pc JOIN bot@"test.jif:10,11-12";
-caller_pc <= z@"test.jif:10,15-16";
-caller_pc JOIN x <= z@"test.jif:12,8-9";
+y == caller_pc ⊔ px->py;@"test.jif:8,17-18"
+caller_pc <= y;@"test.jif:8,19-20"
+y ⊔ caller_pc <= x;@"test.jif:9,12-13"
+z == caller_pc ⊔ _->_;@"test.jif:10,11-12"
+caller_pc <= z;@"test.jif:10,15-16"
+caller_pc ⊔ x <= z;@"test.jif:12,8-9"
