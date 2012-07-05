@@ -1,0 +1,24 @@
+CONSTRUCTOR caller_pc 0
+CONSTRUCTOR _->_ 0
+CONSTRUCTOR px-> 0
+CONSTRUCTOR px->py 0
+CONSTRUCTOR provider 0
+
+a == caller_pc ⊔ _->_;@"array.jif:4,14-15"
+array_base <= px->;@"array.jif:4,18-29"
+caller_pc <= a;@"array.jif:4,18-29"
+b == caller_pc ⊔ _->_;@"array.jif:5,16-17"
+array_base <= px->py;@"array.jif:5,20-31"
+caller_pc <= b;@"array.jif:5,20-31"
+b ⊔ caller_pc <= a;@"array.jif:6,1-2"
+px-> <= px->py;@"array.jif:6,1-6"
+px->py <= px->;@"array.jif:6,1-6"
+s == px->;@"array.jif:7,10-11"
+caller_pc <= s;@"array.jif:7,14-17"
+caller_pc ⊔ s ⊔ a <= px->;@"array.jif:9,5-6"
+provider <= px->;@"array.jif:9,5-6"
+p == caller_pc ⊔ s ⊔ a ⊔ px->py;@"array.jif:11,12-13"
+px->py <= p;@"array.jif:11,16-17"
+b ⊔ caller_pc ⊔ s ⊔ a <= px->;@"array.jif:3,4-10"
+a ⊔ caller_pc ⊔ s <= px->;@"array.jif:3,4-10"
+b ⊔ caller_pc ⊔ s ⊔ a <= px->;@"array.jif:3,4-10"
