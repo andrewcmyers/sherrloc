@@ -4,26 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /* a compond element is constructed by a Constructor */
-public class CompondElement extends Element {
-	Constructor cons;
+public abstract class CompondElement extends Element {
 	final List<Element> elements;
 	
-	public CompondElement(String name, Constructor cons, List<Element> elements) {
+	public CompondElement(String name, List<Element> elements) {
 		super(name, "");
-		this.cons = cons;
 		this.elements = elements;
-	}
-	
-	public Constructor getCons() {
-		return cons;
 	}
 	
 	public List<Element> getElements () {
 		return elements;
 	}
 	
+	// return the symbol of the current element, such as ->, *, meet, join
+	abstract String getSymbol();
+	
 	public String toString() {
-		String symbol = cons.toString();
+		String symbol = getSymbol();
 		String ret = "";
 		// infix
 		if (symbol.equals("->") || symbol.equals("*")) {
@@ -38,7 +35,7 @@ public class CompondElement extends Element {
 	}
 	
 	public String infixToString () {
-		String symbol = cons.toString();
+		String symbol = getSymbol();
 		String ret = "";
 		// infix
 		ret += "("+elements.get(0).toString() + ")";
@@ -61,10 +58,19 @@ public class CompondElement extends Element {
 		return false;
 	}
 	
+	public int hashCode() {
+		int ret = 1;
+		for (Element e : elements) {
+			ret ^= e.hashCode();
+		}
+		return ret;
+	}
+	
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof CompondElement) {
 			CompondElement ce = (CompondElement)o;
-			if (cons.equals(ce.cons) && ce.getElements().size()==elements.size()) {
+			if (ce.getElements().size()==elements.size()) {
 				for (int i=0; i<elements.size(); i++)
 					if (!elements.get(i).equals(ce.getElements().get(i))) 
 						break;
@@ -74,21 +80,4 @@ public class CompondElement extends Element {
 		return false;
 	}
 	
-	public int hashCode() {
-		int ret = cons.hashCode();
-		for (Element e : elements) {
-			ret ^= e.hashCode();
-		}
-		return ret;
-	}
-	
-	@Override
-	public boolean isStart() {
-		return true;
-	}
-	
-	@Override
-	public boolean isEnd() {
-		return true;
-	}
 }

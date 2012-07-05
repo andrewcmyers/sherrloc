@@ -26,6 +26,11 @@ public class Variable extends Element {
 	}
 	
 	@Override
+	public boolean leq_(Object o) {
+		return false;
+	}
+	
+	@Override
 	public boolean isStart() {
 		return false;
 	}
