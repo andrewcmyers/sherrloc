@@ -4,12 +4,17 @@ import java.util.List;
 
 public class MeetElement extends CompondElement {
 	
-	public MeetElement(String name, Constructor cons, List<Element> elements) {
-		super (name, cons, elements);
+	public MeetElement(String name, List<Element> elements) {
+		super (name, elements);
 	}
 	
 	public String toString() {
 		return infixToString();
+	}
+	
+	@Override
+	String getSymbol() {
+		return "meet";
 	}
 	
 	@Override
@@ -32,5 +37,16 @@ public class MeetElement extends CompondElement {
 		else 
 			// TODO: correct?
 			return false;
+	}
+	
+	@Override
+	public boolean leq_(Object o) {
+		// check if any component is leq o
+		for (Element e : elements) {
+			if (e.leq_(o)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

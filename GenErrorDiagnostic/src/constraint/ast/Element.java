@@ -29,6 +29,8 @@ public abstract class Element {
 	
 	abstract public boolean equals (Object o);
 	
+	abstract public boolean leq_(Object o);
+	
 	abstract public boolean isStart();
 	
 	abstract public boolean isEnd();

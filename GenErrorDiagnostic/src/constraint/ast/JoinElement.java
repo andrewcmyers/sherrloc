@@ -4,12 +4,17 @@ import java.util.List;
 
 public class JoinElement extends CompondElement {
 
-	public JoinElement(String name, Constructor cons, List<Element> elements) {
-		super(name, cons, elements);
+	public JoinElement(String name, List<Element> elements) {
+		super(name, elements);
 	}
 	
 	public String toString() {
 		return infixToString();
+	}
+	
+	@Override
+	String getSymbol() {
+		return "join";
 	}
 	
 	@Override
@@ -31,5 +36,15 @@ public class JoinElement extends CompondElement {
 			return false;
 		else
 			return false;
+	}
+	
+	@Override
+	public boolean leq_(Object o) {
+		// check if all components are leq o
+		for (Element e : elements) {
+			if (! e.leq_(o))
+				return false;
+		}
+		return true;
 	}
 }

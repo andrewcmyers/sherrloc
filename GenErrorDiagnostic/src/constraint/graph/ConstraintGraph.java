@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import constraint.ast.CompondElement;
+import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.Equation;
@@ -109,9 +110,9 @@ public class ConstraintGraph extends Graph {
     
     
     public boolean addOneEquation (Element first, Element second, Equation e) {
-    	if (first instanceof CompondElement && second instanceof CompondElement) {
-			CompondElement fst = (CompondElement) first;
-			CompondElement snd = (CompondElement) second;
+    	if (first instanceof ConstructorElement && second instanceof ConstructorElement) {
+    		ConstructorElement fst = (ConstructorElement) first;
+    		ConstructorElement snd = (ConstructorElement) second;
 			if (!fst.getCons().equals(snd.getCons())) {
 				System.out.println("unsatisfiable constraint: "+e.toDotString());
 				return false;
@@ -219,9 +220,9 @@ public class ConstraintGraph extends Graph {
                     else if (e instanceof JoinElement) {
                     	addEdge(srcnode, currentnode, new JoinEdge(srcnode, currentnode));
                     }
-                    else {
-                    	addEdge(srcnode, currentnode, new ConstructorEdge(new EdgeCondition(ce.getCons(), index, false), srcnode, currentnode));
-                    	addEdge(currentnode, srcnode, new ConstructorEdge(new EdgeCondition(ce.getCons(), index, true), currentnode, srcnode));
+                    else if (e instanceof ConstructorElement){
+                    	addEdge(srcnode, currentnode, new ConstructorEdge(new EdgeCondition(((ConstructorElement)e).getCons(), index, false), srcnode, currentnode));
+                    	addEdge(currentnode, srcnode, new ConstructorEdge(new EdgeCondition(((ConstructorElement)e).getCons(), index, true), currentnode, srcnode));
                     }
                 }
             }

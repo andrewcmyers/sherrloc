@@ -6,8 +6,8 @@ public enum Relation {
 	public String toString() {
 		String s = super.toString();
 		if (s.equals("LEQ")) 
-			return "<";
+			return "<=";
 		else 
-			return "=";
+			return "==";
 	}
 };

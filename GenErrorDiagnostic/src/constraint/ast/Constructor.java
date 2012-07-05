@@ -43,6 +43,11 @@ public class Constructor extends Element {
 	}
 	
 	@Override
+	public boolean leq_(Object o) {
+		return equals(o);
+	}
+	
+	@Override
 	public boolean isStart() {
 		return true;
 	}
@@ -51,5 +56,4 @@ public class Constructor extends Element {
 	public boolean isEnd() {
 		return true;
 	}
-	
 }
