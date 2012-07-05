@@ -8,15 +8,18 @@ import diagnositc.Analysis;
 
 
 public class TestAll {
+	
 	@Test
-	public void testGraph() {
+	public void testGraph () {
+		testJif();
+		testSML();
+	}
+	
+	@Test
+	public void testSML() {
 		try {
-			/* test for Jif constraint */
-			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/jif.con", false);
-			assertEquals("jif", 1, graph.getPathNumber());
-			
 			/* test for SML constraint */
-			graph = Analysis.getConstraintGraph("src/constraint/tests/test1.con", true);
+			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/test1.con", true);
 			assertEquals("test1", 1, graph.getPathNumber());
 			
 			graph = Analysis.getConstraintGraph("src/constraint/tests/test2.con", true);
@@ -30,6 +33,19 @@ public class TestAll {
 			
 			graph = Analysis.getConstraintGraph("src/constraint/tests/test5.con", true);
 			assertEquals("test5", 141, graph.getPathNumber());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Test
+	public void testJif () {
+		try {
+			/* test for Jif constraint */
+			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/jif.con", false);
+			assertEquals("jif", 1, graph.getPathNumber());			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
