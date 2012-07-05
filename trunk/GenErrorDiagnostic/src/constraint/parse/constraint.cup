@@ -10,6 +10,7 @@ import java_cup.runtime.*;
 import constraint.ast.CompondElement;
 import constraint.ast.Constructor;
 import constraint.ast.Element;
+import constraint.ast.ConstructorElement;
 import constraint.ast.MeetElement;
 import constraint.ast.JoinElement;
 import constraint.ast.Equation;
@@ -44,16 +45,12 @@ precedence left  STAR;
 cons_spec 	::=  constructors 	{: 
 									constructors.put("arrow", new Constructor("arrow", 2));
 									constructors.put("pair",  new Constructor("pair", 2));
-									constructors.put("join",  new Constructor("join", 2));
-									constructors.put("meet",  new Constructor("meet", 2)); 
 								:} 
 				 equations:l
 			{: RESULT = l; :}			
 			| {: 
 					constructors.put("arrow", new Constructor("arrow", 2));
 					constructors.put("pair",  new Constructor("pair", 2)); 
-					constructors.put("join",  new Constructor("join", 2));
-					constructors.put("meet",  new Constructor("meet", 2));
 			  :} 
 			equations:l
 			{: RESULT = l; :}
@@ -98,34 +95,34 @@ term     	::=  term:t1 ARROW term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new CompondElement ("", constructors.get("arrow"), l);
+				RESULT = new ConstructorElement ("", constructors.get("arrow"), l);
 			:}
 			| term:t1 STAR term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new CompondElement ("", constructors.get("pair"), l); 
+				RESULT = new ConstructorElement ("", constructors.get("pair"), l); 
 			:}
 			| term:t1 JOIN term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new JoinElement ("", constructors.get("join"), l); 
+				RESULT = new JoinElement ("", l); 
 			:}
 			| term:t1 MEET term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new MeetElement ("", constructors.get("meet"), l); 
+				RESULT = new MeetElement ("", l); 
 			:}
 			| cons:cons element_list:l
 			{: 	Constructor c = (Constructor) cons;
 				if (c.getArity() != l.size()) throw new Error("Constructor takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
-			    RESULT = new CompondElement ("", c, l); 
+			    RESULT = new ConstructorElement ("", c, l); 
 			:}
 			| element:e
 			{: RESULT = e; :}
