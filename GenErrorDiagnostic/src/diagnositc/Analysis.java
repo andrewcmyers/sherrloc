@@ -12,7 +12,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/test5.con", true);
+			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/jif/array.con", false);
 			graph.writeToDotFile();
 		}
 		catch (Exception e) {

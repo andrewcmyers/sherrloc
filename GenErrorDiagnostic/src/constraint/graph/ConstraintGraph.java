@@ -22,7 +22,7 @@ import constraint.ast.Equation;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Relation;
-import constraint.calculus.DefaultOracle;
+import constraint.calculus.Oracle_c;
 import constraint.calculus.Oracle;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
@@ -289,7 +289,7 @@ public class ConstraintGraph extends Graph {
         // only the labels without varables can serve as end nodes
         ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
-        Oracle ora = new DefaultOracle();
+        Oracle ora = new Oracle_c();
         Environment env = new Environment();
         
         System.out.println("Total nodes before path generaton: " + eleToNode.size());        

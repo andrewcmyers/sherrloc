@@ -11,6 +11,7 @@ import constraint.ast.CompondElement;
 import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.ConstructorElement;
+import constraint.ast.ConstructorFactory;
 import constraint.ast.MeetElement;
 import constraint.ast.JoinElement;
 import constraint.ast.Equation;
@@ -60,7 +61,7 @@ constructors ::= constructors constructor
 			| constructor;
 			
 constructor  ::= CONSTRUCTOR id:s arity:a
-			{: constructors.put( s, new Constructor(s, a)); :}
+			{: constructors.put( s, ConstructorFactory.getConstructor(s, a)); :}
 			;
 
 id        	::= IDENTIFIER:s

@@ -19,19 +19,19 @@ public class TestAll {
 	public void testSML() {
 		try {
 			/* test for SML constraint */
-			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/test1.con", true);
+			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/sml/test1.con", true);
 			assertEquals("test1", 1, graph.getPathNumber());
 			
-			graph = Analysis.getConstraintGraph("src/constraint/tests/test2.con", true);
+			graph = Analysis.getConstraintGraph("src/constraint/tests/sml/test2.con", true);
 			assertEquals("test2", 8, graph.getPathNumber());
 			
-			graph = Analysis.getConstraintGraph("src/constraint/tests/test3.con", true);
+			graph = Analysis.getConstraintGraph("src/constraint/tests/sml/test3.con", true);
 			assertEquals("test3", 4, graph.getPathNumber());
 			
-			graph = Analysis.getConstraintGraph("src/constraint/tests/test4.con", true);
+			graph = Analysis.getConstraintGraph("src/constraint/tests/sml/test4.con", true);
 			assertEquals("test4", 1, graph.getPathNumber());
 			
-			graph = Analysis.getConstraintGraph("src/constraint/tests/test5.con", true);
+			graph = Analysis.getConstraintGraph("src/constraint/tests/sml/test5.con", true);
 			assertEquals("test5", 141, graph.getPathNumber());
 		}
 		catch (Exception e) {
@@ -44,8 +44,11 @@ public class TestAll {
 	public void testJif () {
 		try {
 			/* test for Jif constraint */
-			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/jif.con", false);
-			assertEquals("jif", 1, graph.getPathNumber());			
+			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/jif/test.con", false);
+			assertEquals("jif", 1, graph.getPathNumber());
+			
+			graph = Analysis.getConstraintGraph("src/constraint/tests/jif/array.con", false);
+			assertEquals("array", 2, graph.getPathNumber());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
