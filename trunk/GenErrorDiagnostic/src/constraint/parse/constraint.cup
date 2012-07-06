@@ -6,15 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java_cup.runtime.*;
-import constraint.ast.CompondElement;
 import constraint.ast.Constructor;
-import constraint.ast.Element;
 import constraint.ast.ConstructorElement;
-import constraint.ast.ConstructorFactory;
-import constraint.ast.MeetElement;
-import constraint.ast.JoinElement;
+import constraint.ast.Element;
 import constraint.ast.Equation;
+import constraint.ast.JoinElement;
+import constraint.ast.LabelElement;
+import constraint.ast.MeetElement;
+import constraint.ast.ParamLabelElement;
 import constraint.ast.Relation;
 import constraint.ast.Variable;
 
@@ -24,7 +23,7 @@ action code {:
 			:};
 						
 /* Terminals (tokens returned by the scanner). */
-terminal            CONSTRUCTOR;
+terminal            CONSTRUCTOR, LABEL, PARAMLABEL;
 terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, STAR, AT, JOIN, MEET;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
@@ -61,7 +60,13 @@ constructors ::= constructors constructor
 			| constructor;
 			
 constructor  ::= CONSTRUCTOR id:s arity:a
-			{: constructors.put( s, ConstructorFactory.getConstructor(s, a)); :}
+			{: constructors.put( s, new Constructor(s, a)); :}
+			|
+			LABEL id:s
+			{: constructors.put( s, new LabelElement(s)); :}
+			|
+			PARAMLABEL id:s
+			{: constructors.put( s, new ParamLabelElement(s)); :}
 			;
 
 id        	::= IDENTIFIER:s

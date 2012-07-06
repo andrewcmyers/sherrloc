@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.ast.CompondElement;
+import constraint.ast.EnumerableElement;
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
 import constraint.ast.Environment;
@@ -204,8 +204,8 @@ public class ConstraintGraph extends Graph {
 //                }
 //            }
             
-            if (e instanceof CompondElement){
-            	CompondElement ce = (CompondElement) e;
+            if (e instanceof EnumerableElement){
+            	EnumerableElement ce = (EnumerableElement) e;
             	compset = ce.getElements();
             	
             	int index=0;
