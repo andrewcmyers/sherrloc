@@ -2,7 +2,7 @@ package constraint.ast;
 
 import java.util.List;
 
-public class JoinElement extends CompondElement {
+public class JoinElement extends EnumerableElement {
 
 	public JoinElement(String name, List<Element> elements) {
 		super(name, elements);

@@ -1,6 +1,6 @@
-CONSTRUCTOR caller_pc 0
-CONSTRUCTOR px->py 0
-CONSTRUCTOR _->_ 0
+PARAMLABEL caller_pc
+LABEL px->py
+LABEL _->_
 
 y == caller_pc ⊔ px->py;@"test.jif:8,17-18"
 caller_pc <= y;@"test.jif:8,19-20"

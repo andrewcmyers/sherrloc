@@ -1,11 +1,13 @@
 package constraint.ast;
 
-public class PolicyElement extends Constructor {
+import java.util.List;
+
+public class LabelElement extends Constructor {
 	String owner;
 	String reader;
 	
-	public PolicyElement(String policy, String name, int arity) {
-		super(name, arity);
+	public LabelElement(String policy) {
+		super(policy, 0);
 		// for now, just parse a policy from string
 		String[] result = policy.split("->");
 		owner = result[0];
@@ -32,16 +34,34 @@ public class PolicyElement extends Constructor {
     }
     
     public static void main(String[] args) {
-		PolicyElement ele = new PolicyElement("_->","_->",0);
+		LabelElement ele = new LabelElement("_->");
 		System.out.println(ele.owner);
 		System.out.println(ele.reader);
 	}
     
+    @Override
+    public boolean equals(Object o) {
+    	if (o instanceof LabelElement) {
+    		return owner.equals(((LabelElement)o).owner)&&reader.equals(((LabelElement)o).reader);
+    	}
+    	return false;
+    }
+    
+    @Override
+    public List<Variable> getVars() {
+    	return null;
+    }
+    
+    @Override
+    public boolean hasVars() {
+    	return false;
+    }
+    
     public boolean leq_(Object o) {
     	if (this==o) return true;
     	
-    	if (o instanceof PolicyElement) {
-    		PolicyElement p = (PolicyElement) o;
+    	if (o instanceof LabelElement) {
+    		LabelElement p = (LabelElement) o;
 	        if (this.isBottom() || p.isTop())
 	            return true;
 	
@@ -61,5 +81,15 @@ public class PolicyElement extends Constructor {
 //	               env.actsFor(p.reader(), this.reader());
     	}
     	return false;
+    }
+    
+    @Override
+    public boolean isStart() {
+    	return true;
+    }
+    
+    @Override
+    public boolean isEnd() {
+    	return true;
     }
 }
