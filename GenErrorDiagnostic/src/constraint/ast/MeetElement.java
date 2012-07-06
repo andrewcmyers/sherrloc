@@ -2,7 +2,7 @@ package constraint.ast;
 
 import java.util.List;
 
-public class MeetElement extends CompondElement {
+public class MeetElement extends EnumerableElement {
 	
 	public MeetElement(String name, List<Element> elements) {
 		super (name, elements);

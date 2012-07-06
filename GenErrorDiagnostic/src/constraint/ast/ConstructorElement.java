@@ -2,7 +2,7 @@ package constraint.ast;
 
 import java.util.List;
 
-public class ConstructorElement extends CompondElement {
+public class ConstructorElement extends EnumerableElement {
 	Constructor cons;
 	
 	public ConstructorElement(String name, Constructor cons, List<Element> elements) {
