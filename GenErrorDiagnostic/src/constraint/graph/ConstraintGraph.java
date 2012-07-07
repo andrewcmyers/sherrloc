@@ -14,16 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.ast.EnumerableElement;
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
+import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
 import constraint.ast.Equation;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Relation;
-import constraint.calculus.Oracle_c;
-import constraint.calculus.Oracle;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.graph.visitor.SlicingVisitor;
@@ -34,13 +32,15 @@ import constraint.graph.visitor.ToDotVisitor;
  * and output a dependency graph, where the unsatisfiable paths are correctly labeled
  */
 public class ConstraintGraph extends Graph {
+	Environment env;
     List<Equation> equations;
     List<ConstraintPath> errorPaths;
     boolean SHOW_WHOLE_GRAPH=false;
     boolean SYMMENTRIC;
 
-    public ConstraintGraph (List<Equation> equations, boolean symmentric) {
-        this.equations = equations;
+    public ConstraintGraph (Environment env, List<Equation> equations, boolean symmentric) {
+        this.env = env;
+    	this.equations = equations;
         generated = false;
         files = new HashSet<String>();
         this.errorPaths = new ArrayList<ConstraintPath>();
@@ -106,6 +106,10 @@ public class ConstraintGraph extends Graph {
             eleToNode.put(e, n);
         }
         return eleToNode.get(e);
+    }
+    
+    public boolean hasElement (Element e) {
+    	return eleToNode.containsKey(e);
     }
     
     
@@ -229,7 +233,6 @@ public class ConstraintGraph extends Graph {
         }
         System.out.println("Total nodes after static: " + eleToNode.size());
         generated = true;
-        genErrorPaths();
     }
     
     // this function is used to filter out letters that can not pretty print in the dot format
@@ -289,8 +292,6 @@ public class ConstraintGraph extends Graph {
         // only the labels without varables can serve as end nodes
         ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
-        Oracle ora = new Oracle_c();
-        Environment env = new Environment();
         
         System.out.println("Total nodes before path generaton: " + eleToNode.size());        
         
@@ -311,7 +312,7 @@ public class ConstraintGraph extends Graph {
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
 //				if (ora.leq(env, start.e, end.e))
-				if (ora.leq(env, start.e, end.e))
+				if (env.leq(start.e, end.e))
 					continue;
 				List<Edge> l = finder.getPath(start, end);
 				if ( l!=null && (!SYMMENTRIC || (getIndex(start) < getIndex(end)))) {
@@ -328,8 +329,12 @@ public class ConstraintGraph extends Graph {
 	}
     
     public int getPathNumber () {
-    	if (!generated) generateGraph();
-    	return errorPaths.size();
+    	if (!generated) {
+    		genErrorPaths();
+    	}
+    	int ret = errorPaths.size();
+    	printRank();
+    	return ret;
     }
     
     void printRank () {    	
@@ -352,7 +357,7 @@ public class ConstraintGraph extends Graph {
         filename = "error" + count + ".dot";
         count++;
         
-        if (!generated) generateGraph();
+        if (!generated) genErrorPaths();
 //        showErrorPaths();
         
         try {

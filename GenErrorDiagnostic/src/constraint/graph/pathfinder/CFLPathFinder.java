@@ -32,10 +32,11 @@ abstract public class CFLPathFinder extends PathFinder {
 	public CFLPathFinder(Graph graph) {
 		super(graph);
 		// initialize reduction edges
-		for (Node n : g.getAllNodes()) {
+		for (Node n : graph.getAllNodes()) {
 			reductionEdges.put(n, new HashMap<Node, List<ReductionEdge>>());
 		}
-		hasRightEdge = new boolean[g.getAllNodes().size()][g.getAllNodes().size()];
+		System.out.println(graph.getAllNodes().size());
+		hasRightEdge = new boolean[graph.getAllNodes().size()][graph.getAllNodes().size()];
 	}
 	
 	protected void addReductionEdge (Node from, Node to, ReductionEdge edge) {

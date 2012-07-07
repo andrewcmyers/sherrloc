@@ -1,0 +1,12 @@
+LABEL px->py
+LABEL caller_pc
+LABEL this
+
+%%
+this <= caller_pc;
+
+%%
+y == caller_pc ⊔ px->py;@"constant.jif:10,17-18"
+caller_pc <= y;@"constant.jif:10,19-20"
+y ⊔ caller_pc ⊔ this <= px->py;@"constant.jif:11,4-5"
+px->py <= y;@"constant.jif:12,4-5"
