@@ -9,6 +9,7 @@ import java.util.Map;
 import constraint.ast.Constructor;
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
+import constraint.ast.Environment;
 import constraint.ast.Equation;
 import constraint.ast.JoinElement;
 import constraint.ast.LabelElement;
@@ -16,21 +17,26 @@ import constraint.ast.MeetElement;
 import constraint.ast.ParamLabelElement;
 import constraint.ast.Relation;
 import constraint.ast.Variable;
+import diagnositc.DiagnosisInput;
 
 action code {: 
 				Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
 				Map<String, Variable> variables = new HashMap<String, Variable>(); 
+				Environment env = new Environment();
 			:};
 						
 /* Terminals (tokens returned by the scanner). */
+terminal 			SEPERATION;
 terminal            CONSTRUCTOR, LABEL, PARAMLABEL;
 terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, STAR, AT, JOIN, MEET;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
 /* Non terminals */
-non terminal List<Equation>		cons_spec, equations;
+non terminal DiagnosisInput    cons_spec;
+non terminal List<Equation>		equations;
 non terminal 					constructors, constructor;
+non terminal				    assumptions;
 non terminal Equation 			equation;
 non terminal Element			term, element, cons;
 non terminal String           	id, position;
@@ -42,18 +48,20 @@ precedence right ARROW, MEET, JOIN;
 precedence left  STAR;
 
 /* The grammar */
-cons_spec 	::=  constructors 	{: 
-									constructors.put("arrow", new Constructor("arrow", 2));
-									constructors.put("pair",  new Constructor("pair", 2));
-								:} 
-				 equations:l
-			{: RESULT = l; :}			
-			| {: 
+cons_spec 	::= constructors 	
+			{: 
+					constructors.put("arrow", new Constructor("arrow", 2));
+					constructors.put("pair",  new Constructor("pair", 2));
+			:} 
+				SEPERATION assumptions SEPERATION equations:l
+			{: RESULT = new DiagnosisInput (env, l); :}			
+			| 	constructors 
+			{: 
 					constructors.put("arrow", new Constructor("arrow", 2));
 					constructors.put("pair",  new Constructor("pair", 2)); 
-			  :} 
-			equations:l
-			{: RESULT = l; :}
+			:} 
+				equations:l
+			{: RESULT = new DiagnosisInput (env, l); :}
 			;
 
 constructors ::= constructors constructor
@@ -75,6 +83,13 @@ id        	::= IDENTIFIER:s
 			
 arity		::= INTEGER_LITERAL:a
 			{: RESULT = a; :};
+			
+assumptions ::= assumptions equation:e
+            {: env.addAssertion(e); :}
+            | 
+            equation:e
+            {: env.addAssertion(e); :}
+            ;
 
 equations 	::= equations:l equation:e 
             {: l.add(e); RESULT = l; :}
@@ -145,7 +160,7 @@ cons		::= IDENTIFIER:s
 				if (constructors.containsKey(s)) {
 					RESULT = constructors.get(s);
 				} 
-			   	else throw new Error("\"s\" is not a constructor");
+			   	else throw new Error("\""+s+"\"" + " is not a constructor");
 			:}
 			;
 

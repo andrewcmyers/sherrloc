@@ -49,6 +49,9 @@ public class TestAll {
 			
 			graph = Analysis.getConstraintGraph("src/constraint/tests/jif/array.con", false);
 			assertEquals("array", 3, graph.getPathNumber());
+			
+			graph = Analysis.getConstraintGraph("src/constraint/tests/jif/constant.con", false);
+			assertEquals("array", 2, graph.getPathNumber());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
