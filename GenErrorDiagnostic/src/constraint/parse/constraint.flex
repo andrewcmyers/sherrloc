@@ -43,6 +43,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 <YYINITIAL> "\u2293" 				{ return symbol(sym.MEET); }        /* ⊓ */
 <YYINITIAL> "JOIN"           		{ return symbol(sym.JOIN); }
 <YYINITIAL> "\u2294" 				{ return symbol(sym.JOIN); }        /* ⊔ */
+<YYINITIAL> "%%"					{ return symbol(sym.SEPERATION); }
 
 
 <YYINITIAL> {

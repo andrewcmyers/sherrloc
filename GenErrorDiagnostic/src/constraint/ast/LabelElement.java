@@ -9,12 +9,18 @@ public class LabelElement extends Constructor {
 	public LabelElement(String policy) {
 		super(policy, 0);
 		// for now, just parse a policy from string
-		String[] result = policy.split("->");
-		owner = result[0];
-		if (result.length>1)
-			reader = result[1];
-		else
-			reader = "_";
+		if (policy.contains("->")) {
+			String[] result = policy.split("->");
+			owner = result[0];
+			if (result.length>1)
+				reader = result[1];
+			else
+				reader = "_";
+		}
+		else {
+			owner = "*";
+			reader = "*";
+		}
 	}
 	
 	String owner() {
