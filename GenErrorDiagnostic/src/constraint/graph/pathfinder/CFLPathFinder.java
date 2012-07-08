@@ -35,7 +35,6 @@ abstract public class CFLPathFinder extends PathFinder {
 		for (Node n : graph.getAllNodes()) {
 			reductionEdges.put(n, new HashMap<Node, List<ReductionEdge>>());
 		}
-		System.out.println(graph.getAllNodes().size());
 		hasRightEdge = new boolean[graph.getAllNodes().size()][graph.getAllNodes().size()];
 	}
 	
@@ -125,7 +124,6 @@ abstract public class CFLPathFinder extends PathFinder {
 				hasRightEdge[g.getIndex(start)][g.getIndex(end)] = false;
 			}
 		}
-		System.out.println(edges.size()+" edges in graph");
 
 		// generate the initial CFG graph
 		for (Edge edge : edges) {

@@ -34,8 +34,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			ConstraintGraph graph = Analysis.getConstraintGraph("src/constraint/tests/jif/constant.con", false);
-			Analysis ana = new Analysis(graph);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/constant.con", false);;
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
@@ -43,7 +42,7 @@ public class Analysis {
 		}
 	}
 	
-	static public ConstraintGraph getConstraintGraph (String input, boolean symmentric) throws Exception {
+	static public Analysis getAnalysisInstance (String input, boolean symmentric) throws Exception {
 	    parser p = new parser(new GrmLexer(new FileReader(input)));
 	    DiagnosisInput result = (DiagnosisInput) p.parse().value;
 //	    for (Equation e: result) {
@@ -51,7 +50,7 @@ public class Analysis {
 //	    }
 	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), symmentric);
 	    result.getEnv().printAssertions();
-	    return graph;
+	    return new Analysis(graph);
 	}
 	
 	// this method is used to configure the path finder
@@ -90,7 +89,6 @@ public class Analysis {
 			for (ElementNode end : endNodes) {
 				if (graph.getEnv().leq(start.getElement(), end.getElement()))
 					continue;
-				System.out.println("any path between "+start.getElement() + " and " + end.getElement());
 				List<Edge> l = finder.getPath(start, end);
 				if ( l!=null && (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
 					System.out.println("reporting path between "+start+" "+end);
