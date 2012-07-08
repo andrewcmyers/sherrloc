@@ -1,6 +1,6 @@
 package constraint.graph;
 
-import constraint.ast.Equation;
+import constraint.ast.Constraint;
 
 /* 
  * an edge in graph is either static (join, meet) or dynamic (a flow that generated from an equation) 
@@ -8,9 +8,9 @@ import constraint.ast.Equation;
  * Do we really need static links? Yes, that's a special case of constructor
  */ 
 public class EquationEdge extends Edge {
-    Equation equ;
+    Constraint equ;
     
-    public EquationEdge(Equation e, Node from, Node to) {
+    public EquationEdge(Constraint e, Node from, Node to) {
     	super(from, to);
         this.equ = e;
     }
@@ -22,7 +22,7 @@ public class EquationEdge extends Edge {
         return 0;
     }       
 
-    public Equation getEquation() {
+    public Constraint getEquation() {
 		return equ;
 	}
     

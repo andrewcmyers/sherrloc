@@ -1,12 +1,9 @@
 package constraint.graph;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,81 +11,45 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import constraint.ast.Constraint;
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
 import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
-import constraint.ast.Equation;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Relation;
-import constraint.graph.pathfinder.PathFinder;
-import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.graph.visitor.SlicingVisitor;
 import constraint.graph.visitor.ToDotVisitor;
 
 /*
- * A general dependency graph takes a set of constraints as inputs
- * and output a dependency graph, where the unsatisfiable paths are correctly labeled
+ * A constraint graph takes a set of constructors (user may define there own constructors in order to define the partial order),
+ * assumptions, as well as constraints as inputs
+ * 
+ * This class builds a basic graph from the constraints, without any path finding mechanism
+ * Different PathFinders are used to find unsatisfiable paths, which is later used as inputs to the diagnostic analysis
+ * 
  */
 public class ConstraintGraph extends Graph {
 	Environment env;
-    List<Equation> equations;
-    List<ConstraintPath> errorPaths;
-    boolean SHOW_WHOLE_GRAPH=false;
+    List<Constraint> constraints;
     boolean SYMMENTRIC;
+    boolean DEBUG = true;
 
-    public ConstraintGraph (Environment env, List<Equation> equations, boolean symmentric) {
+    Set<String> files;                                          // source codes involved
+    public boolean generated;                                          // if the graph has been generated already, just reuse it
+    static final boolean PRINT_SRC = false;                     // print corresponding source code
+
+    public ConstraintGraph (Environment env, List<Constraint> equations, boolean symmentric) {
         this.env = env;
-    	this.equations = equations;
-        generated = false;
-        files = new HashSet<String>();
-        this.errorPaths = new ArrayList<ConstraintPath>();
+    	this.constraints = equations;
+    	this.files = new HashSet<String>();
+        this.generated = false;
         this.SYMMENTRIC = symmentric;
     }
-    
-    Set<String> files;                                          // source codes involved
-    boolean generated;                                          // if the graph has been generated already, just reuse it
-    static int count=1;                                         // counter for jif errors. Report information flow paths for each error
-    static final boolean PRINT_SRC = false;                     // print corresponding source code
-    
-    /* 
-     * fields for Jif option -report
-     */
-//    public static final Collection flowgraphtopic = CollectionUtil.list(Topics.labelFlow);
-//    // different levels of details
-//    public static final int messageOnly         = 1;    // concise path info
-//    public static final int detailedMessage     = 2;    // detailed path info, including explanation of each constraint
-//    public static final int showSlicedGraph     = 3;    // output the relevant graph (nodes related to the error) into a dot file
-//    public static final int showWholeGraph      = 4;    // output the whole graph into a dot file
-//    
-//    public static boolean shouldReport (int obscurity) {
-//        return Report.should_report(flowgraphtopic, obscurity);
-//    }
-    
-    /* this class just modifies the behavior of "equals" on the labels */
-//    private class LabelWrapper {
-//        Label label;
-//        
-//        public LabelWrapper(Label lbl) {
-//            this.label = lbl;
-//        }
-//        
-//        @Override
-//        public boolean equals(Object obj) {
-//            if (! (obj instanceof LabelWrapper)) return false;
-//            LabelWrapper labelwrap = (LabelWrapper) obj;
-//            return this.label==labelwrap.label;
-//        }
-//        
-//        @Override
-//        public int hashCode() {
-//            return this.label.hashCode();
-//        }
-//    }
-    
+            
     /*
-     *  map Jif labels to graph nodes
+     *  map AST elements to graph nodes
      */
     Map<Element, ElementNode> eleToNode = new HashMap<Element, ElementNode>(); // map from AST elements to graph nodes
     int varCounter = 1;
@@ -113,7 +74,9 @@ public class ConstraintGraph extends Graph {
     }
     
     
-    public boolean addOneEquation (Element first, Element second, Equation e) {
+    // claim that first element is leq the second element because of constraint e
+    public boolean addOneConstraint (Element first, Element second, Constraint e) {
+    	// for constructors
     	if (first instanceof ConstructorElement && second instanceof ConstructorElement) {
     		ConstructorElement fst = (ConstructorElement) first;
     		ConstructorElement snd = (ConstructorElement) second;
@@ -122,9 +85,9 @@ public class ConstraintGraph extends Graph {
 				return false;
 			}
 			else {
-				// recursively add equations
+				// TODO: this code assumes that leq relation of the constructor is pairwise, but this should be extensible
 				for (int i=0; i<fst.getElements().size(); i++) {
-					if (!addOneEquation(fst.getElements().get(i), snd.getElements().get(i), e))
+					if (!addOneConstraint(fst.getElements().get(i), snd.getElements().get(i), e))
 						return false;
 				}
 				return true;
@@ -145,20 +108,23 @@ public class ConstraintGraph extends Graph {
     }
     
     public void generateGraph ( ) {
-        if (generated || equations.size() == 0)
+        if (generated || constraints.size() == 0)
             return;
        
-        // generate the dynamic links
-		for (Equation equ : equations) {
-			addOneEquation(equ.getFirstElement(), equ.getSecondElement(), equ);
+        // generate the simple links from the constraints
+		for (Constraint cons : constraints) {
+			addOneConstraint(cons.getFirstElement(), cons.getSecondElement(), cons);
 		}
 		
-		System.out.println("Total nodes after dynamic: " + eleToNode.size());
+		if (DEBUG)
+			System.out.println("Total simple nodes : " + eleToNode.size());
                 
-        /* generate static links
-         * there are two types of static links:
+        /* 
+         * generate inferred links from constructors, join and meet elements
          * 1. flow from components to a join label
          * 2. flow from a meet label to components
+         * 3. special edges recording the position in constructor
+         * 
          */
         // only need to handle nodes in the graph
         List<ElementNode> workingList = new ArrayList<ElementNode>(eleToNode.values());
@@ -166,7 +132,6 @@ public class ConstraintGraph extends Graph {
         
         // we need to handle constructors
         // and two special constructors, join and meet
-        // TODO: handle join and meet later
         while (workingList.size()!=0) {
         	ElementNode currentnode = workingList.get(0);
             workingList.remove(0);
@@ -175,38 +140,6 @@ public class ConstraintGraph extends Graph {
             
             // generate the source node
             Collection<Element> compset;
-//            if (e instanceof JoinLabel) {
-//                JoinLabel join = (JoinLabel) e;
-//                compset = (join).joinComponents();
-//                
-//                for (Label complbl : compset) {
-//                    LabelNode srcnode = getNode(complbl);
-//                    if (!processed.contains(complbl) && !workingList.contains(complbl))
-//                        workingList.add(getNode(complbl));
-//                    addEdge(srcnode, currentnode, staticEdge);
-//                }
-//            } else if (e instanceof MeetLabel){
-//                MeetLabel meet = (MeetLabel) e;
-//                compset = (meet).meetComponents();
-//                
-//                for (Label complbl : compset) {
-//                    LabelNode dstnode = getNode(complbl);
-//                    if (!processed.contains(complbl) && !workingList.contains(complbl))
-//                        workingList.add(getNode(complbl));
-//                    addEdge(currentnode, dstnode, staticEdge);
-//                }
-//            } else {
-//                continue;
-//            }
-
-            // next, handle the provable flows
-//            for (Label component : sourceset) {
-//                if (jiferror.failedConstraint.env().leq(
-//                        jiferror.bounds.applyTo(lbl),
-//                        jiferror.bounds.applyTo(component))) {
-//                    addEdge(getNode(lbl), getNode(component), staticEdge);
-//                }
-//            }
             
             if (e instanceof EnumerableElement){
             	EnumerableElement ce = (EnumerableElement) e;
@@ -218,6 +151,7 @@ public class ConstraintGraph extends Graph {
                     index++;
                     if (!processed.contains(element) && !workingList.contains(element))
                         workingList.add(getNode(element));
+                    
                     if (e instanceof MeetElement) {
                     	addEdge(currentnode, srcnode, new MeetEdge(currentnode, srcnode));
                     }
@@ -231,8 +165,9 @@ public class ConstraintGraph extends Graph {
                 }
             }
         }
-        System.out.println("Total nodes after static: " + eleToNode.size());
         generated = true;
+        if (DEBUG)
+        	System.out.println("Total nodes after static: " + eleToNode.size());
     }
     
     // this function is used to filter out letters that can not pretty print in the dot format
@@ -285,94 +220,21 @@ public class ConstraintGraph extends Graph {
     public void slicing () {
         List<Node> visited = new ArrayList<Node>();
         acceptForward(new SlicingVisitor(), visited);
-    }		
+    }
     
-    public void genErrorPaths () {
-        if (!generated) generateGraph();
-        // only the labels without varables can serve as end nodes
-        ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
-        ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
-        
-        System.out.println("Total nodes before path generaton: " + eleToNode.size());        
-        
-        for (Element element : eleToNode.keySet()) {
-            if (element.isStart())                    
-            	startNodes.add(eleToNode.get(element));
-			if (element.isEnd())
-            	endNodes.add(eleToNode.get(element));
-        }
-        
-        System.out.println("Total start nodes before path generaton: " + startNodes.size());
-        System.out.println("Total end nodes before path generaton: " + endNodes.size());
-        
-		System.out.println("Total nodes: " + startNodes.size() * endNodes.size());
-//		PathFinder finder = new ExistancePathFinder(this);
-		PathFinder finder = new ShortestPathFinder(this);
-		
-		for (ElementNode start : startNodes) {
-			for (ElementNode end : endNodes) {
-//				if (ora.leq(env, start.e, end.e))
-				if (env.leq(start.e, end.e))
-					continue;
-				List<Edge> l = finder.getPath(start, end);
-				if ( l!=null && (!SYMMENTRIC || (getIndex(start) < getIndex(end)))) {
-					System.out.println("reporting path between "+start+" "+end);
-					ConstraintPath path = new ConstraintPath(l);
-					System.out.println(path.toString());
-//					path.increaseTotal();
-					errorPaths.add(path);
-				}
-			}
-		}
-		
-		System.out.println("*** Found "+errorPaths.size() + " in total");
+    public Set<Element> getAllElements () {
+     return eleToNode.keySet();	
+    }
+    
+    public Environment getEnv() {
+		return env;
 	}
     
-    public int getPathNumber () {
-    	if (!generated) {
-    		genErrorPaths();
-    	}
-    	int ret = errorPaths.size();
-    	printRank();
-    	return ret;
-    }
+    public List<Constraint> getConstraints() {
+		return constraints;
+	}
     
-    void printRank () {    	
-        Equation[] all = equations.toArray(new Equation[equations.size()]);
-        Arrays.sort(all); 
-        for (Equation equ : all) {
-            if (equ.getRank() >0) 
-                System.out.println(equ.getRank() + ": " + equ.toString());
-        }
-    }
-    
-    public void showErrorPaths() {
-    	for (ConstraintPath path : errorPaths)
-    		System.out.println(path.toString());
-    }
-    
-    public void writeToDotFile () {
-        String filename;
-
-        filename = "error" + count + ".dot";
-        count++;
-        
-        if (!generated) genErrorPaths();
-//        showErrorPaths();
-        
-        try {
-            FileWriter fstream = new FileWriter(filename);
-            BufferedWriter out = new BufferedWriter(fstream);
-            if (SHOW_WHOLE_GRAPH) 
-            	labelAll();
-            else
-            	slicing();   
-            out.write(toDotString());
-            out.close();
-        } catch (IOException e) {
-            System.out.println("Unable to write the DOT file to: " + filename);
-        }
-        
-        printRank();
-    }
+    public boolean isSymmentric() {
+		return SYMMENTRIC;
+	}
 }

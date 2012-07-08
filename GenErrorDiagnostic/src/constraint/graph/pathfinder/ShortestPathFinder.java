@@ -42,7 +42,7 @@ public class ShortestPathFinder extends CFLPathFinder {
      * derived from the nonterminal "id" in grammar
      */
 	public void saturation() {
-		
+		System.out.println("called ...");
 		
 		List<Node> allNodes = g.getAllNodes();
 		int size = allNodes.size();

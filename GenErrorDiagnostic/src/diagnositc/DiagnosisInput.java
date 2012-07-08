@@ -3,13 +3,13 @@ package diagnositc;
 import java.util.List;
 
 import constraint.ast.Environment;
-import constraint.ast.Equation;
+import constraint.ast.Constraint;
 
 public class DiagnosisInput {
 	Environment env;
-	List<Equation> constraints;
+	List<Constraint> constraints;
 	
-	public DiagnosisInput(Environment env, List<Equation> cons) {
+	public DiagnosisInput(Environment env, List<Constraint> cons) {
 		this.env = env;
 		constraints = cons;
 	}
@@ -18,7 +18,7 @@ public class DiagnosisInput {
 		return env;
 	}
 	
-	public List<Equation> getConstraints() {
+	public List<Constraint> getConstraints() {
 		return constraints;
 	}
 }

@@ -26,6 +26,10 @@ public class ElementNode extends Node {
     	return e.toString();
     }
     
+    public Element getElement() {
+		return e;
+	}
+    
 //    public Position position () {
 //        return e.position();
 //    }

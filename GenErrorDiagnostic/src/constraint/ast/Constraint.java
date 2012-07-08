@@ -2,13 +2,13 @@ package constraint.ast;
 
 import java.util.List;
 
-public class Equation implements Comparable<Equation> {	
+public class Constraint implements Comparable<Constraint> {	
 	Element e1, e2;
 	Relation r;
 	String info;
 	int count=0;
 	
-	public Equation(Element e1, Element e2, Relation r, String info) {
+	public Constraint(Element e1, Element e2, Relation r, String info) {
 		this.e1 = e1;
 		this.e2 = e2;
 		this.r = r;
@@ -51,7 +51,7 @@ public class Equation implements Comparable<Equation> {
 //        return ((double)count)/((double)totalcount);
     }
     
-    public int compareTo(Equation n) {
+    public int compareTo(Constraint n) {
         double rank1 = getRank();
         double rank2 = n.getRank();
         return Double.compare(rank2, rank1);
