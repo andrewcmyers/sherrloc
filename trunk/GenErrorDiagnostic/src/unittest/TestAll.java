@@ -1,9 +1,9 @@
 package unittest;
 
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import constraint.graph.ConstraintGraph;
+import org.junit.Test;
+
 import diagnositc.Analysis;
 
 
@@ -17,8 +17,7 @@ public class TestAll {
 	
 	public void testOneFile (String filename, int expectedpaths, boolean sym) {
 		try {
-			ConstraintGraph graph = Analysis.getConstraintGraph(filename, sym);
-			Analysis ana = new Analysis(graph);
+			Analysis ana = Analysis.getAnalysisInstance(filename, sym);;
 			assertEquals(filename, expectedpaths, ana.getPathNumber());
 		}
 		catch (Exception e) {
