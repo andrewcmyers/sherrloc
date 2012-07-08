@@ -5,6 +5,7 @@ import java.util.List;
 public class LabelElement extends Constructor {
 	String owner;
 	String reader;
+	boolean isPolicy;
 	
 	public LabelElement(String policy) {
 		super(policy, 0);
@@ -16,20 +17,16 @@ public class LabelElement extends Constructor {
 				reader = result[1];
 			else
 				reader = "_";
+			isPolicy = true;
 		}
 		else {
-			owner = "*";
-			reader = "*";
+			isPolicy = false;
 		}
 	}
-	
-	String owner() {
-		return owner;
+    
+    public boolean isComparable () {
+		return isPolicy;
 	}
-	
-    String reader() {
-    	return reader;
-    }
     
     boolean isBottom () {
     	return owner.equals("_")&&reader.equals("_");
@@ -47,7 +44,10 @@ public class LabelElement extends Constructor {
     
     @Override
     public boolean equals(Object o) {
-    	if (o instanceof LabelElement) {
+    	if (this==o)
+    		return true;
+    	
+    	if (o instanceof LabelElement && this.isComparable() && ((LabelElement)o).isComparable()) {
     		return owner.equals(((LabelElement)o).owner)&&reader.equals(((LabelElement)o).reader);
     	}
     	return false;
@@ -64,9 +64,13 @@ public class LabelElement extends Constructor {
     }
     
     public boolean leq_(Object o) {
-    	if (this==o) return true;
+    	if (this==o) 
+    		return true;
     	
-    	if (o instanceof LabelElement) {
+    	if (!isComparable())
+    		return false;
+    	
+    	if (o instanceof LabelElement && ((LabelElement)o).isComparable()) {
     		LabelElement p = (LabelElement) o;
 	        if (this.isBottom() || p.isTop())
 	            return true;

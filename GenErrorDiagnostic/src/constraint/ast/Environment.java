@@ -12,16 +12,16 @@ import constraint.graph.pathfinder.ShortestPathFinder;
  * That can be used in the leq check
  */
 public class Environment {
-	List<Equation> assertions;
+	List<Constraint> assertions;
 	ConstraintGraph graph;
 	PathFinder finder = null;
 	
 	public Environment() {
-		assertions = new ArrayList<Equation>();
+		assertions = new ArrayList<Constraint>();
 		graph = new ConstraintGraph(null, assertions, false);
 	}
 	
-	public void addAssertion (Equation equ) {
+	public void addAssertion (Constraint equ) {
 		assertions.add(equ);
 	}
 	
@@ -34,7 +34,7 @@ public class Environment {
 	}
 	
 	public void printAssertions () {
-		for (Equation e : assertions) {
+		for (Constraint e : assertions) {
 			System.out.println(e);
 		}
 	}
