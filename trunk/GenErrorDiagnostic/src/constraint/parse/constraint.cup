@@ -10,7 +10,7 @@ import constraint.ast.Constructor;
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
 import constraint.ast.Environment;
-import constraint.ast.Equation;
+import constraint.ast.Constraint;
 import constraint.ast.JoinElement;
 import constraint.ast.LabelElement;
 import constraint.ast.MeetElement;
@@ -28,16 +28,16 @@ action code {:
 /* Terminals (tokens returned by the scanner). */
 terminal 			SEPERATION;
 terminal            CONSTRUCTOR, LABEL, PARAMLABEL;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, STAR, AT, JOIN, MEET;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, LBRACK, RBRACK, STAR, AT, JOIN, MEET;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
 /* Non terminals */
-non terminal DiagnosisInput    cons_spec;
-non terminal List<Equation>		equations;
+non terminal DiagnosisInput     cons_spec;
+non terminal List<Constraint>	equations;
 non terminal 					constructors, constructor;
-non terminal				    assumptions;
-non terminal Equation 			equation;
+non terminal				    assumptions, env, assertions;
+non terminal Constraint 		equation;
 non terminal Element			term, element, cons;
 non terminal String           	id, position;
 non terminal Integer			arity;
@@ -95,17 +95,24 @@ equations 	::= equations:l equation:e
             {: l.add(e); RESULT = l; :}
             | 
             equation:e
-            {: List<Equation> list = new ArrayList<Equation>(); list.add(e); RESULT = list; :}
+            {: List<Constraint> list = new ArrayList<Constraint>(); list.add(e); RESULT = list; :}
             ;
             
-equation 	::= term:e1 EQ term:e2 SEMICOLON position:p
-			{: RESULT = new Equation (e1, e2, Relation.EQ, p); :}  
-            | term:e1 LEQ term:e2 SEMICOLON position:p
-         	{: RESULT = new Equation (e1, e2, Relation.LEQ, p); :}
-            | term:e1 GEQ term:e2 SEMICOLON  position:p
-            {: RESULT = new Equation (e2, e1, Relation.LEQ, p); :}
+equation 	::= term:e1 EQ term:e2 env SEMICOLON position:p
+			{: RESULT = new Constraint (e1, e2, Relation.EQ, p); :}  
+            | term:e1 LEQ term:e2 env SEMICOLON position:p
+         	{: RESULT = new Constraint (e1, e2, Relation.LEQ, p); :}
+            | term:e1 GEQ term:e2 env SEMICOLON  position:p
+            {: RESULT = new Constraint (e2, e1, Relation.LEQ, p); :}
             ;
             
+env         ::= LBRACK assertions RBRACK
+			|
+			;
+			
+assertions  ::= equations
+			;
+
 position	::= AT STRING_LITERAL:s
 			{: RESULT = s; :}
 			| /* no information */

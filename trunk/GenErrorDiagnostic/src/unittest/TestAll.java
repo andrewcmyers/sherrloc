@@ -51,7 +51,7 @@ public class TestAll {
 			/* test for Jif constraint */
 			testOneFile("src/constraint/tests/jif/test.con", 1, false);
 
-			testOneFile("src/constraint/tests/jif/array.con", 3, false);
+			testOneFile("src/constraint/tests/jif/array.con", 2, false);
 
 			testOneFile("src/constraint/tests/jif/constant.con", 2, false);
 		}

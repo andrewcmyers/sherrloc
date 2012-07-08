@@ -1,10 +1,15 @@
-PARAMLABEL caller_pc
-LABEL px->py
-LABEL _->_
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL px->py //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
 
-y == caller_pc ⊔ px->py;@"test.jif:8,17-18"
-caller_pc <= y;@"test.jif:8,19-20"
-y ⊔ caller_pc <= x;@"test.jif:9,12-13"
-z == caller_pc ⊔ _->_;@"test.jif:10,11-12"
-caller_pc <= z;@"test.jif:10,15-16"
-caller_pc ⊔ x <= z;@"test.jif:12,8-9"
+%%
+this <= caller_pc;
+
+%%
+y == caller_pc ⊔ px->py [this <= caller_pc;];@"test.jif:8,17-18"
+caller_pc <= y [this <= caller_pc;];@"test.jif:8,19-20"
+y ⊔ caller_pc <= x [this <= caller_pc;];@"test.jif:9,12-13"
+z == caller_pc ⊔ _->_ [this <= caller_pc;];@"test.jif:10,11-12"
+caller_pc <= z [this <= caller_pc;];@"test.jif:10,15-16"
+caller_pc ⊔ x <= z [this <= caller_pc;];@"test.jif:12,8-9"
