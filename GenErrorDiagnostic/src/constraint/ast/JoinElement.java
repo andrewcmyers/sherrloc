@@ -32,10 +32,15 @@ public class JoinElement extends EnumerableElement {
 		if (this == o)
 			return true;
 		
-		if (hasVars())
-			return false;
-		else
-			return false;
+		if (o instanceof JoinElement && elements.size()==((JoinElement)o).elements.size()) {
+			List<Element> list2 = ((JoinElement)o).elements;
+			for (int i=0; i<elements.size(); i++) {
+				if (!elements.get(i).equals(list2.get(i)))
+					return false;
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

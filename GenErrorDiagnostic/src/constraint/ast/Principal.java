@@ -16,4 +16,11 @@ public abstract class Principal {
 	public String toString () {
 		return name;
 	}
+	
+	public boolean equals(Object obj) {
+		if (obj instanceof Principal) {
+			return name.equals(((Principal)obj).name);
+		}
+		return false;
+	}
 }

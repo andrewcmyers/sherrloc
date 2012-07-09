@@ -32,11 +32,15 @@ public class MeetElement extends EnumerableElement {
 		if (this==o)
 			return true;
 		
-		if (hasVars())
-			return false;
-		else 
-			// TODO: correct?
-			return false;
+		if (o instanceof MeetElement && elements.size()==((MeetElement)o).elements.size()) {
+			List<Element> list2 = ((MeetElement)o).elements;
+			for (int i=0; i<elements.size(); i++) {
+				if (!elements.get(i).equals(list2.get(i)))
+					return false;
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
