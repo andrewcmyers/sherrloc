@@ -23,7 +23,7 @@ LineBreak		= \r|\n|\r\n
 WhiteSpace     	= {LineBreak} | [ \t\f]
 InputCharacter = [^\r\n]
 
-Identifier = ([:jletter:]|_) ([:jletterdigit:] | - | >)*
+Identifier = [:jletter:]([:jletterdigit:])* | ([:jletter:]| "*") ([:jletterdigit:] | - | > | "*")+
 DecIntegerLiteral = 0 | [1-9][0-9]*
 
 /* comments */
@@ -55,7 +55,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	"\""                           { string.setLength(0); yybegin(INFO); }
 
   	/* operators */
-  	"=="                            { return symbol(sym.EQ); }
+  	"=="                           { return symbol(sym.EQ); }
   	"<="                           { return symbol(sym.LEQ); }
   	">="                           { return symbol(sym.GEQ); }
   	"->"                           { return symbol(sym.ARROW); }
@@ -78,10 +78,10 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 
 /* INFO associated with token */
 <INFO> {
-  "\""                           { yybegin(YYINITIAL); 
-                                   return symbol(sym.STRING_LITERAL, 
-                                   string.toString()); }
-  [^\n\r\"\\]+                   { string.append( yytext() ); }
+  "\""                             { yybegin(YYINITIAL); 
+                                     return symbol(sym.STRING_LITERAL, 
+                                     string.toString()); }
+  [^\n\r\"\\]+                     { string.append( yytext() ); }
   "\\t"                            { string.append('\t'); }
   "\\n"                            { string.append('\n'); }
 
