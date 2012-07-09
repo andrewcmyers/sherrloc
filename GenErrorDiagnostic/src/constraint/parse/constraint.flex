@@ -23,7 +23,7 @@ LineBreak		= \r|\n|\r\n
 WhiteSpace     	= {LineBreak} | [ \t\f]
 InputCharacter = [^\r\n]
 
-Identifier = [:jletter:]([:jletterdigit:])* | ([:jletter:]| "*") ([:jletterdigit:] | - | > | "*")+
+Identifier = [:jletter:]([:jletterdigit:])* | ([:jletter:]| "*") ([:jletterdigit:] | - | > | "*" | "," | "&")+
 DecIntegerLiteral = 0 | [1-9][0-9]*
 
 /* comments */
