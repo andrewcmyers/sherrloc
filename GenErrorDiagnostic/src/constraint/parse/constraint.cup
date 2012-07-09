@@ -14,7 +14,6 @@ import constraint.ast.Constraint;
 import constraint.ast.JoinElement;
 import constraint.ast.LabelElement;
 import constraint.ast.MeetElement;
-import constraint.ast.ParamLabelElement;
 import constraint.ast.Relation;
 import constraint.ast.Variable;
 import diagnositc.DiagnosisInput;
@@ -72,9 +71,6 @@ constructor  ::= CONSTRUCTOR id:s arity:a
 			|
 			LABEL id:s
 			{: constructors.put( s, new LabelElement(s)); :}
-			|
-			PARAMLABEL id:s
-			{: constructors.put( s, new ParamLabelElement(s)); :}
 			;
 
 id        	::= IDENTIFIER:s
