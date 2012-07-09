@@ -16,7 +16,7 @@ public class LabelElement extends Constructor {
 			if (result.length>1)
 				reader = result[1];
 			else
-				reader = "_";
+				reader = "*";
 			isPolicy = true;
 		}
 		else {
@@ -74,7 +74,7 @@ public class LabelElement extends Constructor {
     		LabelElement p = (LabelElement) o;
 	        if (this.isBottom() || p.isTop())
 	            return true;
-	
+
 	        // if this policy is o:_, then o allows
 	        // all principals to read info, and thus does
 	        // not restrict who may read
@@ -83,6 +83,11 @@ public class LabelElement extends Constructor {
 	        }
 	            
 	        // o' >= o
+	        if (!owner.equals(p.owner)) {
+	        	return false;
+	        }
+	        
+	        return this.reader.equals("_") || p.reader.equals("*");
 //	        if (!env.actsFor(p.owner(), this.owner)) {
 //	            return false;
 //	        }

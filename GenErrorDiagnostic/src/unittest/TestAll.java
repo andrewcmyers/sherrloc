@@ -54,6 +54,8 @@ public class TestAll {
 			testOneFile("src/constraint/tests/jif/array.con", 2, false);
 
 			testOneFile("src/constraint/tests/jif/constant.con", 2, false);
+			
+			testOneFile("src/constraint/tests/jif/Do2.con", 1, false);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

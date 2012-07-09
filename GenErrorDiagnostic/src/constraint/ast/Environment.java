@@ -79,10 +79,16 @@ public class Environment {
 			graph.generateGraph();
 			finder = new ShortestPathFinder(graph);
 		}
-		
-		if (graph.hasElement(e1) && graph.hasElement(e2))
-			return finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null;
-		else
-			return false;
+
+		if (graph.hasElement(e1)) {
+			for (Element e : graph.getAllElements()) {
+				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && e.leq_(e2))
+					return true;
+			}
+		}
+		return false;
+//			return finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null;
+//		else
+//			return false;
     }
 }
