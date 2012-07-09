@@ -3,8 +3,8 @@ package constraint.ast;
 import java.util.List;
 
 public class LabelElement extends Constructor {
-	String owner;
-	String reader;
+	BasicPrincipal owner;
+	Principal reader;
 	boolean isPolicy;
 	
 	public LabelElement(String policy) {
@@ -12,11 +12,20 @@ public class LabelElement extends Constructor {
 		// for now, just parse a policy from string
 		if (policy.contains("->")) {
 			String[] result = policy.split("->");
-			owner = result[0];
+			owner = new BasicPrincipal(result[0]);
+			String s;
 			if (result.length>1)
-				reader = result[1];
+				s = result[1];
 			else
-				reader = "*";
+				s = "*";
+			if (s.contains(",")) {
+				reader = new DisjunctivePrincipal(s);
+			}
+			else if (s.contains("&")) {
+				reader = new ConjunctivePrincipal(s);
+			}
+			else
+				reader = new BasicPrincipal(s);
 			isPolicy = true;
 		}
 		else {
@@ -29,11 +38,11 @@ public class LabelElement extends Constructor {
 	}
     
     boolean isBottom () {
-    	return owner.equals("_")&&reader.equals("_");
+    	return owner.isBottom()&&reader.isBottom();
     }
     
     boolean isTop () {
-    	return owner.equals("*")&&reader.equals("*");
+    	return owner.isTop()&&reader.isTop();
     }
     
     public static void main(String[] args) {
@@ -41,6 +50,14 @@ public class LabelElement extends Constructor {
 		System.out.println(ele.owner);
 		System.out.println(ele.reader);
 	}
+    
+    public String toString () {
+    	if (isComparable()) {
+    		return owner + "->" + reader;
+    	}
+    	else
+    		return name;
+    }
     
     @Override
     public boolean equals(Object o) {
@@ -78,16 +95,41 @@ public class LabelElement extends Constructor {
 	        // if this policy is o:_, then o allows
 	        // all principals to read info, and thus does
 	        // not restrict who may read
-	        if (reader.equals("_")) {
+	        if (reader.isBottom()) {
 	            return true;
 	        }
 	            
 	        // o' >= o
-	        if (!owner.equals(p.owner)) {
+	        if (!p.owner.actsFor(owner)) {
 	        	return false;
 	        }
 	        
-	        return this.reader.equals("_") || p.reader.equals("*");
+	        if (p.reader.actsFor(owner))
+	        	return true;
+	        
+	        if (reader instanceof ConjunctivePrincipal) {
+	        	ConjunctivePrincipal cp = (ConjunctivePrincipal)reader;
+	            // actor actsfor cp if actor actsfor all conjuncts
+	            for (BasicPrincipal bp : cp.conjuncts()) {
+	                if (!p.reader.actsFor(bp)) {
+	                    return false; 
+	                }                
+	            }
+	            return true;
+	        }
+	        else if (reader instanceof DisjunctivePrincipal) {
+	        	DisjunctivePrincipal dp = (DisjunctivePrincipal)reader;
+	            // actor actsfor dp if there is one disjunct that actor can act for
+	            for (BasicPrincipal bp : dp.disjuncts()) {
+	                if (p.reader.actsFor(bp)) {
+	                    return true;                    
+	                }
+	            }
+	            return false;
+	        }
+	        else {
+	        	return p.reader.actsFor((BasicPrincipal)reader);
+	        }
 //	        if (!env.actsFor(p.owner(), this.owner)) {
 //	            return false;
 //	        }
