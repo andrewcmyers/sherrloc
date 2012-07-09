@@ -1,0 +1,13 @@
+LABEL px->py,pz //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL px->py //class jif.types.label.PairLabel_c
+LABEL this
+
+%%
+this <= caller_pc;
+
+%%
+y == caller_pc ⊔ px->py [this <= caller_pc;];@"field.jif:9,17-18"
+caller_pc <= y [this <= caller_pc;];@"field.jif:9,19-20"
+y ⊔ caller_pc ⊔ this <= px->py,pz [this <= caller_pc;];@"field.jif:10,4-5"
+px->py,pz <= y [this <= caller_pc;];@"field.jif:11,4-5"
