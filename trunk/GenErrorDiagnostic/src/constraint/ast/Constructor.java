@@ -37,7 +37,8 @@ public class Constructor extends Element {
 	
 	public boolean equals(Object o) {
 		if (o instanceof Constructor) {
-			return this==o;
+			Constructor c = (Constructor)o;
+			return arity==c.arity && this.name==c.name;
 		}
 		return false;
 	}

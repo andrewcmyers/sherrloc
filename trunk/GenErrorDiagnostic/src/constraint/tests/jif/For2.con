@@ -1,0 +1,16 @@
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+
+%%
+this <= caller_pc;caller_pc<=_->_;
+
+%%
+secret == Alice-> [this <= caller_pc;];@"For2.jif:3,17-23"
+caller_pc <= secret [this <= caller_pc;];@"For2.jif:3,26-30"
+leak == _->_ [this <= caller_pc;];@"For2.jif:4,11-15"
+caller_pc <= i [this <= caller_pc;];@"For2.jif:5,16-17"
+for ⊔ i <= leak [this <= caller_pc;];@"For2.jif:8,2-6"
+for ⊔ i <= i [this <= caller_pc;];@"For2.jif:9,16-17"
+for ⊔ i ⊔ secret ⊔ caller_pc <= for [this <= caller_pc;];@"For2.jif:7,5-18"

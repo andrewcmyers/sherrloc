@@ -20,7 +20,7 @@ public class Variable extends Element {
 	
 	public boolean equals(Object o) {
 		if (o instanceof Variable) {
-			return this==o;
+			return this.name==((Variable)o).name;
 		}
 		return false;
 	}
