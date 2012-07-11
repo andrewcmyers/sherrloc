@@ -1,3 +1,4 @@
+LABEL this //class jif.types.label.ThisLabel_c
 LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL px->py //class jif.types.label.PairLabel_c
 LABEL this
