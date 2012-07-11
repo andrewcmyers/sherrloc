@@ -32,8 +32,10 @@ public abstract class Graph {
 	}
       
     public void addEdge (Node from, Node to, Edge edge) {
-    	edges.get(from).put(to, edge);
-    	allEdges.add(edge);
+    	if (!hasEdge(from, to)) {
+    		edges.get(from).put(to, edge);
+    		allEdges.add(edge);
+    	}
     }
     
     public List<Edge> getAllEdges () {

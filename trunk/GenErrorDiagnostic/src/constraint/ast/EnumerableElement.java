@@ -5,7 +5,7 @@ import java.util.List;
 
 /* a compond element is constructed by a Constructor */
 public abstract class EnumerableElement extends Element {
-	final List<Element> elements;
+	List<Element> elements;
 	
 	public EnumerableElement(String name, List<Element> elements) {
 		super(name, "");
