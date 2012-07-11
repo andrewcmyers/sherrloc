@@ -63,11 +63,19 @@ public class LabelElement extends Constructor {
     public boolean equals(Object o) {
     	if (this==o)
     		return true;
-    	
-    	if (o instanceof LabelElement && this.isComparable() && ((LabelElement)o).isComparable()) {
-    		return owner.equals(((LabelElement)o).owner)&&reader.equals(((LabelElement)o).reader);
+   
+    	if (o instanceof LabelElement) {
+    		return name.equals(((LabelElement) o).name);
     	}
+//    	if (o instanceof LabelElement && this.isComparable() && ((LabelElement)o).isComparable()) {
+//    		return owner.equals(((LabelElement)o).owner)&&reader.equals(((LabelElement)o).reader);
+//    	}
     	return false;
+    }
+    
+    @Override
+    public int hashCode() {
+    	return name.hashCode();
     }
     
     @Override

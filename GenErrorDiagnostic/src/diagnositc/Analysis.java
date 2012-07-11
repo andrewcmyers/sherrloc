@@ -22,7 +22,7 @@ import constraint.parse.parser;
 
 public class Analysis {
 	boolean DEBUG = true;
-    boolean SHOW_WHOLE_GRAPH=false;
+    boolean SHOW_WHOLE_GRAPH=true;
 	boolean done = false;
 	ConstraintGraph graph;
 	List<ConstraintPath> errorPaths;
@@ -34,7 +34,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/constant.con", false);;
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/p3.con", false);;
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
