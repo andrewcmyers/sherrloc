@@ -1,15 +1,29 @@
 package constraint.ast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MeetElement extends EnumerableElement {
 	
 	public MeetElement(String name, List<Element> elements) {
 		super (name, elements);
+		flat();
 	}
 	
 	public String toString() {
 		return infixToString();
+	}
+	
+	public void flat () {
+		List<Element> flat = new ArrayList<Element>();
+		for (Element e : elements) {
+			if (e instanceof MeetElement) {
+				flat.addAll(((MeetElement) e).elements);
+			}
+			else
+				flat.add(e);
+		}
+		elements = flat;
 	}
 	
 	@Override
