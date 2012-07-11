@@ -1,0 +1,13 @@
+LABEL px->py,pz //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL y //class jif.types.label.ArgLabel_c
+LABEL x //class jif.types.label.ArgLabel_c
+LABEL this
+
+%%
+this <= caller_pc;y<=px->py,pz;x<=px->py;
+
+%%
+z == caller_pc ⊔ px->py,pz [this <= caller_pc;];@"para.jif:8,19-20"
+y ⊔ caller_pc <= z [this <= caller_pc;];@"para.jif:9,4-5"
+x ⊔ caller_pc <= z [this <= caller_pc;];@"para.jif:10,4-5"

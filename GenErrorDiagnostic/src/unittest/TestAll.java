@@ -66,6 +66,8 @@ public class TestAll {
 			testOneFile("src/constraint/tests/jif/For3.con", 1, false);
 			
 			testOneFile("src/constraint/tests/jif/p3.con", 1, false);
+			
+			testOneFile("src/constraint/tests/jif/para.con", 1, false);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
