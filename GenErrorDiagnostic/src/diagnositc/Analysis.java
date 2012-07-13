@@ -11,6 +11,7 @@ import java.util.Set;
 
 import constraint.ast.Constraint;
 import constraint.ast.Element;
+import constraint.ast.Environment;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
@@ -34,7 +35,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/p3.con", false);;
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/duplicate.con", false);;
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
@@ -93,6 +94,12 @@ public class Analysis {
 				if ( l!=null && (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
 					System.out.println("reporting path between "+start+" "+end);
 					ConstraintPath path = new ConstraintPath(l);
+					Environment env = new Environment();
+					env.addEnv(graph.getEnv());
+					env.addEnv(path.getAssumption());
+					if (env.leq(start.getElement(), end.getElement()))
+						continue;
+					path.getAssumption().printAssertions();
 					System.out.println(path.toString());
 //					path.increaseTotal();
 					errorPaths.add(path);

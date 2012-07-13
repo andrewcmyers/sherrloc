@@ -1,0 +1,17 @@
+LABEL *->n //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *fetchLabel //class jif.types.label.DynamicLabel_c
+LABEL user //class jif.types.label.ArgLabel_c
+LABEL *->fetchStore //class jif.types.label.PairLabel_c
+LABEL *l //class jif.types.label.DynamicLabel_c
+LABEL _-> //class jif.types.label.PairLabel_c
+LABEL this
+
+%%
+user <= *->n;
+user <= *l;
+user <= *friend_access_bound;
+*l ⊔ *->fetchStore <= *fetchLabel;
+
+%%
+this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *fetchLabel ⊓ *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"

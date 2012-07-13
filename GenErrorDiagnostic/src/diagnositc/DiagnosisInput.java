@@ -1,15 +1,15 @@
 package diagnositc;
 
-import java.util.List;
+import java.util.Set;
 
-import constraint.ast.Environment;
 import constraint.ast.Constraint;
+import constraint.ast.Environment;
 
 public class DiagnosisInput {
 	Environment env;
-	List<Constraint> constraints;
+	Set<Constraint> constraints;
 	
-	public DiagnosisInput(Environment env, List<Constraint> cons) {
+	public DiagnosisInput(Environment env, Set<Constraint> cons) {
 		this.env = env;
 		constraints = cons;
 	}
@@ -18,7 +18,7 @@ public class DiagnosisInput {
 		return env;
 	}
 	
-	public List<Constraint> getConstraints() {
+	public Set<Constraint> getConstraints() {
 		return constraints;
 	}
 }
