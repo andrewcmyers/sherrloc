@@ -1,0 +1,28 @@
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL y //class jif.types.label.ArgLabel_c
+LABEL x //class jif.types.label.ArgLabel_c
+LABEL x //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+y<=x;
+x<=y;
+x<=x;
+_->_==_->_;
+_->_==_->_;
+
+%%
+_->_ <= *-> [];@"ArgLabel2.jif:1,0-7"
+y <= y [];@"ArgLabel2.jif:3,9-17"
+x <= x [];@"ArgLabel2.jif:3,9-17"
+*-> <= *-> [];@"ArgLabel2.jif:3,9-17"
+_->_ <= _->_ [];@"ArgLabel2.jif:3,9-17"
+x <= x [];@"ArgLabel2.jif:5,9-17"
+*-> <= *-> [];@"ArgLabel2.jif:5,9-17"
+_->_ <= _->_ [];@"ArgLabel2.jif:5,9-17"
+_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"ArgLabel2.jif:1,0-0"

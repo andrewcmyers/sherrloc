@@ -13,6 +13,7 @@ public class TestAll {
 	public void testGraph () {
 		testJif();
 		testSML();
+		jifTestcases();
 	}
 	
 	public void testOneFile (String filename, int expectedpaths, boolean sym) {
@@ -81,9 +82,21 @@ public class TestAll {
 	@Test
 	public void jifTestcases () {
 		try {
-			testOneFile("src/constraint/tests/jiftestcases/A.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/A_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/A_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/A_4.con", 0, false);
 			
-			testOneFile("src/constraint/tests/jiftestcases/Account.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Account_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Account_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabel1_4.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabel1_6.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabel2_4.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_5.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_7.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_9.con", 0, false);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,19 @@
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL yyy-> //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL w //class jif.types.label.ArgLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+w<=_->_;
+
+%%
+caller_pc ⊔ w <= *-> [this <= caller_pc;];@"ArgLabelSubst.jif:30,25-26"
+caller_pc ⊔ w <= *-> [this <= caller_pc;];@"ArgLabelSubst.jif:30,28-29"
+caller_pc ⊔ w <= *-> [this <= caller_pc;];@"ArgLabelSubst.jif:30,16-30"
+receiver == caller_pc ⊔ w [this <= caller_pc;];@"ArgLabelSubst.jif:30,16-30"
+arg1label == caller_pc ⊔ w [this <= caller_pc;];@"ArgLabelSubst.jif:30,16-30"
+arg2label == caller_pc ⊔ w [this <= caller_pc;];@"ArgLabelSubst.jif:30,16-30"
+caller_pc <= yyy-> ⊔ caller_pc [this <= caller_pc;];@"ArgLabelSubst.jif:32,1-13"
