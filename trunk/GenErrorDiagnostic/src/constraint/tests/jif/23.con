@@ -1,0 +1,258 @@
+LABEL friend_access_bound //class jif.types.label.ArgLabel_c
+LABEL mapserv.MapServer.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.MapServer.provider //class fabric.types.FabricProviderLabel_c
+LABEL util.GroupIterator.provider //class fabric.types.FabricProviderLabel_c
+LABEL *->n //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *->s //class jif.types.label.PairLabel_c
+LABEL mapserv.MapServer.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.MapServer.provider //class fabric.types.FabricProviderLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL mapserv.MapImage.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.MapImage.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.Box.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.Box.provider //class fabric.types.FabricProviderLabel_c
+LABEL friendmap.FriendMap.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.MapServer.provider //class fabric.types.FabricProviderLabel_c
+LABEL *->this.service.store //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL mapserv.Box.provider //class fabric.types.FabricProviderLabel_c
+LABEL this //class fabric.types.FabricThisLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _-> //class jif.types.label.PairLabel_c
+LABEL util.GroupIterator.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.MapImage.provider //class fabric.types.FabricProviderLabel_c
+LABEL *fetchLabel //class jif.types.label.DynamicLabel_c
+LABEL l //class jif.types.label.ArgLabel_c
+LABEL *->worker$ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL mapserv.MapImage.provider //class fabric.types.FabricProviderLabel_c
+LABEL o //class jif.types.label.ArgLabel_c
+LABEL n //class jif.types.label.ArgLabel_c
+LABEL user //class jif.types.label.ArgLabel_c
+LABEL s //class jif.types.label.ArgLabel_c
+LABEL mapserv.Box.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.MapImage.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.Box.provider //class fabric.types.FabricProviderLabel_c
+LABEL util.Group.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.MapImage.provider //class fabric.types.FabricProviderLabel_c
+LABEL mapserv.MapServer.provider //class fabric.types.FabricProviderLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *->fetchStore //class jif.types.label.PairLabel_c
+LABEL util.Group.provider //class fabric.types.FabricProviderLabel_c
+LABEL *l //class jif.types.label.DynamicLabel_c
+LABEL _-> //class jif.types.label.PairLabel_c
+LABEL mapserv.Box.provider //class fabric.types.FabricProviderLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL mapserv.MapImage.provider //class fabric.types.FabricProviderLabel_c
+LABEL *friend_access_bound //class jif.types.label.DynamicLabel_c
+LABEL this
+
+%%
+this <= caller_pc;
+caller_pc <= *->n ⊓ *l ⊓ *->this.service.store ⊓ *->s ⊓ *friend_access_bound;
+mapserv.MapServer.provider <= mapserv.MapImage.provider;
+mapserv.MapImage.provider <= mapserv.MapServer.provider;
+mapserv.MapServer.provider <= mapserv.Box.provider;
+mapserv.Box.provider <= mapserv.MapServer.provider;
+friendmap.FriendMap.provider <= _->;
+util.Group.provider <= _->_;
+_-> <= util.Group.provider;
+util.GroupIterator.provider <= _->_;
+_-> <= util.GroupIterator.provider;
+this <= A ⊔ _->_;
+friendmap.FriendMap.provider <= *->n;
+mapserv.MapServer.provider <= *->n;
+user <= *->n;
+friend_access_bound <= *->n;
+n <= *->n;
+l <= *->n;
+friendmap.FriendMap.provider <= *->this.service.store;
+mapserv.MapServer.provider <= *->this.service.store;
+user <= *->this.service.store;
+friend_access_bound <= *->this.service.store;
+n <= *->this.service.store;
+l <= *->this.service.store;
+friendmap.FriendMap.provider <= *l;
+mapserv.MapServer.provider <= *l;
+user <= *l;
+_-> <= *l;
+s <= *l;
+l <= *l;
+friend_access_bound <= *l;
+n <= *l;
+l <= *l;
+_->_ <= *l;
+friendmap.FriendMap.provider <= *friend_access_bound;
+mapserv.MapServer.provider <= *friend_access_bound;
+user <= *friend_access_bound;
+_-> <= *friend_access_bound;
+friend_access_bound <= *friend_access_bound;
+n <= *friend_access_bound;
+l <= *friend_access_bound;
+*l <= *->worker$;
+_->_ <= *l;
+*l <= *->s;
+this <= caller_pc;
+*fetchLabel <= *l;
+*fetchLabel <= *->fetchStore;
+*l ⊓ *->fetchStore <= *fetchLabel;
+
+%%
+caller_pc ⊔ user ⊔ friendmap.FriendMap.provider <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:269,12-38"
+user ⊔ caller_pc <= *->n;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:270,8-20"
+caller_pc ⊔ user <= *->n;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:270,8-20"
+caller_pc ⊔ user ⊔ _-> <= newAssertionFailedError;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:271,37-68"
+caller_pc ⊔ user ⊔ _-> <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:271,12-69"
+caller_pc ⊔ user ⊔ this <= newAssertionFailedError;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:273,37-63"
+caller_pc ⊔ user ⊔ this ⊔ friendmap.FriendMap.provider <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:273,12-64"
+this ⊔ caller_pc ⊔ user <= *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:275,29-42"
+caller_pc ⊔ user <= *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:275,29-42"
+this ⊔ caller_pc ⊔ user <= fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:275,29-42"
+s ⊔ caller_pc ⊔ user <= localStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:276,29-30"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ l <= fetchLabel;
+user ⊔ this ⊔ caller_pc ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,71-75"
+o ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,77-78"
+n ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,80-81"
+fetchLabel ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,83-93"
+fetchStore ⊔ this ⊔ caller_pc ⊔ user <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,95-105"
+friend_access_bound ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,107-126"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ friendmap.FriendMap.provider <= *fetchLabel ⊓ *->fetchStore ⊓ *->n ⊓ *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+friendmap.FriendMap.provider <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+mapserv.MapServer.provider <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+user ⊔ this ⊔ caller_pc ⊔ fetchStore <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+_-> <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+friend_access_bound ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ n ⊔ fetchLabel <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+fetchLabel ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+friendmap.FriendMap.provider <= *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+user ⊔ this ⊔ caller_pc ⊔ fetchStore <= *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+_-> <= *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+friend_access_bound ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ n ⊔ fetchLabel <= *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+friendmap.FriendMap.provider ⊔ user ⊔ this ⊔ caller_pc ⊔ fetchStore ⊔ n ⊔ fetchLabel ⊔ friend_access_bound <= *->n;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+*fetchLabel <= *->fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+_->_ <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+mapserv.MapServer.provider <= mapserv.MapImage.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+mapserv.MapImage.provider <= mapserv.MapServer.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+mapserv.MapServer.provider <= mapserv.Box.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+mapserv.Box.provider <= mapserv.MapServer.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+friendmap.FriendMap.provider <= _->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+util.Group.provider <= _->_;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+_-> <= util.Group.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+util.GroupIterator.provider <= _->_;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+_-> <= util.GroupIterator.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+receiver == this;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+arg1label == user ⊔ this ⊔ caller_pc ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+arg2label == o ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+arg3label == n ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+arg4label == fetchLabel ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+arg5label == fetchStore ⊔ this ⊔ caller_pc ⊔ user;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+arg6label == friend_access_bound ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+*fetchLabel == *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+*->fetchStore == *->fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+*fetchLabel ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= boundary;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:284,53-127"
+fetchLabel ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,35-45"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;
+boundary ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,76-84"
+*fetchLabel == *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,76-84"
+*->fetchStore == *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,76-84"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ friendmap.FriendMap.provider <= *fetchLabel ⊓ *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+_->_ <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+*fetchLabel <= *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+*->this.service.store <= *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+*fetchLabel <= *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+mapserv.MapServer.provider ⊔ boundary ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ fetchLabel ⊔ _->_ <= *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+mapserv.MapServer.provider ⊔ boundary ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+mapserv.MapImage.provider <= mapserv.MapServer.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+mapserv.MapServer.provider <= mapserv.MapImage.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+mapserv.Box.provider <= mapserv.MapServer.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+mapserv.MapServer.provider <= mapserv.Box.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+receiver == this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+arg1label == fetchLabel ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+arg2label == this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+arg3label == boundary ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->this.service.store;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,25-85"
+*fetchLabel ⊔ mapserv.MapServer.provider ⊔ boundary ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= map;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,6-9"
+*fetchLabel == *fetchLabel;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,6-85"
+*->this.service.store == *->fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:289,6-85"
+mapserv.MapServer.provider ⊔ boundary ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= e;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:290,13-41"
+e <= newAssertionFailedError;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:291,37-60"
+e ⊔ friendmap.FriendMap.provider <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:291,12-61"
+l ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,43-44"
+map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ s <= *->;
+s ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,62-63"
+map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ friendmap.FriendMap.provider <= *l ⊓ *->s ⊓ *->fetchStore ⊓ *fetchLabel ⊔ _->_;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+_->_ <= *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+*l <= *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+*l <= *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+_->_ <= *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+*->s <= *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ *fetchLabel ⊔ mapserv.MapImage.provider <= *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+mapserv.MapImage.provider <= *->fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+_->_ <= *->fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+*fetchLabel <= *->fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+mapserv.Box.provider <= mapserv.MapImage.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+mapserv.MapImage.provider <= mapserv.Box.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+receiver == map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+arg1label == l ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+arg2label == map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+arg3label == s ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+*l == *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+*->s == *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ *fetchLabel ⊔ mapserv.MapImage.provider ⊔ l ⊔ s <= annotated;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:296,34-64"
+user ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,16-20"
+o ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,27-28"
+n ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,30-31"
+annotated ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:300,16-25"
+*l == *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:300,16-25"
+*->s == *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:300,16-25"
+l ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:300,27-28"
+mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ s <= *->;
+friend_access_bound ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:301,16-35"
+mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ friendmap.FriendMap.provider <= *->n ⊓ *->s ⊓ *friend_access_bound ⊓ *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+friendmap.FriendMap.provider ⊔ user ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ fetchStore ⊔ annotated <= *->n;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+friendmap.FriendMap.provider <= *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+annotated ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+user ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ fetchStore ⊔ n <= *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+_-> <= *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+friendmap.FriendMap.provider ⊔ mapserv.MapImage.provider <= *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+annotated ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+friendmap.FriendMap.provider ⊔ mapserv.MapImage.provider <= *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+annotated ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+user ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ fetchStore ⊔ n <= *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+_-> <= *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+l ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ friend_access_bound <= *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+_->_ <= *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+*l <= *->worker$;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+_->_ <= *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+*l <= *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+l ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ n ⊔ friend_access_bound <= *->n ⊓ *l ⊓ *->s ⊓ *friend_access_bound;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+mapserv.MapServer.provider <= mapserv.MapImage.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+mapserv.MapImage.provider <= mapserv.MapServer.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+mapserv.MapServer.provider <= mapserv.Box.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+mapserv.Box.provider <= mapserv.MapServer.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+friendmap.FriendMap.provider <= _->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+util.Group.provider <= _->_;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+_-> <= util.Group.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+util.GroupIterator.provider <= _->_;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+_-> <= util.GroupIterator.provider;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+receiver == this;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+arg1label == user ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+arg2label == o ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+arg3label == n ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+arg4label == annotated ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+arg5label == l ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+arg6label == mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+arg7label == friend_access_bound ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:299,4-301,36"
+annotated ⊔ mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= *l ⊔ user;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:303,4-21"
+*l == *l;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:303,11-20"
+*->s == *->s;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:303,11-20"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore <= newAssertionFailedError;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:305,42-80"
+this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ friendmap.FriendMap.provider <= *->;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:305,17-81"
+mapserv.MapImage.provider ⊔ map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore ⊔ friendmap.FriendMap.provider <= user ⊔ caller_pc;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:195,2-196,11"
+caller_pc ⊔ user ⊔ newNullPointerException <= user ⊔ caller_pc;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:195,2-196,11"
+map ⊔ this ⊔ caller_pc ⊔ user ⊔ fetchStore <= user ⊔ caller_pc;@"/home/zhang/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:195,2-196,11"

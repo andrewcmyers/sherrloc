@@ -68,10 +68,27 @@ public class TestAll {
 			testOneFile("src/constraint/tests/jif/p3.con", 1, false);
 			
 			testOneFile("src/constraint/tests/jif/para.con", 1, false);
+			
+			testOneFile("src/constraint/tests/jif/duplicate.con", 0, false);
+			
+//			testOneFile("src/constraint/tests/jif/23.con", 41, false);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
+	
+	@Test
+	public void jifTestcases () {
+		try {
+			testOneFile("src/constraint/tests/jiftestcases/A.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Account.con", 0, false);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

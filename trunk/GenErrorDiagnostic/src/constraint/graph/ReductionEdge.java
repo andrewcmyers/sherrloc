@@ -2,6 +2,8 @@ package constraint.graph;
 
 import java.util.List;
 
+import constraint.ast.Environment;
+
 /*
  * Special edges used in CFL-reachability algorithm
  */
@@ -36,5 +38,14 @@ public class ReductionEdge extends Edge implements Comparable<ReductionEdge> {
 	@Override
 	public void setCause() {
 		// do nothing
+	}
+	
+	@Override
+	public Environment getAssumption() {
+		Environment env = new Environment();
+		for (Edge e : edges) {
+			env.addEnv(e.getAssumption());
+		}
+		return env;
 	}
 }

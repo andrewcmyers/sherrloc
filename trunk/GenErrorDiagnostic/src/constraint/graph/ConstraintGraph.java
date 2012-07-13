@@ -32,7 +32,7 @@ import constraint.graph.visitor.ToDotVisitor;
  */
 public class ConstraintGraph extends Graph {
 	Environment env;
-    List<Constraint> constraints;
+    Set<Constraint> constraints;
     boolean SYMMENTRIC;
     boolean DEBUG = true;
 
@@ -40,7 +40,7 @@ public class ConstraintGraph extends Graph {
     public boolean generated;                                          // if the graph has been generated already, just reuse it
     static final boolean PRINT_SRC = false;                     // print corresponding source code
 
-    public ConstraintGraph (Environment env, List<Constraint> equations, boolean symmentric) {
+    public ConstraintGraph (Environment env, Set<Constraint> equations, boolean symmentric) {
         this.env = env;
     	this.constraints = equations;
     	this.files = new HashSet<String>();
@@ -230,7 +230,7 @@ public class ConstraintGraph extends Graph {
 		return env;
 	}
     
-    public List<Constraint> getConstraints() {
+    public Set<Constraint> getConstraints() {
 		return constraints;
 	}
     

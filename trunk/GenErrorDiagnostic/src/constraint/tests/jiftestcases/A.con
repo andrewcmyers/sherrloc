@@ -1,0 +1,23 @@
+LABEL A.provider //class jif.types.label.ProviderLabel_c
+LABEL a //class jif.types.label.ArgLabel_c
+LABEL A.provider //class jif.types.label.ProviderLabel_c
+LABEL Alice->Bob //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+
+%%
+this <= caller_pc;
+a<=Alice->Bob;
+A.provider==_->_;
+A.provider==_->_;
+
+%%
+A.provider <= *-> [];@"A.jif:1,0-7"
+Alice->Bob == Alice->Bob [];@"A.jif:2,11-28"
+Alice->Bob <= Alice->Bob [];@"A.jif:4,11-21"
+_->_ <= _->_ [];@"A.jif:4,11-21"
+Alice->Bob <= Alice->Bob [];@"A.jif:9,11-20"
+a <= a [];@"A.jif:9,11-20"
+_->_ <= _->_ [];@"A.jif:9,11-20"
+A.provider <= *-> [this <= caller_pc;caller_pc <= A.provider;];@"A.jif:1,0-0"

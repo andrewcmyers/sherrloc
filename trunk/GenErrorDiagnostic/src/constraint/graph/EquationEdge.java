@@ -1,6 +1,7 @@
 package constraint.graph;
 
 import constraint.ast.Constraint;
+import constraint.ast.Environment;
 
 /* 
  * an edge in graph is either static (join, meet) or dynamic (a flow that generated from an equation) 
@@ -43,12 +44,10 @@ public class EquationEdge extends Edge {
         return  equ.toDotString(); // +"\n"+ cons.detailMsg(); 
     }
     
-//    public LabelEnv getEnv () {
-//        if (cons!=null)
-//            return cons.env();
-//        else
-//            return null;
-//    }
+    @Override
+    public Environment getAssumption() {
+    	return equ.getAssumption();
+    }
     
     @Override
     public boolean isDirected() {

@@ -1,0 +1,14 @@
+LABEL a
+LABEL b
+LABEL c
+LABEL a
+LABEL b
+LABEL c
+
+%%
+a <= b;
+a <= b;
+b <= c;
+
+%%
+a <= c;
