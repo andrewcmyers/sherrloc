@@ -1,5 +1,7 @@
 package constraint.graph;
 
+import constraint.ast.Environment;
+
 /**
  * edges used for constructors
  */
@@ -33,5 +35,10 @@ public class ConstructorEdge extends Edge {
 	@Override
 	public void setCause() {
 		// do nothing, fix me later
+	}
+	
+	@Override
+	public Environment getAssumption() {
+		return new Environment();
 	}
 }

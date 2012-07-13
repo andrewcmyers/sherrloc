@@ -1,7 +1,7 @@
 package constraint.ast;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import constraint.graph.ConstraintGraph;
 import constraint.graph.pathfinder.PathFinder;
@@ -12,17 +12,23 @@ import constraint.graph.pathfinder.ShortestPathFinder;
  * That can be used in the leq check
  */
 public class Environment {
-	List<Constraint> assertions;
+	Set<Constraint> assertions;
 	ConstraintGraph graph;
 	PathFinder finder = null;
 	
 	public Environment() {
-		assertions = new ArrayList<Constraint>();
+		assertions = new HashSet<Constraint>();
 		graph = new ConstraintGraph(null, assertions, false);
 	}
 	
 	public void addAssertion (Constraint equ) {
 		assertions.add(equ);
+	}
+	
+	public void addEnv (Environment e) {
+		for (Constraint c : e.assertions) {
+			assertions.add(c);
+		}
 	}
 	
 	public boolean actsFor (String e1, String e2) {
@@ -34,6 +40,7 @@ public class Environment {
 	}
 	
 	public void printAssertions () {
+		System.out.print("Assertions: ");
 		for (Constraint e : assertions) {
 			System.out.println(e);
 		}

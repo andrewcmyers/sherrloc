@@ -7,11 +7,13 @@ public class Constraint implements Comparable<Constraint> {
 	Relation r;
 	String info;
 	int count=0;
+	Environment assumption;
 	
-	public Constraint(Element e1, Element e2, Relation r, String info) {
+	public Constraint(Element e1, Element e2, Relation r, Environment assumption, String info) {
 		this.e1 = e1;
 		this.e2 = e2;
 		this.r = r;
+		this.assumption = assumption;
 		this.info = info;
 	}
 	
@@ -25,6 +27,10 @@ public class Constraint implements Comparable<Constraint> {
 	
 	public Relation getRelation () {
 		return r;
+	}
+	
+	public Environment getAssumption() {
+		return assumption;
 	}
 	
 	public String toString () {
@@ -55,5 +61,18 @@ public class Constraint implements Comparable<Constraint> {
         double rank1 = getRank();
         double rank2 = n.getRank();
         return Double.compare(rank2, rank1);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj instanceof Constraint) {
+    		return this.toDotString().equals(((Constraint)obj).toDotString());
+    	}
+    	return false;
+    }
+    
+    @Override
+    public int hashCode() {
+    	return toDotString().hashCode();
     }
 }

@@ -1,5 +1,7 @@
 package constraint.graph;
 
+import constraint.ast.Environment;
+
 
 abstract public class Edge {
     Node from;
@@ -26,6 +28,8 @@ abstract public class Edge {
     abstract public boolean isDirected ();
     
     abstract public void setCause ();
+    
+    abstract public Environment getAssumption ();
 //    LabelEnv getEnv () {
 //        if (equ!=null)     
 //            return equ.env();
