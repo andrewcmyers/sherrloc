@@ -1,0 +1,9 @@
+LABEL Alice->Bob //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+
+%%
+f == Alice->Bob [];@"A.jif:2,11-28"

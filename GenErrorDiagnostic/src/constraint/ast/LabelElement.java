@@ -38,11 +38,17 @@ public class LabelElement extends Constructor {
 	}
     
     boolean isBottom () {
-    	return owner.isBottom()&&reader.isBottom();
+    	if (isComparable())
+    		return owner.isBottom()&&reader.isBottom();
+    	else
+    		return false;
     }
     
     boolean isTop () {
-    	return owner.isTop()&&reader.isTop();
+    	if (isComparable())
+    		return owner.isTop()&&reader.isTop();
+    	else
+    		return false;
     }
     
     public static void main(String[] args) {
