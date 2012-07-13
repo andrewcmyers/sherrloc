@@ -39,11 +39,13 @@ public class Environment {
 		return e1.equals(e2);
 	}
 	
-	public void printAssertions () {
-		System.out.print("Assertions: ");
+	public String assertionString () {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Assertions:\n");
 		for (Constraint e : assertions) {
-			System.out.println(e);
+			sb.append(e+"\n");
 		}
+		return sb.toString();
 	}
 	
 	public boolean leq(Element e1, Element e2) {
@@ -98,4 +100,17 @@ public class Environment {
 //		else
 //			return false;
     }
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Environment) {
+			return assertionString().equals(((Environment) obj).assertionString());
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return assertionString().hashCode();
+	}
 }

@@ -53,7 +53,6 @@ public class Analysis {
 //	    	System.out.println( e.toString());
 //	    }
 	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), symmentric);
-	    result.getEnv().printAssertions();
 	    return new Analysis(graph);
 	}
 	
@@ -108,7 +107,6 @@ public class Analysis {
 					}
 					if (env.leq(start.getElement(), end.getElement()))
 						continue;
-					path.getAssumption().printAssertions();
 					System.out.println(path.toString());
 //					path.increaseTotal();
 					errorPaths.add(path);
