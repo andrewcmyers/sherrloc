@@ -66,7 +66,7 @@ public class TestAll {
 			
 			testOneFile("src/constraint/tests/jif/For3.con", 1, false);
 			
-			testOneFile("src/constraint/tests/jif/p3.con", 1, false);
+			testOneFile("src/constraint/tests/jif/p3.con", 0, false);
 			
 			testOneFile("src/constraint/tests/jif/para.con", 1, false);
 			
