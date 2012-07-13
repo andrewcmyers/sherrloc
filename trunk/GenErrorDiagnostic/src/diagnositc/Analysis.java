@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -27,10 +28,12 @@ public class Analysis {
 	boolean done = false;
 	ConstraintGraph graph;
 	List<ConstraintPath> errorPaths;
+	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
-        this.errorPaths = new ArrayList<ConstraintPath>();
+        errorPaths = new ArrayList<ConstraintPath>();
+        cachedEnv = new HashMap<Environment, Environment>();
 	}
 	
 	public static void main(String[] args) {
@@ -94,9 +97,15 @@ public class Analysis {
 				if ( l!=null && (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
 					System.out.println("reporting path between "+start+" "+end);
 					ConstraintPath path = new ConstraintPath(l);
-					Environment env = new Environment();
-					env.addEnv(graph.getEnv());
-					env.addEnv(path.getAssumption());
+					Environment env;
+					if (cachedEnv.containsKey(path.getAssumption()))
+						env = cachedEnv.get(path.getAssumption());
+					else {
+						env = new Environment();
+						env.addEnv(graph.getEnv());
+						env.addEnv(path.getAssumption());
+						cachedEnv.put(path.getAssumption(), env);
+					}
 					if (env.leq(start.getElement(), end.getElement()))
 						continue;
 					path.getAssumption().printAssertions();
