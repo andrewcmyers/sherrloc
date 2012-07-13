@@ -1,0 +1,17 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL Alice->Bob //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=Alice->Bob;
+_->_==_->_;
+
+%%
+this ⊔ caller_pc <= Alice->Bob [this <= caller_pc;];@"A.jif:5,8-9"
+_->_ <= Alice->Bob [this <= caller_pc;];@"A.jif:5,8-9"
+this ⊔ caller_pc <= Alice->Bob [this <= caller_pc;];@"A.jif:6,1-2"
+_->_ <= Alice->Bob [this <= caller_pc;];@"A.jif:6,1-2"

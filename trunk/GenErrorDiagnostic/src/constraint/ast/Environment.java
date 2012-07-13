@@ -52,12 +52,16 @@ public class Environment {
 		if (e1.equals(e2))
 			return true;
 		
-//		// do some easy tests firsts.
-//        if (L1.isBottom()) return true;
-//        //if (L2.isBottom()) return false;
-//        
-//        if (L2.isTop()) return true;
-//        if (L1.isTop()) return false;
+		// do some easy tests firsts.
+		if (e1 instanceof LabelElement) {
+			if (((LabelElement) e1).isBottom()) 
+				return true;
+		}
+			
+		if (e2 instanceof LabelElement) {
+			if (((LabelElement) e2).isTop())
+				return true;
+		}
 		
 		// e1 leq any element of e2
 		if (e2 instanceof JoinElement) {
