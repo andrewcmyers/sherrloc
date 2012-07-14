@@ -1,0 +1,32 @@
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL Alice->Bob //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=Alice->;
+
+%%
+a == caller_pc [this <= caller_pc;];@"Array1.jif:4,20-21"
+array_base <= Alice->Bob [this <= caller_pc;];@"Array1.jif:4,24-35"
+caller_pc <= a [this <= caller_pc;];@"Array1.jif:4,24-35"
+b == caller_pc [this <= caller_pc;];@"Array1.jif:5,20-21"
+array_base <= Alice->Bob [this <= caller_pc;];@"Array1.jif:5,24-35"
+caller_pc <= b [this <= caller_pc;];@"Array1.jif:5,24-35"
+b ⊔ caller_pc <= a [this <= caller_pc;];@"Array1.jif:6,1-2"
+Alice->Bob <= Alice->Bob [this <= caller_pc;];@"Array1.jif:6,1-6"
+Alice->Bob <= Alice->Bob [this <= caller_pc;];@"Array1.jif:6,1-6"
+s == Alice-> [this <= caller_pc;];@"Array1.jif:7,13-14"
+caller_pc <= s [this <= caller_pc;];@"Array1.jif:7,17-20"
+a ⊔ caller_pc ⊔ s <= Alice->Bob [this <= caller_pc;];@"Array1.jif:9,5-6"
+_->_ <= Alice->Bob [this <= caller_pc;];@"Array1.jif:9,5-6"
+p == Alice->Bob ⊔ a ⊔ caller_pc ⊔ s [this <= caller_pc;];@"Array1.jif:11,16-17"
+Alice->Bob ⊔ b ⊔ a ⊔ caller_pc ⊔ s <= p [this <= caller_pc;];@"Array1.jif:11,20-21"
+b ⊔ a ⊔ caller_pc ⊔ s <= Alice-> [this <= caller_pc;];@"Array1.jif:3,4-10"
+caller_pc ⊔ a ⊔ s <= Alice-> [this <= caller_pc;];@"Array1.jif:3,4-10"
+b ⊔ a ⊔ caller_pc ⊔ s <= Alice-> [this <= caller_pc;];@"Array1.jif:3,4-10"

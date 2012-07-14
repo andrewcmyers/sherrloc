@@ -1,0 +1,17 @@
+LABEL Alice->Bob //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=Alice->;
+
+%%
+x == Alice-> [this <= caller_pc;];@"Array6.jif:4,28-29"
+caller_pc <= x [this <= caller_pc;];@"Array6.jif:4,32-33"
+caller_pc ⊔ x <= Alice->Bob [this <= caller_pc;];@"Array6.jif:5,39-40"
+caller_pc ⊔ x <= Alice->Bob [this <= caller_pc;];@"Array6.jif:5,42-43"
+caller_pc ⊔ x <= ar [this <= caller_pc;];@"Array6.jif:5,38-44"
