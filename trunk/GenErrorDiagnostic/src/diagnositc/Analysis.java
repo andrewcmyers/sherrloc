@@ -23,7 +23,7 @@ import constraint.parse.GrmLexer;
 import constraint.parse.parser;
 
 public class Analysis {
-	boolean DEBUG = true;
+	boolean DEBUG = false;
     boolean SHOW_WHOLE_GRAPH=true;
 	boolean done = false;
 	ConstraintGraph graph;
@@ -71,7 +71,9 @@ public class Analysis {
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
         Set<Element> elements = graph.getAllElements();
         
-        System.out.println("Total nodes before path generaton: " + elements.size());        
+        if (DEBUG) {
+        	System.out.println("Total nodes before path generaton: " + elements.size());        
+        }
         
         for (Element element : elements) {
             if (element.isStart())                    

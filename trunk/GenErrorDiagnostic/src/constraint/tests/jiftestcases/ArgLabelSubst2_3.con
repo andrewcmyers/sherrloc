@@ -1,0 +1,30 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL z //class jif.types.label.ArgLabel_c
+LABEL q //class jif.types.label.ParamLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL y //class jif.types.label.ArgLabel_c
+LABEL x //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=_->_;
+x<=_->_;
+
+%%
+caller_pc <= q [this <= caller_pc;];@"ArgLabelSubst2.jif:23,16-30"
+answer2 == y [this <= caller_pc;];@"ArgLabelSubst2.jif:25,11-18"
+caller_pc <= answer2 [this <= caller_pc;];@"ArgLabelSubst2.jif:25,21-25"
+x <= _->_ [this <= caller_pc;];@"ArgLabelSubst2.jif:27,17-21"
+z <= *-> [this <= caller_pc;];@"ArgLabelSubst2.jif:27,23-24"
+y <= *-> [this <= caller_pc;];@"ArgLabelSubst2.jif:27,26-27"
+x <= _->_ [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+receiver == x [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+arg1label == x [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+arg2label == z [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+arg3label == y [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+y <= answer2 [this <= caller_pc;];@"ArgLabelSubst2.jif:27,1-8"
+caller_pc <= q [this <= caller_pc;];@"ArgLabelSubst2.jif:30,1-16"

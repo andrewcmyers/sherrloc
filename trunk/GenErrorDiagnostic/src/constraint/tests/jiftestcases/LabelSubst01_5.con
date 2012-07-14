@@ -1,0 +1,11 @@
+LABEL L //class jif.types.label.ParamLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+
+%%
+caller_pc <= L ⊔ caller_pc [this <= caller_pc;];@"LabelSubst01.jif:18,33-45"

@@ -34,7 +34,7 @@ public class ConstraintGraph extends Graph {
 	Environment env;
     Set<Constraint> constraints;
     boolean SYMMENTRIC;
-    boolean DEBUG = true;
+    boolean DEBUG = false;
 
     Set<String> files;                                          // source codes involved
     public boolean generated;                                          // if the graph has been generated already, just reuse it
