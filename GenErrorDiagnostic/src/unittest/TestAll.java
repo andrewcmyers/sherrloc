@@ -83,20 +83,32 @@ public class TestAll {
 	public void jifTestcases () {
 		try {
 			testOneFile("src/constraint/tests/jiftestcases/A_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/A_2.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/A_3.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/A_4.con", 0, false);
 			
 			testOneFile("src/constraint/tests/jiftestcases/Account_1.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/Account_2.con", 0, false);
 			
-			testOneFile("src/constraint/tests/jiftestcases/ArgLabel1_4.con", 0, false);
-			testOneFile("src/constraint/tests/jiftestcases/ArgLabel1_6.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabel1_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabel1_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabel1_3.con", 0, false);
 			
-			testOneFile("src/constraint/tests/jiftestcases/ArgLabel2_4.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabel2_1.con", 0, false);
 			
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_4.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_5.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_6.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_7.con", 0, false);
-			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_9.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array1_1.con", 2, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array1_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array6_1.con", 2, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array6_2.con", 0, false);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

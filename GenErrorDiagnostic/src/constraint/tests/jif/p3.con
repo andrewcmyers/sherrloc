@@ -1,34 +1,37 @@
+LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL this //class jif.types.label.ThisLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL this
+LABEL _->_
 
 %%
-this <= caller_pc;caller_pc<=this;
+this <= caller_pc;
+caller_pc<=this;
 
 %%
 this <= i [this <= caller_pc;];@"p3.jif:35,21-22"
-_->_ <= this ⊔ for ⊔ i [this <= caller_pc;];@"p3.jif:36,22-29"
-this ⊔ for ⊔ i <= this ⊔ for ⊔ i [this <= caller_pc;];@"p3.jif:36,9-33"
-receiver == this ⊔ for ⊔ i [this <= caller_pc;];@"p3.jif:36,9-33"
-arg1label == _->_ [this <= caller_pc;];@"p3.jif:36,9-33"
-this ⊔ for ⊔ i <= i [this <= caller_pc;];@"p3.jif:35,44-45"
-this ⊔ for ⊔ i <= for [this <= caller_pc;];@"p3.jif:35,8-43"
-this ⊔ for ⊔ i <= impossible [this <= caller_pc;];@"p3.jif:37,16-57"
-this ⊔ for ⊔ i ⊔ for ⊔ impossible <= this ⊔ for ⊔ i ⊔ for ⊔ impossible [this <= caller_pc;];@"p3.jif:39,7-21"
-receiver == this ⊔ for ⊔ i ⊔ for ⊔ impossible [this <= caller_pc;];@"p3.jif:39,7-21"
-this ⊔ for ⊔ i ⊔ for ⊔ impossible <= i [this <= caller_pc;];@"p3.jif:44,21-22"
-_->_ <= this ⊔ for ⊔ i [this <= caller_pc;];@"p3.jif:45,21-23"
+this ⊔ i ⊔ for <= this ⊔ i ⊔ for [this <= caller_pc;];@"p3.jif:36,22-29"
+this ⊔ i ⊔ for <= this ⊔ i ⊔ for [this <= caller_pc;];@"p3.jif:36,9-33"
+receiver == this ⊔ i ⊔ for [this <= caller_pc;];@"p3.jif:36,9-33"
+arg1label == this ⊔ i ⊔ for [this <= caller_pc;];@"p3.jif:36,9-33"
+this ⊔ i ⊔ for <= i [this <= caller_pc;];@"p3.jif:35,44-45"
+this ⊔ i ⊔ for <= for [this <= caller_pc;];@"p3.jif:35,8-43"
+this ⊔ i ⊔ for <= impossible [this <= caller_pc;];@"p3.jif:37,16-57"
+impossible ⊔ for ⊔ this ⊔ i ⊔ for <= impossible ⊔ for ⊔ this ⊔ i ⊔ for [this <= caller_pc;];@"p3.jif:39,7-21"
+receiver == impossible ⊔ for ⊔ this ⊔ i ⊔ for [this <= caller_pc;];@"p3.jif:39,7-21"
+impossible ⊔ for ⊔ this ⊔ i ⊔ for <= i [this <= caller_pc;];@"p3.jif:44,21-22"
+this ⊔ for ⊔ i <= this ⊔ for ⊔ i [this <= caller_pc;];@"p3.jif:45,21-23"
 this ⊔ for ⊔ i <= this ⊔ for ⊔ i [this <= caller_pc;];@"p3.jif:45,9-27"
 receiver == this ⊔ for ⊔ i [this <= caller_pc;];@"p3.jif:45,9-27"
-arg1label == _->_ [this <= caller_pc;];@"p3.jif:45,9-27"
+arg1label == this ⊔ for ⊔ i [this <= caller_pc;];@"p3.jif:45,9-27"
 this ⊔ for ⊔ i <= i [this <= caller_pc;];@"p3.jif:44,39-40"
-this ⊔ for ⊔ i ⊔ for ⊔ i ⊔ for ⊔ impossible <= for [this <= caller_pc;];@"p3.jif:44,8-38"
+impossible ⊔ for ⊔ this ⊔ i ⊔ for ⊔ for ⊔ i <= for [this <= caller_pc;];@"p3.jif:44,8-38"
 this ⊔ for ⊔ i <= impossible [this <= caller_pc;];@"p3.jif:46,16-57"
-this ⊔ for ⊔ i ⊔ for ⊔ impossible <= this ⊔ for ⊔ i ⊔ for ⊔ impossible [this <= caller_pc;];@"p3.jif:48,7-20"
-receiver == this ⊔ for ⊔ i ⊔ for ⊔ impossible [this <= caller_pc;];@"p3.jif:48,7-20"
-this ⊔ for ⊔ i ⊔ for ⊔ impossible ⊔ for ⊔ i ⊔ for ⊔ impossible <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"
+for ⊔ this ⊔ for ⊔ impossible ⊔ i <= for ⊔ this ⊔ for ⊔ impossible ⊔ i [this <= caller_pc;];@"p3.jif:48,7-20"
+receiver == for ⊔ this ⊔ for ⊔ impossible ⊔ i [this <= caller_pc;];@"p3.jif:48,7-20"
+for ⊔ impossible ⊔ for ⊔ this ⊔ for ⊔ i ⊔ impossible ⊔ i ⊔ for <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"
+this ⊔ i ⊔ for <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"
+impossible ⊔ for ⊔ this ⊔ i ⊔ for <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"
 this ⊔ for ⊔ i <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"
-this ⊔ for ⊔ i ⊔ for ⊔ impossible <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"
-this ⊔ for ⊔ i <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"
-this ⊔ for ⊔ i ⊔ for ⊔ impossible <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"
+for ⊔ this ⊔ for ⊔ impossible ⊔ i <= caller_pc [this <= caller_pc;];@"p3.jif:31,11-22"

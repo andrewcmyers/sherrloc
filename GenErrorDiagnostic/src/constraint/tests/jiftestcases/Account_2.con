@@ -1,8 +1,9 @@
-LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL this.customer-> //class jif.types.label.PairLabel_c
 LABEL p //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL this
@@ -11,8 +12,7 @@ LABEL _->_
 %%
 this <= caller_pc;
 p<=_->_;
-_->_==_->_;
-_->_==_->_;
+caller_pc<=p;
 
 %%
 _->_ <= *-> [];@"Account.jif:1,0-13"
