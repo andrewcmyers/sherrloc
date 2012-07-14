@@ -101,9 +101,12 @@ public class LabelElement extends Constructor {
     	if (!isComparable())
     		return false;
     	
+    	if (isBottom())
+    		return true;
+    	
     	if (o instanceof LabelElement && ((LabelElement)o).isComparable()) {
     		LabelElement p = (LabelElement) o;
-	        if (this.isBottom() || p.isTop())
+	        if (p.isTop())
 	            return true;
 
 	        // if this policy is o:_, then o allows

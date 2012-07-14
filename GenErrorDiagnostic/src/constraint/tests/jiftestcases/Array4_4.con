@@ -1,0 +1,25 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=_->_;
+
+%%
+caller_pc <= *-> [this <= caller_pc;];@"Array4.jif:10,41-48"
+caller_pc <= *-> [this <= caller_pc;];@"Array4.jif:10,50-57"
+caller_pc ⊔ newD <= array_base [this <= caller_pc;];@"Array4.jif:10,41-48"
+caller_pc ⊔ newD <= array_base [this <= caller_pc;];@"Array4.jif:10,50-57"
+array_base <= _->_ [this <= caller_pc;];@"Array4.jif:10,24-59"
+caller_pc ⊔ newD ⊔ newD <= a1 [this <= caller_pc;];@"Array4.jif:10,24-59"
+caller_pc <= *-> [this <= caller_pc;];@"Array4.jif:11,26-33"
+caller_pc <= *-> [this <= caller_pc;];@"Array4.jif:11,35-42"
+caller_pc ⊔ newD <= _->_ [this <= caller_pc;];@"Array4.jif:11,26-33"
+caller_pc ⊔ newD <= _->_ [this <= caller_pc;];@"Array4.jif:11,35-42"
+caller_pc ⊔ newD ⊔ newD <= a2 [this <= caller_pc;];@"Array4.jif:11,24-44"
+array_base <= _->_ [this <= caller_pc;];@"Array4.jif:12,24-29"
+caller_pc <= a3 [this <= caller_pc;];@"Array4.jif:12,24-29"

@@ -1,0 +1,12 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *y //class jif.types.label.DynamicLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=_->_;
+
+%%
+caller_pc <= *y [this <= caller_pc;];@"ArgLabelSubst4.jif:3,8-17"
