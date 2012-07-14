@@ -104,11 +104,67 @@ public class TestAll {
 			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_6.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst_7.con", 0, false);
 			
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst2_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst2_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst2_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst2_4.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst3_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst3_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst3_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst4_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst4_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst4_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/ArgLabelSubst4_4.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array_3.con", 0, false);
+			
 			testOneFile("src/constraint/tests/jiftestcases/Array1_1.con", 2, false);
 			testOneFile("src/constraint/tests/jiftestcases/Array1_2.con", 0, false);
 			
+			testOneFile("src/constraint/tests/jiftestcases/Array2_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array2_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array3_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array3_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array3_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array4_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array4_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array4_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array4_4.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array4_5.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array5_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array5_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array5_3.con", 0, false);
+			
 			testOneFile("src/constraint/tests/jiftestcases/Array6_1.con", 2, false);
 			testOneFile("src/constraint/tests/jiftestcases/Array6_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array7_1.con", 2, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array7_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array8_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array8_2.con", 2, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array9_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array9_2.con", 1, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array10_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array10_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_4.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_5.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_6.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_7.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_8.con", 0, false);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

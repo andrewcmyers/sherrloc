@@ -1,0 +1,21 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL *->Alice //class jif.types.label.PairLabel_c
+LABEL *guessApp.lb //class jif.types.label.DynamicLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=*->Alice;
+
+%%
+guessApp == *->Alice [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:28,29-37"
+caller_pc <= *->Alice [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:28,40-47"
+newC ⊔ caller_pc <= guessApp [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:28,40-47"
+t == *->Alice ⊔ guessApp [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:30,32-33"
+*->Alice ⊔ guessApp <= *-> [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
+receiver == *->Alice ⊔ guessApp [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
+*guessApp.lb ⊔ *->Alice ⊔ guessApp <= t [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
+*->Alice ⊔ guessApp <= e [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:34,15-37"

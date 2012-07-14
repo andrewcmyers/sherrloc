@@ -51,12 +51,6 @@ public class Environment {
 	public boolean leq(Element e1, Element e2) {
 		if (e1.equals(e2))
 			return true;
-		
-		// do some easy tests firsts.
-		if (e1 instanceof LabelElement) {
-			if (((LabelElement) e1).isBottom()) 
-				return true;
-		}
 			
 		if (e2 instanceof LabelElement) {
 			if (((LabelElement) e2).isTop())

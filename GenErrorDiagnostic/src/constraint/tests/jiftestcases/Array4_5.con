@@ -1,0 +1,33 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+
+%%
+_->_ <= *-> [];@"Array4.jif:4,0-7"
+_->_ == _->_ [];@"Array4.jif:5,4-56"
+*-> <= *-> [this <= _->_;];@"Array4.jif:5,37-44"
+*-> <= *-> [this <= _->_;];@"Array4.jif:5,46-53"
+newD <= array_base [this <= _->_;];@"Array4.jif:5,37-44"
+newD <= array_base [this <= _->_;];@"Array4.jif:5,46-53"
+array_base <= _->_ [this <= _->_;];@"Array4.jif:5,20-55"
+newD ⊔ newD <= _->_ [this <= _->_;];@"Array4.jif:5,20-55"
+_->_ == _->_ [];@"Array4.jif:6,4-41"
+*-> <= *-> [this <= _->_;];@"Array4.jif:6,22-29"
+*-> <= *-> [this <= _->_;];@"Array4.jif:6,31-38"
+newD <= _->_ [this <= _->_;];@"Array4.jif:6,22-29"
+newD <= _->_ [this <= _->_;];@"Array4.jif:6,31-38"
+newD ⊔ newD <= _->_ [this <= _->_;];@"Array4.jif:6,20-40"
+_->_ == _->_ [];@"Array4.jif:7,4-36"
+array_base <= _->_ [this <= _->_;];@"Array4.jif:7,20-25"
+_->_ <= _->_ [];@"Array4.jif:9,4-10"
+_->_ <= _->_ [];@"Array4.jif:9,4-10"
+_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"Array4.jif:4,0-0"
