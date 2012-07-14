@@ -1,4 +1,6 @@
+LABEL this //class jif.types.label.ThisLabel_c
 LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL y //class jif.types.label.ArgLabel_c
 LABEL x //class jif.types.label.ArgLabel_c
 LABEL x //class jif.types.label.ArgLabel_c
@@ -13,8 +15,6 @@ this <= caller_pc;
 y<=x;
 x<=y;
 x<=x;
-_->_==_->_;
-_->_==_->_;
 
 %%
 _->_ <= *-> [];@"ArgLabel2.jif:1,0-7"

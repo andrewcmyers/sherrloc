@@ -1,0 +1,14 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL x //class jif.types.label.ArgLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=x;
+x<=x;
+
+%%
+x <= x [this <= caller_pc;];@"ArgLabel1.jif:7,21-28"
+receiver == x [this <= caller_pc;];@"ArgLabel1.jif:7,21-28"
