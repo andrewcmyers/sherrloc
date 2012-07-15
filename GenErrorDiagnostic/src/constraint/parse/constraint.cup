@@ -156,7 +156,7 @@ term     	::=  term:t1 ARROW term:t2
 			:}
 			| cons:cons element_list:l
 			{: 	Constructor c = (Constructor) cons;
-				if (c.getArity() != l.size()) throw new Error("Constructor takes wrong number of parameters: "+
+				if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
 			    RESULT = new ConstructorElement ("", c, l); 
 			:}

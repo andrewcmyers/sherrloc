@@ -7,6 +7,8 @@ import java_cup.runtime.*;
 %class GrmLexer
 %cup
 %unicode
+%line
+%column 
 
 %{
   StringBuffer string = new StringBuffer();
@@ -40,8 +42,10 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 <YYINITIAL> "LABEL"           		{ return symbol(sym.LABEL); }
 <YYINITIAL> "PARAMLABEL"           	{ return symbol(sym.PARAMLABEL); }
 <YYINITIAL> "MEET"           		{ return symbol(sym.MEET); }
+<YYINITIAL> "meet"           		{ return symbol(sym.MEET); }
 <YYINITIAL> "\u2293" 				{ return symbol(sym.MEET); }        /* ⊓ */
 <YYINITIAL> "JOIN"           		{ return symbol(sym.JOIN); }
+<YYINITIAL> "join"           		{ return symbol(sym.JOIN); }
 <YYINITIAL> "\u2294" 				{ return symbol(sym.JOIN); }        /* ⊔ */
 <YYINITIAL> "%%"					{ return symbol(sym.SEPERATION); }
 
