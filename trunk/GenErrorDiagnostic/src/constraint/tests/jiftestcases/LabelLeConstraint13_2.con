@@ -1,0 +1,20 @@
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *L //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL *M //class jif.types.label.DynamicLabel_c
+LABEL this
+LABEL _->_
+
+_->_ <= *-> [];@"LabelLeConstraint13.jif:1,0-7"
+*L <= *M [*L <= *M;*M <= *L;];@"LabelLeConstraint13.jif:2,39-54"
+*M <= *L [*L <= *M;*M <= *L;];@"LabelLeConstraint13.jif:2,39-54"
+_->_ <= _->_ [*L <= *M;*M <= *L;];@"LabelLeConstraint13.jif:2,4-10"
+_->_ <= _->_ [*L <= *M;*M <= *L;];@"LabelLeConstraint13.jif:2,4-10"
+*-> <= *-> [*L <= *M;*M <= *L;];@"LabelLeConstraint13.jif:2,4-10"
+_->_ <= _->_ [*L <= *M;*M <= *L;];@"LabelLeConstraint13.jif:2,4-10"
+_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"LabelLeConstraint13.jif:1,0-0"

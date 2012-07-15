@@ -1,0 +1,16 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL *c.f //class jif.types.label.DynamicLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+caller_pc <= *-> [this <= caller_pc;*c.f <= Alice->;Alice-> <= *c.f;];@"LabelLeConstraint08.jif:11,13-20"
+caller_pc ⊔ newC <= c [this <= caller_pc;*c.f <= Alice->;Alice-> <= *c.f;];@"LabelLeConstraint08.jif:11,13-20"
+caller_pc ⊔ c <= *-> [this <= caller_pc;*c.f <= Alice->;Alice-> <= *c.f;Alice-> <= *c.f;];@"LabelLeConstraint08.jif:13,9-27"
+caller_pc ⊔ c <= *-> [this <= caller_pc;*c.f <= Alice->;Alice-> <= *c.f;Alice-> <= *c.f;];@"LabelLeConstraint08.jif:13,5-28"
+Alice-> <= *c.f [this <= caller_pc;*c.f <= Alice->;Alice-> <= *c.f;Alice-> <= *c.f;];@"LabelLeConstraint08.jif:13,5-28"
+receiver == caller_pc ⊔ c [this <= caller_pc;*c.f <= Alice->;Alice-> <= *c.f;Alice-> <= *c.f;];@"LabelLeConstraint08.jif:13,5-28"
+arg1label == caller_pc ⊔ c [this <= caller_pc;*c.f <= Alice->;Alice-> <= *c.f;Alice-> <= *c.f;];@"LabelLeConstraint08.jif:13,5-28"
