@@ -257,7 +257,7 @@ public class TestAll {
 			
 			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint14_1.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint14_2.con", 0, false);
-//			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint14_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint14_3.con", 0, false);
 			
 			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_1.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_2.con", 0, false);
