@@ -1,0 +1,14 @@
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *lbl1 //class jif.types.label.DynamicLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+
+%%
+x == caller_pc ⊔ *lbl1 [*lbl1 <= Alice->;this <= caller_pc;];@"LabelLeConstraint02.jif:3,12-13"
+caller_pc <= x [*lbl1 <= Alice->;this <= caller_pc;];@"LabelLeConstraint02.jif:3,16-17"
+caller_pc ⊔ x <= caller_pc ⊔ Alice-> [*lbl1 <= Alice->;this <= caller_pc;];@"LabelLeConstraint02.jif:4,1-10"
