@@ -1,0 +1,30 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL Bob-> //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=_->_;
+
+%%
+array_base <= Bob-> [this <= caller_pc;];@"Array17.jif:3,24-29"
+array_base <= Bob-> [this <= caller_pc;];@"Array17.jif:3,24-29"
+caller_pc <= x [this <= caller_pc;];@"Array17.jif:3,24-29"
+array_base <= Bob-> [this <= caller_pc;];@"Array17.jif:4,24-29"
+array_base <= Bob-> [this <= caller_pc;];@"Array17.jif:4,24-29"
+caller_pc <= y [this <= caller_pc;];@"Array17.jif:4,24-29"
+array_base <= _->_ [this <= caller_pc;];@"Array17.jif:5,18-23"
+array_base <= _->_ [this <= caller_pc;];@"Array17.jif:5,18-23"
+caller_pc <= z [this <= caller_pc;];@"Array17.jif:5,18-23"
+array_base <= Bob-> [this <= caller_pc;];@"Array17.jif:7,26-39"
+array_base <= Bob-> [this <= caller_pc;];@"Array17.jif:7,26-39"
+caller_pc <= a [this <= caller_pc;];@"Array17.jif:7,26-39"
+array_base <= Bob-> [this <= caller_pc;];@"Array17.jif:8,26-36"
+array_base <= Bob-> [this <= caller_pc;];@"Array17.jif:8,26-36"
+caller_pc <= b [this <= caller_pc;];@"Array17.jif:8,26-36"
+array_base <= _->_ [this <= caller_pc;];@"Array17.jif:9,20-30"
+array_base <= _->_ [this <= caller_pc;];@"Array17.jif:9,20-30"
+caller_pc <= c [this <= caller_pc;];@"Array17.jif:9,20-30"

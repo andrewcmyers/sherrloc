@@ -1,0 +1,15 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=_->_;
+
+%%
+array_base <= _->_ [this <= caller_pc;];@"Array19.jif:4,18-28"
+caller_pc <= d [this <= caller_pc;];@"Array19.jif:4,18-28"
+array_base <= _->_ [this <= caller_pc;];@"Array19.jif:5,18-35"
+caller_pc ⊔ d <= c [this <= caller_pc;];@"Array19.jif:5,18-35"
