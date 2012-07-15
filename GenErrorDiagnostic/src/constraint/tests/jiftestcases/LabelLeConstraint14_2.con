@@ -1,0 +1,43 @@
+LABEL o //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL Q-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL P-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL Q-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this
+LABEL _->_
+
+%%
+o<=P-> ⊔ Q->;
+caller_pc<=P-> ⊔ Q->;
+
+%%
+_->_ <= *-> [caller_pc <= P-> ⊔ Q->;];@"LabelLeConstraint14.jif:16,20-31"
+_->_ <= *-> [caller_pc <= P-> ⊔ Q->;];@"LabelLeConstraint14.jif:16,20-31"
+P-> ⊔ Q-> <= P-> ⊔ Q-> [caller_pc <= P-> ⊔ Q->;];@"LabelLeConstraint14.jif:13,13-45"
+_->_ <= P-> ⊔ Q-> [caller_pc <= P-> ⊔ Q->;];@"LabelLeConstraint14.jif:13,13-45"
+caller_pc == downgrade_from [caller_pc <= P-> ⊔ Q->;];@"LabelLeConstraint14.jif:17,10-21,11"
+downgrade_from <= *-> [caller_pc <= P-> ⊔ Q->;];@"LabelLeConstraint14.jif:17,10-21,11"
+downgrade_from <= P-> ⊔ Q-> [caller_pc <= P-> ⊔ Q->;];@"LabelLeConstraint14.jif:17,10-21,11"
+infered_downgrade_from == P-> ⊔ Q-> [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:18,26-69"
+P-> ⊔ Q-> == infered_downgrade_to [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:18,26-69"
+o <= infered_downgrade_from [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:18,26-69"
+*-> meet infered_downgrade_from <= infered_downgrade_to [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:18,26-69"
+_->_ meet infered_downgrade_from <= infered_downgrade_to [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:18,26-69"
+_->_ ⊔ infered_downgrade_to <= o1 [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:18,26-69"
+infered_downgrade_from <= P-> ⊔ Q-> [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:19,26-83"
+_->_ meet _->_ ⊔ o1 <= _->_ meet infered_downgrade_to [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:19,26-83"
+_->_ meet infered_downgrade_to <= _->_ [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:19,26-83"
+Q-> == *-> meet infered_downgrade_to [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:19,26-83"
+_->_ ⊔ o1 <= infered_downgrade_from [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:19,26-83"
+infered_downgrade_from <= *-> ⊔ infered_downgrade_to [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:19,26-83"
+infered_downgrade_from <= infered_downgrade_to ⊔ P-> ⊔ Q-> [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:19,26-83"
+_->_ ⊔ infered_downgrade_to <= o2 [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:19,26-83"
+_->_ ⊔ o2 <= caller_pc ⊔ Q-> [caller_pc <= P-> ⊔ Q->;caller_pc <= _->_;];@"LabelLeConstraint14.jif:20,14-24"

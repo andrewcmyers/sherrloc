@@ -59,6 +59,9 @@ public class MeetElement extends EnumerableElement {
 	
 	@Override
 	public boolean leq_(Object o) {
+		if (equals(o))
+			return true;
+		
 		// check if any component is leq o
 		for (Element e : elements) {
 			if (e.leq_(o)) {

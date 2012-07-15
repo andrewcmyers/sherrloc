@@ -57,6 +57,9 @@ public class Environment {
 				return true;
 		}
 		
+		if (leqApplyAssertions(e1, e2))
+			return true;
+		
 		// e1 leq any element of e2
 		if (e2 instanceof JoinElement) {
 			for (Element e : ((JoinElement)e2).getElements())

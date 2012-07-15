@@ -1,0 +1,5 @@
+LABEL L //class jif.types.label.ParamLabel_c
+LABEL this
+LABEL _->_
+
+f == L [];@"LabelLeConstraint09.jif:2,4-13"

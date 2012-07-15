@@ -1,0 +1,25 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL Bob-> //class jif.types.label.PairLabel_c
+LABEL *lbl //class jif.types.label.DynamicLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+caller_pc<=_->_;
+
+%%
+caller_pc <= newC [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:12,23-40"
+caller_pc <= *-> [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:12,23-40"
+Alice-> == Alice-> [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:12,23-40"
+caller_pc ⊔ newC <= c [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:12,23-40"
+lbl == Alice-> [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:13,21-24"
+caller_pc <= lbl [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:13,27-50"
+c ⊔ caller_pc ⊔ lbl <= *-> [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:14,5-8"
+c ⊔ caller_pc <= *-> [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:14,1-9"
+Alice-> <= *lbl [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:14,1-9"
+c ⊔ caller_pc ⊔ lbl <= Alice-> [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:14,1-9"
+receiver == c ⊔ caller_pc [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:14,1-9"
+arg1label == c ⊔ caller_pc ⊔ lbl [this <= caller_pc;*lbl <= Alice-> ⊔ Bob->;Alice-> ⊔ Bob-> <= *lbl;];@"LabelLeConstraint12.jif:14,1-9"
