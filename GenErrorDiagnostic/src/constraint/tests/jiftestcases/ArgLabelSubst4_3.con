@@ -5,7 +5,6 @@ LABEL this
 LABEL _->_
 
 %%
-this <= caller_pc;
 caller_pc<=_->_;
 
 %%

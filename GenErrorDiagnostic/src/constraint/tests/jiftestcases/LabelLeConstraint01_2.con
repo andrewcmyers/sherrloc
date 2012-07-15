@@ -1,6 +1,6 @@
+LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL this //class jif.types.label.ThisLabel_c
 LABEL *lbl2 //class jif.types.label.DynamicLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL *lbl1 //class jif.types.label.DynamicLabel_c
@@ -9,10 +9,6 @@ LABEL *-> //class jif.types.label.PairLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 _->_ <= *-> [];@"LabelLeConstraint01.jif:1,0-7"
 *lbl1 <= *lbl2 [*lbl1 <= *lbl2;];@"LabelLeConstraint01.jif:2,41-59"
 *-> <= *-> [*lbl1 <= *lbl2;];@"LabelLeConstraint01.jif:2,4-10"

@@ -9,7 +9,6 @@ LABEL this
 LABEL _->_
 
 %%
-this <= caller_pc;
 x<=x;
 
 %%
