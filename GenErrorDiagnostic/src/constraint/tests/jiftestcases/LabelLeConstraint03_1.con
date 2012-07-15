@@ -1,0 +1,9 @@
+LABEL L //class jif.types.label.ParamLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+
+%%
+f == L [];@"LabelLeConstraint03.jif:2,4-13"

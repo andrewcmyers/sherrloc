@@ -1,0 +1,18 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+
+%%
+caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint07.jif:10,7-14"
+caller_pc ⊔ newC <= c [this <= caller_pc;];@"LabelLeConstraint07.jif:10,7-14"
+c ⊔ caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint07.jif:11,5-23"
+c ⊔ caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint07.jif:11,1-24"
+Alice-> <= Alice-> [this <= caller_pc;];@"LabelLeConstraint07.jif:11,1-24"
+receiver == c ⊔ caller_pc [this <= caller_pc;];@"LabelLeConstraint07.jif:11,1-24"
+arg1label == c ⊔ caller_pc [this <= caller_pc;];@"LabelLeConstraint07.jif:11,1-24"
