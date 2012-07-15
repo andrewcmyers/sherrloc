@@ -5,10 +5,6 @@ LABEL *lbl1 //class jif.types.label.DynamicLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 x == caller_pc ⊔ *lbl1 [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint01.jif:3,12-13"
 caller_pc <= x [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint01.jif:3,16-17"
 y == caller_pc ⊔ *lbl2 [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint01.jif:4,12-13"

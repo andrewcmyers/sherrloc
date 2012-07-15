@@ -9,10 +9,6 @@ LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 _->_ <= *-> [];@"ArgLabelSubst2.jif:21,0-8"
 _->_ <= _->_ [];@"ArgLabelSubst2.jif:22,11-24"
 y == y [];@"ArgLabelSubst2.jif:22,11-24"

@@ -2,9 +2,5 @@ LABEL *->Alice //class jif.types.label.PairLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 *->Alice == *->Alice [];@"LabelSubst01.jif:6,10-49"
 *->Alice == *->Alice [];@"LabelSubst01.jif:7,11-36"

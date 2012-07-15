@@ -96,7 +96,6 @@ public class Analysis {
 					continue;
 				List<Edge> l = finder.getPath(start, end);
 				if ( l!=null && (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
-					System.out.println("reporting path between "+start+" "+end);
 					ConstraintPath path = new ConstraintPath(l);
 					Environment env;
 					if (cachedEnv.containsKey(path.getAssumption()))

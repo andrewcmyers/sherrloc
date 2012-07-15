@@ -3,9 +3,5 @@ LABEL this //class jif.types.label.ThisLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 x == Alice-> [];@"Array9.jif:3,4-30"
 ar == Alice-> ⊔ this [];@"Array9.jif:4,10-78"

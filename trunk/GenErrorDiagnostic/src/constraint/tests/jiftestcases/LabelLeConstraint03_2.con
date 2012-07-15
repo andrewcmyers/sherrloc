@@ -5,8 +5,4 @@ LABEL *lbl1 //class jif.types.label.DynamicLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 L ⊔ this ⊔ caller_pc <= caller_pc ⊔ *lbl1 [L <= *lbl1;this <= caller_pc;];@"LabelLeConstraint03.jif:4,1-15"

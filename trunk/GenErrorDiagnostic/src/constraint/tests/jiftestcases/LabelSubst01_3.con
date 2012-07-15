@@ -5,10 +5,6 @@ LABEL *this.lb //class jif.types.label.DynamicLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 this ⊔ caller_pc ⊔ *->Alice <= caller_pc ⊔ *->Alice [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;];@"LabelSubst01.jif:9,8-24"
 *this.lb == *this.lb [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;];@"LabelSubst01.jif:9,15-23"
 *this.lb == *this.lb [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;];@"LabelSubst01.jif:9,15-23"

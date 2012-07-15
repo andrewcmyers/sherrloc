@@ -5,10 +5,6 @@ LABEL *-> //class jif.types.label.PairLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint07.jif:10,7-14"
 caller_pc ⊔ newC <= c [this <= caller_pc;];@"LabelLeConstraint07.jif:10,7-14"
 c ⊔ caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint07.jif:11,5-23"

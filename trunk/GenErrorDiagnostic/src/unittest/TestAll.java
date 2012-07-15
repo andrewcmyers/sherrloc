@@ -188,6 +188,34 @@ public class TestAll {
 			testOneFile("src/constraint/tests/jiftestcases/Array20_2.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/Array20_3.con", 0, false);
 			
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint01_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint01_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint02_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint02_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint03_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint03_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint03_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint03_4.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint04_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint04_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint04_3.con", 0, false);
+
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint05_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint05_2.con", 1, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint05_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint06_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint06_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint06_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint07_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint07_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint07_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint07_4.con", 0, false);
+			
 			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_1.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_2.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_3.con", 0, false);
