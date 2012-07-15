@@ -2,8 +2,4 @@ LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 data == _->_ [];@"Array20.jif:2,4-28"

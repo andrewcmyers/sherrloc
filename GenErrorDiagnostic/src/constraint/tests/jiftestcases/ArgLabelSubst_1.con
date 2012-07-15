@@ -4,8 +4,4 @@ LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 caller_pc <= caller_pc ⊔ q-> [this <= caller_pc;];@"ArgLabelSubst.jif:18,1-14"

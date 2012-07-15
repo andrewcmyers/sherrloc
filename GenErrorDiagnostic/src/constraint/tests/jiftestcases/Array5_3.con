@@ -11,10 +11,6 @@ LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 _->_ <= *-> [];@"Array5.jif:1,0-12"
 _->_ == _->_ [];@"Array5.jif:3,4-45"
 array_base <= Alice-> [this <= _->_;];@"Array5.jif:3,33-44"

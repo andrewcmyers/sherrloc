@@ -6,10 +6,6 @@ LABEL *-> //class jif.types.label.PairLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint05.jif:8,3-20"
 caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint05.jif:8,22-33"
 caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"

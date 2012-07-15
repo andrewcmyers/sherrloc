@@ -3,9 +3,5 @@ LABEL Alice-> //class jif.types.label.PairLabel_c
 LABEL this
 LABEL _->_
 
-%%
-this <= caller_pc;
-
-%%
 x == Alice-> [];@"Array8.jif:3,4-30"
 ar == _->_ [];@"Array8.jif:4,4-41"
