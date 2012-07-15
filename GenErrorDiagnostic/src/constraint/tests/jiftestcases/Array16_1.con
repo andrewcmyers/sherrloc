@@ -1,0 +1,20 @@
+LABEL Bob-> //class jif.types.label.PairLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=_->_;
+
+%%
+array_base <= Alice-> [this <= caller_pc;];@"Array16.jif:3,34-47"
+array_base <= Bob-> [this <= caller_pc;];@"Array16.jif:3,34-47"
+caller_pc <= x [this <= caller_pc;];@"Array16.jif:3,34-47"
+caller_pc ⊔ x <= *-> [this <= caller_pc;];@"Array16.jif:4,40-49"
+receiver == caller_pc ⊔ x [this <= caller_pc;];@"Array16.jif:4,40-49"
+Bob-> <= Bob-> [this <= caller_pc;];@"Array16.jif:4,40-49"
+caller_pc ⊔ x <= y [this <= caller_pc;];@"Array16.jif:4,40-49"

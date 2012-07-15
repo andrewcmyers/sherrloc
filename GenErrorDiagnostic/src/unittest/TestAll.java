@@ -157,6 +157,37 @@ public class TestAll {
 			testOneFile("src/constraint/tests/jiftestcases/Array10_1.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/Array10_2.con", 0, false);
 			
+			testOneFile("src/constraint/tests/jiftestcases/Array11_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array11_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array12_1.con", 1, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array12_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array13_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array13_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array14_1.con", 1, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array14_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array15_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array15_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array16_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array16_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array17_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array17_2.con", 0, false);
+			
+			// Array18 is not constraint related
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array19_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array19_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array19_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Array20_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array20_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Array20_3.con", 0, false);
+			
 			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_1.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_2.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/LabelSubst01_3.con", 0, false);

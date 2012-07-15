@@ -1,0 +1,24 @@
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+caller_pc<=_->_;
+
+%%
+caller_pc <= x [this <= caller_pc;];@"Array14.jif:3,27-31"
+caller_pc <= y [this <= caller_pc;];@"Array14.jif:4,15-19"
+caller_pc <= z [this <= caller_pc;];@"Array14.jif:5,21-25"
+caller_pc <= w [this <= caller_pc;];@"Array14.jif:7,19-23"
+y ⊔ caller_pc ⊔ w <= _->_ [this <= caller_pc;];@"Array14.jif:8,1-2"
+_->_ <= _->_ [this <= caller_pc;];@"Array14.jif:8,1-2"
+_->_ <= Alice-> [this <= caller_pc;];@"Array14.jif:8,1-9"
+Alice-> <= _->_ [this <= caller_pc;];@"Array14.jif:8,1-9"
+y ⊔ caller_pc <= caller_pc [this <= caller_pc;];@"Array14.jif:2,4-10"
+y ⊔ caller_pc <= caller_pc [this <= caller_pc;];@"Array14.jif:2,4-10"
+y ⊔ caller_pc <= caller_pc [this <= caller_pc;];@"Array14.jif:2,4-10"
