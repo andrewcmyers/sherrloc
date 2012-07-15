@@ -1,0 +1,22 @@
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL *lbl1 //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+this <= caller_pc;
+
+%%
+_->_ <= *-> [];@"LabelLeConstraint02.jif:1,0-7"
+*lbl1 <= Alice-> [*lbl1 <= Alice->;];@"LabelLeConstraint02.jif:2,36-55"
+*-> <= *-> [*lbl1 <= Alice->;];@"LabelLeConstraint02.jif:2,4-17"
+*-> <= *-> [*lbl1 <= Alice->;];@"LabelLeConstraint02.jif:2,4-17"
+_->_ <= _->_ [*lbl1 <= Alice->;];@"LabelLeConstraint02.jif:2,4-17"
+Alice-> <= Alice-> [*lbl1 <= Alice->;];@"LabelLeConstraint02.jif:2,4-17"
+_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"LabelLeConstraint02.jif:1,0-0"
