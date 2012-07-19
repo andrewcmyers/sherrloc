@@ -188,6 +188,21 @@ public class TestAll {
 			testOneFile("src/constraint/tests/jiftestcases/Array20_2.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/Array20_3.con", 0, false);
 			
+			testOneFile("src/constraint/tests/jiftestcases/For1_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/For1_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/For2_1.con", 1, false);
+			testOneFile("src/constraint/tests/jiftestcases/For2_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/For3_1.con", 1, false);
+			testOneFile("src/constraint/tests/jiftestcases/For3_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/For4_1.con", 1, false);
+			testOneFile("src/constraint/tests/jiftestcases/For4_2.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/For5_1.con", 1, false);
+			testOneFile("src/constraint/tests/jiftestcases/For5_2.con", 0, false);
+			
 			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint01_1.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/LabelLeConstraint01_2.con", 0, false);
 			
