@@ -1,0 +1,6 @@
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL this
+LABEL _->_
+
+caller_pc ⊔ for <= for [this <= caller_pc;];@"For1.jif:4,5-12"
