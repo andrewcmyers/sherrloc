@@ -1,0 +1,6 @@
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+f == _->_ [];@"DynLabel1.jif:2,10-24"
+g == _->_ [];@"DynLabel1.jif:3,10-28"

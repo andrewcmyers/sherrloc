@@ -29,7 +29,7 @@ action code {:
 /* Terminals (tokens returned by the scanner). */
 terminal 			SEPERATION;
 terminal            CONSTRUCTOR, LABEL, PARAMLABEL;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, LBRACK, RBRACK, STAR, AT, JOIN, MEET;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, STAR, AT, JOIN, MEET;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
@@ -38,7 +38,7 @@ non terminal DiagnosisInput     cons_spec;
 non terminal Set<Constraint>	equations;
 non terminal Environment 		env;
 non terminal 					constructors, constructor;
-non terminal				    assumptions;
+non terminal				    assumptions, actsfor_list, actsfor;
 non terminal Constraint 		equation;
 non terminal Element			term, element, cons;
 non terminal String           	id, position;
@@ -105,7 +105,14 @@ equation 	::= term:e1 EQ term:e2 env:e SEMICOLON position:p
             {: RESULT = new Constraint (e2, e1, Relation.LEQ, e, p); :}
             ;
             
-env         ::= LBRACK equations:l RBRACK
+env         ::= LBRACK equations:l actsfor_list RBRACK
+			{: Environment e = new Environment(); 
+			   for (Constraint c : l)
+			       e.addAssertion(c);
+			   RESULT = e; 
+			:}
+			|
+			LBRACK equations:l RBRACK
 			{: Environment e = new Environment(); 
 			   for (Constraint c : l)
 			       e.addAssertion(c);
@@ -120,6 +127,17 @@ env         ::= LBRACK equations:l RBRACK
 			   RESULT = new Environment();
 			:}
 			;
+			
+actsfor_list::= actsfor_list actsfor
+			;
+			
+actsfor     ::= id:s1 EQ id:s2 COMMA
+			{: env.addActsFor(s1,s2); env.addActsFor(s2,s1); :}  
+            | id:s1 LEQ id:s2 COMMA
+         	{: env.addActsFor(s2,s1); :}
+            | id:s1 GEQ id:s2 COMMA
+            {: env.addActsFor(s1,s2); :}
+            ;
 			
 position	::= AT STRING_LITERAL:s
 			{: RESULT = s; :}

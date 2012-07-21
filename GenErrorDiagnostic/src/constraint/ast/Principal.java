@@ -11,7 +11,7 @@ public abstract class Principal {
 	
 	public abstract boolean isBottom();
 	
-	public abstract boolean actsFor (BasicPrincipal p);
+	public abstract boolean actsFor (BasicPrincipal p, Environment env);
 	
 	public String toString () {
 		return name;

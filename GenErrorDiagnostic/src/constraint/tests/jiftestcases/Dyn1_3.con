@@ -1,0 +1,19 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL *this.f //class jif.types.label.DynamicLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+caller_pc<=_->_;
+
+%%
+a == Alice-> [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,13-14"
+caller_pc <= _->_ [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,19-36"
+caller_pc <= *-> [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,17-37"
+receiver == this [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,17-37"
+arg1label == caller_pc [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,17-37"
+Alice-> <= a [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,17-37"

@@ -1,0 +1,11 @@
+LABEL *M //class jif.types.label.DynamicLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL y //class jif.types.label.ArgLabel_c
+LABEL this
+LABEL _->_
+
+%%
+y<=*M;
+
+%%
+caller_pc ⊔ y <= caller_pc ⊔ *M [];@"Dyn4.jif:14,50-59"

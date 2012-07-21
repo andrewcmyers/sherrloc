@@ -1,0 +1,27 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL *L //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL *M //class jif.types.label.DynamicLabel_c
+LABEL this
+LABEL _->_
+
+_->_ <= *-> [];@"Dyn4.jif:1,0-10"
+_->_ == _->_ [];@"Dyn4.jif:2,4-10"
+_->_ <= _->_ [];@"Dyn4.jif:4,11-20"
+_->_ <= _->_ [];@"Dyn4.jif:4,11-20"
+_->_ <= _->_ [];@"Dyn4.jif:4,11-20"
+*L <= *L [];@"Dyn4.jif:4,11-20"
+*-> <= *-> [];@"Dyn4.jif:10,11-21"
+_->_ <= _->_ [];@"Dyn4.jif:10,11-21"
+_->_ <= _->_ [];@"Dyn4.jif:10,11-21"
+*-> <= *-> [];@"Dyn4.jif:14,18-27"
+*M <= *M [];@"Dyn4.jif:14,18-27"
+*-> <= *-> [];@"Dyn4.jif:14,18-27"
+_->_ <= _->_ [];@"Dyn4.jif:14,18-27"
+*M <= *M [];@"Dyn4.jif:14,18-27"
+_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"Dyn4.jif:1,0-0"

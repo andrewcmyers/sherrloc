@@ -1,0 +1,29 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *y //class jif.types.label.DynamicLabel_c
+LABEL *y //class jif.types.label.DynamicLabel_c
+LABEL *x //class jif.types.label.DynamicLabel_c
+LABEL this
+LABEL _->_
+
+%%
+caller_pc<=_->_;
+
+%%
+x == caller_pc [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:6,19-20"
+caller_pc <= x [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:6,23-35"
+a == *x [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:7,9-10"
+caller_pc <= a [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:7,13-14"
+y == caller_pc [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:10,23-24"
+caller_pc <= y [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:10,27-39"
+b == *y [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:11,13-14"
+caller_pc <= b [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:11,17-18"
+caller_pc ⊔ b <= a [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:12,5-6"
+y == *-> [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:15,23-24"
+caller_pc <= y [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:15,27-43"
+c == *y [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:16,13-14"
+caller_pc <= c [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:16,17-18"
+caller_pc ⊔ c <= a [this <= caller_pc;*x <= _->_;_->_ <= *x;*y <= _->_;_->_ <= *y;*-> <= *y;];@"DynLabel13.jif:17,5-6"

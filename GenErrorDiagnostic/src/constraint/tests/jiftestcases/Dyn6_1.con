@@ -1,0 +1,20 @@
+LABEL L //class jif.types.label.ArgLabel_c
+LABEL *L //class jif.types.label.DynamicLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+L<=*L;
+caller_pc<=_->_;
+
+%%
+x == *L [];@"Dyn6.jif:5,9-10"
+caller_pc <= x [];@"Dyn6.jif:5,13-14"
+L <= *-> [];@"Dyn6.jif:6,7-8"
+caller_pc ⊔ x <= *L [];@"Dyn6.jif:6,10-11"
+caller_pc <= *-> [];@"Dyn6.jif:6,5-12"
+arg1label == L [];@"Dyn6.jif:6,5-12"
+arg2label == caller_pc ⊔ x [];@"Dyn6.jif:6,5-12"
+*L <= x [];@"Dyn6.jif:6,1-2"
