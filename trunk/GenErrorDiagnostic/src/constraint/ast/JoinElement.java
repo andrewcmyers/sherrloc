@@ -58,13 +58,13 @@ public class JoinElement extends EnumerableElement {
 	}
 	
 	@Override
-	public boolean leq_(Object o) {
+	public boolean leq_(Object o, Environment env) {
 		if (equals(o))
 			return true;
 		
 		// check if all components are leq o
 		for (Element e : elements) {
-			if (! e.leq_(o))
+			if (! e.leq_(o, env))
 				return false;
 		}
 		return true;

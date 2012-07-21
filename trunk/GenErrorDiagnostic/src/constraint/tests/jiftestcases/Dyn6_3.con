@@ -1,0 +1,21 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *L //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL *M //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this
+LABEL _->_
+
+_->_ <= *-> [];@"Dyn6.jif:3,0-10"
+*L <= *L [];@"Dyn6.jif:4,18-24"
+_->_ <= _->_ [];@"Dyn6.jif:4,18-24"
+_->_ <= _->_ [];@"Dyn6.jif:4,18-24"
+*-> <= *-> [];@"Dyn6.jif:10,18-27"
+*M <= *M [];@"Dyn6.jif:10,18-27"
+*-> <= *-> [];@"Dyn6.jif:10,18-27"
+_->_ <= _->_ [];@"Dyn6.jif:10,18-27"
+*M <= *M [];@"Dyn6.jif:10,18-27"
+_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"Dyn6.jif:3,0-0"

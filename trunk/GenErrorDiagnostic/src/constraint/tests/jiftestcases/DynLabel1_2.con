@@ -1,0 +1,49 @@
+LABEL *this.g.f //class jif.types.label.DynamicLabel_c
+LABEL q //class jif.types.label.ArgLabel_c
+LABEL *local.g.g.f //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL *arg.g.g.f //class jif.types.label.DynamicLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *this.g.g.f //class jif.types.label.DynamicLabel_c
+LABEL *arg.g.f //class jif.types.label.DynamicLabel_c
+LABEL *arg.f //class jif.types.label.DynamicLabel_c
+LABEL *q //class jif.types.label.DynamicLabel_c
+LABEL *this.f //class jif.types.label.DynamicLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL this
+LABEL _->_
+
+%%
+q<=_->_;
+caller_pc<=_->_;
+
+%%
+q <= _->_ [this <= caller_pc;];@"DynLabel1.jif:11,39-40"
+caller_pc <= _->_ [this <= caller_pc;];@"DynLabel1.jif:11,42-46"
+caller_pc <= *-> [this <= caller_pc;];@"DynLabel1.jif:11,25-47"
+newDynLabel1 ⊔ caller_pc <= local [this <= caller_pc;];@"DynLabel1.jif:11,25-47"
+x == *q [this <= caller_pc;];@"DynLabel1.jif:13,9-10"
+x2 == *this.f [this <= caller_pc;];@"DynLabel1.jif:14,14-16"
+x3 == *this.g.f [this <= caller_pc;];@"DynLabel1.jif:15,16-18"
+x4 == *this.g.g.f [this <= caller_pc;];@"DynLabel1.jif:16,18-20"
+x5 == *this.g.g.f [this <= caller_pc;];@"DynLabel1.jif:17,13-15"
+x6 == *local.g.g.f [this <= caller_pc;];@"DynLabel1.jif:18,19-21"
+x7 == *arg.f [this <= caller_pc;];@"DynLabel1.jif:19,13-15"
+x8 == *arg.g.f [this <= caller_pc;];@"DynLabel1.jif:20,15-17"
+x9 == *arg.g.g.f [this <= caller_pc;];@"DynLabel1.jif:21,17-19"
+q <= ll [this <= caller_pc;];@"DynLabel1.jif:23,12-26"
+this <= ll [this <= caller_pc;];@"DynLabel1.jif:24,1-3"
+this <= ll [this <= caller_pc;];@"DynLabel1.jif:25,1-3"
+this <= ll [this <= caller_pc;];@"DynLabel1.jif:26,1-3"
+this <= ll [this <= caller_pc;];@"DynLabel1.jif:27,1-3"
+this ⊔ local <= ll [this <= caller_pc;];@"DynLabel1.jif:28,1-3"
+this ⊔ local <= caller_pc [this <= caller_pc;];@"DynLabel1.jif:10,4-10"
+this ⊔ local <= caller_pc [this <= caller_pc;];@"DynLabel1.jif:10,4-10"
+this <= caller_pc [this <= caller_pc;];@"DynLabel1.jif:10,4-10"
+this <= caller_pc [this <= caller_pc;];@"DynLabel1.jif:10,4-10"
+this <= caller_pc [this <= caller_pc;];@"DynLabel1.jif:10,4-10"
+this <= caller_pc [this <= caller_pc;];@"DynLabel1.jif:10,4-10"
+this <= caller_pc [this <= caller_pc;];@"DynLabel1.jif:10,4-10"
+this ⊔ local <= caller_pc [this <= caller_pc;];@"DynLabel1.jif:10,4-10"

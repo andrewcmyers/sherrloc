@@ -72,6 +72,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	"["							   { return symbol(sym.LBRACK); }
   	"]"							   { return symbol(sym.RBRACK); }
   	"@"							   { return symbol(sym.AT); }
+  	","							   { return symbol(sym.COMMA); }
   	
  	/* whitespace */
   	{WhiteSpace}                   { /* ignore */ }

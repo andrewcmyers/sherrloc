@@ -1,6 +1,8 @@
 package constraint.ast;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import constraint.graph.ConstraintGraph;
@@ -15,10 +17,12 @@ public class Environment {
 	Set<Constraint> assertions;
 	ConstraintGraph graph;
 	PathFinder finder = null;
+	Map<String, Set<String>> ph;
 	
 	public Environment() {
 		assertions = new HashSet<Constraint>();
 		graph = new ConstraintGraph(null, assertions, false);
+		ph = new HashMap<String, Set<String>>();
 	}
 	
 	public void addAssertion (Constraint equ) {
@@ -32,11 +36,20 @@ public class Environment {
 	}
 	
 	public boolean actsFor (String e1, String e2) {
+		// do simple checks
 		if (e2.equals("_"))
 			return true;
 		if (e1.equals("*"))
 			return true;
-		return e1.equals(e2);
+		
+		if (e1.equals(e2))
+			return true;
+		
+		// TODO: transitivity is not handled yet
+		if (ph.containsKey(e1)) {
+			return ph.get(e1).contains(e2);
+		}
+		return false;
 	}
 	
 	public String assertionString () {
@@ -75,7 +88,7 @@ public class Environment {
 			return true;
 		}
 		
-        if (e1.leq_(e2)) {
+        if (e1.leq_(e2, this)) {
             return true;
         }
         
@@ -92,7 +105,7 @@ public class Environment {
 
 		if (graph.hasElement(e1)) {
 			for (Element e : graph.getAllElements()) {
-				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && e.leq_(e2))
+				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && e.leq_(e2, this))
 					return true;
 			}
 		}
@@ -101,6 +114,14 @@ public class Environment {
 //		else
 //			return false;
     }
+
+	// record the acts for relation
+	public void addActsFor(String s1, String s2) {
+		if (!ph.containsKey(s1))
+			ph.put(s1, new HashSet<String>());
+		ph.get(s1).add(s2);
+	}
+
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -114,4 +135,5 @@ public class Environment {
 	public int hashCode() {
 		return assertionString().hashCode();
 	}
+
 }

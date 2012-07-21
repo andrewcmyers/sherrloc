@@ -1,0 +1,5 @@
+LABEL *C.f //class jif.types.label.DynamicLabel_c
+LABEL this
+LABEL _->_
+
+foo == *C.f [];@"DynLabel11.jif:5,4-18"

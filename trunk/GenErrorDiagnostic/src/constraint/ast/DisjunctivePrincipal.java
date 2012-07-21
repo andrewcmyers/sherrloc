@@ -31,11 +31,11 @@ public class DisjunctivePrincipal extends Principal {
     }
     
     @Override
-    public boolean actsFor(BasicPrincipal p) {
+    public boolean actsFor(BasicPrincipal p, Environment env) {
         // dp actsfor granter if all of the disjucts act for granter
         boolean all = true;
         for (BasicPrincipal bp : set) {
-            if (!bp.actsFor(p))
+            if (!bp.actsFor(p, env))
             	return false;
         }
         return true;

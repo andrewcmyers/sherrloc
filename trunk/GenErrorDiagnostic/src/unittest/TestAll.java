@@ -188,6 +188,68 @@ public class TestAll {
 			testOneFile("src/constraint/tests/jiftestcases/Array20_2.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/Array20_3.con", 0, false);
 			
+			testOneFile("src/constraint/tests/jiftestcases/Dyn1_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn1_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn1_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn1_4.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Dyn2_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn2_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn2_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Dyn4_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn4_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn4_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn4_4.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn4_5.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Dyn5_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn5_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn5_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Dyn6_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn6_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn6_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/Dyn7_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn7_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/Dyn7_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel1_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel1_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel1_3.con", 0, false);
+			
+			// DynLabel2-7 fails due to syntactic errors
+			
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel8_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel8_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel8_3.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel9_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel9_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel9_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel9_4.con", 0, false);  // fails because of a principal assumption
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel9_5.con", 0, false);
+
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel10_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel10_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel10_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel10_4.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel10_5.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel11_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel11_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel11_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel11_4.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel12_1.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel12_2.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel12_3.con", 0, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel12_4.con", 0, false);
+			
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel13_1.con", 1, false);
+			testOneFile("src/constraint/tests/jiftestcases/DynLabel13_2.con", 0, false);
+			
 			testOneFile("src/constraint/tests/jiftestcases/For1_1.con", 0, false);
 			testOneFile("src/constraint/tests/jiftestcases/For1_2.con", 0, false);
 			

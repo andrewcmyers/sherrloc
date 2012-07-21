@@ -1,0 +1,7 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+caller_pc <= caller_pc [this <= caller_pc;];@"Dyn7.jif:4,1-24"

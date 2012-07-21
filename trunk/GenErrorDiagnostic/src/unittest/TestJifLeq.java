@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import constraint.ast.Environment;
 import constraint.ast.LabelElement;
 
 public class TestJifLeq {
@@ -16,26 +17,27 @@ public class TestJifLeq {
     	LabelElement xtoy = new LabelElement("x->y");
     	LabelElement xtobot = new LabelElement("x->_");
     	LabelElement xtotop = new LabelElement("x->");
+    	Environment env = new Environment();
     	
-    	assertTrue(bot.leq_(top));
-    	assertFalse(top.leq_(bot));
+    	assertTrue(bot.leq_(top, env));
+    	assertFalse(top.leq_(bot, env));
     	
-    	assertTrue(bot.leq_(xtobot));
-    	assertTrue(xtobot.leq_(bot));
+    	assertTrue(bot.leq_(xtobot, env));
+    	assertTrue(xtobot.leq_(bot, env));
     	
-    	assertTrue(bot.leq_(xtotop));
-    	assertFalse(xtotop.leq_(bot));
+    	assertTrue(bot.leq_(xtotop, env));
+    	assertFalse(xtotop.leq_(bot, env));
     	
-    	assertTrue(xtobot.leq_(xtotop));
-    	assertFalse(xtotop.leq_(xtobot));
+    	assertTrue(xtobot.leq_(xtotop, env));
+    	assertFalse(xtotop.leq_(xtobot, env));
     	
-    	assertTrue(xtotop.leq_(top));
-    	assertFalse(top.leq_(xtotop));
+    	assertTrue(xtotop.leq_(top, env));
+    	assertFalse(top.leq_(xtotop, env));
     	
-    	assertTrue(xtobot.leq_(xtoy));
-    	assertFalse(xtoy.leq_(xtobot));
+    	assertTrue(xtobot.leq_(xtoy, env));
+    	assertFalse(xtoy.leq_(xtobot, env));
     	
-    	assertTrue(xtoy.leq_(xtotop));
-    	assertFalse(xtotop.leq_(xtoy));
+    	assertTrue(xtoy.leq_(xtotop, env));
+    	assertFalse(xtotop.leq_(xtoy, env));
     }
 }
