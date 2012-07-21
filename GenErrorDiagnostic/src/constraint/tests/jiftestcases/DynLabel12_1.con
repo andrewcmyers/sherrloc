@@ -1,0 +1,7 @@
+LABEL *this.foo.c //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+foo == _->_ [];@"DynLabel12.jif:3,18-26"
+x == *this.foo.c [];@"DynLabel12.jif:4,4-23"

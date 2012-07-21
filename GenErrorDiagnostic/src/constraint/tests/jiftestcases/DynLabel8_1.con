@@ -1,0 +1,5 @@
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+l == _->_ [];@"DynLabel8.jif:2,17-40"

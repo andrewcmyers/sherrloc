@@ -14,7 +14,7 @@ public class BasicPrincipal extends Principal {
 		return name.equals("*");
 	}
 	
-	public boolean actsFor (BasicPrincipal p) {
-		return this.isTop() || p.isBottom() || this.name.equals(p.name);
+	public boolean actsFor (BasicPrincipal p, Environment env) {
+		return this.isTop() || p.isBottom() || env.actsFor(this.name, p.name);
 	}
 }

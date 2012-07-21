@@ -1,0 +1,7 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *this.lb //class jif.types.label.DynamicLabel_c
+LABEL this
+LABEL _->_
+
+caller_pc <= caller_pc ⊔ *this.lb [this <= caller_pc;];@"Dyn2.jif:10,1-12"

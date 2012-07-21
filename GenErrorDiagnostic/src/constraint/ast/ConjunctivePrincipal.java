@@ -35,10 +35,10 @@ public class ConjunctivePrincipal extends Principal {
     }
     
     @Override
-    public boolean actsFor(BasicPrincipal p) {
+    public boolean actsFor(BasicPrincipal p, Environment env) {
     	// cp actsfor granter if at least one of the conjucts act for granter
         for (BasicPrincipal bp : set) {
-            if (bp.actsFor(p)) {
+            if (bp.actsFor(p, env)) {
                 return true;                    
             }
         }

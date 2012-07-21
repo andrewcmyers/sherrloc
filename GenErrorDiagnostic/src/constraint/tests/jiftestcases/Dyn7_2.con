@@ -1,0 +1,11 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+x == caller_pc [this <= caller_pc;];@"Dyn7.jif:8,15-16"
+caller_pc <= *-> [this <= caller_pc;];@"Dyn7.jif:8,19-29"
+receiver == this [this <= caller_pc;];@"Dyn7.jif:8,19-29"
+caller_pc <= x [this <= caller_pc;];@"Dyn7.jif:8,19-29"

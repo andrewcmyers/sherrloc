@@ -1,0 +1,16 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL *x.l //class jif.types.label.DynamicLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this
+LABEL _->_
+
+_->_ <= *-> [];@"DynLabel8.jif:5,9-16"
+*x.l <= *x.l [];@"DynLabel8.jif:6,20-36"
+*x.l <= *x.l [];@"DynLabel8.jif:6,20-36"
+_->_ <= _->_ [];@"DynLabel8.jif:6,20-36"
+*x.l <= *x.l [];@"DynLabel8.jif:6,20-36"
+_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"DynLabel8.jif:5,9-9"

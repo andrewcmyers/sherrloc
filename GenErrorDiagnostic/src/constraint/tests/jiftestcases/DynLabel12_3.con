@@ -1,0 +1,24 @@
+LABEL bar //class jif.types.label.ArgLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL *this.foo.c //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL y //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+%%
+bar<=_->_;
+caller_pc<=_->_;
+y<=*bar.c;
+
+%%
+_->_ <= *-> [];@"DynLabel12.jif:2,0-7"
+_->_ == _->_ [];@"DynLabel12.jif:3,18-26"
+*this.foo.c == *this.foo.c [];@"DynLabel12.jif:4,4-23"
+_->_ <= *-> [this <= caller_pc;];@"DynLabel12.jif:6,36-37"
+this ⊔ bar <= _->_ [this <= caller_pc;];@"DynLabel12.jif:7,8-16"
+this ⊔ y <= *this.foo.c [this <= caller_pc;];@"DynLabel12.jif:8,8-14"

@@ -94,7 +94,7 @@ public class LabelElement extends Constructor {
     	return false;
     }
     
-    public boolean leq_(Object o) {
+    public boolean leq_(Object o, Environment env) {
     	if (this==o) 
     		return true;
     	
@@ -117,18 +117,18 @@ public class LabelElement extends Constructor {
 	        }
 	            
 	        // o' >= o
-	        if (!p.owner.actsFor(owner)) {
+	        if (!p.owner.actsFor(owner, env)) {
 	        	return false;
 	        }
 	        
-	        if (p.reader.actsFor(owner))
+	        if (p.reader.actsFor(owner, env))
 	        	return true;
 	        
 	        if (reader instanceof ConjunctivePrincipal) {
 	        	ConjunctivePrincipal cp = (ConjunctivePrincipal)reader;
 	            // actor actsfor cp if actor actsfor all conjuncts
 	            for (BasicPrincipal bp : cp.conjuncts()) {
-	                if (!p.reader.actsFor(bp)) {
+	                if (!p.reader.actsFor(bp, env)) {
 	                    return false; 
 	                }                
 	            }
@@ -138,14 +138,14 @@ public class LabelElement extends Constructor {
 	        	DisjunctivePrincipal dp = (DisjunctivePrincipal)reader;
 	            // actor actsfor dp if there is one disjunct that actor can act for
 	            for (BasicPrincipal bp : dp.disjuncts()) {
-	                if (p.reader.actsFor(bp)) {
+	                if (p.reader.actsFor(bp, env)) {
 	                    return true;                    
 	                }
 	            }
 	            return false;
 	        }
 	        else {
-	        	return p.reader.actsFor((BasicPrincipal)reader);
+	        	return p.reader.actsFor((BasicPrincipal)reader, env);
 	        }
 //	        if (!env.actsFor(p.owner(), this.owner)) {
 //	            return false;

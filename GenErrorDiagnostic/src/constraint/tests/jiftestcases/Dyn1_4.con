@@ -1,0 +1,22 @@
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL *this.f //class jif.types.label.DynamicLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL *lb //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this
+LABEL _->_
+
+_->_ <= *-> [*this.f <= Alice->;Alice-> <= *this.f;];@"Dyn1.jif:1,0-10"
+_->_ == _->_ [*this.f <= Alice->;Alice-> <= *this.f;];@"Dyn1.jif:3,10-40"
+_->_ <= _->_ [*this.f <= Alice->;Alice-> <= *this.f;];@"Dyn1.jif:5,4-14"
+*-> <= *-> [*this.f <= Alice->;Alice-> <= *this.f;];@"Dyn1.jif:5,4-14"
+_->_ <= _->_ [*this.f <= Alice->;Alice-> <= *this.f;];@"Dyn1.jif:5,4-14"
+*lb <= *lb [*this.f <= Alice->;Alice-> <= *this.f;];@"Dyn1.jif:5,4-14"
+_->_ <= _->_ [*this.f <= Alice->;Alice-> <= *this.f;];@"Dyn1.jif:9,4-13"
+_->_ <= _->_ [*this.f <= Alice->;Alice-> <= *this.f;];@"Dyn1.jif:9,4-13"
+_->_ <= *-> [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;caller_pc <= _->_;];@"Dyn1.jif:1,0-0"

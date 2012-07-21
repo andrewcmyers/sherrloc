@@ -1,0 +1,13 @@
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this //class jif.types.label.ThisLabel_c
+LABEL *this.f //class jif.types.label.DynamicLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL this
+LABEL _->_
+
+_->_ <= *-> [*this.f <= _->_;_->_ <= *this.f;];@"DynLabel10.jif:1,0-7"
+_->_ == _->_ [*this.f <= _->_;_->_ <= *this.f;];@"DynLabel10.jif:2,10-35"
+_->_ <= *-> [*this.f <= _->_;_->_ <= *this.f;this <= caller_pc;caller_pc <= _->_;];@"DynLabel10.jif:1,0-0"
