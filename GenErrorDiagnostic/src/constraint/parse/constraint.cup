@@ -28,8 +28,8 @@ action code {:
 						
 /* Terminals (tokens returned by the scanner). */
 terminal 			SEPERATION;
-terminal            CONSTRUCTOR, LABEL, PARAMLABEL;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, STAR, AT, JOIN, MEET;
+terminal            CONSTRUCTOR, LABEL;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, SEP, STAR, AT, JOIN, MEET;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
@@ -105,7 +105,7 @@ equation 	::= term:e1 EQ term:e2 env:e SEMICOLON position:p
             {: RESULT = new Constraint (e2, e1, Relation.LEQ, e, p); :}
             ;
             
-env         ::= LBRACK equations:l actsfor_list RBRACK
+env         ::= LBRACK equations:l SEP actsfor_list RBRACK
 			{: Environment e = new Environment(); 
 			   for (Constraint c : l)
 			       e.addAssertion(c);
@@ -129,13 +129,14 @@ env         ::= LBRACK equations:l actsfor_list RBRACK
 			;
 			
 actsfor_list::= actsfor_list actsfor
+			| actsfor
 			;
 			
-actsfor     ::= id:s1 EQ id:s2 COMMA
+actsfor     ::= id:s1 EQ id:s2 SEMICOLON
 			{: env.addActsFor(s1,s2); env.addActsFor(s2,s1); :}  
-            | id:s1 LEQ id:s2 COMMA
+            | id:s1 LEQ id:s2 SEMICOLON
          	{: env.addActsFor(s2,s1); :}
-            | id:s1 GEQ id:s2 COMMA
+            | id:s1 GEQ id:s2 SEMICOLON
             {: env.addActsFor(s1,s2); :}
             ;
 			
