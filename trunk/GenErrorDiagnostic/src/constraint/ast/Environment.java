@@ -126,14 +126,17 @@ public class Environment {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Environment) {
-			return assertionString().equals(((Environment) obj).assertionString());
+			if (assertionString().equals(((Environment) obj).assertionString()))
+				return true;
+			if (ph.equals(((Environment) obj).ph))
+				return true;
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return assertionString().hashCode();
+		return assertionString().hashCode()+ph.hashCode();
 	}
 
 }

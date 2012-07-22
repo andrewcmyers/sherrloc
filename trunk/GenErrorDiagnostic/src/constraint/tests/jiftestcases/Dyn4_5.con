@@ -1,11 +1,11 @@
 LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL *L //class jif.types.label.DynamicLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL *M //class jif.types.label.DynamicLabel_c
 LABEL this
 LABEL _->_

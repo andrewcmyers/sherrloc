@@ -1,10 +1,10 @@
+LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL bar //class jif.types.label.ArgLabel_c
 LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL caller_pc //class jif.types.label.ArgLabel_c
 LABEL *this.foo.c //class jif.types.label.DynamicLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL y //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL this
