@@ -1,8 +1,7 @@
 LABEL this.customer-> //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-customer == _->_ [];@"Account.jif:2,8-27"
-name == this.customer-> [];@"Account.jif:8,2-25"
-balance == this.customer-> [];@"Account.jif:9,2-27"
+customer-56392 == _->_ [];@"Account.jif:2,8-27"
+name-56391 == this.customer-> [];@"Account.jif:8,2-25"
+balance-56390 == this.customer-> [];@"Account.jif:9,2-27"

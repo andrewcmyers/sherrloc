@@ -1,28 +1,29 @@
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL C.provider176713 //class jif.types.label.ProviderLabel_c
+LABEL C.provider1706726 //class jif.types.label.ProviderLabel_c
 LABEL *->Alice //class jif.types.label.PairLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *this.lb18074667 //class jif.types.label.DynamicLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL *this.lb //class jif.types.label.DynamicLabel_c
-LABEL this
 LABEL _->_
 
 %%
-caller_pc<=*->Alice;
+caller_pc2346856<=*->Alice;
+C.provider176713==_->_;
+C.provider1706726==_->_;
 
 %%
-_->_ <= *-> [*this.lb <= *->Alice;*->Alice <= *this.lb;];@"LabelSubst01.jif:4,7-14"
-*->Alice == *->Alice [*this.lb <= *->Alice;*->Alice <= *this.lb;];@"LabelSubst01.jif:6,10-49"
-*->Alice == *->Alice [*this.lb <= *->Alice;*->Alice <= *this.lb;];@"LabelSubst01.jif:7,11-36"
-*-> <= *-> [*this.lb <= *->Alice;*->Alice <= *this.lb;];@"LabelSubst01.jif:8,11-38"
-_->_ <= _->_ [*this.lb <= *->Alice;*->Alice <= *this.lb;];@"LabelSubst01.jif:8,11-38"
-*->Alice <= *->Alice [*this.lb <= *->Alice;*->Alice <= *this.lb;];@"LabelSubst01.jif:8,11-38"
-_->_ <= *-> [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;caller_pc <= _->_;];@"LabelSubst01.jif:12,24-25"
-this ⊔ *->Alice <= newFoo [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;caller_pc <= _->_;];@"LabelSubst01.jif:13,14-31"
-this ⊔ *->Alice <= newFoo [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;caller_pc <= _->_;];@"LabelSubst01.jif:13,14-31"
-_->_ <= *-> [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;caller_pc <= _->_;];@"LabelSubst01.jif:13,14-31"
-newFoo ⊔ this <= *->Alice [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;caller_pc <= _->_;];@"LabelSubst01.jif:13,8-11"
-*this.lb == *this.lb [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;caller_pc <= _->_;];@"LabelSubst01.jif:13,8-31"
-*this.lb == *this.lb [*this.lb <= *->Alice;*->Alice <= *this.lb;this <= caller_pc;caller_pc <= _->_;];@"LabelSubst01.jif:13,8-31"
+C.provider1706726 <= *-> [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;];@"LabelSubst01.jif:4,7-14"
+*->Alice == *->Alice [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;];@"LabelSubst01.jif:6,10-49"
+*->Alice == *->Alice [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;];@"LabelSubst01.jif:7,11-36"
+*-> <= *-> [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;];@"LabelSubst01.jif:8,11-38"
+_->_ <= _->_ [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;];@"LabelSubst01.jif:8,11-38"
+*->Alice <= *->Alice [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;];@"LabelSubst01.jif:8,11-38"
+C.provider176713 <= *-> [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider176713);];@"LabelSubst01.jif:12,24-25"
+(*->Alice) ⊔ (this67) <= newFoo-56384 [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider176713);];@"LabelSubst01.jif:13,14-31"
+(*->Alice) ⊔ (this67) <= newFoo-56384 [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider176713);];@"LabelSubst01.jif:13,14-31"
+C.provider176713 <= *-> [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider176713);];@"LabelSubst01.jif:13,14-31"
+(newFoo-56384) ⊔ (this67) <= *->Alice [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider176713);];@"LabelSubst01.jif:13,8-11"
+*this.lb18074667 == *this.lb18074667 [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider176713);];@"LabelSubst01.jif:13,8-31"
+*this.lb18074667 == *this.lb18074667 [*this.lb18074667 <= *->Alice;*->Alice <= *this.lb18074667;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider176713);];@"LabelSubst01.jif:13,8-31"

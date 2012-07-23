@@ -1,7 +1,6 @@
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-f1 == _->_ [];@"Array4.jif:5,4-56"
-f2 == _->_ [];@"Array4.jif:6,4-41"
-f3 == _->_ [];@"Array4.jif:7,4-36"
+f1-56392 == _->_ [];@"Array4.jif:5,4-56"
+f2-56391 == _->_ [];@"Array4.jif:6,4-41"
+f3-56390 == _->_ [];@"Array4.jif:7,4-36"

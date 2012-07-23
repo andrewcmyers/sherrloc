@@ -1,13 +1,12 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL x //class jif.types.label.ArgLabel_c
-LABEL this
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL x99421804 //class jif.types.label.ArgLabel_c
 LABEL _->_
 
 %%
-caller_pc<=x;
-x<=x;
+caller_pc2346856<=x99421804;
+x99421804<=x99421804;
 
 %%
-x <= x [this <= caller_pc;];@"ArgLabel1.jif:7,21-28"
-receiver == x [this <= caller_pc;];@"ArgLabel1.jif:7,21-28"
+x99421804 <= x99421804 [this68 <= caller_pc2346856;];@"ArgLabel1.jif:7,21-28"
+receiver-56392 == x99421804 [this68 <= caller_pc2346856;];@"ArgLabel1.jif:7,21-28"

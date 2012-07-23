@@ -1,20 +1,19 @@
-LABEL this //class jif.types.label.ThisLabel_c
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL *guessApp.lb-1392315003 //class jif.types.label.DynamicLabel_c
 LABEL *->Alice //class jif.types.label.PairLabel_c
-LABEL *guessApp.lb //class jif.types.label.DynamicLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 %%
-caller_pc<=*->Alice;
+caller_pc2346856<=*->Alice;
 
 %%
-guessApp == *->Alice [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:28,29-37"
-caller_pc <= *->Alice [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:28,40-47"
-newC ⊔ caller_pc <= guessApp [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:28,40-47"
-t == *->Alice ⊔ guessApp [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:30,32-33"
-*->Alice ⊔ guessApp <= *-> [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
-receiver == *->Alice ⊔ guessApp [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
-*guessApp.lb ⊔ *->Alice ⊔ guessApp <= t [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
-*->Alice ⊔ guessApp <= e [this <= caller_pc;*guessApp.lb <= *->Alice;*->Alice <= *guessApp.lb;];@"LabelSubst01.jif:34,15-37"
+guessApp-56390 == *->Alice [this68 <= caller_pc2346856;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:28,29-37"
+caller_pc2346856 <= *->Alice [this68 <= caller_pc2346856;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:28,40-47"
+(caller_pc2346856) ⊔ (newC-56383) <= guessApp-56390 [this68 <= caller_pc2346856;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:28,40-47"
+t-56389 == (*->Alice) ⊔ (guessApp-56390) [this68 <= caller_pc2346856;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:30,32-33"
+(*->Alice) ⊔ (guessApp-56390) <= *-> [this68 <= caller_pc2346856;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:30,36-58"
+receiver-56387 == (*->Alice) ⊔ (guessApp-56390) [this68 <= caller_pc2346856;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:30,36-58"
+(*guessApp.lb-1392315003) ⊔ (*->Alice) ⊔ (guessApp-56390) <= t-56389 [this68 <= caller_pc2346856;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:30,36-58"
+(*->Alice) ⊔ (guessApp-56390) <= e-56388 [this68 <= caller_pc2346856;*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:34,15-37"

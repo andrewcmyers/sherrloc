@@ -1,14 +1,18 @@
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL Array.provider18945918 //class jif.types.label.ProviderLabel_c
+LABEL Array.provider23690087 //class jif.types.label.ProviderLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL this63537721 //class jif.types.label.ThisLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-_->_ <= *-> [];@"Array.jif:1,7-18"
+%%
+Array.provider18945918==_->_;
+Array.provider23690087==_->_;
+
+%%
+Array.provider18945918 <= *-> [];@"Array.jif:1,7-18"
 _->_ == _->_ [];@"Array.jif:2,4-22"
 Alice-> <= Alice-> [];@"Array.jif:4,11-18"
 *-> <= *-> [];@"Array.jif:4,11-18"
@@ -16,4 +20,4 @@ Alice-> <= Alice-> [];@"Array.jif:4,11-18"
 Alice-> <= Alice-> [];@"Array.jif:4,11-18"
 Alice-> <= Alice-> [];@"Array.jif:4,11-18"
 Alice-> <= Alice-> [];@"Array.jif:4,11-18"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"Array.jif:1,7-7"
+Array.provider23690087 <= *-> [this63537721 <= caller_pc2346856;caller_pc2346856 <= (Array.provider23690087);];@"Array.jif:1,7-7"

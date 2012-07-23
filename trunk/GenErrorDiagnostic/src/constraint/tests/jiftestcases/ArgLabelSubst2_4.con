@@ -1,20 +1,24 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL q //class jif.types.label.ParamLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL y //class jif.types.label.ArgLabel_c
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL q-1772469570 //class jif.types.label.ParamLabel_c
+LABEL D.provider27511312 //class jif.types.label.ProviderLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL D.provider27635615 //class jif.types.label.ProviderLabel_c
+LABEL y99421805 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL this
 LABEL _->_
 
-_->_ <= *-> [];@"ArgLabelSubst2.jif:21,0-8"
+%%
+D.provider27511312==_->_;
+D.provider27635615==_->_;
+
+%%
+D.provider27635615 <= *-> [];@"ArgLabelSubst2.jif:21,0-8"
 _->_ <= _->_ [];@"ArgLabelSubst2.jif:22,11-24"
-y == y [];@"ArgLabelSubst2.jif:22,11-24"
+y99421805 == y99421805 [];@"ArgLabelSubst2.jif:22,11-24"
 *-> <= *-> [];@"ArgLabelSubst2.jif:22,11-24"
 *-> <= *-> [];@"ArgLabelSubst2.jif:22,11-24"
 _->_ <= _->_ [];@"ArgLabelSubst2.jif:22,11-24"
 _->_ <= _->_ [];@"ArgLabelSubst2.jif:22,11-24"
-q <= q [];@"ArgLabelSubst2.jif:22,11-24"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"ArgLabelSubst2.jif:21,0-0"
+q-1772469570 <= q-1772469570 [];@"ArgLabelSubst2.jif:22,11-24"
+D.provider27511312 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider27511312);];@"ArgLabelSubst2.jif:21,0-0"

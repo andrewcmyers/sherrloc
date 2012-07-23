@@ -1,11 +1,10 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL *y //class jif.types.label.DynamicLabel_c
-LABEL this
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *y114269 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
 %%
-caller_pc<=_->_;
+caller_pc2346856<=_->_;
 
 %%
-caller_pc <= *y [this <= caller_pc;];@"ArgLabelSubst4.jif:3,8-17"
+(caller_pc2346856) <= *y114269 [this67 <= caller_pc2346856;];@"ArgLabelSubst4.jif:3,8-17"

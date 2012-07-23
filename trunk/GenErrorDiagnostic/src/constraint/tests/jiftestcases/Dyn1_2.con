@@ -1,9 +1,8 @@
-LABEL this //class jif.types.label.ThisLabel_c
+LABEL *this.f10630774 //class jif.types.label.DynamicLabel_c
+LABEL this2145528 //class jif.types.label.ThisLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL *this.f //class jif.types.label.DynamicLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL *lb //class jif.types.label.DynamicLabel_c
-LABEL this
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *lb21469113 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
-caller_pc <= caller_pc ⊔ *lb [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;];@"Dyn1.jif:6,1-11"
+(caller_pc2346856) <= (*lb21469113) ⊔ (caller_pc2346856) [*this.f10630774 <= Alice->;Alice-> <= *this.f10630774;this2145528 <= caller_pc2346856;];@"Dyn1.jif:6,1-11"

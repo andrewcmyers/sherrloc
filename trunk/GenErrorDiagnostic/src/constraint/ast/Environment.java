@@ -62,7 +62,7 @@ public class Environment {
 	}
 	
 	public boolean leq(Element e1, Element e2) {
-		if (e1.equals(e2))
+		if (e1.leq_(e2, this))
 			return true;
 			
 		if (e2 instanceof LabelElement) {
@@ -83,7 +83,7 @@ public class Environment {
 		// e1 leq all elements of e2
 		else if (e2 instanceof MeetElement) {
 			for (Element e : ((MeetElement)e2).getElements())
-				if (this.leq(e1, e)) 
+				if (!this.leq(e1, e)) 
 					return false;
 			return true;
 		}

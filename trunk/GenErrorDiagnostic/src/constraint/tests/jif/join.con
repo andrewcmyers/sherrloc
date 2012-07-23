@@ -1,0 +1,12 @@
+LABEL this-567811164 //class jif.types.label.ThisLabel_c
+LABEL px->  //class jif.types.label.PairLabel_c
+LABEL py->  //class jif.types.label.PairLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL _->_
+
+y-56392 == (caller_pc2346856) ⊔ (px-> ⊔ py->) [this-567811164 <= caller_pc2346856;];@"test.jif:8,20-21"
+(caller_pc2346856) <= y-56392 [this-567811164 <= caller_pc2346856;];@"test.jif:8,22-23"
+(y-56392) ⊔ (caller_pc2346856) <= x-56391 [this-567811164 <= caller_pc2346856;];@"test.jif:9,12-13"
+z-56390 == (caller_pc2346856) ⊔ (py-> ⊔ px->) [this-567811164 <= caller_pc2346856;];@"test.jif:10,20-21"
+(caller_pc2346856) <= z-56390 [this-567811164 <= caller_pc2346856;];@"test.jif:10,24-25"
+(caller_pc2346856) ⊔ (x-56391) <= z-56390 [this-567811164 <= caller_pc2346856;];@"test.jif:12,8-9"

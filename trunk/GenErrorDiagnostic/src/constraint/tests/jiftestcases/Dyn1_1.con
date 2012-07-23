@@ -1,5 +1,4 @@
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-f == _->_ [];@"Dyn1.jif:3,10-40"
+f-56392 == _->_ [];@"Dyn1.jif:3,10-40"
