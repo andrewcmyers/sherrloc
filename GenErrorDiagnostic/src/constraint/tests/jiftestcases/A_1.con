@@ -1,5 +1,4 @@
 LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-f == Alice->Bob [];@"A.jif:2,11-28"
+f-56392 == Alice->Bob [];@"A.jif:2,11-28"

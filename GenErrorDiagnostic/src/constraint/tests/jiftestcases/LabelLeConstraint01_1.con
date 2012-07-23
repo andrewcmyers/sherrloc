@@ -1,11 +1,10 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL *lbl2 //class jif.types.label.DynamicLabel_c
-LABEL *lbl1 //class jif.types.label.DynamicLabel_c
-LABEL this
+LABEL *lbl114288449 //class jif.types.label.DynamicLabel_c
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *lbl218873193 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
-x == caller_pc ⊔ *lbl1 [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint01.jif:3,12-13"
-caller_pc <= x [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint01.jif:3,16-17"
-y == caller_pc ⊔ *lbl2 [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint01.jif:4,12-13"
-caller_pc ⊔ x <= y [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint01.jif:4,16-17"
+x-56392 == (caller_pc2346856) ⊔ (*lbl114288449) [*lbl114288449 <= *lbl218873193;this67 <= caller_pc2346856;];@"LabelLeConstraint01.jif:3,12-13"
+(caller_pc2346856) <= x-56392 [*lbl114288449 <= *lbl218873193;this67 <= caller_pc2346856;];@"LabelLeConstraint01.jif:3,16-17"
+y-56391 == (caller_pc2346856) ⊔ (*lbl218873193) [*lbl114288449 <= *lbl218873193;this67 <= caller_pc2346856;];@"LabelLeConstraint01.jif:4,12-13"
+(x-56392) ⊔ (caller_pc2346856) <= y-56391 [*lbl114288449 <= *lbl218873193;this67 <= caller_pc2346856;];@"LabelLeConstraint01.jif:4,16-17"

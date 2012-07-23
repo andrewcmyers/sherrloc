@@ -1,13 +1,17 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL D.provider32200294 //class jif.types.label.ProviderLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL D.provider3157607 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-_->_ <= *-> [];@"LabelLeConstraint09.jif:9,0-7"
+%%
+D.provider32200294==_->_;
+D.provider3157607==_->_;
+
+%%
+D.provider3157607 <= *-> [];@"LabelLeConstraint09.jif:9,0-7"
 *-> <= *-> [];@"LabelLeConstraint09.jif:10,4-12"
 _->_ <= _->_ [];@"LabelLeConstraint09.jif:10,4-12"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"LabelLeConstraint09.jif:9,0-0"
+D.provider32200294 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider32200294);];@"LabelLeConstraint09.jif:9,0-0"

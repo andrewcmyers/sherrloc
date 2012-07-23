@@ -1,30 +1,29 @@
-LABEL z //class jif.types.label.ArgLabel_c
+LABEL z99421810 //class jif.types.label.ArgLabel_c
 LABEL q-> //class jif.types.label.PairLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
+LABEL this256312239 //class jif.types.label.ThisLabel_c
 LABEL y-> //class jif.types.label.PairLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL y //class jif.types.label.ArgLabel_c
-LABEL x //class jif.types.label.ArgLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL y99421805 //class jif.types.label.ArgLabel_c
+LABEL x99421804 //class jif.types.label.ArgLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 %%
-caller_pc<=_->_;
-x<=_->_;
+caller_pc2346856<=_->_;
+x99421804<=_->_;
 
 %%
-caller_pc <= q-> [this <= caller_pc;];@"ArgLabelSubst2.jif:10,16-30"
-answer2 == y-> [this <= caller_pc;];@"ArgLabelSubst2.jif:12,12-19"
-caller_pc <= answer2 [this <= caller_pc;];@"ArgLabelSubst2.jif:12,22-26"
-x <= _->_ [this <= caller_pc;];@"ArgLabelSubst2.jif:14,17-21"
-z <= *-> [this <= caller_pc;];@"ArgLabelSubst2.jif:14,23-24"
-y <= *-> [this <= caller_pc;];@"ArgLabelSubst2.jif:14,26-27"
-x <= _->_ [this <= caller_pc;];@"ArgLabelSubst2.jif:14,11-28"
-receiver == x [this <= caller_pc;];@"ArgLabelSubst2.jif:14,11-28"
-arg1label == x [this <= caller_pc;];@"ArgLabelSubst2.jif:14,11-28"
-arg2label == z [this <= caller_pc;];@"ArgLabelSubst2.jif:14,11-28"
-arg3label == y [this <= caller_pc;];@"ArgLabelSubst2.jif:14,11-28"
-y-> <= answer2 [this <= caller_pc;];@"ArgLabelSubst2.jif:14,1-8"
-caller_pc <= q-> [this <= caller_pc;];@"ArgLabelSubst2.jif:17,1-16"
+(caller_pc2346856) <= q-> [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:10,16-30"
+answer2-56392 == y-> [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:12,12-19"
+(caller_pc2346856) <= answer2-56392 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:12,22-26"
+(x99421804) <= _->_ [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,17-21"
+z99421810 <= *-> [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,23-24"
+y99421805 <= *-> [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,26-27"
+x99421804 <= _->_ [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+receiver-56390 == x99421804 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+arg1label-56389 == (x99421804) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+arg2label-56388 == z99421810 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+arg3label-56387 == y99421805 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+y-> <= answer2-56392 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,1-8"
+(caller_pc2346856) <= q-> [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:17,1-16"

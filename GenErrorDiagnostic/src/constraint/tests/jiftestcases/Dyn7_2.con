@@ -1,11 +1,10 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this80698815 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-x == caller_pc [this <= caller_pc;];@"Dyn7.jif:8,15-16"
-caller_pc <= *-> [this <= caller_pc;];@"Dyn7.jif:8,19-29"
-receiver == this [this <= caller_pc;];@"Dyn7.jif:8,19-29"
-caller_pc <= x [this <= caller_pc;];@"Dyn7.jif:8,19-29"
+x-56392 == (caller_pc2346856) ⊔ (_->_) [this80698815 <= caller_pc2346856;];@"Dyn7.jif:8,15-16"
+caller_pc2346856 <= *-> [this80698815 <= caller_pc2346856;];@"Dyn7.jif:8,19-29"
+receiver-56390 == this80698815 [this80698815 <= caller_pc2346856;];@"Dyn7.jif:8,19-29"
+(_->_) ⊔ (caller_pc2346856) <= x-56392 [this80698815 <= caller_pc2346856;];@"Dyn7.jif:8,19-29"

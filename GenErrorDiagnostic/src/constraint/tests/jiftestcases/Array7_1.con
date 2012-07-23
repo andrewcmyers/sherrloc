@@ -1,17 +1,16 @@
 LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL this1969669406 //class jif.types.label.ThisLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 %%
-caller_pc<=Alice->;
+caller_pc2346856<=Alice->;
 
 %%
-x == Alice-> [this <= caller_pc;];@"Array7.jif:4,28-29"
-caller_pc <= x [this <= caller_pc;];@"Array7.jif:4,32-33"
-caller_pc ⊔ x <= array_base [this <= caller_pc;];@"Array7.jif:5,49-50"
-caller_pc ⊔ x <= array_base [this <= caller_pc;];@"Array7.jif:5,52-53"
-array_base <= Alice->Bob [this <= caller_pc;];@"Array7.jif:5,38-54"
-caller_pc ⊔ x <= ar [this <= caller_pc;];@"Array7.jif:5,38-54"
+x-56392 == Alice-> [this1969669406 <= caller_pc2346856;];@"Array7.jif:4,28-29"
+(caller_pc2346856) <= x-56392 [this1969669406 <= caller_pc2346856;];@"Array7.jif:4,32-33"
+(x-56392) ⊔ (caller_pc2346856) <= array_base-56389 [this1969669406 <= caller_pc2346856;];@"Array7.jif:5,49-50"
+(x-56392) ⊔ (caller_pc2346856) <= array_base-56389 [this1969669406 <= caller_pc2346856;];@"Array7.jif:5,52-53"
+array_base-56389 <= Alice->Bob [this1969669406 <= caller_pc2346856;];@"Array7.jif:5,38-54"
+(x-56392) ⊔ (caller_pc2346856) <= ar-56391 [this1969669406 <= caller_pc2346856;];@"Array7.jif:5,38-54"

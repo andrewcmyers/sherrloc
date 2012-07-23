@@ -1,21 +1,25 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL L //class jif.types.label.ParamLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL L-1772469607 //class jif.types.label.ParamLabel_c
+LABEL D.provider6237616 //class jif.types.label.ProviderLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *y3945030 //class jif.types.label.DynamicLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL *y //class jif.types.label.DynamicLabel_c
-LABEL this
+LABEL D.provider17689439 //class jif.types.label.ProviderLabel_c
 LABEL _->_
 
-_->_ <= *-> [];@"ArgLabelSubst3.jif:9,0-8"
+%%
+D.provider6237616==_->_;
+D.provider17689439==_->_;
+
+%%
+D.provider6237616 <= *-> [];@"ArgLabelSubst3.jif:9,0-8"
 *-> <= *-> [];@"ArgLabelSubst3.jif:10,18-28"
 _->_ <= _->_ [];@"ArgLabelSubst3.jif:10,18-28"
 _->_ <= _->_ [];@"ArgLabelSubst3.jif:10,18-28"
-L <= L [];@"ArgLabelSubst3.jif:10,18-28"
+L-1772469607 <= L-1772469607 [];@"ArgLabelSubst3.jif:10,18-28"
 *-> <= *-> [];@"ArgLabelSubst3.jif:16,18-29"
 _->_ <= _->_ [];@"ArgLabelSubst3.jif:16,18-29"
 _->_ <= _->_ [];@"ArgLabelSubst3.jif:16,18-29"
-*y <= *y [];@"ArgLabelSubst3.jif:16,18-29"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"ArgLabelSubst3.jif:9,0-0"
+*y3945030 <= *y3945030 [];@"ArgLabelSubst3.jif:16,18-29"
+D.provider17689439 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider17689439);];@"ArgLabelSubst3.jif:9,0-0"

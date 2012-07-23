@@ -1,23 +1,24 @@
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL a //class jif.types.label.ArgLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this65 //class jif.types.label.ThisLabel_c
+LABEL a99421781 //class jif.types.label.ArgLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL Alice->Bob //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this
+LABEL A.provider9708927 //class jif.types.label.ProviderLabel_c
+LABEL A.provider24478976 //class jif.types.label.ProviderLabel_c
 LABEL _->_
 
 %%
-a<=Alice->Bob;
+a99421781<=Alice->Bob;
+A.provider24478976==_->_;
+A.provider9708927==_->_;
 
 %%
-_->_ <= *-> [];@"A.jif:1,0-7"
+A.provider24478976 <= *-> [];@"A.jif:1,0-7"
 Alice->Bob == Alice->Bob [];@"A.jif:2,11-28"
 Alice->Bob <= Alice->Bob [];@"A.jif:4,11-21"
 _->_ <= _->_ [];@"A.jif:4,11-21"
 Alice->Bob <= Alice->Bob [];@"A.jif:9,11-20"
-a <= a [];@"A.jif:9,11-20"
+a99421781 <= a99421781 [];@"A.jif:9,11-20"
 _->_ <= _->_ [];@"A.jif:9,11-20"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"A.jif:1,0-0"
+A.provider9708927 <= *-> [this65 <= caller_pc2346856;caller_pc2346856 <= (A.provider9708927);];@"A.jif:1,0-0"

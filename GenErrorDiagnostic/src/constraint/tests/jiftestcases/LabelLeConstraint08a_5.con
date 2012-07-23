@@ -1,15 +1,19 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL *c.f //class jif.types.label.DynamicLabel_c
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL D.provider30866355 //class jif.types.label.ProviderLabel_c
+LABEL D.provider13367741 //class jif.types.label.ProviderLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *c.f12146867 //class jif.types.label.DynamicLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-_->_ <= *-> [*c.f <= Alice->;Alice-> <= *c.f;];@"LabelLeConstraint08a.jif:9,0-7"
-*-> <= *-> [*c.f <= Alice->;Alice-> <= *c.f;];@"LabelLeConstraint08a.jif:10,4-12"
-_->_ <= _->_ [*c.f <= Alice->;Alice-> <= *c.f;];@"LabelLeConstraint08a.jif:10,4-12"
-_->_ <= *-> [*c.f <= Alice->;Alice-> <= *c.f;this <= caller_pc;caller_pc <= _->_;];@"LabelLeConstraint08a.jif:9,0-0"
+%%
+D.provider30866355==_->_;
+D.provider13367741==_->_;
+
+%%
+D.provider13367741 <= *-> [*c.f12146867 <= Alice->;Alice-> <= *c.f12146867;];@"LabelLeConstraint08a.jif:9,0-7"
+*-> <= *-> [*c.f12146867 <= Alice->;Alice-> <= *c.f12146867;];@"LabelLeConstraint08a.jif:10,4-12"
+_->_ <= _->_ [*c.f12146867 <= Alice->;Alice-> <= *c.f12146867;];@"LabelLeConstraint08a.jif:10,4-12"
+D.provider30866355 <= *-> [*c.f12146867 <= Alice->;Alice-> <= *c.f12146867;this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider30866355);];@"LabelLeConstraint08a.jif:9,0-0"

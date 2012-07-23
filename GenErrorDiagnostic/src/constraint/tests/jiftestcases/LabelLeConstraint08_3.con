@@ -1,21 +1,25 @@
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL *lbl1120300741 //class jif.types.label.DynamicLabel_c
+LABEL *this.f23053426 //class jif.types.label.DynamicLabel_c
+LABEL C.provider22892006 //class jif.types.label.ProviderLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL *this.f //class jif.types.label.DynamicLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL *lbl1 //class jif.types.label.DynamicLabel_c
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL C.provider5569009 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL this
 LABEL _->_
 
-_->_ <= *-> [*this.f <= Alice->;Alice-> <= *this.f;];@"LabelLeConstraint08.jif:1,0-7"
-_->_ == _->_ [*this.f <= Alice->;Alice-> <= *this.f;];@"LabelLeConstraint08.jif:2,10-39"
-*lbl1 <= *this.f [*this.f <= Alice->;Alice-> <= *this.f;*lbl1 <= *this.f;];@"LabelLeConstraint08.jif:3,37-57"
-*-> <= *-> [*this.f <= Alice->;Alice-> <= *this.f;*lbl1 <= *this.f;];@"LabelLeConstraint08.jif:3,4-18"
-*-> <= *-> [*this.f <= Alice->;Alice-> <= *this.f;*lbl1 <= *this.f;];@"LabelLeConstraint08.jif:3,4-18"
-_->_ <= _->_ [*this.f <= Alice->;Alice-> <= *this.f;*lbl1 <= *this.f;];@"LabelLeConstraint08.jif:3,4-18"
-*this.f <= *this.f [*this.f <= Alice->;Alice-> <= *this.f;*lbl1 <= *this.f;];@"LabelLeConstraint08.jif:3,4-18"
-_->_ <= *-> [*this.f <= Alice->;Alice-> <= *this.f;this <= caller_pc;caller_pc <= _->_;];@"LabelLeConstraint08.jif:1,0-0"
+%%
+C.provider22892006==_->_;
+C.provider5569009==_->_;
+
+%%
+C.provider22892006 <= *-> [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;];@"LabelLeConstraint08.jif:1,0-7"
+_->_ == _->_ [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;];@"LabelLeConstraint08.jif:2,10-39"
+*lbl1120300741 <= *this.f23053426 [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;*lbl1120300741 <= *this.f23053426;];@"LabelLeConstraint08.jif:3,37-57"
+*-> <= *-> [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;*lbl1120300741 <= *this.f23053426;];@"LabelLeConstraint08.jif:3,4-18"
+*-> <= *-> [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;*lbl1120300741 <= *this.f23053426;];@"LabelLeConstraint08.jif:3,4-18"
+_->_ <= _->_ [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;*lbl1120300741 <= *this.f23053426;];@"LabelLeConstraint08.jif:3,4-18"
+*this.f23053426 <= *this.f23053426 [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;*lbl1120300741 <= *this.f23053426;];@"LabelLeConstraint08.jif:3,4-18"
+C.provider5569009 <= *-> [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider5569009);];@"LabelLeConstraint08.jif:1,0-0"

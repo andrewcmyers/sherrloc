@@ -1,23 +1,23 @@
-LABEL _->_ //class jif.types.label.ProviderLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL C.provider7031149 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 %%
-caller_pc<=_->_;
+caller_pc2346856<=_->_;
+C.provider7031149==_->_;
 
 %%
-caller_pc <= x [this <= caller_pc;];@"Array12.jif:3,25-29"
-caller_pc <= y [this <= caller_pc;];@"Array12.jif:4,13-17"
-caller_pc <= z [this <= caller_pc;];@"Array12.jif:5,19-23"
-caller_pc <= w [this <= caller_pc;];@"Array12.jif:7,17-21"
-y ⊔ caller_pc ⊔ w <= _->_ [this <= caller_pc;];@"Array12.jif:8,1-2"
-_->_ <= _->_ [this <= caller_pc;];@"Array12.jif:8,1-2"
-_->_ <= Alice-> [this <= caller_pc;];@"Array12.jif:8,1-9"
-Alice-> <= _->_ [this <= caller_pc;];@"Array12.jif:8,1-9"
-y ⊔ caller_pc <= caller_pc [this <= caller_pc;];@"Array12.jif:2,4-10"
-y ⊔ caller_pc <= caller_pc [this <= caller_pc;];@"Array12.jif:2,4-10"
-y ⊔ caller_pc <= caller_pc [this <= caller_pc;];@"Array12.jif:2,4-10"
+(caller_pc2346856) <= x-56392 [this67 <= caller_pc2346856;];@"Array12.jif:3,25-29"
+(caller_pc2346856) <= y-56391 [this67 <= caller_pc2346856;];@"Array12.jif:4,13-17"
+(caller_pc2346856) <= z-56390 [this67 <= caller_pc2346856;];@"Array12.jif:5,19-23"
+(caller_pc2346856) <= w-56389 [this67 <= caller_pc2346856;];@"Array12.jif:7,17-21"
+(w-56389) ⊔ (caller_pc2346856) ⊔ (y-56391) <= _->_ [this67 <= caller_pc2346856;];@"Array12.jif:8,1-2"
+C.provider7031149 <= _->_ [this67 <= caller_pc2346856;];@"Array12.jif:8,1-2"
+_->_ <= Alice-> [this67 <= caller_pc2346856;];@"Array12.jif:8,1-9"
+Alice-> <= _->_ [this67 <= caller_pc2346856;];@"Array12.jif:8,1-9"
+(y-56391) ⊔ (caller_pc2346856) <= caller_pc2346856 [this67 <= caller_pc2346856;];@"Array12.jif:2,4-10"
+(y-56391) ⊔ (caller_pc2346856) <= caller_pc2346856 [this67 <= caller_pc2346856;];@"Array12.jif:2,4-10"
+(y-56391) ⊔ (caller_pc2346856) <= caller_pc2346856 [this67 <= caller_pc2346856;];@"Array12.jif:2,4-10"
