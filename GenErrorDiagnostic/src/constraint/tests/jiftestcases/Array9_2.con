@@ -1,19 +1,23 @@
 LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL Array8.provider25559096 //class jif.types.label.ProviderLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL Array8.provider19589694 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL this
+LABEL this1969669407 //class jif.types.label.ThisLabel_c
 LABEL _->_
 
-_->_ <= *-> [];@"Array9.jif:1,0-12"
+%%
+Array8.provider25559096==_->_;
+Array8.provider19589694==_->_;
+
+%%
+Array8.provider19589694 <= *-> [];@"Array9.jif:1,0-12"
 Alice-> == Alice-> [];@"Array9.jif:3,4-30"
-Alice-> ⊔ this == Alice-> ⊔ this [];@"Array9.jif:4,10-78"
-Alice-> ⊔ this <= array_base [this <= _->_;];@"Array9.jif:4,72-73"
-Alice-> ⊔ this <= array_base [this <= _->_;];@"Array9.jif:4,75-76"
-array_base <= Alice->Bob [this <= _->_;];@"Array9.jif:4,61-77"
-Alice-> ⊔ this <= Alice-> ⊔ this [this <= _->_;];@"Array9.jif:4,61-77"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"Array9.jif:1,0-0"
+(this1969669407) ⊔ (Alice->) == (this1969669407) ⊔ (Alice->) [];@"Array9.jif:4,10-78"
+(Alice->) ⊔ (this1969669407) <= array_base-56389 [this1969669407 <= _->_;];@"Array9.jif:4,72-73"
+(Alice->) ⊔ (this1969669407) <= array_base-56389 [this1969669407 <= _->_;];@"Array9.jif:4,75-76"
+array_base-56389 <= Alice->Bob [this1969669407 <= _->_;];@"Array9.jif:4,61-77"
+(Alice->) ⊔ (this1969669407) <= (this1969669407) ⊔ (Alice->) [this1969669407 <= _->_;];@"Array9.jif:4,61-77"
+Array8.provider25559096 <= *-> [this1969669407 <= caller_pc2346856;caller_pc2346856 <= (Array8.provider25559096);];@"Array9.jif:1,0-0"

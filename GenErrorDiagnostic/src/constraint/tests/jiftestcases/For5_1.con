@@ -1,21 +1,20 @@
 LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 %%
-caller_pc<=_->_;
+caller_pc2346856<=_->_;
 
 %%
-secret == Alice-> [this <= caller_pc;];@"For5.jif:3,17-23"
-caller_pc <= secret [this <= caller_pc;];@"For5.jif:3,26-30"
-leak == _->_ [this <= caller_pc;];@"For5.jif:4,11-15"
-caller_pc <= leak [this <= caller_pc;];@"For5.jif:4,18-23"
-secret ⊔ for <= for [this <= caller_pc;];@"For5.jif:8,21-27"
-secret ⊔ for <= *-> [this <= caller_pc;];@"For5.jif:9,15-30"
-caller_pc <= for [this <= caller_pc;];@"For5.jif:7,5-18"
-for ⊔ for <= leak [this <= caller_pc;];@"For5.jif:11,5-9"
-secret ⊔ for ⊔ newException <= e [this <= caller_pc;];@"For5.jif:13,8-19"
+secret-56392 == Alice-> [this67 <= caller_pc2346856;];@"For5.jif:3,17-23"
+(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"For5.jif:3,26-30"
+leak-56391 == _->_ [this67 <= caller_pc2346856;];@"For5.jif:4,11-15"
+(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"For5.jif:4,18-23"
+(secret-56392) ⊔ (for-56389) <= for-56388 [this67 <= caller_pc2346856;];@"For5.jif:8,21-27"
+(secret-56392) ⊔ (for-56389) <= *-> [this67 <= caller_pc2346856;];@"For5.jif:9,15-30"
+caller_pc2346856 <= for-56389 [this67 <= caller_pc2346856;];@"For5.jif:7,5-18"
+(for-56389) ⊔ (for-56388) <= leak-56391 [this67 <= caller_pc2346856;];@"For5.jif:11,5-9"
+(secret-56392) ⊔ (for-56389) ⊔ (newException-56387) <= e-56390 [this67 <= caller_pc2346856;];@"For5.jif:13,8-19"

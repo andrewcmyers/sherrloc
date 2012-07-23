@@ -1,10 +1,9 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL *this.f //class jif.types.label.DynamicLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL this
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *this.f16988885 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
-x == *this.f ⊔ caller_pc [this <= caller_pc;];@"DynLabel10.jif:8,14-15"
-caller_pc <= x [this <= caller_pc;];@"DynLabel10.jif:8,18-19"
-y == *this.f ⊔ caller_pc [this <= caller_pc;];@"DynLabel10.jif:9,9-10"
-caller_pc <= y [this <= caller_pc;];@"DynLabel10.jif:9,13-14"
+x-56389 == (caller_pc2346856) ⊔ (*this.f16988885) [this68 <= caller_pc2346856;];@"DynLabel10.jif:8,14-15"
+(caller_pc2346856) <= x-56389 [this68 <= caller_pc2346856;];@"DynLabel10.jif:8,18-19"
+y-56388 == (caller_pc2346856) ⊔ (*this.f16988885) [this68 <= caller_pc2346856;];@"DynLabel10.jif:9,9-10"
+(caller_pc2346856) <= y-56388 [this68 <= caller_pc2346856;];@"DynLabel10.jif:9,13-14"

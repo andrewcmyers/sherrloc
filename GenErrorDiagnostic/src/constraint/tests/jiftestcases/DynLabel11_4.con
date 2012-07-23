@@ -1,12 +1,16 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL *C.f169 //class jif.types.label.DynamicLabel_c
+LABEL D.provider32316171 //class jif.types.label.ProviderLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL D.provider17908832 //class jif.types.label.ProviderLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL *C.f //class jif.types.label.DynamicLabel_c
-LABEL this
 LABEL _->_
 
-_->_ <= *-> [];@"DynLabel11.jif:4,0-7"
-*C.f == *C.f [];@"DynLabel11.jif:5,4-18"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"DynLabel11.jif:4,0-0"
+%%
+D.provider32316171==_->_;
+D.provider17908832==_->_;
+
+%%
+D.provider17908832 <= *-> [];@"DynLabel11.jif:4,0-7"
+*C.f169 == *C.f169 [];@"DynLabel11.jif:5,4-18"
+D.provider32316171 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider32316171);];@"DynLabel11.jif:4,0-0"

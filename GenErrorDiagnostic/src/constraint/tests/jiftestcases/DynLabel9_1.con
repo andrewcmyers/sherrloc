@@ -1,7 +1,6 @@
-LABEL this //class jif.types.label.ThisLabel_c
+LABEL this83 //class jif.types.label.ThisLabel_c
 LABEL this.pr-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-pr == this [];@"DynLabel9.jif:4,17-36"
-x == this.pr-> [];@"DynLabel9.jif:5,4-37"
+pr-56392 == this83 [];@"DynLabel9.jif:4,17-36"
+x-56391 == this.pr-> [];@"DynLabel9.jif:5,4-37"

@@ -1,7 +1,6 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this2145531 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-this ⊔ caller_pc <= caller_pc [this <= caller_pc;];@"Dyn4.jif:11,8-17"
+(_->_) ⊔ (this2145531) ⊔ (caller_pc2346856) <= (_->_) ⊔ (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:11,8-17"

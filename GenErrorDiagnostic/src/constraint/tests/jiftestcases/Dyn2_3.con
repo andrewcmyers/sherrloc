@@ -1,19 +1,23 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this2145529 //class jif.types.label.ThisLabel_c
+LABEL *this.lb62665 //class jif.types.label.DynamicLabel_c
+LABEL Dyn2.provider5863106 //class jif.types.label.ProviderLabel_c
+LABEL Dyn2.provider25613444 //class jif.types.label.ProviderLabel_c
 LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL *this.lb //class jif.types.label.DynamicLabel_c
-LABEL this
 LABEL _->_
 
-_->_ <= *-> [];@"Dyn2.jif:1,0-10"
+%%
+Dyn2.provider5863106==_->_;
+Dyn2.provider25613444==_->_;
+
+%%
+Dyn2.provider5863106 <= *-> [];@"Dyn2.jif:1,0-10"
 _->_ == _->_ [];@"Dyn2.jif:3,18-29"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"Dyn2.jif:5,18-19"
-this <= _->_ [this <= caller_pc;caller_pc <= _->_;*this.lb <= Alice->Bob;Alice->Bob <= *this.lb;];@"Dyn2.jif:6,1-3"
+Dyn2.provider25613444 <= *-> [this2145529 <= caller_pc2346856;caller_pc2346856 <= (Dyn2.provider25613444);];@"Dyn2.jif:5,18-19"
+this2145529 <= _->_ [this2145529 <= caller_pc2346856;caller_pc2346856 <= (Dyn2.provider25613444);*this.lb62665 <= Alice->Bob;Alice->Bob <= *this.lb62665;];@"Dyn2.jif:6,1-3"
 *-> <= *-> [];@"Dyn2.jif:9,11-21"
 _->_ <= _->_ [];@"Dyn2.jif:9,11-21"
-*this.lb <= *this.lb [];@"Dyn2.jif:9,11-21"
+*this.lb62665 <= *this.lb62665 [];@"Dyn2.jif:9,11-21"

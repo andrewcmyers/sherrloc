@@ -1,20 +1,19 @@
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL y //class jif.types.label.ArgLabel_c
-LABEL *y //class jif.types.label.DynamicLabel_c
+LABEL *y3941361 //class jif.types.label.DynamicLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL y99421805 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 %%
-caller_pc<=_->_;
+caller_pc2346856<=_->_;
 
 %%
-answer2 == _->_ [];@"ArgLabelSubst3.jif:17,14-21"
-caller_pc <= *-> [];@"ArgLabelSubst3.jif:17,33-45"
-caller_pc <= _->_ [];@"ArgLabelSubst3.jif:17,24-46"
-arg1label == caller_pc [];@"ArgLabelSubst3.jif:17,24-46"
-param_{*y}_label == y [];@"ArgLabelSubst3.jif:17,24-46"
-_->_ <= answer2 [];@"ArgLabelSubst3.jif:17,24-46"
-caller_pc <= *y [];@"ArgLabelSubst3.jif:19,8-17"
+answer2-56391 == _->_ [];@"ArgLabelSubst3.jif:17,14-21"
+caller_pc2346856 <= *-> [];@"ArgLabelSubst3.jif:17,33-45"
+caller_pc2346856 <= _->_ [];@"ArgLabelSubst3.jif:17,24-46"
+arg1label-56388 == caller_pc2346856 [];@"ArgLabelSubst3.jif:17,24-46"
+param_{*y}_label-56387 == y99421805 [];@"ArgLabelSubst3.jif:17,24-46"
+_->_ <= answer2-56391 [];@"ArgLabelSubst3.jif:17,24-46"
+(caller_pc2346856) <= *y3941361 [];@"ArgLabelSubst3.jif:19,8-17"

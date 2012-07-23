@@ -1,5 +1,4 @@
 LABEL *->Alice //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 *->Alice == *->Alice [];@"LabelSubst01.jif:6,10-49"

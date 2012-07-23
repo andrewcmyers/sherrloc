@@ -1,11 +1,10 @@
-LABEL *M //class jif.types.label.DynamicLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL y //class jif.types.label.ArgLabel_c
-LABEL this
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL y99421805 //class jif.types.label.ArgLabel_c
+LABEL *M7346804 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
 %%
-y<=*M;
+y99421805<=*M7346804;
 
 %%
-caller_pc ⊔ y <= caller_pc ⊔ *M [];@"Dyn6.jif:10,50-61"
+(caller_pc2346856) ⊔ (y99421805) <= (*M7346804) ⊔ (caller_pc2346856) [];@"Dyn6.jif:10,50-61"

@@ -1,15 +1,14 @@
 LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint05.jif:8,3-20"
-caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint05.jif:8,22-33"
-caller_pc <= *-> [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
-Alice-> <= _->_ [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
-receiver == this [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
-arg1label == caller_pc [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
-arg2label == caller_pc [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
+caller_pc2346856 <= *-> [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,3-20"
+caller_pc2346856 <= *-> [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,22-33"
+caller_pc2346856 <= *-> [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"
+Alice-> <= _->_ [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"
+receiver-56387 == this67 [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"
+arg1label-56386 == caller_pc2346856 [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"
+arg2label-56385 == caller_pc2346856 [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"

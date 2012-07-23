@@ -1,13 +1,17 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL C.provider5009874 //class jif.types.label.ProviderLabel_c
+LABEL C.provider24615045 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
-_->_ <= *-> [];@"Array10.jif:1,0-7"
+%%
+C.provider24615045==_->_;
+C.provider5009874==_->_;
+
+%%
+C.provider24615045 <= *-> [];@"Array10.jif:1,0-7"
 _->_ <= _->_ [];@"Array10.jif:2,4-10"
 _->_ <= _->_ [];@"Array10.jif:2,4-10"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"Array10.jif:1,0-0"
+C.provider5009874 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider5009874);];@"Array10.jif:1,0-0"

@@ -1,14 +1,13 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this67 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 %%
-caller_pc<=_->_;
+caller_pc2346856<=_->_;
 
 %%
-array_base <= _->_ [this <= caller_pc;];@"Array19.jif:4,18-28"
-caller_pc <= d [this <= caller_pc;];@"Array19.jif:4,18-28"
-array_base <= _->_ [this <= caller_pc;];@"Array19.jif:5,18-35"
-caller_pc ⊔ d <= c [this <= caller_pc;];@"Array19.jif:5,18-35"
+array_base-56390 <= _->_ [this67 <= caller_pc2346856;];@"Array19.jif:4,18-28"
+caller_pc2346856 <= d-56392 [this67 <= caller_pc2346856;];@"Array19.jif:4,18-28"
+array_base-56389 <= _->_ [this67 <= caller_pc2346856;];@"Array19.jif:5,18-35"
+(d-56392) ⊔ (caller_pc2346856) <= c-56391 [this67 <= caller_pc2346856;];@"Array19.jif:5,18-35"

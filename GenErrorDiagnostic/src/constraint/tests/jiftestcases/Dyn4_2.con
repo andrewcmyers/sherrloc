@@ -1,26 +1,25 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL L //class jif.types.label.ArgLabel_c
-LABEL *L //class jif.types.label.DynamicLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
+LABEL this2145531 //class jif.types.label.ThisLabel_c
+LABEL L99421760 //class jif.types.label.ArgLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *L29689171 //class jif.types.label.DynamicLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this
 LABEL _->_
 
 %%
-L<=_->_;
-caller_pc<=_->_;
+L99421760<=_->_;
+caller_pc2346856<=_->_;
 
 %%
-x == *L [this <= caller_pc;];@"Dyn4.jif:6,16-17"
-L <= *-> [this <= caller_pc;];@"Dyn4.jif:6,22-23"
-caller_pc <= *L [this <= caller_pc;];@"Dyn4.jif:6,25-26"
-caller_pc <= *-> [this <= caller_pc;];@"Dyn4.jif:6,20-27"
-arg1label == L [this <= caller_pc;];@"Dyn4.jif:6,20-27"
-arg2label == caller_pc [this <= caller_pc;];@"Dyn4.jif:6,20-27"
-*L <= x [this <= caller_pc;];@"Dyn4.jif:6,20-27"
-L <= *-> [this <= caller_pc;];@"Dyn4.jif:7,17-18"
-caller_pc <= *L [this <= caller_pc;];@"Dyn4.jif:7,20-21"
-caller_pc <= *-> [this <= caller_pc;];@"Dyn4.jif:7,15-22"
-arg1label == L [this <= caller_pc;];@"Dyn4.jif:7,15-22"
-arg2label == caller_pc [this <= caller_pc;];@"Dyn4.jif:7,15-22"
-*L <= *L [this <= caller_pc;];@"Dyn4.jif:7,8-23"
+x-56391 == *L29689171 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,16-17"
+L99421760 <= *-> [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,22-23"
+(caller_pc2346856) <= *L29689171 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,25-26"
+caller_pc2346856 <= *-> [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,20-27"
+arg1label-56388 == L99421760 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,20-27"
+arg2label-56387 == (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,20-27"
+*L29689171 <= x-56391 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,20-27"
+L99421760 <= *-> [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,17-18"
+(caller_pc2346856) <= *L29689171 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,20-21"
+caller_pc2346856 <= *-> [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,15-22"
+arg1label-56384 == L99421760 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,15-22"
+arg2label-56383 == (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,15-22"
+*L29689171 <= *L29689171 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,8-23"

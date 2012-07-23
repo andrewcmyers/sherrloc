@@ -1,7 +1,6 @@
-LABEL L //class jif.types.label.ParamLabel_c
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL this
+LABEL L-1772469607 //class jif.types.label.ParamLabel_c
+LABEL this70822 //class jif.types.label.ThisLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL _->_
 
-caller_pc <= L ⊔ caller_pc [this <= caller_pc;];@"LabelSubst01.jif:18,33-45"
+(caller_pc2346856) <= (L-1772469607) ⊔ (caller_pc2346856) [this70822 <= caller_pc2346856;];@"LabelSubst01.jif:18,33-45"

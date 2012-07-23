@@ -1,27 +1,28 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL y //class jif.types.label.ArgLabel_c
-LABEL x //class jif.types.label.ArgLabel_c
-LABEL x //class jif.types.label.ArgLabel_c
+LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL D.provider7858936 //class jif.types.label.ProviderLabel_c
+LABEL D.provider19623049 //class jif.types.label.ProviderLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL y99421805 //class jif.types.label.ArgLabel_c
+LABEL x99421804 //class jif.types.label.ArgLabel_c
+LABEL x99421804 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.ProviderLabel_c
-LABEL this
 LABEL _->_
 
 %%
-y<=x;
-x<=y;
-x<=x;
+y99421805<=x99421804;
+x99421804<=y99421805;
+x99421804<=x99421804;
+D.provider7858936==_->_;
+D.provider19623049==_->_;
 
 %%
-_->_ <= *-> [];@"ArgLabel2.jif:1,0-7"
-y <= y [];@"ArgLabel2.jif:3,9-17"
-x <= x [];@"ArgLabel2.jif:3,9-17"
+D.provider19623049 <= *-> [];@"ArgLabel2.jif:1,0-7"
+y99421805 <= y99421805 [];@"ArgLabel2.jif:3,9-17"
+x99421804 <= x99421804 [];@"ArgLabel2.jif:3,9-17"
 *-> <= *-> [];@"ArgLabel2.jif:3,9-17"
 _->_ <= _->_ [];@"ArgLabel2.jif:3,9-17"
-x <= x [];@"ArgLabel2.jif:5,9-17"
+x99421804 <= x99421804 [];@"ArgLabel2.jif:5,9-17"
 *-> <= *-> [];@"ArgLabel2.jif:5,9-17"
 _->_ <= _->_ [];@"ArgLabel2.jif:5,9-17"
-_->_ <= *-> [this <= caller_pc;caller_pc <= _->_;];@"ArgLabel2.jif:1,0-0"
+D.provider7858936 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider7858936);];@"ArgLabel2.jif:1,0-0"
