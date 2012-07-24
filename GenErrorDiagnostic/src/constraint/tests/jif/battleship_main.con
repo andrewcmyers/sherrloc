@@ -1,0 +1,54 @@
+LABEL Main.provider13622965 //class jif.types.label.ProviderLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL p99421796 //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL p-> //class jif.types.label.PairLabel_c
+LABEL p-> //class jif.types.label.PairLabel_c
+LABEL _->_
+
+%%
+p99421796<=_->_;
+caller_pc2346856<=_->_;
+Main.provider13622965==_->_;
+
+%%
+Main.provider13622965 <= *-> [];@"Main.jif:20,36-45"
+(caller_pc2346856) <= out-56392 [];@"Main.jif:22,32-36"
+caller_pc2346856 <= *-> [];@"Main.jif:24,35-58"
+param_p_label-56364 == (p99421796) ⊔ (caller_pc2346856) [];@"Main.jif:24,35-58"
+_->_ <= runtime-56391 [];@"Main.jif:24,35-58"
+(runtime-56391) ⊔ (caller_pc2346856) <= *-> [];@"Main.jif:25,54-66"
+(runtime-56391) ⊔ (caller_pc2346856) <= *-> [];@"Main.jif:25,39-67"
+receiver-56363 == (runtime-56391) ⊔ (caller_pc2346856) [];@"Main.jif:25,39-67"
+arg1label-56362 == (runtime-56391) ⊔ (caller_pc2346856) [];@"Main.jif:25,39-67"
+(p->) ⊔ (runtime-56391) <= out-56392 [];@"Main.jif:25,14-17"
+_->_ == _->_ [];@"Main.jif:25,14-67"
+(_->_) ⊔ (runtime-56391) <= e-56390 [];@"Main.jif:27,17-36"
+infered_downgrade_from_out-55913 == p-> [];@"Main.jif:33,33-94"
+p-> == infered_downgrade_to_out-55912 [];@"Main.jif:33,33-94"
+(out-56392) ⊔ (caller_pc2346856) <= infered_downgrade_from_out-55913 [];@"Main.jif:33,33-94"
+(infered_downgrade_from_out-55913) ⊓ (*->) <= infered_downgrade_to_out-55912 [];@"Main.jif:33,33-94"
+(infered_downgrade_from_out-55913) ⊓ (_->_) ⊓ (_->_) ⊓ (_->_) <= infered_downgrade_to_out-55912 [];@"Main.jif:33,33-94"
+(infered_downgrade_from_out-55913) ⊓ ((caller_pc2346856) ⊔ (*->)) <= infered_downgrade_to_out-55912 [];@"Main.jif:33,33-94"
+_->_ == _->_ [];@"Main.jif:33,33-94"
+(caller_pc2346856) ⊔ (infered_downgrade_to_out-55912) <= out1-56389 [];@"Main.jif:33,33-94"
+_->_ == _->_ [];@"Main.jif:34,33-37"
+(out1-56389) ⊔ (caller_pc2346856) <= out2-56388 [];@"Main.jif:34,33-37"
+(caller_pc2346856) <= newBattleShip-55911 [];@"Main.jif:38,10-38"
+(caller_pc2346856) <= newBattleShip-55911 [];@"Main.jif:38,10-38"
+caller_pc2346856 <= *-> [];@"Main.jif:38,10-38"
+(out2-56388) ⊔ (caller_pc2346856) ⊔ (newBattleShip-55911) <= _->_ [];@"Main.jif:38,44-48"
+_->_ == _->_ [];@"Main.jif:38,44-48"
+(caller_pc2346856) ⊔ (newBattleShip-55911) <= _->_ [];@"Main.jif:38,10-49"
+receiver-56360 == (caller_pc2346856) ⊔ (newBattleShip-55911) [];@"Main.jif:38,10-49"
+arg1label-56359 == (out2-56388) ⊔ (caller_pc2346856) ⊔ (newBattleShip-55911) [];@"Main.jif:38,10-49"
+(_->_) ⊔ (newBattleShip-55911) <= _->_ [];@"Main.jif:17,24-33"
+(_->_) ⊔ (newBattleShip-55911) <= _->_ [];@"Main.jif:17,24-33"
+(_->_) ⊔ (newBattleShip-55911) <= _->_ [];@"Main.jif:17,24-33"
