@@ -9,12 +9,12 @@ LABEL _->_
 caller_pc2346856<=_->_;
 
 %%
-secret-56392 == Alice-> [this67 <= caller_pc2346856;];@"For5.jif:3,17-23"
-(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"For5.jif:3,26-30"
-leak-56391 == _->_ [this67 <= caller_pc2346856;];@"For5.jif:4,11-15"
-(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"For5.jif:4,18-23"
-(secret-56392) ⊔ (for-56389) <= for-56388 [this67 <= caller_pc2346856;];@"For5.jif:8,21-27"
-(secret-56392) ⊔ (for-56389) <= *-> [this67 <= caller_pc2346856;];@"For5.jif:9,15-30"
-caller_pc2346856 <= for-56389 [this67 <= caller_pc2346856;];@"For5.jif:7,5-18"
-(for-56389) ⊔ (for-56388) <= leak-56391 [this67 <= caller_pc2346856;];@"For5.jif:11,5-9"
-(secret-56392) ⊔ (for-56389) ⊔ (newException-56387) <= e-56390 [this67 <= caller_pc2346856;];@"For5.jif:13,8-19"
+secret-56392 == Alice-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:3,17-23"
+(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:3,26-30"
+leak-56391 == _->_ [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:4,11-15"
+(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:4,18-23"
+(secret-56392) ⊔ (for-56389) <= for-56388 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:8,21-27"
+(secret-56392) ⊔ (for-56389) <= *-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:9,15-30"
+caller_pc2346856 <= for-56389 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:7,5-18"
+(for-56389) ⊔ (for-56388) <= leak-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:11,5-9"
+(secret-56392) ⊔ (for-56389) ⊔ (newException-56387) <= e-56390 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For5.jif:13,8-19"
