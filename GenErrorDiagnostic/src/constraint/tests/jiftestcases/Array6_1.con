@@ -8,8 +8,8 @@ LABEL _->_
 caller_pc2346856<=Alice->;
 
 %%
-x-56392 == Alice-> [this1969669405 <= caller_pc2346856;];@"Array6.jif:4,28-29"
-(caller_pc2346856) <= x-56392 [this1969669405 <= caller_pc2346856;];@"Array6.jif:4,32-33"
-(x-56392) ⊔ (caller_pc2346856) <= Alice->Bob [this1969669405 <= caller_pc2346856;];@"Array6.jif:5,39-40"
-(x-56392) ⊔ (caller_pc2346856) <= Alice->Bob [this1969669405 <= caller_pc2346856;];@"Array6.jif:5,42-43"
-(x-56392) ⊔ (caller_pc2346856) <= ar-56391 [this1969669405 <= caller_pc2346856;];@"Array6.jif:5,38-44"
+x-56392 == Alice-> [this1969669405 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:4,28-29"
+(caller_pc2346856) <= x-56392 [this1969669405 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:4,32-33"
+(x-56392) ⊔ (caller_pc2346856) <= Alice->Bob [this1969669405 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:5,39-40"
+(x-56392) ⊔ (caller_pc2346856) <= Alice->Bob [this1969669405 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:5,42-43"
+(x-56392) ⊔ (caller_pc2346856) <= ar-56391 [this1969669405 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:5,38-44"

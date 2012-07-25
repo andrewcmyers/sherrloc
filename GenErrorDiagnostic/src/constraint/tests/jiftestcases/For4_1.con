@@ -9,13 +9,13 @@ LABEL _->_
 caller_pc2346856<=_->_;
 
 %%
-secret-56392 == Alice-> [this67 <= caller_pc2346856;];@"For4.jif:3,17-23"
-(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"For4.jif:3,26-30"
-leak-56391 == _->_ [this67 <= caller_pc2346856;];@"For4.jif:4,18-22"
-(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"For4.jif:4,25-30"
-(caller_pc2346856) <= i-56390 [this67 <= caller_pc2346856;];@"For4.jif:6,20-21"
-(for-56388) ⊔ (i-56390) <= leak-56391 [this67 <= caller_pc2346856;];@"For4.jif:8,16-20"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= *-> [this67 <= caller_pc2346856;];@"For4.jif:9,35-50"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= i-56390 [this67 <= caller_pc2346856;];@"For4.jif:10,16-17"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (caller_pc2346856) <= for-56388 [this67 <= caller_pc2346856;];@"For4.jif:7,12-25"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (newException-56386) <= e-56389 [this67 <= caller_pc2346856;];@"For4.jif:13,15-26"
+secret-56392 == Alice-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:3,17-23"
+(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:3,26-30"
+leak-56391 == _->_ [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:4,18-22"
+(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:4,25-30"
+(caller_pc2346856) <= i-56390 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:6,20-21"
+(for-56388) ⊔ (i-56390) <= leak-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:8,16-20"
+(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= *-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:9,35-50"
+(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= i-56390 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:10,16-17"
+(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (caller_pc2346856) <= for-56388 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:7,12-25"
+(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (newException-56386) <= e-56389 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:13,15-26"
