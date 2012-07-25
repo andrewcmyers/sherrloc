@@ -8,5 +8,5 @@ caller_pc2346856<=x99421804;
 x99421804<=x99421804;
 
 %%
-x99421804 <= x99421804 [this68 <= caller_pc2346856;];@"ArgLabel1.jif:7,21-28"
-receiver-56392 == x99421804 [this68 <= caller_pc2346856;];@"ArgLabel1.jif:7,21-28"
+x99421804 <= x99421804 [this68 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabel1.jif:7,21-28"
+receiver-56392 == x99421804 [this68 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabel1.jif:7,21-28"

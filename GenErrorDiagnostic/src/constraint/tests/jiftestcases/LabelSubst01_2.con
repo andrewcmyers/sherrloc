@@ -1,5 +1,5 @@
 LABEL *->Alice //class jif.types.label.PairLabel_c
 LABEL _->_
 
-*->Alice == *->Alice [];@"LabelSubst01.jif:6,10-49"
-*->Alice == *->Alice [];@"LabelSubst01.jif:7,11-36"
+*->Alice == *->Alice [];@"/home/zhang/APL/Jif/jif/tests/LabelSubst01.jif:6,10-49"
+*->Alice == *->Alice [];@"/home/zhang/APL/Jif/jif/tests/LabelSubst01.jif:7,11-36"

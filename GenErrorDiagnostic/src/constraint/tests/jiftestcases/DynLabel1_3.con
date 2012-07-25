@@ -1,26 +1,26 @@
-LABEL DynLabel1.provider10183200 //class jif.types.label.ProviderLabel_c
-LABEL *this.f20201270 //class jif.types.label.DynamicLabel_c
+LABEL DynLabel1.provider7654146 //class jif.types.label.ProviderLabel_c
 LABEL this-1111592074 //class jif.types.label.ThisLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *l14099052 //class jif.types.label.DynamicLabel_c
-LABEL DynLabel1.provider3829340 //class jif.types.label.ProviderLabel_c
+LABEL DynLabel1.provider6868345 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
+LABEL *l21909149 //class jif.types.label.DynamicLabel_c
+LABEL *this.f20735655 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
 %%
-DynLabel1.provider10183200==_->_;
-DynLabel1.provider3829340==_->_;
+DynLabel1.provider7654146==_->_;
+DynLabel1.provider6868345==_->_;
 
 %%
-DynLabel1.provider10183200 <= *-> [];@"DynLabel1.jif:1,0-15"
-_->_ == _->_ [];@"DynLabel1.jif:2,10-24"
-_->_ == _->_ [];@"DynLabel1.jif:3,10-28"
-DynLabel1.provider3829340 <= *-> [this-1111592074 <= caller_pc2346856;caller_pc2346856 <= (DynLabel1.provider3829340);];@"DynLabel1.jif:5,48-49"
-this-1111592074 <= _->_ [this-1111592074 <= caller_pc2346856;caller_pc2346856 <= (DynLabel1.provider3829340);*this.f20201270 <= *l14099052;*l14099052 <= *this.f20201270;];@"DynLabel1.jif:6,1-7"
-this-1111592074 <= _->_ [this-1111592074 <= caller_pc2346856;*this.f20201270 <= *l14099052;*l14099052 <= *this.f20201270;caller_pc2346856 <= (DynLabel1.provider3829340);];@"DynLabel1.jif:7,1-7"
-_->_ <= _->_ [];@"DynLabel1.jif:10,4-10"
-*-> <= *-> [];@"DynLabel1.jif:10,4-10"
-_->_ <= _->_ [];@"DynLabel1.jif:10,4-10"
-_->_ <= _->_ [];@"DynLabel1.jif:10,4-10"
-_->_ <= _->_ [];@"DynLabel1.jif:10,4-10"
+DynLabel1.provider7654146 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:1,0-15"
+_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:2,10-24"
+_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:3,10-28"
+DynLabel1.provider6868345 <= *-> [this-1111592074 <= caller_pc2346856;caller_pc2346856 <= (DynLabel1.provider6868345);];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:5,48-49"
+this-1111592074 <= _->_ [this-1111592074 <= caller_pc2346856;caller_pc2346856 <= (DynLabel1.provider6868345);*this.f20735655 <= *l21909149;*l21909149 <= *this.f20735655;];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:6,1-7"
+this-1111592074 <= _->_ [this-1111592074 <= caller_pc2346856;*this.f20735655 <= *l21909149;*l21909149 <= *this.f20735655;caller_pc2346856 <= (DynLabel1.provider6868345);];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:7,1-7"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:10,4-10"
+*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:10,4-10"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:10,4-10"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:10,4-10"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel1.jif:10,4-10"

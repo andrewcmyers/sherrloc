@@ -1,23 +1,23 @@
 LABEL this2145529 //class jif.types.label.ThisLabel_c
-LABEL *this.lb62665 //class jif.types.label.DynamicLabel_c
-LABEL Dyn2.provider5863106 //class jif.types.label.ProviderLabel_c
-LABEL Dyn2.provider25613444 //class jif.types.label.ProviderLabel_c
 LABEL Alice->Bob //class jif.types.label.PairLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL Dyn2.provider25865024 //class jif.types.label.ProviderLabel_c
+LABEL *this.lb21890266 //class jif.types.label.DynamicLabel_c
+LABEL Dyn2.provider10132325 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
-Dyn2.provider5863106==_->_;
-Dyn2.provider25613444==_->_;
+Dyn2.provider25865024==_->_;
+Dyn2.provider10132325==_->_;
 
 %%
-Dyn2.provider5863106 <= *-> [];@"Dyn2.jif:1,0-10"
-_->_ == _->_ [];@"Dyn2.jif:3,18-29"
-Dyn2.provider25613444 <= *-> [this2145529 <= caller_pc2346856;caller_pc2346856 <= (Dyn2.provider25613444);];@"Dyn2.jif:5,18-19"
-this2145529 <= _->_ [this2145529 <= caller_pc2346856;caller_pc2346856 <= (Dyn2.provider25613444);*this.lb62665 <= Alice->Bob;Alice->Bob <= *this.lb62665;];@"Dyn2.jif:6,1-3"
-*-> <= *-> [];@"Dyn2.jif:9,11-21"
-_->_ <= _->_ [];@"Dyn2.jif:9,11-21"
-*this.lb62665 <= *this.lb62665 [];@"Dyn2.jif:9,11-21"
+Dyn2.provider10132325 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn2.jif:1,0-10"
+_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn2.jif:3,18-29"
+Dyn2.provider25865024 <= *-> [this2145529 <= caller_pc2346856;caller_pc2346856 <= (Dyn2.provider25865024);];@"/home/zhang/APL/Jif/jif/tests/Dyn2.jif:5,18-19"
+this2145529 <= _->_ [this2145529 <= caller_pc2346856;caller_pc2346856 <= (Dyn2.provider25865024);*this.lb21890266 <= Alice->Bob;Alice->Bob <= *this.lb21890266;];@"/home/zhang/APL/Jif/jif/tests/Dyn2.jif:6,1-3"
+*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn2.jif:9,11-21"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn2.jif:9,11-21"
+*this.lb21890266 <= *this.lb21890266 [];@"/home/zhang/APL/Jif/jif/tests/Dyn2.jif:9,11-21"

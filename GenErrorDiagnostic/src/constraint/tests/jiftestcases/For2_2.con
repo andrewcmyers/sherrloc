@@ -1,17 +1,17 @@
+LABEL C.provider2987443 //class jif.types.label.ProviderLabel_c
+LABEL C.provider14898956 //class jif.types.label.ProviderLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL C.provider17268681 //class jif.types.label.ProviderLabel_c
-LABEL C.provider162178 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
-C.provider17268681==_->_;
-C.provider162178==_->_;
+C.provider2987443==_->_;
+C.provider14898956==_->_;
 
 %%
-C.provider17268681 <= *-> [];@"For2.jif:1,0-7"
-_->_ <= _->_ [];@"For2.jif:2,4-10"
-_->_ <= _->_ [];@"For2.jif:2,4-10"
-C.provider162178 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider162178);];@"For2.jif:1,0-0"
+C.provider2987443 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/For2.jif:1,0-7"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/For2.jif:2,4-10"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/For2.jif:2,4-10"
+C.provider14898956 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider14898956);];@"/home/zhang/APL/Jif/jif/tests/For2.jif:1,0-0"

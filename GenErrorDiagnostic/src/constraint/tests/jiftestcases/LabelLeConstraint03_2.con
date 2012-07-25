@@ -1,7 +1,7 @@
+LABEL *lbl19825047 //class jif.types.label.DynamicLabel_c
 LABEL L-1772469607 //class jif.types.label.ParamLabel_c
-LABEL *lbl14276629 //class jif.types.label.DynamicLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL _->_
 
-(L-1772469607) ⊔ (this67) ⊔ (caller_pc2346856) <= (*lbl14276629) ⊔ (caller_pc2346856) [L-1772469607 <= *lbl14276629;this67 <= caller_pc2346856;];@"LabelLeConstraint03.jif:4,1-15"
+(L-1772469607) ⊔ (this67) ⊔ (caller_pc2346856) <= (*lbl19825047) ⊔ (caller_pc2346856) [L-1772469607 <= *lbl19825047;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint03.jif:4,1-15"
