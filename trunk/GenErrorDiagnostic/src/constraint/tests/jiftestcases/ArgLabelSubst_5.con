@@ -1,6 +1,6 @@
 LABEL this-130279197 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL yyy-> //class jif.types.label.PairLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL w99421807 //class jif.types.label.ArgLabel_c
 LABEL _->_
@@ -9,10 +9,10 @@ LABEL _->_
 w99421807<=_->_;
 
 %%
-(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,25-26"
-(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,28-29"
-(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,16-30"
-receiver-56392 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,16-30"
-arg1label-56391 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,16-30"
-arg2label-56390 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,16-30"
-(caller_pc2346856) <= (yyy->) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:32,1-13"
+(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:30,25-26"
+(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:30,28-29"
+(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:30,16-30"
+receiver-56392 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:30,16-30"
+arg1label-56391 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:30,16-30"
+arg2label-56390 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:30,16-30"
+(caller_pc2346856) <= (yyy->) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:32,1-13"

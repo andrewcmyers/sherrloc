@@ -1,25 +1,25 @@
-LABEL C.provider8550760 //class jif.types.label.ProviderLabel_c
-LABEL *lbl1122966300 //class jif.types.label.DynamicLabel_c
+LABEL C.provider15310053 //class jif.types.label.ProviderLabel_c
+LABEL *this.f8703712 //class jif.types.label.DynamicLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL C.provider10994782 //class jif.types.label.ProviderLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *this.f11424672 //class jif.types.label.DynamicLabel_c
-LABEL C.provider14452459 //class jif.types.label.ProviderLabel_c
+LABEL *lbl1120189095 //class jif.types.label.DynamicLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
-C.provider8550760==_->_;
-C.provider14452459==_->_;
+C.provider15310053==_->_;
+C.provider10994782==_->_;
 
 %%
-C.provider8550760 <= *-> [*this.f11424672 <= Alice->;Alice-> <= *this.f11424672;];@"LabelLeConstraint08a.jif:1,0-7"
-_->_ == _->_ [*this.f11424672 <= Alice->;Alice-> <= *this.f11424672;];@"LabelLeConstraint08a.jif:2,10-39"
-*lbl1122966300 <= *this.f11424672 [*this.f11424672 <= Alice->;Alice-> <= *this.f11424672;*lbl1122966300 <= *this.f11424672;];@"LabelLeConstraint08a.jif:3,37-57"
-*-> <= *-> [*this.f11424672 <= Alice->;Alice-> <= *this.f11424672;*lbl1122966300 <= *this.f11424672;];@"LabelLeConstraint08a.jif:3,4-18"
-*-> <= *-> [*this.f11424672 <= Alice->;Alice-> <= *this.f11424672;*lbl1122966300 <= *this.f11424672;];@"LabelLeConstraint08a.jif:3,4-18"
-_->_ <= _->_ [*this.f11424672 <= Alice->;Alice-> <= *this.f11424672;*lbl1122966300 <= *this.f11424672;];@"LabelLeConstraint08a.jif:3,4-18"
-*this.f11424672 <= *this.f11424672 [*this.f11424672 <= Alice->;Alice-> <= *this.f11424672;*lbl1122966300 <= *this.f11424672;];@"LabelLeConstraint08a.jif:3,4-18"
-C.provider14452459 <= *-> [*this.f11424672 <= Alice->;Alice-> <= *this.f11424672;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider14452459);];@"LabelLeConstraint08a.jif:1,0-0"
+C.provider10994782 <= *-> [*this.f8703712 <= Alice->;Alice-> <= *this.f8703712;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:1,0-7"
+_->_ == _->_ [*this.f8703712 <= Alice->;Alice-> <= *this.f8703712;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:2,10-39"
+*lbl1120189095 <= *this.f8703712 [*this.f8703712 <= Alice->;Alice-> <= *this.f8703712;*lbl1120189095 <= *this.f8703712;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:3,37-57"
+*-> <= *-> [*this.f8703712 <= Alice->;Alice-> <= *this.f8703712;*lbl1120189095 <= *this.f8703712;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:3,4-18"
+*-> <= *-> [*this.f8703712 <= Alice->;Alice-> <= *this.f8703712;*lbl1120189095 <= *this.f8703712;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:3,4-18"
+_->_ <= _->_ [*this.f8703712 <= Alice->;Alice-> <= *this.f8703712;*lbl1120189095 <= *this.f8703712;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:3,4-18"
+*this.f8703712 <= *this.f8703712 [*this.f8703712 <= Alice->;Alice-> <= *this.f8703712;*lbl1120189095 <= *this.f8703712;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:3,4-18"
+C.provider15310053 <= *-> [*this.f8703712 <= Alice->;Alice-> <= *this.f8703712;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider15310053);];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:1,0-0"

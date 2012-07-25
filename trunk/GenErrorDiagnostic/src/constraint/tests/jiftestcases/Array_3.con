@@ -1,23 +1,23 @@
-LABEL Array.provider18945918 //class jif.types.label.ProviderLabel_c
-LABEL Array.provider23690087 //class jif.types.label.ProviderLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL this63537721 //class jif.types.label.ThisLabel_c
+LABEL Array.provider28073747 //class jif.types.label.ProviderLabel_c
+LABEL Array.provider31761534 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
-Array.provider18945918==_->_;
-Array.provider23690087==_->_;
+Array.provider28073747==_->_;
+Array.provider31761534==_->_;
 
 %%
-Array.provider18945918 <= *-> [];@"Array.jif:1,7-18"
-_->_ == _->_ [];@"Array.jif:2,4-22"
-Alice-> <= Alice-> [];@"Array.jif:4,11-18"
-*-> <= *-> [];@"Array.jif:4,11-18"
-Alice-> <= Alice-> [];@"Array.jif:4,11-18"
-Alice-> <= Alice-> [];@"Array.jif:4,11-18"
-Alice-> <= Alice-> [];@"Array.jif:4,11-18"
-Alice-> <= Alice-> [];@"Array.jif:4,11-18"
-Array.provider23690087 <= *-> [this63537721 <= caller_pc2346856;caller_pc2346856 <= (Array.provider23690087);];@"Array.jif:1,7-7"
+Array.provider28073747 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:1,7-18"
+_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:2,4-22"
+Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
+*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
+Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
+Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
+Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
+Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
+Array.provider31761534 <= *-> [this63537721 <= caller_pc2346856;caller_pc2346856 <= (Array.provider31761534);];@"/home/zhang/APL/Jif/jif/tests/Array.jif:1,7-7"

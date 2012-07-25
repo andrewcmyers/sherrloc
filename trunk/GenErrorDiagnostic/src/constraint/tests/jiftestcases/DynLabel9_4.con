@@ -1,22 +1,22 @@
+LABEL D.provider31128495 //class jif.types.label.ProviderLabel_c
 LABEL this68 //class jif.types.label.ThisLabel_c
 LABEL foo.pr-> //class jif.types.label.PairLabel_c
-LABEL p-> //class jif.types.label.PairLabel_c
-LABEL D.provider7192009 //class jif.types.label.ProviderLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL p-> //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
 caller_pc2346856<=_->_;
-D.provider7192009==_->_;
+D.provider31128495==_->_;
 
 %%
-caller_pc2346856 <= *-> [this68 <= caller_pc2346856;|Alice==p;];@"DynLabel9.jif:13,15-22"
-(caller_pc2346856) ⊔ (newS-56387) <= foo-56390 [this68 <= caller_pc2346856;|Alice==p;];@"DynLabel9.jif:13,15-22"
-(caller_pc2346856) <= p-56389 [this68 <= caller_pc2346856;|Alice==p;];@"DynLabel9.jif:14,21-26"
-(caller_pc2346856) <= c-56388 [this68 <= caller_pc2346856;|Alice==p;];@"DynLabel9.jif:15,13-17"
-(c-56388) ⊔ (p-56389) ⊔ (caller_pc2346856) ⊔ (foo-56390) <= foo.pr-> [this68 <= caller_pc2346856;|Alice==p;p==foo.pr;];@"DynLabel9.jif:17,5-10"
-D.provider7192009 <= foo.pr-> [this68 <= caller_pc2346856;|Alice==p;p==foo.pr;];@"DynLabel9.jif:17,5-10"
-p-> == foo.pr-> [this68 <= caller_pc2346856;|Alice==p;p==foo.pr;];@"DynLabel9.jif:17,5-14"
-(foo.pr->) ⊔ (foo-56390) ⊔ (p-56389) <= c-56388 [this68 <= caller_pc2346856;|Alice==p;p==foo.pr;];@"DynLabel9.jif:18,5-6"
-foo.pr-> == p-> [this68 <= caller_pc2346856;|Alice==p;p==foo.pr;];@"DynLabel9.jif:18,5-14"
+caller_pc2346856 <= *-> [this68 <= caller_pc2346856;|Alice==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:13,15-22"
+(caller_pc2346856) ⊔ (newS-56387) <= foo-56390 [this68 <= caller_pc2346856;|Alice==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:13,15-22"
+(caller_pc2346856) <= p-56389 [this68 <= caller_pc2346856;|Alice==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:14,21-26"
+(caller_pc2346856) <= c-56388 [this68 <= caller_pc2346856;|Alice==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:15,13-17"
+(c-56388) ⊔ (p-56389) ⊔ (caller_pc2346856) ⊔ (foo-56390) <= foo.pr-> [this68 <= caller_pc2346856;|Alice==p;foo.pr==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:17,5-10"
+D.provider31128495 <= foo.pr-> [this68 <= caller_pc2346856;|Alice==p;foo.pr==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:17,5-10"
+p-> == foo.pr-> [this68 <= caller_pc2346856;|Alice==p;foo.pr==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:17,5-14"
+(foo.pr->) ⊔ (foo-56390) ⊔ (p-56389) <= c-56388 [this68 <= caller_pc2346856;|Alice==p;foo.pr==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:18,5-6"
+foo.pr-> == p-> [this68 <= caller_pc2346856;|Alice==p;foo.pr==p;];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:18,5-14"

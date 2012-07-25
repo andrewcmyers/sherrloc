@@ -1,15 +1,15 @@
+LABEL A.provider8550760 //class jif.types.label.ProviderLabel_c
 LABEL this65 //class jif.types.label.ThisLabel_c
 LABEL Alice->Bob //class jif.types.label.PairLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL A.provider24478976 //class jif.types.label.ProviderLabel_c
 LABEL _->_
 
 %%
 caller_pc2346856<=Alice->Bob;
-A.provider24478976==_->_;
+A.provider8550760==_->_;
 
 %%
-(caller_pc2346856) ⊔ (this65) <= Alice->Bob [this65 <= caller_pc2346856;];@"A.jif:5,8-9"
-A.provider24478976 <= Alice->Bob [this65 <= caller_pc2346856;];@"A.jif:5,8-9"
-(caller_pc2346856) ⊔ (this65) <= Alice->Bob [this65 <= caller_pc2346856;];@"A.jif:6,1-2"
-A.provider24478976 <= Alice->Bob [this65 <= caller_pc2346856;];@"A.jif:6,1-2"
+(caller_pc2346856) ⊔ (this65) <= Alice->Bob [this65 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/A.jif:5,8-9"
+A.provider8550760 <= Alice->Bob [this65 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/A.jif:5,8-9"
+(caller_pc2346856) ⊔ (this65) <= Alice->Bob [this65 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/A.jif:6,1-2"
+A.provider8550760 <= Alice->Bob [this65 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/A.jif:6,1-2"

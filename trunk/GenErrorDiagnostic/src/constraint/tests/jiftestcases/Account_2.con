@@ -1,23 +1,23 @@
-LABEL this.customer-> //class jif.types.label.PairLabel_c
+LABEL Account.provider18818021 //class jif.types.label.ProviderLabel_c
 LABEL p99421796 //class jif.types.label.ArgLabel_c
 LABEL this487334413 //class jif.types.label.ThisLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL Account.provider10485311 //class jif.types.label.ProviderLabel_c
+LABEL Account.provider8495511 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL Account.provider25383640 //class jif.types.label.ProviderLabel_c
+LABEL this.customer-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
 p99421796<=_->_;
 caller_pc2346856<=p99421796;
-Account.provider10485311==_->_;
-Account.provider25383640==_->_;
+Account.provider18818021==_->_;
+Account.provider8495511==_->_;
 
 %%
-Account.provider10485311 <= *-> [];@"Account.jif:1,0-13"
-_->_ == _->_ [];@"Account.jif:2,8-27"
-Account.provider25383640 <= *-> [this487334413 <= caller_pc2346856;caller_pc2346856 <= (Account.provider25383640);];@"Account.jif:4,28-29"
-(p99421796) ⊔ (this487334413) <= _->_ [this487334413 <= caller_pc2346856;caller_pc2346856 <= (Account.provider25383640);|this.customer==p;];@"Account.jif:5,4-12"
-this.customer-> == this.customer-> [];@"Account.jif:8,2-25"
-this.customer-> == this.customer-> [];@"Account.jif:9,2-27"
+Account.provider18818021 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:1,0-13"
+_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:2,8-27"
+Account.provider8495511 <= *-> [this487334413 <= caller_pc2346856;caller_pc2346856 <= (Account.provider8495511);];@"/home/zhang/APL/Jif/jif/tests/Account.jif:4,28-29"
+(p99421796) ⊔ (this487334413) <= _->_ [this487334413 <= caller_pc2346856;caller_pc2346856 <= (Account.provider8495511);|p==this.customer;];@"/home/zhang/APL/Jif/jif/tests/Account.jif:5,4-12"
+this.customer-> == this.customer-> [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:8,2-25"
+this.customer-> == this.customer-> [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:9,2-27"

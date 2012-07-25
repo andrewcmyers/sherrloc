@@ -1,6 +1,6 @@
-LABEL this83 //class jif.types.label.ThisLabel_c
 LABEL this.pr-> //class jif.types.label.PairLabel_c
+LABEL this83 //class jif.types.label.ThisLabel_c
 LABEL _->_
 
-pr-56392 == this83 [];@"DynLabel9.jif:4,17-36"
-x-56391 == this.pr-> [];@"DynLabel9.jif:5,4-37"
+pr-56392 == this83 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:4,17-36"
+x-56391 == this.pr-> [];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:5,4-37"

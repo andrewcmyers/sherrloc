@@ -1,25 +1,25 @@
+LABEL C.provider1882017 //class jif.types.label.ProviderLabel_c
 LABEL L-1772469607 //class jif.types.label.ParamLabel_c
+LABEL *lbl1122133534 //class jif.types.label.DynamicLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL C.provider9104244 //class jif.types.label.ProviderLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL lbl1102930739 //class jif.types.label.ArgLabel_c
-LABEL *lbl1131474026 //class jif.types.label.DynamicLabel_c
+LABEL C.provider20371928 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL C.provider30462244 //class jif.types.label.ProviderLabel_c
 LABEL _->_
 
 %%
-C.provider9104244==_->_;
-C.provider30462244==_->_;
+C.provider1882017==_->_;
+C.provider20371928==_->_;
 
 %%
-C.provider9104244 <= *-> [];@"LabelLeConstraint09.jif:1,0-7"
-L-1772469607 == L-1772469607 [];@"LabelLeConstraint09.jif:2,4-13"
-L-1772469607 <= *lbl1131474026 [L-1772469607 <= *lbl1131474026;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint09.jif:4,35-49"
-lbl1102930739 <= L-1772469607 [L-1772469607 <= *lbl1131474026;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint09.jif:4,51-64"
-*-> <= *-> [L-1772469607 <= *lbl1131474026;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint09.jif:4,4-16"
-*-> <= *-> [L-1772469607 <= *lbl1131474026;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint09.jif:4,4-16"
-_->_ <= _->_ [L-1772469607 <= *lbl1131474026;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint09.jif:4,4-16"
-*lbl1131474026 <= *lbl1131474026 [L-1772469607 <= *lbl1131474026;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint09.jif:4,4-16"
-C.provider30462244 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider30462244);];@"LabelLeConstraint09.jif:1,0-0"
+C.provider20371928 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:1,0-7"
+L-1772469607 == L-1772469607 [];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:2,4-13"
+L-1772469607 <= *lbl1122133534 [L-1772469607 <= *lbl1122133534;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:4,35-49"
+lbl1102930739 <= L-1772469607 [L-1772469607 <= *lbl1122133534;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:4,51-64"
+*-> <= *-> [L-1772469607 <= *lbl1122133534;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:4,4-16"
+*-> <= *-> [L-1772469607 <= *lbl1122133534;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:4,4-16"
+_->_ <= _->_ [L-1772469607 <= *lbl1122133534;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:4,4-16"
+*lbl1122133534 <= *lbl1122133534 [L-1772469607 <= *lbl1122133534;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:4,4-16"
+C.provider1882017 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider1882017);];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint09.jif:1,0-0"

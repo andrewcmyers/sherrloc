@@ -1,10 +1,10 @@
-LABEL *this.f23053426 //class jif.types.label.DynamicLabel_c
+LABEL *this.f1635717 //class jif.types.label.DynamicLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL *lbl120850612 //class jif.types.label.DynamicLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *lbl126572752 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
-x-56391 == (caller_pc2346856) ⊔ (*lbl120850612) [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;*lbl120850612 <= *this.f23053426;this67 <= caller_pc2346856;];@"LabelLeConstraint08.jif:4,12-13"
-(caller_pc2346856) <= x-56391 [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;*lbl120850612 <= *this.f23053426;this67 <= caller_pc2346856;];@"LabelLeConstraint08.jif:4,16-17"
-(x-56391) ⊔ (caller_pc2346856) <= (*this.f23053426) ⊔ (caller_pc2346856) [*this.f23053426 <= Alice->;Alice-> <= *this.f23053426;*lbl120850612 <= *this.f23053426;this67 <= caller_pc2346856;];@"LabelLeConstraint08.jif:5,1-10"
+x-56391 == (caller_pc2346856) ⊔ (*lbl126572752) [*this.f1635717 <= Alice->;Alice-> <= *this.f1635717;*lbl126572752 <= *this.f1635717;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08.jif:4,12-13"
+(caller_pc2346856) <= x-56391 [*this.f1635717 <= Alice->;Alice-> <= *this.f1635717;*lbl126572752 <= *this.f1635717;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08.jif:4,16-17"
+(x-56391) ⊔ (caller_pc2346856) <= (*this.f1635717) ⊔ (caller_pc2346856) [*this.f1635717 <= Alice->;Alice-> <= *this.f1635717;*lbl126572752 <= *this.f1635717;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08.jif:5,1-10"

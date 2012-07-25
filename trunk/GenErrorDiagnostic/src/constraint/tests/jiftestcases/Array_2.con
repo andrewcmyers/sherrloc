@@ -1,17 +1,17 @@
-LABEL Array.provider18945918 //class jif.types.label.ProviderLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL this63537721 //class jif.types.label.ThisLabel_c
+LABEL Array.provider28073747 //class jif.types.label.ProviderLabel_c
 LABEL index199894474 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
 index199894474<=Alice->;
-Array.provider18945918==_->_;
+Array.provider28073747==_->_;
 
 %%
-(Alice->) ⊔ (this63537721) ⊔ (caller_pc2346856) <= (Alice->) ⊔ (caller_pc2346856) [this63537721 <= caller_pc2346856;];@"Array.jif:8,8-32"
-(_->_) ⊔ (this63537721) ⊔ (caller_pc2346856) ⊔ (index199894474) <= (Alice->) ⊔ (caller_pc2346856) [this63537721 <= caller_pc2346856;];@"Array.jif:4,11-18"
-(_->_) ⊔ (this63537721) ⊔ (caller_pc2346856) <= (Alice->) ⊔ (caller_pc2346856) [this63537721 <= caller_pc2346856;];@"Array.jif:4,11-18"
-(_->_) ⊔ (this63537721) ⊔ (caller_pc2346856) ⊔ (index199894474) <= (Alice->) ⊔ (caller_pc2346856) [this63537721 <= caller_pc2346856;];@"Array.jif:4,11-18"
+(Alice->) ⊔ (this63537721) ⊔ (caller_pc2346856) <= (Alice->) ⊔ (caller_pc2346856) [this63537721 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array.jif:8,8-32"
+(_->_) ⊔ (this63537721) ⊔ (caller_pc2346856) ⊔ (index199894474) <= (Alice->) ⊔ (caller_pc2346856) [this63537721 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
+(_->_) ⊔ (this63537721) ⊔ (caller_pc2346856) <= (Alice->) ⊔ (caller_pc2346856) [this63537721 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
+(_->_) ⊔ (this63537721) ⊔ (caller_pc2346856) ⊔ (index199894474) <= (Alice->) ⊔ (caller_pc2346856) [this63537721 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"

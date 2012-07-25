@@ -1,4 +1,4 @@
-LABEL *this.f10630774 //class jif.types.label.DynamicLabel_c
+LABEL *this.f32517099 //class jif.types.label.DynamicLabel_c
 LABEL this2145528 //class jif.types.label.ThisLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
@@ -10,9 +10,9 @@ LABEL _->_
 caller_pc2346856<=_->_;
 
 %%
-a-56391 == Alice-> [*this.f10630774 <= Alice->;Alice-> <= *this.f10630774;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,13-14"
-caller_pc2346856 <= _->_ [*this.f10630774 <= Alice->;Alice-> <= *this.f10630774;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,19-36"
-caller_pc2346856 <= *-> [*this.f10630774 <= Alice->;Alice-> <= *this.f10630774;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,17-37"
-receiver-56388 == this2145528 [*this.f10630774 <= Alice->;Alice-> <= *this.f10630774;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,17-37"
-arg1label-56387 == caller_pc2346856 [*this.f10630774 <= Alice->;Alice-> <= *this.f10630774;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,17-37"
-Alice-> <= a-56391 [*this.f10630774 <= Alice->;Alice-> <= *this.f10630774;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,17-37"
+a-56391 == Alice-> [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;this2145528 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:10,13-14"
+caller_pc2346856 <= _->_ [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;this2145528 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:10,19-36"
+caller_pc2346856 <= *-> [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;this2145528 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:10,17-37"
+receiver-56388 == this2145528 [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;this2145528 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:10,17-37"
+arg1label-56387 == caller_pc2346856 [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;this2145528 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:10,17-37"
+Alice-> <= a-56391 [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;this2145528 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:10,17-37"

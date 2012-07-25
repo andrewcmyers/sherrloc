@@ -1,22 +1,22 @@
-LABEL C.provider30638546 //class jif.types.label.ProviderLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *lbl2118323352 //class jif.types.label.DynamicLabel_c
-LABEL *lbl1113738578 //class jif.types.label.DynamicLabel_c
+LABEL C.provider21893435 //class jif.types.label.ProviderLabel_c
+LABEL *lbl1102866624 //class jif.types.label.DynamicLabel_c
+LABEL *lbl2130827748 //class jif.types.label.DynamicLabel_c
+LABEL C.provider27140443 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL C.provider21878616 //class jif.types.label.ProviderLabel_c
 LABEL _->_
 
 %%
-C.provider30638546==_->_;
-C.provider21878616==_->_;
+C.provider21893435==_->_;
+C.provider27140443==_->_;
 
 %%
-C.provider21878616 <= *-> [];@"LabelLeConstraint01.jif:1,0-7"
-*lbl1113738578 <= *lbl2118323352 [*lbl1113738578 <= *lbl2118323352;];@"LabelLeConstraint01.jif:2,41-59"
-*-> <= *-> [*lbl1113738578 <= *lbl2118323352;];@"LabelLeConstraint01.jif:2,4-10"
-*-> <= *-> [*lbl1113738578 <= *lbl2118323352;];@"LabelLeConstraint01.jif:2,4-10"
-*-> <= *-> [*lbl1113738578 <= *lbl2118323352;];@"LabelLeConstraint01.jif:2,4-10"
-_->_ <= _->_ [*lbl1113738578 <= *lbl2118323352;];@"LabelLeConstraint01.jif:2,4-10"
-C.provider30638546 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider30638546);];@"LabelLeConstraint01.jif:1,0-0"
+C.provider27140443 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint01.jif:1,0-7"
+*lbl1102866624 <= *lbl2130827748 [*lbl1102866624 <= *lbl2130827748;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint01.jif:2,41-59"
+*-> <= *-> [*lbl1102866624 <= *lbl2130827748;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint01.jif:2,4-10"
+*-> <= *-> [*lbl1102866624 <= *lbl2130827748;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint01.jif:2,4-10"
+*-> <= *-> [*lbl1102866624 <= *lbl2130827748;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint01.jif:2,4-10"
+_->_ <= _->_ [*lbl1102866624 <= *lbl2130827748;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint01.jif:2,4-10"
+C.provider21893435 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider21893435);];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint01.jif:1,0-0"

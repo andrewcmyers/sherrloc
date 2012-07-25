@@ -1,14 +1,14 @@
-LABEL C.provider32788167 //class jif.types.label.ProviderLabel_c
+LABEL C.provider13101223 //class jif.types.label.ProviderLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL C.provider7435043 //class jif.types.label.ProviderLabel_c
+LABEL C.provider30836417 //class jif.types.label.ProviderLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
-C.provider32788167==_->_;
-C.provider7435043==_->_;
+C.provider13101223==_->_;
+C.provider30836417==_->_;
 
 %%
-C.provider32788167 <= *-> [];@"Array4.jif:1,0-7"
-C.provider7435043 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider7435043);];@"Array4.jif:1,0-0"
+C.provider30836417 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array4.jif:1,0-7"
+C.provider13101223 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider13101223);];@"/home/zhang/APL/Jif/jif/tests/Array4.jif:1,0-0"

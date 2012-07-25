@@ -1,23 +1,23 @@
 LABEL this68 //class jif.types.label.ThisLabel_c
-LABEL D.provider31882858 //class jif.types.label.ProviderLabel_c
+LABEL D.provider3521295 //class jif.types.label.ProviderLabel_c
+LABEL D.provider15038164 //class jif.types.label.ProviderLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *this.f16988885 //class jif.types.label.DynamicLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL D.provider13948523 //class jif.types.label.ProviderLabel_c
+LABEL *this.f15020678 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
 %%
-D.provider31882858==_->_;
-D.provider13948523==_->_;
+D.provider3521295==_->_;
+D.provider15038164==_->_;
 
 %%
-D.provider31882858 <= *-> [];@"DynLabel10.jif:4,0-7"
-*this.f16988885 == *this.f16988885 [];@"DynLabel10.jif:5,4-21"
-*this.f16988885 == *this.f16988885 [];@"DynLabel10.jif:6,4-16"
-*this.f16988885 <= *this.f16988885 [];@"DynLabel10.jif:7,4-10"
-*this.f16988885 <= *this.f16988885 [];@"DynLabel10.jif:7,4-10"
-*-> <= *-> [];@"DynLabel10.jif:7,4-10"
-_->_ <= _->_ [];@"DynLabel10.jif:7,4-10"
-_->_ <= _->_ [];@"DynLabel10.jif:7,4-10"
-D.provider13948523 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider13948523);];@"DynLabel10.jif:4,0-0"
+D.provider3521295 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:4,0-7"
+*this.f15020678 == *this.f15020678 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:5,4-21"
+*this.f15020678 == *this.f15020678 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:6,4-16"
+*this.f15020678 <= *this.f15020678 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:7,4-10"
+*this.f15020678 <= *this.f15020678 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:7,4-10"
+*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:7,4-10"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:7,4-10"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:7,4-10"
+D.provider15038164 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider15038164);];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:4,0-0"
