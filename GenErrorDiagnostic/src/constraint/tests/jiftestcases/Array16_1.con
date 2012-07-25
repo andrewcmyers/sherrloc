@@ -9,10 +9,10 @@ LABEL _->_
 caller_pc2346856<=_->_;
 
 %%
-array_base-56389 <= Alice-> [this67 <= caller_pc2346856;];@"Array16.jif:3,34-47"
-array_base-56390 <= Bob-> [this67 <= caller_pc2346856;];@"Array16.jif:3,34-47"
-caller_pc2346856 <= x-56392 [this67 <= caller_pc2346856;];@"Array16.jif:3,34-47"
-(x-56392) ⊔ (caller_pc2346856) <= *-> [this67 <= caller_pc2346856;];@"Array16.jif:4,40-49"
-receiver-56388 == (x-56392) ⊔ (caller_pc2346856) [this67 <= caller_pc2346856;];@"Array16.jif:4,40-49"
-Bob-> <= Bob-> [this67 <= caller_pc2346856;];@"Array16.jif:4,40-49"
-(x-56392) ⊔ (caller_pc2346856) <= y-56391 [this67 <= caller_pc2346856;];@"Array16.jif:4,40-49"
+array_base-56389 <= Alice-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:3,34-47"
+array_base-56390 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:3,34-47"
+caller_pc2346856 <= x-56392 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:3,34-47"
+(x-56392) ⊔ (caller_pc2346856) <= *-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:4,40-49"
+receiver-56388 == (x-56392) ⊔ (caller_pc2346856) [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:4,40-49"
+Bob-> <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:4,40-49"
+(x-56392) ⊔ (caller_pc2346856) <= y-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:4,40-49"

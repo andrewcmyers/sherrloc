@@ -1,16 +1,16 @@
+LABEL *lbl25536400 //class jif.types.label.DynamicLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL *lbl211814711 //class jif.types.label.DynamicLabel_c
-LABEL *lbl121922476 //class jif.types.label.DynamicLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL lbl1102930739 //class jif.types.label.ArgLabel_c
 LABEL lbl2102930736 //class jif.types.label.ArgLabel_c
+LABEL *lbl130185433 //class jif.types.label.DynamicLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
-(lbl1102930739) ⊔ (caller_pc2346856) <= *-> [*lbl121922476 <= *lbl211814711;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,3-7"
-(lbl2102930736) ⊔ (caller_pc2346856) <= *-> [*lbl121922476 <= *lbl211814711;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,9-13"
-caller_pc2346856 <= *-> [*lbl121922476 <= *lbl211814711;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
-*lbl121922476 <= *lbl211814711 [*lbl121922476 <= *lbl211814711;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
-receiver-56387 == this67 [*lbl121922476 <= *lbl211814711;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
-arg1label-56386 == (lbl1102930739) ⊔ (caller_pc2346856) [*lbl121922476 <= *lbl211814711;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
-arg2label-56385 == (lbl2102930736) ⊔ (caller_pc2346856) [*lbl121922476 <= *lbl211814711;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
+(lbl1102930739) ⊔ (caller_pc2346856) <= *-> [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,3-7"
+(lbl2102930736) ⊔ (caller_pc2346856) <= *-> [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,9-13"
+caller_pc2346856 <= *-> [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
+*lbl130185433 <= *lbl25536400 [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
+receiver-56387 == this67 [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
+arg1label-56386 == (lbl1102930739) ⊔ (caller_pc2346856) [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
+arg2label-56385 == (lbl2102930736) ⊔ (caller_pc2346856) [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"

@@ -1,11 +1,11 @@
-LABEL *L28171173 //class jif.types.label.DynamicLabel_c
+LABEL *L23930702 //class jif.types.label.DynamicLabel_c
+LABEL *M18623412 //class jif.types.label.DynamicLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL *M18607550 //class jif.types.label.DynamicLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL _->_
 
-x-56392 == (caller_pc2346856) ⊔ (*L28171173) [*L28171173 <= *M18607550;*M18607550 <= *L28171173;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:3,16-17"
-(caller_pc2346856) <= x-56392 [*L28171173 <= *M18607550;*M18607550 <= *L28171173;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:3,20-21"
-y-56391 == (caller_pc2346856) ⊔ (*M18607550) [*L28171173 <= *M18607550;*M18607550 <= *L28171173;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:4,16-17"
-(caller_pc2346856) <= y-56391 [*L28171173 <= *M18607550;*M18607550 <= *L28171173;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:4,20-21"
-(x-56392) ⊔ (caller_pc2346856) <= y-56391 [*L28171173 <= *M18607550;*M18607550 <= *L28171173;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:6,8-9"
+x-56392 == (caller_pc2346856) ⊔ (*L23930702) [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:3,16-17"
+(caller_pc2346856) <= x-56392 [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:3,20-21"
+y-56391 == (caller_pc2346856) ⊔ (*M18623412) [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:4,16-17"
+(caller_pc2346856) <= y-56391 [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:4,20-21"
+(x-56392) ⊔ (caller_pc2346856) <= y-56391 [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:6,8-9"

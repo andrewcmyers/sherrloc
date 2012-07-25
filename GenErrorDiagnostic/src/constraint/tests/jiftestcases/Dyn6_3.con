@@ -1,25 +1,25 @@
 LABEL this2145533 //class jif.types.label.ThisLabel_c
-LABEL *M7349153 //class jif.types.label.DynamicLabel_c
-LABEL *L29691490 //class jif.types.label.DynamicLabel_c
+LABEL *L29746980 //class jif.types.label.DynamicLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL Dyn6.provider3157607 //class jif.types.label.ProviderLabel_c
-LABEL Dyn6.provider6778431 //class jif.types.label.ProviderLabel_c
+LABEL *M3843380 //class jif.types.label.DynamicLabel_c
+LABEL Dyn6.provider23582715 //class jif.types.label.ProviderLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
+LABEL Dyn6.provider18388366 //class jif.types.label.ProviderLabel_c
 LABEL _->_
 
 %%
-Dyn6.provider3157607==_->_;
-Dyn6.provider6778431==_->_;
+Dyn6.provider23582715==_->_;
+Dyn6.provider18388366==_->_;
 
 %%
-Dyn6.provider3157607 <= *-> [];@"Dyn6.jif:3,0-10"
-*L29691490 <= *L29691490 [];@"Dyn6.jif:4,18-24"
-_->_ <= _->_ [];@"Dyn6.jif:4,18-24"
-_->_ <= _->_ [];@"Dyn6.jif:4,18-24"
-*-> <= *-> [];@"Dyn6.jif:10,18-27"
-*M7349153 <= *M7349153 [];@"Dyn6.jif:10,18-27"
-*-> <= *-> [];@"Dyn6.jif:10,18-27"
-_->_ <= _->_ [];@"Dyn6.jif:10,18-27"
-*M7349153 <= *M7349153 [];@"Dyn6.jif:10,18-27"
-Dyn6.provider6778431 <= *-> [this2145533 <= caller_pc2346856;caller_pc2346856 <= (Dyn6.provider6778431);];@"Dyn6.jif:3,0-0"
+Dyn6.provider18388366 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:3,0-10"
+*L29746980 <= *L29746980 [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:4,18-24"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:4,18-24"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:4,18-24"
+*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:10,18-27"
+*M3843380 <= *M3843380 [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:10,18-27"
+*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:10,18-27"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:10,18-27"
+*M3843380 <= *M3843380 [];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:10,18-27"
+Dyn6.provider23582715 <= *-> [this2145533 <= caller_pc2346856;caller_pc2346856 <= (Dyn6.provider23582715);];@"/home/zhang/APL/Jif/jif/tests/Dyn6.jif:3,0-0"

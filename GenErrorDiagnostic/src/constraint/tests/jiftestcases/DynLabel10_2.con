@@ -1,5 +1,5 @@
-LABEL *this.f16988885 //class jif.types.label.DynamicLabel_c
+LABEL *this.f15020678 //class jif.types.label.DynamicLabel_c
 LABEL _->_
 
-foo-56391 == *this.f16988885 [];@"DynLabel10.jif:5,4-21"
-bar-56390 == *this.f16988885 [];@"DynLabel10.jif:6,4-16"
+foo-56391 == *this.f15020678 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:5,4-21"
+bar-56390 == *this.f15020678 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:6,4-16"

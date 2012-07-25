@@ -1,17 +1,17 @@
 LABEL L-1772469607 //class jif.types.label.ParamLabel_c
-LABEL C.provider27318374 //class jif.types.label.ProviderLabel_c
+LABEL C.provider1440568 //class jif.types.label.ProviderLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
 LABEL _->_
 
 %%
 caller_pc2346856<=L-1772469607;
-C.provider27318374==_->_;
+C.provider1440568==_->_;
 
 %%
-x-56390 == L-1772469607 [this67 <= caller_pc2346856;];@"Array3.jif:11,21-22"
-array_base-56387 <= L-1772469607 [this67 <= caller_pc2346856;];@"Array3.jif:11,25-35"
-caller_pc2346856 <= x-56390 [this67 <= caller_pc2346856;];@"Array3.jif:11,25-35"
-(caller_pc2346856) ⊔ (x-56390) <= L-1772469607 [this67 <= caller_pc2346856;];@"Array3.jif:13,12-13"
-C.provider27318374 <= L-1772469607 [this67 <= caller_pc2346856;];@"Array3.jif:13,12-13"
-(x-56390) ⊔ (caller_pc2346856) <= i-56389 [this67 <= caller_pc2346856;];@"Array3.jif:15,8-40"
+x-56390 == L-1772469607 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:11,21-22"
+array_base-56387 <= L-1772469607 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:11,25-35"
+caller_pc2346856 <= x-56390 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:11,25-35"
+(caller_pc2346856) ⊔ (x-56390) <= L-1772469607 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:13,12-13"
+C.provider1440568 <= L-1772469607 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:13,12-13"
+(x-56390) ⊔ (caller_pc2346856) <= i-56389 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:15,8-40"

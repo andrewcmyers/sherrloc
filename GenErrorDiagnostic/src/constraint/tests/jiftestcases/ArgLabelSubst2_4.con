@@ -1,24 +1,24 @@
 LABEL this68 //class jif.types.label.ThisLabel_c
+LABEL D.provider16200795 //class jif.types.label.ProviderLabel_c
 LABEL q-1772469570 //class jif.types.label.ParamLabel_c
-LABEL D.provider27511312 //class jif.types.label.ProviderLabel_c
+LABEL D.provider9012544 //class jif.types.label.ProviderLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL D.provider27635615 //class jif.types.label.ProviderLabel_c
 LABEL y99421805 //class jif.types.label.ArgLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
-D.provider27511312==_->_;
-D.provider27635615==_->_;
+D.provider16200795==_->_;
+D.provider9012544==_->_;
 
 %%
-D.provider27635615 <= *-> [];@"ArgLabelSubst2.jif:21,0-8"
-_->_ <= _->_ [];@"ArgLabelSubst2.jif:22,11-24"
-y99421805 == y99421805 [];@"ArgLabelSubst2.jif:22,11-24"
-*-> <= *-> [];@"ArgLabelSubst2.jif:22,11-24"
-*-> <= *-> [];@"ArgLabelSubst2.jif:22,11-24"
-_->_ <= _->_ [];@"ArgLabelSubst2.jif:22,11-24"
-_->_ <= _->_ [];@"ArgLabelSubst2.jif:22,11-24"
-q-1772469570 <= q-1772469570 [];@"ArgLabelSubst2.jif:22,11-24"
-D.provider27511312 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider27511312);];@"ArgLabelSubst2.jif:21,0-0"
+D.provider9012544 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:21,0-8"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:22,11-24"
+y99421805 == y99421805 [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:22,11-24"
+*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:22,11-24"
+*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:22,11-24"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:22,11-24"
+_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:22,11-24"
+q-1772469570 <= q-1772469570 [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:22,11-24"
+D.provider16200795 <= *-> [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider16200795);];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:21,0-0"

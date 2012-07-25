@@ -1,22 +1,22 @@
-LABEL C.provider7858936 //class jif.types.label.ProviderLabel_c
+LABEL C.provider14434757 //class jif.types.label.ProviderLabel_c
+LABEL *lbl1114565392 //class jif.types.label.DynamicLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
+LABEL C.provider672904 //class jif.types.label.ProviderLabel_c
 LABEL this67 //class jif.types.label.ThisLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *lbl1134343975 //class jif.types.label.DynamicLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
-LABEL C.provider17777129 //class jif.types.label.ProviderLabel_c
 LABEL _->_
 
 %%
-C.provider7858936==_->_;
-C.provider17777129==_->_;
+C.provider14434757==_->_;
+C.provider672904==_->_;
 
 %%
-C.provider7858936 <= *-> [];@"LabelLeConstraint02.jif:1,0-7"
-*lbl1134343975 <= Alice-> [*lbl1134343975 <= Alice->;];@"LabelLeConstraint02.jif:2,36-55"
-*-> <= *-> [*lbl1134343975 <= Alice->;];@"LabelLeConstraint02.jif:2,4-17"
-*-> <= *-> [*lbl1134343975 <= Alice->;];@"LabelLeConstraint02.jif:2,4-17"
-_->_ <= _->_ [*lbl1134343975 <= Alice->;];@"LabelLeConstraint02.jif:2,4-17"
-Alice-> <= Alice-> [*lbl1134343975 <= Alice->;];@"LabelLeConstraint02.jif:2,4-17"
-C.provider17777129 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider17777129);];@"LabelLeConstraint02.jif:1,0-0"
+C.provider672904 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint02.jif:1,0-7"
+*lbl1114565392 <= Alice-> [*lbl1114565392 <= Alice->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint02.jif:2,36-55"
+*-> <= *-> [*lbl1114565392 <= Alice->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint02.jif:2,4-17"
+*-> <= *-> [*lbl1114565392 <= Alice->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint02.jif:2,4-17"
+_->_ <= _->_ [*lbl1114565392 <= Alice->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint02.jif:2,4-17"
+Alice-> <= Alice-> [*lbl1114565392 <= Alice->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint02.jif:2,4-17"
+C.provider14434757 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider14434757);];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint02.jif:1,0-0"

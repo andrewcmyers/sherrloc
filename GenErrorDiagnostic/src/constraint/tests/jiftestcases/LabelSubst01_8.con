@@ -1,19 +1,19 @@
 LABEL this68 //class jif.types.label.ThisLabel_c
-LABEL *guessApp.lb-1392315003 //class jif.types.label.DynamicLabel_c
-LABEL D.provider13137563 //class jif.types.label.ProviderLabel_c
-LABEL D.provider6068467 //class jif.types.label.ProviderLabel_c
+LABEL D.provider12893236 //class jif.types.label.ProviderLabel_c
+LABEL D.provider22775072 //class jif.types.label.ProviderLabel_c
 LABEL *->Alice //class jif.types.label.PairLabel_c
 LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL *guessApp.lb-1410345516 //class jif.types.label.DynamicLabel_c
 LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL *-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
 %%
-D.provider13137563==_->_;
-D.provider6068467==_->_;
+D.provider22775072==_->_;
+D.provider12893236==_->_;
 
 %%
-D.provider13137563 <= *-> [*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:22,0-7"
-*->Alice <= *->Alice [*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:25,11-23"
-_->_ <= _->_ [*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;];@"LabelSubst01.jif:25,11-23"
-D.provider6068467 <= *-> [*guessApp.lb-1392315003 <= *->Alice;*->Alice <= *guessApp.lb-1392315003;this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider6068467);];@"LabelSubst01.jif:22,0-0"
+D.provider22775072 <= *-> [*guessApp.lb-1410345516 <= *->Alice;*->Alice <= *guessApp.lb-1410345516;];@"/home/zhang/APL/Jif/jif/tests/LabelSubst01.jif:22,0-7"
+*->Alice <= *->Alice [*guessApp.lb-1410345516 <= *->Alice;*->Alice <= *guessApp.lb-1410345516;];@"/home/zhang/APL/Jif/jif/tests/LabelSubst01.jif:25,11-23"
+_->_ <= _->_ [*guessApp.lb-1410345516 <= *->Alice;*->Alice <= *guessApp.lb-1410345516;];@"/home/zhang/APL/Jif/jif/tests/LabelSubst01.jif:25,11-23"
+D.provider12893236 <= *-> [*guessApp.lb-1410345516 <= *->Alice;*->Alice <= *guessApp.lb-1410345516;this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider12893236);];@"/home/zhang/APL/Jif/jif/tests/LabelSubst01.jif:22,0-0"

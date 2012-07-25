@@ -2,5 +2,5 @@ LABEL _->_ //class jif.types.label.PairLabel_c
 LABEL Alice-> //class jif.types.label.PairLabel_c
 LABEL _->_
 
-x-56392 == Alice-> [];@"Array8.jif:3,4-30"
-ar-56391 == _->_ [];@"Array8.jif:4,4-41"
+x-56392 == Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array8.jif:3,4-30"
+ar-56391 == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array8.jif:4,4-41"
