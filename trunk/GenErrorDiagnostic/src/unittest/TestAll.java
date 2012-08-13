@@ -44,32 +44,48 @@ public class TestAll {
 	@Test
 	public void testJif () {
 		/* test for Jif constraint */
-		testOneFile("src/constraint/tests/jif/test.con", 1, false);
+//		testOneFile("src/constraint/tests/jif/test.con", 1, false);
+//
+//		testOneFile("src/constraint/tests/jif/array.con", 2, false);
+//
+//		testOneFile("src/constraint/tests/jif/constant.con", 2, false);
+//
+//		testOneFile("src/constraint/tests/jif/Do2.con", 1, false);
+//
+//		testOneFile("src/constraint/tests/jif/Do3.con", 1, false);
+//
+//		testOneFile("src/constraint/tests/jif/field.con", 3, false);
+//
+//		testOneFile("src/constraint/tests/jif/For2.con", 1, false);
+//
+//		testOneFile("src/constraint/tests/jif/For3.con", 1, false);
+//
+//		testOneFile("src/constraint/tests/jif/p3.con", 0, false);
+//
+//		testOneFile("src/constraint/tests/jif/para.con", 1, false);
+//
+//		testOneFile("src/constraint/tests/jif/duplicate.con", 0, false);
+//		
+//		testOneFile("src/constraint/tests/jif/join.con", 0, false);
+//		
+//		testOneFile("src/constraint/tests/jif/battleship_main.con", 1, false);
+//		
+//		testOneFile("src/constraint/tests/jif/AirlineAgent1.con", 2, false);
 
-		testOneFile("src/constraint/tests/jif/array.con", 2, false);
-
-		testOneFile("src/constraint/tests/jif/constant.con", 2, false);
-
-		testOneFile("src/constraint/tests/jif/Do2.con", 1, false);
-
-		testOneFile("src/constraint/tests/jif/Do3.con", 1, false);
-
-		testOneFile("src/constraint/tests/jif/field.con", 3, false);
-
-		testOneFile("src/constraint/tests/jif/For2.con", 1, false);
-
-		testOneFile("src/constraint/tests/jif/For3.con", 1, false);
-
-		testOneFile("src/constraint/tests/jif/p3.con", 0, false);
-
-		testOneFile("src/constraint/tests/jif/para.con", 1, false);
-
-		testOneFile("src/constraint/tests/jif/duplicate.con", 0, false);
+//		testOneFile("src/constraint/tests/jif/AirlineExample.con", 1, false);
 		
-		testOneFile("src/constraint/tests/jif/join.con", 0, false);
+//		testOneFile("src/constraint/tests/jif/Player1.con", 3, false);
 		
-		testOneFile("src/constraint/tests/jif/battleship_main.con", 1, false);
-
+		testOneFile("src/constraint/tests/jif/r3144.con", 16, false); // or 15?
+		
+//		testOneFile("src/constraint/tests/jif/r3151.con", 41, false); // or 44?
+		
+//		testOneFile("src/constraint/tests/jif/r3167.con", 5, false); // or 4?
+//		
+//		testOneFile("src/constraint/tests/jif/r3176.con", 23, false); // or 15?
+//		
+//		testOneFile("src/constraint/tests/jif/r3192.con", 33, false); // or 26
+		
 //		testOneFile("src/constraint/tests/jif/23.con", 41, false);
 	}
 	
