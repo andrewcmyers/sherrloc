@@ -34,6 +34,22 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 	
+	@Override
+	public String toDotString() {
+		String symbol = getSymbol();
+		String ret = "";
+		// infix
+		if (symbol.equals("->") || symbol.equals("*")) {
+			return infixToString();
+		}
+		else {
+			ret += symbol;
+			for (Element e : elements)
+				ret += " ("+e.toDotString() + ")";
+		}
+		return ret;
+	}
+	
 	public String infixToString () {
 		String symbol = getSymbol();
 		String ret = "";
@@ -41,6 +57,16 @@ public abstract class EnumerableElement extends Element {
 		ret += "("+elements.get(0).toString() + ")";
 		for (int j=1; j<elements.size(); j++)
 			ret += symbol + "(" + elements.get(j).toString() + ")";
+		return ret;
+	}
+	
+	public String infixToDotString () {
+		String symbol = getSymbol();
+		String ret = "";
+		// infix
+		ret += "("+elements.get(0).toDotString() + ")";
+		for (int j=1; j<elements.size(); j++)
+			ret += symbol + "(" + elements.get(j).toDotString() + ")";
 		return ret;
 	}
 	
