@@ -40,7 +40,7 @@ public abstract class EnumerableElement extends Element {
 		String ret = "";
 		// infix
 		if (symbol.equals("->") || symbol.equals("*")) {
-			return infixToString();
+			return infixToDotString();
 		}
 		else {
 			ret += symbol;
