@@ -2,6 +2,8 @@ package constraint.ast;
 
 import java.util.List;
 
+import util.StringUtil;
+
 public class LabelElement extends Constructor {
 	BasicPrincipal owner;
 	Principal reader;
@@ -63,6 +65,15 @@ public class LabelElement extends Constructor {
     	}
     	else
     		return name;
+    }
+    
+    @Override
+    public String toDotString() {
+    	if (isComparable()) {
+    		return owner + "->" + reader;
+    	}
+    	else
+    		return StringUtil.getPrettyName(name);
     }
     
     @Override

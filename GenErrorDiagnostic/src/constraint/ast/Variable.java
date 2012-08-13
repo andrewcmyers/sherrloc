@@ -3,6 +3,10 @@ package constraint.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.rmi.CORBA.Util;
+
+import util.StringUtil;
+
 public class Variable extends Element {
 	public Variable(String name, String info) {
 		super(name, info);
@@ -23,6 +27,11 @@ public class Variable extends Element {
 			return this.name==((Variable)o).name;
 		}
 		return false;
+	}
+		
+	@Override
+	public String toDotString() {
+		return StringUtil.getPrettyName(name);
 	}
 	
 	@Override

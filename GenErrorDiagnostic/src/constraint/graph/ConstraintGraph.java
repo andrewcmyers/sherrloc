@@ -182,44 +182,57 @@ public class ConstraintGraph extends Graph {
     
     public String toDotString ( ) {
         String ret = "";
-        ToDotVisitor v = new ToDotVisitor();
-        List<Node> visited = new ArrayList<Node>();
-        acceptForward(v, visited);
         
-        ret += "digraph G1 {\n";
-        // print source code
-        if (PRINT_SRC) {
-            for (String s : files) {
-                try {
-                    BufferedReader reader =
-                            new BufferedReader(new FileReader(s));
-                    String line = reader.readLine();
-                    int linenum = 1;
-                    ret += "source [shape=box, label=\"";
-                    while (line != null) {
-                        if (v.getSourcePosition().contains(linenum)) {
-                            ret += linenum + ":\t" + sanitaze(line) + "\\l";
-                        }
-                        line = reader.readLine();
-                        linenum++;
-                    }
-                    ret += "\"];\n";
-                } catch (IOException e) {
+        Set<Integer> sourcePosition = new HashSet<Integer>();
+        String nodes = "";
+        String links = "";
+        
+        for (Node node : allNodes) {
+            if (node instanceof ElementNode) {
+                ElementNode n = (ElementNode) node;
+                if (!n.shouldprint)
                     continue;
-                }
+//                sourcePosition.addAll(n.getPositions());
+                nodes += n.printNodeToDotString();
+                links += n.printLinkToDotString();
             }
         }
         
+        ret += "digraph G1 {\n";
+        // print source code
+//        if (PRINT_SRC) {
+//            for (String s : files) {
+//                try {
+//                    BufferedReader reader =
+//                            new BufferedReader(new FileReader(s));
+//                    String line = reader.readLine();
+//                    int linenum = 1;
+//                    ret += "source [shape=box, label=\"";
+//                    while (line != null) {
+//                        if (v.getSourcePosition().contains(linenum)) {
+//                            ret += linenum + ":\t" + sanitaze(line) + "\\l";
+//                        }
+//                        line = reader.readLine();
+//                        linenum++;
+//                    }
+//                    ret += "\"];\n";
+//                } catch (IOException e) {
+//                    continue;
+//                }
+//            }
+//        }
+        
         ret += "node [color = grey, style = filled];\n";
-        ret += v.getNodeString();
-        ret += v.getLinkString();
+        ret += nodes;
+        ret += links;
         ret += "}\n";
         return ret;
     }
     
     public void slicing () {
-        List<Node> visited = new ArrayList<Node>();
-        acceptForward(new SlicingVisitor(), visited);
+    	for (Node node : allNodes) {
+    		node.shouldprint = node.isCause();
+    	}
     }
     
     public Set<Element> getAllElements () {
