@@ -76,6 +76,7 @@ public class TestAll {
 		
 //		testOneFile("src/constraint/tests/jif/Player1.con", 3, false);
 		
+		/* currently, these contraints are generated from the snapshot of Mar. 6. 2012 */
 		testOneFile("src/constraint/tests/jif/r3144.con", 16, false); // or 15?
 		
 //		testOneFile("src/constraint/tests/jif/r3151.con", 41, false); // or 44?
