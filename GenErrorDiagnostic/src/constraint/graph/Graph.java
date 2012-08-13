@@ -70,8 +70,8 @@ public abstract class Graph {
     }
     
     public void labelAll ( ) {
-        List<Node> visited = new ArrayList<Node>();
-        acceptForward(new LabellingVisitor(), visited);
+    	for (Node n : allNodes)
+        		n.shouldprint = true;
     }
     
     public void acceptForward (NodeVisitor v, List<Node> visited) {

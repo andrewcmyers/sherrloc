@@ -23,8 +23,8 @@ import constraint.parse.GrmLexer;
 import constraint.parse.parser;
 
 public class Analysis {
-	boolean DEBUG = false;
-    boolean SHOW_WHOLE_GRAPH=true;
+	boolean DEBUG = true;
+    boolean SHOW_WHOLE_GRAPH=false;
 	boolean done = false;
 	ConstraintGraph graph;
 	List<ConstraintPath> errorPaths;
@@ -38,7 +38,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/duplicate.con", false);;
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3122.con", false);
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {

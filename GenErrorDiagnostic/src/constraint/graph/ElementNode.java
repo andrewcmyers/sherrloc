@@ -2,6 +2,8 @@ package constraint.graph;
 
 import java.util.Map;
 
+import util.StringUtil;
+
 import constraint.ast.Element;
 
 //a node in label-flow graph has an unique id (to generate dot graph), and a Jif label
@@ -45,10 +47,10 @@ public class ElementNode extends Node {
     
     public String printNodeToDotString () {
         if (isCause())
-            return  uid + " [style=filled, fillcolor=yellow, label=\"" + getName()+ "\"];\n";
+            return  uid + " [style=filled, fillcolor=yellow, label=\"" + e.toDotString()+ "\"];\n";
 //            return  uid + " [style=filled, fillcolor=yellow, label=\"" + getName()+"\\n"+label.position() + "\"];\n";
         else
-            return  uid + " [label=\"" + getName()+ "\"];\n";
+            return  uid + " [label=\"" + e.toDotString()+ "\"];\n";
 //            return  uid + " [label=\"" + getName()+"\\n"+label.position() + "\"];\n";
     }
     

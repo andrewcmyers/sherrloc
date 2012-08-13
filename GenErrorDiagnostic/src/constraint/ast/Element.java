@@ -23,6 +23,8 @@ public abstract class Element {
 		return info.equals("")?"":(" @"+info);
 	}
 	
+	abstract public String toDotString ();
+	
 	abstract public List<Variable> getVars ();
 	
 	abstract public boolean hasVars ();

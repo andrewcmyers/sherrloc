@@ -2,6 +2,8 @@ package constraint.ast;
 
 import java.util.List;
 
+import constraint.graph.ElementNode;
+
 public class Constraint implements Comparable<Constraint> {	
 	Element e1, e2;
 	Relation r;
@@ -39,7 +41,7 @@ public class Constraint implements Comparable<Constraint> {
 	}
 	
 	public String toDotString () {
-		return e1.toString()+r.toString()+e2.toString();
+		return e1.toDotString()+r.toString()+e2.toDotString();
 	}
 	
 	public List<Variable> getVars () {

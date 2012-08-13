@@ -27,6 +27,11 @@ public class Constructor extends Element {
 			return name.toUpperCase();
 	}
 	
+	@Override
+	public String toDotString() {
+		return toString();
+	}
+	
 	public List<Variable> getVars () {
 		return new ArrayList<Variable>();
 	}

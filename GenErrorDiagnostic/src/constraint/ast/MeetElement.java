@@ -14,6 +14,11 @@ public class MeetElement extends EnumerableElement {
 		return infixToString();
 	}
 	
+	@Override
+	public String toDotString() {
+		return infixToDotString();
+	}
+	
 	public void flat () {
 		List<Element> flat = new ArrayList<Element>();
 		for (Element e : elements) {
