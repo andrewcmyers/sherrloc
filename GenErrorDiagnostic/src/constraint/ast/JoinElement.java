@@ -14,6 +14,7 @@ public class JoinElement extends EnumerableElement {
 		return infixToString();
 	}
 	
+	@Override
 	public String toDotString() {
 		return infixToDotString();
 	}

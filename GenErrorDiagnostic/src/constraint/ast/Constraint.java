@@ -2,8 +2,6 @@ package constraint.ast;
 
 import java.util.List;
 
-import constraint.graph.ElementNode;
-
 public class Constraint implements Comparable<Constraint> {	
 	Element e1, e2;
 	Relation r;
@@ -68,13 +66,13 @@ public class Constraint implements Comparable<Constraint> {
     @Override
     public boolean equals(Object obj) {
     	if (obj instanceof Constraint) {
-    		return this.toDotString().equals(((Constraint)obj).toDotString());
+    		return this.toString().equals(((Constraint)obj).toString());
     	}
     	return false;
     }
     
     @Override
     public int hashCode() {
-    	return toDotString().hashCode();
+    	return toString().hashCode();
     }
 }

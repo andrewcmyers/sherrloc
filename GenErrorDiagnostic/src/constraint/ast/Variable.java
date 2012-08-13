@@ -3,8 +3,6 @@ package constraint.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.rmi.CORBA.Util;
-
 import util.StringUtil;
 
 public class Variable extends Element {
@@ -28,7 +26,7 @@ public class Variable extends Element {
 		}
 		return false;
 	}
-		
+	
 	@Override
 	public String toDotString() {
 		return StringUtil.getPrettyName(name);
