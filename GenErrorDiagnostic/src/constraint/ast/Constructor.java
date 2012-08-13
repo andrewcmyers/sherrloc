@@ -27,8 +27,7 @@ public class Constructor extends Element {
 			return name.toUpperCase();
 	}
 	
-	@Override
-	public String toDotString() {
+	public String toDotString () {
 		return toString();
 	}
 	
