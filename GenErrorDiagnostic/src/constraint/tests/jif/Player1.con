@@ -1,0 +1,60 @@
+LABEL P-> //class jif.types.label.PairLabel_c
+LABEL this-1901885695 //class jif.types.label.ThisLabel_c
+LABEL Player.provider9788212 //class jif.types.label.ProviderLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL P-> //class jif.types.label.PairLabel_c
+LABEL query203298236 //class jif.types.label.ArgLabel_c
+LABEL O-> //class jif.types.label.PairLabel_c
+LABEL _->_
+
+%%
+caller_pc2346856<=_->_;
+query203298236<=_->_;
+Player.provider9788212==_->_;
+
+%%
+P-> == P-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:158,37-47"
+(_->_) ⊔ (this-1901885695) <= brd-56373 [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:158,37-47"
+O-> == _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:159,37-57"
+(this-1901885695) ⊔ (caller_pc2346856) <= oppQueries-56372 [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:159,37-57"
+(caller_pc2346856) ⊔ (brd-56373) ⊔ (oppQueries-56372) ⊔ (query203298236) <= newIllegalArgumentException-56139 [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:161,47-66"
+(caller_pc2346856) ⊔ (brd-56373) ⊔ (oppQueries-56372) ⊔ (query203298236) <= *-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:161,18-67"
+(query203298236) ⊔ (oppQueries-56372) ⊔ (caller_pc2346856) ⊔ (brd-56373) <= *-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:166,25-30"
+_->_ <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:166,25-30"
+(oppQueries-56372) ⊔ (caller_pc2346856) ⊔ (brd-56373) ⊔ (query203298236) <= *-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:166,5-31"
+receiver-56268 == (oppQueries-56372) ⊔ (caller_pc2346856) ⊔ (brd-56373) ⊔ (query203298236) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:166,5-31"
+arg1label-56267 == (query203298236) ⊔ (oppQueries-56372) ⊔ (caller_pc2346856) ⊔ (brd-56373) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:166,5-31"
+(_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) <= *-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:167,78-94"
+receiver-56265 == (_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:167,78-94"
+(_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) <= newIllegalArgumentException-56138 [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:167,40-94"
+(_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) <= *-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:167,11-95"
+(oppQueries-56372) ⊔ (_->_) ⊔ (brd-56373) <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:170,20-25"
+_->_ <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:170,20-25"
+(oppQueries-56372) ⊔ (_->_) ⊔ (brd-56373) <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:170,5-26"
+receiver-56263 == (oppQueries-56372) ⊔ (_->_) ⊔ (brd-56373) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:170,5-26"
+arg1label-56262 == (oppQueries-56372) ⊔ (_->_) ⊔ (brd-56373) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:170,5-26"
+(_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) <= impossible-56371 [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:172,8-37"
+(brd-56373) ⊔ (_->_) ⊔ (oppQueries-56372) ⊔ (impossible-56371) <= *-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:176,35-40"
+_->_ == _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:176,35-40"
+(this-1901885695) ⊔ (brd-56373) ⊔ (_->_) ⊔ (oppQueries-56372) ⊔ (impossible-56371) <= *-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:176,42-68"
+(this-1901885695) ⊔ (brd-56373) ⊔ (_->_) ⊔ (oppQueries-56372) ⊔ (impossible-56371) <= (_->_) ⊔ (P->) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:176,18-69"
+receiver-56260 == (brd-56373) ⊔ (_->_) ⊔ (oppQueries-56372) ⊔ (impossible-56371) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:176,18-69"
+arg1label-56259 == (brd-56373) ⊔ (_->_) ⊔ (oppQueries-56372) ⊔ (impossible-56371) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:176,18-69"
+arg2label-56258 == (this-1901885695) ⊔ (brd-56373) ⊔ (_->_) ⊔ (oppQueries-56372) ⊔ (impossible-56371) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:176,18-69"
+(P->) ⊔ (brd-56373) ⊔ (oppQueries-56372) ⊔ (impossible-56371) ⊔ (this-1901885695) <= result-56370 [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:176,18-69"
+infered_downgrade_from-56137 <= P-> [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:179,8-69"
+((result-56370) ⊔ (_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) ⊔ (impossible-56371)) ⊓ (_->_) <= (infered_downgrade_to-56136) ⊓ (_->_) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:179,8-69"
+(infered_downgrade_to-56136) ⊓ (_->_) <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:179,8-69"
+(_->_) ⊓ (*->) == (infered_downgrade_to-56136) ⊓ (*->) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:179,8-69"
+(result-56370) ⊔ (_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) ⊔ (impossible-56371) <= infered_downgrade_from-56137 [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:179,8-69"
+infered_downgrade_from-56137 <= (infered_downgrade_to-56136) ⊔ (*->) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:179,8-69"
+infered_downgrade_from-56137 <= (infered_downgrade_to-56136) ⊔ (P->) [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:179,8-69"
+(_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) ⊔ (impossible-56371) ⊔ (infered_downgrade_to-56136) <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:179,1-70"
+(_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) ⊔ (impossible-56371) <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:154,4-40"
+(caller_pc2346856) ⊔ (brd-56373) ⊔ (oppQueries-56372) ⊔ (query203298236) ⊔ (newIllegalArgumentException-56139) <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:154,4-40"
+(_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) ⊔ (newIllegalArgumentException-56138) <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:154,4-40"
+(_->_) ⊔ (oppQueries-56372) ⊔ (brd-56373) <= _->_ [this-1901885695 <= caller_pc2346856;];@"/home/zhdf/APL/Jif/jif/examples/battleship/Player.jif:154,4-40"

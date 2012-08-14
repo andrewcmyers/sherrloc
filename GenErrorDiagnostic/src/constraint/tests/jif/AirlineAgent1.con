@@ -1,0 +1,32 @@
+LABEL L-1772469607 //class jif.types.label.ParamLabel_c
+LABEL this1642211719 //class jif.types.label.ThisLabel_c
+LABEL AirlineServer.provider15734641 //class jif.types.label.ProviderLabel_c
+LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
+LABEL _->_ //class jif.types.label.PairLabel_c
+LABEL AirlineAgent.provider21010507 //class jif.types.label.ProviderLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL TheAirline->_ //class jif.types.label.PairLabel_c
+LABEL *-> //class jif.types.label.PairLabel_c
+LABEL TheAirline-> //class jif.types.label.PairLabel_c
+LABEL _->_
+
+%%
+caller_pc2346856<=TheAirline->;
+AirlineServer.provider15734641==_->_;
+AirlineAgent.provider21010507==_->_;
+
+%%
+caller_pc2346856 <= TheAirline-> [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:25,1-20"
+TheAirline-> <= L-1772469607 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:25,1-20"
+AirlineAgent.provider21010507 <= _->_ [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:25,1-20"
+AirlineServer.provider15734641 <= AirlineAgent.provider21010507 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:25,1-20"
+AirlineAgent.provider21010507 <= AirlineServer.provider15734641 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:25,1-20"
+AirlineAgent.provider21010507 <= *-> [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:25,1-20"
+receiver-56360 == this1642211719 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:25,1-20"
+(TheAirline->_) ⊔ (this1642211719) ⊔ (caller_pc2346856) <= price-56390 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:26,13-27"
+this1642211719 <= newOffer-56353 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:27,8-31"
+(price-56390) ⊔ (caller_pc2346856) <= L-1772469607 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:27,22-27"
+(caller_pc2346856) <= L-1772469607 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:27,29-30"
+caller_pc2346856 <= *-> [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:27,8-31"
+(caller_pc2346856) ⊔ (newOffer-56353) <= (L-1772469607) ⊔ (caller_pc2346856) [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:27,1-32"
+L-1772469607 <= L-1772469607 [TheAirline-> <= L-1772469607;this1642211719 <= caller_pc2346856;|Airlines<=TheAirline;];@"/home/zhdf/APL/Jif/jif/examples/auction/AirlineAgent.jif:27,8-31"
