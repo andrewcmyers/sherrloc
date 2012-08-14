@@ -60,8 +60,8 @@ public class ElementNode extends Node {
         for (Node node : neighbors.keySet()) {
             ElementNode n = (ElementNode) node;
             Edge edge = g.getEdge(this, n);
-            if (edge instanceof IdEdge)
-            	continue;
+//            if (edge instanceof IdEdge)
+//            	continue;
             if (n.shouldprint) {
             	if (edge.isDirected())
             		ret += this.uid + "->" + n.uid + " [label=\"" + edge.toDotString() + "\"];\n";
