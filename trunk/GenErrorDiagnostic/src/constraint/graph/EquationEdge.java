@@ -2,6 +2,7 @@ package constraint.graph;
 
 import constraint.ast.Constraint;
 import constraint.ast.Environment;
+import constraint.ast.Relation;
 
 /* 
  * an edge in graph is either static (join, meet) or dynamic (a flow that generated from an equation) 
@@ -51,7 +52,7 @@ public class EquationEdge extends Edge {
     
     @Override
     public boolean isDirected() {
-    	return false;
+    	return equ.getRelation()!=Relation.EQ;
     }
     
     @Override
