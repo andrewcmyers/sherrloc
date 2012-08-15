@@ -75,6 +75,15 @@ public class TestAll {
 		testOneFile("src/constraint/tests/jif/Player1.con", 4, false);
 		
 		/* currently, these contraints are generated from the snapshot of Mar. 6. 2012 */
+		testOneFile("src/constraint/tests/jif/r3122.con", 12, false);
+		
+		testOneFile("src/constraint/tests/jif/r3141.con", 12, false);
+		
+		testOneFile("src/constraint/tests/jif/r3142.con", 16, false); // Non-deterministic!
+		
+		/* the change from 3142 to 3143 is interesting, since another file is changed */
+		testOneFile("src/constraint/tests/jif/r3143.con", 17, false);
+		
 		testOneFile("src/constraint/tests/jif/r3144.con", 16, false); // or 21?
 		
 //		testOneFile("src/constraint/tests/jif/r3151.con", 41, false); // or 44?
