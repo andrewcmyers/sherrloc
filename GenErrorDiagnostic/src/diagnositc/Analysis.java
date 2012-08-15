@@ -38,7 +38,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3122.con", false);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3143.con", false);
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
