@@ -1,0 +1,217 @@
+%\usepackage[margin=1in]{geometry}
+ 
+\usepackage{times,graphicx,color}
+\usepackage{amsmath, amssymb, stmaryrd}
+\usepackage{ttquot,utf8}
+\usepackage[comments]{declarations}
+
+\renewcommand{\floatpagefraction}{0.75}
+\renewcommand{\dblfloatpagefraction}{0.75}
+
+\title{Information Flow Graph}
+
+
+
+\def\sharedaffiliation{%
+\end{tabular}
+\begin{tabular}{c}}
+%
+
+
+\numberofauthors{2}
+\author{
+\alignauthor Danfeng Zhang\\
+\email{zhangdf@cs.cornell.edu}
+%\affaddr{Department of Computer Science} \\
+%\affaddr{Cornell University} \\
+%\affaddr{Ithaca, NY, 14853}\\
+%
+\alignauthor Andrew C. Myers\\
+\email{andru@cs.cornell.edu}
+%\affaddr{Department of Computer Science} \\
+%\affaddr{Cornell University} \\
+%\affaddr{Ithaca, NY, 14853}\\
+%
+\sharedaffiliation
+\affaddr{Department of Computer Science} \\
+\affaddr{Cornell University} \\
+\affaddr{Ithaca, NY 14853}
+}
+
+\begin{document}
+
+%\maketitle
+
+\begin{abstract}
+flow graph
+\end{abstract}
+
+\section{Introduction}
+
+flow graph
+%\paragraph{Contributions}
+
+This paper makes the following contributions:
+
+\begin{enumerate}
+\item
+general representation
+
+\item
+application to error diagnosis
+
+\item
+evaluation
+\end{enumerate}
+
+\section{Model}
+\label{sec:model}
+
+Model: Figure~\ref{figure:lang:syntax}
+
+\begin{figure}
+\begin{align*}
+C &::=\; \Gamma \proves E \leq E \ |\ C \land C\\
+\Gamma &::= E \leq E \\
+E &::= x\ |\ c(E_1,\dots,E_{a(c)})\ |\ c^{-i}(E)\ |\ E_1 \join E_2 \
+|\ E_1 \meet E_2
+\end{align*}
+\caption{Syntax of constraints}
+\label{figure:lang:syntax}
+\end{figure}
+
+
+set constraints or lattice? constructors?
+
+We may not need constants, which is constructors with no parameters.
+
+We assume elements of constraint $E$. Moreover, the constraints may
+contain both join and meet operations (elements may form a lattice).
+When join and meet are used, we assume for all $e_1, e_2 \in E, e_1
+\join e_2 \in E \land e_1 \meet e_2 \in E$ to make the constraints
+well-formed. In another word, the elements form a lattice. We define
+atomic constraint $c$ in the form $e_1 \leq e_2$, where $e_1 \in E
+\land e_2 \in E$. A constraint follows the form of $C_1 \proves C_2$.
+For simplicity, we write the assumptions as $\G$ when it is clear.
+$\Gamma$ is the assumption when the right hand is assumed to be valid.
+Finally, the goal $G$ is a set of constraints. 
+
+A goal is satisfiable when there is a valuation s.t. all constraints
+are _valid_. Therefore, formally, the goal of this paper is to answer
+which element or constraint to blame when a goal is unsatisfiable. A
+possible reason may both be the existence of an element or the absence
+of one.
+\DZ{a missing condition (missing where clause) is common in Jif}
+
+For _valid_, we assume an oracle $o(e_1, e_2, \G)$ that is true iff
+$\G \proves e_1 \leq e_2$, where $e_1, e_2$ contain no variables. 
+
+For type inference:
+
+A valuation is a mapping of the type variables to _ground types_,
+where ground types form a Herbrand universe.
+
+Type inference is reduced to constraint solving by defining a mapping
+of _pre-judgements_to constraints:
+\[\trans{\G \proves x:\tau} = x =\tau\]
+\[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
+(def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
+\[\trans{\G\proves e_1 e_2 : \tau} = \exists a.(\trans{\G \proves
+e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
+
+\DZ{We may eliminate the $\exists$ by creating fresh variables}
+
+\begin{figure}[b]
+\begin{align*}
+C &::=\; \tau = \tau\ |\ C \land C \\
+\tau &::= x\ |\ \tau\rightarrow \tau
+\end{align*}
+\caption{Syntax of constraints}
+\label{figure:cons:syntax}
+\end{figure}
+
+\paragraph{Examples}
+
+For information flow control, elements are security labels, which in
+nature forms a lattice~\cite{denning-lattice}. Join and meet
+operations in constraints are consistent with that in the lattice.
+$\leq$ is consistent with the partial order in lattice. Some languages
+such as Jif allows ``where'' clauses that adding partial orders into
+the lattice. The ``where'' clauses corresponds to the environments.
+For other models, the environment is always empty.
+
+Type inference can also naturally map into constraint solving. This
+view is not new\DZ{REF}. For instance, Wand~\cite{wand-typeinference}
+recast Hindley-Milner type system into equality constraints. Aiken and
+Wimmers~\cite{aiken-typeinclusion} extends the Hindley-Milner type
+system with inclusion constraints, and models function types,
+constructor types, liberal intersection and union types. Moreover,
+with sophisticated systems, constraint solvers are used for dependent
+types \DZ{REF}, \DZ{and so on}. In this setting, types are the
+elements. Join and meet operations are the usual intersection and
+union types if that is well defined.  $\leq$ is consistent with the
+subtype relationship between two labels.  Since the definition is
+abstract, both syntactic subtyping \DZ{REF} and semantic
+subtyping~\cite{aiken-typeinclusion} fit in this model.
+
+\paragraph{Polymorphic Types}
+
+Jif has polymorphic types, for instance, $caller\_pc$. Polymorphic
+types are also crucial for ML-like languages.
+
+\section{Graph} 
+
+In this section, we formalize the constraint-solving problem into a
+graph problem: to find a path in graph where no partial order on the
+source and sink exist. The insight is consistent with ``A flow model
+FM is _secure_ if and only if execution of a sequence of operations
+cannot give rise to a flow that violates the relation
+$\rightarrow$''~\cite{denning-lattice}.
+
+First, for all the constraints in the right-hand-side, we
+first split the constraints into _atomic_ form according to the
+straightforward rules \DZ{only when the lattice is distributive}:
+
+\[
+\G \proves l_1 \meet l_2 \meet \dots \meet l_m \leq r_1 \join r_2 \join \dots
+\join r_n
+\]
+
+For constraints in this form, we generate nodes for each side, and
+add one _conditional edge_.
+
+Static edges?
+
+Back edges?
+
+\DZ{No need} Conservative edge. When the right part constrains more
+than one variable, in general, satisfiability would be undecidable. As
+a common practice\DZ{true?}, we conservatively add edges from the
+union node to all variable components.
+
+\section{Related Work}
+
+Set-constraint program analysis~\cite{aiken-setconstraint}.
+
+Using graph reachability as program analysis is also not
+new. Program slicing, shape analysis, flow-insensitive points-to
+analysis are amenable to graph-reachability program~\cite{reps-graph}.
+
+Interestingly, the equality between context-free-language reachability
+(CFG-reachability) and a class of set constraints was also notice
+before~\cite{melski-cflgraph}. But only a very restrict set of
+constraints, namely the constraints $sexp \leq V$ where $V$ is a
+set variable, are considered.
+
+Policy inference~\cite{chong:sp11, harris:ccs10}.
+
+Automatic instrumentation~\cite{king:esop10}.
+
+DIFC OS?
+
+Using statisctical analysis for bug finding is not new. Dawson Engler.
+
+\bibliographystyle{abbrv}
+\bibliography{constraint,../bibtex/pm-master}
+
+\end{document}

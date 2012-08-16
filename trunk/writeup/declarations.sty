@@ -1,0 +1,690 @@
+\NeedsTeXFormat{LaTeX2e}[2.09]
+
+\DeclareOption{comments}{\commentstrue}
+\DeclareOption{tr}{\trtrue}
+\DeclareOption{ack}{\acktrue}
+
+\newif\ifack\ackfalse
+\newif\ifcomments\commentsfalse
+\newif\iftr\trfalse
+
+\ProcessOptions
+
+\newcommand{\RuleSideCond}[4]
+{\centerline{
+   { \ensuremath{
+           \mprset{flushleft}
+           \inferrule*[Left=#1, Right=#4]
+           {#2}
+           {#3}
+         }
+   }
+}}
+
+\newcommand{\spp}{\hspace{2pt}} 
+\newcommand{\hh}{\ensuremath{\hbar}}
+\newcommand{\islow}{\ensuremath{low?}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%                  some macros             %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Proofs
+
+% For proofs% PROOF ENVIRONMENT (from PT)
+% it puts a box (or whatever \markendofproof) at the end of each
+% proof, unless the author has already done so with the command \qed.
+ 
+% the ``proof'' environment itself
+
+% \newcommand{\scfont}[1]{{\sc #1}} % renew this for latex2e
+\def\proof{\followon{Proof}}
+\def\endproof{\ifSuppressEndOfProof\global\SuppressEndOfProoffalse
+   \else\xqed\fi\endfollowon}
+\def\followon#1{\trivlist\item[\hskip\labelsep{\textbf{#1}.}]}
+\def\endfollowon{\endtrivlist}
+
+% command to push box to right of page
+\def\pushright#1{{\parfillskip=0pt\widowpenalty=10000
+\displaywidowpenalty=10000\finalhyphendemerits=0\leavevmode\unskip
+\nobreak\hfil\penalty50\hskip.2em\null\hfill{#1}\par}}
+
+% command to force early end of proof marker. This is used if the end
+% of proof marker would otherwise come out in the wrong place.
+\def\qed{\xqed\global\SuppressEndOfProoftrue}
+\newif\ifSuppressEndOfProof\SuppressEndOfProoffalse
+\def\xqed{\pushright\markendofproof}
+\def\markendofproof{$\Box$} % rule{1.3217ex}{2ex}}
+
+
+%\newcommand{\proofbeg}{\par{\bf Proof. }}
+%\newcommand{\proofsketch}{\par{\bf Proof sketch. }}
+%\newcommand{\proofend}{\mbox{$\Box$}}
+
+\newcommand{\corol}{\par{\bf Corollary. }}
+
+\newcommand{\ex}{\par{\bf Example. }}
+
+\newcommand{\draft}{{\bf \fbox{DRAFT}}}
+
+
+
+\newtheorem{Theorem}{Theorem}
+\newtheorem{Proposition}{Proposition}
+\newtheorem{Corollary}{Corollary}
+\newtheorem{Lemma}{Lemma}
+\newtheorem{Definition}{Definition}
+\newtheorem{Observation}{Observation}
+
+\newcommand{\nb}[1]{$\blacktriangleleft$\ {\bf #1\/} $\blacktriangleright$\ 
+\marginpar{{\bf NB}}}                     % for visible comments;
+%\newcommand{\nb}[1]{}                   % select this line to hide them
+
+\newcommand{\nat}{\mathbb{N}} 
+%\newcommand{\nat}{{\boldmath N}} 
+%\newcommand{\equals}{\stackrel{.}{=}}
+
+%\newcommand{\para}[2][]{\prod_{#1} #2} 
+%\newcommand{\para}[2][]{\! <\! #2\! >_{#1}\!} 
+% \newcommand{\para}[1]{\langle #1 \rangle}
+\newcommand{\paral}{\mid}
+
+% experiments to tame the latex8 sf
+
+%\renewcommand{\sfdefault}{phv,10pt}
+
+%  add the period after section numbers 
+
+%\renewcommand{\section}[1]{\Section{\hskip -1em.~#1}} 
+%\renewcommand{\subsection}[1]{\SubSection{\hskip -1em.~#1}}
+                                       
+%% a hack for latex8 style
+
+%\newfont{\emailfont}{phv12}
+
+\newcommand{\codcaption}[1]{\mathtt{#1}}
+%\newcommand{\codemail}[1]{\textsf{\normalsize #1}}
+%\newcommand{\codfoot}[1]{{\fontfamily{phv}\fontsize{7}{.3cm}\selectfont #1}}
+%\newcommand{\codsubsec}[1]{\textsf{\normalsize #1}}
+
+% from former dec-dave.tex
+
+\newcommand{\cod}[1]{\mathtt{#1}} % program text   
+                                          %% \small was 
+                                          %% a hack for latex8 style
+\newcommand{\true}{\cod{True}}
+\newcommand{\false}{\cod{False}}
+\newcommand{\If}{\cod{if}}
+\newcommand{\ifthenelse}[3]{\cod{if}~#1~\cod{then}~#2~\cod{else}~#3}
+\newcommand{\ifthen}[2]{\cod{if}~#1~\cod{then}~#2}
+\newcommand{\while}[2]{\cod{while}~#1~\cod{do}~#2}
+\newcommand{\Int}{\mathit{Int}} % Type of Integers
+\newcommand{\choice}{\talloblong}
+\newcommand{\await}[2]{\cod{await}~#1~\cod{then}~#2}
+\newcommand{\spawn}[1]{\cod{spawn}~#1}
+\newcommand{\fork}[2]{\cod{fork}(#1,#2)}
+\newcommand{\forkproc}[2]{\ensuremath{\lambda}#1.#2}
+\newcommand{\forklocalvars}[3]{\cod{fork}((\forkproc{#1}{#2})\, @ \, #3)}
+\newcommand{\trycatchTwo}[2]{\cod{try}~#1~\cod{catch}~#2}
+\newcommand{\trycatchThree}[3]{\cod{try}~#1~\cod{catch}\ #2~#3}
+\newcommand{\throw}[1]{\mathit{throw}\ #1}
+\newcommand{\err}[1]{\mathit{err}\ #1}
+
+\newcommand{\errset}[1]{\mathbf{#1}}
+\newcommand{\errsetlab}[1]{\mathbf{#1^{\star}}}
+
+
+
+
+
+
+
+%%%%%\newcommand{\proc}[ ]{\cod{proc} #1  (\cod{in} x, \cod{out} y ) }
+
+
+\newcommand{\hforkbyvalue}[3]{\cod{hfork}_{[#1]}(#2,#3)}
+
+\newcommand{\hide}{\cod{hide}}
+\newcommand{\edih}{\cod{unhide}}
+\newcommand{\yield}{\cod{yield}}
+\newcommand{\hfork}[2]{\cod{hfork}(#1,#2)}
+\newcommand{\Loop}{\cod{loop}}
+\newcommand{\Skip}{\cod{skip}}
+\newcommand{\Empty}{\emptyset}
+%\DeclareMathAccent{\arrowvec}{\mathord}{letters}{"7E}
+\newcommand{\vect}[1]{\arrowvec{#1}}              % LaTeX 2.09 
+\newcommand{\const}[1]{\mbox{\it #1}}
+%\newcommand{\halt}{\cod{stop}}
+\newcommand{\halt}{\mathit{stop}}
+\newcommand{\cend}{\mathit{end}}
+%\renewcommand{\vec}[1]{\error}   
+
+\newcommand{\decl}[1]{\cod{declassify}(#1)}
+
+\newcommand{\Endorse}[1]{\cod{endorse}(#1)}
+\newcommand{\EndorseLab}[2]{\cod{endorse}_{#1}(#2)}
+
+
+
+
+% Synchronisation
+\newcommand{\wait}[1]{\cod{P}(#1)}
+\newcommand{\signal}[1]{\cod{V}(#1)}
+\newcommand{\sem}{\mathit{s}}
+\newcommand{\Sem}{\mathit{Sem}}
+\newcommand{\newSem}[1]{\cod{newSem}(#1)}
+\newcommand{\gSem}{\mathit{w}}   % Global semaphore in a thread
+\newcommand{\nSem}{\mathit{s}}   % Global semaphore in a thread
+\newcommand{\bSem}{\mathit{b}}   % Global semaphore in a thread
+
+\newcommand{\va}[1]{\mathit{#1}} % to be used for variables
+\newcommand{\comment}[1]{\cod{/*}\ \text{#1}\ \cod{*/}}
+
+
+%\newcommand{\blocked}[2]{\cod{blocked}(#1,#2)}
+%\newcommand{\signalled}[2]{\cod{signalled}(#1,#2)}
+%\newcommand{\labblocked}{\mathit{blocked}}
+%\newcommand{\labsignalled}{\mathit{signalled}}
+\newcommand{\labblocked}[1]{\otimes#1}
+\newcommand{\labsignalled}[1]{\odot#1}
+
+\newcommand{\syncConfig}[3]{\llocal #1,#2,#3 \rlocal}
+
+\newcommand{\Config}[4]{\llocal \para{#1},#2,#3,#4 \rlocal}
+
+% Semantics
+
+%\newcommand{\union}{\mathord{\cup}}
+\newcommand{\Mod}{\mathbin{\mathbf{mod}}}
+
+\newcommand{\term}{\downarrow}
+
+\newcommand{\configs}{\mathit{Config}}
+\newcommand{\commands}{\mathit{Com}}
+\newcommand{\pools}{\vect{\commands}}
+
+
+%\newcommand{\config}[2]{\langle #1,#2 \rangle}
+
+\newcommand{\llocal}{\langle\hspace{-2.4 pt}|}
+\newcommand{\rlocal}{|\hspace{-2.4 pt}\rangle}
+\newcommand{\config}[3]{\langle #1,#2,#3 \rangle}
+%\newcommand{\configF}[2]{\langle #1,#2 \rangle}
+\newcommand{\configF}[2]{\langle \halt,#1,#2 \rangle}
+
+% \newcommand{\configE}[3]{\langle #1,#2,#3 \rangle}
+% \newcommand{\configEF}[2]{\langle #1,#2 \rangle}
+\newcommand{\configEF}[2]{#1}
+
+\newcommand{\emptyConfig}{\para{}}
+\newcommand{\emptyVec}{\para{}}
+
+\newcommand{\configM}[2]{\langle #1,#2 \rangle}
+\newcommand{\configMInp}[3]{\langle #1,#2, #3 \rangle}
+
+\newcommand{\contextlabel}{ct}
+
+\newcommand{\configC}[3]{\langle #1,#2,#3 \rangle}
+\newcommand{\configTop}[2]{(#1,#2)}
+
+\newcommand{\configMLab}[4]{\langle #1,#2,#3,#4 \rangle}
+
+\newcommand{\detarrow}{\rightarrowtriangle}
+\newcommand{\larrow}[1]{\stackrel{#1}{\longrightarrow}}
+\newcommand{\labarrow}[2]{{\stackrel{#1}{\longrightarrow}}_{#2}}
+%\newcommand{\labarrow}[1]{\stackrel{#1}{\rightarrowtriangle}}
+\newcommand{\probarrow}[1]{\rightarrow_{#1}}
+\newcommand{\parrow}{\rightarrow}
+\newcommand{\concarrow}{\rightarrow}
+
+\newcommand{\psetarrow}[1]{\probarrow{#1}}     % the same as \probarrow for the moment
+
+\newcommand{\thread}[1]{\ensuremath{c_{#1}}}
+\newcommand{\threadp}[1]{\ensuremath{c'_{#1}}}
+
+\newcommand{\nthreads}
+{
+ \thread{1}
+ \dots
+ \thread{n}
+}
+
+\newcommand{\selectthread}[4]
+{
+ \thread{1}
+ \dots
+ {#1}
+ {#2}
+ {#4}
+ {#3}
+ \dots
+ \thread{n}
+}
+
+
+\newcommand{\nthreadsp}
+{
+ \threadp{1}{f_1}
+ \dots
+ \threadp{n}{f_n}
+}
+
+\newcommand{\create}{\leadsto}
+\newcommand{\createClose}{\leadsto^*}
+
+\newcommand{\newthreads}{{\vect{d}}} 
+\newcommand{\namethreads}[1]{N(#1)}
+
+
+\newcommand{\cnt}{\textrm{cnt}} % count field of semaphore
+\newcommand{\que}{\textrm{que}} %  queue field of semaphore
+
+% Memory / Lock Sets
+
+\newcommand{\mem}{m}
+\newcommand{\lockset}{\omega}
+\newcommand{\hiddenthreads}{\phi}
+
+% Schedulers semantic
+
+\newcommand{\Schdlconfig}[2]
+{\llocal #1, #2 \rlocal}
+
+\newcommand{\Schdlresult}[2]
+{\llocal #1, #2 \rlocal}
+
+\newcommand{\hidearrow}[1]{\labarrow{#1 \leadsto \bullet}}
+\newcommand{\ediharrow}[1]{\labarrow{\bullet \leadsto #1}}
+\newcommand{\yieldarrow}{\labarrow{\leadsto \!\!\!\!/}}
+\newcommand{\hiddenforkarrow}{\labarrow{\bullet}}
+\newcommand{\hiddenforkarrowvect}[1]{\labarrow{\bullet_{\vect{#1}}}}
+\newcommand{\hiddenforkarrowvectbyvalue}[2]{\labarrow{\bullet_{\vect{#1}}\ ,\  #2}}
+\newcommand{\forkarrow}{\labarrow{\circ}}
+\newcommand{\forkarrowvect}[1]{\labarrow{\circ_{\vect{#1}}}}
+\newcommand{\nonfinishedstep}[1]{\labarrow{#1 \, \leadsto}} 
+\newcommand{\finishedstep}[1]{\labarrow{#1 \, \leadsto \times}} 
+\newcommand{\pickupthread}[1]{\labarrow{\uparrow {#1}}} 
+\newcommand{\pickuphighthread}[1]{\labarrow{\uparrow_s{#1}}} 
+\newcommand{\choosescheduler}[2]{\labarrow{\otimes{#1}{#2}}} 
+\newcommand{\lockedthread}[2]{\labarrow{\labblocked{#1}_{#2}}} 
+\newcommand{\signaledthread}[2]{\labarrow{\labsignalled{#1}_{#2}}}
+
+\newcommand{\multiconfig}[4]
+{ 
+  {\llocal #1,#2,#3,#4 \rlocal}
+}
+
+% Schedulers
+
+%\newcommand{\hist}{\Xi}  % too squiggly
+\newcommand{\hist}{Hist}
+\newcommand{\emptyHist}{\epsilon}
+\newcommand{\live}[1]{live(#1)}
+
+\newcommand{\schedule}{\sigma}
+\newcommand{\scheduleMem}{\eta}
+
+% Types etc
+
+\newcommand{\high}{\mathit{high}}
+\newcommand{\low}{\mathit{low}}
+\newcommand{\cmd}[1]{\mathit{#1\ cmd}}
+\newcommand{\var}[1]{\mathit{#1\ var}}
+\newcommand{\To}{\rightarrow} % function space / type arrow
+
+% Bisimulations
+
+\newcommand{\peq}{\sim_L}
+\newcommand{\pseq}[1]{\sim_L^{#1}}
+\newcommand{\psieq}{\approx_L}
+\newcommand{\pstrong}{\approxeq_L}
+
+\newcommand{\possim}{\preceq}
+\newcommand{\posbisim}{\simeq}
+
+
+
+% Distribution
+
+\newcommand{\distr}[1]{{\cal D}(#1)}
+
+% --- PERS etc-----------------------
+%\newcommand{\Rel}[1]{\mathit{Rel}(#1)} % Relations on A 
+\newcommand{\Per}[1]{\mathit{Per}(#1)} % Pers on A
+\newcommand{\Domain}[1]{\mathit{dom}(#1)}          % The domain of a relation
+\newcommand{\Ker}[1]{\mathit{ker}(#1)} % The kernal of a function
+\newcommand{\All}{\mathit{All}}
+\newcommand{\Id}{\mathit{Id}}
+\newcommand{\Permap}{\rightarrowtriangle} % the per arrow (exponent)
+
+% Domains etc 
+\newcommand{\State}{\mathbf{St}}
+
+
+% Logical ops (for use in Math mode)
+\newcommand{\Implies}{\Longrightarrow}
+\newcommand{\isimpliedby}{\Leftarrow}
+\newcommand{\Iff}{\Longleftrightarrow}
+
+
+% iff is predefined % \newcommand{\iff}{\Leftrightarrow}
+
+\newcommand{\isbydef}{\stackrel{\mbox{\tiny def}}{=}}
+\newcommand{\AND}{\mathrel{\wedge}}
+\newcommand{\OR}{\mathrel{\vee}}
+% \newcommand{\Subset}{\subseteq}
+\newcommand{\Powerset}{\wp}
+\newcommand{\Set}[1] % gives a set containing its arg.
+           {\left\{#1\right\}}
+
+
+\newcommand{\lmulti}{\{\hspace{-2.5 pt}|}
+\newcommand{\rmulti}{|\hspace{-2.5 pt}\}}
+\newcommand{\multiset}[1] % gives a set containing its arg.
+           {\lmulti#1\rmulti}
+
+\newcommand{\Setminus}{\setminus}
+\newcommand{\SetDef}[2] % {x}{y} => { x | y }
+           {\left\{#1\mathrel{\mid}#2\right\}}
+\newcommand{\Union} {\cup}
+\newcommand{\Intersect} {\cap}
+\newcommand{\ForAll}[2]
+           {\forall #1 .\,#2}
+\newcommand{\Exists}[2]
+           {\exists #1 .\,#2}
+\newcommand{\entails}{\vdash}
+%\newcommand{\Nat}{I\!\!N}
+
+% SIMPLE INFERENCE RULES
+
+% added an optional parameter (a side condition)
+\newcommand{\Infer}[3] %  name X top X bottom, ie
+                       %    #2
+                       % #1---- 
+                       %    #3
+{\displaystyle \mbox{\footnotesize{#1}}
+               \frac{\displaystyle{#2\vspace{.4cm}}}
+                    {#3}
+} 
+
+% added an optional parameter (a side condition) for use in xalign
+\newcommand{\Inferr}[3] %  name X top X bottom, ie
+                       %        #2
+                       % (#1)   ---- 
+                       %        #3
+{[#1]&&\displaystyle &\frac{\displaystyle{#2\vspace{.4cm}}}
+                                         {#3}
+}
+
+\newcommand{\InferrA}[3] %  name X top X bottom, ie
+                       %        #2
+                       % (#1)   ---- 
+                       %        #3
+{[#1]\displaystyle &\frac{\displaystyle{#2\vspace{.4cm}}}
+                                         {#3}
+}
+
+% added an optional parameter (a side condition) for use in xalign
+% \newcommand{\Rule}[2]  %  name X top X bottom, ie
+%                        %          
+%                        % (#1)   #2
+%                        %          
+% {[#1]&&\displaystyle &\displaystyle{#2}
+% }
+
+% \newcommand{\RuleA}[2]  %  name X top X bottom, ie
+%                        %          
+%                        % (#1)   #2
+%                        %          
+% {[#1]&\displaystyle{#2}
+% }
+
+% Transformation to avoid timing leaks
+
+\newcommand{\transto}{\hookrightarrow}
+\newcommand{\transtohigh}{\hightransto}
+
+% Misc
+
+\newcommand{\eol}{\\[.8em]}
+\newcommand{\Eol}{\\[1.5em]}
+
+\newcommand{\sS}{{\scriptstyle\mathbb{S}}} % state of Skou's pbisimulation
+\newcommand{\tT}{{\scriptstyle\mathbb{S}}'} % state of Skou's pbisimulation
+
+%\newcommand{\sS}{s\hspace{-3.7 pt}s} % state of Skou's pbisimulation
+
+% Formatting
+
+%Compact headings
+% \newcommand{\Subsection}[1]{\paragraph{\rm\textbf{#1.}}}
+% \newcommand{\Paragraph}[1]{\textbf{#1}}
+% \newcommand{\Term}[1]{\textbf{#1}}
+
+%Full headings
+%\newcommand{\Subsection}[1]{\subsection{#1}}
+%\newcommand{\Paragraph}[1]{\paragraph{#1}}
+
+\newcommand{\cfg}{\mathit{cfg}}
+\newcommand{\cfgm}{\mathit{cfgm}}
+\newcommand{\cfgc}{\mathit{cfgc}}
+
+\newcommand{\stutterarrow}{\parrow^{\star}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Dec 2005
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\G}{\Gamma}
+\newcommand{\proves}{\ensuremath{\vdash}}
+
+\newcommand{\barrier}{\mathit{barrier}}
+\newcommand{\semP}[1]{\cod{p}(#1)}
+\newcommand{\semV}[1]{\cod{v}(#1)}
+%\newcommand{\lock}{\semP{\mathit{lock}}}
+%\newcommand{\unlock}{\semV{\mathit{lock}}}
+\newcommand{\lock}{\cod{lock}}
+\newcommand{\unlock}{\cod{unlock}}
+\newcommand{\hightransto}{\looparrowright}
+
+\newcommand{\Rule}[2]{\infer{#2}{#1}} % this uses the proof package
+\newcommand{\labRule}[3]{\infer[#1]{#3}{#2}} % this uses the proof package
+
+\newcommand{\Vars}[1]{\mathit{vars}(#1)}
+\newcommand{\IDs}{\mathit{IDs}}
+\newcommand{\Vals}{\mathit{Vals}}
+
+\newcommand{\Rel}{\mathit{Rel}}
+
+\newcommand{\configTwo}[2]{\langle #1,#2 \rangle}
+\newcommand{\configThree}[3]{\langle #1,#2,#3 \rangle}
+
+\newcommand{\down}{\mathit{D}}
+\newcommand{\up}{\mathit{U}}
+
+\newcommand{\vars}{\mathit{Vars}}
+
+\newcommand{\inter}{\ensuremath{\cap}}
+\newcommand{\meet}{\sqcap}
+\newcommand{\union}{\ensuremath{\cup}}
+
+\newcommand{\pc}{\mathit{pc}}
+\newcommand{\join}{\sqcup}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Dec 2005 - Ale
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if 0
+\newcommand{\mat}[1]{\ensuremath{#1}}
+\newcommand{\word}[1]{\textsl{#1}}
+\newcommand{\Assgn}{\ensuremath{\Gamma}}
+\newcommand{\AssgnOk}{\ensuremath{\Gamma_{\nu}}}
+\newcommand{\ofType}[3]{\ensuremath{#1 \vdash #2 : #3}}
+\newcommand{\FV}[1]{\word{FV}\mat{(#1)}}
+\newcommand{\pc}{\word{pc}}
+\newcommand{\hc}{\word{hc}}
+\newcommand{\join}{\mat{\sqcup}}
+
+\newcommand{\ND}{\mathit{ND}}
+\newcommand{\RR}{\mathit{RR}}
+\newcommand{\ws}{\mathit{ws}}
+\fi
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Nov 2007 - Aslan 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\eval}[1]{\cod{eval}(#1)}
+\newcommand{\request}[3]{\cod{request} (#1, #2, #3)}
+\newcommand{\Low}{ {\color{blue} \mathbb{P}}}
+\newcommand{\High}{ {\color{red} \mathbb{S}}}
+
+\newcommand{\Public}{ {\color{blue} \mathbb{P}}}
+\newcommand{\Secret}{ {\color{red} \mathbb{S}}}
+\newcommand{\labarrowstar}[2]{{\stackrel{#1}{\longrightarrow}^{\!\!*}}_{#2}}
+\newcommand{\labarrown}[3]{{\stackrel{#1}{\longrightarrow}^{\!\!{#3}}}_{#2}}
+\newcommand{\defn}{\triangleq}
+\newcommand{\configFour}[4]{\langle #1,#2,#3,#4 \rangle}
+\newcommand{\configE}[2]{\langle #1,#2 \rangle}
+\newcommand{\lowevent}{\alpha}
+\newcommand{\monitorevent}{\beta}
+
+\newcommand{\event}{\nu}%\mathit{evt}}
+
+
+
+\newcommand{\parse}[1]{\mathit{parse}(#1)}
+\newcommand{\noeval}[1]{\mathit{noeval}(#1)}
+\newcommand{\inputs}[1]{\mathit{inputs}(#1)}
+\newcommand{\noloop}[1]{\mathit{noloop}(#1)}
+\newcommand{\updated}[1]{\mathit{upd}(#1)}
+\newcommand{\levelof}[1]{\mathit{lev}(#1)}
+\newcommand{\noevent}{}
+\newcommand{\emptyevent}{\epsilon}
+\newcommand{\emptyseq}{\epsilon}
+
+\newcommand{\hstream}{\hat{H}}
+\newcommand{\lstream}{\hat{L}}
+
+\newcommand{\althstream}{\hat{S}}
+
+
+\newcommand{\ctr}{r}
+%\newcommand{\inphistory}{\stackrel{\longrightarrow}{hist}}
+\newcommand{\inphistory}{hist}
+\newcommand{\altinphistory}{s}
+
+\newcommand{\configInput}[6]{\langle #1,#2,#3,#4,#5,#6 \rangle}
+
+\newcommand{\lowinputevent}{\cod{I}}
+\newcommand{\lowoutputevent}{\cod{O}}
+
+
+
+
+\newcommand{\inp}[2]{\cod{input}(#1, #2 )}
+\newcommand{\out}[2]{\cod{output}(#1, #2 )}
+\newcommand{\moninput}{in}
+\newcommand{\monoutput}{out}
+
+\newcommand{\inpChan}{\cod{I}}
+\newcommand{\outChan}{\cod{O}}
+
+\newcommand{\mon}{\mu}
+\newcommand{\tinsensmonitor}{\iota}
+\newcommand{\alttinsensmonitor}{\kappa}
+\newcommand{\alttsensmonitor}{\kappa}
+\newcommand{\tsensmonitor}{\sigma}
+
+\newcommand{\sensHalt}{\begin{array}{c}\uparrow  \vspace{-5pt}\\  \bullet\end{array}}
+\newcommand{\insensHalt}{\begin{array}{c}\uparrow  \vspace{-5pt}\\  \circ\end{array}}
+\newcommand{\sensOK}{\surd_{\bullet}} %{\begin{array}{c}\surd  \vspace{-5pt}\\ \bullet\end{array}}
+\newcommand{\insensOK}{\surd_{\hspace{-2pt}\circ}} % {\begin{array}{c}\surd  \vspace{-5pt}\\  \circ\end{array}}
+
+
+\newcommand{\nop}{nop}
+\newcommand{\monstack}{st}
+
+\newcommand{\lowof}[1]{{#1}_L}
+
+\newcommand{\memupd}[4]{memupd (#1, #2, #3, #4)}
+\newcommand{\inplist}{lst}
+
+
+%%% Exceptions
+
+
+\newcommand\Sm \Sigma
+\newcommand\Om \Omega
+\newcommand\D  \Delta 
+
+\newcommand\altlowevent\beta
+
+
+\newcommand\loweq{\mathrel{=_{\Low}}}
+
+
+\newcommand\projection{\mathrel{\upharpoonright}}
+
+\newcommand{\Trusted}{ {\color{blue} \mathbb{T}}}
+\newcommand{\Untrusted}{{ \color{red} \mathbb{U}}}
+
+
+
+\newcommand{\corrupt}[1]{\phi(#1)}
+\newcommand{\Corrupt}[1]{\Phi(#1)}
+\newcommand{\idxcorrupt}[2]{\phi_{#1}(#2)}
+\newcommand{\idxCorrupt}[2]{\Phi_{#1}(#2)}
+
+
+\newcommand{\altcorrupt}[1]{\psi(#1)}
+\newcommand{\altidxcorrupt}[2]{\psi_{#1}(#2)}
+\newcommand{\altCorrupt}[1]{\Psi(#1)}
+\newcommand{\altidxCorrupt}[2]{\Psi_{#1}(#2)}
+ 
+\newcommand{\A}{\mathbf{A}}
+%\newcommand{\p}{\mathbf{p}}
+
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\level}{\ell} 
+\newcommand{\vbullet}{\vec\bullet}
+
+\newcommand{\ih}{\cod{ih}}
+
+\ifcomments
+\newcommand{\ACM}[1]{{\color{blue} {[\bf Andrew:} #1] }}
+\newcommand{\DZ}[1]{{\color{red} {[\bf Danfeng:} #1] }}
+\else
+\newcommand{\ACM}[1]{}
+\newcommand{\DZ}[1]{}
+\fi
+
+\newcommand{\diff}{d}
+\newcommand{\Diff}{D} 
+
+\newcommand{\avail}{v}
+\newcommand{\Avail}{V}
+
+\newcommand{\leakage}{\mathsf{leakage}\ }
+\newcommand{\K}{\mathsf{K}}
+
+\newcommand{\kjoin}{\bowtie} 
+
+\newenvironment{revisit}{\color[rgb]{0,0.5,.5}}{}
+
+\newcommand{\trans}[1]{\llbracket #1 \rrbracket}
+
+\renewcommand{\vec}[1]{\arrowvec{#1}}              % LaTeX 2.09 
+
+\newcommand{\lst}[1]{\vec {#1}} 
+
+\newcommand\lb{\mathop{\operator@font lb}\nolimits}
+
+% Local Variables: 
+% mode: latex
+% TeX-master: "main"
+% End: 
+
