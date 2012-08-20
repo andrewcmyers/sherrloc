@@ -8,7 +8,7 @@
 \renewcommand{\floatpagefraction}{0.75}
 \renewcommand{\dblfloatpagefraction}{0.75}
 
-\title{Information Flow Graph}
+\title{General Error Diagnostic for Constraint-Based Program Analysis}
 
 
 
@@ -43,12 +43,17 @@
 %\maketitle
 
 \begin{abstract}
-flow graph
 \end{abstract}
 
 \section{Introduction}
 
-flow graph
+Nowadays, more and more type systems relies on constraint solving. For
+instance, Jif ... Type checking for ML-like language is also by nature
+constraint solving. However, it has also been acknowledges for
+decades~\cite{wand-popl86} that error diagnostic for such systems are difficult
+since the type-checker often reports error locations that are far from the
+simplest source of the problem~\cite{wand-popl86}.
+
 %\paragraph{Contributions}
 
 This paper makes the following contributions:
@@ -67,12 +72,16 @@ evaluation
 \section{Model}
 \label{sec:model}
 
-Model: Figure~\ref{figure:lang:syntax}
+\paragraph{Syntax}
+
+The syntax of our general constraint language is formalized in
+Figure~\ref{figure:lang:syntax}.
 
 \begin{figure}
 \begin{align*}
-C &::=\; \Gamma \proves E \leq E \ |\ C \land C\\
-\Gamma &::= E \leq E \\
+G &::=\; G \land G\ |\ C \\
+C &::=\; \Gamma \proves E \leq E\\
+\Gamma &::= \Gamma \land \Gamma\ |\ E \leq E \\
 E &::= x\ |\ c(E_1,\dots,E_{a(c)})\ |\ c^{-i}(E)\ |\ E_1 \join E_2 \
 |\ E_1 \meet E_2
 \end{align*}
@@ -80,22 +89,26 @@ E &::= x\ |\ c(E_1,\dots,E_{a(c)})\ |\ c^{-i}(E)\ |\ E_1 \join E_2 \
 \label{figure:lang:syntax}
 \end{figure}
 
+The goal $G$ to be solved is a conjunction of constraints $C$ of the form
+$\Gamma \proves E \leq E$, where $\Gamma$ is the hypothesis on the partial
+order of elements $E$. Intuitively, the goal is to show that there exists a
+valuation of variable such that the right hand side of all constraints can be
+satisfied under the hypothesis.
 
-set constraints or lattice? constructors?
+Let $V$ be a set of variables and $C$ be a set of constructors. Each $c\in C$
+has a fixed arity $a(c)$. When $a(c)=0$ then $c$ is a constant. Basic element
+$E$ contains the variables to be inferred $x\in V$, constructors $c$ and
+corresponding destructors $c^{-i}$, where $c\in C$. For simplicity, we write
+$c$ for constants. We can also take the join/meet or elements, which models the
+least upper bound/greatest lower bound of two elements in the partial order
+respectively.
 
-We may not need constants, which is constructors with no parameters.
+When join and meet are used, we assume for all $e_1, e_2 \in E, e_1 \join e_2
+\in E \land e_1 \meet e_2 \in E$ to make the constraints well-formed. In
+another word, the elements form a lattice.
 
-We assume elements of constraint $E$. Moreover, the constraints may
-contain both join and meet operations (elements may form a lattice).
-When join and meet are used, we assume for all $e_1, e_2 \in E, e_1
-\join e_2 \in E \land e_1 \meet e_2 \in E$ to make the constraints
-well-formed. In another word, the elements form a lattice. We define
-atomic constraint $c$ in the form $e_1 \leq e_2$, where $e_1 \in E
-\land e_2 \in E$. A constraint follows the form of $C_1 \proves C_2$.
-For simplicity, we write the assumptions as $\G$ when it is clear.
-$\Gamma$ is the assumption when the right hand is assumed to be valid.
-Finally, the goal $G$ is a set of constraints. 
-
+\paragraph{Solving}
+ 
 A goal is satisfiable when there is a valuation s.t. all constraints
 are _valid_. Therefore, formally, the goal of this paper is to answer
 which element or constraint to blame when a goal is unsatisfiable. A
@@ -129,6 +142,28 @@ C &::=\; \tau = \tau\ |\ C \land C \\
 \caption{Syntax of constraints}
 \label{figure:cons:syntax}
 \end{figure}
+
+\paragraph{Expressiveness}
+
+The core constraint language we proposed is similar to set
+constraints~\cite{aiken-setconstraint} except that we introduce hypothesis and
+exclude negations for the following reasons:
+
+\begin{enumerate}
+\item Hypothesis is essential for real-world type inference systems, such as
+the ``where'' clause in Jif and the subtyping relationship in many
+object-oriented systems.
+
+\item The negation of an element can be meaningless. For instance, in the DLM
+model adopted by Jif, the negation of a label is meaningless.
+\end{enumerate}
+
+Based on the similarity between our core constraint language and set
+constraint, the applications modeled by the later without negations are
+automatically expressed by our model. Such examples includes type inference
+with sum type and product type and closure analysis. Moreover, our language is
+also expressive enough to model the non-trivial DLM model, which is discussed
+in more detail in next part.
 
 \paragraph{Examples}
 
@@ -207,9 +242,15 @@ Policy inference~\cite{chong:sp11, harris:ccs10}.
 
 Automatic instrumentation~\cite{king:esop10}.
 
-DIFC OS?
+Previous work on error diagnostic are application specific. For type errors of
+ML-like language, slicing is used to identify possible causes of an
+inconsistency in type checking. However, the result can be too large to be
+useful. Lerner et al.~\cite{lerner:pldi07} propose searching modifications and
+ranking the ones passing type checking to provides useful error message. But
+this approach is application specific and the performance relies on heuristics. Moreover, the algorithm handles one error per analysis.
 
-Using statisctical analysis for bug finding is not new. Dawson Engler.
+Using statisctical
+analysis for bug finding is not new. Dawson Engler.
 
 \bibliographystyle{abbrv}
 \bibliography{constraint,../bibtex/pm-master}
