@@ -49,8 +49,8 @@
 
 Nowadays, more and more type systems relies on constraint solving. For
 instance, Jif ... Type checking for ML-like language is also by nature
-constraint solving. However, it has also been acknowledges for
-decades~\cite{wand-popl86} that error diagnostic for such systems are difficult
+constraint solving. However, it has also been acknowledged for
+decades that error diagnostic for such systems are difficult
 since the type-checker often reports error locations that are far from the
 simplest source of the problem~\cite{wand-popl86}.
 
@@ -79,9 +79,9 @@ Figure~\ref{figure:lang:syntax}.
 
 \begin{figure}
 \begin{align*}
-G &::=\; G \land G\ |\ C \\
-C &::=\; \Gamma \proves E \leq E\\
-\Gamma &::= \Gamma \land \Gamma\ |\ E \leq E \\
+G &::=\; G \land G\ |\ A \\
+A &::=\; C \proves C \\
+C &::= C \land C\ |\  E \leq E \\
 E &::= x\ |\ c(E_1,\dots,E_{a(c)})\ |\ c^{-i}(E)\ |\ E_1 \join E_2 \
 |\ E_1 \meet E_2
 \end{align*}
@@ -89,40 +89,47 @@ E &::= x\ |\ c(E_1,\dots,E_{a(c)})\ |\ c^{-i}(E)\ |\ E_1 \join E_2 \
 \label{figure:lang:syntax}
 \end{figure}
 
-The goal $G$ to be solved is a conjunction of constraints $C$ of the form
-$\Gamma \proves E \leq E$, where $\Gamma$ is the hypothesis on the partial
-order of elements $E$. Intuitively, the goal is to show that there exists a
-valuation of variable such that the right hand side of all constraints can be
-satisfied under the hypothesis.
+The goal $G$ to be solved is a conjunction of assertions $A$ of the
+form $C \proves C$, where constraint $C$ on the LHS of the judgement
+is the hypothesis whereas $C$ on the RHS is the assertion needs to be
+satisfied. Constraint $C$ is simply an conjunction in the form of $E
+\leq E$, claiming the partial order on elements $E$. 
 
-Let $V$ be a set of variables and $C$ be a set of constructors. Each $c\in C$
-has a fixed arity $a(c)$. When $a(c)=0$ then $c$ is a constant. Basic element
-$E$ contains the variables to be inferred $x\in V$, constructors $c$ and
-corresponding destructors $c^{-i}$, where $c\in C$. For simplicity, we write
-$c$ for constants. We can also take the join/meet or elements, which models the
-least upper bound/greatest lower bound of two elements in the partial order
-respectively.
+Let $V$ be a set of variables and $C$ be a set of constructors. Each
+$c\in C$ has a fixed arity $a(c)$. When $a(c)=0$ then $c$ is a
+constant. Basic element $E$ contains the variables to be inferred
+$x\in V$, constructors $c$ and corresponding destructors $c^{-i}$,
+where $c\in C$. For simplicity, we write $c$ for constants. We can
+also take the join/meet or elements, which models the least upper
+bound/greatest lower bound of two elements in the partial order
+respectively. 
 
-When join and meet are used, we assume for all $e_1, e_2 \in E, e_1 \join e_2
-\in E \land e_1 \meet e_2 \in E$ to make the constraints well-formed. In
-another word, the elements form a lattice.
+Intuitively, the goal is to show that there exists a valuation of
+variable such that the right hand side of all constraints can be
+satisfied under the hypothesis. We formalize this in the next part.
+
+\DZ{Delete this? When join and meet are used, we assume for all $e_1,
+e_2 \in E, e_1 \join e_2 \in E \land e_1 \meet e_2 \in E$ to make the
+constraints well-formed. In another word, the elements form a
+lattice.}
 
 \paragraph{Solving}
- 
+
+A valuation is a mapping of the type variables to _ground types_,
+where ground types form a Herbrand universe.
+
 A goal is satisfiable when there is a valuation s.t. all constraints
 are _valid_. Therefore, formally, the goal of this paper is to answer
 which element or constraint to blame when a goal is unsatisfiable. A
 possible reason may both be the existence of an element or the absence
-of one.
-\DZ{a missing condition (missing where clause) is common in Jif}
+of one. \DZ{a missing condition (missing where clause) is common in
+Jif}
 
-For _valid_, we assume an oracle $o(e_1, e_2, \G)$ that is true iff
-$\G \proves e_1 \leq e_2$, where $e_1, e_2$ contain no variables. 
+More specifically, $e_1\leq e_2$ iff this partial order can be
+inferred under the standard rules for a partial order, namely
+transitivity and reflexivity. 
 
 For type inference:
-
-A valuation is a mapping of the type variables to _ground types_,
-where ground types form a Herbrand universe.
 
 Type inference is reduced to constraint solving by defining a mapping
 of _pre-judgements_to constraints:
@@ -145,39 +152,60 @@ C &::=\; \tau = \tau\ |\ C \land C \\
 
 \paragraph{Expressiveness}
 
-The core constraint language we proposed is similar to set
-constraints~\cite{aiken-setconstraint} except that we introduce hypothesis and
-exclude negations for the following reasons:
+Although the core constraint language we proposed is similar to set
+constraints~\cite{aiken-setconstraint} in spirit. There are several
+noticeable differences:
 
 \begin{enumerate}
-\item Hypothesis is essential for real-world type inference systems, such as
-the ``where'' clause in Jif and the subtyping relationship in many
-object-oriented systems.
 
-\item The negation of an element can be meaningless. For instance, in the DLM
-model adopted by Jif, the negation of a label is meaningless.
+\item Most importantly, instead of interpreting $\leq$ as the subset
+relation of sets, the partial order is freely defined in the
+hypothesis in out language. This extended expressiveness is essential
+for modeling real-world type systems, such as the ``where'' clause in
+Jif and the subtyping relationship in many object-oriented systems.
+Moreover, as we will show in ..., introducing such expressiveness does
+not increase the symbolic complicity of our error diagnostic
+algorithm.
+
+\item The exclusion of the negation of an element in our model since
+it is not essential in modeling the type systems we are aware of.
+Also, previous work showed that although solving the full set of set
+constraints is decidable, the complexity ranges from NP to NEXPTIME
+for non-trivial ground term models~\cite{aiken-complexity}. We believe
+that the subset we used in this work is both expressive and practical
+for real-world type systems.
+
 \end{enumerate}
 
-Based on the similarity between our core constraint language and set
-constraint, the applications modeled by the later without negations are
-automatically expressed by our model. Such examples includes type inference
-with sum type and product type and closure analysis. Moreover, our language is
-also expressive enough to model the non-trivial DLM model, which is discussed
-in more detail in next part.
+Due to the similarity between our core constraint language and set
+constraint, the applications modeled by the later without negations
+are automatically expressed by our model. Such examples includes type
+inference with sum type and product type and closure analysis.
+Moreover, our language is also expressive enough to model the
+non-trivial DLM model, which is discussed in more detail in next part.
 
-\paragraph{Examples}
+\subsection{Examples}
+
+\paragraph{Jif}
 
 For information flow control, elements are security labels, which in
 nature forms a lattice~\cite{denning-lattice}. Join and meet
 operations in constraints are consistent with that in the lattice.
 $\leq$ is consistent with the partial order in lattice. Some languages
 such as Jif allows ``where'' clauses that adding partial orders into
-the lattice. The ``where'' clauses corresponds to the environments.
-For other models, the environment is always empty.
+the lattice. The ``where'' clauses corresponds to the hypothesis.  For
+other models, the hypothesis is always empty.
+
+In this part, we would focus on the DLM model adopted by Jif, although
+other models would be simpler to be modeled.
+
+Brief overview on Jif.
+
+\paragraph{ML-like language}
 
 Type inference can also naturally map into constraint solving. This
-view is not new\DZ{REF}. For instance, Wand~\cite{wand-typeinference}
-recast Hindley-Milner type system into equality constraints. Aiken and
+view is not new. For instance, Wand~\cite{wand-typeinference} recast
+Hindley-Milner type system into equality constraints. Aiken and
 Wimmers~\cite{aiken-typeinclusion} extends the Hindley-Milner type
 system with inclusion constraints, and models function types,
 constructor types, liberal intersection and union types. Moreover,
@@ -191,8 +219,17 @@ subtyping~\cite{aiken-typeinclusion} fit in this model.
 
 \paragraph{Polymorphic Types}
 
-Jif has polymorphic types, for instance, $caller\_pc$. Polymorphic
-types are also crucial for ML-like languages.
+Our model is also powerful enough to capture polymorphic types.  Jif
+has polymorphic types, for instance, $caller\_pc$. Polymorphic types
+are also crucial for ML-like languages.
+
+Polymorphic types can be naturally modeled in our core constraint
+language as follows. For a polymorphic type $t$ instance, we create a
+new constant $c_t$ and replace all occurrences of $t$ with $c_t$ in
+the constraints. This is sufficient since the semantics of a
+polymorphic type is that the constraints should be satisfied
+regardless of the value of $t$. For instance, $t\leq \top$ where $t$
+is a polymorphic type is satisfiable.
 
 \section{Graph} 
 
