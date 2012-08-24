@@ -199,7 +199,21 @@ other models, the hypothesis is always empty.
 In this part, we would focus on the DLM model adopted by Jif, although
 other models would be simpler to be modeled.
 
-Brief overview on Jif.
+DLM assumes a set of _principals_ represienting users and other authority
+entities. Examples of principals could be student A, students, teachers and so
+on. The security concern of information is expressed by _labels_. A label $L$
+contains a set of principals called the _owners_, $owners(L)$. Owners are the
+original sources of the information. For each owner $O$, the label also
+contains a set of principals called the _readers_, $readers(L,O)$. Readers are
+the principals owner $O$ is willing to release the value. effective reader set of : the set of principals that all
+owners of the data agree to allow to release it to. 
+
+
+\begin{enumerate}
+\item DLM introduces an implicit form of parametric polymorphism, called _label
+polymorphism_, to express procedures that are parametric with respect to the
+security labels of their arguments.
+\end{enumerate}
 
 \paragraph{ML-like language}
 
