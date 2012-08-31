@@ -61,18 +61,16 @@ public class Environment {
 		return sb.toString();
 	}
 	
+	/* unified version */
 	public boolean leq(Element e1, Element e2) {
-		if (e1.leq_(e2, this))
-			return true;
-			
-		if (e2 instanceof LabelElement) {
-			if (((LabelElement) e2).isTop())
-				return true;
-		}
 		
-		if (leqApplyAssertions(e1, e2))
+		// for the same constructor, we should break them into components. Just return true here
+		if (e1.equals(e2))
 			return true;
 		
+		if (e1 instanceof Bottom || e2 instanceof Top)
+			return true;
+
 		// e1 leq any element of e2
 		if (e2 instanceof JoinElement) {
 			for (Element e : ((JoinElement)e2).getElements())
@@ -87,15 +85,45 @@ public class Environment {
 					return false;
 			return true;
 		}
-		
-        if (e1.leq_(e2, this)) {
-            return true;
-        }
-        
-        // try to use assertions
-//        return false;
-        return leqApplyAssertions(e1, e2);
+
+		return leqApplyAssertions(e1, e2);
 	}
+	
+	/* earlier version */
+//	public boolean leq(Element e1, Element e2) {
+//		if (e1.leq_(e2, this))
+//			return true;
+//			
+//		if (e2 instanceof LabelElement) {
+//			if (((LabelElement) e2).isTop())
+//				return true;
+//		}
+//		
+//		if (leqApplyAssertions(e1, e2))
+//			return true;
+//		
+//		// e1 leq any element of e2
+//		if (e2 instanceof JoinElement) {
+//			for (Element e : ((JoinElement)e2).getElements())
+//				if (this.leq(e1, e)) 
+//					return true;
+//			return false;
+//		}
+//		// e1 leq all elements of e2
+//		else if (e2 instanceof MeetElement) {
+//			for (Element e : ((MeetElement)e2).getElements())
+//				if (!this.leq(e1, e)) 
+//					return false;
+//			return true;
+//		}
+//		
+//        if (e1.leq_(e2, this)) {
+//            return true;
+//        }
+//        
+//        // try to use assertions
+//        return leqApplyAssertions(e1, e2);
+//	}
 	
 	private boolean leqApplyAssertions(Element e1, Element e2) {
 		if (finder == null) {
@@ -103,16 +131,16 @@ public class Environment {
 			finder = new ShortestPathFinder(graph);
 		}
 
-		if (graph.hasElement(e1)) {
-			for (Element e : graph.getAllElements()) {
-				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && e.leq_(e2, this))
-					return true;
-			}
-		}
-		return false;
-//			return finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null;
-//		else
-//			return false;
+		if (graph.hasElement(e1) && graph.hasElement(e2))
+//			for (Element e : graph.getAllElements()) {
+//				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && e.leq_(e2, this))
+//					return true;
+//			}
+//		}
+//		return false;
+			return finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null;
+		else
+			return false;
     }
 
 	// record the acts for relation

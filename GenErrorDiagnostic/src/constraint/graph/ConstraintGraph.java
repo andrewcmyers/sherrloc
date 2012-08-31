@@ -1,8 +1,5 @@
 package constraint.graph;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,8 +16,6 @@ import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Relation;
-import constraint.graph.visitor.SlicingVisitor;
-import constraint.graph.visitor.ToDotVisitor;
 
 /*
  * A constraint graph takes a set of constructors (user may define there own constructors in order to define the partial order),
@@ -77,23 +72,23 @@ public class ConstraintGraph extends Graph {
     // claim that first element is leq the second element because of constraint e
     public boolean addOneConstraint (Element first, Element second, Constraint e) {
     	// for constructors
-    	if (first instanceof ConstructorElement && second instanceof ConstructorElement) {
-    		ConstructorElement fst = (ConstructorElement) first;
-    		ConstructorElement snd = (ConstructorElement) second;
-			if (!fst.getCons().equals(snd.getCons())) {
-				System.out.println("unsatisfiable constraint: "+e.toDotString());
-				return false;
-			}
-			else {
-				// TODO: this code assumes that leq relation of the constructor is pairwise, but this should be extensible
-				for (int i=0; i<fst.getElements().size(); i++) {
-					if (!addOneConstraint(fst.getElements().get(i), snd.getElements().get(i), e))
-						return false;
-				}
-				return true;
-			}
-		}
-    	else {
+//    	if (first instanceof ConstructorElement && second instanceof ConstructorElement) {
+//    		ConstructorElement fst = (ConstructorElement) first;
+//    		ConstructorElement snd = (ConstructorElement) second;
+//			if (!fst.getCons().equals(snd.getCons())) {
+//				System.out.println("unsatisfiable constraint: "+e.toDotString());
+//				return false;
+//			}
+//			else {
+//				// TODO: this code assumes that leq relation of the constructor is pairwise, but this should be extensible
+//				for (int i=0; i<fst.getElements().size(); i++) {
+//					if (!addOneConstraint(fst.getElements().get(i), snd.getElements().get(i), e))
+//						return false;
+//				}
+//				return true;
+//			}
+//		}
+//    	else {
     		ElementNode source = getNode(first);
 			ElementNode to = getNode(second);
 
@@ -103,7 +98,7 @@ public class ConstraintGraph extends Graph {
 			if (e.getRelation() == Relation.EQ)
 				addEdge(to, source, new EquationEdge(e, to, source));
 			return true;
-    	}
+//    	}
     		
     }
     
