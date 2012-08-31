@@ -1,13 +1,13 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL px->py //class jif.types.label.PairLabel_c
-LABEL this
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c
+CONSTRUCTOR px 0
+CONSTRUCTOR py 0 //class jif.types.label.PairLabel_c
 
 %%
 this <= caller_pc;
 
 %%
-y == caller_pc ⊔ px->py [this <= caller_pc;];@"constant.jif:10,17-18"
+y == caller_pc ⊔ (px -> py) [this <= caller_pc;];@"constant.jif:10,17-18"
 caller_pc <= y [this <= caller_pc;];@"constant.jif:10,19-20"
-y ⊔ caller_pc ⊔ this <= px->py [this <= caller_pc;];@"constant.jif:11,4-5"
-px->py <= y [this <= caller_pc;];@"constant.jif:12,4-5"
+y ⊔ caller_pc ⊔ this <= (px -> py) [this <= caller_pc;];@"constant.jif:11,4-5"
+(px -> py) <= y [this <= caller_pc;];@"constant.jif:12,4-5"
