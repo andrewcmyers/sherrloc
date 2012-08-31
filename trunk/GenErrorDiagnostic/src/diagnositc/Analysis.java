@@ -24,7 +24,7 @@ import constraint.parse.parser;
 
 public class Analysis {
 	boolean DEBUG = true;
-    boolean SHOW_WHOLE_GRAPH=false;
+    boolean SHOW_WHOLE_GRAPH=true;
 	boolean done = false;
 	ConstraintGraph graph;
 	List<ConstraintPath> errorPaths;
@@ -38,7 +38,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/constant_uniform.con", false);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/array.con", false);
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
@@ -92,8 +92,10 @@ public class Analysis {
 		
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
+
 				if (graph.getEnv().leq(start.getElement(), end.getElement()))
 					continue;
+
 				List<Edge> l = finder.getPath(start, end);
 				if ( l!=null && (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
 					ConstraintPath path = new ConstraintPath(l);
@@ -106,6 +108,7 @@ public class Analysis {
 						env.addEnv(path.getAssumption());
 						cachedEnv.put(path.getAssumption(), env);
 					}
+										
 					if (env.leq(start.getElement(), end.getElement()))
 						continue;
 					System.out.println(path.toString());
