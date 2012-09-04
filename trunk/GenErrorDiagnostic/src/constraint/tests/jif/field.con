@@ -1,14 +1,29 @@
-LABEL this //class jif.types.label.ThisLabel_c
-LABEL px->py,pz //class jif.types.label.PairLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL px->py //class jif.types.label.PairLabel_c
-LABEL this
+CONSTRUCTOR this97427706 0 //class jif.types.label.ThisLabel_c@field.jif:5,0-11
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@field.jif:8,8-14
+CONSTRUCTOR field.provider28769117 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0
+CONSTRUCTOR px 0 //@field.jif:6,6-8
+CONSTRUCTOR py 0 //@field.jif:6,10-12
+CONSTRUCTOR pz 0 //@field.jif:6,14-16
 
 %%
-this <= caller_pc;
+field.provider28769117 == _ -> _;
+_ -> _ <= this97427706;
+this97427706 <= * -> *;
+_ -> _ <= px -> py⊓pz;
+px -> py⊓pz <= * -> *;
+_ -> _ <= y-56391;
+y-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= field.provider28769117;
+field.provider28769117 <= * -> *;
+_ -> _ <= px -> py;
+px -> py <= * -> *;
 
 %%
-y == caller_pc ⊔ px->py [this <= caller_pc;];@"field.jif:9,17-18"
-caller_pc <= y [this <= caller_pc;];@"field.jif:9,19-20"
-y ⊔ caller_pc ⊔ this <= px->py,pz [this <= caller_pc;];@"field.jif:10,4-5"
-px->py,pz <= y [this <= caller_pc;];@"field.jif:11,4-5"
+y-56391 == (caller_pc2346856) ⊔ (px -> py) [this97427706 <= caller_pc2346856;];@"field.jif:9,17-18"
+(caller_pc2346856) <= y-56391 [this97427706 <= caller_pc2346856;];@"field.jif:9,19-20"
+(y-56391) ⊔ (caller_pc2346856) ⊔ (this97427706) <= px -> py⊓pz [this97427706 <= caller_pc2346856;];@"field.jif:10,4-5"
+field.provider28769117 <= px -> py⊓pz [this97427706 <= caller_pc2346856;];@"field.jif:10,4-5"
+(px -> py⊓pz) ⊔ (this97427706) ⊔ (caller_pc2346856) <= y-56391 [this97427706 <= caller_pc2346856;];@"field.jif:11,4-5"

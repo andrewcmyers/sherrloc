@@ -1,23 +1,37 @@
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL this63537721 //class jif.types.label.ThisLabel_c
-LABEL Array.provider28073747 //class jif.types.label.ProviderLabel_c
-LABEL Array.provider31761534 //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array.jif:1,7-18
+CONSTRUCTOR this63537721 0 //class jif.types.label.ThisLabel_c@Array.jif:1,7-18
+CONSTRUCTOR Array.provider5653576 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR Array.provider8823103 0 //class jif.types.label.ProviderLabel_c@Array.jif:1,7-18
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@Array.jif:2,17-19
+CONSTRUCTOR * 0 //@Array.jif:4,23-29
 
 %%
-Array.provider28073747==_->_;
-Array.provider31761534==_->_;
+Array.provider5653576 == _ -> _;
+Array.provider8823103 == _ -> _;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= this63537721;
+this63537721 <= * -> *;
+_ -> _ <= Array.provider5653576;
+Array.provider5653576 <= * -> *;
+_ -> _ <= Array.provider8823103;
+Array.provider8823103 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-Array.provider28073747 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:1,7-18"
-_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:2,4-22"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
-*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array.jif:4,11-18"
-Array.provider31761534 <= *-> [this63537721 <= caller_pc2346856;caller_pc2346856 <= (Array.provider31761534);];@"/home/zhang/APL/Jif/jif/tests/Array.jif:1,7-7"
+Array.provider5653576 <= (* -> *) [];@"Array.jif:1,7-18"
+(_ -> _) == (_ -> _) [];@"Array.jif:2,4-22"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+(* -> *) <= (* -> *) [];@"Array.jif:4,11-18"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+Array.provider8823103 <= (* -> *) [this63537721 <= caller_pc2346856;caller_pc2346856 <= (Array.provider8823103);];@"Array.jif:1,7-7"

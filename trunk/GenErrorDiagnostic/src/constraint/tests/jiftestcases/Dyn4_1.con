@@ -1,4 +1,11 @@
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Dyn4.jif:2,4-10
 
-x-56392 == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:2,4-10"
+%%
+_ -> _ <= x-56392;
+x-56392 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+x-56392 == (_ -> _) [];@"Dyn4.jif:2,4-10"

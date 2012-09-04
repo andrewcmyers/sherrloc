@@ -1,9 +1,22 @@
-LABEL this68 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *this.f15020678 //class jif.types.label.DynamicLabel_c
-LABEL _->_
+CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@DynLabel10.jif:4,0-7
+CONSTRUCTOR *this.f23217021 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:8,6-12
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@DynLabel10.jif:7,4-10
+CONSTRUCTOR this 0
 
-x-56389 == (caller_pc2346856) ⊔ (*this.f15020678) [this68 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:8,14-15"
-(caller_pc2346856) <= x-56389 [this68 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:8,18-19"
-y-56388 == (caller_pc2346856) ⊔ (*this.f15020678) [this68 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:9,9-10"
-(caller_pc2346856) <= y-56388 [this68 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/DynLabel10.jif:9,13-14"
+%%
+_ -> _ <= this68;
+this68 <= * -> *;
+_ -> _ <= *this.f23217021;
+*this.f23217021 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= x-56389;
+x-56389 <= * -> *;
+_ -> _ <= y-56388;
+y-56388 <= * -> *;
+
+%%
+x-56389 == (caller_pc2346856) ⊔ (*this.f23217021) [this68 <= caller_pc2346856;];@"DynLabel10.jif:8,14-15"
+(caller_pc2346856) <= x-56389 [this68 <= caller_pc2346856;];@"DynLabel10.jif:8,18-19"
+y-56388 == (caller_pc2346856) ⊔ (*this.f23217021) [this68 <= caller_pc2346856;];@"DynLabel10.jif:9,9-10"
+(caller_pc2346856) <= y-56388 [this68 <= caller_pc2346856;];@"DynLabel10.jif:9,13-14"

@@ -1,6 +1,17 @@
-LABEL *this.foo.c8857489 //class jif.types.label.DynamicLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR *this.foo.c10921509 0 //class jif.types.label.DynamicLabel_c@DynLabel12.jif:4,9-19
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@DynLabel12.jif:3,19-21
 
-foo-56392 == _->_ [];@"/home/zhang/APL/Jif/jif/tests/DynLabel12.jif:3,18-26"
-x-56391 == *this.foo.c8857489 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel12.jif:4,4-23"
+%%
+_ -> _ <= x-56391;
+x-56391 <= * -> *;
+_ -> _ <= *this.foo.c10921509;
+*this.foo.c10921509 <= * -> *;
+_ -> _ <= foo-56392;
+foo-56392 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+foo-56392 == (_ -> _) [];@"DynLabel12.jif:3,18-26"
+x-56391 == *this.foo.c10921509 [];@"DynLabel12.jif:4,4-23"

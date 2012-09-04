@@ -2,6 +2,7 @@ package constraint.ast;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class Environment {
 	ConstraintGraph graph;
 	PathFinder finder = null;
 	Map<String, Set<String>> ph;
+	boolean SHOW_HYPOTHESIS = false;
 	
 	public Environment() {
 		assertions = new HashSet<Constraint>();
@@ -68,20 +70,34 @@ public class Environment {
 		if (e1.equals(e2))
 			return true;
 		
+		if (e1.isDecomposable() && e2.isDecomposable()) {
+			List<Element> l1 = ((EnumerableElement) e1).elements;
+			List<Element> l2 = ((EnumerableElement) e2).elements;
+			for (int i=0; i<l1.size(); i++) {
+				if (!leq(l1.get(i), l2.get(i)))
+					return false;
+			}
+			return true;
+		}
+		
 		if (e1 instanceof Bottom || e2 instanceof Top)
+			return true;
+		
+		// the assumption can be made on the join/meet
+		if (leqApplyAssertions(e1, e2))
 			return true;
 
 		// e1 leq any element of e2
 		if (e2 instanceof JoinElement) {
 			for (Element e : ((JoinElement)e2).getElements())
-				if (this.leq(e1, e)) 
+				if (leq(e1, e)) 
 					return true;
 			return false;
 		}
 		// e1 leq all elements of e2
 		else if (e2 instanceof MeetElement) {
 			for (Element e : ((MeetElement)e2).getElements())
-				if (!this.leq(e1, e)) 
+				if (!leq(e1, e)) 
 					return false;
 			return true;
 		}
@@ -126,8 +142,14 @@ public class Environment {
 //	}
 	
 	private boolean leqApplyAssertions(Element e1, Element e2) {
+			
 		if (finder == null) {
 			graph.generateGraph();
+			
+			if (SHOW_HYPOTHESIS) {
+				graph.labelAll();
+				System.out.println( graph.toDotString());
+			}
 			finder = new ShortestPathFinder(graph);
 		}
 

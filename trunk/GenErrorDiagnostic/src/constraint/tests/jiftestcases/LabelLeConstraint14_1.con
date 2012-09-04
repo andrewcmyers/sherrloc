@@ -1,18 +1,39 @@
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *cuLbl100853414 //class jif.types.label.DynamicLabel_c
-LABEL EP-> //class jif.types.label.PairLabel_c
-LABEL cu-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint14.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:2,4-10
+CONSTRUCTOR *cuLbl105824532 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint14.jif:3,26-31
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:3,19-25
+CONSTRUCTOR cu 0 //@LabelLeConstraint14.jif:6,17-19
+CONSTRUCTOR EP 0 //@LabelLeConstraint14.jif:6,12-14
+CONSTRUCTOR * 0 //@LabelLeConstraint14.jif:6,12-15
 
 %%
-caller_pc2346856<=_->_;
+caller_pc2346856 <= (_ -> _);
+_ -> _ <= (EP -> *) ⊔ (cu -> *);
+(EP -> *) ⊔ (cu -> *) <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= x-56391;
+x-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= cuLbl-56392;
+cuLbl-56392 <= * -> *;
+_ -> _ <= y-56390;
+y-56390 <= * -> *;
+_ -> _ <= (EP -> *);
+(EP -> *) <= * -> *;
+_ -> _ <= (cu -> *);
+(cu -> *) <= * -> *;
+_ -> _ <= *cuLbl105824532;
+*cuLbl105824532 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
 
 %%
-cuLbl-56392 == caller_pc2346856 [this67 <= caller_pc2346856;*cuLbl100853414 <= cu->;cu-> <= *cuLbl100853414;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:3,26-31"
-caller_pc2346856 <= cuLbl-56392 [this67 <= caller_pc2346856;*cuLbl100853414 <= cu->;cu-> <= *cuLbl100853414;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:3,34-55"
-x-56391 == (*cuLbl100853414) ⊔ (EP-> ⊔ cu->) [this67 <= caller_pc2346856;*cuLbl100853414 <= cu->;cu-> <= *cuLbl100853414;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:6,42-43"
-(caller_pc2346856) <= x-56391 [this67 <= caller_pc2346856;*cuLbl100853414 <= cu->;cu-> <= *cuLbl100853414;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:6,45-46"
-y-56390 == (*cuLbl100853414) ⊔ (EP->) [this67 <= caller_pc2346856;*cuLbl100853414 <= cu->;cu-> <= *cuLbl100853414;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:7,31-32"
-(x-56391) ⊔ (caller_pc2346856) <= y-56390 [this67 <= caller_pc2346856;*cuLbl100853414 <= cu->;cu-> <= *cuLbl100853414;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:9,8-9"
+cuLbl-56392 == caller_pc2346856 [this67 <= caller_pc2346856;*cuLbl105824532 <= (cu -> *);(cu -> *) <= *cuLbl105824532;];@"LabelLeConstraint14.jif:3,26-31"
+caller_pc2346856 <= cuLbl-56392 [this67 <= caller_pc2346856;*cuLbl105824532 <= (cu -> *);(cu -> *) <= *cuLbl105824532;];@"LabelLeConstraint14.jif:3,34-55"
+x-56391 == (*cuLbl105824532) ⊔ ((EP -> *) ⊔ (cu -> *)) [this67 <= caller_pc2346856;*cuLbl105824532 <= (cu -> *);(cu -> *) <= *cuLbl105824532;];@"LabelLeConstraint14.jif:6,42-43"
+(caller_pc2346856) <= x-56391 [this67 <= caller_pc2346856;*cuLbl105824532 <= (cu -> *);(cu -> *) <= *cuLbl105824532;];@"LabelLeConstraint14.jif:6,45-46"
+y-56390 == (*cuLbl105824532) ⊔ ((EP -> *)) [this67 <= caller_pc2346856;*cuLbl105824532 <= (cu -> *);(cu -> *) <= *cuLbl105824532;];@"LabelLeConstraint14.jif:7,31-32"
+(x-56391) ⊔ (caller_pc2346856) <= y-56390 [this67 <= caller_pc2346856;*cuLbl105824532 <= (cu -> *);(cu -> *) <= *cuLbl105824532;];@"LabelLeConstraint14.jif:9,8-9"

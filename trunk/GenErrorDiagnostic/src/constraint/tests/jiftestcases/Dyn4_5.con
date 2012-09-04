@@ -1,31 +1,48 @@
-LABEL this2145531 //class jif.types.label.ThisLabel_c
-LABEL *L29746980 //class jif.types.label.DynamicLabel_c
-LABEL Dyn4.provider23978087 //class jif.types.label.ProviderLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *M3843380 //class jif.types.label.DynamicLabel_c
-LABEL Dyn4.provider24966838 //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this2145531 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0-10
+CONSTRUCTOR *L8310929 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:4,16-17
+CONSTRUCTOR Dyn4.provider10970704 0 //class jif.types.label.ProviderLabel_c@Dyn4.jif:1,0-10
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:1,0-10
+CONSTRUCTOR Dyn4.provider3675658 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR *M16657354 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:14,42-43
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Dyn4.jif:4,32-38
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-Dyn4.provider23978087==_->_;
-Dyn4.provider24966838==_->_;
+Dyn4.provider10970704 == _ -> _;
+Dyn4.provider3675658 == _ -> _;
+_ -> _ <= this2145531;
+this2145531 <= * -> *;
+_ -> _ <= *L8310929;
+*L8310929 <= * -> *;
+_ -> _ <= Dyn4.provider10970704;
+Dyn4.provider10970704 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= Dyn4.provider3675658;
+Dyn4.provider3675658 <= * -> *;
+_ -> _ <= *M16657354;
+*M16657354 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-Dyn4.provider24966838 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:1,0-10"
-_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:2,4-10"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:4,11-20"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:4,11-20"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:4,11-20"
-*L29746980 <= *L29746980 [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:4,11-20"
-*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:10,11-21"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:10,11-21"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:10,11-21"
-*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:14,18-27"
-*M3843380 <= *M3843380 [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:14,18-27"
-*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:14,18-27"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:14,18-27"
-*M3843380 <= *M3843380 [];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:14,18-27"
-Dyn4.provider23978087 <= *-> [this2145531 <= caller_pc2346856;caller_pc2346856 <= (Dyn4.provider23978087);];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:1,0-0"
+Dyn4.provider3675658 <= (* -> *) [];@"Dyn4.jif:1,0-10"
+(_ -> _) == (_ -> _) [];@"Dyn4.jif:2,4-10"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
+*L8310929 <= *L8310929 [];@"Dyn4.jif:4,11-20"
+(* -> *) <= (* -> *) [];@"Dyn4.jif:10,11-21"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:10,11-21"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:10,11-21"
+(* -> *) <= (* -> *) [];@"Dyn4.jif:14,18-27"
+*M16657354 <= *M16657354 [];@"Dyn4.jif:14,18-27"
+(* -> *) <= (* -> *) [];@"Dyn4.jif:14,18-27"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:14,18-27"
+*M16657354 <= *M16657354 [];@"Dyn4.jif:14,18-27"
+Dyn4.provider10970704 <= (* -> *) [this2145531 <= caller_pc2346856;caller_pc2346856 <= (Dyn4.provider10970704);];@"Dyn4.jif:1,0-0"

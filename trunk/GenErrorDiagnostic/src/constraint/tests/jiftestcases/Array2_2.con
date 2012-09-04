@@ -1,39 +1,57 @@
-LABEL arr99873877 //class jif.types.label.ArgLabel_c
-LABEL arr99873877 //class jif.types.label.ArgLabel_c
-LABEL Array2.provider4618641 //class jif.types.label.ProviderLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL this1969669401 //class jif.types.label.ThisLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL Array2.provider3532515 //class jif.types.label.ProviderLabel_c
-LABEL _->_
+CONSTRUCTOR arr99873877 0 //class jif.types.label.ArgLabel_c@Array2.jif:10,23-33
+CONSTRUCTOR arr99873877 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,26-36
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array2.jif:10,11-64
+CONSTRUCTOR this1969669401 0 //class jif.types.label.ThisLabel_c@Array2.jif:1,0-12
+CONSTRUCTOR Array2.provider2531514 0 //class jif.types.label.ProviderLabel_c@Array2.jif:1,0-12
+CONSTRUCTOR Array2.provider14345829 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-caller_pc2346856<=arr99873877;
-Array2.provider4618641==_->_;
-Array2.provider3532515==_->_;
+caller_pc2346856 <= arr99873877;
+Array2.provider2531514 == _ -> _;
+Array2.provider14345829 == _ -> _;
+_ -> _ <= arr99873877;
+arr99873877 <= * -> *;
+_ -> _ <= arr99873877;
+arr99873877 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= this1969669401;
+this1969669401 <= * -> *;
+_ -> _ <= tmpy-56389;
+tmpy-56389 <= * -> *;
+_ -> _ <= Array2.provider2531514;
+Array2.provider2531514 <= * -> *;
+_ -> _ <= tmpx-56390;
+tmpx-56390 <= * -> *;
+_ -> _ <= Array2.provider14345829;
+Array2.provider14345829 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-Array2.provider3532515 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:1,0-12"
-*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-arr99873877 <= arr99873877 [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-arr99873877 <= arr99873877 [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-arr99873877 <= arr99873877 [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-arr99873877 <= arr99873877 [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-arr99873877 <= arr99873877 [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-arr99873877 <= arr99873877 [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-arr99873877 <= arr99873877 [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-arr99873877 <= arr99873877 [];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:2,11-20"
-Array2.provider4618641 <= *-> [this1969669401 <= caller_pc2346856;caller_pc2346856 <= (Array2.provider4618641);];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:12,4-5"
-arr99873877 <= tmpx-56390 [this1969669401 <= caller_pc2346856;caller_pc2346856 <= (Array2.provider4618641);];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:13,19-22"
-arr99873877 <= tmpy-56389 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:14,19-22"
-(tmpy-56389) ⊔ (arr99873877) <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:15,8-11"
-(tmpx-56390) ⊔ (arr99873877) <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:16,8-11"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
-arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array2.jif:10,11-64"
+Array2.provider14345829 <= (* -> *) [];@"Array2.jif:1,0-12"
+(* -> *) <= (* -> *) [];@"Array2.jif:2,11-20"
+arr99873877 <= arr99873877 [];@"Array2.jif:2,11-20"
+arr99873877 <= arr99873877 [];@"Array2.jif:2,11-20"
+arr99873877 <= arr99873877 [];@"Array2.jif:2,11-20"
+arr99873877 <= arr99873877 [];@"Array2.jif:2,11-20"
+arr99873877 <= arr99873877 [];@"Array2.jif:2,11-20"
+arr99873877 <= arr99873877 [];@"Array2.jif:2,11-20"
+arr99873877 <= arr99873877 [];@"Array2.jif:2,11-20"
+arr99873877 <= arr99873877 [];@"Array2.jif:2,11-20"
+Array2.provider2531514 <= (* -> *) [this1969669401 <= caller_pc2346856;caller_pc2346856 <= (Array2.provider2531514);];@"Array2.jif:12,4-5"
+arr99873877 <= tmpx-56390 [this1969669401 <= caller_pc2346856;caller_pc2346856 <= (Array2.provider2531514);];@"Array2.jif:13,19-22"
+arr99873877 <= tmpy-56389 [this1969669401 <= caller_pc2346856;];@"Array2.jif:14,19-22"
+(tmpy-56389) ⊔ (arr99873877) <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:15,8-11"
+(tmpx-56390) ⊔ (arr99873877) <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:16,8-11"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"
+arr99873877 <= arr99873877 [this1969669401 <= caller_pc2346856;];@"Array2.jif:10,11-64"

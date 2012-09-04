@@ -38,7 +38,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/array.con", false);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/test.con", false);
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
@@ -92,12 +92,15 @@ public class Analysis {
 		
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
+				if (start.getElement().isDecomposable() && end.getElement().isDecomposable())
+					continue;
 
 				if (graph.getEnv().leq(start.getElement(), end.getElement()))
 					continue;
 
 				List<Edge> l = finder.getPath(start, end);
 				if ( l!=null && (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
+
 					ConstraintPath path = new ConstraintPath(l);
 					Environment env;
 					if (cachedEnv.containsKey(path.getAssumption()))

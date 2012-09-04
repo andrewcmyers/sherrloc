@@ -1,14 +1,27 @@
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint05.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint05.jif:7,4-12
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@LabelLeConstraint05.jif:8,31-33
+CONSTRUCTOR * 0 //@LabelLeConstraint05.jif:8,13-19
 
-caller_pc2346856 <= *-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint05.jif:8,3-20"
-caller_pc2346856 <= *-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint05.jif:8,22-33"
-caller_pc2346856 <= *-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint05.jif:8,1-34"
-Alice-> <= _->_ [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint05.jif:8,1-34"
-receiver-56387 == this67 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint05.jif:8,1-34"
-arg1label-56386 == caller_pc2346856 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint05.jif:8,1-34"
-arg2label-56385 == caller_pc2346856 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint05.jif:8,1-34"
+%%
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+
+%%
+caller_pc2346856 <= (* -> *) [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,3-20"
+caller_pc2346856 <= (* -> *) [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,22-33"
+caller_pc2346856 <= (* -> *) [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"
+(Alice -> *) <= (_ -> _) [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"
+receiver-56387 == this67 [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"
+arg1label-56386 == caller_pc2346856 [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"
+arg2label-56385 == caller_pc2346856 [this67 <= caller_pc2346856;];@"LabelLeConstraint05.jif:8,1-34"

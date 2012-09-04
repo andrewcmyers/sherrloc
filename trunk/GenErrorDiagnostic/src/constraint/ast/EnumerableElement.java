@@ -87,7 +87,7 @@ public abstract class EnumerableElement extends Element {
 	public int hashCode() {
 		int ret = 1;
 		for (Element e : elements) {
-			ret ^= e.hashCode();
+			ret += e.hashCode();
 		}
 		return ret;
 	}
@@ -99,11 +99,16 @@ public abstract class EnumerableElement extends Element {
 			if (ce.getElements().size()==elements.size()) {
 				for (int i=0; i<elements.size(); i++)
 					if (!elements.get(i).equals(ce.getElements().get(i))) 
-						break;
+						return false;
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean isDecomposable() {
+		return true;
 	}
 	
 }

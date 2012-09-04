@@ -7,4 +7,9 @@ public class Bottom extends Constructor {
 		super("_", 0);
 	}
 	
+	@Override
+	public int hashCode() {
+		return 5741;
+	}
+	
 }

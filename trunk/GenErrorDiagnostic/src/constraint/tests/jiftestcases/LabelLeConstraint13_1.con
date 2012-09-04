@@ -1,11 +1,26 @@
-LABEL *L23930702 //class jif.types.label.DynamicLabel_c
-LABEL *M18623412 //class jif.types.label.DynamicLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL _->_
+CONSTRUCTOR *M26489385 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint13.jif:2,52-53
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint13.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint13.jif:2,4-10
+CONSTRUCTOR *L6466175 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint13.jif:3,13-14
+CONSTRUCTOR this 0
 
-x-56392 == (caller_pc2346856) ⊔ (*L23930702) [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:3,16-17"
-(caller_pc2346856) <= x-56392 [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:3,20-21"
-y-56391 == (caller_pc2346856) ⊔ (*M18623412) [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:4,16-17"
-(caller_pc2346856) <= y-56391 [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:4,20-21"
-(x-56392) ⊔ (caller_pc2346856) <= y-56391 [*L23930702 <= *M18623412;*M18623412 <= *L23930702;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint13.jif:6,8-9"
+%%
+_ -> _ <= *M26489385;
+*M26489385 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= y-56391;
+y-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= x-56392;
+x-56392 <= * -> *;
+_ -> _ <= *L6466175;
+*L6466175 <= * -> *;
+
+%%
+x-56392 == (caller_pc2346856) ⊔ (*L6466175) [*M26489385 <= *L6466175;*L6466175 <= *M26489385;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:3,16-17"
+(caller_pc2346856) <= x-56392 [*M26489385 <= *L6466175;*L6466175 <= *M26489385;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:3,20-21"
+y-56391 == (caller_pc2346856) ⊔ (*M26489385) [*M26489385 <= *L6466175;*L6466175 <= *M26489385;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:4,16-17"
+(caller_pc2346856) <= y-56391 [*M26489385 <= *L6466175;*L6466175 <= *M26489385;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:4,20-21"
+(x-56392) ⊔ (caller_pc2346856) <= y-56391 [*M26489385 <= *L6466175;*L6466175 <= *M26489385;this67 <= caller_pc2346856;];@"LabelLeConstraint13.jif:6,8-9"

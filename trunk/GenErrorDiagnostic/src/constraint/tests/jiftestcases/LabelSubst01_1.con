@@ -1,5 +1,15 @@
-LABEL *->Alice //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR * 0 //@LabelSubst01.jif:6,16-17
 
-lb-56392 == *->Alice [];@"/home/zhang/APL/Jif/jif/tests/LabelSubst01.jif:6,10-49"
-foo-56391 == *->Alice [];@"/home/zhang/APL/Jif/jif/tests/LabelSubst01.jif:7,11-36"
+%%
+_ -> _ <= (* -> Alice);
+(* -> Alice) <= * -> *;
+_ -> _ <= foo-56391;
+foo-56391 <= * -> *;
+_ -> _ <= lb-56392;
+lb-56392 <= * -> *;
+
+%%
+lb-56392 == (* -> Alice) [];@"LabelSubst01.jif:6,10-49"
+foo-56391 == (* -> Alice) [];@"LabelSubst01.jif:7,11-36"

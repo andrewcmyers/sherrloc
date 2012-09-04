@@ -1,19 +1,35 @@
-LABEL this68 //class jif.types.label.ThisLabel_c
-LABEL D.provider22881581 //class jif.types.label.ProviderLabel_c
-LABEL D.provider21279119 //class jif.types.label.ProviderLabel_c
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL *c.f6169335 //class jif.types.label.DynamicLabel_c
-LABEL _->_
+CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint08a.jif:9,0-7
+CONSTRUCTOR D.provider21682898 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint08a.jif:9,0-7
+CONSTRUCTOR *c.f25342921 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08a.jif:2,10-39
+CONSTRUCTOR D.provider29888430 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint08a.jif:9,0-7
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@null
+CONSTRUCTOR * 0 //@LabelLeConstraint08a.jif:2,31-37
 
 %%
-D.provider22881581==_->_;
-D.provider21279119==_->_;
+D.provider21682898 == _ -> _;
+D.provider29888430 == _ -> _;
+_ -> _ <= this68;
+this68 <= * -> *;
+_ -> _ <= D.provider21682898;
+D.provider21682898 <= * -> *;
+_ -> _ <= *c.f25342921;
+*c.f25342921 <= * -> *;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= D.provider29888430;
+D.provider29888430 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-D.provider22881581 <= *-> [*c.f6169335 <= Alice->;Alice-> <= *c.f6169335;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:9,0-7"
-*-> <= *-> [*c.f6169335 <= Alice->;Alice-> <= *c.f6169335;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:10,4-12"
-_->_ <= _->_ [*c.f6169335 <= Alice->;Alice-> <= *c.f6169335;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:10,4-12"
-D.provider21279119 <= *-> [*c.f6169335 <= Alice->;Alice-> <= *c.f6169335;this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider21279119);];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:9,0-0"
+D.provider29888430 <= (* -> *) [*c.f25342921 <= (Alice -> *);(Alice -> *) <= *c.f25342921;];@"LabelLeConstraint08a.jif:9,0-7"
+(* -> *) <= (* -> *) [*c.f25342921 <= (Alice -> *);(Alice -> *) <= *c.f25342921;];@"LabelLeConstraint08a.jif:10,4-12"
+(_ -> _) <= (_ -> _) [*c.f25342921 <= (Alice -> *);(Alice -> *) <= *c.f25342921;];@"LabelLeConstraint08a.jif:10,4-12"
+D.provider21682898 <= (* -> *) [*c.f25342921 <= (Alice -> *);(Alice -> *) <= *c.f25342921;this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider21682898);];@"LabelLeConstraint08a.jif:9,0-0"

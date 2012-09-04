@@ -1,15 +1,30 @@
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL px->py //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
+CONSTRUCTOR this-567811164 0 //class jif.types.label.ThisLabel_c@test.jif:5,0-14
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@test.jif:7,8-14
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@test.jif:10,8-10
+CONSTRUCTOR px 0 //@test.jif:8,9-11
+CONSTRUCTOR py 0 //@test.jif:8,13-15
 
 %%
-this <= caller_pc;
+_ -> _ <= this-567811164;
+this-567811164 <= * -> *;
+_ -> _ <= x-56391;
+x-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= y-56392;
+y-56392 <= * -> *;
+_ -> _ <= z-56390;
+z-56390 <= * -> *;
+_ -> _ <= px -> py;
+px -> py <= * -> *;
+_ -> _ <= _ -> _;
+_ -> _ <= * -> *;
 
 %%
-y == caller_pc ⊔ px->py [this <= caller_pc;];@"test.jif:8,17-18"
-caller_pc <= y [this <= caller_pc;];@"test.jif:8,19-20"
-y ⊔ caller_pc <= x [this <= caller_pc;];@"test.jif:9,12-13"
-z == caller_pc ⊔ _->_ [this <= caller_pc;];@"test.jif:10,11-12"
-caller_pc <= z [this <= caller_pc;];@"test.jif:10,15-16"
-caller_pc ⊔ x <= z [this <= caller_pc;];@"test.jif:12,8-9"
+y-56392 == (caller_pc2346856) ⊔ (px -> py) [this-567811164 <= caller_pc2346856;];@"test.jif:8,17-18"
+(caller_pc2346856) <= y-56392 [this-567811164 <= caller_pc2346856;];@"test.jif:8,19-20"
+(y-56392) ⊔ (caller_pc2346856) <= x-56391 [this-567811164 <= caller_pc2346856;];@"test.jif:9,12-13"
+z-56390 == (caller_pc2346856) ⊔ (_ -> _) [this-567811164 <= caller_pc2346856;];@"test.jif:10,11-12"
+(caller_pc2346856) <= z-56390 [this-567811164 <= caller_pc2346856;];@"test.jif:10,15-16"
+(caller_pc2346856) ⊔ (x-56391) <= z-56390 [this-567811164 <= caller_pc2346856;];@"test.jif:12,8-9"
