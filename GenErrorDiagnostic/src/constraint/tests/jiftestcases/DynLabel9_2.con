@@ -1,14 +1,24 @@
-LABEL C.provider16278782 //class jif.types.label.ProviderLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL C.provider1456470 //class jif.types.label.ProviderLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR C.provider27472067 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider3252433 0 //class jif.types.label.ProviderLabel_c@DynLabel9.jif:1,0-7
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@DynLabel9.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@DynLabel9.jif:1,0-7
+CONSTRUCTOR this 0
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-C.provider16278782==_->_;
-C.provider1456470==_->_;
+C.provider27472067 == _ -> _;
+C.provider3252433 == _ -> _;
+_ -> _ <= C.provider27472067;
+C.provider27472067 <= * -> *;
+_ -> _ <= C.provider3252433;
+C.provider3252433 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-C.provider1456470 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:1,0-7"
-C.provider16278782 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider16278782);];@"/home/zhang/APL/Jif/jif/tests/DynLabel9.jif:1,0-0"
+C.provider27472067 <= (* -> *) [];@"DynLabel9.jif:1,0-7"
+C.provider3252433 <= (* -> *) [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider3252433);];@"DynLabel9.jif:1,0-0"

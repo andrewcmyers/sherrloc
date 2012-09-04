@@ -7,4 +7,8 @@ public class Top extends Constructor {
 		super("*", 0);
 	}
 	
+	@Override
+	public int hashCode() {
+		return 2547;
+	}
 }

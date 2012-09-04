@@ -1,20 +1,43 @@
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL caller_pc //class jif.types.label.ArgLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@Do3.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Do3.jif:2,4-10
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@Do3.jif:4,15-17
+CONSTRUCTOR * 0 //@Do3.jif:3,9-15
 
 %%
-this <= caller_pc;caller_pc<=_->_;
+caller_pc2346856 <= _ -> _;
+_ -> _ <= Alice -> *;
+Alice -> * <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= leak-56391;
+leak-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= secret-56392;
+secret-56392 <= * -> *;
+_ -> _ <= e-56389;
+e-56389 <= * -> *;
+_ -> _ <= count-56390;
+count-56390 <= * -> *;
+_ -> _ <= do-56388;
+do-56388 <= * -> *;
+_ -> _ <= * -> *;
+* -> * <= * -> *;
+_ -> _ <= _ -> _;
+_ -> _ <= * -> *;
+_ -> _ <= newException-56386;
+newException-56386 <= * -> *;
 
 %%
-secret == Alice-> [this <= caller_pc;];@"Do3.jif:3,17-23"
-caller_pc <= secret [this <= caller_pc;];@"Do3.jif:3,26-30"
-leak == _->_ [this <= caller_pc;];@"Do3.jif:4,18-22"
-caller_pc <= leak [this <= caller_pc;];@"Do3.jif:4,25-30"
-caller_pc <= count [this <= caller_pc;];@"Do3.jif:5,20-21"
-do ⊔ count <= leak [this <= caller_pc;];@"Do3.jif:8,16-20"
-do <= count [this <= caller_pc;];@"Do3.jif:9,16-21"
-secret ⊔ do <= *-> [this <= caller_pc;];@"Do3.jif:10,35-50"
-secret ⊔ do ⊔ count ⊔ caller_pc <= do [this <= caller_pc;];@"Do3.jif:7,12-11,32"
-secret ⊔ do ⊔ newException <= e [this <= caller_pc;];@"Do3.jif:13,15-26"
+secret-56392 == Alice -> * [this67 <= caller_pc2346856;];@"Do3.jif:3,17-23"
+(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"Do3.jif:3,26-30"
+leak-56391 == _ -> _ [this67 <= caller_pc2346856;];@"Do3.jif:4,18-22"
+(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"Do3.jif:4,25-30"
+(caller_pc2346856) <= count-56390 [this67 <= caller_pc2346856;];@"Do3.jif:5,20-21"
+(do-56388) ⊔ (count-56390) <= leak-56391 [this67 <= caller_pc2346856;];@"Do3.jif:8,16-20"
+(do-56388) <= count-56390 [this67 <= caller_pc2346856;];@"Do3.jif:9,16-21"
+(secret-56392) ⊔ (do-56388) <= * -> * [this67 <= caller_pc2346856;];@"Do3.jif:10,35-50"
+(secret-56392) ⊔ (do-56388) ⊔ (count-56390) ⊔ (caller_pc2346856) <= do-56388 [this67 <= caller_pc2346856;];@"Do3.jif:7,12-11,32"
+(secret-56392) ⊔ (do-56388) ⊔ (newException-56386) <= e-56389 [this67 <= caller_pc2346856;];@"Do3.jif:13,15-26"

@@ -242,6 +242,12 @@ public class ConstraintGraph extends Graph {
 		return constraints;
 	}
     
+    public void showAllConstraints() {
+    	for (Constraint c : constraints) {
+    		System.out.println(c);
+    	}
+    }
+    
     public boolean isSymmentric() {
 		return SYMMENTRIC;
 	}

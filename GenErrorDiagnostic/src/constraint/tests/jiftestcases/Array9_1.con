@@ -1,6 +1,18 @@
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this1969669407 //class jif.types.label.ThisLabel_c
-LABEL _->_
+CONSTRUCTOR this1969669407 0 //class jif.types.label.ThisLabel_c@null
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR * 0 //@Array9.jif:3,8-14
 
-x-56392 == Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array9.jif:3,4-30"
-ar-56391 == (this1969669407) ⊔ (Alice->) [];@"/home/zhang/APL/Jif/jif/tests/Array9.jif:4,10-78"
+%%
+_ -> _ <= ar-56391;
+ar-56391 <= * -> *;
+_ -> _ <= x-56392;
+x-56392 <= * -> *;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= this1969669407;
+this1969669407 <= * -> *;
+
+%%
+x-56392 == (Alice -> *) [];@"Array9.jif:3,4-30"
+ar-56391 == (this1969669407) ⊔ ((Alice -> *)) [];@"Array9.jif:4,10-78"

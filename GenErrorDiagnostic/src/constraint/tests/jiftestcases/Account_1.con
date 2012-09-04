@@ -1,7 +1,21 @@
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL this.customer-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Account.jif:2,8-27
+CONSTRUCTOR * 0 //@Account.jif:8,9-18
+CONSTRUCTOR this.customer 0 //@Account.jif:8,9-17
 
-customer-56392 == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:2,8-27"
-name-56391 == this.customer-> [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:8,2-25"
-balance-56390 == this.customer-> [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:9,2-27"
+%%
+_ -> _ <= (this.customer -> *);
+(this.customer -> *) <= * -> *;
+_ -> _ <= name-56391;
+name-56391 <= * -> *;
+_ -> _ <= customer-56392;
+customer-56392 <= * -> *;
+_ -> _ <= balance-56390;
+balance-56390 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+customer-56392 == (_ -> _) [];@"Account.jif:2,8-27"
+name-56391 == (this.customer -> *) [];@"Account.jif:8,2-25"
+balance-56390 == (this.customer -> *) [];@"Account.jif:9,2-27"

@@ -1,24 +1,41 @@
-LABEL A.provider8550760 //class jif.types.label.ProviderLabel_c
-LABEL this65 //class jif.types.label.ThisLabel_c
-LABEL a99421781 //class jif.types.label.ArgLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL A.provider7084674 //class jif.types.label.ProviderLabel_c
-LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR A.provider25816645 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this65 0 //class jif.types.label.ThisLabel_c@A.jif:1,0-7
+CONSTRUCTOR a99421781 0 //class jif.types.label.ArgLabel_c@A.jif:9,27-38
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@A.jif:1,0-7
+CONSTRUCTOR A.provider7436198 0 //class jif.types.label.ProviderLabel_c@A.jif:1,0-7
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@null
+CONSTRUCTOR Bob 0 //@null
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-a99421781<=Alice->Bob;
-A.provider8550760==_->_;
-A.provider7084674==_->_;
+a99421781 <= (Alice -> Bob);
+A.provider25816645 == _ -> _;
+A.provider7436198 == _ -> _;
+_ -> _ <= A.provider25816645;
+A.provider25816645 <= * -> *;
+_ -> _ <= this65;
+this65 <= * -> *;
+_ -> _ <= a99421781;
+a99421781 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (Alice -> Bob);
+(Alice -> Bob) <= * -> *;
+_ -> _ <= A.provider7436198;
+A.provider7436198 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-A.provider8550760 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/A.jif:1,0-7"
-Alice->Bob == Alice->Bob [];@"/home/zhang/APL/Jif/jif/tests/A.jif:2,11-28"
-Alice->Bob <= Alice->Bob [];@"/home/zhang/APL/Jif/jif/tests/A.jif:4,11-21"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/A.jif:4,11-21"
-Alice->Bob <= Alice->Bob [];@"/home/zhang/APL/Jif/jif/tests/A.jif:9,11-20"
-a99421781 <= a99421781 [];@"/home/zhang/APL/Jif/jif/tests/A.jif:9,11-20"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/A.jif:9,11-20"
-A.provider7084674 <= *-> [this65 <= caller_pc2346856;caller_pc2346856 <= (A.provider7084674);];@"/home/zhang/APL/Jif/jif/tests/A.jif:1,0-0"
+A.provider25816645 <= (* -> *) [];@"A.jif:1,0-7"
+(Alice -> Bob) == (Alice -> Bob) [];@"A.jif:2,11-28"
+(Alice -> Bob) <= (Alice -> Bob) [];@"A.jif:4,11-21"
+(_ -> _) <= (_ -> _) [];@"A.jif:4,11-21"
+(Alice -> Bob) <= (Alice -> Bob) [];@"A.jif:9,11-20"
+a99421781 <= a99421781 [];@"A.jif:9,11-20"
+(_ -> _) <= (_ -> _) [];@"A.jif:9,11-20"
+A.provider7436198 <= (* -> *) [this65 <= caller_pc2346856;caller_pc2346856 <= (A.provider7436198);];@"A.jif:1,0-0"

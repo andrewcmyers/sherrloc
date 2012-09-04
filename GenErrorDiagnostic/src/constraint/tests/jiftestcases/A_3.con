@@ -1,15 +1,26 @@
-LABEL A.provider8550760 //class jif.types.label.ProviderLabel_c
-LABEL this65 //class jif.types.label.ThisLabel_c
-LABEL a99421781 //class jif.types.label.ArgLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR A.provider25816645 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this65 0 //class jif.types.label.ThisLabel_c@A.jif:1,0-7
+CONSTRUCTOR a99421781 0 //class jif.types.label.ArgLabel_c@A.jif:9,27-38
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@A.jif:9,11-20
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR Bob 0 //@null
 
 %%
-a99421781<=Alice->Bob;
-caller_pc2346856<=a99421781;
-A.provider8550760==_->_;
+a99421781 <= (Alice -> Bob);
+caller_pc2346856 <= a99421781;
+A.provider25816645 == _ -> _;
+_ -> _ <= A.provider25816645;
+A.provider25816645 <= * -> *;
+_ -> _ <= this65;
+this65 <= * -> *;
+_ -> _ <= a99421781;
+a99421781 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (Alice -> Bob);
+(Alice -> Bob) <= * -> *;
 
 %%
-(a99421781) ⊔ (this65) <= Alice->Bob [this65 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/A.jif:10,8-9"
-A.provider8550760 <= Alice->Bob [this65 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/A.jif:10,8-9"
+(a99421781) ⊔ (this65) <= (Alice -> Bob) [this65 <= caller_pc2346856;];@"A.jif:10,8-9"
+A.provider25816645 <= (Alice -> Bob) [this65 <= caller_pc2346856;];@"A.jif:10,8-9"

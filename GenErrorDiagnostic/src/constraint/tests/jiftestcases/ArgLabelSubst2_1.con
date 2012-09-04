@@ -1,29 +1,49 @@
-LABEL z99421810 //class jif.types.label.ArgLabel_c
-LABEL q-> //class jif.types.label.PairLabel_c
-LABEL this256312239 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL y99421805 //class jif.types.label.ArgLabel_c
-LABEL y-> //class jif.types.label.PairLabel_c
-LABEL x99421804 //class jif.types.label.ArgLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR z99421810 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,72-81
+CONSTRUCTOR this256312239 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:8,0-21
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,11-25
+CONSTRUCTOR y99421805 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,59-68
+CONSTRUCTOR x99421804 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,49-55
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@ArgLabelSubst2.jif:9,49-55
+CONSTRUCTOR q 0 //@ArgLabelSubst2.jif:9,18-19
+CONSTRUCTOR y 0 //@ArgLabelSubst2.jif:12,8-9
+CONSTRUCTOR * 0 //@ArgLabelSubst2.jif:12,8-10
 
 %%
-caller_pc2346856<=_->_;
-x99421804<=_->_;
+caller_pc2346856 <= (_ -> _);
+x99421804 <= (_ -> _);
+_ -> _ <= (y -> *);
+(y -> *) <= * -> *;
+_ -> _ <= z99421810;
+z99421810 <= * -> *;
+_ -> _ <= (q -> *);
+(q -> *) <= * -> *;
+_ -> _ <= this256312239;
+this256312239 <= * -> *;
+_ -> _ <= answer2-56392;
+answer2-56392 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= y99421805;
+y99421805 <= * -> *;
+_ -> _ <= x99421804;
+x99421804 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
 
 %%
-(caller_pc2346856) <= q-> [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:10,16-30"
-answer2-56392 == y-> [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:12,12-19"
-(caller_pc2346856) <= answer2-56392 [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:12,22-26"
-(x99421804) <= _->_ [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,17-21"
-z99421810 <= *-> [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,23-24"
-y99421805 <= *-> [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,26-27"
-x99421804 <= _->_ [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,11-28"
-receiver-56390 == x99421804 [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,11-28"
-arg1label-56389 == (x99421804) [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,11-28"
-arg2label-56388 == z99421810 [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,11-28"
-arg3label-56387 == y99421805 [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,11-28"
-y-> <= answer2-56392 [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:14,1-8"
-(caller_pc2346856) <= q-> [this256312239 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst2.jif:17,1-16"
+(caller_pc2346856) <= (q -> *) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:10,16-30"
+answer2-56392 == (y -> *) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:12,12-19"
+(caller_pc2346856) <= answer2-56392 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:12,22-26"
+(x99421804) <= (_ -> _) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,17-21"
+z99421810 <= (* -> *) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,23-24"
+y99421805 <= (* -> *) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,26-27"
+x99421804 <= (_ -> _) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+receiver-56390 == x99421804 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+arg1label-56389 == (x99421804) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+arg2label-56388 == z99421810 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+arg3label-56387 == y99421805 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,11-28"
+(y -> *) <= answer2-56392 [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:14,1-8"
+(caller_pc2346856) <= (q -> *) [this256312239 <= caller_pc2346856;];@"ArgLabelSubst2.jif:17,1-16"

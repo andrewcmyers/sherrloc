@@ -1,16 +1,33 @@
-LABEL *lbl25536400 //class jif.types.label.DynamicLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL lbl1102930739 //class jif.types.label.ArgLabel_c
-LABEL lbl2102930736 //class jif.types.label.ArgLabel_c
-LABEL *lbl130185433 //class jif.types.label.DynamicLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint06.jif:1,0-7
+CONSTRUCTOR *lbl234736222 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,56-60
+CONSTRUCTOR *lbl124163863 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,45-49
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint06.jif:7,4-12
+CONSTRUCTOR lbl1102930739 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint06.jif:7,13-18
+CONSTRUCTOR lbl2102930736 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint06.jif:7,25-30
+CONSTRUCTOR this 0
+CONSTRUCTOR * 0 //@LabelLeConstraint06.jif:2,11-21
 
-(lbl1102930739) ⊔ (caller_pc2346856) <= *-> [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,3-7"
-(lbl2102930736) ⊔ (caller_pc2346856) <= *-> [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,9-13"
-caller_pc2346856 <= *-> [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
-*lbl130185433 <= *lbl25536400 [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
-receiver-56387 == this67 [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
-arg1label-56386 == (lbl1102930739) ⊔ (caller_pc2346856) [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
-arg2label-56385 == (lbl2102930736) ⊔ (caller_pc2346856) [*lbl130185433 <= *lbl25536400;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:8,1-14"
+%%
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= *lbl234736222;
+*lbl234736222 <= * -> *;
+_ -> _ <= *lbl124163863;
+*lbl124163863 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= lbl1102930739;
+lbl1102930739 <= * -> *;
+_ -> _ <= lbl2102930736;
+lbl2102930736 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+
+%%
+(lbl1102930739) ⊔ (caller_pc2346856) <= (* -> *) [*lbl124163863 <= *lbl234736222;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,3-7"
+(lbl2102930736) ⊔ (caller_pc2346856) <= (* -> *) [*lbl124163863 <= *lbl234736222;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,9-13"
+caller_pc2346856 <= (* -> *) [*lbl124163863 <= *lbl234736222;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
+*lbl124163863 <= *lbl234736222 [*lbl124163863 <= *lbl234736222;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
+receiver-56387 == this67 [*lbl124163863 <= *lbl234736222;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
+arg1label-56386 == (lbl1102930739) ⊔ (caller_pc2346856) [*lbl124163863 <= *lbl234736222;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"
+arg2label-56385 == (lbl2102930736) ⊔ (caller_pc2346856) [*lbl124163863 <= *lbl234736222;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:8,1-14"

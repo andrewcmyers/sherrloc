@@ -1,17 +1,31 @@
-LABEL C.provider29705835 //class jif.types.label.ProviderLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *this.l25068742 //class jif.types.label.DynamicLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL C.provider17131806 //class jif.types.label.ProviderLabel_c
-LABEL _->_
+CONSTRUCTOR C.provider9804492 0 //class jif.types.label.ProviderLabel_c@DynLabel8.jif:1,0-7
+CONSTRUCTOR *this.l28222041 0 //class jif.types.label.DynamicLabel_c@DynLabel8.jif:2,17-40
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@DynLabel8.jif:1,0-7
+CONSTRUCTOR C.provider28129985 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@DynLabel8.jif:1,0-7
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@DynLabel8.jif:2,37-39
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-C.provider29705835==_->_;
-C.provider17131806==_->_;
+C.provider9804492 == _ -> _;
+C.provider28129985 == _ -> _;
+_ -> _ <= C.provider9804492;
+C.provider9804492 <= * -> *;
+_ -> _ <= *this.l28222041;
+*this.l28222041 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= C.provider28129985;
+C.provider28129985 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-C.provider29705835 <= *-> [*this.l25068742 <= _->_;_->_ <= *this.l25068742;];@"/home/zhang/APL/Jif/jif/tests/DynLabel8.jif:1,0-7"
-_->_ == _->_ [*this.l25068742 <= _->_;_->_ <= *this.l25068742;];@"/home/zhang/APL/Jif/jif/tests/DynLabel8.jif:2,17-40"
-C.provider17131806 <= *-> [*this.l25068742 <= _->_;_->_ <= *this.l25068742;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider17131806);];@"/home/zhang/APL/Jif/jif/tests/DynLabel8.jif:1,0-0"
+C.provider28129985 <= (* -> *) [*this.l28222041 <= (_ -> _);(_ -> _) <= *this.l28222041;];@"DynLabel8.jif:1,0-7"
+(_ -> _) == (_ -> _) [*this.l28222041 <= (_ -> _);(_ -> _) <= *this.l28222041;];@"DynLabel8.jif:2,17-40"
+C.provider9804492 <= (* -> *) [*this.l28222041 <= (_ -> _);(_ -> _) <= *this.l28222041;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider9804492);];@"DynLabel8.jif:1,0-0"

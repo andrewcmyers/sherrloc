@@ -1,25 +1,40 @@
-LABEL Dyn5.provider3865497 //class jif.types.label.ProviderLabel_c
-LABEL this2145532 //class jif.types.label.ThisLabel_c
-LABEL *M21624089 //class jif.types.label.DynamicLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL Dyn5.provider27003862 //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR *M3154247 0 //class jif.types.label.DynamicLabel_c@Dyn5.jif:10,42-43
+CONSTRUCTOR this2145532 0 //class jif.types.label.ThisLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR Dyn5.provider22719756 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR Dyn5.provider29862167 0 //class jif.types.label.ProviderLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Dyn5.jif:4,24-30
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-Dyn5.provider3865497==_->_;
-Dyn5.provider27003862==_->_;
+Dyn5.provider22719756 == _ -> _;
+Dyn5.provider29862167 == _ -> _;
+_ -> _ <= *M3154247;
+*M3154247 <= * -> *;
+_ -> _ <= this2145532;
+this2145532 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= Dyn5.provider22719756;
+Dyn5.provider22719756 <= * -> *;
+_ -> _ <= Dyn5.provider29862167;
+Dyn5.provider29862167 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-Dyn5.provider3865497 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:3,0-10"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:4,18-24"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:4,18-24"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:4,18-24"
-*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:10,18-27"
-*M21624089 <= *M21624089 [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:10,18-27"
-*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:10,18-27"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:10,18-27"
-*M21624089 <= *M21624089 [];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:10,18-27"
-Dyn5.provider27003862 <= *-> [this2145532 <= caller_pc2346856;caller_pc2346856 <= (Dyn5.provider27003862);];@"/home/zhang/APL/Jif/jif/tests/Dyn5.jif:3,0-0"
+Dyn5.provider22719756 <= (* -> *) [];@"Dyn5.jif:3,0-10"
+(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18-24"
+(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18-24"
+(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18-24"
+(* -> *) <= (* -> *) [];@"Dyn5.jif:10,18-27"
+*M3154247 <= *M3154247 [];@"Dyn5.jif:10,18-27"
+(* -> *) <= (* -> *) [];@"Dyn5.jif:10,18-27"
+(_ -> _) <= (_ -> _) [];@"Dyn5.jif:10,18-27"
+*M3154247 <= *M3154247 [];@"Dyn5.jif:10,18-27"
+Dyn5.provider29862167 <= (* -> *) [this2145532 <= caller_pc2346856;caller_pc2346856 <= (Dyn5.provider29862167);];@"Dyn5.jif:3,0-0"

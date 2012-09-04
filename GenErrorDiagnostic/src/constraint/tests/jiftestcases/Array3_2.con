@@ -1,17 +1,31 @@
-LABEL L-1772469607 //class jif.types.label.ParamLabel_c
-LABEL C.provider1440568 //class jif.types.label.ProviderLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL _->_
+CONSTRUCTOR L-1772469607 0 //class jif.types.label.ParamLabel_c@Array3.jif:11,18-19
+CONSTRUCTOR C.provider5403437 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@Array3.jif:1,7-14
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array3.jif:10,11-22
+CONSTRUCTOR this 0
 
 %%
-caller_pc2346856<=L-1772469607;
-C.provider1440568==_->_;
+caller_pc2346856 <= L-1772469607;
+C.provider5403437 == _ -> _;
+_ -> _ <= L-1772469607;
+L-1772469607 <= * -> *;
+_ -> _ <= C.provider5403437;
+C.provider5403437 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= i-56389;
+i-56389 <= * -> *;
+_ -> _ <= x-56390;
+x-56390 <= * -> *;
+_ -> _ <= array_base-56387;
+array_base-56387 <= * -> *;
 
 %%
-x-56390 == L-1772469607 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:11,21-22"
-array_base-56387 <= L-1772469607 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:11,25-35"
-caller_pc2346856 <= x-56390 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:11,25-35"
-(caller_pc2346856) ⊔ (x-56390) <= L-1772469607 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:13,12-13"
-C.provider1440568 <= L-1772469607 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:13,12-13"
-(x-56390) ⊔ (caller_pc2346856) <= i-56389 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array3.jif:15,8-40"
+x-56390 == L-1772469607 [this67 <= caller_pc2346856;];@"Array3.jif:11,21-22"
+array_base-56387 <= L-1772469607 [this67 <= caller_pc2346856;];@"Array3.jif:11,25-35"
+caller_pc2346856 <= x-56390 [this67 <= caller_pc2346856;];@"Array3.jif:11,25-35"
+(caller_pc2346856) ⊔ (x-56390) <= L-1772469607 [this67 <= caller_pc2346856;];@"Array3.jif:13,12-13"
+C.provider5403437 <= L-1772469607 [this67 <= caller_pc2346856;];@"Array3.jif:13,12-13"
+(x-56390) ⊔ (caller_pc2346856) <= i-56389 [this67 <= caller_pc2346856;];@"Array3.jif:15,8-40"

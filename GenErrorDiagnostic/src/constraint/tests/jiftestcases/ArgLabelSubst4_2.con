@@ -1,20 +1,34 @@
-LABEL *y21834767 //class jif.types.label.DynamicLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL C.provider876215 //class jif.types.label.ProviderLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL C.provider540190 //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR C.provider32196199 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider14515251 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst4.jif:1,0-8
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst4.jif:1,0-8
+CONSTRUCTOR *y3462678 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst4.jif:2,16-17
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst4.jif:1,0-8
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@ArgLabelSubst4.jif:2,22-27
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-C.provider876215==_->_;
-C.provider540190==_->_;
+C.provider32196199 == _ -> _;
+C.provider14515251 == _ -> _;
+_ -> _ <= C.provider32196199;
+C.provider32196199 <= * -> *;
+_ -> _ <= C.provider14515251;
+C.provider14515251 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= *y3462678;
+*y3462678 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-C.provider876215 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst4.jif:1,0-8"
-*-> <= *-> [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst4.jif:2,11-22"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst4.jif:2,11-22"
-_->_ <= _->_ [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst4.jif:2,11-22"
-*y21834767 <= *y21834767 [];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst4.jif:2,11-22"
-C.provider540190 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider540190);];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst4.jif:1,0-0"
+C.provider32196199 <= (* -> *) [];@"ArgLabelSubst4.jif:1,0-8"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst4.jif:2,11-22"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst4.jif:2,11-22"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst4.jif:2,11-22"
+*y3462678 <= *y3462678 [];@"ArgLabelSubst4.jif:2,11-22"
+C.provider14515251 <= (* -> *) [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider14515251);];@"ArgLabelSubst4.jif:1,0-0"

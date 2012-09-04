@@ -1,21 +1,43 @@
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@For4.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@For4.jif:2,4-10
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@For4.jif:4,15-17
+CONSTRUCTOR * 0 //@For4.jif:3,9-15
 
 %%
-caller_pc2346856<=_->_;
+caller_pc2346856 <= (_ -> _);
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= leak-56391;
+leak-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= secret-56392;
+secret-56392 <= * -> *;
+_ -> _ <= e-56389;
+e-56389 <= * -> *;
+_ -> _ <= i-56390;
+i-56390 <= * -> *;
+_ -> _ <= for-56388;
+for-56388 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= newException-56386;
+newException-56386 <= * -> *;
 
 %%
-secret-56392 == Alice-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:3,17-23"
-(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:3,26-30"
-leak-56391 == _->_ [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:4,18-22"
-(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:4,25-30"
-(caller_pc2346856) <= i-56390 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:6,20-21"
-(for-56388) ⊔ (i-56390) <= leak-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:8,16-20"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= *-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:9,35-50"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= i-56390 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:10,16-17"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (caller_pc2346856) <= for-56388 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:7,12-25"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (newException-56386) <= e-56389 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/For4.jif:13,15-26"
+secret-56392 == (Alice -> *) [this67 <= caller_pc2346856;];@"For4.jif:3,17-23"
+(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"For4.jif:3,26-30"
+leak-56391 == (_ -> _) [this67 <= caller_pc2346856;];@"For4.jif:4,18-22"
+(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"For4.jif:4,25-30"
+(caller_pc2346856) <= i-56390 [this67 <= caller_pc2346856;];@"For4.jif:6,20-21"
+(for-56388) ⊔ (i-56390) <= leak-56391 [this67 <= caller_pc2346856;];@"For4.jif:8,16-20"
+(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= (* -> *) [this67 <= caller_pc2346856;];@"For4.jif:9,35-50"
+(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= i-56390 [this67 <= caller_pc2346856;];@"For4.jif:10,16-17"
+(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (caller_pc2346856) <= for-56388 [this67 <= caller_pc2346856;];@"For4.jif:7,12-25"
+(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (newException-56386) <= e-56389 [this67 <= caller_pc2346856;];@"For4.jif:13,15-26"

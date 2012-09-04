@@ -28,6 +28,11 @@ public class Variable extends Element {
 	}
 	
 	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
+	
+	@Override
 	public String toDotString() {
 		return StringUtil.getPrettyName(name);
 	}

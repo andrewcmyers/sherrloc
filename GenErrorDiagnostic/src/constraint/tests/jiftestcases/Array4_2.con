@@ -1,14 +1,24 @@
-LABEL C.provider13101223 //class jif.types.label.ProviderLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL C.provider30836417 //class jif.types.label.ProviderLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR C.provider24050066 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@Array4.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array4.jif:1,0-7
+CONSTRUCTOR C.provider29895416 0 //class jif.types.label.ProviderLabel_c@Array4.jif:1,0-7
+CONSTRUCTOR this 0
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-C.provider13101223==_->_;
-C.provider30836417==_->_;
+C.provider24050066 == _ -> _;
+C.provider29895416 == _ -> _;
+_ -> _ <= C.provider24050066;
+C.provider24050066 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= C.provider29895416;
+C.provider29895416 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-C.provider30836417 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array4.jif:1,0-7"
-C.provider13101223 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider13101223);];@"/home/zhang/APL/Jif/jif/tests/Array4.jif:1,0-0"
+C.provider24050066 <= (* -> *) [];@"Array4.jif:1,0-7"
+C.provider29895416 <= (* -> *) [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider29895416);];@"Array4.jif:1,0-0"

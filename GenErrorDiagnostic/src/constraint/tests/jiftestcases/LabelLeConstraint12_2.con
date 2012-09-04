@@ -1,8 +1,21 @@
-LABEL L-1772469607 //class jif.types.label.ParamLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL *lbl116505100 //class jif.types.label.DynamicLabel_c
-LABEL lbl1102930739 //class jif.types.label.ArgLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL _->_
+CONSTRUCTOR L-1772469607 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint12.jif:2,8-9
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint12.jif:1,0-7
+CONSTRUCTOR lbl1102930739 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint12.jif:4,17-22
+CONSTRUCTOR *lbl131893707 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint12.jif:4,9-13
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint12.jif:4,4-16
+CONSTRUCTOR this 0
 
-(L-1772469607) ⊔ (this67) ⊔ (caller_pc2346856) <= (*lbl116505100) ⊔ (caller_pc2346856) [L-1772469607 <= *lbl116505100;lbl1102930739 <= L-1772469607;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint12.jif:5,1-15"
+%%
+_ -> _ <= L-1772469607;
+L-1772469607 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= lbl1102930739;
+lbl1102930739 <= * -> *;
+_ -> _ <= *lbl131893707;
+*lbl131893707 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+
+%%
+(L-1772469607) ⊔ (this67) ⊔ (caller_pc2346856) <= (*lbl131893707) ⊔ (caller_pc2346856) [L-1772469607 <= *lbl131893707;lbl1102930739 <= L-1772469607;this67 <= caller_pc2346856;];@"LabelLeConstraint12.jif:5,1-15"

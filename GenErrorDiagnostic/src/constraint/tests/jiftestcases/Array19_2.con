@@ -1,5 +1,12 @@
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL _->_
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@Array19.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array19.jif:7,4-9
+CONSTRUCTOR this 0
 
-(caller_pc2346856) <= caller_pc2346856 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array19.jif:7,14-23"
+%%
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+
+%%
+(caller_pc2346856) <= caller_pc2346856 [this67 <= caller_pc2346856;];@"Array19.jif:7,14-23"

@@ -1,23 +1,39 @@
-LABEL Account.provider18818021 //class jif.types.label.ProviderLabel_c
-LABEL p99421796 //class jif.types.label.ArgLabel_c
-LABEL this487334413 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL Account.provider8495511 //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL this.customer-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR Account.provider9486830 0 //class jif.types.label.ProviderLabel_c@Account.jif:1,0-13
+CONSTRUCTOR p99421796 0 //class jif.types.label.ArgLabel_c@Account.jif:4,22-24
+CONSTRUCTOR this487334413 0 //class jif.types.label.ThisLabel_c@Account.jif:1,0-13
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Account.jif:4,2-27
+CONSTRUCTOR Account.provider26833471 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Account.jif:2,8-27
+CONSTRUCTOR * 0 //@Account.jif:8,9-18
+CONSTRUCTOR this.customer 0 //@Account.jif:8,9-17
 
 %%
-p99421796<=_->_;
-caller_pc2346856<=p99421796;
-Account.provider18818021==_->_;
-Account.provider8495511==_->_;
+p99421796 <= (_ -> _);
+caller_pc2346856 <= p99421796;
+Account.provider9486830 == _ -> _;
+Account.provider26833471 == _ -> _;
+_ -> _ <= Account.provider9486830;
+Account.provider9486830 <= * -> *;
+_ -> _ <= p99421796;
+p99421796 <= * -> *;
+_ -> _ <= (this.customer -> *);
+(this.customer -> *) <= * -> *;
+_ -> _ <= this487334413;
+this487334413 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= Account.provider26833471;
+Account.provider26833471 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-Account.provider18818021 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:1,0-13"
-_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:2,8-27"
-Account.provider8495511 <= *-> [this487334413 <= caller_pc2346856;caller_pc2346856 <= (Account.provider8495511);];@"/home/zhang/APL/Jif/jif/tests/Account.jif:4,28-29"
-(p99421796) ⊔ (this487334413) <= _->_ [this487334413 <= caller_pc2346856;caller_pc2346856 <= (Account.provider8495511);|p==this.customer;];@"/home/zhang/APL/Jif/jif/tests/Account.jif:5,4-12"
-this.customer-> == this.customer-> [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:8,2-25"
-this.customer-> == this.customer-> [];@"/home/zhang/APL/Jif/jif/tests/Account.jif:9,2-27"
+Account.provider26833471 <= (* -> *) [];@"Account.jif:1,0-13"
+(_ -> _) == (_ -> _) [];@"Account.jif:2,8-27"
+Account.provider9486830 <= (* -> *) [this487334413 <= caller_pc2346856;caller_pc2346856 <= (Account.provider9486830);];@"Account.jif:4,28-29"
+(p99421796) ⊔ (this487334413) <= (_ -> _) [this487334413 <= caller_pc2346856;caller_pc2346856 <= (Account.provider9486830);p==this.customer;];@"Account.jif:5,4-12"
+(this.customer -> *) == (this.customer -> *) [];@"Account.jif:8,2-25"
+(this.customer -> *) == (this.customer -> *) [];@"Account.jif:9,2-27"

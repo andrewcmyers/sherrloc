@@ -1,26 +1,45 @@
-LABEL *this.f32517099 //class jif.types.label.DynamicLabel_c
-LABEL *lb20950059 //class jif.types.label.DynamicLabel_c
-LABEL this2145528 //class jif.types.label.ThisLabel_c
-LABEL Dyn1.provider15612583 //class jif.types.label.ProviderLabel_c
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL Dyn1.provider30617157 //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this2145528 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR *this.f30820815 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
+CONSTRUCTOR Dyn1.provider8701723 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR Dyn1.provider22593168 0 //class jif.types.label.ProviderLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR *lb26209848 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:5,9-11
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@null
+CONSTRUCTOR * 0 //@Dyn1.jif:3,32-38
 
 %%
-Dyn1.provider15612583==_->_;
-Dyn1.provider30617157==_->_;
+Dyn1.provider8701723 == _ -> _;
+Dyn1.provider22593168 == _ -> _;
+_ -> _ <= this2145528;
+this2145528 <= * -> *;
+_ -> _ <= *this.f30820815;
+*this.f30820815 <= * -> *;
+_ -> _ <= Dyn1.provider8701723;
+Dyn1.provider8701723 <= * -> *;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= Dyn1.provider22593168;
+Dyn1.provider22593168 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= *lb26209848;
+*lb26209848 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-Dyn1.provider30617157 <= *-> [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:1,0-10"
-_->_ == _->_ [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:3,10-40"
-_->_ <= _->_ [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:5,4-14"
-*-> <= *-> [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:5,4-14"
-_->_ <= _->_ [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:5,4-14"
-*lb20950059 <= *lb20950059 [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:5,4-14"
-_->_ <= _->_ [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:9,4-13"
-_->_ <= _->_ [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:9,4-13"
-Dyn1.provider15612583 <= *-> [*this.f32517099 <= Alice->;Alice-> <= *this.f32517099;this2145528 <= caller_pc2346856;caller_pc2346856 <= (Dyn1.provider15612583);];@"/home/zhang/APL/Jif/jif/tests/Dyn1.jif:1,0-0"
+Dyn1.provider8701723 <= (* -> *) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;];@"Dyn1.jif:1,0-10"
+(_ -> _) == (_ -> _) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;];@"Dyn1.jif:3,10-40"
+(_ -> _) <= (_ -> _) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;];@"Dyn1.jif:5,4-14"
+(* -> *) <= (* -> *) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;];@"Dyn1.jif:5,4-14"
+(_ -> _) <= (_ -> _) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;];@"Dyn1.jif:5,4-14"
+*lb26209848 <= *lb26209848 [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;];@"Dyn1.jif:5,4-14"
+(_ -> _) <= (_ -> _) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;];@"Dyn1.jif:9,4-13"
+(_ -> _) <= (_ -> _) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;];@"Dyn1.jif:9,4-13"
+Dyn1.provider22593168 <= (* -> *) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;this2145528 <= caller_pc2346856;caller_pc2346856 <= (Dyn1.provider22593168);];@"Dyn1.jif:1,0-0"
