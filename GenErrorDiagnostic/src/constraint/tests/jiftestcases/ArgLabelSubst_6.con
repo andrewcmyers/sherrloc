@@ -1,19 +1,29 @@
-LABEL this-130279197 //class jif.types.label.ThisLabel_c
-LABEL zzz99833138 //class jif.types.label.ArgLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL w99421807 //class jif.types.label.ArgLabel_c
-LABEL _->_
+CONSTRUCTOR this-130279197 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR zzz99833138 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,50-52
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,11-27
+CONSTRUCTOR w99421807 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,39-41
+CONSTRUCTOR this 0
+CONSTRUCTOR * 0 //@ArgLabelSubst.jif:23,30-35
 
 %%
-zzz99833138<=_->_;
-w99421807<=_->_;
+zzz99833138 <= (_ -> _);
+w99421807 <= (_ -> _);
+_ -> _ <= this-130279197;
+this-130279197 <= * -> *;
+_ -> _ <= zzz99833138;
+zzz99833138 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= w99421807;
+w99421807 <= * -> *;
 
 %%
-(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:37,14-15"
-(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:37,17-18"
-(w99421807) ⊔ (caller_pc2346856) <= *-> [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:37,5-19"
-receiver-56388 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:37,5-19"
-arg1label-56387 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:37,5-19"
-arg2label-56386 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:37,5-19"
-(caller_pc2346856) <= (zzz99833138) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst.jif:40,1-13"
+(w99421807) ⊔ (caller_pc2346856) <= (* -> *) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:37,14-15"
+(w99421807) ⊔ (caller_pc2346856) <= (* -> *) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:37,17-18"
+(w99421807) ⊔ (caller_pc2346856) <= (* -> *) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:37,5-19"
+receiver-56388 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:37,5-19"
+arg1label-56387 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:37,5-19"
+arg2label-56386 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:37,5-19"
+(caller_pc2346856) <= (zzz99833138) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:40,1-13"

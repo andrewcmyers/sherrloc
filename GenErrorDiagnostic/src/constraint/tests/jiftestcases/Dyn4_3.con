@@ -1,6 +1,15 @@
-LABEL this2145531 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this2145531 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0-10
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:10,11-21
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Dyn4.jif:2,4-10
 
-(_->_) ⊔ (this2145531) ⊔ (caller_pc2346856) <= (_->_) ⊔ (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:11,8-17"
+%%
+_ -> _ <= this2145531;
+this2145531 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+((_ -> _)) ⊔ (this2145531) ⊔ (caller_pc2346856) <= ((_ -> _)) ⊔ (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:11,8-17"

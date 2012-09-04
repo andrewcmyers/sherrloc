@@ -1,4 +1,11 @@
-LABEL *C.f169 //class jif.types.label.DynamicLabel_c
-LABEL _->_
+CONSTRUCTOR *C.f169 0 //class jif.types.label.DynamicLabel_c@DynLabel11.jif:5,9-12
+CONSTRUCTOR this 0
 
-foo-56391 == *C.f169 [];@"/home/zhang/APL/Jif/jif/tests/DynLabel11.jif:5,4-18"
+%%
+_ -> _ <= *C.f169;
+*C.f169 <= * -> *;
+_ -> _ <= foo-56391;
+foo-56391 <= * -> *;
+
+%%
+foo-56391 == *C.f169 [];@"DynLabel11.jif:5,4-18"

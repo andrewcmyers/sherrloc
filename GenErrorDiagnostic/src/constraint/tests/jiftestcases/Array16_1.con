@@ -1,18 +1,36 @@
-LABEL Bob-> //class jif.types.label.PairLabel_c
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@Array16.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array16.jif:2,4-10
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR Bob 0 //@null
+CONSTRUCTOR * 0 //@Array16.jif:3,12-16
 
 %%
-caller_pc2346856<=_->_;
+caller_pc2346856 <= (_ -> _);
+_ -> _ <= (Bob -> *);
+(Bob -> *) <= * -> *;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= y-56391;
+y-56391 <= * -> *;
+_ -> _ <= x-56392;
+x-56392 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= array_base-56389;
+array_base-56389 <= * -> *;
+_ -> _ <= array_base-56390;
+array_base-56390 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-array_base-56389 <= Alice-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:3,34-47"
-array_base-56390 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:3,34-47"
-caller_pc2346856 <= x-56392 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:3,34-47"
-(x-56392) ⊔ (caller_pc2346856) <= *-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:4,40-49"
-receiver-56388 == (x-56392) ⊔ (caller_pc2346856) [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:4,40-49"
-Bob-> <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:4,40-49"
-(x-56392) ⊔ (caller_pc2346856) <= y-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array16.jif:4,40-49"
+array_base-56389 <= (Alice -> *) [this67 <= caller_pc2346856;];@"Array16.jif:3,34-47"
+array_base-56390 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array16.jif:3,34-47"
+caller_pc2346856 <= x-56392 [this67 <= caller_pc2346856;];@"Array16.jif:3,34-47"
+(x-56392) ⊔ (caller_pc2346856) <= (* -> *) [this67 <= caller_pc2346856;];@"Array16.jif:4,40-49"
+receiver-56388 == (x-56392) ⊔ (caller_pc2346856) [this67 <= caller_pc2346856;];@"Array16.jif:4,40-49"
+(Bob -> *) <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array16.jif:4,40-49"
+(x-56392) ⊔ (caller_pc2346856) <= y-56391 [this67 <= caller_pc2346856;];@"Array16.jif:4,40-49"

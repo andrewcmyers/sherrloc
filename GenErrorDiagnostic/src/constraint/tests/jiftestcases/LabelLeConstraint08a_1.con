@@ -1,4 +1,11 @@
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@LabelLeConstraint08a.jif:2,10-39
 
-f-56392 == _->_ [];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint08a.jif:2,10-39"
+%%
+_ -> _ <= f-56392;
+f-56392 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+f-56392 == (_ -> _) [];@"LabelLeConstraint08a.jif:2,10-39"

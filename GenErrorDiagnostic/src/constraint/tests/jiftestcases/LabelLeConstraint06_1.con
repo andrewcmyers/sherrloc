@@ -1,10 +1,25 @@
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *lbl133972965 //class jif.types.label.DynamicLabel_c
-LABEL *lbl29825048 //class jif.types.label.DynamicLabel_c
-LABEL _->_
+CONSTRUCTOR *lbl15131583 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:3,6-10
+CONSTRUCTOR *lbl233611621 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:2,54-58
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint06.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint06.jif:2,4-10
+CONSTRUCTOR this 0
 
-x-56392 == (caller_pc2346856) ⊔ (*lbl133972965) [*lbl133972965 <= *lbl29825048;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:3,12-13"
-(caller_pc2346856) <= x-56392 [*lbl133972965 <= *lbl29825048;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:3,16-17"
-y-56391 == (caller_pc2346856) ⊔ (*lbl29825048) [*lbl133972965 <= *lbl29825048;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:4,12-13"
-(x-56392) ⊔ (caller_pc2346856) <= y-56391 [*lbl133972965 <= *lbl29825048;this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint06.jif:4,16-17"
+%%
+_ -> _ <= *lbl15131583;
+*lbl15131583 <= * -> *;
+_ -> _ <= *lbl233611621;
+*lbl233611621 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= y-56391;
+y-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= x-56392;
+x-56392 <= * -> *;
+
+%%
+x-56392 == (caller_pc2346856) ⊔ (*lbl15131583) [*lbl15131583 <= *lbl233611621;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:3,12-13"
+(caller_pc2346856) <= x-56392 [*lbl15131583 <= *lbl233611621;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:3,16-17"
+y-56391 == (caller_pc2346856) ⊔ (*lbl233611621) [*lbl15131583 <= *lbl233611621;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:4,12-13"
+(x-56392) ⊔ (caller_pc2346856) <= y-56391 [*lbl15131583 <= *lbl233611621;this67 <= caller_pc2346856;];@"LabelLeConstraint06.jif:4,16-17"

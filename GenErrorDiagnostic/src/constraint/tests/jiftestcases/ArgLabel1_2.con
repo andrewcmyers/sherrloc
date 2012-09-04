@@ -1,12 +1,18 @@
-LABEL this68 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL x99421804 //class jif.types.label.ArgLabel_c
-LABEL _->_
+CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9-17
+CONSTRUCTOR x99421804 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22-25
+CONSTRUCTOR this 0
 
 %%
-caller_pc2346856<=x99421804;
-x99421804<=x99421804;
+caller_pc2346856 <= x99421804;
+x99421804 <= x99421804;
+_ -> _ <= this68;
+this68 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= x99421804;
+x99421804 <= * -> *;
 
 %%
-x99421804 <= x99421804 [this68 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabel1.jif:7,21-28"
-receiver-56392 == x99421804 [this68 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabel1.jif:7,21-28"
+x99421804 <= x99421804 [this68 <= caller_pc2346856;];@"ArgLabel1.jif:7,21-28"
+receiver-56392 == x99421804 [this68 <= caller_pc2346856;];@"ArgLabel1.jif:7,21-28"

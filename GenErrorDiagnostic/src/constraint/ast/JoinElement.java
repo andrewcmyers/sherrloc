@@ -74,4 +74,9 @@ public class JoinElement extends EnumerableElement {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean isDecomposable() {
+		return false;
+	}
 }

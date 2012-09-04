@@ -1,16 +1,31 @@
-LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL this1969669406 //class jif.types.label.ThisLabel_c
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array7.jif:3,4-10
+CONSTRUCTOR this1969669406 0 //class jif.types.label.ThisLabel_c@Array7.jif:1,0-12
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR Bob 0 //@null
+CONSTRUCTOR * 0 //@Array7.jif:4,12-18
 
 %%
-caller_pc2346856<=Alice->;
+caller_pc2346856 <= (Alice -> *);
+_ -> _ <= (Alice -> Bob);
+(Alice -> Bob) <= * -> *;
+_ -> _ <= ar-56391;
+ar-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= x-56392;
+x-56392 <= * -> *;
+_ -> _ <= array_base-56389;
+array_base-56389 <= * -> *;
+_ -> _ <= this1969669406;
+this1969669406 <= * -> *;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
 
 %%
-x-56392 == Alice-> [this1969669406 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array7.jif:4,28-29"
-(caller_pc2346856) <= x-56392 [this1969669406 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array7.jif:4,32-33"
-(x-56392) ⊔ (caller_pc2346856) <= array_base-56389 [this1969669406 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array7.jif:5,49-50"
-(x-56392) ⊔ (caller_pc2346856) <= array_base-56389 [this1969669406 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array7.jif:5,52-53"
-array_base-56389 <= Alice->Bob [this1969669406 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array7.jif:5,38-54"
-(x-56392) ⊔ (caller_pc2346856) <= ar-56391 [this1969669406 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array7.jif:5,38-54"
+x-56392 == (Alice -> *) [this1969669406 <= caller_pc2346856;];@"Array7.jif:4,28-29"
+(caller_pc2346856) <= x-56392 [this1969669406 <= caller_pc2346856;];@"Array7.jif:4,32-33"
+(x-56392) ⊔ (caller_pc2346856) <= array_base-56389 [this1969669406 <= caller_pc2346856;];@"Array7.jif:5,49-50"
+(x-56392) ⊔ (caller_pc2346856) <= array_base-56389 [this1969669406 <= caller_pc2346856;];@"Array7.jif:5,52-53"
+array_base-56389 <= (Alice -> Bob) [this1969669406 <= caller_pc2346856;];@"Array7.jif:5,38-54"
+(x-56392) ⊔ (caller_pc2346856) <= ar-56391 [this1969669406 <= caller_pc2346856;];@"Array7.jif:5,38-54"

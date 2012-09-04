@@ -19,6 +19,10 @@ public abstract class Element {
 		return name;
 	}
 	
+	public boolean isDecomposable() {
+		return false;
+	}
+	
 	public String pos () {
 		return info.equals("")?"":(" @"+info);
 	}
@@ -36,4 +40,5 @@ public abstract class Element {
 	abstract public boolean isStart();
 	
 	abstract public boolean isEnd();
+	
 }

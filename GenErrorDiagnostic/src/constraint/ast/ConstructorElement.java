@@ -41,12 +41,11 @@ public class ConstructorElement extends EnumerableElement {
 	
 	@Override
 	public boolean isStart() {
-		return true;
+		return !hasVars();
 	}
 	
 	@Override
 	public boolean isEnd() {
-		return true;
+		return !hasVars();
 	}
-
 }

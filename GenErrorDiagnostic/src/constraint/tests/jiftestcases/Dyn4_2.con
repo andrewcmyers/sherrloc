@@ -1,25 +1,37 @@
-LABEL this2145531 //class jif.types.label.ThisLabel_c
-LABEL L99421760 //class jif.types.label.ArgLabel_c
-LABEL *L29744661 //class jif.types.label.DynamicLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this2145531 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0-10
+CONSTRUCTOR L99421760 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:4,32-38
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:4,11-20
+CONSTRUCTOR *L8308610 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:6,13-14
+CONSTRUCTOR this 0
+CONSTRUCTOR * 0 //@Dyn4.jif:14,28-35
 
 %%
-L99421760<=_->_;
-caller_pc2346856<=_->_;
+L99421760 <= (_ -> _);
+caller_pc2346856 <= (_ -> _);
+_ -> _ <= this2145531;
+this2145531 <= * -> *;
+_ -> _ <= L99421760;
+L99421760 <= * -> *;
+_ -> _ <= x-56391;
+x-56391 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= *L8308610;
+*L8308610 <= * -> *;
 
 %%
-x-56391 == *L29744661 [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:6,16-17"
-L99421760 <= *-> [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:6,22-23"
-(caller_pc2346856) <= *L29744661 [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:6,25-26"
-caller_pc2346856 <= *-> [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:6,20-27"
-arg1label-56388 == L99421760 [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:6,20-27"
-arg2label-56387 == (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:6,20-27"
-*L29744661 <= x-56391 [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:6,20-27"
-L99421760 <= *-> [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:7,17-18"
-(caller_pc2346856) <= *L29744661 [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:7,20-21"
-caller_pc2346856 <= *-> [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:7,15-22"
-arg1label-56384 == L99421760 [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:7,15-22"
-arg2label-56383 == (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:7,15-22"
-*L29744661 <= *L29744661 [this2145531 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Dyn4.jif:7,8-23"
+x-56391 == *L8308610 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,16-17"
+L99421760 <= (* -> *) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,22-23"
+(caller_pc2346856) <= *L8308610 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,25-26"
+caller_pc2346856 <= (* -> *) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,20-27"
+arg1label-56388 == L99421760 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,20-27"
+arg2label-56387 == (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,20-27"
+*L8308610 <= x-56391 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:6,20-27"
+L99421760 <= (* -> *) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,17-18"
+(caller_pc2346856) <= *L8308610 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,20-21"
+caller_pc2346856 <= (* -> *) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,15-22"
+arg1label-56384 == L99421760 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,15-22"
+arg2label-56383 == (caller_pc2346856) [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,15-22"
+*L8308610 <= *L8308610 [this2145531 <= caller_pc2346856;];@"Dyn4.jif:7,8-23"

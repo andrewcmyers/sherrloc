@@ -1,28 +1,73 @@
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL Bob-> //class jif.types.label.PairLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL _->_
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@Array17.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array17.jif:2,4-10
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Array17.jif:1,0-7
+CONSTRUCTOR Bob 0 //@null
+CONSTRUCTOR * 0 //@Array17.jif:3,10-14
 
 %%
-caller_pc2346856<=_->_;
+caller_pc2346856 <= (_ -> _);
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= y-56391;
+y-56391 <= * -> *;
+_ -> _ <= x-56392;
+x-56392 <= * -> *;
+_ -> _ <= a-56389;
+a-56389 <= * -> *;
+_ -> _ <= z-56390;
+z-56390 <= * -> *;
+_ -> _ <= c-56387;
+c-56387 <= * -> *;
+_ -> _ <= b-56388;
+b-56388 <= * -> *;
+_ -> _ <= array_base-56385;
+array_base-56385 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= array_base-56386;
+array_base-56386 <= * -> *;
+_ -> _ <= array_base-56378;
+array_base-56378 <= * -> *;
+_ -> _ <= array_base-56377;
+array_base-56377 <= * -> *;
+_ -> _ <= (Bob -> *);
+(Bob -> *) <= * -> *;
+_ -> _ <= array_base-56380;
+array_base-56380 <= * -> *;
+_ -> _ <= array_base-56379;
+array_base-56379 <= * -> *;
+_ -> _ <= array_base-56382;
+array_base-56382 <= * -> *;
+_ -> _ <= array_base-56381;
+array_base-56381 <= * -> *;
+_ -> _ <= array_base-56384;
+array_base-56384 <= * -> *;
+_ -> _ <= array_base-56383;
+array_base-56383 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= array_base-56376;
+array_base-56376 <= * -> *;
+_ -> _ <= array_base-56375;
+array_base-56375 <= * -> *;
 
 %%
-array_base-56385 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:3,24-29"
-array_base-56386 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:3,24-29"
-caller_pc2346856 <= x-56392 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:3,24-29"
-array_base-56383 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:4,24-29"
-array_base-56384 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:4,24-29"
-caller_pc2346856 <= y-56391 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:4,24-29"
-array_base-56381 <= _->_ [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:5,18-23"
-array_base-56382 <= _->_ [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:5,18-23"
-caller_pc2346856 <= z-56390 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:5,18-23"
-array_base-56379 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:7,26-39"
-array_base-56380 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:7,26-39"
-caller_pc2346856 <= a-56389 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:7,26-39"
-array_base-56377 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:8,26-36"
-array_base-56378 <= Bob-> [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:8,26-36"
-caller_pc2346856 <= b-56388 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:8,26-36"
-array_base-56375 <= _->_ [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:9,20-30"
-array_base-56376 <= _->_ [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:9,20-30"
-caller_pc2346856 <= c-56387 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/Array17.jif:9,20-30"
+array_base-56385 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:3,24-29"
+array_base-56386 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:3,24-29"
+caller_pc2346856 <= x-56392 [this67 <= caller_pc2346856;];@"Array17.jif:3,24-29"
+array_base-56383 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:4,24-29"
+array_base-56384 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:4,24-29"
+caller_pc2346856 <= y-56391 [this67 <= caller_pc2346856;];@"Array17.jif:4,24-29"
+array_base-56381 <= (_ -> _) [this67 <= caller_pc2346856;];@"Array17.jif:5,18-23"
+array_base-56382 <= (_ -> _) [this67 <= caller_pc2346856;];@"Array17.jif:5,18-23"
+caller_pc2346856 <= z-56390 [this67 <= caller_pc2346856;];@"Array17.jif:5,18-23"
+array_base-56379 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:7,26-39"
+array_base-56380 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:7,26-39"
+caller_pc2346856 <= a-56389 [this67 <= caller_pc2346856;];@"Array17.jif:7,26-39"
+array_base-56377 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:8,26-36"
+array_base-56378 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:8,26-36"
+caller_pc2346856 <= b-56388 [this67 <= caller_pc2346856;];@"Array17.jif:8,26-36"
+array_base-56375 <= (_ -> _) [this67 <= caller_pc2346856;];@"Array17.jif:9,20-30"
+array_base-56376 <= (_ -> _) [this67 <= caller_pc2346856;];@"Array17.jif:9,20-30"
+caller_pc2346856 <= c-56387 [this67 <= caller_pc2346856;];@"Array17.jif:9,20-30"

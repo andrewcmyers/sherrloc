@@ -1,10 +1,16 @@
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL *y21831098 //class jif.types.label.DynamicLabel_c
-LABEL _->_
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst4.jif:1,0-8
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst4.jif:2,11-22
+CONSTRUCTOR *y3459009 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst4.jif:2,16-17
+CONSTRUCTOR this 0
 
 %%
-caller_pc2346856<=_->_;
+caller_pc2346856 <= (_ -> _);
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= *y3459009;
+*y3459009 <= * -> *;
 
 %%
-(caller_pc2346856) <= *y21831098 [this67 <= caller_pc2346856;];@"/home/zhang/APL/Jif/jif/tests/ArgLabelSubst4.jif:3,8-17"
+(caller_pc2346856) <= *y3459009 [this67 <= caller_pc2346856;];@"ArgLabelSubst4.jif:3,8-17"

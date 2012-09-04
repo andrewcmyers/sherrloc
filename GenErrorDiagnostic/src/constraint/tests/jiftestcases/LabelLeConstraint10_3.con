@@ -1,25 +1,43 @@
-LABEL L-1772469607 //class jif.types.label.ParamLabel_c
-LABEL C.provider30964613 //class jif.types.label.ProviderLabel_c
-LABEL *lbl1123046126 //class jif.types.label.DynamicLabel_c
-LABEL this67 //class jif.types.label.ThisLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL lbl1102930739 //class jif.types.label.ArgLabel_c
-LABEL C.provider21604244 //class jif.types.label.ProviderLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR *lbl1107740068 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint10.jif:4,44-48
+CONSTRUCTOR L-1772469607 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint10.jif:2,8-9
+CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint10.jif:1,0-7
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint10.jif:1,0-7
+CONSTRUCTOR lbl1102930739 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint10.jif:4,17-22
+CONSTRUCTOR C.provider27044100 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint10.jif:1,0-7
+CONSTRUCTOR C.provider32931124 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@null
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-C.provider30964613==_->_;
-C.provider21604244==_->_;
+C.provider27044100 == _ -> _;
+C.provider32931124 == _ -> _;
+_ -> _ <= *lbl1107740068;
+*lbl1107740068 <= * -> *;
+_ -> _ <= L-1772469607;
+L-1772469607 <= * -> *;
+_ -> _ <= this67;
+this67 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= lbl1102930739;
+lbl1102930739 <= * -> *;
+_ -> _ <= C.provider27044100;
+C.provider27044100 <= * -> *;
+_ -> _ <= C.provider32931124;
+C.provider32931124 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-C.provider21604244 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:1,0-7"
-L-1772469607 == L-1772469607 [];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:2,4-13"
-L-1772469607 <= *lbl1123046126 [L-1772469607 <= *lbl1123046126;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:4,35-49"
-lbl1102930739 <= L-1772469607 [L-1772469607 <= *lbl1123046126;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:4,51-64"
-*-> <= *-> [L-1772469607 <= *lbl1123046126;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:4,4-16"
-*-> <= *-> [L-1772469607 <= *lbl1123046126;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:4,4-16"
-_->_ <= _->_ [L-1772469607 <= *lbl1123046126;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:4,4-16"
-*lbl1123046126 <= *lbl1123046126 [L-1772469607 <= *lbl1123046126;lbl1102930739 <= L-1772469607;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:4,4-16"
-C.provider30964613 <= *-> [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider30964613);];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint10.jif:1,0-0"
+C.provider32931124 <= (* -> *) [];@"LabelLeConstraint10.jif:1,0-7"
+L-1772469607 == L-1772469607 [];@"LabelLeConstraint10.jif:2,4-13"
+L-1772469607 <= *lbl1107740068 [L-1772469607 <= *lbl1107740068;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint10.jif:4,35-49"
+lbl1102930739 <= L-1772469607 [L-1772469607 <= *lbl1107740068;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint10.jif:4,51-64"
+(* -> *) <= (* -> *) [L-1772469607 <= *lbl1107740068;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint10.jif:4,4-16"
+(* -> *) <= (* -> *) [L-1772469607 <= *lbl1107740068;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint10.jif:4,4-16"
+(_ -> _) <= (_ -> _) [L-1772469607 <= *lbl1107740068;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint10.jif:4,4-16"
+*lbl1107740068 <= *lbl1107740068 [L-1772469607 <= *lbl1107740068;lbl1102930739 <= L-1772469607;];@"LabelLeConstraint10.jif:4,4-16"
+C.provider27044100 <= (* -> *) [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider27044100);];@"LabelLeConstraint10.jif:1,0-0"

@@ -1,19 +1,32 @@
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL Array6.provider14779369 //class jif.types.label.ProviderLabel_c
-LABEL this1969669405 //class jif.types.label.ThisLabel_c
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL Array6.provider32816375 //class jif.types.label.ProviderLabel_c
-LABEL _->_
+CONSTRUCTOR Array6.provider16981272 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array6.jif:1,0-12
+CONSTRUCTOR Array6.provider20403969 0 //class jif.types.label.ProviderLabel_c@Array6.jif:1,0-12
+CONSTRUCTOR this1969669405 0 //class jif.types.label.ThisLabel_c@Array6.jif:1,0-12
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR * 0 //@Array6.jif:3,47-53
 
 %%
-Array6.provider14779369==_->_;
-Array6.provider32816375==_->_;
+Array6.provider16981272 == _ -> _;
+Array6.provider20403969 == _ -> _;
+_ -> _ <= Array6.provider16981272;
+Array6.provider16981272 <= * -> *;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= Array6.provider20403969;
+Array6.provider20403969 <= * -> *;
+_ -> _ <= this1969669405;
+this1969669405 <= * -> *;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
 
 %%
-Array6.provider32816375 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:1,0-12"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:3,4-10"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:3,4-10"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:3,4-10"
-Array6.provider14779369 <= *-> [this1969669405 <= caller_pc2346856;caller_pc2346856 <= (Array6.provider14779369);];@"/home/zhang/APL/Jif/jif/tests/Array6.jif:1,0-0"
+Array6.provider16981272 <= (* -> *) [];@"Array6.jif:1,0-12"
+(Alice -> *) <= (Alice -> *) [];@"Array6.jif:3,4-10"
+(Alice -> *) <= (Alice -> *) [];@"Array6.jif:3,4-10"
+(Alice -> *) <= (Alice -> *) [];@"Array6.jif:3,4-10"
+Array6.provider20403969 <= (* -> *) [this1969669405 <= caller_pc2346856;caller_pc2346856 <= (Array6.provider20403969);];@"Array6.jif:1,0-0"

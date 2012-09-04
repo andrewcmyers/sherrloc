@@ -1,29 +1,53 @@
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL Array5.provider27635615 //class jif.types.label.ProviderLabel_c
-LABEL this1969669404 //class jif.types.label.ThisLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL Alice-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL Array5.provider1340650 //class jif.types.label.ProviderLabel_c
-LABEL _->_
+CONSTRUCTOR Array5.provider13434654 0 //class jif.types.label.ProviderLabel_c@Array5.jif:1,0-12
+CONSTRUCTOR this1969669404 0 //class jif.types.label.ThisLabel_c@Array5.jif:1,0-12
+CONSTRUCTOR Array5.provider6043841 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array5.jif:1,0-12
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@Array5.jif:3,25-27
+CONSTRUCTOR Bob 0 //@null
+CONSTRUCTOR * 0 //@Array5.jif:8,50-56
 
 %%
-Array5.provider27635615==_->_;
-Array5.provider1340650==_->_;
+Array5.provider13434654 == _ -> _;
+Array5.provider6043841 == _ -> _;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= Array5.provider13434654;
+Array5.provider13434654 <= * -> *;
+_ -> _ <= this1969669404;
+this1969669404 <= * -> *;
+_ -> _ <= Array5.provider6043841;
+Array5.provider6043841 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (Alice -> *);
+(Alice -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (Alice -> Bob);
+(Alice -> Bob) <= * -> *;
+_ -> _ <= array_base-56380;
+array_base-56380 <= * -> *;
+_ -> _ <= array_base-56384;
+array_base-56384 <= * -> *;
+_ -> _ <= array_base-56383;
+array_base-56383 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
 
 %%
-Array5.provider1340650 <= *-> [];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:1,0-12"
-_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:3,4-45"
-array_base-56384 <= Alice-> [this1969669404 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:3,33-44"
-_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:4,4-48"
-array_base-56383 <= Alice->Bob [this1969669404 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:4,36-47"
-_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:5,4-46"
-_->_ == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:6,4-56"
-array_base-56380 <= Alice->Bob [this1969669404 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:6,36-55"
-Alice->Bob <= Alice->Bob [];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:8,4-10"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:8,4-10"
-Alice-> <= Alice-> [];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:8,4-10"
-Array5.provider27635615 <= *-> [this1969669404 <= caller_pc2346856;caller_pc2346856 <= (Array5.provider27635615);];@"/home/zhang/APL/Jif/jif/tests/Array5.jif:1,0-0"
+Array5.provider6043841 <= (* -> *) [];@"Array5.jif:1,0-12"
+(_ -> _) == (_ -> _) [];@"Array5.jif:3,4-45"
+array_base-56384 <= (Alice -> *) [this1969669404 <= (_ -> _);];@"Array5.jif:3,33-44"
+(_ -> _) == (_ -> _) [];@"Array5.jif:4,4-48"
+array_base-56383 <= (Alice -> Bob) [this1969669404 <= (_ -> _);];@"Array5.jif:4,36-47"
+(_ -> _) == (_ -> _) [];@"Array5.jif:5,4-46"
+(_ -> _) == (_ -> _) [];@"Array5.jif:6,4-56"
+array_base-56380 <= (Alice -> Bob) [this1969669404 <= (_ -> _);];@"Array5.jif:6,36-55"
+(Alice -> Bob) <= (Alice -> Bob) [];@"Array5.jif:8,4-10"
+(Alice -> *) <= (Alice -> *) [];@"Array5.jif:8,4-10"
+(Alice -> *) <= (Alice -> *) [];@"Array5.jif:8,4-10"
+Array5.provider13434654 <= (* -> *) [this1969669404 <= caller_pc2346856;caller_pc2346856 <= (Array5.provider13434654);];@"Array5.jif:1,0-0"

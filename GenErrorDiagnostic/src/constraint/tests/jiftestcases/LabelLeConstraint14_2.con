@@ -1,43 +1,79 @@
-LABEL Q-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL o99421799 //class jif.types.label.ArgLabel_c
-LABEL Q-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL *-> //class jif.types.label.PairLabel_c
-LABEL C.provider14666567 //class jif.types.label.ProviderLabel_c
-LABEL caller_pc2346856 //class jif.types.label.ArgLabel_c
-LABEL P-> //class jif.types.label.PairLabel_c
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR o99421799 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:15,20-27
+CONSTRUCTOR C.provider10920267 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:13,13-45
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:16,27-28
+CONSTRUCTOR P 0 //@LabelLeConstraint14.jif:16,42-43
+CONSTRUCTOR Q 0 //@LabelLeConstraint14.jif:16,45-46
+CONSTRUCTOR * 0 //@LabelLeConstraint14.jif:16,42-44
 
 %%
-o99421799<=P-> ⊔ Q->;
-caller_pc2346856<=P-> ⊔ Q->;
-C.provider14666567==_->_;
+o99421799 <= (P -> *) ⊔ (Q -> *);
+caller_pc2346856 <= (P -> *) ⊔ (Q -> *);
+C.provider10920267 == _ -> _;
+_ -> _ <= (P -> *);
+(P -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= o99421799;
+o99421799 <= * -> *;
+_ -> _ <= o1-56389;
+o1-56389 <= * -> *;
+_ -> _ <= downgrade_from-56387;
+downgrade_from-56387 <= * -> *;
+_ -> _ <= o2-56388;
+o2-56388 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (Q -> *);
+(Q -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= infered_downgrade_to-56385;
+infered_downgrade_to-56385 <= * -> *;
+_ -> _ <= C.provider10920267;
+C.provider10920267 <= * -> *;
+_ -> _ <= infered_downgrade_from-56386;
+infered_downgrade_from-56386 <= * -> *;
+_ -> _ <= (o1-56389) ⊔ ((_ -> _));
+(o1-56389) ⊔ ((_ -> _)) <= * -> *;
+_ -> _ <= (Q -> *);
+(Q -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= infered_downgrade_from-56384;
+infered_downgrade_from-56384 <= * -> *;
+_ -> _ <= infered_downgrade_to-56383;
+infered_downgrade_to-56383 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
 
 %%
-C.provider14666567 <= *-> [caller_pc2346856 <= P-> ⊔ Q->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:16,20-31"
-C.provider14666567 <= *-> [caller_pc2346856 <= P-> ⊔ Q->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:16,20-31"
-(P-> ⊔ Q->) ⊓ (*->) <= P-> ⊔ Q-> [caller_pc2346856 <= P-> ⊔ Q->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:13,13-45"
-(_->_) ⊓ (_->_) <= P-> ⊔ Q-> [caller_pc2346856 <= P-> ⊔ Q->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:13,13-45"
-caller_pc2346856 == downgrade_from-56387 [caller_pc2346856 <= P-> ⊔ Q->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:17,10-21,11"
-downgrade_from-56387 <= *-> [caller_pc2346856 <= P-> ⊔ Q->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:17,10-21,11"
-downgrade_from-56387 <= P-> ⊔ Q-> [caller_pc2346856 <= P-> ⊔ Q->;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:17,10-21,11"
-infered_downgrade_from-56386 == P-> ⊔ Q-> [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:18,26-69"
-P-> ⊔ Q-> == infered_downgrade_to-56385 [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:18,26-69"
-(o99421799) ⊔ (_->_) <= infered_downgrade_from-56386 [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:18,26-69"
-(infered_downgrade_from-56386) ⊓ (*->) <= infered_downgrade_to-56385 [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:18,26-69"
-(infered_downgrade_from-56386) ⊓ (_->_) ⊓ (_->_) <= infered_downgrade_to-56385 [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:18,26-69"
-(_->_) ⊔ (infered_downgrade_to-56385) <= o1-56389 [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:18,26-69"
-infered_downgrade_from-56384 <= P-> ⊔ Q-> [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:19,26-83"
-((o1-56389) ⊔ (_->_)) ⊓ (_->_) <= (infered_downgrade_to-56383) ⊓ (_->_) [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:19,26-83"
-(infered_downgrade_to-56383) ⊓ (_->_) <= (Q->) ⊓ (_->_) [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:19,26-83"
-(Q->) ⊓ (*->) == (infered_downgrade_to-56383) ⊓ (*->) [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:19,26-83"
-(o1-56389) ⊔ (_->_) <= infered_downgrade_from-56384 [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:19,26-83"
-infered_downgrade_from-56384 <= (infered_downgrade_to-56383) ⊔ (*->) [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:19,26-83"
-infered_downgrade_from-56384 <= (P-> ⊔ Q->) ⊔ (infered_downgrade_to-56383) [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:19,26-83"
-(_->_) ⊔ (infered_downgrade_to-56383) <= o2-56388 [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:19,26-83"
-(o2-56388) ⊔ (_->_) <= (Q->) ⊔ (caller_pc2346856) [caller_pc2346856 <= P-> ⊔ Q->;caller_pc2346856 <= _->_;];@"/home/zhang/APL/Jif/jif/tests/LabelLeConstraint14.jif:20,14-24"
+C.provider10920267 <= (* -> *) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);];@"LabelLeConstraint14.jif:16,20-31"
+C.provider10920267 <= (* -> *) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);];@"LabelLeConstraint14.jif:16,20-31"
+((P -> *) ⊔ (Q -> *)) ⊓ ((* -> *)) <= (P -> *) ⊔ (Q -> *) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);];@"LabelLeConstraint14.jif:13,13-45"
+((_ -> _)) ⊓ ((_ -> _)) <= (P -> *) ⊔ (Q -> *) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);];@"LabelLeConstraint14.jif:13,13-45"
+caller_pc2346856 == downgrade_from-56387 [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);];@"LabelLeConstraint14.jif:17,10-21,11"
+downgrade_from-56387 <= (* -> *) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);];@"LabelLeConstraint14.jif:17,10-21,11"
+downgrade_from-56387 <= (P -> *) ⊔ (Q -> *) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);];@"LabelLeConstraint14.jif:17,10-21,11"
+infered_downgrade_from-56386 == (P -> *) ⊔ (Q -> *) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:18,26-69"
+(P -> *) ⊔ (Q -> *) == infered_downgrade_to-56385 [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:18,26-69"
+(o99421799) ⊔ ((_ -> _)) <= infered_downgrade_from-56386 [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:18,26-69"
+(infered_downgrade_from-56386) ⊓ ((* -> *)) <= infered_downgrade_to-56385 [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:18,26-69"
+(infered_downgrade_from-56386) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= infered_downgrade_to-56385 [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:18,26-69"
+((_ -> _)) ⊔ (infered_downgrade_to-56385) <= o1-56389 [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:18,26-69"
+infered_downgrade_from-56384 <= (P -> *) ⊔ (Q -> *) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:19,26-83"
+((o1-56389) ⊔ ((_ -> _))) ⊓ ((_ -> _)) <= (infered_downgrade_to-56383) ⊓ ((_ -> _)) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:19,26-83"
+(infered_downgrade_to-56383) ⊓ ((_ -> _)) <= ((Q -> *)) ⊓ ((_ -> _)) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:19,26-83"
+((Q -> *)) ⊓ ((* -> *)) == (infered_downgrade_to-56383) ⊓ ((* -> *)) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:19,26-83"
+(o1-56389) ⊔ ((_ -> _)) <= infered_downgrade_from-56384 [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:19,26-83"
+infered_downgrade_from-56384 <= (infered_downgrade_to-56383) ⊔ ((* -> *)) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:19,26-83"
+infered_downgrade_from-56384 <= ((Q -> *) ⊔ (P -> *)) ⊔ (infered_downgrade_to-56383) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:19,26-83"
+((_ -> _)) ⊔ (infered_downgrade_to-56383) <= o2-56388 [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:19,26-83"
+(o2-56388) ⊔ ((_ -> _)) <= ((Q -> *)) ⊔ (caller_pc2346856) [caller_pc2346856 <= (P -> *) ⊔ (Q -> *);caller_pc2346856 <= (_ -> _);];@"LabelLeConstraint14.jif:20,14-24"

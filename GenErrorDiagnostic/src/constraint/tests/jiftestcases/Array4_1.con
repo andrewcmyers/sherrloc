@@ -1,6 +1,17 @@
-LABEL _->_ //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Array4.jif:5,4-56
 
-f1-56392 == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array4.jif:5,4-56"
-f2-56391 == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array4.jif:6,4-41"
-f3-56390 == _->_ [];@"/home/zhang/APL/Jif/jif/tests/Array4.jif:7,4-36"
+%%
+_ -> _ <= f2-56391;
+f2-56391 <= * -> *;
+_ -> _ <= f1-56392;
+f1-56392 <= * -> *;
+_ -> _ <= f3-56390;
+f3-56390 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+f1-56392 == (_ -> _) [];@"Array4.jif:5,4-56"
+f2-56391 == (_ -> _) [];@"Array4.jif:6,4-41"
+f3-56390 == (_ -> _) [];@"Array4.jif:7,4-36"

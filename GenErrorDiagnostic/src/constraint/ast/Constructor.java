@@ -42,9 +42,14 @@ public class Constructor extends Element {
 	public boolean equals(Object o) {
 		if (o instanceof Constructor) {
 			Constructor c = (Constructor)o;
-			return arity==c.arity && this.name==c.name;
+			return arity==c.arity && this.name.equals(c.name);
 		}
 		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return arity * 1000 + name.hashCode();
 	}
 	
 	@Override
@@ -61,4 +66,5 @@ public class Constructor extends Element {
 	public boolean isEnd() {
 		return true;
 	}
+	
 }

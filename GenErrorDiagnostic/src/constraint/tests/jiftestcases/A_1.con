@@ -1,4 +1,12 @@
-LABEL Alice->Bob //class jif.types.label.PairLabel_c
-LABEL _->_
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR Bob 0 //@null
 
-f-56392 == Alice->Bob [];@"/home/zhang/APL/Jif/jif/tests/A.jif:2,11-28"
+%%
+_ -> _ <= (Alice -> Bob);
+(Alice -> Bob) <= * -> *;
+_ -> _ <= f-56392;
+f-56392 <= * -> *;
+
+%%
+f-56392 == (Alice -> Bob) [];@"A.jif:2,11-28"
