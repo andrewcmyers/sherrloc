@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 import constraint.graph.ConstraintGraph;
+import constraint.graph.ElementNode;
+import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 
@@ -171,8 +173,15 @@ public class Environment {
 			ph.put(s1, new HashSet<String>());
 		ph.get(s1).add(s2);
 	}
-
 	
+	public Set<Node> geqSet(Node start) {
+		return finder.geqSet(start);
+	}
+	
+	public Set<Node> leqSet(Node end) {
+		return finder.leqSet(end);
+	}
+		
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Environment) {
