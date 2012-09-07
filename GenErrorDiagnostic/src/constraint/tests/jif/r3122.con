@@ -1,36 +1,16 @@
 CONSTRUCTOR map_access-163676001 0 //class jif.types.label.ArgLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:399,10-15
 CONSTRUCTOR *friendsLabel652373198 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:428,16-28
-CONSTRUCTOR util.Group.provider4363247 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:37,2-12
-CONSTRUCTOR mapserv.MapServer.provider15112023 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:32,2-11
-CONSTRUCTOR util.GroupIterator.provider27875008 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:38,47-65
 CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:383,2-384,13
-CONSTRUCTOR util.Group.provider15202883 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:37,47-57
-CONSTRUCTOR util.GroupIterator.provider7693017 0 //class fabric.types.FabricProviderLabel_c@null
-CONSTRUCTOR mapserv.Box.provider14283274 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:32,24-27
-CONSTRUCTOR util.Group.provider31463229 0 //class fabric.types.FabricProviderLabel_c@null
-CONSTRUCTOR mapserv.MapServer.provider20197654 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:32,64-73
-CONSTRUCTOR util.GroupIterator.provider16563631 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/signatures/util/Group.fab:21,2-15
 CONSTRUCTOR this425161166 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:29,7-22
-CONSTRUCTOR mapserv.MapServer.provider18744018 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:31,64-73
 CONSTRUCTOR map99854672 0 //class jif.types.label.ArgLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:397,10-18
-CONSTRUCTOR mapserv.MapImage.provider7986938 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:31,43-51
 CONSTRUCTOR user103178947 0 //class jif.types.label.ArgLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:393,10-14
 CONSTRUCTOR *map_update332605145 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:409,78-88
-CONSTRUCTOR mapserv.Box.provider13550052 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/mapserv_1.0_codebase/mapserv/MapImage.fab:20,40-43
 CONSTRUCTOR map_update416685312 0 //class jif.types.label.ArgLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:398,10-15
-CONSTRUCTOR util.GroupIterator.provider18770814 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:38,2-20
 CONSTRUCTOR *box_u125426365 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:423,16-21
-CONSTRUCTOR mapserv.MapImage.provider9099345 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:516,17-25
 CONSTRUCTOR *map_access-243877655 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:407,78-88
 CONSTRUCTOR *box_a94576494 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:424,16-21
 CONSTRUCTOR *friend.locationLabel1221045265 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/snapp_1.0_codebase/snapp/User.fab:43,18-31
-CONSTRUCTOR mapserv.MapServer.provider19718130 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:31,2-11
-CONSTRUCTOR friendmap.FriendMap.provider19917249 0 //class fabric.types.FabricProviderLabel_c@null
-CONSTRUCTOR mapserv.Box.provider23056272 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:32,43-46
-CONSTRUCTOR mapserv.MapImage.provider19054550 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:31,24-32
-CONSTRUCTOR mapserv.Box.provider33506865 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/mapserv_1.0_codebase/mapserv/MapImage.fab:20,2-5
 CONSTRUCTOR A-1772469618 0 //class jif.types.label.ParamLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:42,33-34
-CONSTRUCTOR mapserv.MapImage.provider153706 0 //class fabric.types.FabricProviderLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:407,53-54
 CONSTRUCTOR worker$ 0 //@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:412,48-55
@@ -42,58 +22,20 @@ CONSTRUCTOR n 0 //@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap
 
 %%
 caller_pc2346856 <= (A-1772469618) ⊓ ((_ -> _)) ⊓ (*map_access-243877655) ⊓ (*map_update332605145);
-util.Group.provider31463229 == _ -> _;
-mapserv.MapImage.provider7986938 == _ -> _;
-mapserv.MapServer.provider19718130 == _ -> _;
-mapserv.MapServer.provider20197654 == _ -> _;
-friendmap.FriendMap.provider19917249 == _ -> _;
-util.GroupIterator.provider16563631 == _ -> _;
-mapserv.MapImage.provider19054550 == _ -> _;
-mapserv.Box.provider23056272 == _ -> _;
-mapserv.Box.provider13550052 == _ -> _;
-util.Group.provider4363247 == _ -> _;
-mapserv.MapServer.provider15112023 == _ -> _;
-util.GroupIterator.provider27875008 == _ -> _;
-mapserv.Box.provider33506865 == _ -> _;
-util.GroupIterator.provider18770814 == _ -> _;
-mapserv.MapServer.provider18744018 == _ -> _;
-util.Group.provider15202883 == _ -> _;
-mapserv.MapImage.provider9099345 == _ -> _;
-mapserv.MapImage.provider153706 == _ -> _;
-util.GroupIterator.provider7693017 == _ -> _;
-mapserv.Box.provider14283274 == _ -> _;
 _ -> _ <= map_access-163676001;
 map_access-163676001 <= * -> *;
 _ -> _ <= *friendsLabel652373198;
 *friendsLabel652373198 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= util.Group.provider4363247;
-util.Group.provider4363247 <= * -> *;
-_ -> _ <= mapserv.MapServer.provider15112023;
-mapserv.MapServer.provider15112023 <= * -> *;
-_ -> _ <= util.GroupIterator.provider27875008;
-util.GroupIterator.provider27875008 <= * -> *;
 _ -> _ <= (_ -> *);
 (_ -> *) <= * -> *;
 _ -> _ <= caller_pc2346856;
 caller_pc2346856 <= * -> *;
-_ -> _ <= util.Group.provider15202883;
-util.Group.provider15202883 <= * -> *;
-_ -> _ <= util.GroupIterator.provider7693017;
-util.GroupIterator.provider7693017 <= * -> *;
-_ -> _ <= mapserv.Box.provider14283274;
-mapserv.Box.provider14283274 <= * -> *;
 _ -> _ <= (* -> worker$);
 (* -> worker$) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= util.Group.provider31463229;
-util.Group.provider31463229 <= * -> *;
-_ -> _ <= mapserv.MapServer.provider20197654;
-mapserv.MapServer.provider20197654 <= * -> *;
-_ -> _ <= util.GroupIterator.provider16563631;
-util.GroupIterator.provider16563631 <= * -> *;
 _ -> _ <= (* -> user.friends);
 (* -> user.friends) <= * -> *;
 _ -> _ <= (* -> local);
@@ -106,8 +48,6 @@ _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> *);
 (_ -> *) <= * -> *;
-_ -> _ <= mapserv.MapServer.provider18744018;
-mapserv.MapServer.provider18744018 <= * -> *;
 _ -> _ <= newAssertionFailedError-56233;
 newAssertionFailedError-56233 <= * -> *;
 _ -> _ <= newAssertionFailedError-56232;
@@ -128,8 +68,6 @@ _ -> _ <= newError-56225;
 newError-56225 <= * -> *;
 _ -> _ <= e-56365;
 e-56365 <= * -> *;
-_ -> _ <= mapserv.MapImage.provider7986938;
-mapserv.MapImage.provider7986938 <= * -> *;
 _ -> _ <= e-56366;
 e-56366 <= * -> *;
 _ -> _ <= loc-56367;
@@ -146,8 +84,6 @@ _ -> _ <= (_ -> *);
 (_ -> *) <= * -> *;
 _ -> _ <= *map_update332605145;
 *map_update332605145 <= * -> *;
-_ -> _ <= mapserv.Box.provider13550052;
-mapserv.Box.provider13550052 <= * -> *;
 _ -> _ <= box_u-56378;
 box_u-56378 <= * -> *;
 _ -> _ <= map_update416685312;
@@ -156,16 +92,12 @@ _ -> _ <= box_a-56377;
 box_a-56377 <= * -> *;
 _ -> _ <= local-56379;
 local-56379 <= * -> *;
-_ -> _ <= util.GroupIterator.provider18770814;
-util.GroupIterator.provider18770814 <= * -> *;
 _ -> _ <= *box_u125426365;
 *box_u125426365 <= * -> *;
 _ -> _ <= fo-56370;
 fo-56370 <= * -> *;
 _ -> _ <= fn-56369;
 fn-56369 <= * -> *;
-_ -> _ <= mapserv.MapImage.provider9099345;
-mapserv.MapImage.provider9099345 <= * -> *;
 _ -> _ <= e-56372;
 e-56372 <= * -> *;
 _ -> _ <= fw-56371;
@@ -186,14 +118,6 @@ _ -> _ <= friendsLabel-56375;
 friendsLabel-56375 <= * -> *;
 _ -> _ <= *friend.locationLabel1221045265;
 *friend.locationLabel1221045265 <= * -> *;
-_ -> _ <= mapserv.MapServer.provider19718130;
-mapserv.MapServer.provider19718130 <= * -> *;
-_ -> _ <= friendmap.FriendMap.provider19917249;
-friendmap.FriendMap.provider19917249 <= * -> *;
-_ -> _ <= mapserv.Box.provider23056272;
-mapserv.Box.provider23056272 <= * -> *;
-_ -> _ <= mapserv.MapImage.provider19054550;
-mapserv.MapImage.provider19054550 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
@@ -204,12 +128,8 @@ _ -> _ <= (* -> fn);
 (* -> fn) <= * -> *;
 _ -> _ <= (_ -> *);
 (_ -> *) <= * -> *;
-_ -> _ <= mapserv.Box.provider33506865;
-mapserv.Box.provider33506865 <= * -> *;
 _ -> _ <= A-1772469618;
 A-1772469618 <= * -> *;
-_ -> _ <= mapserv.MapImage.provider153706;
-mapserv.MapImage.provider153706 <= * -> *;
 
 %%
 (caller_pc2346856) ⊔ (map99854672) <= newAssertionFailedError-56233 [(_ -> *) <= util.Group.provider15202883;(_ -> *) <= util.GroupIterator.provider27875008;this425161166 <= (*map_update meet *loc_access meet *map_access) ⊔ (A-1772469618);user103178947 <= (* -> n);map_update416685312 <= (* -> n);user103178947 <= (_ -> _);map_update416685312 <= (_ -> _);user103178947 <= *map_access-243877655;map_update416685312 <= *map_access-243877655;map99854672 <= *map_access-243877655;(_ -> _) <= *map_access-243877655;user103178947 <= *map_update332605145;map_update416685312 <= *map_update332605145;map99854672 <= *map_update332605145;(_ -> _) <= *map_update332605145;(_ -> _) <= *map_update332605145;*map_update332605145 <= (* -> worker$);(_ -> _) <= *map_access-243877655;*map_update332605145 <= *map_access-243877655;this425161166 <= caller_pc2346856;*box_u125426365 <= *map_update332605145;*map_update332605145 <= *box_u125426365;*box_a94576494 <= (* -> local);(* -> local) <= *box_a94576494;*friendsLabel652373198 <= (_ -> *);(_ -> *) <= *friendsLabel652373198;fw.userOwner==fo;fw.user.p==owner⊓network;fn==fw.userNetwork;friend.p==owner⊓network;];@"/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/friendmap_1.0_codebase/friendmap/FriendMap.fab:418,52-99"

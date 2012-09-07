@@ -2,8 +2,6 @@ package constraint.graph;
 
 import java.util.Map;
 
-import util.StringUtil;
-
 import constraint.ast.Element;
 
 //a node in label-flow graph has an unique id (to generate dot graph), and a Jif label

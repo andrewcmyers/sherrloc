@@ -4,8 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
-import constraint.graph.Graph;
+import constraint.graph.ElementNode;
 import constraint.graph.Node;
 
 /** 
@@ -17,9 +18,9 @@ import constraint.graph.Node;
 
 public abstract class PathFinder {
 	boolean initialized = false;
-	Graph g;
+	ConstraintGraph g;
 	
-	public PathFinder(Graph graph) {
+	public PathFinder(ConstraintGraph graph) {
 		g = graph;
 	}
 	
@@ -36,30 +37,38 @@ public abstract class PathFinder {
 		return _getPath(start, end);
 	}
 	
-	public Set<Node> geqSet(Node start) {
+	public Set<Node> geqSet(ElementNode start) {
 		Set<Node> ret = new HashSet<Node>();
 		ret.add(start);
 		
-		if (!g.getAllNodes().contains(start))
+		if (!g.hasElement(start.getElement()))
 			return ret;
 		
+		// this is the node representing same element in assumption graph
+		Node s = g.getNode(start.getElement());
 		for (Node node : g.getAllNodes()) {
-			if ( _getPath(start, node)!=null)
+			if ( _getPath(s, node)!=null) {
+				System.out.println(((ElementNode)node).getElement()+"(");
 				ret.add(node);
+			}
 		}
 		return ret;
 	}
 	
-	public Set<Node> leqSet(Node end) {
+	public Set<Node> leqSet(ElementNode end) {
 		Set<Node> ret = new HashSet<Node>();
 		ret.add(end);
 
-		if (!g.getAllNodes().contains(end))
+		if (!g.hasElement(end.getElement()))
 			return ret;
 
+		// this is the node representing same element in assumption graph
+		Node e = g.getNode(end.getElement());
 		for (Node node : g.getAllNodes()) {
-			if (_getPath(node, end)!=null)
+			if (_getPath(node, e)!=null) {
+				System.out.println(((ElementNode)node).getElement()+")");
 				ret.add(node);
+			}
 		}
 		return ret;
 	}

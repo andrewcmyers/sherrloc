@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import util.Pair;
 import util.Triple;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
@@ -67,7 +66,7 @@ public class Analysis {
 	}
 	
 	// this method is used to configure the path finder
-	public PathFinder getPathFinder ( Graph g) {
+	public PathFinder getPathFinder ( ConstraintGraph g) {
 //		return new ExistancePathFinder(this);
 		return new ShortestPathFinder(g);
 	}
@@ -137,7 +136,7 @@ public class Analysis {
 	}
     
     public void genAssumptions () {    	
-    	List<Set<Pair<ElementNode, ElementNode>>> conjunctSets = new ArrayList<Set<Pair<ElementNode,ElementNode>>>();
+    	List<Set<Assumption>> conjunctSets = new ArrayList<Set<Assumption>>();
     	
     	for (Triple<ElementNode, ElementNode, Environment> tri : unsatPath) {
     		ElementNode src = tri.getFirst();
@@ -145,29 +144,30 @@ public class Analysis {
 			Environment env = tri.getThird();
 			
 			conjunctSets.add(getAssumptions(src, snk, env));
+			break;
     	}
     	
-    	Stack<Pair<ElementNode, ElementNode>> s = new Stack<Pair<ElementNode, ElementNode>>();
-    	Set<Assumption> result = new HashSet<Assumption>();
+    	Stack<Assumption> s = new Stack<Assumption>();
+    	Set<AssumptionSet> result = new HashSet<AssumptionSet>();
     	regGenAssumptions(0, conjunctSets, s, result);
     	
-        Assumption[] all = result.toArray(new Assumption[result.size()]);
+        AssumptionSet[] all = result.toArray(new AssumptionSet[result.size()]);
         Arrays.sort(all);
         
         System.out.println("\n"+"Ranking of missing assumptions:");
-        for (Assumption a : all) {
+        for (AssumptionSet a : all) {
             System.out.println(a.getSize() + ": "+a);
         }
     }
     
-    public void regGenAssumptions (int index, List<Set<Pair<ElementNode, ElementNode>>> l, Stack<Pair<ElementNode, ElementNode>> s, Set<Assumption> result) {
+    public void regGenAssumptions (int index, List<Set<Assumption>> l, Stack<Assumption> s, Set<AssumptionSet> result) {
     	
-    	for (Pair<ElementNode, ElementNode> p : l.get(index)) {
+    	for (Assumption p : l.get(index)) {
 			s.add(p);
 			if (index!=(l.size()-1))
 				regGenAssumptions (index+1, l, s, result);
 			else {
-				Assumption a = new Assumption(s);
+				AssumptionSet a = new AssumptionSet(s);
 				result.add(a);
 			}
 			s.pop();
@@ -177,8 +177,8 @@ public class Analysis {
     /*
      * This function returns a set of pairs s.t. if ANY of them is satisfied, then e1<=e2
      */
-    public Set<Pair<ElementNode, ElementNode>> getAssumptions(ElementNode e1, ElementNode e2, Environment env) {
-    	Set<Pair<ElementNode, ElementNode>> ret = new HashSet<Pair<ElementNode, ElementNode>>();
+    public Set<Assumption> getAssumptions(ElementNode e1, ElementNode e2, Environment env) {
+    	Set<Assumption> ret = new HashSet<Assumption>();
     	
     	if (e1.getElement() instanceof MeetElement) {
     		for (Element e : ((MeetElement) e1.getElement()).getElements()) {
@@ -196,10 +196,16 @@ public class Analysis {
     		for (Node n1 : sourceSet) {
     			for (Node n2 : sinkSet) {
     				if (!n1.equals(n2))
-    					ret.add(new Pair<ElementNode, ElementNode>((ElementNode)n1, (ElementNode)n2));
+    					ret.add(new Assumption((ElementNode)n1, (ElementNode)n2));
     			}
     		}
     	}
+    	System.out.println("**********************");
+    	System.out.println("To make "+e1.getElement() +" <= "+e2.getElement()+", we need ANY of the following");
+    	for (Assumption p : ret) {
+    		System.out.println(p);
+    	}
+    	System.out.println("**********************");
     	return ret;
     }
     
