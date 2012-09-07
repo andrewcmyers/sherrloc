@@ -7,16 +7,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
+import util.Pair;
+import util.Triple;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.Environment;
+import constraint.ast.JoinElement;
+import constraint.ast.MeetElement;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
+import constraint.graph.Graph;
+import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.parse.GrmLexer;
@@ -24,21 +32,23 @@ import constraint.parse.parser;
 
 public class Analysis {
 	boolean DEBUG = true;
-    boolean SHOW_WHOLE_GRAPH=true;
+    boolean SHOW_WHOLE_GRAPH=false;
 	boolean done = false;
 	ConstraintGraph graph;
 	List<ConstraintPath> errorPaths;
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
+	HashSet<Triple<ElementNode, ElementNode, Environment>> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
         errorPaths = new ArrayList<ConstraintPath>();
         cachedEnv = new HashMap<Environment, Environment>();
+        unsatPath = new HashSet<Triple<ElementNode,ElementNode, Environment>>();
 	}
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/test.con", false);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3122.con", false);
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
@@ -57,9 +67,9 @@ public class Analysis {
 	}
 	
 	// this method is used to configure the path finder
-	public PathFinder getPathFinder ( ) {
+	public PathFinder getPathFinder ( Graph g) {
 //		return new ExistancePathFinder(this);
-		return new ShortestPathFinder(graph);
+		return new ShortestPathFinder(g);
 	}
 	
     public void genErrorPaths ( ) {
@@ -88,7 +98,7 @@ public class Analysis {
         	System.out.println("Total comparison required: " + startNodes.size() * endNodes.size());
         }
 
-        PathFinder finder = getPathFinder( );
+    	PathFinder finder = getPathFinder( graph);
 		
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
@@ -115,7 +125,7 @@ public class Analysis {
 					if (env.leq(start.getElement(), end.getElement()))
 						continue;
 					System.out.println(path.toString());
-//					path.increaseTotal();
+					unsatPath.add(new Triple<ElementNode, ElementNode, Environment>(start, end, env));
 					errorPaths.add(path);
 				}
 			}
@@ -125,6 +135,73 @@ public class Analysis {
 		if (DEBUG)
 			System.out.println("*** Found "+errorPaths.size() + " in total");
 	}
+    
+    public void genAssumptions () {    	
+    	List<Set<Pair<ElementNode, ElementNode>>> conjunctSets = new ArrayList<Set<Pair<ElementNode,ElementNode>>>();
+    	
+    	for (Triple<ElementNode, ElementNode, Environment> tri : unsatPath) {
+    		ElementNode src = tri.getFirst();
+			ElementNode snk = tri.getSecond();
+			Environment env = tri.getThird();
+			
+			conjunctSets.add(getAssumptions(src, snk, env));
+    	}
+    	
+    	Stack<Pair<ElementNode, ElementNode>> s = new Stack<Pair<ElementNode, ElementNode>>();
+    	Set<Assumption> result = new HashSet<Assumption>();
+    	regGenAssumptions(0, conjunctSets, s, result);
+    	
+        Assumption[] all = result.toArray(new Assumption[result.size()]);
+        Arrays.sort(all);
+        
+        System.out.println("\n"+"Ranking of missing assumptions:");
+        for (Assumption a : all) {
+            System.out.println(a.getSize() + ": "+a);
+        }
+    }
+    
+    public void regGenAssumptions (int index, List<Set<Pair<ElementNode, ElementNode>>> l, Stack<Pair<ElementNode, ElementNode>> s, Set<Assumption> result) {
+    	
+    	for (Pair<ElementNode, ElementNode> p : l.get(index)) {
+			s.add(p);
+			if (index!=(l.size()-1))
+				regGenAssumptions (index+1, l, s, result);
+			else {
+				Assumption a = new Assumption(s);
+				result.add(a);
+			}
+			s.pop();
+		}
+    }
+    
+    /*
+     * This function returns a set of pairs s.t. if ANY of them is satisfied, then e1<=e2
+     */
+    public Set<Pair<ElementNode, ElementNode>> getAssumptions(ElementNode e1, ElementNode e2, Environment env) {
+    	Set<Pair<ElementNode, ElementNode>> ret = new HashSet<Pair<ElementNode, ElementNode>>();
+    	
+    	if (e1.getElement() instanceof MeetElement) {
+    		for (Element e : ((MeetElement) e1.getElement()).getElements()) {
+				ret.addAll(getAssumptions(graph.getNode(e), e2, env));
+			}
+    	}
+    	else if (e2.getElement() instanceof JoinElement) {
+    		for (Element e : ((JoinElement) e2.getElement()).getElements()) {
+    			ret.addAll(getAssumptions(e1, graph.getNode(e), env));
+    		}
+    	}
+    	else {
+    		Set<Node> sourceSet = env.geqSet(e1);
+    		Set<Node> sinkSet = env.leqSet(e2);
+    		for (Node n1 : sourceSet) {
+    			for (Node n2 : sinkSet) {
+    				if (!n1.equals(n2))
+    					ret.add(new Pair<ElementNode, ElementNode>((ElementNode)n1, (ElementNode)n2));
+    			}
+    		}
+    	}
+    	return ret;
+    }
     
     public int getPathNumber () {
     	if (!done) {
@@ -156,6 +233,8 @@ public class Analysis {
         
         if (!done) 
         	genErrorPaths();
+        
+        genAssumptions();
         
         try {
             FileWriter fstream = new FileWriter(filename);

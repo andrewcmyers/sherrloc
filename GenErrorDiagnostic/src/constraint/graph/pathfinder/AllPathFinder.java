@@ -38,5 +38,10 @@ public class AllPathFinder extends PathFinder {
 		}
 		return null;
 	}
+	
+	@Override
+	public Set<Node> leqSet(Node start) {
+		return null;
+	}
 
 }
