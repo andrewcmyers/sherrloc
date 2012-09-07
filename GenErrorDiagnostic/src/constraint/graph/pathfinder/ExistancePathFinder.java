@@ -1,12 +1,10 @@
 package constraint.graph.pathfinder;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
-import constraint.graph.Graph;
 import constraint.graph.IdEdge;
 import constraint.graph.LeftEdge;
 import constraint.graph.Node;
@@ -21,7 +19,7 @@ import constraint.graph.RightEdge;
 
 public class ExistancePathFinder extends CFLPathFinder {
 	
-	public ExistancePathFinder(Graph g) {
+	public ExistancePathFinder(ConstraintGraph g) {
 		super(g);
 	}
 	
