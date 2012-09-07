@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
 import constraint.graph.Graph;
@@ -19,7 +20,7 @@ import constraint.graph.visitor.AllPathVisitor;
 
 public class AllPathFinder extends PathFinder {
 
-	public AllPathFinder(Graph graph) {
+	public AllPathFinder(ConstraintGraph graph) {
 		super(graph);
 	}
 	
@@ -39,9 +40,4 @@ public class AllPathFinder extends PathFinder {
 		return null;
 	}
 	
-	@Override
-	public Set<Node> leqSet(Node start) {
-		return null;
-	}
-
 }

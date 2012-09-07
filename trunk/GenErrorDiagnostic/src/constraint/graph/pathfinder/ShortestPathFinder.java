@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
 import constraint.graph.EdgeCondition;
 import constraint.graph.Graph;
@@ -20,7 +21,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	int[][] shortestID;
 	int[][] shortestLeft;
 	
-	public ShortestPathFinder(Graph graph) {
+	public ShortestPathFinder(ConstraintGraph graph) {
 		super(graph);
 		int size = g.getAllNodes().size();
 		idPath = new List[size][size];

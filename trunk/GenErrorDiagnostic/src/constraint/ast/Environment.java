@@ -174,11 +174,11 @@ public class Environment {
 		ph.get(s1).add(s2);
 	}
 	
-	public Set<Node> geqSet(Node start) {
+	public Set<Node> geqSet(ElementNode start) {
 		return finder.geqSet(start);
 	}
 	
-	public Set<Node> leqSet(Node end) {
+	public Set<Node> leqSet(ElementNode end) {
 		return finder.leqSet(end);
 	}
 		

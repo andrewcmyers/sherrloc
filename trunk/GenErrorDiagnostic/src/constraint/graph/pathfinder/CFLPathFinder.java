@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstructorEdge;
 import constraint.graph.Edge;
 import constraint.graph.EquationEdge;
-import constraint.graph.Graph;
 import constraint.graph.IdEdge;
 import constraint.graph.JoinEdge;
 import constraint.graph.LeftEdge;
@@ -29,7 +29,7 @@ abstract public class CFLPathFinder extends PathFinder {
 	boolean[][] hasRightEdge;
 
 	
-	public CFLPathFinder(Graph graph) {
+	public CFLPathFinder(ConstraintGraph graph) {
 		super(graph);
 		// initialize reduction edges
 		for (Node n : graph.getAllNodes()) {
