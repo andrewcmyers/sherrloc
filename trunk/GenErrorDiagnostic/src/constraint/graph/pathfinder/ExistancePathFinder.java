@@ -1,7 +1,9 @@
 package constraint.graph.pathfinder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import constraint.graph.Edge;
 import constraint.graph.Graph;
@@ -135,5 +137,4 @@ public class ExistancePathFinder extends CFLPathFinder {
 		else
 			return getIdEdge(start,end).getEdges();
 	}
-
 }

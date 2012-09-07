@@ -74,7 +74,7 @@ public class TestAll {
 		testOneFile("src/constraint/tests/jif/r3142.con", 16, false); // Non-deterministic!
 		
 		/* the change from 3142 to 3143 is interesting, since another file is changed */
-		testOneFile("src/constraint/tests/jif/r3143.con", 17, false);
+		testOneFile("src/constraint/tests/jif/r3143.con", 16, false);
 		
 		testOneFile("src/constraint/tests/jif/r3144.con", 16, false); // or 21?
 		
