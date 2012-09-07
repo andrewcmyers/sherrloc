@@ -53,7 +53,6 @@ public class ConstraintGraph extends Graph {
     public ElementNode getNode (Element e) {
         if (! eleToNode.containsKey(e)) {
             String vid = "v"+varCounter;
-            System.out.println("Creating new node for"+e);
             ElementNode n = new ElementNode(vid, e, this); 
             varCounter++;
             // record the source files involved

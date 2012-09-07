@@ -14,15 +14,21 @@ import java.util.Stack;
 
 import util.Triple;
 import constraint.ast.Constraint;
+import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
+import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
+import constraint.graph.ConstructorEdge;
 import constraint.graph.Edge;
+import constraint.graph.EdgeCondition;
 import constraint.graph.ElementNode;
 import constraint.graph.Graph;
+import constraint.graph.JoinEdge;
+import constraint.graph.MeetEdge;
 import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
@@ -190,13 +196,24 @@ public class Analysis {
     			ret.addAll(getAssumptions(e1, graph.getNode(e), env));
     		}
     	}
+    	else if (e1.getElement() instanceof ConstructorElement && e2.getElement() instanceof ConstructorElement ) {
+			EnumerableElement ce1 = (EnumerableElement) e1.getElement();
+			EnumerableElement ce2 = (EnumerableElement) e2.getElement();
+        	List<Element> compset1 = ce1.getElements();
+        	List<Element> compset2 = ce2.getElements();
+        	
+            for (int index=0; index<compset1.size(); index++) {
+				getAssumptions(graph.getNode(compset1.get(index)), graph.getNode(compset2.get(index)), env);
+            }
+		}
     	else {
     		Set<Node> sourceSet = env.geqSet(e1);
     		Set<Node> sinkSet = env.leqSet(e2);
     		for (Node n1 : sourceSet) {
     			for (Node n2 : sinkSet) {
-    				if (!n1.equals(n2))
+    				if (!n1.equals(n2)) {
     					ret.add(new Assumption((ElementNode)n1, (ElementNode)n2));
+    				}
     			}
     		}
     	}
