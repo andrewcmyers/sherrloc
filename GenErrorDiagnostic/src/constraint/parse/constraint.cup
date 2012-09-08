@@ -15,7 +15,6 @@ import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
-import constraint.ast.LabelElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Relation;
 import constraint.ast.Top;
@@ -77,9 +76,6 @@ constructors ::= constructors constructor
 			
 constructor  ::= CONSTRUCTOR id:s arity:a
 			{: constructors.put( s, new Constructor(s, a)); :}
-			|
-			LABEL id:s
-			{: constructors.put( s, new LabelElement(s)); :}
 			;
 
 id        	::= IDENTIFIER:s

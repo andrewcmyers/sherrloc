@@ -144,12 +144,26 @@ public class Analysis {
     public void genAssumptions () {    	
     	List<Set<Assumption>> conjunctSets = new ArrayList<Set<Assumption>>();
     	
+//    	Set<Triple<ElementNode, ElementNode, Environment>> eliminated = eliminatePaths(unsatPath);
+//    	
+//    	for (Triple<ElementNode, ElementNode, Environment> tri : eliminated) {
+//    		System.out.println("To make "+tri.getFirst().getElement() +" <= "+tri.getSecond().getElement()+", we need ANY of the following");
+//    	}
     	for (Triple<ElementNode, ElementNode, Environment> tri : unsatPath) {
     		ElementNode src = tri.getFirst();
 			ElementNode snk = tri.getSecond();
 			Environment env = tri.getThird();
 			
-			conjunctSets.add(getAssumptions(src, snk, env));
+			Set<Assumption> result = getAssumptions(src, snk, env);
+
+			System.out.println("**********************");
+	    	System.out.println("To make "+src.getElement() +" <= "+snk.getElement()+", we need ANY of the following");
+	    	for (Assumption p : result) {
+	    		System.out.println(p);
+	    	}
+	    	System.out.println("**********************");
+
+			conjunctSets.add(result);
 			break;
     	}
     	
@@ -164,6 +178,23 @@ public class Analysis {
         for (AssumptionSet a : all) {
             System.out.println(a.getSize() + ": "+a);
         }
+    }
+    
+    // this function eliminates "weak" goals which can be proven is any other goal is satisfied
+    public Set<Triple<ElementNode, ElementNode, Environment>> eliminatePaths (Set<Triple<ElementNode, ElementNode, Environment>> paths) {
+    	Set<Triple<ElementNode, ElementNode, Environment>> ret = new HashSet<Triple<ElementNode,ElementNode,Environment>>(paths);
+    	for (Triple<ElementNode, ElementNode, Environment> t : paths) {
+    		Set<Triple<ElementNode, ElementNode, Environment>> toremove = new HashSet<Triple<ElementNode,ElementNode,Environment>>();
+    		for (Triple<ElementNode, ElementNode, Environment> goal : ret) {
+    			if (t.equals(goal)) continue;
+    			if (goal.getThird().addLeq(t.getFirst().getElement(), t.getSecond().getElement()).leq( goal.getFirst().getElement(), goal.getSecond().getElement()))
+    				toremove.add(goal);
+    		}
+    		for (Triple<ElementNode, ElementNode, Environment> remove : toremove) {
+    			ret.remove(remove);
+    		}
+    	}
+    	return ret;
     }
     
     public void regGenAssumptions (int index, List<Set<Assumption>> l, Stack<Assumption> s, Set<AssumptionSet> result) {
@@ -196,33 +227,30 @@ public class Analysis {
     			ret.addAll(getAssumptions(e1, graph.getNode(e), env));
     		}
     	}
-    	else if (e1.getElement() instanceof ConstructorElement && e2.getElement() instanceof ConstructorElement ) {
-			EnumerableElement ce1 = (EnumerableElement) e1.getElement();
-			EnumerableElement ce2 = (EnumerableElement) e2.getElement();
-        	List<Element> compset1 = ce1.getElements();
-        	List<Element> compset2 = ce2.getElements();
-        	
-            for (int index=0; index<compset1.size(); index++) {
-				getAssumptions(graph.getNode(compset1.get(index)), graph.getNode(compset2.get(index)), env);
-            }
-		}
     	else {
     		Set<Node> sourceSet = env.geqSet(e1);
     		Set<Node> sinkSet = env.leqSet(e2);
     		for (Node n1 : sourceSet) {
     			for (Node n2 : sinkSet) {
     				if (!n1.equals(n2)) {
-    					ret.add(new Assumption((ElementNode)n1, (ElementNode)n2));
+    					ElementNode en1 = (ElementNode) n1;
+    					ElementNode en2 = (ElementNode) n2;
+    			    	if (en1.getElement() instanceof ConstructorElement && en2.getElement() instanceof ConstructorElement ) {
+    						EnumerableElement ele1 = (EnumerableElement) en1.getElement();
+    						EnumerableElement ele2 = (EnumerableElement) en2.getElement();
+    			        	List<Element> compset1 = ele1.getElements();
+    			        	List<Element> compset2 = ele2.getElements();
+    			        	
+    			            for (int index=0; index<compset1.size(); index++) {
+    							ret.add( new Assumption(graph.getNode(compset1.get(index)), graph.getNode(compset2.get(index))));
+    			            }
+    					}
+    			    	else
+    			    		ret.add(new Assumption((ElementNode)n1, (ElementNode)n2));
     				}
     			}
     		}
     	}
-    	System.out.println("**********************");
-    	System.out.println("To make "+e1.getElement() +" <= "+e2.getElement()+", we need ANY of the following");
-    	for (Assumption p : ret) {
-    		System.out.println(p);
-    	}
-    	System.out.println("**********************");
     	return ret;
     }
     
