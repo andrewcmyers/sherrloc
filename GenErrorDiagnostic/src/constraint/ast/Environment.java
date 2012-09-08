@@ -39,21 +39,11 @@ public class Environment {
 		}
 	}
 	
-	public boolean actsFor (String e1, String e2) {
-		// do simple checks
-		if (e2.equals("_"))
-			return true;
-		if (e1.equals("*"))
-			return true;
-		
-		if (e1.equals(e2))
-			return true;
-		
-		// TODO: transitivity is not handled yet
-		if (ph.containsKey(e1)) {
-			return ph.get(e1).contains(e2);
-		}
-		return false;
+	public Environment addLeq (Element e1, Element e2) {
+		Environment e = new Environment();
+		e.addEnv(this);
+		e.addAssertion(new Constraint(e1, e2, Relation.LEQ, null, "added assumption"));
+		return e;
 	}
 	
 	public String assertionString () {
