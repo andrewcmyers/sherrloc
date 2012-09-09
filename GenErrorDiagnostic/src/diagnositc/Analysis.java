@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import util.Triple;
+import util.AttemptGoal;
 import constraint.ast.Constraint;
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
@@ -22,13 +22,8 @@ import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
-import constraint.graph.ConstructorEdge;
 import constraint.graph.Edge;
-import constraint.graph.EdgeCondition;
 import constraint.graph.ElementNode;
-import constraint.graph.Graph;
-import constraint.graph.JoinEdge;
-import constraint.graph.MeetEdge;
 import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
@@ -42,18 +37,18 @@ public class Analysis {
 	ConstraintGraph graph;
 	List<ConstraintPath> errorPaths;
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
-	HashSet<Triple<ElementNode, ElementNode, Environment>> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
+	HashSet<AttemptGoal> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
         errorPaths = new ArrayList<ConstraintPath>();
         cachedEnv = new HashMap<Environment, Environment>();
-        unsatPath = new HashSet<Triple<ElementNode,ElementNode, Environment>>();
+        unsatPath = new HashSet<AttemptGoal>();
 	}
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3122.con", false);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3144.con", false);
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
@@ -130,7 +125,7 @@ public class Analysis {
 					if (env.leq(start.getElement(), end.getElement()))
 						continue;
 					System.out.println(path.toString());
-					unsatPath.add(new Triple<ElementNode, ElementNode, Environment>(start, end, env));
+					unsatPath.add(new AttemptGoal(start, end, env));
 					errorPaths.add(path);
 				}
 			}
@@ -141,56 +136,59 @@ public class Analysis {
 			System.out.println("*** Found "+errorPaths.size() + " in total");
 	}
     
-    public void genAssumptions () {    	
+    public Set<AttemptGoal> genAssumptions () {    	
     	List<Set<Assumption>> conjunctSets = new ArrayList<Set<Assumption>>();
     	
-//    	Set<Triple<ElementNode, ElementNode, Environment>> eliminated = eliminatePaths(unsatPath);
-//    	
-//    	for (Triple<ElementNode, ElementNode, Environment> tri : eliminated) {
-//    		System.out.println("To make "+tri.getFirst().getElement() +" <= "+tri.getSecond().getElement()+", we need ANY of the following");
-//    	}
-    	for (Triple<ElementNode, ElementNode, Environment> tri : unsatPath) {
-    		ElementNode src = tri.getFirst();
-			ElementNode snk = tri.getSecond();
-			Environment env = tri.getThird();
-			
-			Set<Assumption> result = getAssumptions(src, snk, env);
-
-			System.out.println("**********************");
-	    	System.out.println("To make "+src.getElement() +" <= "+snk.getElement()+", we need ANY of the following");
-	    	for (Assumption p : result) {
-	    		System.out.println(p);
-	    	}
-	    	System.out.println("**********************");
-
-			conjunctSets.add(result);
-			break;
+    	Set<AttemptGoal> eliminated = eliminatePaths(unsatPath);
+    	
+    	for (AttemptGoal tri : eliminated) {
+    		System.out.println("Missing assumption: "+tri.getSource().getElement() +" <= "+tri.getSink().getElement());
     	}
     	
-    	Stack<Assumption> s = new Stack<Assumption>();
-    	Set<AssumptionSet> result = new HashSet<AssumptionSet>();
-    	regGenAssumptions(0, conjunctSets, s, result);
-    	
-        AssumptionSet[] all = result.toArray(new AssumptionSet[result.size()]);
-        Arrays.sort(all);
-        
-        System.out.println("\n"+"Ranking of missing assumptions:");
-        for (AssumptionSet a : all) {
-            System.out.println(a.getSize() + ": "+a);
-        }
+    	return eliminated;
+//    	for (Triple<ElementNode, ElementNode, Environment> tri : unsatPath) {
+//    		ElementNode src = tri.getFirst();
+//			ElementNode snk = tri.getSecond();
+//			Environment env = tri.getThird();
+//			
+//			Set<Assumption> result = getAssumptions(src, snk, env);
+//
+//			System.out.println("**********************");
+//	    	System.out.println("To make "+src.getElement() +" <= "+snk.getElement()+", we need ANY of the following");
+//	    	for (Assumption p : result) {
+//	    		System.out.println(p);
+//	    	}
+//	    	System.out.println("**********************");
+//
+//			conjunctSets.add(result);
+//			break;
+//    	}
+//    	
+//    	Stack<Assumption> s = new Stack<Assumption>();
+//    	Set<AssumptionSet> result = new HashSet<AssumptionSet>();
+//    	regGenAssumptions(0, conjunctSets, s, result);
+//    	
+//        AssumptionSet[] all = result.toArray(new AssumptionSet[result.size()]);
+//        Arrays.sort(all);
+//        
+//        System.out.println("\n"+"Ranking of missing assumptions:");
+//        for (AssumptionSet a : all) {
+//            System.out.println(a.getSize() + ": "+a);
+//        }
     }
     
     // this function eliminates "weak" goals which can be proven is any other goal is satisfied
-    public Set<Triple<ElementNode, ElementNode, Environment>> eliminatePaths (Set<Triple<ElementNode, ElementNode, Environment>> paths) {
-    	Set<Triple<ElementNode, ElementNode, Environment>> ret = new HashSet<Triple<ElementNode,ElementNode,Environment>>(paths);
-    	for (Triple<ElementNode, ElementNode, Environment> t : paths) {
-    		Set<Triple<ElementNode, ElementNode, Environment>> toremove = new HashSet<Triple<ElementNode,ElementNode,Environment>>();
-    		for (Triple<ElementNode, ElementNode, Environment> goal : ret) {
+    public Set<AttemptGoal> eliminatePaths (Set<AttemptGoal> paths) {
+    	Set<AttemptGoal> ret = new HashSet<AttemptGoal>(paths);
+    	for (AttemptGoal t : paths) {
+    		if (!ret.contains(t)) continue;
+    		Set<AttemptGoal> toremove = new HashSet<AttemptGoal>();
+    		for (AttemptGoal goal : ret) {
     			if (t.equals(goal)) continue;
-    			if (goal.getThird().addLeq(t.getFirst().getElement(), t.getSecond().getElement()).leq( goal.getFirst().getElement(), goal.getSecond().getElement()))
+    			if (goal.getEnv().addLeq(t.getSource().getElement(), t.getSink().getElement()).leq( goal.getSource().getElement(), goal.getSink().getElement()))
     				toremove.add(goal);
     		}
-    		for (Triple<ElementNode, ElementNode, Environment> remove : toremove) {
+    		for (AttemptGoal remove : toremove) {
     			ret.remove(remove);
     		}
     	}
@@ -261,6 +259,14 @@ public class Analysis {
     	int ret = errorPaths.size();
     	printRank();
     	return ret;
+    }
+    
+    public int getAssumptionNumber () {
+    	if (!done) {
+    		genErrorPaths();
+    	}
+        Set<AttemptGoal> result = genAssumptions();
+    	return result.size();
     }
     
     void printRank () {    	
