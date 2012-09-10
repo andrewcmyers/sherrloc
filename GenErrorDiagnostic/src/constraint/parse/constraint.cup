@@ -107,14 +107,7 @@ equation 	::= term:e1 EQ term:e2 env:e SEMICOLON position:p
             {: RESULT = new Constraint (e2, e1, Relation.LEQ, e, p); :}
             ;
             
-env         ::= LBRACK equations:l SEP actsfor_list RBRACK
-			{: Environment e = new Environment(); 
-			   for (Constraint c : l)
-			       e.addAssertion(c);
-			   RESULT = e; 
-			:}
-			|
-			LBRACK equations:l RBRACK
+env         ::= LBRACK equations:l RBRACK
 			{: Environment e = new Environment(); 
 			   for (Constraint c : l)
 			       e.addAssertion(c);
@@ -129,19 +122,7 @@ env         ::= LBRACK equations:l SEP actsfor_list RBRACK
 			   RESULT = new Environment();
 			:}
 			;
-			
-actsfor_list::= actsfor_list actsfor
-			| actsfor
-			;
-			
-actsfor     ::= id:s1 EQ id:s2 SEMICOLON
-			{: env.addActsFor(s1,s2); env.addActsFor(s2,s1); :}  
-            | id:s1 LEQ id:s2 SEMICOLON
-         	{: env.addActsFor(s2,s1); :}
-            | id:s1 GEQ id:s2 SEMICOLON
-            {: env.addActsFor(s1,s2); :}
-            ;
-			
+						
 position	::= AT STRING_LITERAL:s
 			{: RESULT = s; :}
 			| /* no information */
