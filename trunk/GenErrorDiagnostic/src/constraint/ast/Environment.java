@@ -20,13 +20,11 @@ public class Environment {
 	Set<Constraint> assertions;
 	ConstraintGraph graph;
 	PathFinder finder = null;
-	Map<String, Set<String>> ph;
 	boolean SHOW_HYPOTHESIS = false;
 	
 	public Environment() {
 		assertions = new HashSet<Constraint>();
 		graph = new ConstraintGraph(null, assertions, false);
-		ph = new HashMap<String, Set<String>>();
 	}
 	
 	public void addAssertion (Constraint equ) {
@@ -156,13 +154,6 @@ public class Environment {
 		else
 			return false;
     }
-
-	// record the acts for relation
-	public void addActsFor(String s1, String s2) {
-		if (!ph.containsKey(s1))
-			ph.put(s1, new HashSet<String>());
-		ph.get(s1).add(s2);
-	}
 	
 	public Set<Node> geqSet(ElementNode start) {
 		return finder.geqSet(start);
@@ -177,15 +168,13 @@ public class Environment {
 		if (obj instanceof Environment) {
 			if (assertionString().equals(((Environment) obj).assertionString()))
 				return true;
-			if (ph.equals(((Environment) obj).ph))
-				return true;
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return assertionString().hashCode()+ph.hashCode();
+		return assertionString().hashCode();
 	}
 
 }
