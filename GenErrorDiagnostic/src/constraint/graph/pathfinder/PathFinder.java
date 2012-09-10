@@ -49,7 +49,7 @@ public abstract class PathFinder {
 		for (Node node : g.getAllNodes()) {
 			ElementNode en = (ElementNode)node;
 			if ( !en.getElement().hasVars() && !(en.getElement().toString().equals("(*)->(*)")) && _getPath(s, node)!=null) {
-				System.out.println(en.getElement()+"(");
+				System.out.println(en.getElement());
 				ret.add(node);
 			}
 		}
@@ -68,7 +68,7 @@ public abstract class PathFinder {
 		for (Node node : g.getAllNodes()) {
 			ElementNode en = (ElementNode)node;
 			if (!en.getElement().hasVars() && !(en.getElement().toString().equals("(_)->(_)")) && _getPath(node, e)!=null) {
-				System.out.println(en.getElement()+")");
+				System.out.println(en.getElement());
 				ret.add(node);
 			}
 		}
