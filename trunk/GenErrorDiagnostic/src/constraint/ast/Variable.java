@@ -36,12 +36,7 @@ public class Variable extends Element {
 	public String toDotString() {
 		return StringUtil.getPrettyName(name);
 	}
-	
-	@Override
-	public boolean leq_(Object o, Environment env) {
-		return false;
-	}
-	
+		
 	@Override
 	public boolean isStart() {
 		return false;
