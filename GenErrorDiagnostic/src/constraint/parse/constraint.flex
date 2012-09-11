@@ -63,7 +63,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	">="                           { return symbol(sym.GEQ); }
   	"->"                           { return symbol(sym.ARROW); }
   	";"    						   { return symbol(sym.SEMICOLON); }
-  	"*"							   { return symbol(sym.STAR); }
+  	","							   { return symbol(sym.STAR); }
   	
   	/* parentheses */
   	"("    						   { return symbol(sym.LPAREN); }

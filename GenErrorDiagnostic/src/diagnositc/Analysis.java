@@ -102,8 +102,8 @@ public class Analysis {
 		
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
-				if (start.getElement().isDecomposable() && end.getElement().isDecomposable())
-					continue;
+//				if (start.getElement().isDecomposable() && end.getElement().isDecomposable())
+//					continue;
 
 				if (graph.getEnv().leq(start.getElement(), end.getElement()))
 					continue;
