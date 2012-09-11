@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import util.AttemptGoal;
+
 import constraint.graph.ConstraintGraph;
+import constraint.graph.ConstraintPath;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;

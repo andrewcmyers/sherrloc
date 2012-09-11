@@ -102,14 +102,33 @@ public class Analysis {
 		
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
-//				if (start.getElement().isDecomposable() && end.getElement().isDecomposable())
-//					continue;
+				Element e1 = start.getElement();
+				Element e2 = end.getElement();
+				
+				List<Edge> l = finder.getPath(start, end);
+				if (l==null) continue;
+				
+				if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
+					if (!((ConstructorElement)e1).getCons().equals(((ConstructorElement)e2).getCons()) &&
+							(!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
+						ConstraintPath path = new ConstraintPath(l);
+						System.out.println(path.toString());
+						unsatPath.add(new AttemptGoal(start, end, path.getAssumption()));
+						errorPaths.add(path);
+						continue;
+					}
+					
+					if (e1.hasVars() || e2.hasVars())
+						continue;
+				}
+				
+				if (start.getElement().isDecomposable() && end.getElement().isDecomposable())
+					continue;
 
 				if (graph.getEnv().leq(start.getElement(), end.getElement()))
 					continue;
 
-				List<Edge> l = finder.getPath(start, end);
-				if ( l!=null && (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
+				if (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end))) {
 
 					ConstraintPath path = new ConstraintPath(l);
 					Environment env;
