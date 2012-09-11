@@ -62,21 +62,7 @@ public class MeetElement extends EnumerableElement {
 		}
 		return false;
 	}
-	
-	@Override
-	public boolean leq_(Object o, Environment env) {
-		if (equals(o))
-			return true;
 		
-		// check if any component is leq o
-		for (Element e : elements) {
-			if (e.leq_(o, env)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	@Override
 	public boolean isDecomposable() {
 		return false;

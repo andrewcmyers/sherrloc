@@ -51,12 +51,7 @@ public class Constructor extends Element {
 	public int hashCode() {
 		return arity * 1000 + name.hashCode();
 	}
-	
-	@Override
-	public boolean leq_(Object o, Environment env) {
-		return equals(o);
-	}
-	
+		
 	@Override
 	public boolean isStart() {
 		return true;
