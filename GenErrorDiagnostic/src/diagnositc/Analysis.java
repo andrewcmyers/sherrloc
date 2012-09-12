@@ -24,6 +24,7 @@ import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
+import constraint.graph.EquationEdge;
 import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
@@ -33,6 +34,7 @@ import constraint.parse.parser;
 public class Analysis {
 	boolean DEBUG = true;
     boolean SHOW_WHOLE_GRAPH=false;
+    int REC_LEVEL = 1;
 	boolean done = false;
 	ConstraintGraph graph;
 	List<ConstraintPath> errorPaths;
@@ -48,7 +50,8 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3144.con", false);
+//			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jiftestcases/LabelLeConstraint09_4.con", false);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/sml/test2.con", true);
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
@@ -155,9 +158,7 @@ public class Analysis {
 			System.out.println("*** Found "+errorPaths.size() + " in total");
 	}
     
-    public Set<AttemptGoal> genAssumptions () {    	
-    	List<Set<Assumption>> conjunctSets = new ArrayList<Set<Assumption>>();
-    	
+    public Set<AttemptGoal> genAssumptions () {    	    	
     	Set<AttemptGoal> eliminated = eliminatePaths(unsatPath);
     	
     	for (AttemptGoal tri : eliminated) {
@@ -165,7 +166,69 @@ public class Analysis {
     	}
     	
     	return eliminated;
-//    	for (Triple<ElementNode, ElementNode, Environment> tri : unsatPath) {
+    }
+    
+    /* Calculating a min cut is NP complete. Currently, we only calculate at most 3 elements covering all unsatisfiable paths */
+    public void genCuts () {
+    	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
+    	Set<Set<Constraint>> results = new HashSet<Set<Constraint>>();
+    	for (ConstraintPath path : errorPaths) {
+    		for (Edge e :path.getEdges()) {
+    			if (e instanceof EquationEdge)
+    				candidates.add((EquationEdge)e);
+    		}
+    	}
+    	
+    	genCutsRec(REC_LEVEL, candidates, new HashSet<EquationEdge>(), results);
+    	
+   		for (Set<Constraint> set : results) {
+   			System.out.println("********** cut *****");
+   			for (Constraint c : set) {
+   				System.out.println (c);
+   			}
+   			System.out.println("********************");
+   		}
+
+    	
+    }
+    
+    public void genCutsRec(int level, Set<EquationEdge> candidates, Set<EquationEdge> visited, Set<Set<Constraint>> results) {
+    	
+    	/* first level */
+   		for (EquationEdge e : candidates) {
+   			visited.add(e);
+   			
+   			if (level == 1) {
+   				boolean iscut = true;
+   				
+   				// for any path, at least one element in the visited list should appear
+   	   			for (ConstraintPath path : errorPaths) {
+   	   				boolean flag = false;
+   	   				for (EquationEdge edge : visited) {
+   	   					if (path.getEdges().contains(edge)) {
+   	   						flag = true;
+   	   						break;
+   	   					}
+   	   				}
+   	   				if (!flag) {
+   	   					iscut = false;
+   	 	   	   			break;
+   	   				}
+   	    		}
+   	   			
+   	   			if (iscut) {
+   	   				HashSet<Constraint> s = new HashSet<Constraint>();
+   	   				for (EquationEdge eedge : visited) 
+   	   					s.add(eedge.getEquation());
+   	   				results.add(s);
+   	   			}
+   			}
+   			else
+   				genCutsRec(level-1, candidates, visited, results);
+   			
+   			visited.remove(e);
+   		}
+   		    	
 //    		ElementNode src = tri.getFirst();
 //			ElementNode snk = tri.getSecond();
 //			Environment env = tri.getThird();
@@ -310,7 +373,8 @@ public class Analysis {
         if (!done) 
         	genErrorPaths();
         
-        genAssumptions();
+//        genAssumptions();
+        genCuts();
         
         try {
             FileWriter fstream = new FileWriter(filename);
