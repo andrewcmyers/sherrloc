@@ -34,23 +34,23 @@ import constraint.parse.parser;
 public class Analysis {
 	boolean DEBUG = true;
     boolean SHOW_WHOLE_GRAPH=false;
-    int REC_LEVEL = 1;
+    int REC_MAX = 5;
 	boolean done = false;
 	ConstraintGraph graph;
-	List<ConstraintPath> errorPaths;
+	HashMap<AttemptGoal, ConstraintPath> errorPaths;
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	HashSet<AttemptGoal> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
-        errorPaths = new ArrayList<ConstraintPath>();
+        errorPaths = new HashMap<AttemptGoal, ConstraintPath>();
         cachedEnv = new HashMap<Environment, Environment>();
         unsatPath = new HashSet<AttemptGoal>();
 	}
 	
 	public static void main(String[] args) {
 		try {
-//			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jiftestcases/LabelLeConstraint09_4.con", false);
+//			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3122.con", false);
 			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/sml/test2.con", true);
 			ana.writeToDotFile();
 		}
@@ -116,8 +116,9 @@ public class Analysis {
 							(!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
 						ConstraintPath path = new ConstraintPath(l);
 						System.out.println(path.toString());
-						unsatPath.add(new AttemptGoal(start, end, path.getAssumption()));
-						errorPaths.add(path);
+						AttemptGoal goal = new AttemptGoal(start, end, path.getAssumption());
+						unsatPath.add(goal);
+						errorPaths.put(goal, path);
 						continue;
 					}
 					
@@ -147,8 +148,9 @@ public class Analysis {
 					if (env.leq(start.getElement(), end.getElement()))
 						continue;
 					System.out.println(path.toString());
-					unsatPath.add(new AttemptGoal(start, end, env));
-					errorPaths.add(path);
+					AttemptGoal goal = new AttemptGoal(start, end, env);
+					unsatPath.add(goal);
+					errorPaths.put(goal, path);
 				}
 			}
 		}
@@ -159,32 +161,54 @@ public class Analysis {
 	}
     
     public Set<AttemptGoal> genAssumptions () {    	    	
-    	Set<AttemptGoal> eliminated = eliminatePaths(unsatPath);
+    	HashMap<AttemptGoal, List<AttemptGoal>> dep = eliminatePaths(unsatPath);
+    	Set<Set<AttemptGoal>> results = new HashSet<Set<AttemptGoal>>();
     	
-    	for (AttemptGoal tri : eliminated) {
-    		System.out.println("Missing assumption: "+tri.getSource().getElement() +" <= "+tri.getSink().getElement());
+    	// we do an interative deeping search until at least one cut is returned
+    	for (int level=1; level <= REC_MAX; level++) {
+   			boundedDepthSearch (level, unsatPath, dep, new HashSet<AttemptGoal>(), results);
+   			if (results.size()!=0)
+   				break;
     	}
-    	
-    	return eliminated;
-    }
-    
-    /* Calculating a min cut is NP complete. Currently, we only calculate at most 3 elements covering all unsatisfiable paths */
-    public void genCuts () {
-    	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
-    	Set<Set<Constraint>> results = new HashSet<Set<Constraint>>();
-    	for (ConstraintPath path : errorPaths) {
-    		for (Edge e :path.getEdges()) {
-    			if (e instanceof EquationEdge)
-    				candidates.add((EquationEdge)e);
+
+		System.out.println("Possible missing assumptions:");
+    	for (Set<AttemptGoal> result : results) {
+    		for (AttemptGoal s : result) {
+        		System.out.println(" "+s.getSource().getElement() +" <= "+s.getSink().getElement());
     		}
     	}
     	
-    	genCutsRec(REC_LEVEL, candidates, new HashSet<EquationEdge>(), results);
+    	return null;
+    }
+    
+    /* Calculating a min cut is NP complete. Currently, we use interative deeping search to quickly identify the goal */
+    public void genCuts () {
+    	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
+    	Set<Set<EquationEdge>> results = new HashSet<Set<EquationEdge>>();
+    	HashMap<AttemptGoal, List<EquationEdge>> map = new HashMap<AttemptGoal, List<EquationEdge>>();
+
+    	for (AttemptGoal goal : errorPaths.keySet()) {
+    		List<EquationEdge> l = new ArrayList<EquationEdge>();
+    		for (Edge e : errorPaths.get(goal).getEdges()) {
+    			if (e instanceof EquationEdge) {
+    				l.add((EquationEdge)e);
+    				candidates.add((EquationEdge)e);
+    			}
+    		}
+    		map.put(goal, l);
+    	}
     	
-   		for (Set<Constraint> set : results) {
+    	// we do an interative deeping search until at least one cut is returned
+    	for (int level=1; level <= REC_MAX; level++) {
+   			boundedDepthSearch (level, candidates, map, new HashSet<EquationEdge>(), results);
+   			if (results.size()!=0)
+   				break;
+    	}
+    	
+   		for (Set<EquationEdge> set : results) {
    			System.out.println("********** cut *****");
-   			for (Constraint c : set) {
-   				System.out.println (c);
+   			for (EquationEdge c : set) {
+   				System.out.println (c.getEquation());
    			}
    			System.out.println("********************");
    		}
@@ -192,20 +216,23 @@ public class Analysis {
     	
     }
     
-    public void genCutsRec(int level, Set<EquationEdge> candidates, Set<EquationEdge> visited, Set<Set<Constraint>> results) {
+    public <K> void boundedDepthSearch (int level, Set<K> candidates, HashMap<AttemptGoal, List<K>> dependencies, Set<K> visited, Set<Set<K>> results) {
     	
     	/* first level */
-   		for (EquationEdge e : candidates) {
-   			visited.add(e);
+   		for (K e : candidates) {
+   			if (visited.contains(e))
+   				continue;
+   			else
+   				visited.add(e);
    			
    			if (level == 1) {
    				boolean iscut = true;
    				
    				// for any path, at least one element in the visited list should appear
-   	   			for (ConstraintPath path : errorPaths) {
+   	   			for (AttemptGoal goal : unsatPath) {
    	   				boolean flag = false;
-   	   				for (EquationEdge edge : visited) {
-   	   					if (path.getEdges().contains(edge)) {
+   	   				for (K edge : visited) {
+   	   					if (dependencies.get(goal).contains(edge)) {
    	   						flag = true;
    	   						break;
    	   					}
@@ -217,14 +244,14 @@ public class Analysis {
    	    		}
    	   			
    	   			if (iscut) {
-   	   				HashSet<Constraint> s = new HashSet<Constraint>();
-   	   				for (EquationEdge eedge : visited) 
-   	   					s.add(eedge.getEquation());
+   	   				HashSet<K> s = new HashSet<K>();
+   	   				for (K eedge : visited) 
+   	   					s.add(eedge);
    	   				results.add(s);
    	   			}
    			}
    			else
-   				genCutsRec(level-1, candidates, visited, results);
+   				boundedDepthSearch (level-1, candidates, dependencies, visited, results);
    			
    			visited.remove(e);
    		}
@@ -259,19 +286,18 @@ public class Analysis {
 //        }
     }
     
-    // this function eliminates "weak" goals which can be proven is any other goal is satisfied
-    public Set<AttemptGoal> eliminatePaths (Set<AttemptGoal> paths) {
-    	Set<AttemptGoal> ret = new HashSet<AttemptGoal>(paths);
-    	for (AttemptGoal t : paths) {
-    		if (!ret.contains(t)) continue;
-    		Set<AttemptGoal> toremove = new HashSet<AttemptGoal>();
-    		for (AttemptGoal goal : ret) {
-    			if (t.equals(goal)) continue;
-    			if (goal.getEnv().addLeq(t.getSource().getElement(), t.getSink().getElement()).leq( goal.getSource().getElement(), goal.getSink().getElement()))
-    				toremove.add(goal);
-    		}
-    		for (AttemptGoal remove : toremove) {
-    			ret.remove(remove);
+    // this function returns hashmap, that for each goal, a list of "stronger" assumptions that either of them eliminates it
+    public HashMap<AttemptGoal, List<AttemptGoal>> eliminatePaths (Set<AttemptGoal> paths) {
+    	HashMap<AttemptGoal, List<AttemptGoal>> ret = new HashMap<AttemptGoal, List<AttemptGoal>>( );
+    	for (AttemptGoal goal : paths) {
+    		List<AttemptGoal> list = new ArrayList<AttemptGoal>();
+    		list.add(goal);
+    		ret.put(goal, list);	// the goal itself is the weakest assumption
+    		
+    		for (AttemptGoal candidate : paths) {
+    			if (candidate.equals(goal)) continue;
+    			if (goal.getEnv().addLeq(candidate.getSource().getElement(), candidate.getSink().getElement()).leq( goal.getSource().getElement(), goal.getSink().getElement()))
+    				list.add(candidate);
     		}
     	}
     	return ret;
@@ -361,7 +387,7 @@ public class Analysis {
     }
     
     public void showErrorPaths() {
-    	for (ConstraintPath path : errorPaths)
+    	for (ConstraintPath path : errorPaths.values())
     		System.out.println(path.toString());
     }
     
