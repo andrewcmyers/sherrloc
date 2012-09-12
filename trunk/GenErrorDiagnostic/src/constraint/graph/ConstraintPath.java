@@ -19,6 +19,10 @@ public class ConstraintPath {
     int size () {
         return edges.size();
     }
+    
+    public List<Edge> getEdges() {
+		return edges;
+	}
         
     // increase # path each node appears in    
 	public void increaseTotal() {

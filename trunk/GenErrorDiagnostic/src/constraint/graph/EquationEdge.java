@@ -39,6 +39,17 @@ public class EquationEdge extends Edge {
 //        }
 //        else return toString();
 //    }
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj instanceof EquationEdge)
+    		return equ.equals(((EquationEdge) obj).getEquation());
+    	return false;
+    }
+    
+    @Override
+    public int hashCode() {
+    	return equ.hashCode();
+    }
     
     @Override
     public String toDotString() {
