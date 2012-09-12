@@ -41,15 +41,15 @@ public class TestAll {
 	@Test
 	public void testSML() {
 		/* test for SML constraint */
-//		testErrorPaths("src/constraint/tests/sml/test1.con", 1, true);
+		testErrorPaths("src/constraint/tests/sml/test1.con", 1, true);
 
 		testErrorPaths("src/constraint/tests/sml/test2.con", 8, true);
 
-//		testErrorPaths("src/constraint/tests/sml/test3.con", 4, true);
-//
-//		testErrorPaths("src/constraint/tests/sml/test4.con", 1, true);
-//
-//		testErrorPaths("src/constraint/tests/sml/test5.con", 141, true);
+		testErrorPaths("src/constraint/tests/sml/test3.con", 4, true);
+
+		testErrorPaths("src/constraint/tests/sml/test4.con", 1, true);
+
+		testErrorPaths("src/constraint/tests/sml/test5.con", 141, true);
 	}
 
 	@Test
