@@ -18,11 +18,7 @@ public abstract class Element {
 	public String getName () {
 		return name;
 	}
-	
-	public boolean isDecomposable() {
-		return false;
-	}
-	
+		
 	public String pos () {
 		return info.equals("")?"":(" @"+info);
 	}

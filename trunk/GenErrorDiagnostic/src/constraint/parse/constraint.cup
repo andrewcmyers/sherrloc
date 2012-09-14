@@ -30,7 +30,7 @@ action code {:
 /* Terminals (tokens returned by the scanner). */
 terminal 			SEPERATION;
 terminal            CONSTRUCTOR, LABEL;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, SEP, STAR, AT, JOIN, MEET;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, SEP, STAR, AT, JOIN, MEET;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
@@ -47,14 +47,15 @@ non terminal Integer			arity;
 non terminal List<Element>		element_list;
 
 /* Precedences */
-precedence right ARROW, MEET, JOIN;
+precedence right ARROW, LARROW, MEET, JOIN;
 precedence left  STAR;
 
 /* The grammar */
 cons_spec 	::= constructors 	
 			{: 
-					constructors.put("arrow", new Constructor("arrow", 2));
-					constructors.put("pair",  new Constructor("pair", 2));
+					constructors.put("arrow", new Constructor("arrow", 2, false));
+					constructors.put("larrow", new Constructor("larrow", 2, true));
+					constructors.put("pair",  new Constructor("pair", 2, false));
 					constructors.put("_",  new Bottom()); 
 					constructors.put("*",  new Top()); 
 			:} 
@@ -62,8 +63,9 @@ cons_spec 	::= constructors
 			{: RESULT = new DiagnosisInput (env, l); :}			
 			| 	constructors 
 			{: 
-					constructors.put("arrow", new Constructor("arrow", 2));
-					constructors.put("pair",  new Constructor("pair", 2)); 
+					constructors.put("arrow", new Constructor("arrow", 2, false));
+					constructors.put("larrow", new Constructor("larrow", 2, true));
+					constructors.put("pair",  new Constructor("pair", 2, false)); 
 					constructors.put("_",  new Bottom()); 
 					constructors.put("*",  new Top()); 
 			:} 
@@ -75,7 +77,7 @@ constructors ::= constructors constructor
 			| constructor;
 			
 constructor  ::= CONSTRUCTOR id:s arity:a
-			{: constructors.put( s, new Constructor(s, a)); :}
+			{: constructors.put( s, new Constructor(s, a, false)); :}
 			;
 
 id        	::= IDENTIFIER:s
@@ -134,6 +136,13 @@ term     	::=  term:t1 ARROW term:t2
 				l.add(t1);
 				l.add(t2);  
 				RESULT = new ConstructorElement ("", constructors.get("arrow"), l);
+			:}
+			|
+				term:t1 LARROW term:t2
+			{: 	List<Element> l = new ArrayList<Element>();
+				l.add(t1);
+				l.add(t2);  
+				RESULT = new ConstructorElement ("", constructors.get("larrow"), l);
 			:}
 			| term:t1 STAR term:t2
 			{: 	
