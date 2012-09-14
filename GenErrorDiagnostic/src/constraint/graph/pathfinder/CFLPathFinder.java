@@ -9,6 +9,8 @@ import java.util.Set;
 
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
+import constraint.ast.JoinElement;
+import constraint.ast.MeetElement;
 import constraint.graph.CompEdge;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstructorEdge;
@@ -200,6 +202,63 @@ abstract public class CFLPathFinder extends PathFinder {
 		
 		// TODO: this is not general. We should add new ID edges repeatly 
 		saturation();
+		
+		// now we handle meet and join labels
+		List<ElementNode> meetNodes = new ArrayList<ElementNode>();
+		List<ElementNode> joinNodes = new ArrayList<ElementNode>();
+		
+		for (Node n : g.getAllNodes()) {
+			ElementNode en = (ElementNode) n;
+			if (en.getElement() instanceof MeetElement)
+				meetNodes.add(en);
+			if (en.getElement() instanceof JoinElement)
+				joinNodes.add(en);
+		}
+		
+		// handle meet nodes first
+//		for (ElementNode n : meetNodes) {
+//			// if a node flows into all components, then we add an edge to n
+//			List<Element> comp = ((MeetElement)n.getElement()).getElements();
+//			boolean success = true;
+//			for (Node candidate : g.getAllNodes()) {
+//				if (candidate.equals(n)) continue;
+//				
+//				for (int i=0; i<comp.size(); i++) {
+//					if (getIdEdge(candidate, g.getNode(comp.get(i)))==null) {
+//						success = false;
+//						break;
+//					}
+//				}
+//				
+//				if (success) {
+//					System.out.println("@@@@@@@@@ "+((ElementNode)candidate).getElement() + "->" + n.getElement());
+//					addReductionEdge(candidate, n, new IdEdge(candidate, n, new ArrayList<Edge>()));
+//				}
+//			}
+//		}
+//		
+//		for (ElementNode n : joinNodes) {
+//			// if all components flows into node candidate, then we add an edge from n to candidate
+//			List<Element> comp = ((JoinElement)n.getElement()).getElements();
+//			boolean success = true;
+//			for (Node candidate : g.getAllNodes()) {
+//				if (candidate.equals(n)) continue;
+//				
+//				for (int i=0; i<comp.size(); i++) {
+//					if (getIdEdge(g.getNode(comp.get(i)), candidate)==null) {
+//						success = false;
+//						break;
+//					}
+//				}
+//				
+//				if (success) {
+//					System.out.println("@@@@@@@@@ "+ n.getElement() + "->" + ((ElementNode)candidate).getElement());
+//					addReductionEdge(n, candidate, new IdEdge(n, candidate, new ArrayList<Edge>()));
+//				}
+//			}
+//		}
+//		
+//		saturation();
 	}
 
 	// the method used to generate all CFG nonterminals in a graph

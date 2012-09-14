@@ -1,15 +1,10 @@
 package constraint.ast;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import util.AttemptGoal;
-
 import constraint.graph.ConstraintGraph;
-import constraint.graph.ConstraintPath;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
@@ -28,6 +23,10 @@ public class Environment {
 	public Environment() {
 		assertions = new HashSet<Constraint>();
 		graph = new ConstraintGraph(null, assertions, false);
+	}
+	
+	public Set<Constraint> getAssertions() {
+		return assertions;
 	}
 	
 	public void addAssertion (Constraint equ) {
@@ -172,15 +171,26 @@ public class Environment {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Environment) {
-			if (assertionString().equals(((Environment) obj).assertionString()))
-				return true;
+			Environment other = (Environment) obj;
+			for (Constraint cons : assertions) {
+				if (!other.getAssertions().contains(cons))
+					return false;
+			}
+			
+			for (Constraint cons : other.getAssertions()) {
+				if (!assertions.contains(cons))
+					return false;
+			}
 		}
-		return false;
+		return true;
 	}
 	
 	@Override
 	public int hashCode() {
-		return assertionString().hashCode();
+		int ret = 0;
+		for (Constraint cons : assertions)
+			ret += cons.toString().hashCode();
+		return ret;
 	}
 
 }
