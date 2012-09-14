@@ -23,7 +23,7 @@ public abstract class EnumerableElement extends Element {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
-		if (symbol.equals("->") || symbol.equals("*")) {
+		if (symbol.equals("->") || symbol.equals("*") || symbol.equals("<-")) {
 			return infixToString();
 		}
 		else {
@@ -105,10 +105,5 @@ public abstract class EnumerableElement extends Element {
 		}
 		return false;
 	}
-	
-	@Override
-	public boolean isDecomposable() {
-		return true;
-	}
-	
+		
 }

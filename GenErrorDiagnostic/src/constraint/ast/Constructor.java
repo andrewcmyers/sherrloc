@@ -5,22 +5,30 @@ import java.util.List;
 
 public class Constructor extends Element {
 	int		arity;
+	boolean contraVariant;
 	
-	public Constructor(String name, int arity) {
+	public Constructor(String name, int arity, boolean contravariant) {
 		super(name, "");
 		this.arity = arity;
+		this.contraVariant = contravariant;
 	}
 	
 	public int getArity () {
 		return arity;
 	}
 	
+	public boolean isContraVariant() {
+		return contraVariant;
+	}
+		
 	/**
 	 * To simplify the output, use UpperCase to indicate a constructor
 	 */
 	public String toString () {
 		if (name.equals("arrow"))
 			return "->";
+		if (name.equals("larrow"))
+			return "<-";
 		else if (name.equals("pair"))
 			return "*";
 		else
