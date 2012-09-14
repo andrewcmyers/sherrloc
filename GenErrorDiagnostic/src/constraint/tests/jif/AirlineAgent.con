@@ -1,0 +1,52 @@
+CONSTRUCTOR AirlineAgent.provider2522719 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR L-1772469607 0 //class jif.types.label.ParamLabel_c@AirlineAgent.jif:22,27-28
+CONSTRUCTOR this1642211719 0 //class jif.types.label.ThisLabel_c@AirlineAgent.jif:3,7-25
+CONSTRUCTOR AirlineServer.provider5375079 0 //class jif.types.label.ProviderLabel_c@AirlineAgent.jif:15,20-33
+CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@AirlineAgent.jif:21,11-39
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@AirlineAgent.jif:22,7-23
+CONSTRUCTOR * 0 //@Offer.jif:2,11-49
+CONSTRUCTOR TheAirline 0 //@AirlineAgent.jif:13,51-61
+
+%%
+caller_pc2346856 <= (TheAirline -> *);
+AirlineAgent.provider2522719 == _ -> _;
+AirlineServer.provider5375079 == _ -> _;
+_ -> _ <= AirlineAgent.provider2522719;
+AirlineAgent.provider2522719 <= * -> *;
+_ -> _ <= L-1772469607;
+L-1772469607 <= * -> *;
+_ -> _ <= this1642211719;
+this1642211719 <= * -> *;
+_ -> _ <= AirlineServer.provider5375079;
+AirlineServer.provider5375079 <= * -> *;
+_ -> _ <= newOffer-56354;
+newOffer-56354 <= * -> *;
+_ -> _ <= caller_pc2346856;
+caller_pc2346856 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= price-56390;
+price-56390 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (TheAirline -> *);
+(TheAirline -> *) <= * -> *;
+
+%%
+caller_pc2346856 <= (TheAirline -> *) [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:25,1-20"
+(TheAirline -> *) <= L-1772469607 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:25,1-20"
+AirlineAgent.provider2522719 <= (_ -> _) [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:25,1-20"
+AirlineServer.provider5375079 <= AirlineAgent.provider2522719 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:25,1-20"
+AirlineAgent.provider2522719 <= AirlineServer.provider5375079 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:25,1-20"
+AirlineAgent.provider2522719 <= (* -> *) [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:25,1-20"
+receiver-56360 == this1642211719 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:25,1-20"
+((TheAirline -> *)) ⊔ (this1642211719) <= price-56390 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:26,13-27"
+this1642211719 <= newOffer-56354 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:27,8-31"
+(price-56390) ⊔ (caller_pc2346856) <= L-1772469607 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:27,22-27"
+(caller_pc2346856) <= L-1772469607 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:27,29-30"
+caller_pc2346856 <= (* -> *) [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:27,8-31"
+(caller_pc2346856) ⊔ (newOffer-56354) <= (L-1772469607) ⊔ (caller_pc2346856) [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:27,1-32"
+L-1772469607 <= L-1772469607 [(_ -> _) <= L-1772469607;this1642211719 <= caller_pc2346856;Airlines<=TheAirline;];@"AirlineAgent.jif:27,8-31"
