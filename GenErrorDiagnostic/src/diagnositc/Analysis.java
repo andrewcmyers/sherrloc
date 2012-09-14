@@ -34,7 +34,7 @@ import constraint.parse.parser;
 public class Analysis {
 	boolean DEBUG = true;
     boolean SHOW_WHOLE_GRAPH=false;
-    int REC_MAX = 5;
+    int REC_MAX = 2;
 	boolean done = false;
 	ConstraintGraph graph;
 	HashMap<AttemptGoal, ConstraintPath> errorPaths;
@@ -50,7 +50,7 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3142.con", false);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/temp.con", false);
 //			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/sml/test2.con", true);
 			ana.writeToDotFile();
 		}
@@ -299,7 +299,16 @@ public class Analysis {
     		
     		for (AttemptGoal candidate : paths) {
     			if (candidate.equals(goal)) continue;
-    			if (goal.getEnv().addLeq(candidate.getSource().getElement(), candidate.getSink().getElement()).leq( goal.getSource().getElement(), goal.getSink().getElement()))
+
+    			Environment env = goal.getEnv().addLeq(candidate.getSource().getElement(), candidate.getSink().getElement());
+    			
+//				if (cachedEnv.containsKey(env))
+//					env = cachedEnv.get(env);
+//				else {
+//					cachedEnv.put(env, env);
+//				}
+    			
+    			if (env.leq( goal.getSource().getElement(), goal.getSink().getElement()))
     				list.add(candidate);
     		}
     	}
