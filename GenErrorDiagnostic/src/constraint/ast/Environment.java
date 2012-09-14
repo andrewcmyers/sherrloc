@@ -63,11 +63,14 @@ public class Environment {
 		if (e1.equals(e2))
 			return true;
 		
-		if (e1.isDecomposable() && e2.isDecomposable()) {
-			List<Element> l1 = ((EnumerableElement) e1).elements;
-			List<Element> l2 = ((EnumerableElement) e2).elements;
+		if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
+			List<Element> l1 = ((ConstructorElement) e1).elements;
+			List<Element> l2 = ((ConstructorElement) e2).elements;
+			boolean contravariant = ((ConstructorElement)e1).getCons().isContraVariant();
 			for (int i=0; i<l1.size(); i++) {
-				if (!leq(l1.get(i), l2.get(i)))
+				if (!contravariant && !leq(l1.get(i), l2.get(i)))
+					return false;
+				if (contravariant && !leq(l2.get(i), l1.get(i)))
 					return false;
 			}
 			return true;

@@ -2,12 +2,18 @@ package constraint.graph.pathfinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import constraint.ast.ConstructorElement;
+import constraint.ast.Element;
+import constraint.graph.CompEdge;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstructorEdge;
 import constraint.graph.Edge;
+import constraint.graph.ElementNode;
 import constraint.graph.EquationEdge;
 import constraint.graph.IdEdge;
 import constraint.graph.JoinEdge;
@@ -149,6 +155,50 @@ abstract public class CFLPathFinder extends PathFinder {
 			}
 		}
 		
+		// if all components flows into another constructor's components, add an additional edge
+		Set<Node> consSet = new HashSet<Node>();
+		for (Node n : g.getAllNodes()) {
+			if (n instanceof ElementNode && ((ElementNode)n).getElement() instanceof ConstructorElement) {
+				consSet.add(n);
+			}
+		}
+		
+		for (Node n1 : consSet) {
+			for (Node n2 : consSet) {
+				if (n1.equals(n2) || getIdEdge(n1, n2)!=null) continue;
+
+				ConstructorElement e1 = (ConstructorElement) ((ElementNode)n1).getElement();
+				ConstructorElement e2 = (ConstructorElement) ((ElementNode)n2).getElement();
+				
+				if (e1.getCons().equals(e2.getCons())) {
+					boolean success = true;
+					String exp = "";
+
+					for (int i=0; i<e1.getCons().getArity(); i++) {
+						Element comp1 = e1.getElements().get(i);
+						Element comp2 = e2.getElements().get(i);
+						
+						if ( comp1.equals(comp2))
+							continue;
+						
+						Edge edge = getIdEdge(g.getNode(e1.getElements().get(i)), g.getNode(e2.getElements().get(i)));
+						if (edge==null) {
+							success = false;
+							break;
+						}
+						exp += comp1.toString() + "<=" +comp2.toString();
+					}
+					
+					if (success) {
+						List<Edge> trace = new ArrayList<Edge>();
+						trace.add(new CompEdge(n1, n2, exp));
+						addReductionEdge(n1, n2, new IdEdge(n1, n2, trace));
+					}
+				}
+			}
+		}
+		
+		// TODO: this is not general. We should add new ID edges repeatly 
 		saturation();
 	}
 

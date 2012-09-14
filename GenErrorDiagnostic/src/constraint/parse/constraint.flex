@@ -62,6 +62,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	"<="                           { return symbol(sym.LEQ); }
   	">="                           { return symbol(sym.GEQ); }
   	"->"                           { return symbol(sym.ARROW); }
+  	"<-"						   { return symbol(sym.LARROW); }
   	";"    						   { return symbol(sym.SEMICOLON); }
   	","							   { return symbol(sym.STAR); }
   	

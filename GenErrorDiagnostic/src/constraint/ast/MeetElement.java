@@ -63,8 +63,4 @@ public class MeetElement extends EnumerableElement {
 		return false;
 	}
 		
-	@Override
-	public boolean isDecomposable() {
-		return false;
-	}
 }

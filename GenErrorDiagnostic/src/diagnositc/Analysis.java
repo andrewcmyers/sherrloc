@@ -50,8 +50,8 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		try {
-//			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3122.con", false);
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/sml/test2.con", true);
+			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/r3142.con", false);
+//			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/sml/test2.con", true);
 			ana.writeToDotFile();
 		}
 		catch (Exception e) {
@@ -126,7 +126,7 @@ public class Analysis {
 						continue;
 				}
 				
-				if (start.getElement().isDecomposable() && end.getElement().isDecomposable())
+				if (start.getElement() instanceof ConstructorElement && end.getElement() instanceof ConstructorElement)
 					continue;
 
 				if (graph.getEnv().leq(start.getElement(), end.getElement()))
@@ -160,34 +160,37 @@ public class Analysis {
 			System.out.println("*** Found "+errorPaths.size() + " in total");
 	}
     
-    public Set<AttemptGoal> genAssumptions () {    	    	
-    	HashMap<AttemptGoal, List<AttemptGoal>> dep = eliminatePaths(unsatPath);
+    public Set<AttemptGoal> genAssumptions (Set<AttemptGoal> remaining) {    	    	
+    	HashMap<AttemptGoal, List<AttemptGoal>> dep = genAssumptionDep(remaining);
     	Set<Set<AttemptGoal>> results = new HashSet<Set<AttemptGoal>>();
     	
     	// we do an interative deeping search until at least one cut is returned
     	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, unsatPath, dep, new HashSet<AttemptGoal>(), results);
+   			boundedDepthSearch (level, remaining, dep, new HashSet<AttemptGoal>(), results);
    			if (results.size()!=0)
    				break;
     	}
 
 		System.out.println("Possible missing assumptions:");
+		HashSet<AttemptGoal> ret = new HashSet<AttemptGoal>();
     	for (Set<AttemptGoal> result : results) {
     		for (AttemptGoal s : result) {
-        		System.out.println(" "+s.getSource().getElement() +" <= "+s.getSink().getElement());
+    			ret.add(s);
+        		System.out.print(" "+s.getSource().getElement() +" <= "+s.getSink().getElement()+";");
     		}
+    		System.out.println();
     	}
     	
-    	return null;
+    	return ret;
     }
     
     /* Calculating a min cut is NP complete. Currently, we use interative deeping search to quickly identify the goal */
-    public void genCuts () {
+    public void genCuts (Set<AttemptGoal> remaining) {
     	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
     	Set<Set<EquationEdge>> results = new HashSet<Set<EquationEdge>>();
     	HashMap<AttemptGoal, List<EquationEdge>> map = new HashMap<AttemptGoal, List<EquationEdge>>();
 
-    	for (AttemptGoal goal : errorPaths.keySet()) {
+    	for (AttemptGoal goal : remaining) {
     		List<EquationEdge> l = new ArrayList<EquationEdge>();
     		for (Edge e : errorPaths.get(goal).getEdges()) {
     			if (e instanceof EquationEdge) {
@@ -229,7 +232,7 @@ public class Analysis {
    				boolean iscut = true;
    				
    				// for any path, at least one element in the visited list should appear
-   	   			for (AttemptGoal goal : unsatPath) {
+   	   			for (AttemptGoal goal : dependencies.keySet()) {
    	   				boolean flag = false;
    	   				for (K edge : visited) {
    	   					if (dependencies.get(goal).contains(edge)) {
@@ -287,7 +290,7 @@ public class Analysis {
     }
     
     // this function returns hashmap, that for each goal, a list of "stronger" assumptions that either of them eliminates it
-    public HashMap<AttemptGoal, List<AttemptGoal>> eliminatePaths (Set<AttemptGoal> paths) {
+    public HashMap<AttemptGoal, List<AttemptGoal>> genAssumptionDep (Set<AttemptGoal> paths) {
     	HashMap<AttemptGoal, List<AttemptGoal>> ret = new HashMap<AttemptGoal, List<AttemptGoal>>( );
     	for (AttemptGoal goal : paths) {
     		List<AttemptGoal> list = new ArrayList<AttemptGoal>();
@@ -373,7 +376,7 @@ public class Analysis {
     	if (!done) {
     		genErrorPaths();
     	}
-        Set<AttemptGoal> result = genAssumptions();
+        Set<AttemptGoal> result = genAssumptions(errorPaths.keySet());
     	return result.size();
     }
     
@@ -399,8 +402,14 @@ public class Analysis {
         if (!done) 
         	genErrorPaths();
         
-//        genAssumptions();
-        genCuts();
+        Set<AttemptGoal> missingAssump =  genAssumptions(errorPaths.keySet());
+//        genCuts(errorPaths.keySet());
+//        Set<AttemptGoal> remainingAssump = new HashSet<AttemptGoal>();
+//        for (AttemptGoal goal : errorPaths.keySet()) {
+//        	if (!missingAssump.contains(goal))
+//        		remainingAssump.add(goal);
+//        }
+//        genAssumptions(remainingAssump);
         
         try {
             FileWriter fstream = new FileWriter(filename);
