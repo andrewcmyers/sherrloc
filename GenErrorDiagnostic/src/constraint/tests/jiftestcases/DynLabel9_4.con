@@ -1,42 +1,42 @@
-CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@DynLabel9.jif:11,0-7
-CONSTRUCTOR D.provider19774283 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@DynLabel9.jif:12,4-10
+CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@DynLabel9.jif:11,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@DynLabel9.jif:12,4
 CONSTRUCTOR this 0
-CONSTRUCTOR p 0 //@DynLabel9.jif:15,4-5
-CONSTRUCTOR * 0 //@DynLabel9.jif:15,4-6
-CONSTRUCTOR foo.pr 0 //@DynLabel9.jif:5,18-25
+CONSTRUCTOR foo.pr 0 //@DynLabel9.jif:5,18
+CONSTRUCTOR p 0 //@DynLabel9.jif:15,4
+CONSTRUCTOR * 0 //@DynLabel9.jif:15,4
 
 %%
-caller_pc2346856 <= (_ -> _);
-D.provider19774283 == _ -> _;
-_ -> _ <= this68;
-this68 <= * -> *;
+caller_pc1 <= (_ -> _);
+D.provider1 == _ -> _;
+_ -> _ <= D.provider1;
+D.provider1 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
 _ -> _ <= (p -> *);
 (p -> *) <= * -> *;
-_ -> _ <= D.provider19774283;
-D.provider19774283 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= p-56389;
-p-56389 <= * -> *;
-_ -> _ <= foo-56390;
-foo-56390 <= * -> *;
 _ -> _ <= (foo.pr -> *);
 (foo.pr -> *) <= * -> *;
-_ -> _ <= newS-56387;
-newS-56387 <= * -> *;
-_ -> _ <= c-56388;
-c-56388 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= p1;
+p1 <= * -> *;
+_ -> _ <= foo1;
+foo1 <= * -> *;
+_ -> _ <= newS1;
+newS1 <= * -> *;
+_ -> _ <= c1;
+c1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-caller_pc2346856 <= (* -> *) [this68 <= caller_pc2346856;Alice==p;];@"DynLabel9.jif:13,15-22"
-(caller_pc2346856) ⊔ (newS-56387) <= foo-56390 [this68 <= caller_pc2346856;Alice==p;];@"DynLabel9.jif:13,15-22"
-(caller_pc2346856) <= p-56389 [this68 <= caller_pc2346856;Alice==p;];@"DynLabel9.jif:14,21-26"
-(caller_pc2346856) <= c-56388 [this68 <= caller_pc2346856;Alice==p;];@"DynLabel9.jif:15,13-17"
-(c-56388) ⊔ (p-56389) ⊔ (caller_pc2346856) ⊔ (foo-56390) <= (foo.pr -> *) [this68 <= caller_pc2346856;Alice==p;p==foo.pr;];@"DynLabel9.jif:17,5-10"
-D.provider19774283 <= (foo.pr -> *) [this68 <= caller_pc2346856;Alice==p;p==foo.pr;];@"DynLabel9.jif:17,5-10"
-(p -> *) == (foo.pr -> *) [this68 <= caller_pc2346856;Alice==p;p==foo.pr;];@"DynLabel9.jif:17,5-14"
-((foo.pr -> *)) ⊔ (foo-56390) ⊔ (p-56389) <= c-56388 [this68 <= caller_pc2346856;Alice==p;p==foo.pr;];@"DynLabel9.jif:18,5-6"
-(foo.pr -> *) == (p -> *) [this68 <= caller_pc2346856;Alice==p;p==foo.pr;];@"DynLabel9.jif:18,5-14"
+caller_pc1 <= (* -> *) [this1 <= caller_pc1;p==Alice;];@"DynLabel9.jif:13,15"
+(caller_pc1) ⊔ (newS1) <= foo1 [this1 <= caller_pc1;p==Alice;];@"DynLabel9.jif:13,15"
+(caller_pc1) <= p1 [this1 <= caller_pc1;p==Alice;];@"DynLabel9.jif:14,21"
+(caller_pc1) <= c1 [this1 <= caller_pc1;p==Alice;];@"DynLabel9.jif:15,13"
+(c1) ⊔ (p1) ⊔ (caller_pc1) ⊔ (foo1) <= (foo.pr -> *) [this1 <= caller_pc1;foo.pr==p;p==Alice;];@"DynLabel9.jif:17,5"
+D.provider1 <= (foo.pr -> *) [this1 <= caller_pc1;foo.pr==p;p==Alice;];@"DynLabel9.jif:17,5"
+(p -> *) == (foo.pr -> *) [this1 <= caller_pc1;foo.pr==p;p==Alice;];@"DynLabel9.jif:17,5"
+((foo.pr -> *)) ⊔ (foo1) ⊔ (p1) <= c1 [this1 <= caller_pc1;foo.pr==p;p==Alice;];@"DynLabel9.jif:18,5"
+(foo.pr -> *) == (p -> *) [this1 <= caller_pc1;foo.pr==p;p==Alice;];@"DynLabel9.jif:18,5"

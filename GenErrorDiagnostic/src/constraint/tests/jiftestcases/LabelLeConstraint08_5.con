@@ -1,35 +1,35 @@
-CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint08.jif:9,0-7
-CONSTRUCTOR D.provider8588475 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint08.jif:9,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint08.jif:9,0-7
-CONSTRUCTOR *c.f24762306 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08.jif:2,10-39
-CONSTRUCTOR D.provider12316828 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint08.jif:9,0
+CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint08.jif:9,0
+CONSTRUCTOR *c.f1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08.jif:2,10
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint08.jif:9,0
+CONSTRUCTOR D.provider2 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@LabelLeConstraint08.jif:2,31-37
+CONSTRUCTOR * 0 //@LabelLeConstraint08.jif:2,31
 
 %%
-D.provider8588475 == _ -> _;
-D.provider12316828 == _ -> _;
-_ -> _ <= this68;
-this68 <= * -> *;
-_ -> _ <= D.provider8588475;
-D.provider8588475 <= * -> *;
+D.provider1 == _ -> _;
+D.provider2 == _ -> _;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= D.provider1;
+D.provider1 <= * -> *;
+_ -> _ <= *c.f1;
+*c.f1 <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= *c.f24762306;
-*c.f24762306 <= * -> *;
-_ -> _ <= D.provider12316828;
-D.provider12316828 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= D.provider2;
+D.provider2 <= * -> *;
 
 %%
-D.provider12316828 <= (* -> *) [*c.f24762306 <= (Alice -> *);(Alice -> *) <= *c.f24762306;];@"LabelLeConstraint08.jif:9,0-7"
-(* -> *) <= (* -> *) [*c.f24762306 <= (Alice -> *);(Alice -> *) <= *c.f24762306;];@"LabelLeConstraint08.jif:10,4-12"
-(_ -> _) <= (_ -> _) [*c.f24762306 <= (Alice -> *);(Alice -> *) <= *c.f24762306;];@"LabelLeConstraint08.jif:10,4-12"
-D.provider8588475 <= (* -> *) [*c.f24762306 <= (Alice -> *);(Alice -> *) <= *c.f24762306;this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider8588475);];@"LabelLeConstraint08.jif:9,0-0"
+D.provider2 <= (* -> *) [*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:9,0"
+(* -> *) <= (* -> *) [*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:10,4"
+(_ -> _) <= (_ -> _) [*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:10,4"
+D.provider1 <= (* -> *) [*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;this1 <= caller_pc1;caller_pc1 <= (D.provider1);];@"LabelLeConstraint08.jif:9,0"

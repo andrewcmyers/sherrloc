@@ -1,33 +1,33 @@
-CONSTRUCTOR L-1772469607 0 //class jif.types.label.ParamLabel_c@LabelSubst01.jif:18,18-19
-CONSTRUCTOR Foo.provider25201384 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this70822 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:17,0-9
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:17,0-9
-CONSTRUCTOR Foo.provider2023219 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:17,0-9
+CONSTRUCTOR L1 0 //class jif.types.label.ParamLabel_c@LabelSubst01.jif:18,18
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:17,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:17,0
+CONSTRUCTOR Foo.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR Foo.provider2 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:17,0
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
 
 %%
-Foo.provider25201384 == _ -> _;
-Foo.provider2023219 == _ -> _;
-_ -> _ <= L-1772469607;
-L-1772469607 <= * -> *;
-_ -> _ <= Foo.provider25201384;
-Foo.provider25201384 <= * -> *;
-_ -> _ <= this70822;
-this70822 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+Foo.provider1 == _ -> _;
+Foo.provider2 == _ -> _;
+_ -> _ <= L1;
+L1 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= Foo.provider1;
+Foo.provider1 <= * -> *;
+_ -> _ <= Foo.provider2;
+Foo.provider2 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= Foo.provider2023219;
-Foo.provider2023219 <= * -> *;
 
 %%
-Foo.provider25201384 <= (* -> *) [];@"LabelSubst01.jif:17,0-9"
-(* -> *) <= (* -> *) [];@"LabelSubst01.jif:18,11-28"
-(_ -> _) <= (_ -> _) [];@"LabelSubst01.jif:18,11-28"
-L-1772469607 <= L-1772469607 [];@"LabelSubst01.jif:18,11-28"
-Foo.provider2023219 <= (* -> *) [this70822 <= caller_pc2346856;caller_pc2346856 <= (Foo.provider2023219);];@"LabelSubst01.jif:17,0-0"
+Foo.provider1 <= (* -> *) [];@"LabelSubst01.jif:17,0"
+(* -> *) <= (* -> *) [];@"LabelSubst01.jif:18,11"
+(_ -> _) <= (_ -> _) [];@"LabelSubst01.jif:18,11"
+L1 <= L1 [];@"LabelSubst01.jif:18,11"
+Foo.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (Foo.provider2);];@"LabelSubst01.jif:17,0"

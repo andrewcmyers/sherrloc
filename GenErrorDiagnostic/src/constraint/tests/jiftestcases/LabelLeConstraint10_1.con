@@ -1,11 +1,11 @@
-CONSTRUCTOR L-1772469607 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint10.jif:2,8-9
+CONSTRUCTOR L1 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint10.jif:2,8
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= L-1772469607;
-L-1772469607 <= * -> *;
-_ -> _ <= f-56392;
-f-56392 <= * -> *;
+_ -> _ <= L1;
+L1 <= * -> *;
+_ -> _ <= f1;
+f1 <= * -> *;
 
 %%
-f-56392 == L-1772469607 [];@"LabelLeConstraint10.jif:2,4-13"
+f1 == L1 [];@"LabelLeConstraint10.jif:2,4"

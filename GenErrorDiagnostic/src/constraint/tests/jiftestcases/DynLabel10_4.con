@@ -1,22 +1,22 @@
-CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@DynLabel10.jif:4,0-7
-CONSTRUCTOR *this.f23217021 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:8,6-12
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@DynLabel10.jif:7,4-10
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@DynLabel10.jif:4,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@DynLabel10.jif:7,4
+CONSTRUCTOR *this.f1 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:8,6
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= this68;
-this68 <= * -> *;
-_ -> _ <= *this.f23217021;
-*this.f23217021 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= x-56389;
-x-56389 <= * -> *;
-_ -> _ <= y-56388;
-y-56388 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
+_ -> _ <= *this.f1;
+*this.f1 <= * -> *;
+_ -> _ <= y1;
+y1 <= * -> *;
 
 %%
-x-56389 == (caller_pc2346856) ⊔ (*this.f23217021) [this68 <= caller_pc2346856;];@"DynLabel10.jif:8,14-15"
-(caller_pc2346856) <= x-56389 [this68 <= caller_pc2346856;];@"DynLabel10.jif:8,18-19"
-y-56388 == (caller_pc2346856) ⊔ (*this.f23217021) [this68 <= caller_pc2346856;];@"DynLabel10.jif:9,9-10"
-(caller_pc2346856) <= y-56388 [this68 <= caller_pc2346856;];@"DynLabel10.jif:9,13-14"
+x1 == (caller_pc1) ⊔ (*this.f1) [this1 <= caller_pc1;];@"DynLabel10.jif:8,14"
+(caller_pc1) <= x1 [this1 <= caller_pc1;];@"DynLabel10.jif:8,18"
+y1 == (caller_pc1) ⊔ (*this.f1) [this1 <= caller_pc1;];@"DynLabel10.jif:9,9"
+(caller_pc1) <= y1 [this1 <= caller_pc1;];@"DynLabel10.jif:9,13"

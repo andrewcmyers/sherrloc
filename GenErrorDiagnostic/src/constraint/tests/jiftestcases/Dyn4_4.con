@@ -1,16 +1,16 @@
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:14,18-27
-CONSTRUCTOR y99421805 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:14,40-44
-CONSTRUCTOR *M16655005 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:14,23-24
+CONSTRUCTOR *M1 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:14,23
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:14,18
+CONSTRUCTOR y1 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:14,40
 CONSTRUCTOR this 0
 
 %%
-y99421805 <= *M16655005;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= y99421805;
-y99421805 <= * -> *;
-_ -> _ <= *M16655005;
-*M16655005 <= * -> *;
+y1 <= *M1;
+_ -> _ <= *M1;
+*M1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= y1;
+y1 <= * -> *;
 
 %%
-(y99421805) ⊔ (caller_pc2346856) <= (*M16655005) ⊔ (caller_pc2346856) [];@"Dyn4.jif:14,50-59"
+(y1) ⊔ (caller_pc1) <= (*M1) ⊔ (caller_pc1) [];@"Dyn4.jif:14,50"

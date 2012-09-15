@@ -1,15 +1,15 @@
-CONSTRUCTOR this80698815 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0-11
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:3,11-27
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:3,11
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Dyn7.jif:3,16-18
+CONSTRUCTOR _ 0 //@Dyn7.jif:3,16
 
 %%
-_ -> _ <= this80698815;
-this80698815 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-caller_pc2346856 <= ((_ -> _)) ⊔ (caller_pc2346856) [this80698815 <= caller_pc2346856;];@"Dyn7.jif:4,1-24"
+caller_pc1 <= ((_ -> _)) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"Dyn7.jif:4,1"

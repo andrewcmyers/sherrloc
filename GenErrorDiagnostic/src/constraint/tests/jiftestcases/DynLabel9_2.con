@@ -1,24 +1,24 @@
-CONSTRUCTOR C.provider27472067 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR C.provider3252433 0 //class jif.types.label.ProviderLabel_c@DynLabel9.jif:1,0-7
-CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@DynLabel9.jif:1,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@DynLabel9.jif:1,0-7
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@DynLabel9.jif:1,0
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@DynLabel9.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@DynLabel9.jif:1,0
+CONSTRUCTOR C.provider2 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
 
 %%
-C.provider27472067 == _ -> _;
-C.provider3252433 == _ -> _;
-_ -> _ <= C.provider27472067;
-C.provider27472067 <= * -> *;
-_ -> _ <= C.provider3252433;
-C.provider3252433 <= * -> *;
-_ -> _ <= this67;
-this67 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+C.provider1 == _ -> _;
+C.provider2 == _ -> _;
+_ -> _ <= C.provider1;
+C.provider1 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= C.provider2;
+C.provider2 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider27472067 <= (* -> *) [];@"DynLabel9.jif:1,0-7"
-C.provider3252433 <= (* -> *) [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider3252433);];@"DynLabel9.jif:1,0-0"
+C.provider2 <= (* -> *) [];@"DynLabel9.jif:1,0"
+C.provider1 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (C.provider1);];@"DynLabel9.jif:1,0"

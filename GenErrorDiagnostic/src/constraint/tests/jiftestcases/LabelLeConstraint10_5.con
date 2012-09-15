@@ -1,29 +1,29 @@
-CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint10.jif:9,0-7
-CONSTRUCTOR D.provider31064791 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint10.jif:9,0-7
-CONSTRUCTOR D.provider2698425 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint10.jif:9,0-7
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint10.jif:9,0
+CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint10.jif:9,0
+CONSTRUCTOR D.provider2 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint10.jif:9,0
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@LabelLeConstraint10.jif:10,12-17
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR _ 0 //@LabelLeConstraint10.jif:10,12
+CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
 
 %%
-D.provider31064791 == _ -> _;
-D.provider2698425 == _ -> _;
-_ -> _ <= this68;
-this68 <= * -> *;
-_ -> _ <= D.provider31064791;
-D.provider31064791 <= * -> *;
-_ -> _ <= D.provider2698425;
-D.provider2698425 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+D.provider1 == _ -> _;
+D.provider2 == _ -> _;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= D.provider1;
+D.provider1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= D.provider2;
+D.provider2 <= * -> *;
 
 %%
-D.provider2698425 <= (* -> *) [];@"LabelLeConstraint10.jif:9,0-7"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint10.jif:10,4-12"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint10.jif:10,4-12"
-D.provider31064791 <= (* -> *) [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider31064791);];@"LabelLeConstraint10.jif:9,0-0"
+D.provider1 <= (* -> *) [];@"LabelLeConstraint10.jif:9,0"
+(_ -> _) <= (_ -> _) [];@"LabelLeConstraint10.jif:10,4"
+(_ -> _) <= (_ -> _) [];@"LabelLeConstraint10.jif:10,4"
+D.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (D.provider2);];@"LabelLeConstraint10.jif:9,0"

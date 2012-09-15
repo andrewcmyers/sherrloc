@@ -1,24 +1,24 @@
-CONSTRUCTOR A.provider25816645 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this65 0 //class jif.types.label.ThisLabel_c@A.jif:1,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@A.jif:4,11-21
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@A.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@A.jif:4,11
+CONSTRUCTOR A.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR Bob 0 //@null
 
 %%
-caller_pc2346856 <= (Alice -> Bob);
-A.provider25816645 == _ -> _;
-_ -> _ <= A.provider25816645;
-A.provider25816645 <= * -> *;
-_ -> _ <= this65;
-this65 <= * -> *;
+caller_pc1 <= (Alice -> Bob);
+A.provider1 == _ -> _;
+_ -> _ <= this1;
+this1 <= * -> *;
 _ -> _ <= (Alice -> Bob);
 (Alice -> Bob) <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= A.provider1;
+A.provider1 <= * -> *;
 
 %%
-(caller_pc2346856) ⊔ (this65) <= (Alice -> Bob) [this65 <= caller_pc2346856;];@"A.jif:5,8-9"
-A.provider25816645 <= (Alice -> Bob) [this65 <= caller_pc2346856;];@"A.jif:5,8-9"
-(caller_pc2346856) ⊔ (this65) <= (Alice -> Bob) [this65 <= caller_pc2346856;];@"A.jif:6,1-2"
-A.provider25816645 <= (Alice -> Bob) [this65 <= caller_pc2346856;];@"A.jif:6,1-2"
+(caller_pc1) ⊔ (this1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"A.jif:5,8"
+A.provider1 <= (Alice -> Bob) [this1 <= caller_pc1;];@"A.jif:5,8"
+(caller_pc1) ⊔ (this1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"A.jif:6,1"
+A.provider1 <= (Alice -> Bob) [this1 <= caller_pc1;];@"A.jif:6,1"

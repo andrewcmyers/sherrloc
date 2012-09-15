@@ -1,46 +1,46 @@
-CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@ArgLabel2.jif:1,0-7
-CONSTRUCTOR D.provider6740560 0 //class jif.types.label.ProviderLabel_c@ArgLabel2.jif:1,0-7
-CONSTRUCTOR D.provider6270034 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:1,0-7
-CONSTRUCTOR y99421805 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,27-30
-CONSTRUCTOR x99421804 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:5,19-22
-CONSTRUCTOR x99421804 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,19-22
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabel2.jif:1,0
+CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:1,0
+CONSTRUCTOR D.provider2 0 //class jif.types.label.ProviderLabel_c@ArgLabel2.jif:1,0
+CONSTRUCTOR y1 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,27
+CONSTRUCTOR x1 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:5,19
+CONSTRUCTOR x2 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,19
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
 
 %%
-y99421805 <= x99421804;
-x99421804 <= y99421805;
-x99421804 <= x99421804;
-D.provider6740560 == _ -> _;
-D.provider6270034 == _ -> _;
-_ -> _ <= this68;
-this68 <= * -> *;
-_ -> _ <= D.provider6740560;
-D.provider6740560 <= * -> *;
-_ -> _ <= D.provider6270034;
-D.provider6270034 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= y99421805;
-y99421805 <= * -> *;
-_ -> _ <= x99421804;
-x99421804 <= * -> *;
-_ -> _ <= x99421804;
-x99421804 <= * -> *;
+y1 <= x2;
+x2 <= y1;
+x1 <= x1;
+D.provider1 == _ -> _;
+D.provider2 == _ -> _;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= D.provider1;
+D.provider1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= D.provider2;
+D.provider2 <= * -> *;
+_ -> _ <= y1;
+y1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
+_ -> _ <= x2;
+x2 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-D.provider6270034 <= (* -> *) [];@"ArgLabel2.jif:1,0-7"
-y99421805 <= y99421805 [];@"ArgLabel2.jif:3,9-17"
-x99421804 <= x99421804 [];@"ArgLabel2.jif:3,9-17"
-(* -> *) <= (* -> *) [];@"ArgLabel2.jif:3,9-17"
-(_ -> _) <= (_ -> _) [];@"ArgLabel2.jif:3,9-17"
-x99421804 <= x99421804 [];@"ArgLabel2.jif:5,9-17"
-(* -> *) <= (* -> *) [];@"ArgLabel2.jif:5,9-17"
-(_ -> _) <= (_ -> _) [];@"ArgLabel2.jif:5,9-17"
-D.provider6740560 <= (* -> *) [this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider6740560);];@"ArgLabel2.jif:1,0-0"
+D.provider1 <= (* -> *) [];@"ArgLabel2.jif:1,0"
+y1 <= y1 [];@"ArgLabel2.jif:3,9"
+x2 <= x2 [];@"ArgLabel2.jif:3,9"
+(* -> *) <= (* -> *) [];@"ArgLabel2.jif:3,9"
+(_ -> _) <= (_ -> _) [];@"ArgLabel2.jif:3,9"
+x1 <= x1 [];@"ArgLabel2.jif:5,9"
+(* -> *) <= (* -> *) [];@"ArgLabel2.jif:5,9"
+(_ -> _) <= (_ -> _) [];@"ArgLabel2.jif:5,9"
+D.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (D.provider2);];@"ArgLabel2.jif:1,0"
