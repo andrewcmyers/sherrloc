@@ -62,6 +62,10 @@ public class Environment {
 		if (e1.equals(e2))
 			return true;
 		
+		// the assumption can be made on the join/meet
+		if (leqApplyAssertions(e1, e2))
+			return true;
+
 		if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
 			List<Element> l1 = ((ConstructorElement) e1).elements;
 			List<Element> l2 = ((ConstructorElement) e2).elements;
@@ -78,10 +82,6 @@ public class Environment {
 		if (e1 instanceof Bottom || e2 instanceof Top)
 			return true;
 		
-		// the assumption can be made on the join/meet
-		if (leqApplyAssertions(e1, e2))
-			return true;
-
 		// e1 leq any element of e2
 		if (e2 instanceof JoinElement) {
 			for (Element e : ((JoinElement)e2).getElements())

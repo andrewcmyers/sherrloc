@@ -1,43 +1,43 @@
-CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@For3.jif:1,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@For3.jif:2,4-10
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@For3.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@For3.jif:2,4
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@For3.jif:4,15-17
-CONSTRUCTOR * 0 //@For3.jif:3,9-15
+CONSTRUCTOR _ 0 //@For3.jif:4,15
+CONSTRUCTOR * 0 //@For3.jif:3,9
 
 %%
-caller_pc2346856 <= (_ -> _);
+caller_pc1 <= (_ -> _);
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= this67;
-this67 <= * -> *;
-_ -> _ <= leak-56391;
-leak-56391 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= secret-56392;
-secret-56392 <= * -> *;
-_ -> _ <= e-56389;
-e-56389 <= * -> *;
-_ -> _ <= i-56390;
-i-56390 <= * -> *;
-_ -> _ <= for-56388;
-for-56388 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= leak1;
+leak1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= secret1;
+secret1 <= * -> *;
+_ -> _ <= e1;
+e1 <= * -> *;
+_ -> _ <= i1;
+i1 <= * -> *;
+_ -> _ <= for1;
+for1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= newException-56386;
-newException-56386 <= * -> *;
+_ -> _ <= newException1;
+newException1 <= * -> *;
 
 %%
-secret-56392 == (Alice -> *) [this67 <= caller_pc2346856;];@"For3.jif:3,17-23"
-(caller_pc2346856) <= secret-56392 [this67 <= caller_pc2346856;];@"For3.jif:3,26-30"
-leak-56391 == (_ -> _) [this67 <= caller_pc2346856;];@"For3.jif:4,18-22"
-(caller_pc2346856) <= leak-56391 [this67 <= caller_pc2346856;];@"For3.jif:4,25-30"
-(caller_pc2346856) <= i-56390 [this67 <= caller_pc2346856;];@"For3.jif:6,25-26"
-(for-56388) ⊔ (i-56390) <= leak-56391 [this67 <= caller_pc2346856;];@"For3.jif:7,16-20"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= (* -> *) [this67 <= caller_pc2346856;];@"For3.jif:8,35-50"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) <= i-56390 [this67 <= caller_pc2346856;];@"For3.jif:6,35-36"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (caller_pc2346856) <= for-56388 [this67 <= caller_pc2346856;];@"For3.jif:6,12-34"
-(secret-56392) ⊔ (for-56388) ⊔ (i-56390) ⊔ (newException-56386) <= e-56389 [this67 <= caller_pc2346856;];@"For3.jif:11,15-26"
+secret1 == (Alice -> *) [this1 <= caller_pc1;];@"For3.jif:3,17"
+(caller_pc1) <= secret1 [this1 <= caller_pc1;];@"For3.jif:3,26"
+leak1 == (_ -> _) [this1 <= caller_pc1;];@"For3.jif:4,18"
+(caller_pc1) <= leak1 [this1 <= caller_pc1;];@"For3.jif:4,25"
+(caller_pc1) <= i1 [this1 <= caller_pc1;];@"For3.jif:6,25"
+(for1) ⊔ (i1) <= leak1 [this1 <= caller_pc1;];@"For3.jif:7,16"
+(secret1) ⊔ (for1) ⊔ (i1) <= (* -> *) [this1 <= caller_pc1;];@"For3.jif:8,35"
+(secret1) ⊔ (for1) ⊔ (i1) <= i1 [this1 <= caller_pc1;];@"For3.jif:6,35"
+(secret1) ⊔ (for1) ⊔ (i1) ⊔ (caller_pc1) <= for1 [this1 <= caller_pc1;];@"For3.jif:6,12"
+(secret1) ⊔ (for1) ⊔ (i1) ⊔ (newException1) <= e1 [this1 <= caller_pc1;];@"For3.jif:11,15"

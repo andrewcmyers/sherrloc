@@ -1,29 +1,29 @@
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@para.jif:7,8-14
-CONSTRUCTOR y99421805 0 //class jif.types.label.ArgLabel_c@para.jif:7,33-45
-CONSTRUCTOR x99421804 0 //class jif.types.label.ArgLabel_c@para.jif:7,18-26
-CONSTRUCTOR this3433440 0 //class jif.types.label.ThisLabel_c@para.jif:5,0-10
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@para.jif:7,8
+CONSTRUCTOR y1 0 //class jif.types.label.ArgLabel_c@para.jif:7,33
+CONSTRUCTOR x1 0 //class jif.types.label.ArgLabel_c@para.jif:7,18
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@para.jif:5,0
 CONSTRUCTOR this 0
-CONSTRUCTOR px 0 //@para.jif:8,8-10
-CONSTRUCTOR py 0 //@para.jif:8,12-14
-CONSTRUCTOR pz 0 //@para.jif:8,15-17
+CONSTRUCTOR px 0 //@para.jif:8,8
+CONSTRUCTOR py 0 //@para.jif:8,12
+CONSTRUCTOR pz 0 //@para.jif:8,15
 
 %%
-y99421805 <= px -> py⊓pz;
-x99421804 <= px -> py;
-_ -> _ <= px -> py⊓pz;
-px -> py⊓pz <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= z-56392;
-z-56392 <= * -> *;
-_ -> _ <= y99421805;
-y99421805 <= * -> *;
-_ -> _ <= x99421804;
-x99421804 <= * -> *;
-_ -> _ <= this3433440;
-this3433440 <= * -> *;
+y1 <= (px -> py⊓pz);
+x1 <= (px -> py);
+_ -> _ <= (px -> py⊓pz);
+(px -> py⊓pz) <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= z1;
+z1 <= * -> *;
+_ -> _ <= y1;
+y1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
 
 %%
-z-56392 == (caller_pc2346856) ⊔ (px -> py⊓pz) [this3433440 <= caller_pc2346856;];@"para.jif:8,19-20"
-(y99421805) ⊔ (caller_pc2346856) <= z-56392 [this3433440 <= caller_pc2346856;];@"para.jif:9,4-5"
-(x99421804) ⊔ (caller_pc2346856) <= z-56392 [this3433440 <= caller_pc2346856;];@"para.jif:10,4-5"
+z1 == (caller_pc1) ⊔ ((px -> py⊓pz)) [this1 <= caller_pc1;];@"para.jif:8,19"
+(y1) ⊔ (caller_pc1) <= z1 [this1 <= caller_pc1;];@"para.jif:9,4"
+(x1) ⊔ (caller_pc1) <= z1 [this1 <= caller_pc1;];@"para.jif:10,4"

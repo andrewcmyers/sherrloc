@@ -1,47 +1,47 @@
-CONSTRUCTOR C.provider19649900 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR C.provider25117323 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:4,7-14
-CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:4,7-14
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:12,11-23
-CONSTRUCTOR *this.lb27414887 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider2 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:4,7
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:4,7
+CONSTRUCTOR *this.lb1 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:12,11
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@LabelSubst01.jif:6,40-41
+CONSTRUCTOR * 0 //@LabelSubst01.jif:6,40
 
 %%
-caller_pc2346856 <= (* -> Alice);
-C.provider19649900 == _ -> _;
-C.provider25117323 == _ -> _;
-_ -> _ <= C.provider19649900;
-C.provider19649900 <= * -> *;
-_ -> _ <= C.provider25117323;
-C.provider25117323 <= * -> *;
-_ -> _ <= newFoo-56384;
-newFoo-56384 <= * -> *;
+caller_pc1 <= (* -> Alice);
+C.provider1 == _ -> _;
+C.provider2 == _ -> _;
+_ -> _ <= C.provider1;
+C.provider1 <= * -> *;
+_ -> _ <= newFoo1;
+newFoo1 <= * -> *;
+_ -> _ <= C.provider2;
+C.provider2 <= * -> *;
 _ -> _ <= (* -> Alice);
 (* -> Alice) <= * -> *;
-_ -> _ <= this67;
-this67 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= *this.lb27414887;
-*this.lb27414887 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= *this.lb1;
+*this.lb1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider19649900 <= (* -> *) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;];@"LabelSubst01.jif:4,7-14"
-(* -> Alice) == (* -> Alice) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;];@"LabelSubst01.jif:6,10-49"
-(* -> Alice) == (* -> Alice) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;];@"LabelSubst01.jif:7,11-36"
-(* -> *) <= (* -> *) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;];@"LabelSubst01.jif:8,11-38"
-(_ -> _) <= (_ -> _) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;];@"LabelSubst01.jif:8,11-38"
-(* -> Alice) <= (* -> Alice) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;];@"LabelSubst01.jif:8,11-38"
-C.provider25117323 <= (* -> *) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider25117323);];@"LabelSubst01.jif:12,24-25"
-((* -> Alice)) ⊔ (this67) <= newFoo-56384 [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider25117323);];@"LabelSubst01.jif:13,14-31"
-((* -> Alice)) ⊔ (this67) <= newFoo-56384 [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider25117323);];@"LabelSubst01.jif:13,14-31"
-C.provider25117323 <= (* -> *) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider25117323);];@"LabelSubst01.jif:13,14-31"
-(newFoo-56384) ⊔ (this67) <= (* -> Alice) [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider25117323);];@"LabelSubst01.jif:13,8-11"
-*this.lb27414887 == *this.lb27414887 [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider25117323);];@"LabelSubst01.jif:13,8-31"
-*this.lb27414887 == *this.lb27414887 [*this.lb27414887 <= (* -> Alice);(* -> Alice) <= *this.lb27414887;this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider25117323);];@"LabelSubst01.jif:13,8-31"
+C.provider1 <= (* -> *) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;];@"LabelSubst01.jif:4,7"
+(* -> Alice) == (* -> Alice) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;];@"LabelSubst01.jif:6,10"
+(* -> Alice) == (* -> Alice) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;];@"LabelSubst01.jif:7,11"
+(* -> *) <= (* -> *) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;];@"LabelSubst01.jif:8,11"
+(_ -> _) <= (_ -> _) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;];@"LabelSubst01.jif:8,11"
+(* -> Alice) <= (* -> Alice) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;];@"LabelSubst01.jif:8,11"
+C.provider2 <= (* -> *) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelSubst01.jif:12,24"
+((* -> Alice)) ⊔ (this1) <= newFoo1 [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelSubst01.jif:13,14"
+((* -> Alice)) ⊔ (this1) <= newFoo1 [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelSubst01.jif:13,14"
+C.provider2 <= (* -> *) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelSubst01.jif:13,14"
+(newFoo1) ⊔ (this1) <= (* -> Alice) [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelSubst01.jif:13,8"
+*this.lb1 == *this.lb1 [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelSubst01.jif:13,8"
+*this.lb1 == *this.lb1 [*this.lb1 <= (* -> Alice);(* -> Alice) <= *this.lb1;this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelSubst01.jif:13,8"

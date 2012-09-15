@@ -1,18 +1,18 @@
-CONSTRUCTOR this83 0 //class jif.types.label.ThisLabel_c@null
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@null
 CONSTRUCTOR this 0
-CONSTRUCTOR this.pr 0 //@DynLabel9.jif:5,18-25
-CONSTRUCTOR * 0 //@DynLabel9.jif:5,18-26
+CONSTRUCTOR this.pr 0 //@DynLabel9.jif:5,18
+CONSTRUCTOR * 0 //@DynLabel9.jif:5,18
 
 %%
-_ -> _ <= this83;
-this83 <= * -> *;
-_ -> _ <= x-56391;
-x-56391 <= * -> *;
-_ -> _ <= pr-56392;
-pr-56392 <= * -> *;
 _ -> _ <= (this.pr -> *);
 (this.pr -> *) <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
+_ -> _ <= pr1;
+pr1 <= * -> *;
 
 %%
-pr-56392 == this83 [];@"DynLabel9.jif:4,17-36"
-x-56391 == (this.pr -> *) [];@"DynLabel9.jif:5,4-37"
+pr1 == this1 [];@"DynLabel9.jif:4,17"
+x1 == (this.pr -> *) [];@"DynLabel9.jif:5,4"

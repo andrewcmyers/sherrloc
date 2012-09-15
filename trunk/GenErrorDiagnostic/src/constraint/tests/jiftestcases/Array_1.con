@@ -1,11 +1,11 @@
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Array.jif:2,17-19
+CONSTRUCTOR _ 0 //@Array.jif:2,17
 
 %%
-_ -> _ <= a-56392;
-a-56392 <= * -> *;
+_ -> _ <= a1;
+a1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-a-56392 == (_ -> _) [];@"Array.jif:2,4-22"
+a1 == (_ -> _) [];@"Array.jif:2,4"

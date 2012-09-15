@@ -52,10 +52,14 @@ public class MeetElement extends EnumerableElement {
 		if (this==o)
 			return true;
 		
-		if (o instanceof MeetElement && elements.size()==((MeetElement)o).elements.size()) {
+		if (o instanceof MeetElement) {
 			List<Element> list2 = ((MeetElement)o).elements;
-			for (int i=0; i<elements.size(); i++) {
-				if (!elements.get(i).equals(list2.get(i)))
+			for (Element e : elements) {
+				if (!list2.contains(e))
+					return false;
+			}
+			for (Element e : list2) {
+				if (!elements.contains(e))
 					return false;
 			}
 			return true;

@@ -1,18 +1,18 @@
-CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9-17
-CONSTRUCTOR x99421804 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22-25
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9
+CONSTRUCTOR x1 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22
 CONSTRUCTOR this 0
 
 %%
-caller_pc2346856 <= x99421804;
-x99421804 <= x99421804;
-_ -> _ <= this68;
-this68 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= x99421804;
-x99421804 <= * -> *;
+caller_pc1 <= x1;
+x1 <= x1;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
 
 %%
-x99421804 <= x99421804 [this68 <= caller_pc2346856;];@"ArgLabel1.jif:7,21-28"
-receiver-56392 == x99421804 [this68 <= caller_pc2346856;];@"ArgLabel1.jif:7,21-28"
+x1 <= x1 [this1 <= caller_pc1;];@"ArgLabel1.jif:7,21"
+receiver1 == x1 [this1 <= caller_pc1;];@"ArgLabel1.jif:7,21"

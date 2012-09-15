@@ -1,26 +1,26 @@
-CONSTRUCTOR *lbl128140036 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08a.jif:4,6-10
-CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint08a.jif:1,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint08a.jif:3,4-18
-CONSTRUCTOR *this.f30914362 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08a.jif:2,10-39
+CONSTRUCTOR *lbl11 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08a.jif:4,6
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint08a.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint08a.jif:3,4
+CONSTRUCTOR *this.f1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08a.jif:2,10
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR * 0 //@LabelLeConstraint08a.jif:2,31-37
+CONSTRUCTOR * 0 //@LabelLeConstraint08a.jif:2,31
 
 %%
-_ -> _ <= *lbl128140036;
-*lbl128140036 <= * -> *;
+_ -> _ <= *lbl11;
+*lbl11 <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= this67;
-this67 <= * -> *;
-_ -> _ <= x-56391;
-x-56391 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= *this.f30914362;
-*this.f30914362 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= *this.f1;
+*this.f1 <= * -> *;
 
 %%
-x-56391 == (caller_pc2346856) ⊔ (*lbl128140036) [*this.f30914362 <= (Alice -> *);(Alice -> *) <= *this.f30914362;*lbl128140036 <= *this.f30914362;this67 <= caller_pc2346856;];@"LabelLeConstraint08a.jif:4,12-13"
-(caller_pc2346856) <= x-56391 [*this.f30914362 <= (Alice -> *);(Alice -> *) <= *this.f30914362;*lbl128140036 <= *this.f30914362;this67 <= caller_pc2346856;];@"LabelLeConstraint08a.jif:4,16-17"
-(x-56391) ⊔ (caller_pc2346856) <= (*this.f30914362) ⊔ (caller_pc2346856) [*this.f30914362 <= (Alice -> *);(Alice -> *) <= *this.f30914362;*lbl128140036 <= *this.f30914362;this67 <= caller_pc2346856;];@"LabelLeConstraint08a.jif:5,1-10"
+x1 == (caller_pc1) ⊔ (*lbl11) [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;*lbl11 <= *this.f1;this1 <= caller_pc1;];@"LabelLeConstraint08a.jif:4,12"
+(caller_pc1) <= x1 [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;*lbl11 <= *this.f1;this1 <= caller_pc1;];@"LabelLeConstraint08a.jif:4,16"
+(x1) ⊔ (caller_pc1) <= (*this.f1) ⊔ (caller_pc1) [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;*lbl11 <= *this.f1;this1 <= caller_pc1;];@"LabelLeConstraint08a.jif:5,1"

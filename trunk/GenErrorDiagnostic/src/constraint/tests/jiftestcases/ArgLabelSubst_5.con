@@ -1,28 +1,28 @@
-CONSTRUCTOR this-130279197 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,11-28
-CONSTRUCTOR w99421807 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,38-40
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,11
+CONSTRUCTOR w1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,38
 CONSTRUCTOR this 0
-CONSTRUCTOR * 0 //@ArgLabelSubst.jif:29,19-23
-CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,19-22
+CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,19
+CONSTRUCTOR * 0 //@ArgLabelSubst.jif:29,19
 
 %%
-w99421807 <= (_ -> _);
-_ -> _ <= this-130279197;
-this-130279197 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+w1 <= (_ -> _);
+_ -> _ <= this1;
+this1 <= * -> *;
 _ -> _ <= (yyy -> *);
 (yyy -> *) <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= w99421807;
-w99421807 <= * -> *;
+_ -> _ <= w1;
+w1 <= * -> *;
 
 %%
-(w99421807) ⊔ (caller_pc2346856) <= (* -> *) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,25-26"
-(w99421807) ⊔ (caller_pc2346856) <= (* -> *) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,28-29"
-(w99421807) ⊔ (caller_pc2346856) <= (* -> *) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,16-30"
-receiver-56392 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,16-30"
-arg1label-56391 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,16-30"
-arg2label-56390 == (w99421807) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:30,16-30"
-(caller_pc2346856) <= ((yyy -> *)) ⊔ (caller_pc2346856) [this-130279197 <= caller_pc2346856;];@"ArgLabelSubst.jif:32,1-13"
+(w1) ⊔ (caller_pc1) <= (* -> *) [this1 <= caller_pc1;];@"ArgLabelSubst.jif:30,25"
+(w1) ⊔ (caller_pc1) <= (* -> *) [this1 <= caller_pc1;];@"ArgLabelSubst.jif:30,28"
+(w1) ⊔ (caller_pc1) <= (* -> *) [this1 <= caller_pc1;];@"ArgLabelSubst.jif:30,16"
+receiver1 == (w1) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"ArgLabelSubst.jif:30,16"
+arg1label1 == (w1) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"ArgLabelSubst.jif:30,16"
+arg2label1 == (w1) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"ArgLabelSubst.jif:30,16"
+(caller_pc1) <= ((yyy -> *)) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"ArgLabelSubst.jif:32,1"

@@ -19,7 +19,7 @@ public class AirlineAgent [principal TheAirline, principal Airlines, label L ] w
     }
 
     public Offer[L] {L } makeFirstOffer  { TheAirline <-; TheAirline -> }   () 
-	where {TheAirline <- /* , TheAirline -> */} <= L, provider <= {TheAirline <- }, 		 {*AirlineServer.provider} equiv {*provider}
+	where {TheAirline <- /*; TheAirline -> */} <= L, provider <= {TheAirline <- }, 		 {*AirlineServer.provider} equiv {*provider}
     {
 
 	prepareForAuction(); 

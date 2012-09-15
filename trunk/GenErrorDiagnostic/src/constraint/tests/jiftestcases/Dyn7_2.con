@@ -1,23 +1,23 @@
-CONSTRUCTOR this80698815 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0-11
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:7,11-19
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:7,11
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Dyn7.jif:8,12-14
-CONSTRUCTOR * 0 //@Dyn7.jif:3,11-27
+CONSTRUCTOR _ 0 //@Dyn7.jif:8,12
+CONSTRUCTOR * 0 //@Dyn7.jif:3,11
 
 %%
-_ -> _ <= this80698815;
-this80698815 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= x-56392;
-x-56392 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-x-56392 == (caller_pc2346856) ⊔ ((_ -> _)) [this80698815 <= caller_pc2346856;];@"Dyn7.jif:8,15-16"
-caller_pc2346856 <= (* -> *) [this80698815 <= caller_pc2346856;];@"Dyn7.jif:8,19-29"
-receiver-56390 == this80698815 [this80698815 <= caller_pc2346856;];@"Dyn7.jif:8,19-29"
-((_ -> _)) ⊔ (caller_pc2346856) <= x-56392 [this80698815 <= caller_pc2346856;];@"Dyn7.jif:8,19-29"
+x1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"Dyn7.jif:8,15"
+caller_pc1 <= (* -> *) [this1 <= caller_pc1;];@"Dyn7.jif:8,19"
+receiver1 == this1 [this1 <= caller_pc1;];@"Dyn7.jif:8,19"
+((_ -> _)) ⊔ (caller_pc1) <= x1 [this1 <= caller_pc1;];@"Dyn7.jif:8,19"

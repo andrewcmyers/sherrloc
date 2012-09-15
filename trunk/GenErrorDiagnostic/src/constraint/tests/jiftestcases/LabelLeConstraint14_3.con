@@ -1,22 +1,22 @@
-CONSTRUCTOR C.provider24133983 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint14.jif:1,0-7
-CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint14.jif:1,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:1,0-7
-CONSTRUCTOR C.provider10920267 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint14.jif:1,0
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint14.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:1,0
+CONSTRUCTOR C.provider2 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:2,26-32
-CONSTRUCTOR P 0 //@LabelLeConstraint14.jif:13,63-64
-CONSTRUCTOR * 0 //@LabelLeConstraint14.jif:13,66-68
-CONSTRUCTOR Q 0 //@LabelLeConstraint14.jif:13,66-67
+CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:2,26
+CONSTRUCTOR P 0 //@LabelLeConstraint14.jif:13,63
+CONSTRUCTOR * 0 //@LabelLeConstraint14.jif:13,66
+CONSTRUCTOR Q 0 //@LabelLeConstraint14.jif:13,66
 
 %%
-C.provider24133983 == _ -> _;
-C.provider10920267 == _ -> _;
-_ -> _ <= C.provider24133983;
-C.provider24133983 <= * -> *;
-_ -> _ <= this67;
-this67 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+C.provider1 == _ -> _;
+C.provider2 == _ -> _;
+_ -> _ <= C.provider1;
+C.provider1 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
 _ -> _ <= (Q -> *);
 (Q -> *) <= * -> *;
 _ -> _ <= (Q -> *);
@@ -25,21 +25,21 @@ _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= C.provider2;
+C.provider2 <= * -> *;
 _ -> _ <= (P -> *);
 (P -> *) <= * -> *;
-_ -> _ <= C.provider10920267;
-C.provider10920267 <= * -> *;
 
 %%
-C.provider10920267 <= (* -> *) [];@"LabelLeConstraint14.jif:1,0-7"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4-10"
-(P -> *) ⊔ (Q -> *) <= (P -> *) ⊔ (Q -> *) [];@"LabelLeConstraint14.jif:13,13-45"
-(P -> *) ⊔ (Q -> *) <= (P -> *) ⊔ (Q -> *) [];@"LabelLeConstraint14.jif:13,13-45"
-(P -> *) ⊔ (Q -> *) <= (P -> *) ⊔ (Q -> *) [];@"LabelLeConstraint14.jif:13,13-45"
-(P -> *) ⊔ (Q -> *) <= (P -> *) ⊔ (Q -> *) [];@"LabelLeConstraint14.jif:13,13-45"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:13,13-45"
-(Q -> *) <= (Q -> *) [];@"LabelLeConstraint14.jif:13,13-45"
-C.provider24133983 <= (* -> *) [this67 <= caller_pc2346856;caller_pc2346856 <= (C.provider24133983);];@"LabelLeConstraint14.jif:1,0-0"
+C.provider2 <= (* -> *) [];@"LabelLeConstraint14.jif:1,0"
+(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4"
+(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4"
+(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4"
+(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4"
+((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) [];@"LabelLeConstraint14.jif:13,13"
+((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) [];@"LabelLeConstraint14.jif:13,13"
+((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) [];@"LabelLeConstraint14.jif:13,13"
+((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) [];@"LabelLeConstraint14.jif:13,13"
+(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:13,13"
+(Q -> *) <= (Q -> *) [];@"LabelLeConstraint14.jif:13,13"
+C.provider1 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (C.provider1);];@"LabelLeConstraint14.jif:1,0"

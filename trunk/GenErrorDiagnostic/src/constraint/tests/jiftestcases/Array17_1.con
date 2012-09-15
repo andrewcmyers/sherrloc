@@ -1,73 +1,73 @@
-CONSTRUCTOR this67 0 //class jif.types.label.ThisLabel_c@Array17.jif:1,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array17.jif:2,4-10
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array17.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array17.jif:2,4
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Array17.jif:1,0-7
+CONSTRUCTOR _ 0 //@Array17.jif:1,0
 CONSTRUCTOR Bob 0 //@null
-CONSTRUCTOR * 0 //@Array17.jif:3,10-14
+CONSTRUCTOR * 0 //@Array17.jif:3,10
 
 %%
-caller_pc2346856 <= (_ -> _);
-_ -> _ <= this67;
-this67 <= * -> *;
-_ -> _ <= y-56391;
-y-56391 <= * -> *;
-_ -> _ <= x-56392;
-x-56392 <= * -> *;
-_ -> _ <= a-56389;
-a-56389 <= * -> *;
-_ -> _ <= z-56390;
-z-56390 <= * -> *;
-_ -> _ <= c-56387;
-c-56387 <= * -> *;
-_ -> _ <= b-56388;
-b-56388 <= * -> *;
-_ -> _ <= array_base-56385;
-array_base-56385 <= * -> *;
+caller_pc1 <= (_ -> _);
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= y1;
+y1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
+_ -> _ <= a1;
+a1 <= * -> *;
+_ -> _ <= z1;
+z1 <= * -> *;
+_ -> _ <= c1;
+c1 <= * -> *;
+_ -> _ <= b1;
+b1 <= * -> *;
+_ -> _ <= array_base1;
+array_base1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= array_base-56386;
-array_base-56386 <= * -> *;
-_ -> _ <= array_base-56378;
-array_base-56378 <= * -> *;
-_ -> _ <= array_base-56377;
-array_base-56377 <= * -> *;
+_ -> _ <= array_base2;
+array_base2 <= * -> *;
+_ -> _ <= array_base3;
+array_base3 <= * -> *;
+_ -> _ <= array_base4;
+array_base4 <= * -> *;
 _ -> _ <= (Bob -> *);
 (Bob -> *) <= * -> *;
-_ -> _ <= array_base-56380;
-array_base-56380 <= * -> *;
-_ -> _ <= array_base-56379;
-array_base-56379 <= * -> *;
-_ -> _ <= array_base-56382;
-array_base-56382 <= * -> *;
-_ -> _ <= array_base-56381;
-array_base-56381 <= * -> *;
-_ -> _ <= array_base-56384;
-array_base-56384 <= * -> *;
-_ -> _ <= array_base-56383;
-array_base-56383 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= array_base-56376;
-array_base-56376 <= * -> *;
-_ -> _ <= array_base-56375;
-array_base-56375 <= * -> *;
+_ -> _ <= array_base5;
+array_base5 <= * -> *;
+_ -> _ <= array_base6;
+array_base6 <= * -> *;
+_ -> _ <= array_base7;
+array_base7 <= * -> *;
+_ -> _ <= array_base8;
+array_base8 <= * -> *;
+_ -> _ <= array_base9;
+array_base9 <= * -> *;
+_ -> _ <= array_base10;
+array_base10 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= array_base11;
+array_base11 <= * -> *;
+_ -> _ <= array_base12;
+array_base12 <= * -> *;
 
 %%
-array_base-56385 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:3,24-29"
-array_base-56386 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:3,24-29"
-caller_pc2346856 <= x-56392 [this67 <= caller_pc2346856;];@"Array17.jif:3,24-29"
-array_base-56383 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:4,24-29"
-array_base-56384 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:4,24-29"
-caller_pc2346856 <= y-56391 [this67 <= caller_pc2346856;];@"Array17.jif:4,24-29"
-array_base-56381 <= (_ -> _) [this67 <= caller_pc2346856;];@"Array17.jif:5,18-23"
-array_base-56382 <= (_ -> _) [this67 <= caller_pc2346856;];@"Array17.jif:5,18-23"
-caller_pc2346856 <= z-56390 [this67 <= caller_pc2346856;];@"Array17.jif:5,18-23"
-array_base-56379 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:7,26-39"
-array_base-56380 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:7,26-39"
-caller_pc2346856 <= a-56389 [this67 <= caller_pc2346856;];@"Array17.jif:7,26-39"
-array_base-56377 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:8,26-36"
-array_base-56378 <= (Bob -> *) [this67 <= caller_pc2346856;];@"Array17.jif:8,26-36"
-caller_pc2346856 <= b-56388 [this67 <= caller_pc2346856;];@"Array17.jif:8,26-36"
-array_base-56375 <= (_ -> _) [this67 <= caller_pc2346856;];@"Array17.jif:9,20-30"
-array_base-56376 <= (_ -> _) [this67 <= caller_pc2346856;];@"Array17.jif:9,20-30"
-caller_pc2346856 <= c-56387 [this67 <= caller_pc2346856;];@"Array17.jif:9,20-30"
+array_base1 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:3,24"
+array_base2 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:3,24"
+caller_pc1 <= x1 [this1 <= caller_pc1;];@"Array17.jif:3,24"
+array_base10 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:4,24"
+array_base9 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:4,24"
+caller_pc1 <= y1 [this1 <= caller_pc1;];@"Array17.jif:4,24"
+array_base8 <= (_ -> _) [this1 <= caller_pc1;];@"Array17.jif:5,18"
+array_base7 <= (_ -> _) [this1 <= caller_pc1;];@"Array17.jif:5,18"
+caller_pc1 <= z1 [this1 <= caller_pc1;];@"Array17.jif:5,18"
+array_base6 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:7,26"
+array_base5 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:7,26"
+caller_pc1 <= a1 [this1 <= caller_pc1;];@"Array17.jif:7,26"
+array_base4 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:8,26"
+array_base3 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:8,26"
+caller_pc1 <= b1 [this1 <= caller_pc1;];@"Array17.jif:8,26"
+array_base12 <= (_ -> _) [this1 <= caller_pc1;];@"Array17.jif:9,20"
+array_base11 <= (_ -> _) [this1 <= caller_pc1;];@"Array17.jif:9,20"
+caller_pc1 <= c1 [this1 <= caller_pc1;];@"Array17.jif:9,20"

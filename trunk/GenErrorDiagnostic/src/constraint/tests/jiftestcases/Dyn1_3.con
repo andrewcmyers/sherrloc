@@ -1,32 +1,32 @@
-CONSTRUCTOR this2145528 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
-CONSTRUCTOR *this.f30820815 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:9,4-13
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:9,4
+CONSTRUCTOR *this.f1 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@Dyn1.jif:5,20-22
-CONSTRUCTOR * 0 //@Dyn1.jif:10,5-11
+CONSTRUCTOR _ 0 //@Dyn1.jif:5,20
+CONSTRUCTOR * 0 //@Dyn1.jif:10,5
 
 %%
-caller_pc2346856 <= (_ -> _);
-_ -> _ <= this2145528;
-this2145528 <= * -> *;
-_ -> _ <= *this.f30820815;
-*this.f30820815 <= * -> *;
+caller_pc1 <= (_ -> _);
+_ -> _ <= this1;
+this1 <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= a-56391;
-a-56391 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+_ -> _ <= a1;
+a1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= *this.f1;
+*this.f1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-a-56391 == (Alice -> *) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,13-14"
-caller_pc2346856 <= (_ -> _) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,19-36"
-caller_pc2346856 <= (* -> *) [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,17-37"
-receiver-56388 == this2145528 [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,17-37"
-arg1label-56387 == caller_pc2346856 [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,17-37"
-(Alice -> *) <= a-56391 [*this.f30820815 <= (Alice -> *);(Alice -> *) <= *this.f30820815;this2145528 <= caller_pc2346856;];@"Dyn1.jif:10,17-37"
+a1 == (Alice -> *) [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;this1 <= caller_pc1;];@"Dyn1.jif:10,13"
+caller_pc1 <= (_ -> _) [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;this1 <= caller_pc1;];@"Dyn1.jif:10,19"
+caller_pc1 <= (* -> *) [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;this1 <= caller_pc1;];@"Dyn1.jif:10,17"
+receiver1 == this1 [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;this1 <= caller_pc1;];@"Dyn1.jif:10,17"
+arg1label1 == caller_pc1 [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;this1 <= caller_pc1;];@"Dyn1.jif:10,17"
+(Alice -> *) <= a1 [*this.f1 <= (Alice -> *);(Alice -> *) <= *this.f1;this1 <= caller_pc1;];@"Dyn1.jif:10,17"
