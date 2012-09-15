@@ -1,4 +1,4 @@
-package diagnositc;
+package diagnostic;
 
 import constraint.graph.ElementNode;
 
