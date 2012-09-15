@@ -1,5 +1,8 @@
 package diagnositc;
 
+import gnu.getopt.Getopt;
+import gnu.getopt.LongOpt;
+
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -32,14 +35,17 @@ import constraint.parse.GrmLexer;
 import constraint.parse.parser;
 
 public class Analysis {
-	boolean DEBUG = true;
-    boolean SHOW_WHOLE_GRAPH=false;
-    int REC_MAX = 2;
+	boolean DEBUG = false;
+    boolean SHOW_WHOLE_GRAPH=true;
+    boolean GEN_CUT = true;
+    boolean GEN_ASSUMP = true;
+    int REC_MAX = 3;
 	boolean done = false;
 	ConstraintGraph graph;
 	HashMap<AttemptGoal, ConstraintPath> errorPaths;
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	HashSet<AttemptGoal> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
+	String filename;
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
@@ -49,8 +55,48 @@ public class Analysis {
 	}
 	
 	public static void main(String[] args) {
+		
+		Getopt g = new Getopt("diagnostic", args, "fsac:o::");
+		boolean whole_graph = false;
+		boolean symmentric = false;
+		boolean cut = false;
+		boolean assumption = false;
+		String outfile = "error.con";
+		
+		String arg;
+		int c;
+		while ((c = g.getopt())!=-1) {
+			switch (c) {
+			case 'f':
+				whole_graph = true;
+				break;
+			case 's':
+				symmentric = true;
+				break;
+			case 'c':
+				cut = true;
+				break;
+			case 'a':
+				assumption = true;
+				break;
+			case 'o':
+				arg = g.getOptarg();
+				outfile = arg+".con";
+				break;
+			case '?':
+				System.out.println("Available options: fsac");
+			default:
+				System.out.println("getopt returned " + c + "\n");
+			}
+		}
+		
+		String diagfile = args[args.length-1];
 		try {
-			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/jif/temp.con", false);
+			Analysis ana = Analysis.getAnalysisInstance(diagfile, symmentric);//"src/constraint/tests/jif/AirlineAgent.con", symmentric);
+			ana.SHOW_WHOLE_GRAPH = whole_graph;
+			ana.GEN_ASSUMP = assumption;
+			ana.GEN_CUT = cut;
+			ana.filename = outfile;
 //			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/sml/test2.con", true);
 			ana.writeToDotFile();
 		}
@@ -115,7 +161,7 @@ public class Analysis {
 					if (!((ConstructorElement)e1).getCons().equals(((ConstructorElement)e2).getCons()) &&
 							(!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
 						ConstraintPath path = new ConstraintPath(l);
-						System.out.println(path.toString());
+//						System.out.println(path.toString());
 						AttemptGoal goal = new AttemptGoal(start, end, path.getAssumption());
 						unsatPath.add(goal);
 						errorPaths.put(goal, path);
@@ -147,7 +193,7 @@ public class Analysis {
 										
 					if (env.leq(start.getElement(), end.getElement()))
 						continue;
-					System.out.println(path.toString());
+//					System.out.println(path.toString());
 					AttemptGoal goal = new AttemptGoal(start, end, env);
 					unsatPath.add(goal);
 					errorPaths.put(goal, path);
@@ -411,8 +457,10 @@ public class Analysis {
         if (!done) 
         	genErrorPaths();
         
-        Set<AttemptGoal> missingAssump =  genAssumptions(errorPaths.keySet());
-//        genCuts(errorPaths.keySet());
+        if (GEN_ASSUMP)
+        	genAssumptions(errorPaths.keySet());
+        if (GEN_CUT)
+        	genCuts(errorPaths.keySet());
 //        Set<AttemptGoal> remainingAssump = new HashSet<AttemptGoal>();
 //        for (AttemptGoal goal : errorPaths.keySet()) {
 //        	if (!missingAssump.contains(goal))
