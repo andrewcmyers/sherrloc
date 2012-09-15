@@ -1,36 +1,36 @@
-CONSTRUCTOR ArgLabelSubst2.provider14971640 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst2.jif:8,0-21
-CONSTRUCTOR ArgLabelSubst2.provider1846341 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this256312239 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:8,0-21
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:8,0-21
+CONSTRUCTOR ArgLabelSubst2.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst2.jif:8,0
+CONSTRUCTOR ArgLabelSubst2.provider2 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:8,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:8,0
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@ArgLabelSubst2.jif:9,49-55
-CONSTRUCTOR q 0 //@ArgLabelSubst2.jif:9,18-19
-CONSTRUCTOR * 0 //@ArgLabelSubst2.jif:9,18-20
+CONSTRUCTOR _ 0 //@ArgLabelSubst2.jif:9,49
+CONSTRUCTOR q 0 //@ArgLabelSubst2.jif:9,18
+CONSTRUCTOR * 0 //@ArgLabelSubst2.jif:9,18
 
 %%
-ArgLabelSubst2.provider14971640 == _ -> _;
-ArgLabelSubst2.provider1846341 == _ -> _;
-_ -> _ <= ArgLabelSubst2.provider14971640;
-ArgLabelSubst2.provider14971640 <= * -> *;
+ArgLabelSubst2.provider2 == _ -> _;
+ArgLabelSubst2.provider1 == _ -> _;
+_ -> _ <= ArgLabelSubst2.provider1;
+ArgLabelSubst2.provider1 <= * -> *;
+_ -> _ <= ArgLabelSubst2.provider2;
+ArgLabelSubst2.provider2 <= * -> *;
 _ -> _ <= (q -> *);
 (q -> *) <= * -> *;
-_ -> _ <= ArgLabelSubst2.provider1846341;
-ArgLabelSubst2.provider1846341 <= * -> *;
-_ -> _ <= this256312239;
-this256312239 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-ArgLabelSubst2.provider1846341 <= (* -> *) [];@"ArgLabelSubst2.jif:8,0-21"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:9,11-25"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst2.jif:9,11-25"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst2.jif:9,11-25"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:9,11-25"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:9,11-25"
-(q -> *) <= (q -> *) [];@"ArgLabelSubst2.jif:9,11-25"
-ArgLabelSubst2.provider14971640 <= (* -> *) [this256312239 <= caller_pc2346856;caller_pc2346856 <= (ArgLabelSubst2.provider14971640);];@"ArgLabelSubst2.jif:8,0-0"
+ArgLabelSubst2.provider2 <= (* -> *) [];@"ArgLabelSubst2.jif:8,0"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:9,11"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst2.jif:9,11"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst2.jif:9,11"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:9,11"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:9,11"
+(q -> *) <= (q -> *) [];@"ArgLabelSubst2.jif:9,11"
+ArgLabelSubst2.provider1 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (ArgLabelSubst2.provider1);];@"ArgLabelSubst2.jif:8,0"

@@ -1,31 +1,31 @@
-CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@DynLabel12.jif:12,0-7
-CONSTRUCTOR D.provider24728009 0 //class jif.types.label.ProviderLabel_c@DynLabel12.jif:12,0-7
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@DynLabel12.jif:12,0-7
-CONSTRUCTOR *this.c29181767 0 //class jif.types.label.DynamicLabel_c@DynLabel12.jif:13,10-35
-CONSTRUCTOR D.provider3362702 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@DynLabel12.jif:12,0
+CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@DynLabel12.jif:12,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@DynLabel12.jif:12,0
+CONSTRUCTOR *this.c1 0 //class jif.types.label.DynamicLabel_c@DynLabel12.jif:13,10
+CONSTRUCTOR D.provider2 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@DynLabel12.jif:13,32-34
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR _ 0 //@DynLabel12.jif:13,32
+CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
 
 %%
-D.provider24728009 == _ -> _;
-D.provider3362702 == _ -> _;
-_ -> _ <= this68;
-this68 <= * -> *;
-_ -> _ <= D.provider24728009;
-D.provider24728009 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= *this.c29181767;
-*this.c29181767 <= * -> *;
-_ -> _ <= D.provider3362702;
-D.provider3362702 <= * -> *;
+D.provider1 == _ -> _;
+D.provider2 == _ -> _;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= D.provider1;
+D.provider1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= *this.c1;
+*this.c1 <= * -> *;
+_ -> _ <= D.provider2;
+D.provider2 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-D.provider3362702 <= (* -> *) [*this.c29181767 <= (_ -> _);(_ -> _) <= *this.c29181767;];@"DynLabel12.jif:12,0-7"
-(_ -> _) == (_ -> _) [*this.c29181767 <= (_ -> _);(_ -> _) <= *this.c29181767;];@"DynLabel12.jif:13,10-35"
-D.provider24728009 <= (* -> *) [*this.c29181767 <= (_ -> _);(_ -> _) <= *this.c29181767;this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider24728009);];@"DynLabel12.jif:12,0-0"
+D.provider2 <= (* -> *) [*this.c1 <= (_ -> _);(_ -> _) <= *this.c1;];@"DynLabel12.jif:12,0"
+(_ -> _) == (_ -> _) [*this.c1 <= (_ -> _);(_ -> _) <= *this.c1;];@"DynLabel12.jif:13,10"
+D.provider1 <= (* -> *) [*this.c1 <= (_ -> _);(_ -> _) <= *this.c1;this1 <= caller_pc1;caller_pc1 <= (D.provider1);];@"DynLabel12.jif:12,0"

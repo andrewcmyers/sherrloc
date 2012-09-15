@@ -1,48 +1,48 @@
-CONSTRUCTOR ArgLabelSubst.provider28099439 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this-130279197 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR ArgLabelSubst.provider17419733 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR zzz99833138 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,50-52
-CONSTRUCTOR *zzz36721714 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst.jif:35,35-38
+CONSTRUCTOR *zzz1 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst.jif:35,35
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7
+CONSTRUCTOR ArgLabelSubst.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR ArgLabelSubst.provider2 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:28,7
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:28,7
+CONSTRUCTOR zzz1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,50
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@ArgLabelSubst.jif:29,38-40
-CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,62-65
-CONSTRUCTOR * 0 //@ArgLabelSubst.jif:29,62-66
+CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,62
+CONSTRUCTOR _ 0 //@ArgLabelSubst.jif:29,38
+CONSTRUCTOR * 0 //@ArgLabelSubst.jif:29,62
 
 %%
-zzz99833138 <= (_ -> _);
-ArgLabelSubst.provider28099439 == _ -> _;
-ArgLabelSubst.provider17419733 == _ -> _;
+zzz1 <= (_ -> _);
+ArgLabelSubst.provider1 == _ -> _;
+ArgLabelSubst.provider2 == _ -> _;
+_ -> _ <= *zzz1;
+*zzz1 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= ArgLabelSubst.provider1;
+ArgLabelSubst.provider1 <= * -> *;
 _ -> _ <= (yyy -> *);
 (yyy -> *) <= * -> *;
-_ -> _ <= ArgLabelSubst.provider28099439;
-ArgLabelSubst.provider28099439 <= * -> *;
-_ -> _ <= this-130279197;
-this-130279197 <= * -> *;
-_ -> _ <= ArgLabelSubst.provider17419733;
-ArgLabelSubst.provider17419733 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= zzz99833138;
-zzz99833138 <= * -> *;
-_ -> _ <= *zzz36721714;
-*zzz36721714 <= * -> *;
+_ -> _ <= ArgLabelSubst.provider2;
+ArgLabelSubst.provider2 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= zzz1;
+zzz1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-ArgLabelSubst.provider28099439 <= (* -> *) [];@"ArgLabelSubst.jif:28,7-26"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:29,11-28"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:29,11-28"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:29,11-28"
-(yyy -> *) <= (yyy -> *) [];@"ArgLabelSubst.jif:29,11-28"
-(yyy -> *) <= (yyy -> *) [];@"ArgLabelSubst.jif:29,11-28"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:35,11-27"
-*zzz36721714 == *zzz36721714 [];@"ArgLabelSubst.jif:35,11-27"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:35,11-27"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:35,11-27"
-zzz99833138 <= zzz99833138 [];@"ArgLabelSubst.jif:35,11-27"
-zzz99833138 <= zzz99833138 [];@"ArgLabelSubst.jif:35,11-27"
-ArgLabelSubst.provider17419733 <= (* -> *) [this-130279197 <= caller_pc2346856;caller_pc2346856 <= (ArgLabelSubst.provider17419733);];@"ArgLabelSubst.jif:28,7-7"
+ArgLabelSubst.provider1 <= (* -> *) [];@"ArgLabelSubst.jif:28,7"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:29,11"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:29,11"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:29,11"
+(yyy -> *) <= (yyy -> *) [];@"ArgLabelSubst.jif:29,11"
+(yyy -> *) <= (yyy -> *) [];@"ArgLabelSubst.jif:29,11"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:35,11"
+*zzz1 == *zzz1 [];@"ArgLabelSubst.jif:35,11"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:35,11"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:35,11"
+zzz1 <= zzz1 [];@"ArgLabelSubst.jif:35,11"
+zzz1 <= zzz1 [];@"ArgLabelSubst.jif:35,11"
+ArgLabelSubst.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (ArgLabelSubst.provider2);];@"ArgLabelSubst.jif:28,7"

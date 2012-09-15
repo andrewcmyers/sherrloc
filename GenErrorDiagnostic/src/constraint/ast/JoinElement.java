@@ -51,10 +51,14 @@ public class JoinElement extends EnumerableElement {
 		if (this == o)
 			return true;
 		
-		if (o instanceof JoinElement && elements.size()==((JoinElement)o).elements.size()) {
+		if (o instanceof JoinElement) {
 			List<Element> list2 = ((JoinElement)o).elements;
-			for (int i=0; i<elements.size(); i++) {
-				if (!elements.get(i).equals(list2.get(i)))
+			for (Element e : elements) {
+				if (!list2.contains(e))
+					return false;
+			}
+			for (Element e : list2) {
+				if (!elements.contains(e))
 					return false;
 			}
 			return true;

@@ -1,32 +1,32 @@
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array7.jif:1,0-12
-CONSTRUCTOR Array7.provider18858301 0 //class jif.types.label.ProviderLabel_c@Array7.jif:1,0-12
-CONSTRUCTOR Array7.provider1229058 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this1969669406 0 //class jif.types.label.ThisLabel_c@Array7.jif:1,0-12
+CONSTRUCTOR Array7.provider1 0 //class jif.types.label.ProviderLabel_c@Array7.jif:1,0
+CONSTRUCTOR Array7.provider2 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array7.jif:1,0
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array7.jif:1,0
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR * 0 //@Array7.jif:3,47-53
+CONSTRUCTOR * 0 //@Array7.jif:3,47
 
 %%
-Array7.provider18858301 == _ -> _;
-Array7.provider1229058 == _ -> _;
+Array7.provider1 == _ -> _;
+Array7.provider2 == _ -> _;
+_ -> _ <= Array7.provider1;
+Array7.provider1 <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= Array7.provider18858301;
-Array7.provider18858301 <= * -> *;
-_ -> _ <= Array7.provider1229058;
-Array7.provider1229058 <= * -> *;
-_ -> _ <= this1969669406;
-this1969669406 <= * -> *;
+_ -> _ <= Array7.provider2;
+Array7.provider2 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Array7.provider1229058 <= (* -> *) [];@"Array7.jif:1,0-12"
-(Alice -> *) <= (Alice -> *) [];@"Array7.jif:3,4-10"
-(Alice -> *) <= (Alice -> *) [];@"Array7.jif:3,4-10"
-(Alice -> *) <= (Alice -> *) [];@"Array7.jif:3,4-10"
-Array7.provider18858301 <= (* -> *) [this1969669406 <= caller_pc2346856;caller_pc2346856 <= (Array7.provider18858301);];@"Array7.jif:1,0-0"
+Array7.provider2 <= (* -> *) [];@"Array7.jif:1,0"
+(Alice -> *) <= (Alice -> *) [];@"Array7.jif:3,4"
+(Alice -> *) <= (Alice -> *) [];@"Array7.jif:3,4"
+(Alice -> *) <= (Alice -> *) [];@"Array7.jif:3,4"
+Array7.provider1 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (Array7.provider1);];@"Array7.jif:1,0"

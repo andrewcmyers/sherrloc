@@ -1,48 +1,48 @@
-CONSTRUCTOR this2145531 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR *L8310929 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:4,16-17
-CONSTRUCTOR Dyn4.provider10970704 0 //class jif.types.label.ProviderLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR Dyn4.provider3675658 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR *M16657354 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:14,42-43
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0
+CONSTRUCTOR Dyn4.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:1,0
+CONSTRUCTOR Dyn4.provider2 0 //class jif.types.label.ProviderLabel_c@Dyn4.jif:1,0
+CONSTRUCTOR *M1 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:14,42
+CONSTRUCTOR *L1 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:4,16
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Dyn4.jif:4,32-38
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR _ 0 //@Dyn4.jif:4,32
+CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
 
 %%
-Dyn4.provider10970704 == _ -> _;
-Dyn4.provider3675658 == _ -> _;
-_ -> _ <= this2145531;
-this2145531 <= * -> *;
-_ -> _ <= *L8310929;
-*L8310929 <= * -> *;
-_ -> _ <= Dyn4.provider10970704;
-Dyn4.provider10970704 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= Dyn4.provider3675658;
-Dyn4.provider3675658 <= * -> *;
-_ -> _ <= *M16657354;
-*M16657354 <= * -> *;
+Dyn4.provider1 == _ -> _;
+Dyn4.provider2 == _ -> _;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= Dyn4.provider1;
+Dyn4.provider1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= Dyn4.provider2;
+Dyn4.provider2 <= * -> *;
+_ -> _ <= *M1;
+*M1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= *L1;
+*L1 <= * -> *;
 
 %%
-Dyn4.provider3675658 <= (* -> *) [];@"Dyn4.jif:1,0-10"
-(_ -> _) == (_ -> _) [];@"Dyn4.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
-*L8310929 <= *L8310929 [];@"Dyn4.jif:4,11-20"
-(* -> *) <= (* -> *) [];@"Dyn4.jif:10,11-21"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:10,11-21"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:10,11-21"
-(* -> *) <= (* -> *) [];@"Dyn4.jif:14,18-27"
-*M16657354 <= *M16657354 [];@"Dyn4.jif:14,18-27"
-(* -> *) <= (* -> *) [];@"Dyn4.jif:14,18-27"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:14,18-27"
-*M16657354 <= *M16657354 [];@"Dyn4.jif:14,18-27"
-Dyn4.provider10970704 <= (* -> *) [this2145531 <= caller_pc2346856;caller_pc2346856 <= (Dyn4.provider10970704);];@"Dyn4.jif:1,0-0"
+Dyn4.provider1 <= (* -> *) [];@"Dyn4.jif:1,0"
+(_ -> _) == (_ -> _) [];@"Dyn4.jif:2,4"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11"
+*L1 <= *L1 [];@"Dyn4.jif:4,11"
+(* -> *) <= (* -> *) [];@"Dyn4.jif:10,11"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:10,11"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:10,11"
+(* -> *) <= (* -> *) [];@"Dyn4.jif:14,18"
+*M1 <= *M1 [];@"Dyn4.jif:14,18"
+(* -> *) <= (* -> *) [];@"Dyn4.jif:14,18"
+(_ -> _) <= (_ -> _) [];@"Dyn4.jif:14,18"
+*M1 <= *M1 [];@"Dyn4.jif:14,18"
+Dyn4.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (Dyn4.provider2);];@"Dyn4.jif:1,0"

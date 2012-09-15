@@ -1,22 +1,22 @@
-CONSTRUCTOR this80698815 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0-11
-CONSTRUCTOR Test1.provider796715 0 //class jif.types.label.ProviderLabel_c@Dyn7.jif:1,0-11
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:1,0-11
-CONSTRUCTOR Test1.provider29881691 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0
+CONSTRUCTOR Test1.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:1,0
+CONSTRUCTOR Test1.provider2 0 //class jif.types.label.ProviderLabel_c@Dyn7.jif:1,0
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Dyn7.jif:3,16-18
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR _ 0 //@Dyn7.jif:3,16
+CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
 
 %%
-Test1.provider796715 == _ -> _;
-Test1.provider29881691 == _ -> _;
-_ -> _ <= this80698815;
-this80698815 <= * -> *;
-_ -> _ <= Test1.provider796715;
-Test1.provider796715 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= Test1.provider29881691;
-Test1.provider29881691 <= * -> *;
+Test1.provider1 == _ -> _;
+Test1.provider2 == _ -> _;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= Test1.provider1;
+Test1.provider1 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= Test1.provider2;
+Test1.provider2 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> _);
@@ -25,10 +25,10 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Test1.provider29881691 <= (* -> *) [];@"Dyn7.jif:1,0-11"
-(* -> *) <= (* -> *) [];@"Dyn7.jif:3,11-27"
-(_ -> _) <= (_ -> _) [];@"Dyn7.jif:3,11-27"
-(_ -> _) <= (_ -> _) [];@"Dyn7.jif:3,11-27"
-(* -> *) <= (* -> *) [];@"Dyn7.jif:7,11-19"
-(_ -> _) <= (_ -> _) [];@"Dyn7.jif:7,11-19"
-Test1.provider796715 <= (* -> *) [this80698815 <= caller_pc2346856;caller_pc2346856 <= (Test1.provider796715);];@"Dyn7.jif:1,0-0"
+Test1.provider1 <= (* -> *) [];@"Dyn7.jif:1,0"
+(* -> *) <= (* -> *) [];@"Dyn7.jif:3,11"
+(_ -> _) <= (_ -> _) [];@"Dyn7.jif:3,11"
+(_ -> _) <= (_ -> _) [];@"Dyn7.jif:3,11"
+(* -> *) <= (* -> *) [];@"Dyn7.jif:7,11"
+(_ -> _) <= (_ -> _) [];@"Dyn7.jif:7,11"
+Test1.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (Test1.provider2);];@"Dyn7.jif:1,0"

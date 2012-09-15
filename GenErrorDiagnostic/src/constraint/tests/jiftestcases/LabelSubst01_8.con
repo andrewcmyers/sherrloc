@@ -1,35 +1,35 @@
-CONSTRUCTOR this68 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR D.provider3640209 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR D.provider3361696 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR *guessApp.lb-1412418678 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0
+CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR D.provider2 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:22,0
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:22,0
+CONSTRUCTOR *guessApp.lb1 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@LabelSubst01.jif:6,40-41
+CONSTRUCTOR * 0 //@LabelSubst01.jif:6,40
 
 %%
-D.provider3640209 == _ -> _;
-D.provider3361696 == _ -> _;
-_ -> _ <= this68;
-this68 <= * -> *;
-_ -> _ <= D.provider3640209;
-D.provider3640209 <= * -> *;
+D.provider1 == _ -> _;
+D.provider2 == _ -> _;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= D.provider1;
+D.provider1 <= * -> *;
 _ -> _ <= (* -> Alice);
 (* -> Alice) <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
+_ -> _ <= D.provider2;
+D.provider2 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+_ -> _ <= *guessApp.lb1;
+*guessApp.lb1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= D.provider3361696;
-D.provider3361696 <= * -> *;
-_ -> _ <= *guessApp.lb-1412418678;
-*guessApp.lb-1412418678 <= * -> *;
 
 %%
-D.provider3640209 <= (* -> *) [*guessApp.lb-1412418678 <= (* -> Alice);(* -> Alice) <= *guessApp.lb-1412418678;];@"LabelSubst01.jif:22,0-7"
-(* -> Alice) <= (* -> Alice) [*guessApp.lb-1412418678 <= (* -> Alice);(* -> Alice) <= *guessApp.lb-1412418678;];@"LabelSubst01.jif:25,11-23"
-(_ -> _) <= (_ -> _) [*guessApp.lb-1412418678 <= (* -> Alice);(* -> Alice) <= *guessApp.lb-1412418678;];@"LabelSubst01.jif:25,11-23"
-D.provider3361696 <= (* -> *) [*guessApp.lb-1412418678 <= (* -> Alice);(* -> Alice) <= *guessApp.lb-1412418678;this68 <= caller_pc2346856;caller_pc2346856 <= (D.provider3361696);];@"LabelSubst01.jif:22,0-0"
+D.provider1 <= (* -> *) [*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:22,0"
+(* -> Alice) <= (* -> Alice) [*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:25,11"
+(_ -> _) <= (_ -> _) [*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:25,11"
+D.provider2 <= (* -> *) [*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;this1 <= caller_pc1;caller_pc1 <= (D.provider2);];@"LabelSubst01.jif:22,0"

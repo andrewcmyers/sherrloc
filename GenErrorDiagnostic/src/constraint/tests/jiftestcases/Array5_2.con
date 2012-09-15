@@ -1,53 +1,53 @@
-CONSTRUCTOR caller_pc2346856 0 //class jif.types.label.ArgLabel_c@Array5.jif:8,4-10
-CONSTRUCTOR this1969669404 0 //class jif.types.label.ThisLabel_c@Array5.jif:1,0-12
+CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array5.jif:8,4
+CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array5.jif:1,0
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@Array5.jif:9,29-31
+CONSTRUCTOR _ 0 //@Array5.jif:9,29
 CONSTRUCTOR Bob 0 //@null
-CONSTRUCTOR * 0 //@Array5.jif:9,12-18
+CONSTRUCTOR * 0 //@Array5.jif:9,12
 
 %%
-caller_pc2346856 <= (Alice -> Bob);
-_ -> _ <= array_base-56378;
-array_base-56378 <= * -> *;
+caller_pc1 <= (Alice -> Bob);
+_ -> _ <= array_base1;
+array_base1 <= * -> *;
 _ -> _ <= (Alice -> Bob);
 (Alice -> Bob) <= * -> *;
-_ -> _ <= array_base-56379;
-array_base-56379 <= * -> *;
-_ -> _ <= caller_pc2346856;
-caller_pc2346856 <= * -> *;
-_ -> _ <= b-56387;
-b-56387 <= * -> *;
-_ -> _ <= this1969669404;
-this1969669404 <= * -> *;
-_ -> _ <= a-56388;
-a-56388 <= * -> *;
-_ -> _ <= d-56385;
-d-56385 <= * -> *;
+_ -> _ <= array_base2;
+array_base2 <= * -> *;
+_ -> _ <= caller_pc1;
+caller_pc1 <= * -> *;
+_ -> _ <= b1;
+b1 <= * -> *;
+_ -> _ <= this1;
+this1 <= * -> *;
+_ -> _ <= a1;
+a1 <= * -> *;
+_ -> _ <= d1;
+d1 <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= array_base-56375;
-array_base-56375 <= * -> *;
-_ -> _ <= c-56386;
-c-56386 <= * -> *;
+_ -> _ <= array_base3;
+array_base3 <= * -> *;
+_ -> _ <= c1;
+c1 <= * -> *;
 
 %%
-a-56388 == (caller_pc2346856) ⊔ ((_ -> _)) [this1969669404 <= caller_pc2346856;];@"Array5.jif:9,32-33"
-array_base-56379 <= (Alice -> *) [this1969669404 <= caller_pc2346856;];@"Array5.jif:9,36-47"
-caller_pc2346856 <= a-56388 [this1969669404 <= caller_pc2346856;];@"Array5.jif:9,36-47"
-b-56387 == (caller_pc2346856) ⊔ ((_ -> _)) [this1969669404 <= caller_pc2346856;];@"Array5.jif:10,35-36"
-array_base-56378 <= (Alice -> Bob) [this1969669404 <= caller_pc2346856;];@"Array5.jif:10,39-50"
-caller_pc2346856 <= b-56387 [this1969669404 <= caller_pc2346856;];@"Array5.jif:10,39-50"
-c-56386 == (caller_pc2346856) ⊔ ((_ -> _)) [this1969669404 <= caller_pc2346856;];@"Array5.jif:11,35-36"
-(caller_pc2346856) <= (Alice -> Bob) [this1969669404 <= caller_pc2346856;];@"Array5.jif:11,40-41"
-(caller_pc2346856) <= (Alice -> Bob) [this1969669404 <= caller_pc2346856;];@"Array5.jif:11,43-44"
-(caller_pc2346856) <= (Alice -> Bob) [this1969669404 <= caller_pc2346856;];@"Array5.jif:11,46-47"
-caller_pc2346856 <= c-56386 [this1969669404 <= caller_pc2346856;];@"Array5.jif:11,39-48"
-d-56385 == (caller_pc2346856) ⊔ ((_ -> _)) [this1969669404 <= caller_pc2346856;];@"Array5.jif:12,35-36"
-(caller_pc2346856) <= array_base-56375 [this1969669404 <= caller_pc2346856;];@"Array5.jif:12,50-51"
-(caller_pc2346856) <= array_base-56375 [this1969669404 <= caller_pc2346856;];@"Array5.jif:12,53-54"
-(caller_pc2346856) <= array_base-56375 [this1969669404 <= caller_pc2346856;];@"Array5.jif:12,56-57"
-array_base-56375 <= (Alice -> Bob) [this1969669404 <= caller_pc2346856;];@"Array5.jif:12,39-58"
-caller_pc2346856 <= d-56385 [this1969669404 <= caller_pc2346856;];@"Array5.jif:12,39-58"
+a1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"Array5.jif:9,32"
+array_base2 <= (Alice -> *) [this1 <= caller_pc1;];@"Array5.jif:9,36"
+caller_pc1 <= a1 [this1 <= caller_pc1;];@"Array5.jif:9,36"
+b1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"Array5.jif:10,35"
+array_base1 <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array5.jif:10,39"
+caller_pc1 <= b1 [this1 <= caller_pc1;];@"Array5.jif:10,39"
+c1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"Array5.jif:11,35"
+(caller_pc1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array5.jif:11,40"
+(caller_pc1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array5.jif:11,43"
+(caller_pc1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array5.jif:11,46"
+caller_pc1 <= c1 [this1 <= caller_pc1;];@"Array5.jif:11,39"
+d1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"Array5.jif:12,35"
+(caller_pc1) <= array_base3 [this1 <= caller_pc1;];@"Array5.jif:12,50"
+(caller_pc1) <= array_base3 [this1 <= caller_pc1;];@"Array5.jif:12,53"
+(caller_pc1) <= array_base3 [this1 <= caller_pc1;];@"Array5.jif:12,56"
+array_base3 <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array5.jif:12,39"
+caller_pc1 <= d1 [this1 <= caller_pc1;];@"Array5.jif:12,39"

@@ -1,18 +1,18 @@
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@Array8.jif:4,4-41
-CONSTRUCTOR * 0 //@Array8.jif:3,8-14
+CONSTRUCTOR _ 0 //@Array8.jif:4,4
+CONSTRUCTOR * 0 //@Array8.jif:3,8
 
 %%
-_ -> _ <= ar-56391;
-ar-56391 <= * -> *;
-_ -> _ <= x-56392;
-x-56392 <= * -> *;
+_ -> _ <= ar1;
+ar1 <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 
 %%
-x-56392 == (Alice -> *) [];@"Array8.jif:3,4-30"
-ar-56391 == (_ -> _) [];@"Array8.jif:4,4-41"
+x1 == (Alice -> *) [];@"Array8.jif:3,4"
+ar1 == (_ -> _) [];@"Array8.jif:4,4"

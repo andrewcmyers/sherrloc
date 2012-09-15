@@ -5,8 +5,8 @@ CONSTRUCTOR Bob 0 //@null
 %%
 _ -> _ <= (Alice -> Bob);
 (Alice -> Bob) <= * -> *;
-_ -> _ <= f-56392;
-f-56392 <= * -> *;
+_ -> _ <= f1;
+f1 <= * -> *;
 
 %%
-f-56392 == (Alice -> Bob) [];@"A.jif:2,11-28"
+f1 == (Alice -> Bob) [];@"A.jif:2,11"
