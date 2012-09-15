@@ -1,4 +1,4 @@
-package diagnositc;
+package diagnostic;
 
 import java.util.HashSet;
 import java.util.Set;
