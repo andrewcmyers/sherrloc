@@ -1,4 +1,4 @@
-package diagnositc;
+package diagnostic;
 
 import gnu.getopt.Getopt;
 import gnu.getopt.LongOpt;
@@ -84,7 +84,12 @@ public class Analysis {
 				outfile = arg+".con";
 				break;
 			case '?':
-				System.out.println("Available options: fsac");
+				System.out.println("Available options: \n" +
+									"\t\t -f: show full dependency graph\n" +
+									"\t\t -s: symmentric\n" +
+									"\t\t -a: generate assumptions\n" +
+									"\t\t -c: generate cut\n");
+				return;
 			default:
 				System.out.println("getopt returned " + c + "\n");
 			}

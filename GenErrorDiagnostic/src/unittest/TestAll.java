@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import diagnositc.Analysis;
+import diagnostic.Analysis;
 
 
 public class TestAll {
