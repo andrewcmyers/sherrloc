@@ -2,9 +2,9 @@ type 'a alist  = Nil
               | Cons of 'a * 'a alist
                    
 let x = (
-  let rec map f l = 
+  let rec map l f = (* should be map f l *)
     match l with  
       Nil -> Nil 
-    | Cons (x,q) -> Cons (f x, map q f)    
-    in map (fun x -> 1) Nil (* should be map f q *)
+    | Cons (x,q) -> Cons (f x, map f q)    
+    in map (fun x -> 1) Nil
   )

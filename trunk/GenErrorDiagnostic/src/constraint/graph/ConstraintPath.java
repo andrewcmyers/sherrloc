@@ -48,6 +48,19 @@ public class ConstraintPath {
 	public Environment getAssumption () {
 		return assumption;
 	}
+	
+	public void setCause ( ) {
+		if (edges.size()==0) return;
+
+		ElementNode leftmost = (ElementNode) getFirst();
+//		leftmost.setCause();
+		for (int k = 0; k < size(); k++) {
+			Edge edge = edges.get(k);
+			edge.from.setCause();
+			edge.setCause();
+			edge.to.setCause();
+		}
+	}
     
 	public String toString( ) {
 		// boolean detail = shouldReport(detailedMessage);
@@ -63,9 +76,6 @@ public class ConstraintPath {
 		ret += leftmost.getName()+"\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
-			edge.from.setCause();
-			edge.setCause();
-			edge.to.setCause();
 			ret += "--> (" + (edge.toString()) + ")\n";
 			ret += ((ElementNode)edge.to).getName()+"\n";
 		}

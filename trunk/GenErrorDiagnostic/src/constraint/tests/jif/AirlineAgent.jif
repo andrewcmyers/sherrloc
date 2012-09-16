@@ -11,7 +11,7 @@ public class AirlineAgent [principal TheAirline, principal Airlines, label L ] w
     int { TheAirline <-; TheAirline -> } lowestprice; 
 
     public void prepareForAuction { TheAirline <-; TheAirline -> } ()
-								       where {TheAirline <-; TheAirline -> } <= L, provider <= {TheAirline <- } , 
+								       where {TheAirline <- /*; TheAirline ->*/ } <= L, provider <= {TheAirline <- } , 
 														    {*AirlineServer.provider} equiv {*provider}
     {
 	    this.lowestprice = server.getLowestPrice () ; // asking the "remote" server for the current lowest price
