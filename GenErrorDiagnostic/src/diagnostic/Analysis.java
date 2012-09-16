@@ -1,8 +1,6 @@
 package diagnostic;
 
-import gnu.getopt.Getopt;
-import gnu.getopt.LongOpt;
-
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,6 +12,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 
 import util.AttemptGoal;
 import constraint.ast.Constraint;
@@ -45,7 +50,7 @@ public class Analysis {
 	HashMap<AttemptGoal, ConstraintPath> errorPaths;
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	HashSet<AttemptGoal> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
-	String filename;
+	String sourceName;
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
@@ -56,57 +61,59 @@ public class Analysis {
 	
 	public static void main(String[] args) {
 		
-		Getopt g = new Getopt("diagnostic", args, "fsac:o::");
+		Options options = new Options();
+		options.addOption("f", false, "show full dependency graph");
+		options.addOption("s", false, "symmentric");
+		options.addOption("c", false, "generate cut");
+		options.addOption("a", false, "generate assumptions");
+		options.addOption("o", true, "output file");
+		options.addOption("i", true, "original source file generating the constraints");
+		
+		CommandLineParser parser = new PosixParser();
+		CommandLine cmd=null;
+		try {
+			cmd = parser.parse(options, args);
+		}
+		catch (ParseException e) {
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("diagnostic", options);
+			System.exit(-1);
+		}
+		
 		boolean whole_graph = false;
 		boolean symmentric = false;
 		boolean cut = false;
 		boolean assumption = false;
 		String outfile = "error.con";
+		String infile = "";
 		
-		String arg;
-		int c;
-		while ((c = g.getopt())!=-1) {
-			switch (c) {
-			case 'f':
-				whole_graph = true;
-				break;
-			case 's':
-				symmentric = true;
-				break;
-			case 'c':
-				cut = true;
-				break;
-			case 'a':
-				assumption = true;
-				break;
-			case 'o':
-				arg = g.getOptarg();
-				outfile = arg+".con";
-				break;
-			case '?':
-				System.out.println("Available options: \n" +
-									"\t\t -f: show full dependency graph\n" +
-									"\t\t -s: symmentric\n" +
-									"\t\t -a: generate assumptions\n" +
-									"\t\t -c: generate cut\n");
-				return;
-			default:
-				System.out.println("getopt returned " + c + "\n");
+		if (cmd.hasOption("f"))		
+			whole_graph = true;
+		if (cmd.hasOption("s"))
+			symmentric = true;
+		if (cmd.hasOption("c"))
+			cut = true;
+		if (cmd.hasOption("a"))
+			assumption = true;
+		if (cmd.hasOption("o"))
+			outfile = cmd.getOptionValue("o")+".con";
+		if (cmd.hasOption("i"))
+			infile = cmd.getOptionValue("i");
+		
+		for (Object arg : cmd.getArgList()) {
+			String diagfile = (String) arg;
+			try {
+				Analysis ana = Analysis.getAnalysisInstance(diagfile, symmentric);// "src/constraint/tests/jif/AirlineAgent.con",
+									// symmentric);
+				ana.SHOW_WHOLE_GRAPH = whole_graph;
+				ana.GEN_ASSUMP = assumption;
+				ana.GEN_CUT = cut;
+				ana.sourceName = infile;
+				// ana.writeToDotFile();
+				ana.writeToHTML();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		}
-		
-		String diagfile = args[args.length-1];
-		try {
-			Analysis ana = Analysis.getAnalysisInstance(diagfile, symmentric);//"src/constraint/tests/jif/AirlineAgent.con", symmentric);
-			ana.SHOW_WHOLE_GRAPH = whole_graph;
-			ana.GEN_ASSUMP = assumption;
-			ana.GEN_CUT = cut;
-			ana.filename = outfile;
-//			Analysis ana = Analysis.getAnalysisInstance("src/constraint/tests/sml/test2.con", true);
-			ana.writeToDotFile();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -167,6 +174,7 @@ public class Analysis {
 							(!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
 						ConstraintPath path = new ConstraintPath(l);
 //						System.out.println(path.toString());
+						path.setCause();
 						AttemptGoal goal = new AttemptGoal(start, end, path.getAssumption());
 						unsatPath.add(goal);
 						errorPaths.put(goal, path);
@@ -198,6 +206,7 @@ public class Analysis {
 										
 					if (env.leq(start.getElement(), end.getElement()))
 						continue;
+					path.setCause();
 //					System.out.println(path.toString());
 					AttemptGoal goal = new AttemptGoal(start, end, env);
 					unsatPath.add(goal);
@@ -236,7 +245,7 @@ public class Analysis {
     }
     
     /* Calculating a min cut is NP complete. Currently, we use interative deeping search to quickly identify the goal */
-    public void genCuts (Set<AttemptGoal> remaining) {
+    public Set<Set<EquationEdge>> genCuts (Set<AttemptGoal> remaining) {
     	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
     	Set<Set<EquationEdge>> results = new HashSet<Set<EquationEdge>>();
     	HashMap<AttemptGoal, List<EquationEdge>> map = new HashMap<AttemptGoal, List<EquationEdge>>();
@@ -258,16 +267,8 @@ public class Analysis {
    			if (results.size()!=0)
    				break;
     	}
-    	
-   		for (Set<EquationEdge> set : results) {
-   			System.out.println("********** cut *****");
-   			for (EquationEdge c : set) {
-   				System.out.println (c.getEquation());
-   			}
-   			System.out.println("********************");
-   		}
 
-    	
+    	return results;
     }
     
     public <K> void boundedDepthSearch (int level, Set<K> candidates, HashMap<AttemptGoal, List<K>> dependencies, Set<K> visited, Set<Set<K>> results) {
@@ -353,11 +354,11 @@ public class Analysis {
 
     			Environment env = goal.getEnv().addLeq(candidate.getSource().getElement(), candidate.getSink().getElement());
     			
-//				if (cachedEnv.containsKey(env))
-//					env = cachedEnv.get(env);
-//				else {
-//					cachedEnv.put(env, env);
-//				}
+				if (cachedEnv.containsKey(env))
+					env = cachedEnv.get(env);
+				else {
+					cachedEnv.put(env, env);
+				}
     			
     			if (env.leq( goal.getSource().getElement(), goal.getSink().getElement()))
     				list.add(candidate);
@@ -486,6 +487,103 @@ public class Analysis {
             System.out.println("Unable to write the DOT file to: " + filename);
         }
         
-        printRank();
+//        printRank();
+    }
+    
+    public void writeToHTML () {
+    	String filename;
+
+        filename = "error.html";
+        Set<Set<EquationEdge>> results=null;
+        
+        if (!done) 
+        	genErrorPaths();
+        
+        if (GEN_ASSUMP)
+        	genAssumptions(errorPaths.keySet());
+        if (GEN_CUT)
+        	results = genCuts(errorPaths.keySet());
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append(getHeader());
+    	
+   		for (Set<EquationEdge> set : results) {
+   			for (EquationEdge c : set) {
+   				System.out.println (c.getEquation());
+   			}
+   		}
+   		
+        try {
+            FileWriter fstream = new FileWriter(filename);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(getHeader());
+            out.write(getOneSuggestion(sourceName));
+            out.write(getTail());
+            out.close();
+        } catch (IOException e) {
+            System.out.println("Unable to write the HTML file to: " + filename);
+        }
+    }
+    
+    public String getHeader () {
+    	return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n" +
+    			"<!--NewPage-->\n" +
+    			"<HTML>\n" +
+    			"<HEAD>\n" +
+    			"<!-- Generated by diagnostic tool on Sun Aug 15 14:49:41 BST 2010 -->\n" +
+    			"<TITLE>\n" +
+    			"Error Diagnostic Report\n" +
+    			"</TITLE>\n" +
+    			"<SCRIPT type=\"text/javascript\">\n" +
+    					"function windowTitle()\n" +
+    					"{\n" +
+    					"\tif (location.href.indexOf('is-external=true') == -1) {\n" +
+    					"\t\tparent.document.title=\"report\";\n" +
+    					"\t}\n" +
+    					"}\n" +
+    			"</SCRIPT>\n" +
+    			"<NOSCRIPT>\n" +
+    			"</NOSCRIPT>\n" +
+    			"</HEAD>\n\n" +
+    			
+    			"<BODY BGCOLOR=\"white\" onload=\"windowTitle();\">\n" +
+    			"<HR>\n";
+    }
+    
+    public String getTail () {
+    	return "<HR>\n\n" +
+    			"</BODY>\n" +
+    			"</HTML>";
+    }
+    
+    public String getOneSuggestion (String sourcefile) {
+    	StringBuffer sb = new StringBuffer();
+    	sb.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
+    			"<H2>\n" +
+    			"<BR>\n" +
+    			"Error Diagnostic Report for file " + sourceName + " </H2>\n" +
+    			
+    			"<HR>\n" +
+    			"<H3>\n" +
+    			"<BR>\n" +
+    			"Suggestions with efforts level 1 </H3>\n" +
+    			"<UL>\n" +
+    			"<LI> Missing Assumption: " +
+    			"<LI> Wrong constraint in source code:" +
+    			"</UL>\n");
+    	
+    	sb.append("<pre>\n");
+        try {
+            FileReader fstream = new FileReader(sourcefile);
+            BufferedReader in = new BufferedReader(fstream);
+            String current;
+            while ((current=in.readLine())!=null)
+            	sb.append(current+"\n");
+            in.close();
+        } catch (IOException e) {
+            sb.append("Failed to read file: " + sourcefile);
+        }
+    	sb.append("</pre>\n");
+    	return sb.toString();
     }
 }

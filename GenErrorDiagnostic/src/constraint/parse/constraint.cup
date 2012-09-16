@@ -19,7 +19,7 @@ import constraint.ast.MeetElement;
 import constraint.ast.Relation;
 import constraint.ast.Top;
 import constraint.ast.Variable;
-import diagnositc.DiagnosisInput;
+import diagnostic.DiagnosisInput;
 
 action code {: 
 				Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
