@@ -56,6 +56,10 @@ public class Constraint implements Comparable<Constraint> {
     	return count;
 //        return ((double)count)/((double)totalcount);
     }
+	
+	public String getInfo() {
+		return info;
+	}
     
     public int compareTo(Constraint n) {
         double rank1 = getRank();
