@@ -52,6 +52,7 @@ public class Analysis {
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	HashSet<AttemptGoal> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
 	String sourceName;
+	Position pos=null;
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
@@ -125,7 +126,14 @@ public class Analysis {
 //	    	System.out.println( e.toString());
 //	    }
 	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), symmentric);
-	    return new Analysis(graph);
+	    Analysis ret = new Analysis(graph);
+	    // read the position of method generating the constraints when available
+		BufferedReader br = new BufferedReader(new FileReader(input));
+		String firstline = br.readLine();
+		if (firstline.contains("jif")) {
+			ret.pos = new Position(firstline.substring(firstline.indexOf("jif")));
+		}
+	    return ret;
 	}
 	
 	// this method is used to configure the path finder
@@ -217,12 +225,22 @@ public class Analysis {
 		}
 		done = true;
 
-		System.out.println("*** Found "+errorPaths.size() + " unsat path(s) in total");
-		for (AttemptGoal goal : unsatPath) {
-			System.out.println("Unsat path from "+goal.getSource().getElement() + " to " + goal.getSink().getElement());
-		}
-
 	}
+    
+    public String unsatPathsToHTML () {
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("<span id=\"info\" class=\"slice\"> Slice of " + errorPaths.size() +" unsat path(s): \n");
+		sb.append("<pre>\n");
+		for (AttemptGoal goal : unsatPath) {
+			//sb.append("<div class=\"moreinfo\"> " +
+			//		errorPaths.get(goal).toString() + " \n");
+			//sb.append("</div>);
+			sb.append("Unsat path from "+goal.getSource().getElement() + " to " + goal.getSink().getElement()+"\n");
+		}
+		sb.append("</pre>\n");
+		sb.append("</span>");
+		return sb.toString();
+    }
     
     public Set<AttemptGoal> genAssumptions (Set<AttemptGoal> remaining) {    	    	
     	HashMap<AttemptGoal, List<AttemptGoal>> dep = genAssumptionDep(remaining);
@@ -235,14 +253,14 @@ public class Analysis {
    				break;
     	}
 
-		System.out.println("Likely missing assumptions:");
+//		System.out.println("Likely missing assumptions:");
 		HashSet<AttemptGoal> ret = new HashSet<AttemptGoal>();
     	for (Set<AttemptGoal> result : results) {
     		for (AttemptGoal s : result) {
     			ret.add(s);
-        		System.out.print(" "+s.getSource().getElement() +" <= "+s.getSink().getElement()+";");
+//        		System.out.print(" "+s.getSource().getElement() +" <= "+s.getSink().getElement()+";");
     		}
-    		System.out.println();
+//    		System.out.println();
     	}
     	
     	return ret;
@@ -524,16 +542,27 @@ public class Analysis {
     					"\t}\n" +
     					"}\n" +
     			"</SCRIPT>\n" +
-    			"<NOSCRIPT>\n" +
-    			"</NOSCRIPT>\n" +
-    			"</HEAD>\n\n" +
     			
-    			"<BODY BGCOLOR=\"white\" onload=\"windowTitle();\">\n" +
+    			"\n<link rel=\"stylesheet\" href=\"style.css\">\n" +
+    			"<script type=\"text/javascript\">\n" +
+    			"function display_info(id) {\n" +
+    			"\tvar elem = document.getElementById(id);\n" +
+    			"\telem.style.display = 'block';\n" +
+    			"}\n" +
+    			"function hide(id) {\n" +
+    			"\tvar elem = document.getElementById(id);\n" +
+    			"\telem.style.display = 'none';\n" +
+    			"}\n" +
+    			"</script>\n" +
+    			
+    			"\n</HEAD>\n" +
+    			
+    			"\n<BODY BGCOLOR=\"white\" onload=\"windowTitle();\">\n" +
     			"<HR>\n";
     }
     
     public String getTail () {
-    	return "<HR>\n\n" +
+    	return 	"<HR>\n\n" +
     			"</BODY>\n" +
     			"</HTML>";
     }
@@ -544,16 +573,56 @@ public class Analysis {
     			"<H2>\n" +
     			"<BR>\n" +
     			"Error Diagnostic Report for file " + sourceName + " </H2>\n" +
-    			
+    			unsatPathsToHTML() + 
     			"<HR>\n" +
     			"<H3>\n" +
     			"<BR>\n" +
-    			"Suggestions with efforts level 1 </H3>\n" +
+    			"Most likely suggestions</H3>\n" +
     			"<UL>\n" +
-    			"<LI> Missing Assumption: " +
+    			genMissinAssumptions() +
     			genCutItems() +
+    			"<script>display_info('info')</script>\n"+
     			"</UL>\n");
     	
+    	return sb.toString();
+    }
+    
+    public String genMissinAssumptions () {
+    	StringBuffer sb = new StringBuffer();
+    	if (GEN_ASSUMP) {
+    		Set<AttemptGoal> result = genAssumptions(errorPaths.keySet());
+    		sb.append("<LI> Likely missing assumption(s): \n");
+   			
+    		String missingCons = "";
+    		for (AttemptGoal g : result)
+   				missingCons += g.toString()+";";
+   			sb.append(missingCons+"\n");
+   			
+   			if (pos!=null) {
+   				sb.append("\n<pre class=\"code\">\n");
+       	        try {
+       	            FileReader fstream = new FileReader(sourceName);
+       	            BufferedReader in = new BufferedReader(fstream);
+       	            String current;
+       	            int currentline=0;
+       	            while ((current=in.readLine())!=null) {
+       	            	currentline ++;
+       	            	if (currentline < pos.getLine()) continue;
+       	            	
+       	            	if (pos.getLine()==currentline) {
+       	            			current = current + 
+       	            				" <span class=\"missingConstraint\"> " + missingCons + "</span>";
+       	            	}
+       	            	
+       	            	sb.append(currentline + ". "+ current+"\n");
+       	            }
+       	            in.close();
+       	        } catch (IOException e) {
+       	            sb.append("Failed to read file: " + sourceName);
+       	        }
+       	    	sb.append("</pre>\n");
+   			}
+    	}
     	return sb.toString();
     }
     
@@ -563,28 +632,31 @@ public class Analysis {
     	if (GEN_CUT) {
             Set<Set<EquationEdge>> results=null;
         	results = genCuts(errorPaths.keySet());
-        	sb.append("<LI> Wrong constraint in source code:\n");
+        	sb.append("<LI> Likely wrong constraints in the source code:\n");
         	sb.append("<UL>\n");
        		for (Set<EquationEdge> set : results) {
-            	sb.append("<LI> ");
-       			List<Position> positions = new ArrayList<Position>();
+            	sb.append("<LI>\n");
             	
-       			for (EquationEdge c : set) {
-       				sb.append(c.getEquation());
-       				positions.add(new Position(c.getEquation().getInfo()));
-       			}
+       			for (EquationEdge c : set)
+       				sb.append(c.getEquation()+"\n");
        			
-       	    	sb.append("<pre>\n");
+       	    	sb.append("\n<pre class=\"code\">\n");
        	        try {
        	            FileReader fstream = new FileReader(sourceName);
        	            BufferedReader in = new BufferedReader(fstream);
        	            String current;
        	            int currentline=1;
        	            while ((current=in.readLine())!=null) {
-       	            	for (Position p : positions) {
+       	            	
+       	            	for (EquationEdge c : set) {
+       	            		Position p = new Position(c.getEquation().getInfo());
        	            		if (p.getLine()==currentline) {
-       	            			current = current.substring(0, p.getColStart()) + "<FONT COLOR=\"red\"><b>" + 
-       	            				current.substring(p.getColStart(), p.getColEnd()) + "</b></FONT>" + current.substring(p.getColEnd());
+       	            			current = current.substring(0, p.getColStart()) + 
+       	            				"<span id=\"wrongcons\" class=\"moreinfo\"> "+
+       	            				c.getEquation() +
+       	            				"</span>" + 	           
+       	            				"<span class=\"wrongConstraint\" onmouseover=\"display_info('wrongcons')\" onmouseout=\"hide('wrongcons')\">" + 
+       	            				current.substring(p.getColStart(), p.getColEnd()) + "</span>" + current.substring(p.getColEnd());
        	            		}
        	            	}
        	            	sb.append(current+"\n");

@@ -39,4 +39,9 @@ public class AttemptGoal {
 	public int hashCode() {
 		return n1.hashCode() + n2.hashCode() + env.hashCode();
 	}
+	
+	@Override
+	public String toString() {
+		return n1.getElement() + " <= " + n2.getElement();
+	}
 }
