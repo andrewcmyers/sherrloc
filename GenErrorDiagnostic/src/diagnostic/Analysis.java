@@ -28,6 +28,7 @@ import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
+import constraint.ast.Position;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
@@ -109,7 +110,7 @@ public class Analysis {
 				ana.GEN_ASSUMP = assumption;
 				ana.GEN_CUT = cut;
 				ana.sourceName = infile;
-				// ana.writeToDotFile();
+				ana.writeToDotFile();
 				ana.writeToHTML();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -215,9 +216,12 @@ public class Analysis {
 			}
 		}
 		done = true;
-		
-		if (DEBUG)
-			System.out.println("*** Found "+errorPaths.size() + " in total");
+
+		System.out.println("*** Found "+errorPaths.size() + " unsat path(s) in total");
+		for (AttemptGoal goal : unsatPath) {
+			System.out.println("Unsat path from "+goal.getSource().getElement() + " to " + goal.getSink().getElement());
+		}
+
 	}
     
     public Set<AttemptGoal> genAssumptions (Set<AttemptGoal> remaining) {    	    	
@@ -231,7 +235,7 @@ public class Analysis {
    				break;
     	}
 
-		System.out.println("Possible missing assumptions:");
+		System.out.println("Likely missing assumptions:");
 		HashSet<AttemptGoal> ret = new HashSet<AttemptGoal>();
     	for (Set<AttemptGoal> result : results) {
     		for (AttemptGoal s : result) {
@@ -463,17 +467,6 @@ public class Analysis {
         if (!done) 
         	genErrorPaths();
         
-        if (GEN_ASSUMP)
-        	genAssumptions(errorPaths.keySet());
-        if (GEN_CUT)
-        	genCuts(errorPaths.keySet());
-//        Set<AttemptGoal> remainingAssump = new HashSet<AttemptGoal>();
-//        for (AttemptGoal goal : errorPaths.keySet()) {
-//        	if (!missingAssump.contains(goal))
-//        		remainingAssump.add(goal);
-//        }
-//        genAssumptions(remainingAssump);
-        
         try {
             FileWriter fstream = new FileWriter(filename);
             BufferedWriter out = new BufferedWriter(fstream);
@@ -486,33 +479,22 @@ public class Analysis {
         } catch (IOException e) {
             System.out.println("Unable to write the DOT file to: " + filename);
         }
-        
-//        printRank();
     }
     
     public void writeToHTML () {
     	String filename;
 
         filename = "error.html";
-        Set<Set<EquationEdge>> results=null;
         
         if (!done) 
         	genErrorPaths();
         
         if (GEN_ASSUMP)
         	genAssumptions(errorPaths.keySet());
-        if (GEN_CUT)
-        	results = genCuts(errorPaths.keySet());
-        
+        	
         StringBuffer sb = new StringBuffer();
         sb.append(getHeader());
-    	
-   		for (Set<EquationEdge> set : results) {
-   			for (EquationEdge c : set) {
-   				System.out.println (c.getEquation());
-   			}
-   		}
-   		
+    	   		
         try {
             FileWriter fstream = new FileWriter(filename);
             BufferedWriter out = new BufferedWriter(fstream);
@@ -569,21 +551,54 @@ public class Analysis {
     			"Suggestions with efforts level 1 </H3>\n" +
     			"<UL>\n" +
     			"<LI> Missing Assumption: " +
-    			"<LI> Wrong constraint in source code:" +
+    			genCutItems() +
     			"</UL>\n");
     	
-    	sb.append("<pre>\n");
-        try {
-            FileReader fstream = new FileReader(sourcefile);
-            BufferedReader in = new BufferedReader(fstream);
-            String current;
-            while ((current=in.readLine())!=null)
-            	sb.append(current+"\n");
-            in.close();
-        } catch (IOException e) {
-            sb.append("Failed to read file: " + sourcefile);
+    	return sb.toString();
+    }
+    
+    public String genCutItems () {
+    	StringBuffer sb = new StringBuffer();
+    	
+    	if (GEN_CUT) {
+            Set<Set<EquationEdge>> results=null;
+        	results = genCuts(errorPaths.keySet());
+        	sb.append("<LI> Wrong constraint in source code:\n");
+        	sb.append("<UL>\n");
+       		for (Set<EquationEdge> set : results) {
+            	sb.append("<LI> ");
+       			List<Position> positions = new ArrayList<Position>();
+            	
+       			for (EquationEdge c : set) {
+       				sb.append(c.getEquation());
+       				positions.add(new Position(c.getEquation().getInfo()));
+       			}
+       			
+       	    	sb.append("<pre>\n");
+       	        try {
+       	            FileReader fstream = new FileReader(sourceName);
+       	            BufferedReader in = new BufferedReader(fstream);
+       	            String current;
+       	            int currentline=1;
+       	            while ((current=in.readLine())!=null) {
+       	            	for (Position p : positions) {
+       	            		if (p.getLine()==currentline) {
+       	            			current = current.substring(0, p.getColStart()) + "<FONT COLOR=\"red\"><b>" + 
+       	            				current.substring(p.getColStart(), p.getColEnd()) + "</b></FONT>" + current.substring(p.getColEnd());
+       	            		}
+       	            	}
+       	            	sb.append(current+"\n");
+       	            	currentline ++;
+       	            }
+       	            in.close();
+       	        } catch (IOException e) {
+       	            sb.append("Failed to read file: " + sourceName);
+       	        }
+       	    	sb.append("</pre>\n");
+       		}
+       		sb.append("</UL>\n");
         }
-    	sb.append("</pre>\n");
+    	
     	return sb.toString();
     }
 }
