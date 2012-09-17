@@ -32,7 +32,7 @@ public class Constructor extends Element {
 		else if (name.equals("pair"))
 			return "*";
 		else
-			return name.toUpperCase();
+			return name;
 	}
 	
 	public String toDotString () {

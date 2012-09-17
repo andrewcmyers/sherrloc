@@ -22,6 +22,14 @@ public class Position {
 			this.colStart = Integer.parseInt(range.split("-")[0]);
 			this.colEnd = Integer.parseInt(range.split("-")[1]);
 		}
+		if (s.contains("jif")) {
+			String info = s.split(":")[1];
+			String[] comp = info.split(",");
+			this.line = Integer.parseInt(comp[0]);
+			String range = comp[1];
+			this.colStart = Integer.parseInt(range.split("-")[0]);
+			this.colEnd = Integer.parseInt(range.split("-")[1]);
+		}
 	}
 	
 	public int getLine() {
@@ -37,6 +45,6 @@ public class Position {
 	}
 	
 	public static void main(String[] args) {
-		new Position("line 4, characters 4-5");
+		new Position("jif:21,11-39");
 	}
 }
