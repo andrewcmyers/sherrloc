@@ -2,7 +2,6 @@
 
 dir=`dirname "$0"`
 
-args=
 java=java
 
 classpath="$dir/bin:$dir/lib/commons-cli-1.2.jar:$dir/lib/java-cup-11a.jar:$dir/lib/JFlex.jar"
