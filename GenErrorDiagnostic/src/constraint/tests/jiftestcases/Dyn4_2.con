@@ -1,37 +1,38 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0
-CONSTRUCTOR L1 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:4,32
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:4,11
-CONSTRUCTOR *L1 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:6,13
+// Dyn4.jif:4,11-20
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0-10
+CONSTRUCTOR L 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:4,32-38
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:4,11-20
+CONSTRUCTOR *L 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:6,13-14
 CONSTRUCTOR this 0
-CONSTRUCTOR * 0 //@Dyn4.jif:14,28
+CONSTRUCTOR * 0 //@Dyn4.jif:14,28-35
 
 %%
-L1 <= (_ -> _);
-caller_pc1 <= (_ -> _);
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= L1;
-L1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= *L1;
-*L1 <= * -> *;
+L <= (_ -> _);
+caller_pc <= (_ -> _);
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= *L;
+*L <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-x1 == *L1 [this1 <= caller_pc1;];@"Dyn4.jif:6,16"
-L1 <= (* -> *) [this1 <= caller_pc1;];@"Dyn4.jif:6,22"
-(caller_pc1) <= *L1 [this1 <= caller_pc1;];@"Dyn4.jif:6,25"
-caller_pc1 <= (* -> *) [this1 <= caller_pc1;];@"Dyn4.jif:6,20"
-arg1label1 == L1 [this1 <= caller_pc1;];@"Dyn4.jif:6,20"
-arg2label1 == (caller_pc1) [this1 <= caller_pc1;];@"Dyn4.jif:6,20"
-*L1 <= x1 [this1 <= caller_pc1;];@"Dyn4.jif:6,20"
-L1 <= (* -> *) [this1 <= caller_pc1;];@"Dyn4.jif:7,17"
-(caller_pc1) <= *L1 [this1 <= caller_pc1;];@"Dyn4.jif:7,20"
-caller_pc1 <= (* -> *) [this1 <= caller_pc1;];@"Dyn4.jif:7,15"
-arg1label2 == L1 [this1 <= caller_pc1;];@"Dyn4.jif:7,15"
-arg2label2 == (caller_pc1) [this1 <= caller_pc1;];@"Dyn4.jif:7,15"
-*L1 <= *L1 [this1 <= caller_pc1;];@"Dyn4.jif:7,8"
+v_x == *L [this <= caller_pc;];@"Dyn4.jif:6,16-17"
+L <= (* -> *) [this <= caller_pc;];@"Dyn4.jif:6,22-23"
+(caller_pc) <= *L [this <= caller_pc;];@"Dyn4.jif:6,25-26"
+caller_pc <= (* -> *) [this <= caller_pc;];@"Dyn4.jif:6,20-27"
+v_arg1label == L [this <= caller_pc;];@"Dyn4.jif:6,20-27"
+v_arg2label == (caller_pc) [this <= caller_pc;];@"Dyn4.jif:6,20-27"
+*L <= v_x [this <= caller_pc;];@"Dyn4.jif:6,20-27"
+L <= (* -> *) [this <= caller_pc;];@"Dyn4.jif:7,17-18"
+(caller_pc) <= *L [this <= caller_pc;];@"Dyn4.jif:7,20-21"
+caller_pc <= (* -> *) [this <= caller_pc;];@"Dyn4.jif:7,15-22"
+v_arg1label1 == L [this <= caller_pc;];@"Dyn4.jif:7,15-22"
+v_arg2label1 == (caller_pc) [this <= caller_pc;];@"Dyn4.jif:7,15-22"
+*L <= *L [this <= caller_pc;];@"Dyn4.jif:7,8-23"

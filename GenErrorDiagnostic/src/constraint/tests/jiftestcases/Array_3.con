@@ -1,37 +1,38 @@
+// Array.jif:1,7-18
+CONSTRUCTOR Array.provider 0 //class jif.types.label.ProviderLabel_c@Array.jif:1,7-18
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array.jif:1,7-18
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array.jif:1,7-18
 CONSTRUCTOR Array.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array.jif:1,7
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array.jif:1,7
-CONSTRUCTOR Array.provider2 0 //class jif.types.label.ProviderLabel_c@Array.jif:1,7
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@Array.jif:2,17
-CONSTRUCTOR * 0 //@Array.jif:4,23
+CONSTRUCTOR _ 0 //@Array.jif:2,17-19
+CONSTRUCTOR * 0 //@Array.jif:4,23-29
 
 %%
+Array.provider == _ -> _;
 Array.provider1 == _ -> _;
-Array.provider2 == _ -> _;
+_ -> _ <= Array.provider;
+Array.provider <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= Array.provider1;
 Array.provider1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= Array.provider2;
-Array.provider2 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Array.provider1 <= (* -> *) [];@"Array.jif:1,7"
-(_ -> _) == (_ -> _) [];@"Array.jif:2,4"
-(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11"
-(* -> *) <= (* -> *) [];@"Array.jif:4,11"
-(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11"
-(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11"
-(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11"
-(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11"
-Array.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (Array.provider2);];@"Array.jif:1,7"
+Array.provider1 <= (* -> *) [];@"Array.jif:1,7-18"
+(_ -> _) == (_ -> _) [];@"Array.jif:2,4-22"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+(* -> *) <= (* -> *) [];@"Array.jif:4,11-18"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+(Alice -> *) <= (Alice -> *) [];@"Array.jif:4,11-18"
+Array.provider <= (* -> *) [this <= caller_pc;caller_pc <= (Array.provider);];@"Array.jif:1,7-7"

@@ -1,11 +1,12 @@
+// DynLabel12.jif
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@DynLabel12.jif:13,15
+CONSTRUCTOR _ 0 //@DynLabel12.jif:13,15-17
 
 %%
-_ -> _ <= c1;
-c1 <= * -> *;
+_ -> _ <= v_c;
+v_c <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-c1 == (_ -> _) [];@"DynLabel12.jif:13,10"
+v_c == (_ -> _) [];@"DynLabel12.jif:13,10-35"

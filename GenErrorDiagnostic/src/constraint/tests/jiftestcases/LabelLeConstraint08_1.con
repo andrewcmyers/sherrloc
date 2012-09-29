@@ -1,11 +1,12 @@
+// LabelLeConstraint08.jif
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@LabelLeConstraint08.jif:2,10
+CONSTRUCTOR _ 0 //@LabelLeConstraint08.jif:2,10-39
 
 %%
-_ -> _ <= f1;
-f1 <= * -> *;
+_ -> _ <= v_f;
+v_f <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-f1 == (_ -> _) [];@"LabelLeConstraint08.jif:2,10"
+v_f == (_ -> _) [];@"LabelLeConstraint08.jif:2,10-39"

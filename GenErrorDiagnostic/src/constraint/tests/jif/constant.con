@@ -1,26 +1,27 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@constant.jif:6,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@constant.jif:9,8
-CONSTRUCTOR constant.provider1 0 //class jif.types.label.ProviderLabel_c@null
+// constant.jif:9,8-14
+CONSTRUCTOR constant.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@constant.jif:6,0-14
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@constant.jif:9,8-14
 CONSTRUCTOR this 0
-CONSTRUCTOR px 0 //@constant.jif:10,9
-CONSTRUCTOR py 0 //@constant.jif:10,13
+CONSTRUCTOR px 0 //@constant.jif:10,9-11
+CONSTRUCTOR py 0 //@constant.jif:10,13-15
 
 %%
-constant.provider1 == _ -> _;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= y1;
-y1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= constant.provider1;
-constant.provider1 <= * -> *;
+constant.provider == _ -> _;
+_ -> _ <= constant.provider;
+constant.provider <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= y;
+y <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= (px -> py);
 (px -> py) <= * -> *;
 
 %%
-y1 == (caller_pc1) ⊔ ((px -> py)) [this1 <= caller_pc1;];@"constant.jif:10,17"
-(caller_pc1) <= y1 [this1 <= caller_pc1;];@"constant.jif:10,19"
-(y1) ⊔ (caller_pc1) ⊔ (this1) <= (px -> py) [this1 <= caller_pc1;];@"constant.jif:11,4"
-constant.provider1 <= (px -> py) [this1 <= caller_pc1;];@"constant.jif:11,4"
-((px -> py)) ⊔ (this1) ⊔ (caller_pc1) <= y1 [this1 <= caller_pc1;];@"constant.jif:12,4"
+y == (caller_pc) ⊔ ((px -> py)) [this <= caller_pc;];@"constant.jif:10,17-18"
+(caller_pc) <= y [this <= caller_pc;];@"constant.jif:10,19-20"
+(y) ⊔ (caller_pc) ⊔ (this) <= (px -> py) [this <= caller_pc;];@"constant.jif:11,4-5"
+constant.provider <= (px -> py) [this <= caller_pc;];@"constant.jif:11,4-5"
+((px -> py)) ⊔ (this) ⊔ (caller_pc) <= y [this <= caller_pc;];@"constant.jif:12,4-5"

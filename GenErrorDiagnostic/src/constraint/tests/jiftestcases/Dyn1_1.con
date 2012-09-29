@@ -1,11 +1,12 @@
+// Dyn1.jif
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Dyn1.jif:3,15
+CONSTRUCTOR _ 0 //@Dyn1.jif:3,15-17
 
 %%
-_ -> _ <= f1;
-f1 <= * -> *;
+_ -> _ <= v_f;
+v_f <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-f1 == (_ -> _) [];@"Dyn1.jif:3,10"
+v_f == (_ -> _) [];@"Dyn1.jif:3,10-40"

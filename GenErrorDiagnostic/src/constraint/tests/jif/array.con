@@ -1,56 +1,57 @@
-CONSTRUCTOR Array.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@array.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@array.jif:3,4
+// array.jif:3,4-10
+CONSTRUCTOR Array.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@array.jif:1,0-11
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@array.jif:3,4-10
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@array.jif:4,11
-CONSTRUCTOR px 0 //@array.jif:4,5
-CONSTRUCTOR py 0 //@array.jif:5,8
-CONSTRUCTOR * 0 //@array.jif:4,5
+CONSTRUCTOR _ 0 //@array.jif:4,11-13
+CONSTRUCTOR px 0 //@array.jif:4,5-7
+CONSTRUCTOR py 0 //@array.jif:5,8-10
+CONSTRUCTOR * 0 //@array.jif:4,5-8
 
 %%
-caller_pc1 <= (px -> *);
-Array.provider1 == _ -> _;
+caller_pc <= (px -> *);
+Array.provider == _ -> _;
 _ -> _ <= (px -> *);
 (px -> *) <= * -> *;
-_ -> _ <= Array.provider1;
-Array.provider1 <= * -> *;
-_ -> _ <= b1;
-b1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= a1;
-a1 <= * -> *;
-_ -> _ <= p1;
-p1 <= * -> *;
-_ -> _ <= s1;
-s1 <= * -> *;
-_ -> _ <= array_base1;
-array_base1 <= * -> *;
+_ -> _ <= Array.provider;
+Array.provider <= * -> *;
+_ -> _ <= b;
+b <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= a;
+a <= * -> *;
+_ -> _ <= p;
+p <= * -> *;
+_ -> _ <= s;
+s <= * -> *;
+_ -> _ <= array_base;
+array_base <= * -> *;
 _ -> _ <= (px -> py);
 (px -> py) <= * -> *;
-_ -> _ <= array_base2;
-array_base2 <= * -> *;
+_ -> _ <= array_base1;
+array_base1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-a1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"array.jif:4,14"
-array_base2 <= (px -> *) [this1 <= caller_pc1;];@"array.jif:4,18"
-caller_pc1 <= a1 [this1 <= caller_pc1;];@"array.jif:4,18"
-b1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"array.jif:5,16"
-array_base1 <= (px -> py) [this1 <= caller_pc1;];@"array.jif:5,20"
-caller_pc1 <= b1 [this1 <= caller_pc1;];@"array.jif:5,20"
-(b1) ⊔ (caller_pc1) <= a1 [this1 <= caller_pc1;];@"array.jif:6,1"
-(px -> *) <= (px -> py) [this1 <= caller_pc1;];@"array.jif:6,1"
-(px -> py) <= (px -> *) [this1 <= caller_pc1;];@"array.jif:6,1"
-s1 == (px -> *) [this1 <= caller_pc1;];@"array.jif:7,10"
-(caller_pc1) <= s1 [this1 <= caller_pc1;];@"array.jif:7,14"
-(caller_pc1) ⊔ (s1) ⊔ (a1) <= (px -> *) [this1 <= caller_pc1;];@"array.jif:9,5"
-Array.provider1 <= (px -> *) [this1 <= caller_pc1;];@"array.jif:9,5"
-p1 == (caller_pc1) ⊔ (s1) ⊔ (a1) ⊔ ((px -> py)) [this1 <= caller_pc1;];@"array.jif:11,12"
-((px -> py)) ⊔ (b1) ⊔ (caller_pc1) ⊔ (s1) ⊔ (a1) <= p1 [this1 <= caller_pc1;];@"array.jif:11,16"
-(b1) ⊔ (caller_pc1) ⊔ (s1) ⊔ (a1) <= (px -> *) [this1 <= caller_pc1;];@"array.jif:3,4"
-(a1) ⊔ (caller_pc1) ⊔ (s1) <= (px -> *) [this1 <= caller_pc1;];@"array.jif:3,4"
-(b1) ⊔ (caller_pc1) ⊔ (s1) ⊔ (a1) <= (px -> *) [this1 <= caller_pc1;];@"array.jif:3,4"
+a == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"array.jif:4,14-15"
+array_base1 <= (px -> *) [this <= caller_pc;];@"array.jif:4,18-29"
+caller_pc <= a [this <= caller_pc;];@"array.jif:4,18-29"
+b == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"array.jif:5,16-17"
+array_base <= (px -> py) [this <= caller_pc;];@"array.jif:5,20-31"
+caller_pc <= b [this <= caller_pc;];@"array.jif:5,20-31"
+(b) ⊔ (caller_pc) <= a [this <= caller_pc;];@"array.jif:6,1-2"
+(px -> *) <= (px -> py) [this <= caller_pc;];@"array.jif:6,1-6"
+(px -> py) <= (px -> *) [this <= caller_pc;];@"array.jif:6,1-6"
+s == (px -> *) [this <= caller_pc;];@"array.jif:7,10-11"
+(caller_pc) <= s [this <= caller_pc;];@"array.jif:7,14-17"
+(caller_pc) ⊔ (s) ⊔ (a) <= (px -> *) [this <= caller_pc;];@"array.jif:9,5-6"
+Array.provider <= (px -> *) [this <= caller_pc;];@"array.jif:9,5-6"
+p == (caller_pc) ⊔ (s) ⊔ (a) ⊔ ((px -> py)) [this <= caller_pc;];@"array.jif:11,12-13"
+((px -> py)) ⊔ (b) ⊔ (caller_pc) ⊔ (s) ⊔ (a) <= p [this <= caller_pc;];@"array.jif:11,16-17"
+(b) ⊔ (caller_pc) ⊔ (s) ⊔ (a) <= (px -> *) [this <= caller_pc;];@"array.jif:3,4-10"
+(a) ⊔ (caller_pc) ⊔ (s) <= (px -> *) [this <= caller_pc;];@"array.jif:3,4-10"
+(b) ⊔ (caller_pc) ⊔ (s) ⊔ (a) <= (px -> *) [this <= caller_pc;];@"array.jif:3,4-10"

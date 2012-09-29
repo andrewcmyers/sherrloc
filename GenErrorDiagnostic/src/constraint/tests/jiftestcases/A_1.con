@@ -1,3 +1,4 @@
+// A.jif
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR Bob 0 //@null
@@ -5,8 +6,8 @@ CONSTRUCTOR Bob 0 //@null
 %%
 _ -> _ <= (Alice -> Bob);
 (Alice -> Bob) <= * -> *;
-_ -> _ <= f1;
-f1 <= * -> *;
+_ -> _ <= v_f;
+v_f <= * -> *;
 
 %%
-f1 == (Alice -> Bob) [];@"A.jif:2,11"
+v_f == (Alice -> Bob) [];@"A.jif:2,11-28"

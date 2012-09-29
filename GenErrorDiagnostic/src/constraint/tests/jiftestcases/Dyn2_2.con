@@ -1,15 +1,16 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn2.jif:1,0
-CONSTRUCTOR *this.lb1 0 //class jif.types.label.DynamicLabel_c@Dyn2.jif:9,16
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn2.jif:9,11
+// Dyn2.jif:9,11-21
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn2.jif:1,0-10
+CONSTRUCTOR *this.lb 0 //class jif.types.label.DynamicLabel_c@Dyn2.jif:9,16-18
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn2.jif:9,11-21
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= *this.lb1;
-*this.lb1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= *this.lb;
+*this.lb <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 
 %%
-(caller_pc1) <= (*this.lb1) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"Dyn2.jif:10,1"
+(caller_pc) <= (*this.lb) ⊔ (caller_pc) [this <= caller_pc;];@"Dyn2.jif:10,1-12"

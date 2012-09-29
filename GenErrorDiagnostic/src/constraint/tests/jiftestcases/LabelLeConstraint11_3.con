@@ -1,43 +1,44 @@
-CONSTRUCTOR L1 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint11.jif:2,8
+// LabelLeConstraint11.jif:1,0-7
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint11.jif:2,8-9
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint11.jif:1,0-7
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint11.jif:1,0-7
 CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint11.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint11.jif:1,0
-CONSTRUCTOR lbl11 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint11.jif:4,17
-CONSTRUCTOR C.provider2 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint11.jif:1,0
-CONSTRUCTOR *lbl11 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint11.jif:4,44
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint11.jif:1,0-7
+CONSTRUCTOR lbl1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint11.jif:4,17-22
+CONSTRUCTOR *lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint11.jif:4,44-48
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
+C.provider == _ -> _;
 C.provider1 == _ -> _;
-C.provider2 == _ -> _;
-_ -> _ <= L1;
-L1 <= * -> *;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= C.provider;
+C.provider <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= C.provider1;
 C.provider1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= lbl11;
-lbl11 <= * -> *;
-_ -> _ <= C.provider2;
-C.provider2 <= * -> *;
-_ -> _ <= *lbl11;
-*lbl11 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= lbl1;
+lbl1 <= * -> *;
+_ -> _ <= *lbl1;
+*lbl1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider1 <= (* -> *) [];@"LabelLeConstraint11.jif:1,0"
-L1 == L1 [];@"LabelLeConstraint11.jif:2,4"
-L1 <= *lbl11 [L1 <= *lbl11;lbl11 <= L1;];@"LabelLeConstraint11.jif:4,35"
-lbl11 <= L1 [L1 <= *lbl11;lbl11 <= L1;];@"LabelLeConstraint11.jif:4,51"
-(* -> *) <= (* -> *) [L1 <= *lbl11;lbl11 <= L1;];@"LabelLeConstraint11.jif:4,4"
-(* -> *) <= (* -> *) [L1 <= *lbl11;lbl11 <= L1;];@"LabelLeConstraint11.jif:4,4"
-(_ -> _) <= (_ -> _) [L1 <= *lbl11;lbl11 <= L1;];@"LabelLeConstraint11.jif:4,4"
-*lbl11 <= *lbl11 [L1 <= *lbl11;lbl11 <= L1;];@"LabelLeConstraint11.jif:4,4"
-C.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelLeConstraint11.jif:1,0"
+C.provider1 <= (* -> *) [];@"LabelLeConstraint11.jif:1,0-7"
+L == L [];@"LabelLeConstraint11.jif:2,4-13"
+L <= *lbl1 [L <= *lbl1;lbl1 <= L;];@"LabelLeConstraint11.jif:4,35-49"
+lbl1 <= L [L <= *lbl1;lbl1 <= L;];@"LabelLeConstraint11.jif:4,51-64"
+(* -> *) <= (* -> *) [L <= *lbl1;lbl1 <= L;];@"LabelLeConstraint11.jif:4,4-16"
+(* -> *) <= (* -> *) [L <= *lbl1;lbl1 <= L;];@"LabelLeConstraint11.jif:4,4-16"
+(_ -> _) <= (_ -> _) [L <= *lbl1;lbl1 <= L;];@"LabelLeConstraint11.jif:4,4-16"
+*lbl1 <= *lbl1 [L <= *lbl1;lbl1 <= L;];@"LabelLeConstraint11.jif:4,4-16"
+C.provider <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider);];@"LabelLeConstraint11.jif:1,0-0"

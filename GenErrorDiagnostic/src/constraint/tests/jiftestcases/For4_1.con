@@ -1,43 +1,44 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@For4.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@For4.jif:2,4
+// For4.jif:2,4-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@For4.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@For4.jif:2,4-10
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@For4.jif:4,15
-CONSTRUCTOR * 0 //@For4.jif:3,9
+CONSTRUCTOR _ 0 //@For4.jif:4,15-17
+CONSTRUCTOR * 0 //@For4.jif:3,9-15
 
 %%
-caller_pc1 <= (_ -> _);
+caller_pc <= (_ -> _);
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= leak1;
-leak1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= secret1;
-secret1 <= * -> *;
-_ -> _ <= e1;
-e1 <= * -> *;
-_ -> _ <= i1;
-i1 <= * -> *;
-_ -> _ <= for1;
-for1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= v_leak;
+v_leak <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_secret;
+v_secret <= * -> *;
+_ -> _ <= v_e;
+v_e <= * -> *;
+_ -> _ <= v_i;
+v_i <= * -> *;
+_ -> _ <= v_for;
+v_for <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= newException1;
-newException1 <= * -> *;
+_ -> _ <= v_newException;
+v_newException <= * -> *;
 
 %%
-secret1 == (Alice -> *) [this1 <= caller_pc1;];@"For4.jif:3,17"
-(caller_pc1) <= secret1 [this1 <= caller_pc1;];@"For4.jif:3,26"
-leak1 == (_ -> _) [this1 <= caller_pc1;];@"For4.jif:4,18"
-(caller_pc1) <= leak1 [this1 <= caller_pc1;];@"For4.jif:4,25"
-(caller_pc1) <= i1 [this1 <= caller_pc1;];@"For4.jif:6,20"
-(for1) ⊔ (i1) <= leak1 [this1 <= caller_pc1;];@"For4.jif:8,16"
-(secret1) ⊔ (for1) ⊔ (i1) <= (* -> *) [this1 <= caller_pc1;];@"For4.jif:9,35"
-(secret1) ⊔ (for1) ⊔ (i1) <= i1 [this1 <= caller_pc1;];@"For4.jif:10,16"
-(secret1) ⊔ (for1) ⊔ (i1) ⊔ (caller_pc1) <= for1 [this1 <= caller_pc1;];@"For4.jif:7,12"
-(secret1) ⊔ (for1) ⊔ (i1) ⊔ (newException1) <= e1 [this1 <= caller_pc1;];@"For4.jif:13,15"
+v_secret == (Alice -> *) [this <= caller_pc;];@"For4.jif:3,17-23"
+(caller_pc) <= v_secret [this <= caller_pc;];@"For4.jif:3,26-30"
+v_leak == (_ -> _) [this <= caller_pc;];@"For4.jif:4,18-22"
+(caller_pc) <= v_leak [this <= caller_pc;];@"For4.jif:4,25-30"
+(caller_pc) <= v_i [this <= caller_pc;];@"For4.jif:6,20-21"
+(v_for) ⊔ (v_i) <= v_leak [this <= caller_pc;];@"For4.jif:8,16-20"
+(v_secret) ⊔ (v_for) ⊔ (v_i) <= (* -> *) [this <= caller_pc;];@"For4.jif:9,35-50"
+(v_secret) ⊔ (v_for) ⊔ (v_i) <= v_i [this <= caller_pc;];@"For4.jif:10,16-17"
+(v_secret) ⊔ (v_for) ⊔ (v_i) ⊔ (caller_pc) <= v_for [this <= caller_pc;];@"For4.jif:7,12-25"
+(v_secret) ⊔ (v_for) ⊔ (v_i) ⊔ (v_newException) <= v_e [this <= caller_pc;];@"For4.jif:13,15-26"

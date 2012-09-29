@@ -1,20 +1,21 @@
+// Array5.jif
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Array5.jif:3,25
+CONSTRUCTOR _ 0 //@Array5.jif:3,25-27
 
 %%
-_ -> _ <= fb1;
-fb1 <= * -> *;
-_ -> _ <= fa1;
-fa1 <= * -> *;
-_ -> _ <= fd1;
-fd1 <= * -> *;
-_ -> _ <= fc1;
-fc1 <= * -> *;
+_ -> _ <= v_fb;
+v_fb <= * -> *;
+_ -> _ <= v_fa;
+v_fa <= * -> *;
+_ -> _ <= v_fd;
+v_fd <= * -> *;
+_ -> _ <= v_fc;
+v_fc <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-fa1 == (_ -> _) [];@"Array5.jif:3,4"
-fb1 == (_ -> _) [];@"Array5.jif:4,4"
-fc1 == (_ -> _) [];@"Array5.jif:5,4"
-fd1 == (_ -> _) [];@"Array5.jif:6,4"
+v_fa == (_ -> _) [];@"Array5.jif:3,4-45"
+v_fb == (_ -> _) [];@"Array5.jif:4,4-48"
+v_fc == (_ -> _) [];@"Array5.jif:5,4-46"
+v_fd == (_ -> _) [];@"Array5.jif:6,4-56"

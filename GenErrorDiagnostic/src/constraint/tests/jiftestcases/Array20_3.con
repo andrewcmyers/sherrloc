@@ -1,24 +1,25 @@
-CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array20.jif:1,0
-CONSTRUCTOR C.provider2 0 //class jif.types.label.ProviderLabel_c@Array20.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array20.jif:1,0
+// Array20.jif:1,0-7
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array20.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array20.jif:1,0-7
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@Array20.jif:1,0-7
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
+C.provider == _ -> _;
 C.provider1 == _ -> _;
-C.provider2 == _ -> _;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= C.provider;
+C.provider <= * -> *;
 _ -> _ <= C.provider1;
 C.provider1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= C.provider2;
-C.provider2 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= array_base1;
-array_base1 <= * -> *;
+_ -> _ <= v_array_base;
+v_array_base <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> _);
@@ -27,9 +28,9 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider1 <= (* -> *) [];@"Array20.jif:1,0"
-(_ -> _) == (_ -> _) [];@"Array20.jif:2,4"
-array_base1 <= (_ -> _) [this1 <= (_ -> _);];@"Array20.jif:2,17"
-(_ -> _) <= (_ -> _) [];@"Array20.jif:3,4"
-(_ -> _) <= (_ -> _) [];@"Array20.jif:3,4"
-C.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"Array20.jif:1,0"
+C.provider <= (* -> *) [];@"Array20.jif:1,0-7"
+(_ -> _) == (_ -> _) [];@"Array20.jif:2,4-28"
+v_array_base <= (_ -> _) [this <= (_ -> _);];@"Array20.jif:2,17-27"
+(_ -> _) <= (_ -> _) [];@"Array20.jif:3,4-10"
+(_ -> _) <= (_ -> _) [];@"Array20.jif:3,4-10"
+C.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider1);];@"Array20.jif:1,0-0"

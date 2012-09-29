@@ -1,11 +1,12 @@
+// Array20.jif
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Array20.jif:2,4
+CONSTRUCTOR _ 0 //@Array20.jif:2,4-28
 
 %%
-_ -> _ <= data1;
-data1 <= * -> *;
+_ -> _ <= v_data;
+v_data <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-data1 == (_ -> _) [];@"Array20.jif:2,4"
+v_data == (_ -> _) [];@"Array20.jif:2,4-28"

@@ -1,23 +1,24 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:7,11
+// Dyn7.jif:7,11-19
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0-11
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:7,11-19
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Dyn7.jif:8,12
-CONSTRUCTOR * 0 //@Dyn7.jif:3,11
+CONSTRUCTOR _ 0 //@Dyn7.jif:8,12-14
+CONSTRUCTOR * 0 //@Dyn7.jif:3,11-27
 
 %%
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-x1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"Dyn7.jif:8,15"
-caller_pc1 <= (* -> *) [this1 <= caller_pc1;];@"Dyn7.jif:8,19"
-receiver1 == this1 [this1 <= caller_pc1;];@"Dyn7.jif:8,19"
-((_ -> _)) ⊔ (caller_pc1) <= x1 [this1 <= caller_pc1;];@"Dyn7.jif:8,19"
+v_x == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"Dyn7.jif:8,15-16"
+caller_pc <= (* -> *) [this <= caller_pc;];@"Dyn7.jif:8,19-29"
+v_receiver == this [this <= caller_pc;];@"Dyn7.jif:8,19-29"
+((_ -> _)) ⊔ (caller_pc) <= v_x [this <= caller_pc;];@"Dyn7.jif:8,19-29"
