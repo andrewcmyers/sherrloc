@@ -1,35 +1,36 @@
-CONSTRUCTOR What.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:16,0
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:16,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:16,0
-CONSTRUCTOR What.provider2 0 //class jif.types.label.ProviderLabel_c@null
+// ArgLabelSubst.jif:16,0-11
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:16,0-11
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:16,0-11
+CONSTRUCTOR What.provider 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:16,0-11
+CONSTRUCTOR What.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR q 0 //@ArgLabelSubst.jif:17,18
-CONSTRUCTOR * 0 //@ArgLabelSubst.jif:17,18
+CONSTRUCTOR q 0 //@ArgLabelSubst.jif:17,18-19
+CONSTRUCTOR * 0 //@ArgLabelSubst.jif:17,18-20
 
 %%
 What.provider1 == _ -> _;
-What.provider2 == _ -> _;
+What.provider == _ -> _;
 _ -> _ <= (q -> *);
 (q -> *) <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= What.provider;
+What.provider <= * -> *;
 _ -> _ <= What.provider1;
 What.provider1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= What.provider2;
-What.provider2 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-What.provider2 <= (* -> *) [];@"ArgLabelSubst.jif:16,0"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:17,11"
-(q -> *) <= (q -> *) [];@"ArgLabelSubst.jif:17,11"
-What.provider1 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (What.provider1);];@"ArgLabelSubst.jif:16,0"
+What.provider1 <= (* -> *) [];@"ArgLabelSubst.jif:16,0-11"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11-28"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11-28"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11-28"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:17,11-28"
+(q -> *) <= (q -> *) [];@"ArgLabelSubst.jif:17,11-28"
+What.provider <= (* -> *) [this <= caller_pc;caller_pc <= (What.provider);];@"ArgLabelSubst.jif:16,0-0"

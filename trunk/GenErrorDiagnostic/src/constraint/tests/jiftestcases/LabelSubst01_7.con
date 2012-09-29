@@ -1,37 +1,38 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:25,11
-CONSTRUCTOR *guessApp.lb1 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10
+// LabelSubst01.jif:25,11-23
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0-7
+CONSTRUCTOR *guessApp.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:25,11-23
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR * 0 //@LabelSubst01.jif:28,20
+CONSTRUCTOR * 0 //@LabelSubst01.jif:28,20-21
 
 %%
-caller_pc1 <= (* -> Alice);
-_ -> _ <= this1;
-this1 <= * -> *;
+caller_pc <= (* -> Alice);
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= (* -> Alice);
 (* -> Alice) <= * -> *;
-_ -> _ <= newC1;
-newC1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= t1;
-t1 <= * -> *;
-_ -> _ <= guessApp1;
-guessApp1 <= * -> *;
-_ -> _ <= e1;
-e1 <= * -> *;
+_ -> _ <= v_newC;
+v_newC <= * -> *;
+_ -> _ <= *guessApp.lb;
+*guessApp.lb <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_t;
+v_t <= * -> *;
+_ -> _ <= v_guessApp;
+v_guessApp <= * -> *;
+_ -> _ <= v_e;
+v_e <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= *guessApp.lb1;
-*guessApp.lb1 <= * -> *;
 
 %%
-guessApp1 == (* -> Alice) [this1 <= caller_pc1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:28,29"
-caller_pc1 <= (* -> Alice) [this1 <= caller_pc1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:28,40"
-(caller_pc1) ⊔ (newC1) <= guessApp1 [this1 <= caller_pc1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:28,40"
-t1 == ((* -> Alice)) ⊔ (guessApp1) [this1 <= caller_pc1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:30,32"
-((* -> Alice)) ⊔ (guessApp1) <= (* -> *) [this1 <= caller_pc1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:30,36"
-receiver1 == ((* -> Alice)) ⊔ (guessApp1) [this1 <= caller_pc1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:30,36"
-(*guessApp.lb1) ⊔ ((* -> Alice)) ⊔ (guessApp1) <= t1 [this1 <= caller_pc1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:30,36"
-((* -> Alice)) ⊔ (guessApp1) <= e1 [this1 <= caller_pc1;*guessApp.lb1 <= (* -> Alice);(* -> Alice) <= *guessApp.lb1;];@"LabelSubst01.jif:34,15"
+v_guessApp == (* -> Alice) [this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;];@"LabelSubst01.jif:28,29-37"
+caller_pc <= (* -> Alice) [this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;];@"LabelSubst01.jif:28,40-47"
+(caller_pc) ⊔ (v_newC) <= v_guessApp [this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;];@"LabelSubst01.jif:28,40-47"
+v_t == ((* -> Alice)) ⊔ (v_guessApp) [this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;];@"LabelSubst01.jif:30,32-33"
+((* -> Alice)) ⊔ (v_guessApp) <= (* -> *) [this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
+v_receiver == ((* -> Alice)) ⊔ (v_guessApp) [this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
+(*guessApp.lb) ⊔ ((* -> Alice)) ⊔ (v_guessApp) <= v_t [this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;];@"LabelSubst01.jif:30,36-58"
+((* -> Alice)) ⊔ (v_guessApp) <= v_e [this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;];@"LabelSubst01.jif:34,15-37"

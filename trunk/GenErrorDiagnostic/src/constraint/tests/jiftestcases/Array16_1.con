@@ -1,36 +1,37 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array16.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array16.jif:2,4
+// Array16.jif:2,4-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array16.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array16.jif:2,4-10
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR Bob 0 //@null
-CONSTRUCTOR * 0 //@Array16.jif:3,12
+CONSTRUCTOR * 0 //@Array16.jif:3,12-16
 
 %%
-caller_pc1 <= (_ -> _);
+caller_pc <= (_ -> _);
 _ -> _ <= (Bob -> *);
 (Bob -> *) <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= y1;
-y1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= array_base1;
-array_base1 <= * -> *;
-_ -> _ <= array_base2;
-array_base2 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= v_y;
+v_y <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_array_base;
+v_array_base <= * -> *;
+_ -> _ <= v_array_base1;
+v_array_base1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-array_base1 <= (Alice -> *) [this1 <= caller_pc1;];@"Array16.jif:3,34"
-array_base2 <= (Bob -> *) [this1 <= caller_pc1;];@"Array16.jif:3,34"
-caller_pc1 <= x1 [this1 <= caller_pc1;];@"Array16.jif:3,34"
-(x1) ⊔ (caller_pc1) <= (* -> *) [this1 <= caller_pc1;];@"Array16.jif:4,40"
-receiver1 == (x1) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"Array16.jif:4,40"
-(Bob -> *) <= (Bob -> *) [this1 <= caller_pc1;];@"Array16.jif:4,40"
-(x1) ⊔ (caller_pc1) <= y1 [this1 <= caller_pc1;];@"Array16.jif:4,40"
+v_array_base <= (Alice -> *) [this <= caller_pc;];@"Array16.jif:3,34-47"
+v_array_base1 <= (Bob -> *) [this <= caller_pc;];@"Array16.jif:3,34-47"
+caller_pc <= v_x [this <= caller_pc;];@"Array16.jif:3,34-47"
+(v_x) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;];@"Array16.jif:4,40-49"
+v_receiver == (v_x) ⊔ (caller_pc) [this <= caller_pc;];@"Array16.jif:4,40-49"
+(Bob -> *) <= (Bob -> *) [this <= caller_pc;];@"Array16.jif:4,40-49"
+(v_x) ⊔ (caller_pc) <= v_y [this <= caller_pc;];@"Array16.jif:4,40-49"

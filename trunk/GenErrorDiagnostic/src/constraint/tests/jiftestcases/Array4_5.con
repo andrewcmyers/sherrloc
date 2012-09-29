@@ -1,58 +1,59 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array4.jif:4,0
-CONSTRUCTOR E.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR E.provider2 0 //class jif.types.label.ProviderLabel_c@Array4.jif:4,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array4.jif:4,0
+// Array4.jif:4,0-7
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array4.jif:4,0-7
+CONSTRUCTOR E.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR E.provider1 0 //class jif.types.label.ProviderLabel_c@Array4.jif:4,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array4.jif:4,0-7
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Array4.jif:5,4
-CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
+CONSTRUCTOR _ 0 //@Array4.jif:5,4-56
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
+E.provider == _ -> _;
 E.provider1 == _ -> _;
-E.provider2 == _ -> _;
-_ -> _ <= this1;
-this1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= array_base1;
-array_base1 <= * -> *;
-_ -> _ <= newD1;
-newD1 <= * -> *;
-_ -> _ <= newD2;
-newD2 <= * -> *;
+_ -> _ <= v_array_base;
+v_array_base <= * -> *;
+_ -> _ <= v_newD;
+v_newD <= * -> *;
+_ -> _ <= v_newD1;
+v_newD1 <= * -> *;
+_ -> _ <= E.provider;
+E.provider <= * -> *;
 _ -> _ <= E.provider1;
 E.provider1 <= * -> *;
-_ -> _ <= E.provider2;
-E.provider2 <= * -> *;
-_ -> _ <= array_base2;
-array_base2 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= newD3;
-newD3 <= * -> *;
-_ -> _ <= newD4;
-newD4 <= * -> *;
+_ -> _ <= v_array_base1;
+v_array_base1 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_newD2;
+v_newD2 <= * -> *;
+_ -> _ <= v_newD3;
+v_newD3 <= * -> *;
 
 %%
-E.provider1 <= (* -> *) [];@"Array4.jif:4,0"
-(_ -> _) == (_ -> _) [];@"Array4.jif:5,4"
-(* -> *) <= (* -> *) [this1 <= (_ -> _);];@"Array4.jif:5,37"
-(* -> *) <= (* -> *) [this1 <= (_ -> _);];@"Array4.jif:5,46"
-newD1 <= array_base1 [this1 <= (_ -> _);];@"Array4.jif:5,37"
-newD2 <= array_base1 [this1 <= (_ -> _);];@"Array4.jif:5,46"
-array_base1 <= (_ -> _) [this1 <= (_ -> _);];@"Array4.jif:5,20"
-(newD2) ⊔ (newD1) <= (_ -> _) [this1 <= (_ -> _);];@"Array4.jif:5,20"
-(_ -> _) == (_ -> _) [];@"Array4.jif:6,4"
-(* -> *) <= (* -> *) [this1 <= (_ -> _);];@"Array4.jif:6,22"
-(* -> *) <= (* -> *) [this1 <= (_ -> _);];@"Array4.jif:6,31"
-newD3 <= (_ -> _) [this1 <= (_ -> _);];@"Array4.jif:6,22"
-newD4 <= (_ -> _) [this1 <= (_ -> _);];@"Array4.jif:6,31"
-(newD4) ⊔ (newD3) <= (_ -> _) [this1 <= (_ -> _);];@"Array4.jif:6,20"
-(_ -> _) == (_ -> _) [];@"Array4.jif:7,4"
-array_base2 <= (_ -> _) [this1 <= (_ -> _);];@"Array4.jif:7,20"
-(_ -> _) <= (_ -> _) [];@"Array4.jif:9,4"
-(_ -> _) <= (_ -> _) [];@"Array4.jif:9,4"
-E.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (E.provider2);];@"Array4.jif:4,0"
+E.provider <= (* -> *) [];@"Array4.jif:4,0-7"
+(_ -> _) == (_ -> _) [];@"Array4.jif:5,4-56"
+(* -> *) <= (* -> *) [this <= (_ -> _);];@"Array4.jif:5,37-44"
+(* -> *) <= (* -> *) [this <= (_ -> _);];@"Array4.jif:5,46-53"
+v_newD <= v_array_base [this <= (_ -> _);];@"Array4.jif:5,37-44"
+v_newD1 <= v_array_base [this <= (_ -> _);];@"Array4.jif:5,46-53"
+v_array_base <= (_ -> _) [this <= (_ -> _);];@"Array4.jif:5,20-55"
+(v_newD1) ⊔ (v_newD) <= (_ -> _) [this <= (_ -> _);];@"Array4.jif:5,20-55"
+(_ -> _) == (_ -> _) [];@"Array4.jif:6,4-41"
+(* -> *) <= (* -> *) [this <= (_ -> _);];@"Array4.jif:6,22-29"
+(* -> *) <= (* -> *) [this <= (_ -> _);];@"Array4.jif:6,31-38"
+v_newD2 <= (_ -> _) [this <= (_ -> _);];@"Array4.jif:6,22-29"
+v_newD3 <= (_ -> _) [this <= (_ -> _);];@"Array4.jif:6,31-38"
+(v_newD3) ⊔ (v_newD2) <= (_ -> _) [this <= (_ -> _);];@"Array4.jif:6,20-40"
+(_ -> _) == (_ -> _) [];@"Array4.jif:7,4-36"
+v_array_base1 <= (_ -> _) [this <= (_ -> _);];@"Array4.jif:7,20-25"
+(_ -> _) <= (_ -> _) [];@"Array4.jif:9,4-10"
+(_ -> _) <= (_ -> _) [];@"Array4.jif:9,4-10"
+E.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (E.provider1);];@"Array4.jif:4,0-0"

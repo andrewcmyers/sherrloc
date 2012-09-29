@@ -1,73 +1,74 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array17.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array17.jif:2,4
+// Array17.jif:2,4-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array17.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array17.jif:2,4-10
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Array17.jif:1,0
+CONSTRUCTOR _ 0 //@Array17.jif:1,0-7
 CONSTRUCTOR Bob 0 //@null
-CONSTRUCTOR * 0 //@Array17.jif:3,10
+CONSTRUCTOR * 0 //@Array17.jif:3,10-14
 
 %%
-caller_pc1 <= (_ -> _);
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= y1;
-y1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
-_ -> _ <= a1;
-a1 <= * -> *;
-_ -> _ <= z1;
-z1 <= * -> *;
-_ -> _ <= c1;
-c1 <= * -> *;
-_ -> _ <= b1;
-b1 <= * -> *;
-_ -> _ <= array_base1;
-array_base1 <= * -> *;
+caller_pc <= (_ -> _);
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= v_y;
+v_y <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
+_ -> _ <= v_a;
+v_a <= * -> *;
+_ -> _ <= v_z;
+v_z <= * -> *;
+_ -> _ <= v_c;
+v_c <= * -> *;
+_ -> _ <= v_b;
+v_b <= * -> *;
+_ -> _ <= v_array_base;
+v_array_base <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= array_base2;
-array_base2 <= * -> *;
-_ -> _ <= array_base3;
-array_base3 <= * -> *;
-_ -> _ <= array_base4;
-array_base4 <= * -> *;
+_ -> _ <= v_array_base1;
+v_array_base1 <= * -> *;
+_ -> _ <= v_array_base2;
+v_array_base2 <= * -> *;
+_ -> _ <= v_array_base3;
+v_array_base3 <= * -> *;
 _ -> _ <= (Bob -> *);
 (Bob -> *) <= * -> *;
-_ -> _ <= array_base5;
-array_base5 <= * -> *;
-_ -> _ <= array_base6;
-array_base6 <= * -> *;
-_ -> _ <= array_base7;
-array_base7 <= * -> *;
-_ -> _ <= array_base8;
-array_base8 <= * -> *;
-_ -> _ <= array_base9;
-array_base9 <= * -> *;
-_ -> _ <= array_base10;
-array_base10 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= array_base11;
-array_base11 <= * -> *;
-_ -> _ <= array_base12;
-array_base12 <= * -> *;
+_ -> _ <= v_array_base4;
+v_array_base4 <= * -> *;
+_ -> _ <= v_array_base5;
+v_array_base5 <= * -> *;
+_ -> _ <= v_array_base6;
+v_array_base6 <= * -> *;
+_ -> _ <= v_array_base7;
+v_array_base7 <= * -> *;
+_ -> _ <= v_array_base8;
+v_array_base8 <= * -> *;
+_ -> _ <= v_array_base9;
+v_array_base9 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_array_base10;
+v_array_base10 <= * -> *;
+_ -> _ <= v_array_base11;
+v_array_base11 <= * -> *;
 
 %%
-array_base1 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:3,24"
-array_base2 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:3,24"
-caller_pc1 <= x1 [this1 <= caller_pc1;];@"Array17.jif:3,24"
-array_base10 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:4,24"
-array_base9 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:4,24"
-caller_pc1 <= y1 [this1 <= caller_pc1;];@"Array17.jif:4,24"
-array_base8 <= (_ -> _) [this1 <= caller_pc1;];@"Array17.jif:5,18"
-array_base7 <= (_ -> _) [this1 <= caller_pc1;];@"Array17.jif:5,18"
-caller_pc1 <= z1 [this1 <= caller_pc1;];@"Array17.jif:5,18"
-array_base6 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:7,26"
-array_base5 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:7,26"
-caller_pc1 <= a1 [this1 <= caller_pc1;];@"Array17.jif:7,26"
-array_base4 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:8,26"
-array_base3 <= (Bob -> *) [this1 <= caller_pc1;];@"Array17.jif:8,26"
-caller_pc1 <= b1 [this1 <= caller_pc1;];@"Array17.jif:8,26"
-array_base12 <= (_ -> _) [this1 <= caller_pc1;];@"Array17.jif:9,20"
-array_base11 <= (_ -> _) [this1 <= caller_pc1;];@"Array17.jif:9,20"
-caller_pc1 <= c1 [this1 <= caller_pc1;];@"Array17.jif:9,20"
+v_array_base <= (Bob -> *) [this <= caller_pc;];@"Array17.jif:3,24-29"
+v_array_base1 <= (Bob -> *) [this <= caller_pc;];@"Array17.jif:3,24-29"
+caller_pc <= v_x [this <= caller_pc;];@"Array17.jif:3,24-29"
+v_array_base9 <= (Bob -> *) [this <= caller_pc;];@"Array17.jif:4,24-29"
+v_array_base8 <= (Bob -> *) [this <= caller_pc;];@"Array17.jif:4,24-29"
+caller_pc <= v_y [this <= caller_pc;];@"Array17.jif:4,24-29"
+v_array_base7 <= (_ -> _) [this <= caller_pc;];@"Array17.jif:5,18-23"
+v_array_base6 <= (_ -> _) [this <= caller_pc;];@"Array17.jif:5,18-23"
+caller_pc <= v_z [this <= caller_pc;];@"Array17.jif:5,18-23"
+v_array_base5 <= (Bob -> *) [this <= caller_pc;];@"Array17.jif:7,26-39"
+v_array_base4 <= (Bob -> *) [this <= caller_pc;];@"Array17.jif:7,26-39"
+caller_pc <= v_a [this <= caller_pc;];@"Array17.jif:7,26-39"
+v_array_base3 <= (Bob -> *) [this <= caller_pc;];@"Array17.jif:8,26-36"
+v_array_base2 <= (Bob -> *) [this <= caller_pc;];@"Array17.jif:8,26-36"
+caller_pc <= v_b [this <= caller_pc;];@"Array17.jif:8,26-36"
+v_array_base11 <= (_ -> _) [this <= caller_pc;];@"Array17.jif:9,20-30"
+v_array_base10 <= (_ -> _) [this <= caller_pc;];@"Array17.jif:9,20-30"
+caller_pc <= v_c [this <= caller_pc;];@"Array17.jif:9,20-30"

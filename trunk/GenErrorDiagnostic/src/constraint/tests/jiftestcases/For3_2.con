@@ -1,29 +1,30 @@
+// For3.jif:1,0-7
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@For3.jif:1,0-7
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@For3.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@For3.jif:1,0-7
 CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@For3.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@For3.jif:1,0
-CONSTRUCTOR C.provider2 0 //class jif.types.label.ProviderLabel_c@For3.jif:1,0
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@For3.jif:2,10
-CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
+CONSTRUCTOR _ 0 //@For3.jif:2,10-15
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
+C.provider == _ -> _;
 C.provider1 == _ -> _;
-C.provider2 == _ -> _;
-_ -> _ <= C.provider1;
-C.provider1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
+_ -> _ <= C.provider;
+C.provider <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= C.provider2;
-C.provider2 <= * -> *;
+_ -> _ <= C.provider1;
+C.provider1 <= * -> *;
 
 %%
-C.provider1 <= (* -> *) [];@"For3.jif:1,0"
-(_ -> _) <= (_ -> _) [];@"For3.jif:2,4"
-(_ -> _) <= (_ -> _) [];@"For3.jif:2,4"
-C.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"For3.jif:1,0"
+C.provider1 <= (* -> *) [];@"For3.jif:1,0-7"
+(_ -> _) <= (_ -> _) [];@"For3.jif:2,4-10"
+(_ -> _) <= (_ -> _) [];@"For3.jif:2,4-10"
+C.provider <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider);];@"For3.jif:1,0-0"

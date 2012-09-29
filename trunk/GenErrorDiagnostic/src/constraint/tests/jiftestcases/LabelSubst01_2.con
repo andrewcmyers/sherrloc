@@ -1,11 +1,12 @@
+// LabelSubst01.jif
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR * 0 //@LabelSubst01.jif:6,16
+CONSTRUCTOR * 0 //@LabelSubst01.jif:6,16-17
 
 %%
 _ -> _ <= (* -> Alice);
 (* -> Alice) <= * -> *;
 
 %%
-(* -> Alice) == (* -> Alice) [];@"LabelSubst01.jif:6,10"
-(* -> Alice) == (* -> Alice) [];@"LabelSubst01.jif:7,11"
+(* -> Alice) == (* -> Alice) [];@"LabelSubst01.jif:6,10-49"
+(* -> Alice) == (* -> Alice) [];@"LabelSubst01.jif:7,11-36"

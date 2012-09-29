@@ -1,17 +1,18 @@
-CONSTRUCTOR *this.foo.c1 0 //class jif.types.label.DynamicLabel_c@DynLabel12.jif:4,9
+// DynLabel12.jif
+CONSTRUCTOR *this.foo.c 0 //class jif.types.label.DynamicLabel_c@DynLabel12.jif:4,9-19
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@DynLabel12.jif:3,19
+CONSTRUCTOR _ 0 //@DynLabel12.jif:3,19-21
 
 %%
-_ -> _ <= *this.foo.c1;
-*this.foo.c1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
-_ -> _ <= foo1;
-foo1 <= * -> *;
+_ -> _ <= *this.foo.c;
+*this.foo.c <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
+_ -> _ <= v_foo;
+v_foo <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-foo1 == (_ -> _) [];@"DynLabel12.jif:3,18"
-x1 == *this.foo.c1 [];@"DynLabel12.jif:4,4"
+v_foo == (_ -> _) [];@"DynLabel12.jif:3,18-26"
+v_x == *this.foo.c [];@"DynLabel12.jif:4,4-23"

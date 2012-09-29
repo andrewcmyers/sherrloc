@@ -1,56 +1,57 @@
-CONSTRUCTOR Array1.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array1.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array1.jif:3,4
+// Array1.jif:3,4-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array1.jif:1,0-12
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array1.jif:3,4-10
+CONSTRUCTOR Array1.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@Array1.jif:4,17
+CONSTRUCTOR _ 0 //@Array1.jif:4,17-19
 CONSTRUCTOR Bob 0 //@null
-CONSTRUCTOR * 0 //@Array1.jif:7,5
+CONSTRUCTOR * 0 //@Array1.jif:7,5-11
 
 %%
-caller_pc1 <= (Alice -> *);
-Array1.provider1 == _ -> _;
-_ -> _ <= Array1.provider1;
-Array1.provider1 <= * -> *;
+caller_pc <= (Alice -> *);
+Array1.provider == _ -> _;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= b1;
-b1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
+_ -> _ <= v_b;
+v_b <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= (Alice -> Bob);
 (Alice -> Bob) <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= a1;
-a1 <= * -> *;
-_ -> _ <= p1;
-p1 <= * -> *;
-_ -> _ <= s1;
-s1 <= * -> *;
-_ -> _ <= array_base1;
-array_base1 <= * -> *;
-_ -> _ <= array_base2;
-array_base2 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_a;
+v_a <= * -> *;
+_ -> _ <= v_p;
+v_p <= * -> *;
+_ -> _ <= v_s;
+v_s <= * -> *;
+_ -> _ <= v_array_base;
+v_array_base <= * -> *;
+_ -> _ <= Array1.provider;
+Array1.provider <= * -> *;
+_ -> _ <= v_array_base1;
+v_array_base1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-a1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"Array1.jif:4,20"
-array_base2 <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array1.jif:4,24"
-caller_pc1 <= a1 [this1 <= caller_pc1;];@"Array1.jif:4,24"
-b1 == (caller_pc1) ⊔ ((_ -> _)) [this1 <= caller_pc1;];@"Array1.jif:5,20"
-array_base1 <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array1.jif:5,24"
-caller_pc1 <= b1 [this1 <= caller_pc1;];@"Array1.jif:5,24"
-(b1) ⊔ (caller_pc1) <= a1 [this1 <= caller_pc1;];@"Array1.jif:6,1"
-(Alice -> Bob) <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array1.jif:6,1"
-(Alice -> Bob) <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array1.jif:6,1"
-s1 == (Alice -> *) [this1 <= caller_pc1;];@"Array1.jif:7,13"
-(caller_pc1) <= s1 [this1 <= caller_pc1;];@"Array1.jif:7,17"
-(caller_pc1) ⊔ (s1) ⊔ (a1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array1.jif:9,5"
-Array1.provider1 <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array1.jif:9,5"
-p1 == (caller_pc1) ⊔ (s1) ⊔ (a1) ⊔ ((Alice -> Bob)) [this1 <= caller_pc1;];@"Array1.jif:11,16"
-((Alice -> Bob)) ⊔ (b1) ⊔ (caller_pc1) ⊔ (s1) ⊔ (a1) <= p1 [this1 <= caller_pc1;];@"Array1.jif:11,20"
-(b1) ⊔ (caller_pc1) ⊔ (s1) ⊔ (a1) <= (Alice -> *) [this1 <= caller_pc1;];@"Array1.jif:3,4"
-(a1) ⊔ (caller_pc1) ⊔ (s1) <= (Alice -> *) [this1 <= caller_pc1;];@"Array1.jif:3,4"
-(b1) ⊔ (caller_pc1) ⊔ (s1) ⊔ (a1) <= (Alice -> *) [this1 <= caller_pc1;];@"Array1.jif:3,4"
+v_a == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"Array1.jif:4,20-21"
+v_array_base1 <= (Alice -> Bob) [this <= caller_pc;];@"Array1.jif:4,24-35"
+caller_pc <= v_a [this <= caller_pc;];@"Array1.jif:4,24-35"
+v_b == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"Array1.jif:5,20-21"
+v_array_base <= (Alice -> Bob) [this <= caller_pc;];@"Array1.jif:5,24-35"
+caller_pc <= v_b [this <= caller_pc;];@"Array1.jif:5,24-35"
+(v_b) ⊔ (caller_pc) <= v_a [this <= caller_pc;];@"Array1.jif:6,1-2"
+(Alice -> Bob) <= (Alice -> Bob) [this <= caller_pc;];@"Array1.jif:6,1-6"
+(Alice -> Bob) <= (Alice -> Bob) [this <= caller_pc;];@"Array1.jif:6,1-6"
+v_s == (Alice -> *) [this <= caller_pc;];@"Array1.jif:7,13-14"
+(caller_pc) <= v_s [this <= caller_pc;];@"Array1.jif:7,17-20"
+(caller_pc) ⊔ (v_s) ⊔ (v_a) <= (Alice -> Bob) [this <= caller_pc;];@"Array1.jif:9,5-6"
+Array1.provider <= (Alice -> Bob) [this <= caller_pc;];@"Array1.jif:9,5-6"
+v_p == (caller_pc) ⊔ (v_s) ⊔ (v_a) ⊔ ((Alice -> Bob)) [this <= caller_pc;];@"Array1.jif:11,16-17"
+((Alice -> Bob)) ⊔ (v_b) ⊔ (caller_pc) ⊔ (v_s) ⊔ (v_a) <= v_p [this <= caller_pc;];@"Array1.jif:11,20-21"
+(v_b) ⊔ (caller_pc) ⊔ (v_s) ⊔ (v_a) <= (Alice -> *) [this <= caller_pc;];@"Array1.jif:3,4-10"
+(v_a) ⊔ (caller_pc) ⊔ (v_s) <= (Alice -> *) [this <= caller_pc;];@"Array1.jif:3,4-10"
+(v_b) ⊔ (caller_pc) ⊔ (v_s) ⊔ (v_a) <= (Alice -> *) [this <= caller_pc;];@"Array1.jif:3,4-10"

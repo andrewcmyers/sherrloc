@@ -1,22 +1,23 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@DynLabel10.jif:4,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@DynLabel10.jif:7,4
-CONSTRUCTOR *this.f1 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:8,6
+// DynLabel10.jif:7,4-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@DynLabel10.jif:4,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@DynLabel10.jif:7,4-10
+CONSTRUCTOR *this.f 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:8,6-12
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
-_ -> _ <= *this.f1;
-*this.f1 <= * -> *;
-_ -> _ <= y1;
-y1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
+_ -> _ <= v_y;
+v_y <= * -> *;
+_ -> _ <= *this.f;
+*this.f <= * -> *;
 
 %%
-x1 == (caller_pc1) ⊔ (*this.f1) [this1 <= caller_pc1;];@"DynLabel10.jif:8,14"
-(caller_pc1) <= x1 [this1 <= caller_pc1;];@"DynLabel10.jif:8,18"
-y1 == (caller_pc1) ⊔ (*this.f1) [this1 <= caller_pc1;];@"DynLabel10.jif:9,9"
-(caller_pc1) <= y1 [this1 <= caller_pc1;];@"DynLabel10.jif:9,13"
+v_x == (caller_pc) ⊔ (*this.f) [this <= caller_pc;];@"DynLabel10.jif:8,14-15"
+(caller_pc) <= v_x [this <= caller_pc;];@"DynLabel10.jif:8,18-19"
+v_y == (caller_pc) ⊔ (*this.f) [this <= caller_pc;];@"DynLabel10.jif:9,9-10"
+(caller_pc) <= v_y [this <= caller_pc;];@"DynLabel10.jif:9,13-14"

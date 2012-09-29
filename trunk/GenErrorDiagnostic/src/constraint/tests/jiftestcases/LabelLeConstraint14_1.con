@@ -1,26 +1,27 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint14.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:2,4
-CONSTRUCTOR *cuLbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint14.jif:3,26
+// LabelLeConstraint14.jif:2,4-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint14.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:2,4-10
+CONSTRUCTOR *cuLbl 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint14.jif:3,26-31
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:3,19
-CONSTRUCTOR cu 0 //@LabelLeConstraint14.jif:6,17
-CONSTRUCTOR EP 0 //@LabelLeConstraint14.jif:7,20
-CONSTRUCTOR * 0 //@LabelLeConstraint14.jif:7,20
+CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:3,19-25
+CONSTRUCTOR cu 0 //@LabelLeConstraint14.jif:6,17-19
+CONSTRUCTOR EP 0 //@LabelLeConstraint14.jif:7,20-22
+CONSTRUCTOR * 0 //@LabelLeConstraint14.jif:7,20-23
 
 %%
-caller_pc1 <= (_ -> _);
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= cuLbl1;
-cuLbl1 <= * -> *;
-_ -> _ <= y1;
-y1 <= * -> *;
-_ -> _ <= *cuLbl1;
-*cuLbl1 <= * -> *;
+caller_pc <= (_ -> _);
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_cuLbl;
+v_cuLbl <= * -> *;
+_ -> _ <= v_y;
+v_y <= * -> *;
+_ -> _ <= *cuLbl;
+*cuLbl <= * -> *;
 _ -> _ <= (EP -> *);
 (EP -> *) <= * -> *;
 _ -> _ <= ((EP -> *)) ⊔ ((cu -> *));
@@ -31,9 +32,9 @@ _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-cuLbl1 == caller_pc1 [this1 <= caller_pc1;*cuLbl1 <= (cu -> *);(cu -> *) <= *cuLbl1;];@"LabelLeConstraint14.jif:3,26"
-caller_pc1 <= cuLbl1 [this1 <= caller_pc1;*cuLbl1 <= (cu -> *);(cu -> *) <= *cuLbl1;];@"LabelLeConstraint14.jif:3,34"
-x1 == (*cuLbl1) ⊔ (((EP -> *)) ⊔ ((cu -> *))) [this1 <= caller_pc1;*cuLbl1 <= (cu -> *);(cu -> *) <= *cuLbl1;];@"LabelLeConstraint14.jif:6,42"
-(caller_pc1) <= x1 [this1 <= caller_pc1;*cuLbl1 <= (cu -> *);(cu -> *) <= *cuLbl1;];@"LabelLeConstraint14.jif:6,45"
-y1 == (*cuLbl1) ⊔ ((EP -> *)) [this1 <= caller_pc1;*cuLbl1 <= (cu -> *);(cu -> *) <= *cuLbl1;];@"LabelLeConstraint14.jif:7,31"
-(x1) ⊔ (caller_pc1) <= y1 [this1 <= caller_pc1;*cuLbl1 <= (cu -> *);(cu -> *) <= *cuLbl1;];@"LabelLeConstraint14.jif:9,8"
+v_cuLbl == caller_pc [this <= caller_pc;*cuLbl <= (cu -> *);(cu -> *) <= *cuLbl;];@"LabelLeConstraint14.jif:3,26-31"
+caller_pc <= v_cuLbl [this <= caller_pc;*cuLbl <= (cu -> *);(cu -> *) <= *cuLbl;];@"LabelLeConstraint14.jif:3,34-55"
+v_x == (*cuLbl) ⊔ (((EP -> *)) ⊔ ((cu -> *))) [this <= caller_pc;*cuLbl <= (cu -> *);(cu -> *) <= *cuLbl;];@"LabelLeConstraint14.jif:6,42-43"
+(caller_pc) <= v_x [this <= caller_pc;*cuLbl <= (cu -> *);(cu -> *) <= *cuLbl;];@"LabelLeConstraint14.jif:6,45-46"
+v_y == (*cuLbl) ⊔ ((EP -> *)) [this <= caller_pc;*cuLbl <= (cu -> *);(cu -> *) <= *cuLbl;];@"LabelLeConstraint14.jif:7,31-32"
+(v_x) ⊔ (caller_pc) <= v_y [this <= caller_pc;*cuLbl <= (cu -> *);(cu -> *) <= *cuLbl;];@"LabelLeConstraint14.jif:9,8-9"

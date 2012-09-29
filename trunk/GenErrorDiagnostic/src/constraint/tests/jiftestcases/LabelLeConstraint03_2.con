@@ -1,18 +1,19 @@
-CONSTRUCTOR L1 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint03.jif:2,8
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint03.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint03.jif:3,4
-CONSTRUCTOR *lbl11 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint03.jif:3,9
+// LabelLeConstraint03.jif:3,4-16
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint03.jif:2,8-9
+CONSTRUCTOR *lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint03.jif:3,9-13
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint03.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint03.jif:3,4-16
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= L1;
-L1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= *lbl11;
-*lbl11 <= * -> *;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= *lbl1;
+*lbl1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 
 %%
-(L1) ⊔ (this1) ⊔ (caller_pc1) <= (*lbl11) ⊔ (caller_pc1) [L1 <= *lbl11;this1 <= caller_pc1;];@"LabelLeConstraint03.jif:4,1"
+(L) ⊔ (this) ⊔ (caller_pc) <= (*lbl1) ⊔ (caller_pc) [L <= *lbl1;this <= caller_pc;];@"LabelLeConstraint03.jif:4,1-15"

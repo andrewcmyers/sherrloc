@@ -1,18 +1,19 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@null
+// Array9.jif
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR * 0 //@Array9.jif:3,8
+CONSTRUCTOR * 0 //@Array9.jif:3,8-14
 
 %%
-_ -> _ <= ar1;
-ar1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
+_ -> _ <= v_ar;
+v_ar <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 
 %%
-x1 == (Alice -> *) [];@"Array9.jif:3,4"
-ar1 == (this1) ⊔ ((Alice -> *)) [];@"Array9.jif:4,10"
+v_x == (Alice -> *) [];@"Array9.jif:3,4-30"
+v_ar == (this) ⊔ ((Alice -> *)) [];@"Array9.jif:4,10-78"

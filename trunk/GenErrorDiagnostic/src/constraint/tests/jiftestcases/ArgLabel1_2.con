@@ -1,18 +1,19 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9
-CONSTRUCTOR x1 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22
+// ArgLabel1.jif:6,9-17
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9-17
+CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22-25
 CONSTRUCTOR this 0
 
 %%
-caller_pc1 <= x1;
-x1 <= x1;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
+caller_pc <= x;
+x <= x;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= x;
+x <= * -> *;
 
 %%
-x1 <= x1 [this1 <= caller_pc1;];@"ArgLabel1.jif:7,21"
-receiver1 == x1 [this1 <= caller_pc1;];@"ArgLabel1.jif:7,21"
+x <= x [this <= caller_pc;];@"ArgLabel1.jif:7,21-28"
+v_receiver == x [this <= caller_pc;];@"ArgLabel1.jif:7,21-28"

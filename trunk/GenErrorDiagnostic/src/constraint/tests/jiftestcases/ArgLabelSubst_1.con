@@ -1,16 +1,17 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:16,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:17,11
+// ArgLabelSubst.jif:17,11-28
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:16,0-11
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:17,11-28
 CONSTRUCTOR this 0
-CONSTRUCTOR q 0 //@ArgLabelSubst.jif:17,18
-CONSTRUCTOR * 0 //@ArgLabelSubst.jif:17,18
+CONSTRUCTOR q 0 //@ArgLabelSubst.jif:17,18-19
+CONSTRUCTOR * 0 //@ArgLabelSubst.jif:17,18-20
 
 %%
 _ -> _ <= (q -> *);
 (q -> *) <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 
 %%
-(caller_pc1) <= ((q -> *)) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"ArgLabelSubst.jif:18,1"
+(caller_pc) <= ((q -> *)) ⊔ (caller_pc) [this <= caller_pc;];@"ArgLabelSubst.jif:18,1-14"

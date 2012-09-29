@@ -1,28 +1,29 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint07.jif:8,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint07.jif:9,4
+// LabelLeConstraint07.jif:9,4-12
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint07.jif:8,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint07.jif:9,4-12
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR * 0 //@LabelLeConstraint07.jif:11,16
+CONSTRUCTOR * 0 //@LabelLeConstraint07.jif:11,16-22
 
 %%
-_ -> _ <= this1;
-this1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= c1;
-c1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= newC1;
-newC1 <= * -> *;
+_ -> _ <= v_c;
+v_c <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_newC;
+v_newC <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-caller_pc1 <= (* -> *) [this1 <= caller_pc1;];@"LabelLeConstraint07.jif:10,7"
-(caller_pc1) ⊔ (newC1) <= c1 [this1 <= caller_pc1;];@"LabelLeConstraint07.jif:10,7"
-(c1) ⊔ (caller_pc1) <= (* -> *) [this1 <= caller_pc1;];@"LabelLeConstraint07.jif:11,5"
-(c1) ⊔ (caller_pc1) <= (* -> *) [this1 <= caller_pc1;];@"LabelLeConstraint07.jif:11,1"
-(Alice -> *) <= (Alice -> *) [this1 <= caller_pc1;];@"LabelLeConstraint07.jif:11,1"
-receiver1 == (c1) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"LabelLeConstraint07.jif:11,1"
-arg1label1 == (c1) ⊔ (caller_pc1) [this1 <= caller_pc1;];@"LabelLeConstraint07.jif:11,1"
+caller_pc <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint07.jif:10,7-14"
+(caller_pc) ⊔ (v_newC) <= v_c [this <= caller_pc;];@"LabelLeConstraint07.jif:10,7-14"
+(v_c) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint07.jif:11,5-23"
+(v_c) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint07.jif:11,1-24"
+(Alice -> *) <= (Alice -> *) [this <= caller_pc;];@"LabelLeConstraint07.jif:11,1-24"
+v_receiver == (v_c) ⊔ (caller_pc) [this <= caller_pc;];@"LabelLeConstraint07.jif:11,1-24"
+v_arg1label == (v_c) ⊔ (caller_pc) [this <= caller_pc;];@"LabelLeConstraint07.jif:11,1-24"

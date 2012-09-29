@@ -1,11 +1,12 @@
+// Array.jif
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Array.jif:2,17
+CONSTRUCTOR _ 0 //@Array.jif:2,17-19
 
 %%
-_ -> _ <= a1;
-a1 <= * -> *;
+_ -> _ <= v_a;
+v_a <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-a1 == (_ -> _) [];@"Array.jif:2,4"
+v_a == (_ -> _) [];@"Array.jif:2,4-22"

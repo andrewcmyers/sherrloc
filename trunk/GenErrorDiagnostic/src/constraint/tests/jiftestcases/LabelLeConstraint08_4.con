@@ -1,34 +1,35 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint08.jif:9,0
-CONSTRUCTOR *c.f1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08.jif:2,10
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint08.jif:10,4
+// LabelLeConstraint08.jif:10,4-12
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint08.jif:9,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint08.jif:10,4-12
+CONSTRUCTOR *c.f 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint08.jif:2,10-39
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@LabelLeConstraint08.jif:2,10
-CONSTRUCTOR * 0 //@LabelLeConstraint08.jif:2,31
+CONSTRUCTOR _ 0 //@LabelLeConstraint08.jif:2,10-39
+CONSTRUCTOR * 0 //@LabelLeConstraint08.jif:2,31-37
 
 %%
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= *c.f1;
-*c.f1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= c1;
-c1 <= * -> *;
-_ -> _ <= newC1;
-newC1 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= *c.f;
+*c.f <= * -> *;
+_ -> _ <= v_c;
+v_c <= * -> *;
+_ -> _ <= v_newC;
+v_newC <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-caller_pc1 <= (* -> *) [this1 <= caller_pc1;*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:11,13"
-(caller_pc1) ⊔ (newC1) <= c1 [this1 <= caller_pc1;*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:11,13"
-(c1) ⊔ ((_ -> _)) ⊔ (caller_pc1) <= (* -> *) [this1 <= caller_pc1;*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:13,9"
-(c1) ⊔ ((_ -> _)) ⊔ (caller_pc1) <= (* -> *) [this1 <= caller_pc1;*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:13,5"
-(Alice -> *) <= *c.f1 [this1 <= caller_pc1;*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:13,5"
-receiver1 == (c1) ⊔ ((_ -> _)) ⊔ (caller_pc1) [this1 <= caller_pc1;*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:13,5"
-arg1label1 == (c1) ⊔ ((_ -> _)) ⊔ (caller_pc1) [this1 <= caller_pc1;*c.f1 <= (Alice -> *);(Alice -> *) <= *c.f1;(Alice -> *) <= *c.f1;];@"LabelLeConstraint08.jif:13,5"
+caller_pc <= (* -> *) [this <= caller_pc;*c.f <= (Alice -> *);(Alice -> *) <= *c.f;];@"LabelLeConstraint08.jif:11,13-20"
+(caller_pc) ⊔ (v_newC) <= v_c [this <= caller_pc;*c.f <= (Alice -> *);(Alice -> *) <= *c.f;];@"LabelLeConstraint08.jif:11,13-20"
+(v_c) ⊔ ((_ -> _)) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;*c.f <= (Alice -> *);(Alice -> *) <= *c.f;(Alice -> *) <= *c.f;];@"LabelLeConstraint08.jif:13,9-27"
+(v_c) ⊔ ((_ -> _)) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;*c.f <= (Alice -> *);(Alice -> *) <= *c.f;(Alice -> *) <= *c.f;];@"LabelLeConstraint08.jif:13,5-28"
+(Alice -> *) <= *c.f [this <= caller_pc;*c.f <= (Alice -> *);(Alice -> *) <= *c.f;(Alice -> *) <= *c.f;];@"LabelLeConstraint08.jif:13,5-28"
+v_receiver == (v_c) ⊔ ((_ -> _)) ⊔ (caller_pc) [this <= caller_pc;*c.f <= (Alice -> *);(Alice -> *) <= *c.f;(Alice -> *) <= *c.f;];@"LabelLeConstraint08.jif:13,5-28"
+v_arg1label == (v_c) ⊔ ((_ -> _)) ⊔ (caller_pc) [this <= caller_pc;*c.f <= (Alice -> *);(Alice -> *) <= *c.f;(Alice -> *) <= *c.f;];@"LabelLeConstraint08.jif:13,5-28"

@@ -45,7 +45,7 @@ public class TestAll {
 
 		testErrorPaths("src/constraint/tests/sml/test2.con", 8, true);
 
-		testErrorPaths("src/constraint/tests/sml/test3.con", 4, true);
+		testErrorPaths("src/constraint/tests/sml/test3.con", 8, true);
 
 		testErrorPaths("src/constraint/tests/sml/test4.con", 1, true);
 
@@ -84,7 +84,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jif/r3141.con", 0, false);
 		testAssumptions("src/constraint/tests/jif/r3141.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jif/r3142.con", 8, false);
+		testErrorPaths("src/constraint/tests/jif/r3142.con", 9, false);
 		testAssumptions("src/constraint/tests/jif/r3142.con", 2, false);
 		
 		/* the change from 3142 to 3143 is interesting, since another file is changed */

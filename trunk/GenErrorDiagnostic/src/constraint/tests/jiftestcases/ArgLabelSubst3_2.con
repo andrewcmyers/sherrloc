@@ -1,20 +1,21 @@
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst3.jif:16,18
-CONSTRUCTOR y1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst3.jif:16,35
-CONSTRUCTOR *y1 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst3.jif:16,23
+// ArgLabelSubst3.jif:16,18-29
+CONSTRUCTOR *y 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst3.jif:16,23-24
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst3.jif:16,18-29
+CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst3.jif:16,35-40
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@ArgLabelSubst3.jif:16,29
-CONSTRUCTOR * 0 //@ArgLabelSubst3.jif:16,35
+CONSTRUCTOR _ 0 //@ArgLabelSubst3.jif:16,29-34
+CONSTRUCTOR * 0 //@ArgLabelSubst3.jif:16,35-42
 
 %%
-caller_pc1 <= (_ -> _);
-_ -> _ <= answer21;
-answer21 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= y1;
-y1 <= * -> *;
-_ -> _ <= *y1;
-*y1 <= * -> *;
+caller_pc <= (_ -> _);
+_ -> _ <= *y;
+*y <= * -> *;
+_ -> _ <= v_answer2;
+v_answer2 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= y;
+y <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
@@ -23,10 +24,10 @@ _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-answer21 == (_ -> _) [];@"ArgLabelSubst3.jif:17,14"
-caller_pc1 <= (* -> *) [];@"ArgLabelSubst3.jif:17,33"
-caller_pc1 <= (_ -> _) [];@"ArgLabelSubst3.jif:17,24"
-arg1label1 == caller_pc1 [];@"ArgLabelSubst3.jif:17,24"
-param_{*y}_label1 == y1 [];@"ArgLabelSubst3.jif:17,24"
-(_ -> _) <= answer21 [];@"ArgLabelSubst3.jif:17,24"
-(caller_pc1) <= *y1 [];@"ArgLabelSubst3.jif:19,8"
+v_answer2 == (_ -> _) [];@"ArgLabelSubst3.jif:17,14-21"
+caller_pc <= (* -> *) [];@"ArgLabelSubst3.jif:17,33-45"
+caller_pc <= (_ -> _) [];@"ArgLabelSubst3.jif:17,24-46"
+v_arg1label == caller_pc [];@"ArgLabelSubst3.jif:17,24-46"
+v_param_{*y}_label == y [];@"ArgLabelSubst3.jif:17,24-46"
+(_ -> _) <= v_answer2 [];@"ArgLabelSubst3.jif:17,24-46"
+(caller_pc) <= *y [];@"ArgLabelSubst3.jif:19,8-17"
