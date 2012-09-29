@@ -29,6 +29,7 @@ import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Position;
+import constraint.ast.Variable;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
@@ -176,7 +177,7 @@ public class Analysis {
 			for (ElementNode end : endNodes) {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
-				
+				System.out.println("comparing "+e1 + e1.getClass() + " and "+e2+e2.getClass());
 				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
 				
@@ -191,10 +192,10 @@ public class Analysis {
 						errorPaths.put(goal, path);
 						continue;
 					}
-					
-					if (e1.hasVars() || e2.hasVars())
-						continue;
 				}
+
+				if ( e1 instanceof Variable || e2 instanceof Variable)
+					continue;
 				
 				if (start.getElement() instanceof ConstructorElement && end.getElement() instanceof ConstructorElement)
 					continue;

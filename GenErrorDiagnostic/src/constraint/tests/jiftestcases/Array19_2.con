@@ -1,12 +1,13 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array19.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array19.jif:7,4
+// Array19.jif:7,4-9
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array19.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array19.jif:7,4-9
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 
 %%
-(caller_pc1) <= caller_pc1 [this1 <= caller_pc1;];@"Array19.jif:7,14"
+(caller_pc) <= caller_pc [this <= caller_pc;];@"Array19.jif:7,14-23"

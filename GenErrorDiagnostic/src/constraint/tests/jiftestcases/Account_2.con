@@ -1,39 +1,40 @@
-CONSTRUCTOR p1 0 //class jif.types.label.ArgLabel_c@Account.jif:4,22
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Account.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Account.jif:4,2
+// Account.jif:1,0-13
+CONSTRUCTOR p 0 //class jif.types.label.ArgLabel_c@Account.jif:4,22-24
+CONSTRUCTOR Account.provider 0 //class jif.types.label.ProviderLabel_c@Account.jif:1,0-13
 CONSTRUCTOR Account.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR Account.provider2 0 //class jif.types.label.ProviderLabel_c@Account.jif:1,0
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Account.jif:1,0-13
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Account.jif:4,2-27
 CONSTRUCTOR this 0
-CONSTRUCTOR this.customer 0 //@Account.jif:8,9
-CONSTRUCTOR _ 0 //@Account.jif:2,8
-CONSTRUCTOR * 0 //@Account.jif:8,9
+CONSTRUCTOR _ 0 //@Account.jif:2,8-27
+CONSTRUCTOR * 0 //@Account.jif:8,9-18
+CONSTRUCTOR this.customer 0 //@Account.jif:8,9-17
 
 %%
-p1 <= (_ -> _);
-caller_pc1 <= p1;
+p <= (_ -> _);
+caller_pc <= p;
+Account.provider == _ -> _;
 Account.provider1 == _ -> _;
-Account.provider2 == _ -> _;
-_ -> _ <= p1;
-p1 <= * -> *;
-_ -> _ <= (this.customer -> *);
-(this.customer -> *) <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
+_ -> _ <= p;
+p <= * -> *;
+_ -> _ <= Account.provider;
+Account.provider <= * -> *;
 _ -> _ <= Account.provider1;
 Account.provider1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= (this.customer -> *);
+(this.customer -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= Account.provider2;
-Account.provider2 <= * -> *;
 
 %%
-Account.provider1 <= (* -> *) [];@"Account.jif:1,0"
-(_ -> _) == (_ -> _) [];@"Account.jif:2,8"
-Account.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (Account.provider2);];@"Account.jif:4,28"
-(p1) ⊔ (this1) <= (_ -> _) [this1 <= caller_pc1;caller_pc1 <= (Account.provider2);this.customer==p;];@"Account.jif:5,4"
-(this.customer -> *) == (this.customer -> *) [];@"Account.jif:8,2"
-(this.customer -> *) == (this.customer -> *) [];@"Account.jif:9,2"
+Account.provider1 <= (* -> *) [];@"Account.jif:1,0-13"
+(_ -> _) == (_ -> _) [];@"Account.jif:2,8-27"
+Account.provider <= (* -> *) [this <= caller_pc;caller_pc <= (Account.provider);];@"Account.jif:4,28-29"
+(p) ⊔ (this) <= (_ -> _) [this <= caller_pc;caller_pc <= (Account.provider);p==this.customer;];@"Account.jif:5,4-12"
+(this.customer -> *) == (this.customer -> *) [];@"Account.jif:8,2-25"
+(this.customer -> *) == (this.customer -> *) [];@"Account.jif:9,2-27"

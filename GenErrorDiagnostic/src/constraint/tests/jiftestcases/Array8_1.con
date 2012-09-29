@@ -1,18 +1,19 @@
+// Array8.jif
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@Array8.jif:4,4
-CONSTRUCTOR * 0 //@Array8.jif:3,8
+CONSTRUCTOR _ 0 //@Array8.jif:4,4-41
+CONSTRUCTOR * 0 //@Array8.jif:3,8-14
 
 %%
-_ -> _ <= ar1;
-ar1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
+_ -> _ <= v_ar;
+v_ar <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 
 %%
-x1 == (Alice -> *) [];@"Array8.jif:3,4"
-ar1 == (_ -> _) [];@"Array8.jif:4,4"
+v_x == (Alice -> *) [];@"Array8.jif:3,4-30"
+v_ar == (_ -> _) [];@"Array8.jif:4,4-41"

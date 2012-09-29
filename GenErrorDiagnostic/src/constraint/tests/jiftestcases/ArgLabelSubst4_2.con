@@ -1,34 +1,35 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst4.jif:1,0
+// ArgLabelSubst4.jif:1,0-8
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst4.jif:1,0-8
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst4.jif:1,0-8
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst4.jif:1,0-8
 CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst4.jif:1,0
-CONSTRUCTOR *y1 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst4.jif:2,16
-CONSTRUCTOR C.provider2 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst4.jif:1,0
+CONSTRUCTOR *y 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst4.jif:2,16-17
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@ArgLabelSubst4.jif:2,22
-CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
+CONSTRUCTOR _ 0 //@ArgLabelSubst4.jif:2,22-27
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
+C.provider == _ -> _;
 C.provider1 == _ -> _;
-C.provider2 == _ -> _;
-_ -> _ <= this1;
-this1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= C.provider;
+C.provider <= * -> *;
 _ -> _ <= C.provider1;
 C.provider1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= *y1;
-*y1 <= * -> *;
-_ -> _ <= C.provider2;
-C.provider2 <= * -> *;
+_ -> _ <= *y;
+*y <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider1 <= (* -> *) [];@"ArgLabelSubst4.jif:1,0"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst4.jif:2,11"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst4.jif:2,11"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst4.jif:2,11"
-*y1 <= *y1 [];@"ArgLabelSubst4.jif:2,11"
-C.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"ArgLabelSubst4.jif:1,0"
+C.provider1 <= (* -> *) [];@"ArgLabelSubst4.jif:1,0-8"
+(* -> *) <= (* -> *) [];@"ArgLabelSubst4.jif:2,11-22"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst4.jif:2,11-22"
+(_ -> _) <= (_ -> _) [];@"ArgLabelSubst4.jif:2,11-22"
+*y <= *y [];@"ArgLabelSubst4.jif:2,11-22"
+C.provider <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider);];@"ArgLabelSubst4.jif:1,0-0"

@@ -1,38 +1,39 @@
-CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR *lbl11 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint02.jif:2,38
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint02.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint02.jif:1,0
-CONSTRUCTOR C.provider2 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint02.jif:1,0
+// LabelLeConstraint02.jif:1,0-7
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint02.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint02.jif:1,0-7
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint02.jif:1,0-7
+CONSTRUCTOR *lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint02.jif:2,38-42
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@LabelLeConstraint02.jif:2,48
+CONSTRUCTOR * 0 //@LabelLeConstraint02.jif:2,48-54
 
 %%
+C.provider == _ -> _;
 C.provider1 == _ -> _;
-C.provider2 == _ -> _;
-_ -> _ <= C.provider1;
-C.provider1 <= * -> *;
-_ -> _ <= *lbl11;
-*lbl11 <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= C.provider2;
-C.provider2 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= C.provider;
+C.provider <= * -> *;
+_ -> _ <= C.provider1;
+C.provider1 <= * -> *;
+_ -> _ <= *lbl1;
+*lbl1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider1 <= (* -> *) [];@"LabelLeConstraint02.jif:1,0"
-*lbl11 <= (Alice -> *) [*lbl11 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,36"
-(* -> *) <= (* -> *) [*lbl11 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4"
-(* -> *) <= (* -> *) [*lbl11 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4"
-(_ -> _) <= (_ -> _) [*lbl11 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4"
-(Alice -> *) <= (Alice -> *) [*lbl11 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4"
-C.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (C.provider2);];@"LabelLeConstraint02.jif:1,0"
+C.provider <= (* -> *) [];@"LabelLeConstraint02.jif:1,0-7"
+*lbl1 <= (Alice -> *) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,36-55"
+(* -> *) <= (* -> *) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4-17"
+(* -> *) <= (* -> *) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4-17"
+(_ -> _) <= (_ -> _) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4-17"
+(Alice -> *) <= (Alice -> *) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4-17"
+C.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider1);];@"LabelLeConstraint02.jif:1,0-0"

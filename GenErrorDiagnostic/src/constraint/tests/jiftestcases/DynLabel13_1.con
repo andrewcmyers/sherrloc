@@ -1,55 +1,56 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@DynLabel13.jif:4,0
-CONSTRUCTOR *y1 0 //class jif.types.label.DynamicLabel_c@DynLabel13.jif:10,23
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@DynLabel13.jif:5,4
-CONSTRUCTOR *y2 0 //class jif.types.label.DynamicLabel_c@DynLabel13.jif:15,23
-CONSTRUCTOR *x1 0 //class jif.types.label.DynamicLabel_c@DynLabel13.jif:6,19
+// DynLabel13.jif:5,4-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@DynLabel13.jif:4,0-7
+CONSTRUCTOR *y 0 //class jif.types.label.DynamicLabel_c@DynLabel13.jif:10,23-24
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@DynLabel13.jif:5,4-10
+CONSTRUCTOR *y1 0 //class jif.types.label.DynamicLabel_c@DynLabel13.jif:15,23-24
+CONSTRUCTOR *x 0 //class jif.types.label.DynamicLabel_c@DynLabel13.jif:6,19-20
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@DynLabel13.jif:6,12
-CONSTRUCTOR * 0 //@DynLabel13.jif:15,38
+CONSTRUCTOR _ 0 //@DynLabel13.jif:6,12-18
+CONSTRUCTOR * 0 //@DynLabel13.jif:15,38-39
 
 %%
-caller_pc1 <= (_ -> _);
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= a1;
-a1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
-_ -> _ <= b1;
-b1 <= * -> *;
-_ -> _ <= y1;
-y1 <= * -> *;
-_ -> _ <= c1;
-c1 <= * -> *;
-_ -> _ <= y2;
-y2 <= * -> *;
+caller_pc <= (_ -> _);
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= v_a;
+v_a <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
+_ -> _ <= v_b;
+v_b <= * -> *;
+_ -> _ <= v_y;
+v_y <= * -> *;
+_ -> _ <= v_c;
+v_c <= * -> *;
+_ -> _ <= v_y1;
+v_y1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= *y;
+*y <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= *y1;
 *y1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= *y2;
-*y2 <= * -> *;
-_ -> _ <= *x1;
-*x1 <= * -> *;
+_ -> _ <= *x;
+*x <= * -> *;
 
 %%
-x1 == caller_pc1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:6,19"
-caller_pc1 <= x1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:6,23"
-a1 == *x1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:7,9"
-(caller_pc1) <= a1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:7,13"
-y1 == caller_pc1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:10,23"
-caller_pc1 <= y1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:10,27"
-b1 == *y1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:11,13"
-(caller_pc1) <= b1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:11,17"
-(b1) ⊔ (caller_pc1) <= a1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:12,5"
-y2 == (* -> *) [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:15,23"
-caller_pc1 <= y2 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:15,27"
-c1 == *y2 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:16,13"
-(caller_pc1) <= c1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:16,17"
-(c1) ⊔ (caller_pc1) <= a1 [this1 <= caller_pc1;*x1 <= (_ -> _);(_ -> _) <= *x1;*y1 <= (_ -> _);(_ -> _) <= *y1;(* -> *) <= *y2;];@"DynLabel13.jif:17,5"
+v_x == caller_pc [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:6,19-20"
+caller_pc <= v_x [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:6,23-35"
+v_a == *x [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:7,9-10"
+(caller_pc) <= v_a [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:7,13-14"
+v_y == caller_pc [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:10,23-24"
+caller_pc <= v_y [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:10,27-39"
+v_b == *y [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:11,13-14"
+(caller_pc) <= v_b [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:11,17-18"
+(v_b) ⊔ (caller_pc) <= v_a [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:12,5-6"
+v_y1 == (* -> *) [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:15,23-24"
+caller_pc <= v_y1 [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:15,27-43"
+v_c == *y1 [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:16,13-14"
+(caller_pc) <= v_c [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:16,17-18"
+(v_c) ⊔ (caller_pc) <= v_a [this <= caller_pc;*x <= (_ -> _);(_ -> _) <= *x;*y <= (_ -> _);(_ -> _) <= *y;(* -> *) <= *y1;];@"DynLabel13.jif:17,5-6"

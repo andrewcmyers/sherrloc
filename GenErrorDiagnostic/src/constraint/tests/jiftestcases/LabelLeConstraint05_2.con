@@ -1,27 +1,28 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint05.jif:1,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint05.jif:7,4
+// LabelLeConstraint05.jif:7,4-12
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint05.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint05.jif:7,4-12
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@LabelLeConstraint05.jif:8,31
-CONSTRUCTOR * 0 //@LabelLeConstraint05.jif:8,13
+CONSTRUCTOR _ 0 //@LabelLeConstraint05.jif:8,31-33
+CONSTRUCTOR * 0 //@LabelLeConstraint05.jif:8,13-19
 
 %%
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-caller_pc1 <= (* -> *) [this1 <= caller_pc1;];@"LabelLeConstraint05.jif:8,3"
-caller_pc1 <= (* -> *) [this1 <= caller_pc1;];@"LabelLeConstraint05.jif:8,22"
-caller_pc1 <= (* -> *) [this1 <= caller_pc1;];@"LabelLeConstraint05.jif:8,1"
-(Alice -> *) <= (_ -> _) [this1 <= caller_pc1;];@"LabelLeConstraint05.jif:8,1"
-receiver1 == this1 [this1 <= caller_pc1;];@"LabelLeConstraint05.jif:8,1"
-arg1label1 == caller_pc1 [this1 <= caller_pc1;];@"LabelLeConstraint05.jif:8,1"
-arg2label1 == caller_pc1 [this1 <= caller_pc1;];@"LabelLeConstraint05.jif:8,1"
+caller_pc <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint05.jif:8,3-20"
+caller_pc <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint05.jif:8,22-33"
+caller_pc <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
+(Alice -> *) <= (_ -> _) [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
+v_receiver == this [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
+v_arg1label == caller_pc [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"
+v_arg2label == caller_pc [this <= caller_pc;];@"LabelLeConstraint05.jif:8,1-34"

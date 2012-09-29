@@ -1,29 +1,30 @@
-CONSTRUCTOR L1 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:4,36
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:4,18
-CONSTRUCTOR *L1 0 //class jif.types.label.DynamicLabel_c@Dyn6.jif:5,6
+// Dyn6.jif:4,18-24
+CONSTRUCTOR *L 0 //class jif.types.label.DynamicLabel_c@Dyn6.jif:5,6-7
+CONSTRUCTOR L 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:4,36-40
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:4,18-24
 CONSTRUCTOR this 0
-CONSTRUCTOR * 0 //@Dyn6.jif:10,28
+CONSTRUCTOR * 0 //@Dyn6.jif:10,28-35
 
 %%
-L1 <= *L1;
-caller_pc1 <= (_ -> _);
-_ -> _ <= L1;
-L1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
+L <= *L;
+caller_pc <= (_ -> _);
+_ -> _ <= *L;
+*L <= * -> *;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= *L1;
-*L1 <= * -> *;
 
 %%
-x1 == *L1 [];@"Dyn6.jif:5,9"
-(caller_pc1) <= x1 [];@"Dyn6.jif:5,13"
-L1 <= (* -> *) [];@"Dyn6.jif:6,7"
-(x1) ⊔ (caller_pc1) <= *L1 [];@"Dyn6.jif:6,10"
-caller_pc1 <= (* -> *) [];@"Dyn6.jif:6,5"
-arg1label1 == L1 [];@"Dyn6.jif:6,5"
-arg2label1 == (x1) ⊔ (caller_pc1) [];@"Dyn6.jif:6,5"
-*L1 <= x1 [];@"Dyn6.jif:6,1"
+v_x == *L [];@"Dyn6.jif:5,9-10"
+(caller_pc) <= v_x [];@"Dyn6.jif:5,13-14"
+L <= (* -> *) [];@"Dyn6.jif:6,7-8"
+(v_x) ⊔ (caller_pc) <= *L [];@"Dyn6.jif:6,10-11"
+caller_pc <= (* -> *) [];@"Dyn6.jif:6,5-12"
+v_arg1label == L [];@"Dyn6.jif:6,5-12"
+v_arg2label == (v_x) ⊔ (caller_pc) [];@"Dyn6.jif:6,5-12"
+*L <= v_x [];@"Dyn6.jif:6,1-2"

@@ -1,26 +1,27 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@A.jif:1,0
-CONSTRUCTOR a1 0 //class jif.types.label.ArgLabel_c@A.jif:9,27
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@A.jif:9,11
-CONSTRUCTOR A.provider1 0 //class jif.types.label.ProviderLabel_c@null
+// A.jif:9,11-20
+CONSTRUCTOR A.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@A.jif:1,0-7
+CONSTRUCTOR a 0 //class jif.types.label.ArgLabel_c@A.jif:9,27-38
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@A.jif:9,11-20
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR Bob 0 //@null
 
 %%
-a1 <= (Alice -> Bob);
-caller_pc1 <= a1;
-A.provider1 == _ -> _;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= a1;
-a1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
+a <= (Alice -> Bob);
+caller_pc <= a;
+A.provider == _ -> _;
+_ -> _ <= A.provider;
+A.provider <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= a;
+a <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= (Alice -> Bob);
 (Alice -> Bob) <= * -> *;
-_ -> _ <= A.provider1;
-A.provider1 <= * -> *;
 
 %%
-(a1) ⊔ (this1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"A.jif:10,8"
-A.provider1 <= (Alice -> Bob) [this1 <= caller_pc1;];@"A.jif:10,8"
+(a) ⊔ (this) <= (Alice -> Bob) [this <= caller_pc;];@"A.jif:10,8-9"
+A.provider <= (Alice -> Bob) [this <= caller_pc;];@"A.jif:10,8-9"

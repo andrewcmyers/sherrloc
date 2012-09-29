@@ -1,11 +1,12 @@
+// Dyn4.jif
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Dyn4.jif:2,4
+CONSTRUCTOR _ 0 //@Dyn4.jif:2,4-10
 
 %%
-_ -> _ <= x1;
-x1 <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-x1 == (_ -> _) [];@"Dyn4.jif:2,4"
+v_x == (_ -> _) [];@"Dyn4.jif:2,4-10"

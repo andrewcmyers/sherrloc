@@ -1,46 +1,47 @@
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:21,0
-CONSTRUCTOR z1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,55
-CONSTRUCTOR q1 0 //class jif.types.label.ParamLabel_c@ArgLabelSubst2.jif:22,18
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,11
-CONSTRUCTOR y1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,46
-CONSTRUCTOR x1 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,36
+// ArgLabelSubst2.jif:22,11-24
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:21,0-8
+CONSTRUCTOR z 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,55-60
+CONSTRUCTOR q 0 //class jif.types.label.ParamLabel_c@ArgLabelSubst2.jif:22,18-19
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,11-24
+CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,46-51
+CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,36-42
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@ArgLabelSubst2.jif:22,36
-CONSTRUCTOR * 0 //@ArgLabelSubst2.jif:22,46
+CONSTRUCTOR _ 0 //@ArgLabelSubst2.jif:22,36-42
+CONSTRUCTOR * 0 //@ArgLabelSubst2.jif:22,46-53
 
 %%
-caller_pc1 <= (_ -> _);
-x1 <= (_ -> _);
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= z1;
-z1 <= * -> *;
-_ -> _ <= q1;
-q1 <= * -> *;
-_ -> _ <= answer21;
-answer21 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= y1;
-y1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
+caller_pc <= (_ -> _);
+x <= (_ -> _);
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= z;
+z <= * -> *;
+_ -> _ <= q;
+q <= * -> *;
+_ -> _ <= v_answer2;
+v_answer2 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= y;
+y <= * -> *;
+_ -> _ <= x;
+x <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-(caller_pc1) <= q1 [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:23,16"
-answer21 == y1 [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:25,11"
-(caller_pc1) <= answer21 [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:25,21"
-(x1) <= (_ -> _) [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,17"
-z1 <= (* -> *) [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,23"
-y1 <= (* -> *) [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,26"
-x1 <= (_ -> _) [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,11"
-receiver1 == x1 [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,11"
-arg1label1 == (x1) [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,11"
-arg2label1 == z1 [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,11"
-arg3label1 == y1 [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,11"
-y1 <= answer21 [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:27,1"
-(caller_pc1) <= q1 [this1 <= caller_pc1;];@"ArgLabelSubst2.jif:30,1"
+(caller_pc) <= q [this <= caller_pc;];@"ArgLabelSubst2.jif:23,16-30"
+v_answer2 == y [this <= caller_pc;];@"ArgLabelSubst2.jif:25,11-18"
+(caller_pc) <= v_answer2 [this <= caller_pc;];@"ArgLabelSubst2.jif:25,21-25"
+(x) <= (_ -> _) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,17-21"
+z <= (* -> *) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,23-24"
+y <= (* -> *) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,26-27"
+x <= (_ -> _) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+v_receiver == x [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+v_arg1label == (x) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+v_arg2label == z [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+v_arg3label == y [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
+y <= v_answer2 [this <= caller_pc;];@"ArgLabelSubst2.jif:27,1-8"
+(caller_pc) <= q [this <= caller_pc;];@"ArgLabelSubst2.jif:30,1-16"

@@ -1,28 +1,29 @@
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array6.jif:3,4
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array6.jif:1,0
+// Array6.jif:3,4-10
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array6.jif:3,4-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array6.jif:1,0-12
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR Bob 0 //@null
-CONSTRUCTOR * 0 //@Array6.jif:4,12
+CONSTRUCTOR * 0 //@Array6.jif:4,12-18
 
 %%
-caller_pc1 <= (Alice -> *);
+caller_pc <= (Alice -> *);
 _ -> _ <= (Alice -> Bob);
 (Alice -> Bob) <= * -> *;
-_ -> _ <= ar1;
-ar1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
+_ -> _ <= v_ar;
+v_ar <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 
 %%
-x1 == (Alice -> *) [this1 <= caller_pc1;];@"Array6.jif:4,28"
-(caller_pc1) <= x1 [this1 <= caller_pc1;];@"Array6.jif:4,32"
-(x1) ⊔ (caller_pc1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array6.jif:5,39"
-(x1) ⊔ (caller_pc1) <= (Alice -> Bob) [this1 <= caller_pc1;];@"Array6.jif:5,42"
-(x1) ⊔ (caller_pc1) <= ar1 [this1 <= caller_pc1;];@"Array6.jif:5,38"
+v_x == (Alice -> *) [this <= caller_pc;];@"Array6.jif:4,28-29"
+(caller_pc) <= v_x [this <= caller_pc;];@"Array6.jif:4,32-33"
+(v_x) ⊔ (caller_pc) <= (Alice -> Bob) [this <= caller_pc;];@"Array6.jif:5,39-40"
+(v_x) ⊔ (caller_pc) <= (Alice -> Bob) [this <= caller_pc;];@"Array6.jif:5,42-43"
+(v_x) ⊔ (caller_pc) <= v_ar [this <= caller_pc;];@"Array6.jif:5,38-44"

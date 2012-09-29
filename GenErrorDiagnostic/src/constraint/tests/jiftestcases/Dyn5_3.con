@@ -1,40 +1,41 @@
+// Dyn5.jif:3,0-10
+CONSTRUCTOR Dyn5.provider 0 //class jif.types.label.ProviderLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR *M 0 //class jif.types.label.DynamicLabel_c@Dyn5.jif:10,42-43
 CONSTRUCTOR Dyn5.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Dyn5.jif:3,0
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Dyn5.jif:3,0
-CONSTRUCTOR Dyn5.provider2 0 //class jif.types.label.ProviderLabel_c@Dyn5.jif:3,0
-CONSTRUCTOR *M1 0 //class jif.types.label.DynamicLabel_c@Dyn5.jif:10,42
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Dyn5.jif:4,24
-CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
+CONSTRUCTOR _ 0 //@Dyn5.jif:4,24-30
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
+Dyn5.provider == _ -> _;
 Dyn5.provider1 == _ -> _;
-Dyn5.provider2 == _ -> _;
-_ -> _ <= Dyn5.provider1;
-Dyn5.provider1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= Dyn5.provider2;
-Dyn5.provider2 <= * -> *;
-_ -> _ <= *M1;
-*M1 <= * -> *;
+_ -> _ <= Dyn5.provider;
+Dyn5.provider <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= *M;
+*M <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= Dyn5.provider1;
+Dyn5.provider1 <= * -> *;
 
 %%
-Dyn5.provider1 <= (* -> *) [];@"Dyn5.jif:3,0"
-(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18"
-(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18"
-(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18"
-(* -> *) <= (* -> *) [];@"Dyn5.jif:10,18"
-*M1 <= *M1 [];@"Dyn5.jif:10,18"
-(* -> *) <= (* -> *) [];@"Dyn5.jif:10,18"
-(_ -> _) <= (_ -> _) [];@"Dyn5.jif:10,18"
-*M1 <= *M1 [];@"Dyn5.jif:10,18"
-Dyn5.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (Dyn5.provider2);];@"Dyn5.jif:3,0"
+Dyn5.provider1 <= (* -> *) [];@"Dyn5.jif:3,0-10"
+(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18-24"
+(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18-24"
+(_ -> _) <= (_ -> _) [];@"Dyn5.jif:4,18-24"
+(* -> *) <= (* -> *) [];@"Dyn5.jif:10,18-27"
+*M <= *M [];@"Dyn5.jif:10,18-27"
+(* -> *) <= (* -> *) [];@"Dyn5.jif:10,18-27"
+(_ -> _) <= (_ -> _) [];@"Dyn5.jif:10,18-27"
+*M <= *M [];@"Dyn5.jif:10,18-27"
+Dyn5.provider <= (* -> *) [this <= caller_pc;caller_pc <= (Dyn5.provider);];@"Dyn5.jif:3,0-0"

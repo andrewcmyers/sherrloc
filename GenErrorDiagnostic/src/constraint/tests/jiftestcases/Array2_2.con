@@ -1,57 +1,58 @@
-CONSTRUCTOR arr1 0 //class jif.types.label.ArgLabel_c@Array2.jif:10,23
-CONSTRUCTOR arr2 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,26
-CONSTRUCTOR caller_pc1 0 //class jif.types.label.ArgLabel_c@Array2.jif:10,11
-CONSTRUCTOR this1 0 //class jif.types.label.ThisLabel_c@Array2.jif:1,0
+// Array2.jif:1,0-12
+CONSTRUCTOR arr 0 //class jif.types.label.ArgLabel_c@Array2.jif:10,23-33
+CONSTRUCTOR arr1 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,26-36
+CONSTRUCTOR Array2.provider 0 //class jif.types.label.ProviderLabel_c@Array2.jif:1,0-12
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array2.jif:10,11-64
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array2.jif:1,0-12
 CONSTRUCTOR Array2.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR Array2.provider2 0 //class jif.types.label.ProviderLabel_c@Array2.jif:1,0
 CONSTRUCTOR this 0
-CONSTRUCTOR * 0 //@Compiler Generated:-1,-1
+CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-caller_pc1 <= arr1;
+caller_pc <= arr;
+Array2.provider == _ -> _;
 Array2.provider1 == _ -> _;
-Array2.provider2 == _ -> _;
+_ -> _ <= arr;
+arr <= * -> *;
 _ -> _ <= arr1;
 arr1 <= * -> *;
-_ -> _ <= arr2;
-arr2 <= * -> *;
-_ -> _ <= caller_pc1;
-caller_pc1 <= * -> *;
-_ -> _ <= this1;
-this1 <= * -> *;
+_ -> _ <= Array2.provider;
+Array2.provider <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= Array2.provider1;
 Array2.provider1 <= * -> *;
-_ -> _ <= tmpy1;
-tmpy1 <= * -> *;
-_ -> _ <= Array2.provider2;
-Array2.provider2 <= * -> *;
-_ -> _ <= tmpx1;
-tmpx1 <= * -> *;
+_ -> _ <= v_tmpy;
+v_tmpy <= * -> *;
+_ -> _ <= v_tmpx;
+v_tmpx <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Array2.provider1 <= (* -> *) [];@"Array2.jif:1,0"
-(* -> *) <= (* -> *) [];@"Array2.jif:2,11"
-arr2 <= arr2 [];@"Array2.jif:2,11"
-arr2 <= arr2 [];@"Array2.jif:2,11"
-arr2 <= arr2 [];@"Array2.jif:2,11"
-arr2 <= arr2 [];@"Array2.jif:2,11"
-arr2 <= arr2 [];@"Array2.jif:2,11"
-arr2 <= arr2 [];@"Array2.jif:2,11"
-arr2 <= arr2 [];@"Array2.jif:2,11"
-arr2 <= arr2 [];@"Array2.jif:2,11"
-Array2.provider2 <= (* -> *) [this1 <= caller_pc1;caller_pc1 <= (Array2.provider2);];@"Array2.jif:12,4"
-arr1 <= tmpx1 [this1 <= caller_pc1;caller_pc1 <= (Array2.provider2);];@"Array2.jif:13,19"
-arr1 <= tmpy1 [this1 <= caller_pc1;];@"Array2.jif:14,19"
-(tmpy1) ⊔ (arr1) <= arr1 [this1 <= caller_pc1;];@"Array2.jif:15,8"
-(tmpx1) ⊔ (arr1) <= arr1 [this1 <= caller_pc1;];@"Array2.jif:16,8"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
-arr1 <= arr1 [this1 <= caller_pc1;];@"Array2.jif:10,11"
+Array2.provider1 <= (* -> *) [];@"Array2.jif:1,0-12"
+(* -> *) <= (* -> *) [];@"Array2.jif:2,11-20"
+arr1 <= arr1 [];@"Array2.jif:2,11-20"
+arr1 <= arr1 [];@"Array2.jif:2,11-20"
+arr1 <= arr1 [];@"Array2.jif:2,11-20"
+arr1 <= arr1 [];@"Array2.jif:2,11-20"
+arr1 <= arr1 [];@"Array2.jif:2,11-20"
+arr1 <= arr1 [];@"Array2.jif:2,11-20"
+arr1 <= arr1 [];@"Array2.jif:2,11-20"
+arr1 <= arr1 [];@"Array2.jif:2,11-20"
+Array2.provider <= (* -> *) [this <= caller_pc;caller_pc <= (Array2.provider);];@"Array2.jif:12,4-5"
+arr <= v_tmpx [this <= caller_pc;caller_pc <= (Array2.provider);];@"Array2.jif:13,19-22"
+arr <= v_tmpy [this <= caller_pc;];@"Array2.jif:14,19-22"
+(v_tmpy) ⊔ (arr) <= arr [this <= caller_pc;];@"Array2.jif:15,8-11"
+(v_tmpx) ⊔ (arr) <= arr [this <= caller_pc;];@"Array2.jif:16,8-11"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
