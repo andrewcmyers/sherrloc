@@ -1,4 +1,4 @@
-<project name="diagnostic" default="javacup" basedir=".">
+<project name="diagnostic" default="diagnostic" basedir=".">
 	<description>
     Build file for general error diagnostic
    </description>
@@ -14,9 +14,11 @@
 	<available file="${lib}/java-cup-11a.jar" type="file" property="javacup.jar.available" />
 
 	<path id="libraries">
-		<fileset dir="${lib}">
-			<include name="*.jar" />
-		</fileset>
+        <pathelement location="bin"/>
+        <pathelement location="lib/java-cup-11a.jar"/>
+        <pathelement location="lib/commons-cli-1.2.jar"/>
+ 	    <pathelement location="lib/JFlex.jar"/>
+	    <pathelement location="lib/junit-4.5.jar"/>
 	</path>
 
 	<!--
@@ -38,15 +40,29 @@
 			<arg value="${parse}/constraint.cup"/>
 		</java>
 	</target>
-	
-	<target name="clean" description="clean up" >
-	    <delete dir="${build}"/>
-	    <delete dir="${dist}"/>
+
+	<target name="init">
+		<mkdir dir="${build}" />
 	</target>
-	
-	<!--
-	<target name="diagnostic" depends="lexer">
+
+	<target name="clean" description="clean up">
+		<delete file="${parse}/GrmLexer.java"/>
+		<delete file="${parse}/parser.java"/>
+		<delete file="${parse}/sym.java"/>
+		<delete dir="${build}"/>
 	</target>
-	-->
+
+	<target name="diagnostic" depends="init, javacup" description="build the diagnostic tool">
+		<javac srcdir="${src}" destdir="${build}">
+			<classpath refid="libraries"/>
+		</javac>
+	</target>
+
+	<target name="server" depends="init, javacup" description="build the diagnostic tool">
+		<javac target="jsr14" srcdir="${src}" destdir="${build}">
+			<classpath refid="libraries"/>
+		</javac>
+	</target>
+
 
 </project>

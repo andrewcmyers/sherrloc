@@ -112,7 +112,7 @@ public class Analysis {
 				ana.SHOW_WHOLE_GRAPH = whole_graph;
 				ana.GEN_ASSUMP = assumption;
 				ana.GEN_CUT = cut;
-				ana.sourceName = infile;
+			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
 				ana.writeToDotFile();
 				ana.writeToHTML();
@@ -149,7 +149,7 @@ public class Analysis {
         if (!graph.generated) 
         	graph.generateGraph();
         
-        // only the labels without varables can serve as end nodes
+        // only the labels without variables can serve as end nodes
         ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
         Set<Element> elements = graph.getAllElements();
@@ -177,7 +177,6 @@ public class Analysis {
 			for (ElementNode end : endNodes) {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
-				System.out.println("comparing "+e1 + e1.getClass() + " and "+e2+e2.getClass());
 				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
 				
