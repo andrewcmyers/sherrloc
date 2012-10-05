@@ -97,4 +97,4 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 
 
 /* error fallback */
-.|\n                             { throw new Error("Illegal character <"+ yytext()+">"); }
+.|\n                             { throw new Error("Illegal character <"+ yytext()+">"+" at line "+yyline+" column "+yycolumn); }
