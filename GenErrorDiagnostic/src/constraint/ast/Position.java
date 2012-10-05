@@ -29,6 +29,9 @@ public class Position {
 			else
 				info = s;
 			String[] comp = info.split(",");
+			// ignore a constraint for a segment of code
+			if (comp[1].contains(","))
+				return;
 			this.line = Integer.parseInt(comp[0]);
 			String range = comp[1];
 			comp = range.split("-");
