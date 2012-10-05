@@ -13,23 +13,7 @@ public class Position {
 	
 	// a workaround function that parses a position
 	public Position(String s) {
-		if (s.contains("jif")) {
-			if (s.split(":").length > 1) {
-				String info = s.split(":")[1];
-				String[] comp = info.split(",");
-				this.line = Integer.parseInt(comp[0]);
-				String range = comp[1];
-				comp = range.split("-");
-				if (comp.length == 1) {
-					this.colStart = Integer.parseInt(comp[0]);
-					this.colEnd = Integer.parseInt(comp[0]);
-				} else {
-					this.colStart = Integer.parseInt(range.split("-")[0]);
-					this.colEnd = Integer.parseInt(range.split("-")[1]);
-				}
-			}
-		}
-		else if (s.contains("line")) {
+		if (s.contains("line")) {
 			int index = s.indexOf("line")+5;
 			String[] comp = s.substring(index).split(",");
 			this.line = Integer.parseInt(comp[0]);
@@ -37,6 +21,24 @@ public class Position {
 			String range = comp[1].substring(index);
 			this.colStart = Integer.parseInt(range.split("-")[0]);
 			this.colEnd = Integer.parseInt(range.split("-")[1]);
+		}
+		else if (s.contains(",")) {
+			String info;
+			if (s.split(":").length > 1)
+				info = s.split(":")[1];
+			else
+				info = s;
+			String[] comp = info.split(",");
+			this.line = Integer.parseInt(comp[0]);
+			String range = comp[1];
+			comp = range.split("-");
+			if (comp.length == 1) {
+				this.colStart = Integer.parseInt(comp[0]);
+				this.colEnd = Integer.parseInt(comp[0]);
+			} else {
+				this.colStart = Integer.parseInt(range.split("-")[0]);
+				this.colEnd = Integer.parseInt(range.split("-")[1]);
+			}
 		}
 	}
 	
