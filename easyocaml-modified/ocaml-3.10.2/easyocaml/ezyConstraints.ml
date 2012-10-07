@@ -12,13 +12,14 @@ module AtConstr = struct
 
   type t = {
     loc : ExtLocation.t ;
-    tys : (Ty.t * Ty.t)
+    tys : (Ty.t * Ty.t) ;
+    leq : bool;
   }
   type printable = t
   type tyvar_container = t
 
-  let create x loc y = 
-    { loc = loc; tys = (x, y) }
+  let create ?(leq = false) x loc y = 
+  { loc = loc; tys = (x, y); leq = leq; }
 
   let compare c1 c2 =
     match ExtLocation.compare c1.loc c2.loc with
@@ -31,16 +32,17 @@ module AtConstr = struct
   let fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) c =
     let tyvarmap, ty1 = Ty.fresh_variant ~create ~tyvarmap (fst c.tys) in
     let tyvarmap, ty2 = Ty.fresh_variant ~create ~tyvarmap (snd c.tys) in
-    tyvarmap, { loc = c.loc; tys = ty1, ty2 }
+    tyvarmap, { loc = c.loc; tys = ty1, ty2; leq = false; }
 
   let print ppf { loc = loc; tys = (x, y) } =
   Format.fprintf ppf "%a =%a= %a" Ty.print x ExtLocation.print loc Ty.print y 
 
-  let cons_print ppf { loc = loc; tys = (x, y) } =
-  Format.fprintf ppf "%a == %a;%s\"%a\"\n" Ty.print x Ty.print y "@" ExtLocation.print loc 
+  let cons_print ppf { loc = loc; tys = (x, y); leq = leq } =
+  let symbol = if leq then "<=" else "==" in
+  Format.fprintf ppf "%a %s %a;%s\"%a\"\n" Ty.print x symbol Ty.print y "@" ExtLocation.print loc 
 
-  let type_substitute { loc = loc; tys = (x, y) } s =
-    { loc = loc ; tys = Ty.type_substitute x s, Ty.type_substitute y s }
+  let type_substitute { loc = loc; tys = (x, y); leq = leq } s =
+  { loc = loc ; tys = Ty.type_substitute x s, Ty.type_substitute y s; leq = leq }
 end
 
 

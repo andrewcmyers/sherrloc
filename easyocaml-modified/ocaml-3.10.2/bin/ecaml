@@ -1,0 +1,2 @@
+#!/bin/sh
+/home/zhdf/workspace/easyocaml/easyocaml-modified/ocaml-3.10.2/bin/ocaml -easy $@
