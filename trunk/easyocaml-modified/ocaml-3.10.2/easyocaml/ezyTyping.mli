@@ -36,8 +36,10 @@ val solve :
   * to check consistency of EasyOCaml's type checker with OCaml's original one. *)
 val type_and_compare_implementation :
   string -> string -> string -> Env.t -> Parsetree.structure -> EzyFeatures.program_feats ->
-  EzyEnrichedAst.typed_structure * (Typedtree.structure * Typedtree.module_coercion)
+  (* EzyEnrichedAst.typed_structure * (Typedtree.structure *
+   * Typedtree.module_coercion) *)
+  (Typedtree.structure * Typedtree.module_coercion)
 
 val type_and_compare_top_phrase :
   EzyFeatures.program_feats -> Env.t ->
-  Parsetree.structure -> EzyEnrichedAst.typed_structure * (Typedtree.structure * Types.signature * Env.t)
+  Parsetree.structure -> (* EzyEnrichedAst.typed_structure * *) (Typedtree.structure * Types.signature * Env.t)
