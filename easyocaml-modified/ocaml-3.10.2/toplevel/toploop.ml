@@ -222,7 +222,7 @@ let execute_phrase print_outcome ppf phr =
         match (EzySetup.setup ()).EzySetup.features with
           | Some fs ->
               EzyErrors.wrap_exception_with_program (lazy "")
-                (fun () -> snd (EzyTyping.type_and_compare_top_phrase fs oldenv sstr))
+                (fun () -> (EzyTyping.type_and_compare_top_phrase fs oldenv sstr))
           | None ->
               let _ = Unused_var.warn ppf sstr in
               Typecore.reset_delayed_checks ();
