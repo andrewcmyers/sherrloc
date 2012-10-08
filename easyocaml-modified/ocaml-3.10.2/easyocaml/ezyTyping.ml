@@ -406,11 +406,12 @@ let type_implementation sourcefile initial_env ast =
  *)
 
 let alpha_error msg =
-  logger#error "@[EasyOcaml did not type well:@ %s@]" msg ;
+  (* logger#error "@[EasyOcaml did not type well:@ %s@]" msg ; *)
   exit 100 (* NOTE this exit value is recognized by the `runtests' script *)
 
 let beta_error loc p err =
-  logger#error "@[Douh, EasyCaml missed an error!:@ Location: %a@ %a@]" Location.print loc p err ;
+  (* logger#error "@[Douh, EasyCaml missed an error!:@ Location: %a@ %a@]"
+   * Location.print loc p err ; *)
   exit 101 (* NOTE this exit value is recognized by the `runtests' script *)
 
 let type_and_compare_implementation sourcefile outputprefix modulename initial_env parse_tree fs =
