@@ -321,7 +321,7 @@ let rec print_strs_info s env ppf = function
 
 let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) =
   let env = (* logger#atime "Env import" *) EzyEnv.import oenv in
-  logger#debug "@[<2>Type structure in env:@ %a@]" (EzyEnv.print true) env ;
+  (* logger#debug "@[<2>Type structure in env:@ %a@]" (EzyEnv.print true) env ; *)
   let enr_str, cs, pp, env' =
     (* logger#atime "Generate constraints" $ *) EzyGenerate.for_structure sstr $ env in
   logger#info "%d constraints generated." (AtConstrSet.cardinal cs) ;
@@ -338,7 +338,9 @@ let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) =
   EzyEnv.print_cons formater true env';
   AtConstrSet.cons_print formater cs ;
   close_out out;
-  if not (EzyErrors.HeavyErrorSet.is_empty pp.EzyGenerate.PostProcess.heavies) then begin
+  enr_str, env'
+  (* dz: generate constraints only *)
+  (* if not (EzyErrors.HeavyErrorSet.is_empty pp.EzyGenerate.PostProcess.heavies) then begin
     let heavies = EzyErrors.HeavyErrorSet.add_errors pp.EzyGenerate.PostProcess.errors pp.EzyGenerate.PostProcess.heavies in
     EzyErrors.raise_annotated_error (EzyErrors.Heavies heavies) sstr
   end else () ;
@@ -349,20 +351,21 @@ let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) =
         enr_str, s, env'
     | Result.Error errs | Result.Ok (_, errs) ->
         EzyErrors.raise_annotated_error (EzyErrors.Errors errs) sstr
+  *)
 
 (* For compilation *)
 (* Typing of an implementation, i.e. a `.ml' file *)                                     
 (* string -> string -> string -> Env.t -> Parsetree.structure ->
                                Typedtree.structure * Typedtree.module_coercion *)
 let type_implementation : 
-    string -> Env.t -> imported_structure -> (EzyEnrichedAst.generated_structure * TyVarSubst.t * EzyEnv.t) =
+    string -> Env.t -> imported_structure -> (EzyEnrichedAst.generated_structure * EzyEnv.t) =
   fun sourcefile initial_env ast ->
   let program = lazy begin
     let ic = open_in sourcefile in
     between input_all ic (fun _ -> close_in ic)
   end in
-  let enr_str, s, env as res = type_structure ~program initial_env ast in
-  let check_polymorphy strit =
+  let enr_str, env as res = type_structure ~program initial_env ast in
+  (* let check_polymorphy strit =
     let aux (loc, v) =
       let vd = EzyEnv.find_value (Path.Pident v.nm_data) env in
         if vd.EzyEnv.val_binding = EzyEnv.Mono then begin
@@ -382,18 +385,18 @@ let type_implementation :
   logger#info "Succeeded typing implementation@ %awith substitution@ %a@ and env enriched by@ %a"
     (print_strs_info s env) enr_str
     TyVarSubst.print s
-    (EzyEnv.print ~s false) env ;
+    (EzyEnv.print ~s false) env ; *)
   res
 
 
 let type_structure ?program env sstr =
-  let enr_str, s, env as res =
+  let enr_str, env as res =
     (* logger#atime "Type structure" $ *)
       type_structure ?program env $ sstr in
-  logger#info "Succeeded typing structure@ %awith substitution@ %a@ and env enriched by@ %a"
+  (* logger#info "Succeeded typing structure@ %awith substitution@ %a@ and env enriched by@ %a"
     (print_strs_info s env) enr_str
     TyVarSubst.print s
-    (EzyEnv.print ~s false) env ;
+    (EzyEnv.print ~s false) env ; *)
   res
 
 (*
@@ -412,41 +415,43 @@ let beta_error loc p err =
 
 let type_and_compare_implementation sourcefile outputprefix modulename initial_env parse_tree fs =
   logger#debug "Conf.load_path: [%a]" (EzyUtils.List.print Format.pp_print_string ", ") (!Config.load_path);
-  let enr_str, s, _ =
+  let enr_str, _ =
     let str = EzyEnrichedAst.import_structure fs parse_tree in
     logger#debug "@[<2>Ezy imported tree:@ %a@]" (fun ppf -> List.iter (EzyAst.print_structure_item () ppf)) str ;
     type_implementation sourcefile initial_env str in
-  let ted_str = EzyEnrichedAst.apply_substitution s enr_str in
+  (* let ted_str = EzyEnrichedAst.apply_substitution s enr_str in *)
   begin try
     let tt, mc = Typemod.type_implementation sourcefile outputprefix modulename initial_env parse_tree in
-    begin match EzyEnrichedAst.eq_structure s enr_str tt with
+    (* begin match EzyEnrichedAst.eq_structure s enr_str tt with
       | Some msg -> alpha_error msg
       | None -> ()
-    end ;
-    ted_str, (tt, mc)
+    end ; *)
+    (tt, mc)
   with
     | Typemod.Error (loc, err) ->
         beta_error loc Typemod.report_error err
     | Typecore.Error (loc, err) ->
         beta_error loc Typecore.report_error err
-  end
+  end 
 
 
 let type_and_compare_top_phrase fs oldenv str =
   logger#debug "Conf.load_path: [%a]" (EzyUtils.List.print Format.pp_print_string ", ") (!Config.load_path);
-  let enr_str, s, env =
+  let enr_str, env =
   let str' = EzyEnrichedAst.import_structure fs str in
   type_structure oldenv str' in
-  let ted_str = EzyEnrichedAst.apply_substitution s enr_str in
+  (* dz: no need to compare the results. Feed the str to ocaml type inference
+   * to identify typing errors *)
+  (* let ted_str = EzyEnrichedAst.apply_substitution s enr_str in *)
   begin try
     Typecore.reset_delayed_checks ();
     let (str, sg, newenv) = Typemod.type_structure oldenv str in
     Typecore.force_delayed_checks ();
-    begin match EzyEnrichedAst.eq_structure s enr_str str with
+    (* begin match EzyEnrichedAst.eq_structure s enr_str str with
       | Some msg -> alpha_error msg
       | None -> ()
-    end ;
-    ted_str, (str, sg, newenv)
+    end ; *)
+    (str, sg, newenv)
   with
     | Typemod.Error (loc, err) ->
         beta_error loc Typemod.report_error err

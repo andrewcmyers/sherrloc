@@ -38,7 +38,7 @@ module AtConstr = struct
   Format.fprintf ppf "%a =%a= %a" Ty.print x ExtLocation.print loc Ty.print y 
 
   let cons_print ppf { loc = loc; tys = (x, y); leq = leq } =
-  let symbol = if leq then "<=" else "==" in
+  let symbol = (* if leq then "<=" else *) "==" in
   Format.fprintf ppf "%a %s %a;%s\"%a\"\n" Ty.print x symbol Ty.print y "@" ExtLocation.print loc 
 
   let type_substitute { loc = loc; tys = (x, y); leq = leq } s =
