@@ -239,7 +239,7 @@ module DerEnv = struct
     *)
   let rec apply_to_ty e ty =
     match ty with
-      | Ty.Var tyvar ->
+      | Ty.Var (_, tyvar) ->
           begin try 
             let ty', _ = TyVarMap.find tyvar e in
             apply_to_ty e ty'
