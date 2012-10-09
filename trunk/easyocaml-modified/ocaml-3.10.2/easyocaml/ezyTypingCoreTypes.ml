@@ -66,6 +66,8 @@ module rec Ty: sig
   type printable = t
 
   val print: Format.formatter -> t -> unit
+  val print_loc: Format.formatter -> t -> unit
+
   val fresh_var: unit -> t
 
   val set_label : t -> ExtLocation.t -> t
@@ -262,6 +264,12 @@ end = struct
     | Arrow (loc, x, y) ->
         Format.fprintf ppf "(%a -> %a)" print_arrow x print_arrow y
     | ty -> print ppf ty
+
+  let print_loc ppf = function
+    | Var tyv ->
+        Format.fprintf ppf ""
+    | ty -> Format.fprintf ppf "%a" ExtLocation.print (get_label ty)
+
 
   let rec import ?(tyvarmap=TyImportVarmap.empty) creative loc oty =
     match oty with
