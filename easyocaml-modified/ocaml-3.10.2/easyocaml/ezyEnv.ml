@@ -403,7 +403,7 @@ let expand_constr env label path args k =
     let td = find_type path env in
     begin match td.type_kind with
       | Synonym tx ->
-          let extract_tyvar = function Ty.Var tyvar -> tyvar | _ -> assert false in
+          let extract_tyvar = function Ty.Var (_, tyvar) -> tyvar | _ -> assert false in
           let tyvars = List.map extract_tyvar td.type_params in
           let s = TyVarSubst.from_list (List.combine tyvars args) in
           k env (TyVarSubst.apply_to_ty s tx)

@@ -39,7 +39,7 @@ and unify_full env cs e ds l =
   let occurs =
     let rec occurs_aux e locs a ty n =
       match ty with
-        | Ty.Var a' -> 
+        | Ty.Var (_, a') -> 
             begin match DerEnv.lookup e a' with
               | Some (ty, locs') ->
                   occurs_aux e (ExtLocationSet.union locs locs') a ty n
@@ -128,7 +128,7 @@ and unify_full env cs e ds l =
                 )
 
             (* a, ty *)
-            | Ty.Var a, _ ->
+            | Ty.Var (_, a), _ ->
                 assert (Ty.compare tx ty <> 0) ;
                 begin match DerEnv.lookup e a with
                   | Some (ty', locs') ->
