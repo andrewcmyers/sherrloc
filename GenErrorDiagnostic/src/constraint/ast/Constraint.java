@@ -5,16 +5,16 @@ import java.util.List;
 public class Constraint implements Comparable<Constraint> {	
 	Element e1, e2;
 	Relation r;
-	String info;
+	Position pos;
 	int count=0;
 	Environment assumption;
 	
-	public Constraint(Element e1, Element e2, Relation r, Environment assumption, String info) {
+	public Constraint(Element e1, Element e2, Relation r, Environment assumption, Position pos) {
 		this.e1 = e1;
 		this.e2 = e2;
 		this.r = r;
 		this.assumption = assumption;
-		this.info = info;
+		this.pos = pos;
 	}
 	
 	public Element getFirstElement () {
@@ -34,8 +34,7 @@ public class Constraint implements Comparable<Constraint> {
 	}
 	
 	public String toString () {
-		String pos = info.equals("")?"":(" @"+info);
-		return e1.toString()+r.toString()+e2.toString()+pos;
+		return e1.toString()+r.toString()+e2.toString()+pos.toString();
 	}
 	
 	public String toDotString () {
@@ -61,8 +60,8 @@ public class Constraint implements Comparable<Constraint> {
 //        return ((double)count)/((double)totalcount);
     }
 	
-	public String getInfo() {
-		return info;
+	public Position getPos() {
+		return pos;
 	}
     
     public int compareTo(Constraint n) {
