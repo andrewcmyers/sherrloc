@@ -8,7 +8,7 @@ public abstract class EnumerableElement extends Element {
 	List<Element> elements;
 	
 	public EnumerableElement(String name, List<Element> elements) {
-		super(name, "");
+		super(name, Position.EmptyPosition());
 		this.elements = elements;
 	}
 	

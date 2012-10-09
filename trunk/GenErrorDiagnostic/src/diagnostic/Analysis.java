@@ -133,9 +133,9 @@ public class Analysis {
 	    // read the position of method generating the constraints when available
 		BufferedReader br = new BufferedReader(new FileReader(input));
 		String firstline = br.readLine();
-		if (firstline.contains("jif")) {
-			ret.pos = new Position(firstline.substring(firstline.indexOf("jif")));
-		}
+//		if (firstline.contains("jif")) {
+//			ret.pos = new Position(firstline.substring(firstline.indexOf("jif")));
+//		}
 	    return ret;
 	}
 	
@@ -648,7 +648,8 @@ public class Analysis {
        	            	if (pos!=null && currentline<pos.getLine()) continue;
 
        	            	for (EquationEdge c : set) {
-       	            		Position p = new Position(c.getEquation().getInfo());
+       	            		Position p = c.getEquation().getPos();
+//       	            		Position p = new Position(c.getEquation().getInfo());
        	            		if (p.getLine()==currentline) {
        	            			current = current.substring(0, p.getColStart()) + 
        	            				"<span class=\"moreinfo\" id=\"wrongcons"+count+"\" >"+

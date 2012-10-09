@@ -8,7 +8,7 @@ public class Constructor extends Element {
 	boolean contraVariant;
 	
 	public Constructor(String name, int arity, boolean contravariant) {
-		super(name, "");
+		super(name, Position.EmptyPosition());
 		this.arity = arity;
 		this.contraVariant = contravariant;
 	}
