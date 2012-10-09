@@ -42,7 +42,7 @@ public class Environment {
 	public Environment addLeq (Element e1, Element e2) {
 		Environment e = new Environment();
 		e.addEnv(this);
-		e.addAssertion(new Constraint(e1, e2, Relation.LEQ, null, "added assumption"));
+		e.addAssertion(new Constraint(e1, e2, Relation.LEQ, null, null));
 		return e;
 	}
 	

@@ -19,6 +19,7 @@ import constraint.ast.MeetElement;
 import constraint.ast.Relation;
 import constraint.ast.Top;
 import constraint.ast.Variable;
+import constraint.ast.Position;
 import diagnostic.DiagnosisInput;
 
 action code {: 
@@ -29,8 +30,8 @@ action code {:
 						
 /* Terminals (tokens returned by the scanner). */
 terminal 			SEPERATION;
-terminal            CONSTRUCTOR, LABEL;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, SEP, STAR, AT, JOIN, MEET;
+terminal            CONSTRUCTOR;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, JOIN, MEET, DASH;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
@@ -39,16 +40,17 @@ non terminal DiagnosisInput     cons_spec;
 non terminal Set<Constraint>	equations;
 non terminal Environment 		env;
 non terminal 					constructors, constructor;
-non terminal				    assumptions, actsfor_list, actsfor;
+non terminal				    assumptions;
 non terminal Constraint 		equation;
-non terminal Element			term, element, cons;
-non terminal String           	id, position;
+non terminal Element			term, term_pos, element, cons;
+non terminal String           	id;
 non terminal Integer			arity;
 non terminal List<Element>		element_list;
+non terminal Position           range, position;
 
 /* Precedences */
 precedence right ARROW, LARROW, MEET, JOIN;
-precedence left  STAR;
+precedence left  COMMA;
 
 /* The grammar */
 cons_spec 	::= constructors 	
@@ -101,11 +103,11 @@ equations 	::= equations:s equation:e
             {: Set<Constraint> set = new HashSet<Constraint>(); set.add(e); RESULT = set; :}
             ;
             
-equation 	::= term:e1 EQ term:e2 env:e SEMICOLON position:p
+equation 	::= term_pos:e1 EQ term_pos:e2 env:e SEMICOLON position:p
 			{: RESULT = new Constraint (e1, e2, Relation.EQ, e, p); :}  
-            | term:e1 LEQ term:e2 env:e SEMICOLON position:p
+            | term_pos:e1 LEQ term_pos:e2 env:e SEMICOLON position:p
          	{: RESULT = new Constraint (e1, e2, Relation.LEQ, e, p); :}
-            | term:e1 GEQ term:e2 env:e SEMICOLON  position:p
+            | term_pos:e1 GEQ term_pos:e2 env:e SEMICOLON  position:p
             {: RESULT = new Constraint (e2, e1, Relation.LEQ, e, p); :}
             ;
             
@@ -125,12 +127,38 @@ env         ::= LBRACK equations:l RBRACK
 			:}
 			;
 						
-position	::= AT STRING_LITERAL:s
-			{: RESULT = s; :}
-			| /* no information */
-			{: RESULT = ""; :}
+position	::= LBRACK STRING_LITERAL:name range:p RBRACK
+			{: 
+			   if (p!=null) p.setFileName(name); 
+			   RESULT = p; 
+			:}
+			| LBRACK range:p RBRACK
+			{: 
+			   RESULT = p; 
+			:}
+			;
+			
+range		::= INTEGER_LITERAL:d1 COMMA INTEGER_LITERAL:d2 DASH INTEGER_LITERAL:d3
+			{:
+			    RESULT = new Position ("", d1, d2, d1, d3);
+			:}
+			|   INTEGER_LITERAL:d1 COMMA INTEGER_LITERAL:d2 DASH INTEGER_LITERAL:d3 COMMA INTEGER_LITERAL:d4
+			{:
+			    RESULT = new Position ("", d1, d2, d3, d4);
+			:}
+			|   IDENTIFIER:s /* identifiers are currently ignored */
+			{:  RESULT = Position.EmptyPosition(); :}
+			| /* no position */
+			{:  RESULT = Position.EmptyPosition(); :}
 			;
             
+term_pos    ::= term:t1 position:p 
+			{:
+				t1.setPosition(p);
+				RESULT = t1;
+			:}
+			;
+
 term     	::=  term:t1 ARROW term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
@@ -144,7 +172,7 @@ term     	::=  term:t1 ARROW term:t2
 				l.add(t2);  
 				RESULT = new ConstructorElement ("", constructors.get("larrow"), l);
 			:}
-			| term:t1 STAR term:t2
+			| term:t1 COMMA term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
@@ -191,14 +219,14 @@ cons		::= IDENTIFIER:s
 			;
 
 /* a single element is either a variable or a constructor with 0 arity */
-element		::= IDENTIFIER:s position:p
+element		::= IDENTIFIER:s
 			{: 	
 				if (constructors.containsKey(s)) {
 					RESULT = constructors.get(s);
 				} 
 			   	else {
 			   		if (!(variables.containsKey(s)))
-			   			variables.put (s, new Variable(s,p));
+			   			variables.put (s, new Variable(s,Position.EmptyPosition()));
 			   		RESULT = variables.get(s);
 			   	}			   	  
 			 :}

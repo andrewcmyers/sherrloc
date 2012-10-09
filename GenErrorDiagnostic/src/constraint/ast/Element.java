@@ -4,23 +4,27 @@ import java.util.List;
 
 public abstract class Element {
 	String name;
-	String info;
+	Position pos;
 	
-	public Element(String name, String info) {
+	public Element(String name, Position pos) {
 		this.name = name;
-		this.info = info;
+		this.pos = pos;
 	}
 	
 	public String toString () {
-		return name+pos();
+		return name+pos.toString();
 	}
 	
 	public String getName () {
 		return name;
 	}
 		
-	public String pos () {
-		return info.equals("")?"":(" @"+info);
+	public Position getPosition () {
+		return pos;
+	}
+	
+	public void setPosition (Position pos) {
+		this.pos = pos;
 	}
 	
 	abstract public String toDotString ();

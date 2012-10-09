@@ -6,8 +6,8 @@ import java.util.List;
 import util.StringUtil;
 
 public class Variable extends Element {
-	public Variable(String name, String info) {
-		super(name, info);
+	public Variable(String name, Position p) {
+		super(name, p);
 	}
 	
 	public List<Variable> getVars () {
