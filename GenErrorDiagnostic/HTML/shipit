@@ -1,10 +1,6 @@
 #!/bin/sh
 
 WEBHOST=zhangdf@mal.cs.cornell.edu
-content_dir=$WEBHOST':/home/zhangdf/public_html/temp'
-cgibin_dir=$WEBHOST':/home/zhangdf/public_html/temp'
+HOME_DIR=/home/zhangdf/public_html
 svn update;
-rsync "$@" -truvlC --exclude shipit \
-                   --exclude run.pl "$content_dir"
-
-rsync "$@" -truvlC run.pl "$cgibin_dir"
+rsync "$@" -truvlC --exclude shipit "$HOME_DIR"
