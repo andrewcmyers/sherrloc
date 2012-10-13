@@ -749,8 +749,9 @@ public class Analysis {
 			FileReader fstream = new FileReader(sourceName);
 			BufferedReader in = new BufferedReader(fstream);
 			String current;
-			int currentline = 1;
+			int currentline = 0;
 			while ((current = in.readLine()) != null) {
+				currentline ++;
 				sb.append(currentline + ". ");
 
 				if (end.line != currentline && start.line != currentline) {
@@ -788,7 +789,6 @@ public class Analysis {
 						break;
 				}
 				sb.append("\n");
-				currentline++;
 			}
 			in.close();
 		} catch (IOException e) {
