@@ -1,5 +1,7 @@
 package constraint.ast;
 
+import java.util.HashSet;
+
 
 public class Position {
 	int lineStart;
@@ -57,8 +59,12 @@ public class Position {
 		return emptyPosition;
 	}
 	
-	public int getLine() {
+	public int getLineStart() {
 		return lineStart;
+	}
+	
+	public int getLineEnd() {
+		return lineEnd;
 	}
 	
 	public int getColStart() {
@@ -91,12 +97,23 @@ public class Position {
 			return "";
 		
 		if (sameline())
-			return "@"+lineStart+","+colStart+"-"+colEnd;
+			return lineStart+","+colStart+"-"+colEnd;
 		else
-			return "@"+lineStart+","+colStart+"-"+lineEnd+","+colEnd;
+			return lineStart+","+colStart+"-"+lineEnd+","+colEnd;
 	}
 	
-	public static void main(String[] args) {
-//		new Position("jif:21,11-39");
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Position) {
+			return toString().equals(obj.toString());
+		}
+		return false;
 	}
+	
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
+
 }
