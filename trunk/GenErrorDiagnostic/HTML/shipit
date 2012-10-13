@@ -1,0 +1,5 @@
+#!/bin/sh
+WEBHOST=zhangdf@mal.cs.cornell.edu
+real_web=$WEBHOST':/home/zhangdf/public_html/temp'
+svn update;
+rsync "$@" -truvlC . "$real_web"
