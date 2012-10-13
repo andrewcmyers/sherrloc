@@ -1,19 +1,23 @@
 package constraint.graph;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import constraint.ast.Environment;
+import constraint.graph.pathfinder.PathFinder;
 
 public class ConstraintPath {
     List<Edge> edges;
     Environment assumption;
+    PathFinder finder;
     
-    public ConstraintPath(List<Edge> edges) {
+    public ConstraintPath(List<Edge> edges, PathFinder finder) {
         this.edges = edges;
         this.assumption = new Environment();
         for (Edge edge : edges) {
         	assumption.addEnv(edge.getAssumption());
         }
+        this.finder =  finder;
     }
 
     int size () {
@@ -22,6 +26,23 @@ public class ConstraintPath {
     
     public List<Edge> getEdges() {
 		return edges;
+	}
+    
+	public List<Node> getNodes( ) {
+		ArrayList<Node> ret = new ArrayList<Node>();
+		
+		if (edges.size()==0) return ret;
+
+		// System.out.println("Checking one equation in env: "+path.env);
+		Node first = getFirst();
+		ret.add(first);
+
+		for (int k = 0; k < size(); k++) {
+			Edge edge = edges.get(k);
+			if (finder.getPath(first, edge.to)!=null)
+				ret.add(edge.to);
+		}
+		return ret;
 	}
         
     // increase # path each node appears in    

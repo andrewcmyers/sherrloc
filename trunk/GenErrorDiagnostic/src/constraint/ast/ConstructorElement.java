@@ -16,7 +16,7 @@ public class ConstructorElement extends EnumerableElement {
 	
 	@Override
 	String getSymbol() {
-		return cons.toString();
+		return cons.toHTMLString();
 	}
 	
 	@Override
