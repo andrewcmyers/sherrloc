@@ -1,0 +1,73 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>General Error Diagnostic</title>
+<link rel="stylesheet" type="text/css" href="http://www.cs.cornell.edu/w8/~andru/civs/style.css" />
+<style>
+ pre#examples {font-size: 80%}
+ div#instructions {
+    float:right;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+    font-size: 80%;
+    padding-right: 1em;
+    padding-left: .5ex
+ }
+ .hint { font-size: 80%; margin: -2ex 0 0 0}
+ input { font-family: serif; font-weight: bold; font-size: 110% }
+ span.m { font-family: serif; font-weight: bold; font-size: 110% }
+ span.mi { font-family: serif; font-style: italic; font-size: 110% }
+</style>
+</head>
+<body>
+<div class="contents">
+
+<h1>General Error Diagnostic</h1>
+
+<p>
+Description
+</p>
+
+<div id=instructions>
+<h3>How to use?</h3>
+<ul style="padding-left: 1em; list-style-type: none">
+<li>li
+</ul>
+</div>
+
+<form method="POST"
+    action="cgi-bin/run.pl"
+    enctype="multipart/form-data"
+    accept-charset="UTF-8"
+    name="ocaml">
+
+<p>
+The OCaml program you want to type check:<br>
+</p>
+<textarea name="prog" rows="20" cols="60"></textarea>
+
+<p>
+<input type="submit" value="Type Check" name="check">
+</p>
+
+</form>
+<!--
+<p>Got feedback?
+<a href="http://www.cs.cornell.edu/w8/~andru/cgi-perl/civs/vote.pl?id=E_22bfc4b18752ab92&akey=a73b39510a5a0721">Give suggestions or vote on proposed changes.</a>
+</p>-->
+<!--
+<hr>
+<small>
+Relplot was written by <a href="http://www.cs.cornell.edu/andru">Andrew
+Myers</a> at Cornell University.  It is written in SML and PostScript.  The
+source code is freely available for noncommercial use, subject to academic
+integrity constraints; please contact the author.
+-->
+</small>
+
+</div>
+</div>
+</body>
+</html>
+
