@@ -12,9 +12,13 @@ public abstract class Element {
 	}
 	
 	public String toString () {
-		return name+pos.toString();
+		return toHTMLString()+pos.toString();
 	}
 	
+	public String toHTMLString () {
+		return name;
+	}
+		
 	public String getName () {
 		return name;
 	}

@@ -19,17 +19,17 @@ public abstract class EnumerableElement extends Element {
 	// return the symbol of the current element, such as ->, *, meet, join
 	abstract String getSymbol();
 	
-	public String toString() {
+	public String toHTMLString() {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
 		if (symbol.equals("->") || symbol.equals("*") || symbol.equals("<-")) {
-			return infixToString();
+			return infixToHTMLString();
 		}
 		else {
 			ret += symbol;
 			for (Element e : elements)
-				ret += " ("+e.toString() + ")";
+				ret += " ("+e.toHTMLString() + ")";
 		}
 		return ret;
 	}
@@ -50,13 +50,13 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 	
-	public String infixToString () {
+	public String infixToHTMLString () {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
-		ret += "("+elements.get(0).toString() + ")";
+		ret += "("+elements.get(0).toHTMLString() + ")";
 		for (int j=1; j<elements.size(); j++)
-			ret += symbol + "(" + elements.get(j).toString() + ")";
+			ret += symbol + "(" + elements.get(j).toHTMLString() + ")";
 		return ret;
 	}
 	

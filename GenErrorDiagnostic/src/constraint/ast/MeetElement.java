@@ -10,8 +10,8 @@ public class MeetElement extends EnumerableElement {
 		flat();
 	}
 	
-	public String toString() {
-		return infixToString();
+	public String toHTMLString() {
+		return infixToHTMLString();
 	}
 	
 	@Override

@@ -42,7 +42,7 @@ public class Constraint implements Comparable<Constraint> {
 	}
 	
 	public String toHTMLString () {
-		return e1.toString()+r.toString()+e2.toString();
+		return e1.toHTMLString()+r.toString()+e2.toHTMLString();
 	}
 	
 	public List<Variable> getVars () {

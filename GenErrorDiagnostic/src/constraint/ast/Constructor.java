@@ -24,7 +24,7 @@ public class Constructor extends Element {
 	/**
 	 * To simplify the output, use UpperCase to indicate a constructor
 	 */
-	public String toString () {
+	public String toHTMLString () {
 		if (name.equals("arrow"))
 			return "->";
 		if (name.equals("larrow"))
