@@ -38,7 +38,7 @@ module AtConstr = struct
   Format.fprintf ppf "%a =%a= %a" Ty.print x ExtLocation.print loc Ty.print y 
 
   let cons_print ppf { loc = loc; tys = (x, y); leq = leq } =
-  Format.fprintf ppf "%a[%a] == %a[%a];%s\"%a\"\n" Ty.print x Ty.print_loc x Ty.print y Ty.print_loc y "@" ExtLocation.print loc 
+  Format.fprintf ppf "%a[%a] == %a[%a];[%a]\n" Ty.print x Ty.print_loc x Ty.print y Ty.print_loc y ExtLocation.print loc 
 
   let type_substitute { loc = loc; tys = (x, y); leq = leq } s =
   { loc = loc ; tys = Ty.type_substitute x s, Ty.type_substitute y s; leq = leq }
