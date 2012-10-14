@@ -252,8 +252,8 @@ public class Analysis {
 			sb.append(" onmouseout=\"hide_elements([");
 			sb.append(path_buff.toString());
 			sb.append("]) \">");
-			sb.append("Type construct clash between "+goal.getSource().getElement().toHTMLString() + 
-					" and " + goal.getSink().getElement().toHTMLString());
+			sb.append("A value with type "+goal.getSource().getElement().toHTMLString() + 
+				    " is being used at type " + goal.getSink().getElement().toHTMLString());
 			sb.append("</span>\n");
 		}
 		sb.append("</UL>\n");
