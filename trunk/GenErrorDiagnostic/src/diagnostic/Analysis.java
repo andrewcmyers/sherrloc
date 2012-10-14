@@ -579,7 +579,14 @@ public class Analysis {
     			"<H2>\n" +
     			"<BR>\n" +
     			"Error Diagnostic Report for file " + sourceName + " </H2>\n" +
-    			"<HR>\n" +
+    			"<HR>\n");
+    	// type check succeeded
+    	if (unsatPath.size()==0) {
+    		sb.append("<H3>");
+			sb.append("The program passed type checking! No error is found.");
+    	}
+    	else {
+    		sb.append(
     			unsatPathsToHTML() +
     			"<HR>\n" +
     			"<H3>\n" +
@@ -589,7 +596,7 @@ public class Analysis {
     			genAnnotatedCode() +
     			(sourceName.contains("jif")?("<script>display_info('info'); colorize_all(); numberSuggestions();</script>\n")
     					:("<script>display_info('info'); numberSuggestions();</script>\n")));
-    	
+    	}
     	return sb.toString();
     }
     
