@@ -2,25 +2,26 @@ package constraint.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import constraint.graph.visitor.DFSPathVisitor;
-import constraint.graph.visitor.LabellingVisitor;
 import constraint.graph.visitor.NodeVisitor;
 
 public abstract class Graph {
 	
 	protected List<Node> allNodes = new ArrayList<Node>();
 	protected List<Edge> allEdges = new ArrayList<Edge>();
-	protected Map<Node, Map<Node, Edge>>   edges = new HashMap<Node, Map<Node,Edge>>();
+	protected Map<Node, Map<Node, Set<Edge>>>   edges = new HashMap<Node, Map<Node,Set<Edge>>>();
 	
 	public Graph( ) {
 	}
 	
 	public void addNode (Node n) {
 		allNodes.add(n);
-		edges.put(n, new HashMap<Node, Edge>());
+		edges.put(n, new HashMap<Node, Set<Edge>>());
 	}
 	
 	public List<Node> getAllNodes () {
@@ -32,10 +33,10 @@ public abstract class Graph {
 	}
       
     public void addEdge (Node from, Node to, Edge edge) {
-    	if (!hasEdge(from, to)) {
-    		edges.get(from).put(to, edge);
-    		allEdges.add(edge);
-    	}
+    	if (!hasEdge(from, to))
+    		edges.get(from).put(to, new HashSet<Edge>());
+    	edges.get(from).get(to).add(edge);
+    	allEdges.add(edge);
     }
     
     public List<Edge> getAllEdges () {
@@ -47,11 +48,11 @@ public abstract class Graph {
     }
     
     
-    public Edge getEdge (Node from, Node to) {
+    public Set<Edge> getEdges (Node from, Node to) {
     	return edges.get(from).get(to);
     }
     
-    public Map<Node, Edge> getNeighbors (Node from) {
+    public Map<Node, Set<Edge>> getNeighbors (Node from) {
     	return edges.get(from);
     }
         
@@ -84,7 +85,7 @@ public abstract class Graph {
         v.discoverVertex(node);
     	v.visit(node);
         visited.add(node);
-        Map<Node, Edge> neighbors = getNeighbors(node);
+        Map<Node, Set<Edge>> neighbors = getNeighbors(node);
         for (Node next : neighbors.keySet()) {
             acceptForward(next, v, visited);
         }

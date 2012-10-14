@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import constraint.ast.Constraint;
+import constraint.ast.Constructor;
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
 import constraint.ast.EnumerableElement;
@@ -28,6 +29,7 @@ import constraint.ast.Relation;
 public class ConstraintGraph extends Graph {
 	Environment env;
     Set<Constraint> constraints;
+    Set<Constructor> allConstructors;
     boolean SYMMENTRIC;
     boolean DEBUG = false;
 
@@ -38,6 +40,7 @@ public class ConstraintGraph extends Graph {
     public ConstraintGraph (Environment env, Set<Constraint> equations, boolean symmentric) {
         this.env = env;
     	this.constraints = equations;
+    	this.allConstructors = new HashSet<Constructor>();
     	this.files = new HashSet<String>();
         this.generated = false;
         this.SYMMENTRIC = symmentric;

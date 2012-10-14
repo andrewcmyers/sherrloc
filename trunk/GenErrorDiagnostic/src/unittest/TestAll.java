@@ -39,6 +39,12 @@ public class TestAll {
 	}
 	
 	@Test
+	public void testOcaml () {
+		/* test for OCaml constraint */
+		testErrorPaths("src/constraint/tests/ocaml/test1.con", 1, true);
+	}
+	
+	@Test
 	public void testSML() {
 		/* test for SML constraint */
 		testErrorPaths("src/constraint/tests/sml/test1.con", 1, true);
