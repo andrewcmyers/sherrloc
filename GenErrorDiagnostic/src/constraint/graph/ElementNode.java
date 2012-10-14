@@ -1,6 +1,7 @@
 package constraint.graph;
 
 import java.util.Map;
+import java.util.Set;
 
 import constraint.ast.Element;
 
@@ -54,18 +55,21 @@ public class ElementNode extends Node {
     
     public String printLinkToDotString () {
         String ret = "";
-        Map<Node, Edge> neighbors = g.getNeighbors(this);
+        Map<Node, Set<Edge>> neighbors = g.getNeighbors(this);
         for (Node node : neighbors.keySet()) {
             ElementNode n = (ElementNode) node;
-            Edge edge = g.getEdge(this, n);
-//            if (edge instanceof IdEdge)
-//            	continue;
-            if (n.shouldprint) {
-            	if (edge.isDirected())
-            		ret += this.uid + "->" + n.uid + " [label=\"" + edge.toDotString() + "\"];\n";
-            	else if (g.getIndex(this)<g.getIndex(n))
-            		ret += this.uid + "->" + n.uid + " [dir=both label=\"" + edge.toDotString() + "\"];\n";
-            }
+			for (Edge edge : g.getEdges(this, n)) {
+				// if (edge instanceof IdEdge)
+				// continue;
+				if (n.shouldprint) {
+					if (edge.isDirected())
+						ret += this.uid + "->" + n.uid + " [label=\""
+								+ edge.toDotString() + "\"];\n";
+					else if (g.getIndex(this) < g.getIndex(n))
+						ret += this.uid + "->" + n.uid + " [dir=both label=\""
+								+ edge.toDotString() + "\"];\n";
+				}
+			}
         }
         return ret;
     }

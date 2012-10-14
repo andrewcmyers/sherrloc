@@ -35,6 +35,20 @@ public class EdgeCondition {
 			return con.toString()+"@"+index;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof EdgeCondition) {
+			EdgeCondition ec = (EdgeCondition) obj;
+			return con.equals(ec.con) && index == ec.index && reverse == ec.reverse; 
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return con.hashCode() * 1237 + index * 3 + (reverse?1:0);
+	}
+	
 	/** 
 	 * the current condition matches c iff
 	 * 1. They have the same constructor

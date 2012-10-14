@@ -97,13 +97,14 @@ abstract public class CFLPathFinder extends PathFinder {
     	return null;
     }
     
-    protected RightEdge getRightEdge (Node from, Node to) {
+    protected Set<RightEdge> getRightEdges (Node from, Node to) {
+    	Set<RightEdge> ret = new HashSet<RightEdge>();
     	List<ReductionEdge> edges = getReductionEdges(from, to);
     	for (Edge edge : edges) {
     		if (edge instanceof RightEdge)
-    			return ((RightEdge)edge);
+    			ret.add((RightEdge)edge);
     	}
-    	return null;
+    	return ret;
     }
     
 //	public void acceptForwardReductionGraph (Node node, NodeVisitor v, List<Node> visited) {
