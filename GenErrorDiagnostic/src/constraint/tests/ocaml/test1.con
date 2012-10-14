@@ -1,0 +1,37 @@
+CONSTRUCTOR array 1
+CONSTRUCTOR char 0
+CONSTRUCTOR bool 0
+CONSTRUCTOR float 0
+
+CONSTRUCTOR exn 0
+CONSTRUCTOR format6 6
+CONSTRUCTOR int 0
+CONSTRUCTOR Pervasives.in_channel 0
+
+CONSTRUCTOR Pervasives.fpclass 0
+CONSTRUCTOR int64 0
+CONSTRUCTOR list 1
+
+CONSTRUCTOR lazy_t 1
+CONSTRUCTOR option 1
+CONSTRUCTOR Pervasives.open_flag 0
+
+CONSTRUCTOR Pervasives.ref 1
+CONSTRUCTOR unit 0
+CONSTRUCTOR string 0
+
+CONSTRUCTOR Pervasives.out_channel 0
+CONSTRUCTOR nativeint 0
+CONSTRUCTOR int32 0
+
+
+q2[3,7-8] == r2[3,15-20];[3,3-35]
+p2[3,3-35] == u2[3,26-35];[3,3-35]
+s2[3,11-15] == (float -> float)[3,11-15];[3,11-15]
+s2[3,11-15] == (t2 -> r2)[3,15-20];[3,15-20]
+float[3,16-19] == t2[3,16-19];[3,16-19]
+x2[3,24-25] == q2[3,7-8];[3,24-25]
+w2[3,26-27] == (x2 -> v2)[3,26-25];[3,26-25]
+w2[3,26-27] == (string -> (string -> string))[3,26-27];[3,26-27]
+v2[3,26-25] == (y2 -> u2)[3,26-35];[3,26-35]
+string[3,28-35] == y2[3,28-35];[3,28-35]
