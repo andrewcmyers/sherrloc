@@ -691,22 +691,26 @@ public class Analysis {
     	
     	public String toHTML () {
     		StringBuffer sb = new StringBuffer();
-    		sb.append("<LI>\n");
+//    		sb.append("<LI>\n");
     		StringBuffer locBuffer = new StringBuffer();
     		StringBuffer textBuffer = new StringBuffer();
         	for (EquationEdge c : edges) {
         		locBuffer.append("'"+c.getEquation().getPos()+"',");
    				textBuffer.append(c.getEquation().toHTMLString() +" ; ");
         	}
+
 			sb.append("<span class=\"mincut\" onmouseover=\"show_elements('cut', [");
 			sb.append(locBuffer.toString());
-			sb.append("])\"");
+			sb.append("]) \" ");
 			sb.append(" onmouseout=\"hide_elements([");
 			sb.append(locBuffer.toString());
 			sb.append("]) \">");
     		sb.append(textBuffer.toString());
     		sb.append("(weight="+rank+")");
 			sb.append("</span>\n");
+        	sb.append("<button onclick=\"hide_elements_perm();show_elements_perm('cut', [");
+        	sb.append(locBuffer.toString());
+        	sb.append("]) \">Show it</button><br>\n");
 			return sb.toString();
     	}
     }
@@ -717,9 +721,9 @@ public class Analysis {
     	if (GEN_CUT) {
             Set<Set<EquationEdge>> results=null;
         	results = genCuts(errorPaths.keySet());
-        	sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):\n");
+        	sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):<br>");
 
-        	sb.append("<OL>\n");
+//        	sb.append("<OL>\n");
         	
         	// get all cuts and rank them
         	List<CutSuggestion> cuts = new ArrayList<CutSuggestion>();
@@ -730,7 +734,7 @@ public class Analysis {
         	for (CutSuggestion cut : cuts) {
         		sb.append(cut.toHTML());
        		}
-   			sb.append("</OL>\n");
+//   			sb.append("</OL>\n");
         }
     	
     	return sb.toString();
