@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -530,6 +531,7 @@ public class Analysis {
             FileWriter fstream = new FileWriter(htmlFileName);
             BufferedWriter out = new BufferedWriter(fstream);
             out.write(getHeader());
+            writeFeedback(out);
             out.write(getOneSuggestion(sourceName));
             out.write(getTail());
             out.close();
@@ -566,6 +568,34 @@ public class Analysis {
     			"<HR>\n";
     }
     
+    public void writeFeedback(Writer out) throws IOException {
+    	out.write("<div class=feedback>\r\n");
+    	out.write("<form>");
+    	out.write("<p>Please rate this error diagnosis on a scale of 1 to 5:<br>");
+    	out.write("<span class=\"answerkey\">(1 = not helpful, 2 = somewhat helpful, "+
+    	          "3 = helpful, 4 = very helpful, 5 = extremely helpful)</span></p>");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> not helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"2\"> somewhat helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"3\"> helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"4\"> very helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"5\"> extremely helpful");
+    	
+    	out.write("<p>How does it compare in usefulness to the error message you get from OCaml?<br>");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"1\"> much worse");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"2\"> worse");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"3\"> about the same");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"4\"> better");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"5\"> much better");
+    	
+    	out.write("<p>If you think you know where the error is in the program, please enter the line number:</p>");
+    	out.write("<input type=\"text\" name=\"errorloc\" />");
+    	
+    	out.write("<p>If you have any other comments about how this diagnosis " +
+    			"(or this tool) could be improved, you may enter them here:</p>");
+    	out.write("<input type=\"textarea\" name=\"comments\" rows=\"4\" cols=\"60\"");
+    	out.write("</form></div>");
+    }
+    
     public String getTail () {
     	return 	"<HR>\n\n" +
     			"</BODY>\n" +
@@ -589,7 +619,7 @@ public class Analysis {
     			unsatPathsToHTML() +
     			"<HR>\n" +
     			"<H3>\n" +
-    			"Most likely suggestions</H3>\n" +
+    			"Suggestions</H3>\n" +
     			genMissinAssumptions() +
     			genCutItems() +
     			genAnnotatedCode() +
@@ -649,7 +679,7 @@ public class Analysis {
     	if (GEN_CUT) {
             Set<Set<EquationEdge>> results=null;
         	results = genCuts(errorPaths.keySet());
-        	sb.append("Most likely wrong constraints in the source code:\n");
+        	sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):\n");
 
         	int count=1;
         	sb.append("<OL>\n");
