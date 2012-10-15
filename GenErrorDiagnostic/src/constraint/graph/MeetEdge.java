@@ -28,11 +28,6 @@ public class MeetEdge extends Edge {
 	}
 	
 	@Override
-	public void setCause() {
-		// do nothing
-	}
-	
-	@Override
 	public Environment getAssumption() {
 		return new Environment();
 	}

@@ -36,11 +36,6 @@ public class ReductionEdge extends Edge implements Comparable<ReductionEdge> {
 	}
 	
 	@Override
-	public void setCause() {
-		// do nothing
-	}
-	
-	@Override
 	public Environment getAssumption() {
 		Environment env = new Environment();
 		for (Edge e : edges) {

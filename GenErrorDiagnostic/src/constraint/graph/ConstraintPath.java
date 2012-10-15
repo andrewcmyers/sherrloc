@@ -70,6 +70,15 @@ public class ConstraintPath {
 		return assumption;
 	}
 	
+	public void incSuccCounter ( ) {
+		if (edges.size()==0) return;
+
+		for (int k = 0; k < size(); k++) {
+			Edge edge = edges.get(k);
+			edge.incSuccCounter();
+		}
+	}
+	
 	public void setCause ( ) {
 		if (edges.size()==0) return;
 

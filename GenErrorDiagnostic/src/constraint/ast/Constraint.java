@@ -6,7 +6,8 @@ public class Constraint implements Comparable<Constraint> {
 	Element e1, e2;
 	Relation r;
 	Position pos;
-	int count=0;
+	int succPaths=0;
+	int cause = 0;
 	Environment assumption;
 	
 	public Constraint(Element e1, Element e2, Relation r, Environment assumption, Position pos) {
@@ -51,12 +52,21 @@ public class Constraint implements Comparable<Constraint> {
 		return ret;
 	}
 	
+	public void incSuccPaths () {
+		System.out.println("succpath increased "+toString());
+		succPaths ++;
+	}
+	
+	public int getSuccPaths() {
+		return succPaths;
+	}
+	
 	public void setCause () {
-		count ++;
+		cause ++;
 	}
 	
 	public double getRank () {
-    	return count;
+    	return succPaths;
 //        return ((double)count)/((double)totalcount);
     }
 	

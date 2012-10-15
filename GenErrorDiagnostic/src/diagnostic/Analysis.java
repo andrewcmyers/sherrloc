@@ -181,11 +181,11 @@ public class Analysis {
 				Element e2 = end.getElement();
 				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
+				ConstraintPath path = new ConstraintPath(l, finder);
 				
 				if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
 					if (!((ConstructorElement)e1).getCons().equals(((ConstructorElement)e2).getCons()) &&
 							(!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
-						ConstraintPath path = new ConstraintPath(l, finder);
 //						System.out.println(path.toString());
 						path.setCause();
 						AttemptGoal goal = new AttemptGoal(start, end, path.getAssumption());
@@ -201,12 +201,13 @@ public class Analysis {
 				if (start.getElement() instanceof ConstructorElement && end.getElement() instanceof ConstructorElement)
 					continue;
 
-				if (graph.getEnv().leq(start.getElement(), end.getElement()))
-					continue;
-
 				if (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end))) {
+					// successful path
+					if (graph.getEnv().leq(start.getElement(), end.getElement())) {
+						path.incSuccCounter();
+						continue;
+					}
 
-					ConstraintPath path = new ConstraintPath(l, finder);
 					Environment env;
 					if (cachedEnv.containsKey(path.getAssumption()))
 						env = cachedEnv.get(path.getAssumption());
@@ -672,6 +673,44 @@ public class Analysis {
     	return sb.toString();
     }
     
+    private class CutSuggestion implements Comparable<CutSuggestion> {
+    	int rank=0;
+    	Set<EquationEdge> edges;
+    	
+    	public CutSuggestion(Set<EquationEdge> edges) {
+    		this.edges = edges;
+    		for (EquationEdge edge : edges) {
+    			rank += edge.getEquation().getSuccPaths();
+    		}
+		}
+    	
+    	@Override
+    	public int compareTo(CutSuggestion o) {
+    		return new Integer(rank).compareTo(o.rank);
+    	}
+    	
+    	public String toHTML () {
+    		StringBuffer sb = new StringBuffer();
+    		sb.append("<LI>\n");
+    		StringBuffer locBuffer = new StringBuffer();
+    		StringBuffer textBuffer = new StringBuffer();
+        	for (EquationEdge c : edges) {
+        		locBuffer.append("'"+c.getEquation().getPos()+"',");
+   				textBuffer.append(c.getEquation().toHTMLString() +" ; ");
+        	}
+			sb.append("<span class=\"mincut\" onmouseover=\"show_elements('cut', [");
+			sb.append(locBuffer.toString());
+			sb.append("])\"");
+			sb.append(" onmouseout=\"hide_elements([");
+			sb.append(locBuffer.toString());
+			sb.append("]) \">");
+    		sb.append(textBuffer.toString());
+    		sb.append("(weight="+rank+")");
+			sb.append("</span>\n");
+			return sb.toString();
+    	}
+    }
+    
     public String genCutItems () {
     	StringBuffer sb = new StringBuffer();
     	
@@ -680,24 +719,16 @@ public class Analysis {
         	results = genCuts(errorPaths.keySet());
         	sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):\n");
 
-        	int count=1;
         	sb.append("<OL>\n");
-        	for (Set<EquationEdge> set : results) {
-        		sb.append("<LI>\n");
-        		StringBuffer locBuffer = new StringBuffer();
-        		StringBuffer textBuffer = new StringBuffer();
-            	for (EquationEdge c : set) {
-            		locBuffer.append("'"+c.getEquation().getPos()+"',");
-       				textBuffer.append(c.getEquation().toHTMLString() +" ; ");
-            	}
-    			sb.append("<span class=\"mincut\" onmouseover=\"show_elements('cut', [");
-    			sb.append(locBuffer.toString());
-    			sb.append("])\"");
-    			sb.append(" onmouseout=\"hide_elements([");
-    			sb.append(locBuffer.toString());
-    			sb.append("]) \">");
-        		sb.append(textBuffer.toString());
-    			sb.append("</span>\n");
+        	
+        	// get all cuts and rank them
+        	List<CutSuggestion> cuts = new ArrayList<CutSuggestion>();
+        	for (Set<EquationEdge> set : results) 
+        		cuts.add(new CutSuggestion(set));
+        	Collections.sort(cuts);
+        	
+        	for (CutSuggestion cut : cuts) {
+        		sb.append(cut.toHTML());
        		}
    			sb.append("</OL>\n");
         }
@@ -750,6 +781,7 @@ public class Analysis {
     	// collect all position information, and sort them
     	List<LineColumnPair> startList = new ArrayList<LineColumnPair>();
     	List<LineColumnPair> endList = new ArrayList<LineColumnPair>();
+    	List<LineColumnPair> emptyList = new ArrayList<LineColumnPair>(); // the set where start=end
     	Set<Position> posSet = new HashSet<Position>();
     	for (ConstraintPath path : errorPaths.values()) {
     		List<Node> nodes = path.getNodes();
@@ -766,18 +798,25 @@ public class Analysis {
     	
     	for (Position pos : posSet) {
 			if (!pos.isEmpty()) {
-				startList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
-				endList.add(new LineColumnPair(pos.getLineEnd(), pos.getColEnd(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
+				if (pos.getLineStart()==pos.getLineEnd() && pos.getColStart() == pos.getColEnd())
+					emptyList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
+				else {
+					startList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
+					endList.add(new LineColumnPair(pos.getLineEnd(), pos.getColEnd(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
+				}
 			}
     	}
     	
     	Collections.sort(startList);
     	Collections.sort(endList);
+    	Collections.sort(emptyList);
     	
     	int startIndex = 0;
     	int endIndex = 0;
+    	int emptyIndex = 0;
 		LineColumnPair start = startList.get(startIndex++);
 		LineColumnPair end = endList.get(endIndex++);
+		LineColumnPair empty = emptyList.get(emptyIndex++);
 		
     	// add annotations to the source
     	try {
@@ -803,6 +842,15 @@ public class Analysis {
 						sb.append("</span>");
 						if (endIndex<endList.size())
 							end = endList.get(endIndex++);
+						else
+							break;
+					}
+					// handle the annotations where start = end
+					while (empty.line==currentline && empty.column==col) {
+						sb.append("<span class=\"moreinfor\" id=\""+empty.id+"\">");
+						sb.append("</span>");
+						if (emptyIndex<emptyList.size())
+							empty = emptyList.get(emptyIndex++);
 						else
 							break;
 					}

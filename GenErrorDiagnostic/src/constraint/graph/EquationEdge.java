@@ -67,6 +67,11 @@ public class EquationEdge extends Edge {
     }
     
     @Override
+    public void incSuccCounter() {
+    	equ.incSuccPaths();
+    }
+    
+    @Override
     public void setCause() {
     	equ.setCause();
     }
