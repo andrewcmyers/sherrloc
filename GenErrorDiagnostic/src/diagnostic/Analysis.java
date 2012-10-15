@@ -689,6 +689,13 @@ public class Analysis {
     		return new Integer(rank).compareTo(o.rank);
     	}
     	
+		private void setShowHideActions(StringBuffer sb, String loc) {
+			sb.append(" onmouseover=\"show_elements('cut', [");
+			sb.append(loc);
+			sb.append("]) \" ");
+			sb.append(" onmouseout=\"hide_elements([");
+			sb.append(loc);
+		}
     	public String toHTML () {
     		StringBuffer sb = new StringBuffer();
 //    		sb.append("<LI>\n");
@@ -699,18 +706,19 @@ public class Analysis {
    				textBuffer.append(c.getEquation().toHTMLString() +" ; ");
         	}
 
-			sb.append("<span class=\"mincut\" onmouseover=\"show_elements('cut', [");
-			sb.append(locBuffer.toString());
-			sb.append("]) \" ");
-			sb.append(" onmouseout=\"hide_elements([");
-			sb.append(locBuffer.toString());
+			String loc = locBuffer.toString();
+			sb.append("<span class=\"mincut\" ");
+			setShowHideActions(sb, loc);
 			sb.append("]) \">");
+
     		sb.append(textBuffer.toString());
     		sb.append("(weight="+rank+")");
 			sb.append("</span>\n");
         	sb.append("<button onclick=\"hide_elements_perm();show_elements_perm('cut', [");
-        	sb.append(locBuffer.toString());
-        	sb.append("]) \">Show it</button><br>\n");
+        	sb.append(loc);
+        	sb.append("])\" ");
+			setShowHideActions(sb, loc);
+			sb.append(">Show it</button><br>\n");
 			return sb.toString();
     	}
     }
