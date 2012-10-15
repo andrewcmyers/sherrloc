@@ -1,9 +1,9 @@
 h1, h2, h3 { font-family: Tahoma }
 body {padding: 0 2em}
 .moreinfo { display: none; float: right; background-color: #eee; border: solid black 1px }
-.wrongConstraint { background-color: #fbb; font-weight: bold; border: solid #f88 1px }
+.wrongConstraint { background-color: #fbb; font-weight: bold; border: solid #fba 1px }
 .pathelement { background-color: #ff9; font-weight: bold; border: solid #c90 1px }
-.cut { background-color: #f30; font-weight: bold }
+.cut { background-color: #fb9; font-weight: bold }
 pre.code {font-size: 110%; background-color: #ffe; padding: 1ex; border: solid gray 1px}
 .missingConstraint { background-color: #0f0; font-weight: bold }
 span.comment {color: #008; font-style: italic}
