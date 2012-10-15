@@ -27,7 +27,7 @@ public class CompEdge extends Edge {
 		}
 		
 		@Override
-		public void setCause() {
+		public void incSuccCounter() {
 			// do nothing
 		}
 		

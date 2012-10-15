@@ -70,4 +70,9 @@ public class Constructor extends Element {
 		return true;
 	}
 	
+	@Override
+	public void setPosition(Position pos) {
+		// do nothing, since it does not make any sense 
+	}
+	
 }
