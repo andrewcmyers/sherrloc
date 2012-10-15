@@ -26,12 +26,7 @@ public class JoinEdge extends Edge {
 	public boolean isDirected() {
 		return true;
 	}
-	
-	@Override
-	public void setCause() {
-		// do nothing
-	}
-	
+		
 	@Override
 	public Environment getAssumption() {
 		return new Environment();

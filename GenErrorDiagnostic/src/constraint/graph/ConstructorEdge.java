@@ -31,14 +31,22 @@ public class ConstructorEdge extends Edge {
 	public boolean isDirected() {
 		return true;
 	}
-	
-	@Override
-	public void setCause() {
-		// do nothing, fix me later
-	}
-	
+		
 	@Override
 	public Environment getAssumption() {
 		return new Environment();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ConstructorEdge)
+			return condition.equals(((ConstructorEdge)obj).getCondition());
+		return super.equals(obj);
+	}
+	
+	@Override
+	public int hashCode() {
+		return condition.hashCode();
+	}
+	
 }
