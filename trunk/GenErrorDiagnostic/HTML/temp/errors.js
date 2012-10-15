@@ -57,6 +57,19 @@ function hide_elements(ids) {
     }
 }
 
+var last_shown = [];
+
+function show_elements_perm (classname, ids) {
+    last_shown = ids;
+    show_elements(classname, ids);
+}
+
+function hide_elements_perm () {
+    hide_elements(last_shown);
+    last_shown = [];
+}
+
+
 function numberSuggestions() {
 /*    var spans = document.getElementsByTagName('span');
     var constraints = new Array();
