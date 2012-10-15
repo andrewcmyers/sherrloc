@@ -565,7 +565,7 @@ public class Analysis {
     			"\n</HEAD>\n" +
     			
     			"\n<BODY BGCOLOR=\"white\" onload=\"windowTitle();\">\n" +
-    			"<HR>\n";
+    			"\n";
     }
     
     public void writeFeedback(Writer out) throws IOException {
@@ -596,7 +596,7 @@ public class Analysis {
     }
     
     public String getTail () {
-    	return 	"<HR>\n\n" +
+    	return 	"\n\n" +
     			"</BODY>\n" +
     			"</HTML>";
     }
