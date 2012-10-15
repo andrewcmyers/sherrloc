@@ -22,5 +22,13 @@ span.suggestion {
     border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
 }
 span.outerSuggestion { background-color: transparent; width: 0px; position: relative }
+div.feedback { position: fixed; right: 10px; top: 10px;
+    max-width: 80ex;
+    background-color: rgba(200, 220, 255, 0.6);
+    padding: 1em;
+    border: #aaa solid 1px;
+    font-size: 90%;
+}
+div.feedback form input { font-size: 80%; font-family: sans-serif }
 
 ol li {font-family: Baskerville, serif}

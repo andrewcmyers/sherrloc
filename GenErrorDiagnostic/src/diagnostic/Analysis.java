@@ -572,27 +572,26 @@ public class Analysis {
     	out.write("<div class=feedback>\r\n");
     	out.write("<form>");
     	out.write("<p>Please rate this error diagnosis on a scale of 1 to 5:<br>");
-    	out.write("<span class=\"answerkey\">(1 = not helpful, 2 = somewhat helpful, "+
-    	          "3 = helpful, 4 = very helpful, 5 = extremely helpful)</span></p>");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> not helpful");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"2\"> somewhat helpful");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"3\"> helpful");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"4\"> very helpful");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"5\"> extremely helpful");
+
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> 1. not helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"2\"> 2. somewhat helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"3\"> 3. helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"4\"> 4. very helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"5\"> 5. extremely helpful");
     	
     	out.write("<p>How does it compare in usefulness to the error message you get from OCaml?<br>");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"1\"> much worse");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"2\"> worse");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"3\"> about the same");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"4\"> better");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"5\"> much better");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"1\"> 1. much worse");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"2\"> 2. worse");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"3\"> 3. about the same");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"4\"> 4. better");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"5\"> 5. much better");
     	
     	out.write("<p>If you think you know where the error is in the program, please enter the line number:</p>");
     	out.write("<input type=\"text\" name=\"errorloc\" />");
     	
     	out.write("<p>If you have any other comments about how this diagnosis " +
     			"(or this tool) could be improved, you may enter them here:</p>");
-    	out.write("<input type=\"textarea\" name=\"comments\" rows=\"4\" cols=\"60\"");
+    	out.write("<textarea name=\"comments\" rows=\"4\" cols=\"60\" /></textarea>");
     	out.write("</form></div>");
     }
     
