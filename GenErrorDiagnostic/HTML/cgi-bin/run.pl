@@ -41,7 +41,7 @@ print PROGRAM param('prog');
 close (PROGRAM);
 my $md5 = md5_hex (param('prog'));
 system ("cp", "$source", "archive/"."$source"."$md5"); 
-my $result =  `$ecaml $source`;
+my $result =  `$ecaml $source 2>&1`;
 if ($result) {
     print header(-charset=>'utf-8');\
     print start_html(
