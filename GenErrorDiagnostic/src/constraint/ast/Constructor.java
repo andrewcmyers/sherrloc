@@ -38,7 +38,7 @@ public class Constructor extends Element {
 	public String toDotString () {
 		return toString();
 	}
-	
+		
 	public List<Variable> getVars () {
 		return new ArrayList<Variable>();
 	}
@@ -47,7 +47,18 @@ public class Constructor extends Element {
 		return false;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
+		return this==o;
+	}
+	
+	/* to make the diagnostic more precise, different instances of constants
+	 * should be treated as separate nodes in the constraint flow graph
+	 * However, when identifying unsat paths, the function sameas should be
+	 * used 
+	 */
+	
+	public boolean sameas (Object o) {
 		if (o instanceof Constructor) {
 			Constructor c = (Constructor)o;
 			return arity==c.arity && this.name.equals(c.name);
@@ -55,10 +66,10 @@ public class Constructor extends Element {
 		return false;
 	}
 	
-	@Override
-	public int hashCode() {
-		return arity * 1000 + name.hashCode();
-	}
+//	@Override
+//	public int hashCode() {
+//		return arity * 1000 + name.hashCode() + id;
+//	}
 		
 	@Override
 	public boolean isStart() {
@@ -73,6 +84,13 @@ public class Constructor extends Element {
 	@Override
 	public void setPosition(Position pos) {
 		// do nothing, since it does not make any sense 
+	}
+	
+	public Constructor getInstance () {
+		if (arity==0)
+			return new Constructor(name, arity, contraVariant);
+		else
+			return this;
 	}
 	
 }

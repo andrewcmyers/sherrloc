@@ -189,7 +189,7 @@ public class Analysis {
 				ConstraintPath path = new ConstraintPath(l, finder);
 
 				if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
-					if (!((ConstructorElement)e1).getCons().equals(((ConstructorElement)e2).getCons())) {
+					if (!((ConstructorElement)e1).getCons().sameas(((ConstructorElement)e2).getCons())) {
 //						System.out.println(path.toString());
 						path.setCause();
 						AttemptGoal goal = new AttemptGoal(start, end, path.getAssumption());
