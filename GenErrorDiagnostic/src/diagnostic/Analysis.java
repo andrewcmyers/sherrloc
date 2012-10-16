@@ -180,12 +180,16 @@ public class Analysis {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
 				List<Edge> l = finder.getPath(start, end);
-				if (l==null) continue;
-				ConstraintPath path = new ConstraintPath(l, finder);
 				
+				if (graph.isSymmentric() && (graph.getIndex(start) < graph.getIndex(end)))
+					continue;
+				
+				if (l==null) continue;
+				
+				ConstraintPath path = new ConstraintPath(l, finder);
+
 				if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
-					if (!((ConstructorElement)e1).getCons().equals(((ConstructorElement)e2).getCons()) &&
-							(!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end)))) {
+					if (!((ConstructorElement)e1).getCons().equals(((ConstructorElement)e2).getCons())) {
 //						System.out.println(path.toString());
 						path.setCause();
 						AttemptGoal goal = new AttemptGoal(start, end, path.getAssumption());
@@ -193,39 +197,41 @@ public class Analysis {
 						errorPaths.put(goal, path);
 						continue;
 					}
+					else {
+						path.incSuccCounter();
+						continue;
+					}
 				}
 
 				if ( e1 instanceof Variable || e2 instanceof Variable)
 					continue;
 				
-				if (start.getElement() instanceof ConstructorElement && end.getElement() instanceof ConstructorElement)
+				// successful path
+				if (graph.getEnv().leq(start.getElement(), end.getElement())) {
+					path.incSuccCounter();
 					continue;
-
-				if (!graph.isSymmentric() || (graph.getIndex(start) < graph.getIndex(end))) {
-					// successful path
-					if (graph.getEnv().leq(start.getElement(), end.getElement())) {
-						path.incSuccCounter();
-						continue;
-					}
-
-					Environment env;
-					if (cachedEnv.containsKey(path.getAssumption()))
-						env = cachedEnv.get(path.getAssumption());
-					else {
-						env = new Environment();
-						env.addEnv(graph.getEnv());
-						env.addEnv(path.getAssumption());
-						cachedEnv.put(path.getAssumption(), env);
-					}
-										
-					if (env.leq(start.getElement(), end.getElement()))
-						continue;
-					path.setCause();
-//					System.out.println(path.toString());
-					AttemptGoal goal = new AttemptGoal(start, end, env);
-					unsatPath.add(goal);
-					errorPaths.put(goal, path);
 				}
+
+				Environment env;
+				if (cachedEnv.containsKey(path.getAssumption()))
+					env = cachedEnv.get(path.getAssumption());
+				else {
+					env = new Environment();
+					env.addEnv(graph.getEnv());
+					env.addEnv(path.getAssumption());
+					cachedEnv.put(path.getAssumption(), env);
+				}
+
+				// successful path
+				if (env.leq(start.getElement(), end.getElement())) {
+					path.incSuccCounter();
+					continue;
+				}
+				path.setCause();
+				// System.out.println(path.toString());
+				AttemptGoal goal = new AttemptGoal(start, end, env);
+				unsatPath.add(goal);
+				errorPaths.put(goal, path);
 			}
 		}
 		done = true;
@@ -620,7 +626,7 @@ public class Analysis {
     			"<HR>\n" +
     			"<H3>\n" +
     			"Suggestions</H3>\n" +
-    			genMissinAssumptions() +
+    			genMissingAssumptions() +
     			genCutItems() +
     			genAnnotatedCode() +
     			(sourceName.contains("jif")?("<script>display_info('info'); colorize_all(); numberSuggestions();</script>\n")
@@ -629,7 +635,7 @@ public class Analysis {
     	return sb.toString();
     }
     
-    public String genMissinAssumptions () {
+    public String genMissingAssumptions () {
     	StringBuffer sb = new StringBuffer();
     	if (GEN_ASSUMP) {
     		Set<AttemptGoal> result = genAssumptions(errorPaths.keySet());
@@ -695,6 +701,7 @@ public class Analysis {
 			sb.append("]) \" ");
 			sb.append(" onmouseout=\"hide_elements([");
 			sb.append(loc);
+			sb.append("]) \" ");
 		}
     	public String toHTML () {
     		StringBuffer sb = new StringBuffer();

@@ -53,7 +53,6 @@ public class Constraint implements Comparable<Constraint> {
 	}
 	
 	public void incSuccPaths () {
-		System.out.println("succpath increased "+toString());
 		succPaths ++;
 	}
 	
