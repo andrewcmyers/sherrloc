@@ -212,7 +212,7 @@ element_list ::= element_list:l element:t
 cons		::= IDENTIFIER:s
 			{:
 				if (constructors.containsKey(s)) {
-					RESULT = constructors.get(s);
+					RESULT = constructors.get(s).getInstance();
 				} 
 			   	else throw new Error("\""+s+"\"" + " is not a constructor");
 			:}
@@ -222,7 +222,7 @@ cons		::= IDENTIFIER:s
 element		::= IDENTIFIER:s
 			{: 	
 				if (constructors.containsKey(s)) {
-					RESULT = constructors.get(s);
+					RESULT = constructors.get(s).getInstance();
 				} 
 			   	else {
 			   		if (!(variables.containsKey(s)))
