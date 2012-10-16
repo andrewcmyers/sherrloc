@@ -828,7 +828,11 @@ public class Analysis {
     	int emptyIndex = 0;
 		LineColumnPair start = startList.get(startIndex++);
 		LineColumnPair end = endList.get(endIndex++);
-		LineColumnPair empty = emptyList.get(emptyIndex++);
+		LineColumnPair empty;
+		if (emptyList.isEmpty())
+			empty = new LineColumnPair(-1, -1, -1, -1, "");
+		else
+			empty = emptyList.get(emptyIndex++);
 		
     	// add annotations to the source
     	try {
@@ -840,7 +844,7 @@ public class Analysis {
 				currentline ++;
 				sb.append(currentline + ". ");
 
-				if (end.line != currentline && start.line != currentline) {
+				if (end.line != currentline && start.line != currentline && empty.line != currentline) {
 					sb.append(current);
 					sb.append("\n");
 					continue;
