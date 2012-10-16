@@ -15,7 +15,7 @@ public class Position {
 		this.fileName = name;
 		this.lineStart = lStart;
 		this.lineEnd = lEnd;
-		if (colStart>colEnd) {
+		if (colStart<colEnd) {
 			this.colStart = colStart;
 			this.colEnd = colEnd;
 		}
