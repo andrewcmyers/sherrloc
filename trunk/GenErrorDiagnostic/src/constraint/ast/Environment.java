@@ -62,6 +62,11 @@ public class Environment {
 		if (e1.equals(e2))
 			return true;
 		
+		if (e1 instanceof Constructor && e2 instanceof Constructor) {
+			if (((Constructor)e1).sameas(e2))
+				return true;
+		}
+		
 		// the assumption can be made on the join/meet
 		if (leqApplyAssertions(e1, e2))
 			return true;
