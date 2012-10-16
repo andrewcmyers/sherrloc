@@ -701,7 +701,6 @@ public class Analysis {
 			sb.append("]) \" ");
 			sb.append(" onmouseout=\"hide_elements([");
 			sb.append(loc);
-			sb.append("]) \" ");
 		}
     	public String toHTML () {
     		StringBuffer sb = new StringBuffer();
@@ -725,7 +724,7 @@ public class Analysis {
         	sb.append(loc);
         	sb.append("])\" ");
 			setShowHideActions(sb, loc);
-			sb.append(">Show it</button><br>\n");
+			sb.append("])\">Show it</button><br>\n");
 			return sb.toString();
     	}
     }
