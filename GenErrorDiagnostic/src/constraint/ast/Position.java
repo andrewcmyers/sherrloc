@@ -1,6 +1,5 @@
 package constraint.ast;
 
-import java.util.HashSet;
 
 
 public class Position {
@@ -8,11 +7,11 @@ public class Position {
 	int colStart;
 	int lineEnd;
 	int colEnd;
-	String fileName;
+	String snippet="";
 	private static Position emptyPosition=null;
 	
-	public Position(String name, int lStart, int colStart, int lEnd, int colEnd) {
-		this.fileName = name;
+	public Position(String snippet, int lStart, int colStart, int lEnd, int colEnd) {
+		this.snippet = snippet;
 		this.lineStart = lStart;
 		this.lineEnd = lEnd;
 		if (colStart<colEnd) {
@@ -81,12 +80,12 @@ public class Position {
 		return colEnd;
 	}
 	
-	public String getFileName () {
-		return fileName;
+	public String getSnippet () {
+		return snippet;
 	}
 	
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setSnippet(String snippet) {
+		this.snippet = snippet;
 	}
 	
 	public boolean sameline () {

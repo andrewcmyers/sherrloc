@@ -31,7 +31,7 @@ action code {:
 /* Terminals (tokens returned by the scanner). */
 terminal 			SEPERATION;
 terminal            CONSTRUCTOR;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, JOIN, MEET, DASH;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, JOIN, MEET, DASH, COLON;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
@@ -127,9 +127,9 @@ env         ::= LBRACK equations:l RBRACK
 			:}
 			;
 						
-position	::= LBRACK STRING_LITERAL:name range:p RBRACK
+position	::= LBRACK STRING_LITERAL:snippet COLON range:p RBRACK
 			{: 
-			   if (p!=null) p.setFileName(name); 
+			   p.setSnippet(snippet); 
 			   RESULT = p; 
 			:}
 			| LBRACK range:p RBRACK
