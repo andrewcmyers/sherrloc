@@ -291,13 +291,13 @@ let rec print_strs_info s env ppf = function
   | [] -> ()
   | { EzyAst.pstr_desc = EzyAst.Pstr_eval expr } :: rem ->
       let ty = TyVarSubst.apply_to_ty s (EzyGenerate.ty_of_expr expr) in
-      Format.fprintf ppf "@[%a: %a@]@ " (EzyAst.print_expr ()) expr Ty.print ty ;
+      Format.fprintf ppf "@[%a: %a@] " (EzyAst.print_expr ()) expr Ty.print ty ;
       print_strs_info s env ppf rem
   | { EzyAst.pstr_desc = EzyAst.Pstr_rec_value bindings } :: rem ->
       let pp (var, _) =
         let vd = EzyEnv.find_value (Path.Pident var.EzyAst.nm_data) env in
         let ty' = TyVarSubst.apply_to_ty s vd.EzyEnv.val_ty in
-        Format.fprintf ppf "@[val %s: %a@]@ " var.EzyAst.nm_name Ty.print ty' in
+        Format.fprintf ppf "@[val %s: %a@] " var.EzyAst.nm_name Ty.print ty' in
       List.iter pp bindings ;
       print_strs_info s env ppf rem
   | { EzyAst.pstr_desc = EzyAst.Pstr_value bindings } :: rem ->
@@ -305,18 +305,18 @@ let rec print_strs_info s env ppf = function
         | { EzyAst.ppat_desc = EzyAst.Ppat_var var }, _ ->
             let vd = EzyEnv.find_value (Path.Pident var.EzyAst.nm_data) env in
             let ty' = TyVarSubst.apply_to_ty s vd.EzyEnv.val_ty in
-            Format.fprintf ppf "@[val %s: %a@]@ " var.EzyAst.nm_name Ty.print ty'
+            Format.fprintf ppf "@[val %s: %a@] " var.EzyAst.nm_name Ty.print ty'
         | _ -> Format.pp_print_string ppf "<cannot print Pstr_value X>" in
       List.iter pp bindings ;
       print_strs_info s env ppf rem
   | { EzyAst.pstr_desc = EzyAst.Pstr_type tds } :: rem ->
-      Format.fprintf ppf "@[type %a@]@ " (List.print (EzyAst.print_name ()) " and ") (List.map fst tds) ;
+      Format.fprintf ppf "@[type %a@] " (List.print (EzyAst.print_name ()) " and ") (List.map fst tds) ;
       print_strs_info s env ppf rem
   | { EzyAst.pstr_desc = EzyAst.Pstr_open nm } :: rem ->
-      Format.fprintf ppf "@[open %a@]@ " Longident.print nm.lid_name ;
+      Format.fprintf ppf "@[open %a@] " Longident.print nm.lid_name ;
       print_strs_info s env ppf rem
   | _ :: rem ->
-      Format.fprintf ppf "@[EzyTyping.print_strs_info cannot print@]@ " ;
+      Format.fprintf ppf "@[EzyTyping.print_strs_info cannot print@] " ;
       print_strs_info s env ppf rem
 
 let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) =
@@ -333,10 +333,13 @@ let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) =
    * 1\nCONSTRUCTOR string 0\nCONSTRUCTOR option 1\nCONSTRUCTOR Pervasives.ref
    * 1\n\n" in 
   Format.fprintf formater "%s" predefined; *)
+  Format.pp_set_margin formater 10000;
+  Format.pp_set_max_indent formater 5000;
   EzyEnv.print_constructor formater true env';
-  Format.fprintf formater "%s" "\n";
+  Format.fprintf formater "@\n";
   EzyEnv.print_cons formater true env';
-  AtConstrSet.cons_print formater cs ;
+  AtConstrSet.cons_print formater cs sstr;
+  Format.pp_print_flush formater ();
   close_out out;
   enr_str, env'
   (* dz: generate constraints only *)

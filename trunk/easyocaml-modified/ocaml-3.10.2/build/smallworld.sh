@@ -44,46 +44,46 @@ set -ex
 ################################################################################
 # Prepare for ocamlbuild - build stdlib (from boot.sh)
 #
-$OCAMLBUILD_BOOT -tag-line "$TAG_LINE" \
-  boot/stdlib.cma boot/std_exit.cmo
-
-$OCAMLBUILD_BOOT -tag-line "$TAG_LINE" $OCAMLMKLIB_BYTE
+# $OCAMLBUILD_BOOT -tag-line "$TAG_LINE" \
+#   boot/stdlib.cma boot/std_exit.cmo
+# 
+# $OCAMLBUILD_BOOT -tag-line "$TAG_LINE" $OCAMLMKLIB_BYTE
 ################################################################################
 
 
 ################################################################################
 # Bootstrap ocamlbuild ... (from boot.sh)
 #
-$OCAMLBUILD_BOOT -tag-line "$TAG_LINE" -log _boot_log1 \
-  ocamlbuild/ocamlbuildlightlib.cma ocamlbuild/ocamlbuildlight.byte
+# $OCAMLBUILD_BOOT -tag-line "$TAG_LINE" -log _boot_log1 \
+#   ocamlbuild/ocamlbuildlightlib.cma ocamlbuild/ocamlbuildlight.byte
+# 
+# rm -f _build/myocamlbuild
+# 
+# $OCAMLBUILD_BOOT -just-plugin -install-lib-dir _build/ocamlbuild -byte-plugin
 
-rm -f _build/myocamlbuild
-
-$OCAMLBUILD_BOOT -just-plugin -install-lib-dir _build/ocamlbuild -byte-plugin
-
-cp _build/myocamlbuild boot/myocamlbuild
+# cp _build/myocamlbuild boot/myocamlbuild
 ################################################################################
 
 
 ################################################################################
 # Additional dependencies for EasyOCaml
 #
-echo "-------------------- BUILDING OTHERLIBS  ----------------------"
-$OCAMLBUILD -tag-line "$TAG_LINE"  $@ -log _boot_log2 \
-  $OCAMLMKLIB_BYTEA $SOME_OTHERLIBS $SOME_OTHERLIBS_SO
-
-echo "---------------------- BUILDING CAMLP4  -----------------------"
-. ./build/camlp4-targets.sh
-
-$OCAMLBUILD -tag-line "$TAG_LINE"  $@ -log _boot_log2 $SOME_CAMLP4
+# echo "-------------------- BUILDING OTHERLIBS  ----------------------"
+# $OCAMLBUILD -tag-line "$TAG_LINE"  $@ -log _boot_log2 \
+#   $OCAMLMKLIB_BYTEA $SOME_OTHERLIBS $SOME_OTHERLIBS_SO
+# 
+# echo "---------------------- BUILDING CAMLP4  -----------------------"
+# . ./build/camlp4-targets.sh
+# 
+# $OCAMLBUILD -tag-line "$TAG_LINE"  $@ -log _boot_log2 $SOME_CAMLP4
 ################################################################################
 
 
 ################################################################################
 # Building ocaml/c
 #
-$OCAMLBUILD -tag-line "$TAG_LINE" \
-  $@ -log _boot_log3 boot/camlheader 
+# $OCAMLBUILD -tag-line "$TAG_LINE" \
+#  $@ -log _boot_log3 boot/camlheader 
 
 echo "---------------------- BUILDING ECAMLC  -----------------------"
 $OCAMLBUILD -tag-line "$TAG_LINE" \
