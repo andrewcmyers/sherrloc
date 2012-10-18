@@ -35,10 +35,13 @@ module AtConstr = struct
     tyvarmap, { loc = c.loc; tys = ty1, ty2; leq = false; }
 
   let print ppf { loc = loc; tys = (x, y) } =
-  Format.fprintf ppf "%a =%a= %a" Ty.print x ExtLocation.print loc Ty.print y 
+    Format.fprintf ppf "%a =%a= %a" Ty.print x ExtLocation.print loc Ty.print y 
 
-  let cons_print ppf { loc = loc; tys = (x, y); leq = leq } =
-  Format.fprintf ppf "%a[%a] == %a[%a];[%a]\n" Ty.print x Ty.print_loc x Ty.print y Ty.print_loc y ExtLocation.print loc 
+  let cons_print ppf ast { loc = loc; tys = (x, y); leq = leq } =
+    Format.fprintf ppf "%a[\"%a\":%a] == %a[\"%a\":%a];[%a]@\n" 
+    Ty.print x Ty.print_loc_slice (x, ast) Ty.print_loc x 
+    Ty.print y Ty.print_loc_slice (y, ast) Ty.print_loc y 
+    ExtLocation.print loc
 
   let type_substitute { loc = loc; tys = (x, y); leq = leq } s =
   { loc = loc ; tys = Ty.type_substitute x s, Ty.type_substitute y s; leq = leq }
@@ -135,8 +138,8 @@ module AtConstrSet = struct
   let print ppf (cs:t) =
     SimpleAtConstrSet.print ppf (all_constraints cs)
 
-  let cons_print ppf (cs:t) =
-    SimpleAtConstrSet.iter (AtConstr.cons_print ppf) (all_constraints cs)
+  let cons_print ppf (cs:t) ast =
+    SimpleAtConstrSet.iter (AtConstr.cons_print ppf ast) (all_constraints cs)
 
   let type_substitute cs s =
     ExtLocationMap.map (SimpleAtConstrSet.type_substitute // s) cs
