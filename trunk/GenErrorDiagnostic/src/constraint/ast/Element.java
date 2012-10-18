@@ -16,7 +16,10 @@ public abstract class Element {
 	}
 	
 	public String toHTMLString () {
-		return name;
+		if (pos.isEmpty())
+			return name;
+		else
+			return pos.snippet;
 	}
 		
 	public String getName () {
