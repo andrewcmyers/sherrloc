@@ -8,6 +8,7 @@
 open EzyUtils
 open EzyUtils.Infix
 open EzyOcamlmodules
+open Format
 
 let logger = new Logger.logger "coretys"
 
@@ -67,6 +68,8 @@ module rec Ty: sig
 
   val print: Format.formatter -> t -> unit
   val print_loc: Format.formatter -> t -> unit
+  val print_loc_slice: Format.formatter -> t * EzyAst.imported_structure -> unit
+
 
   val fresh_var: ?loc:(ExtLocation.t option) -> unit -> t
 
@@ -271,9 +274,29 @@ end = struct
         | None -> Format.fprintf ppf ""
         | Some l -> Format.fprintf ppf "%a" ExtLocation.print l
       )
-    | Constr (loc, _, _ ) -> Format.fprintf ppf "%a" ExtLocation.print loc
-    | Tuple (loc, _) -> Format.fprintf ppf "%a" ExtLocation.print loc
-    | Arrow (loc, _, _) -> Format.fprintf ppf "%a" ExtLocation.print loc
+    | Constr (loc, _, _ ) | Tuple (loc, _) | Arrow (loc, _, _) -> Format.fprintf ppf "%a" ExtLocation.print loc
+
+  let print_wrap f p ppf x =
+    let ppf' =
+      let out str ofs len =
+        for i = ofs to ofs + len - 1 do
+          f ppf str.[i]
+        done in
+      make_formatter out ignore in
+    p ppf' x;
+    pp_print_flush ppf' ()
+  
+  let escape_char char =
+    print_wrap (fun ppf -> function c -> if c = char then pp_print_char ppf '\\'; pp_print_char ppf c)
+   
+  let print_loc_slice ppf (ty, ast) =
+    let print_slice ppf locs =
+      let sliced_ast = EzyErrorReportUtils.create_slices ast locs in
+        List.iter ((escape_char '"' (EzyAst.print_structure_item ())) ppf) sliced_ast in
+    match ty with
+    | Var (None, tyv) -> Format.fprintf ppf "%a" print_slice ExtLocationSet.empty
+    | Var (Some loc, _) | Constr (loc, _, _ ) | Tuple (loc, _) | Arrow (loc, _, _) -> 
+        Format.fprintf ppf "%a" print_slice (ExtLocationSet.add loc ExtLocationSet.empty)
 
   let rec import ?(tyvarmap=TyImportVarmap.empty) creative loc oty =
     match oty with
