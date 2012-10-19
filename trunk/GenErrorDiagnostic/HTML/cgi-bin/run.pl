@@ -7,6 +7,8 @@ use POSIX qw(strftime);
 use CGI qw(:standard);
 use Digest::MD5 qw(md5_hex);
 
+$CGI::POST_MAX = 1024 * 2000;
+
 my $root = '/home/zhangdf/public_html';
 my $ocamlbin = '/home/zhangdf/diagnostic/easyocaml-modified/ocaml-3.10.2/bin';
 my $diagbin = '/home/zhangdf/diagnostic/GenErrorDiagnostic';
@@ -37,7 +39,17 @@ open (PROGRAM, ">$source");
 #     -script=>{-type=>'JAVASCRIPT',
 #               -src=>'/colorize.js'},
 # );
-print PROGRAM param('prog');
+my $upload_filename = param("prog_file");
+
+if ($upload_filename) {
+    my $upload_file = upload("prog_file");
+    while (<$upload_file>) {
+        print PROGRAM;
+    }
+}
+else {
+    print PROGRAM param('prog');
+}
 close (PROGRAM);
 my $md5 = md5_hex (param('prog'));
 system ("cp", "$source", "archive/"."$source"."$md5"); 
