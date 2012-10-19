@@ -576,7 +576,7 @@ public class Analysis {
     }
     
     public void writeFeedback(Writer out) throws IOException {
-    	out.write("<div class=feedback>\r\n");
+    	out.write("<div id=feedback class=feedback>\r\n");
     	out.write("<form>");
     	out.write("<p>Please rate this error diagnosis on a scale of 1 to 5:<br>");
 
@@ -618,7 +618,9 @@ public class Analysis {
     	// type check succeeded
     	if (unsatPath.size()==0) {
     		sb.append("<H3>");
-			sb.append("The program passed type checking! No error is found.");
+			sb.append("The program passed type checking. No errors were found.");
+            sb.append("<script type=\"text/javascript\">"+
+                      "document.getElementById('feedback').style.display = 'none';</script>");
     	}
     	else {
     		sb.append(
