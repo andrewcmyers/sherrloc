@@ -95,4 +95,11 @@ function numberSuggestions() {
     }*/
 }
 
-
+function hide_feedback_form() {
+    var style = document.getElementById('feedback_form').style;
+    if (style.display == 'none') {
+	style.display = 'block';
+    } else {
+	style.display = 'none';
+    }
+}
