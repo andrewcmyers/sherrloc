@@ -578,29 +578,31 @@ public class Analysis {
     public void writeFeedback(Writer out) throws IOException {
     	out.write("<div id=feedback class=feedback action=\"\">\r\n");
     	out.write("<form>");
-    	out.write("<p>Please rate this error diagnosis on a scale of 1 to 5:<br>");
+    	out.write("Please rate this error diagnosis:<br>\r\n");
 
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> 1. not helpful");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"2\"> 2. somewhat helpful");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"3\"> 3. helpful");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"4\"> 4. very helpful");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"5\"> 5. extremely helpful");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> 1. not helpful\r\n");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"2\"> 2. somewhat helpful\r\n");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"3\"> 3. helpful\r\n");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"4\"> 4. very helpful\r\n");
+    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"5\"> 5. extremely helpful\r\n");
     	
-    	out.write("<p>How does it compare in usefulness to the error message you get from OCaml?<br>");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"1\"> 1. much worse");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"2\"> 2. worse");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"3\"> 3. about the same");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"4\"> 4. better");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"5\"> 5. much better");
+    	out.write("<p>How does it compare in usefulness to the error message you get from OCaml?<br>\r\n");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"1\"> 1. much worse\r\n");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"2\"> 2. worse\r\n");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"3\"> 3. about the same\r\n");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"4\"> 4. better\r\n");
+    	out.write("<input type=\"radio\" name=\"comparison\" value=\"5\"> 5. much better\r\n");
     	
     	out.write("<p>If you think you know where the error is in the program, please enter the line number:</p>");
     	out.write("<input type=\"text\" name=\"errorloc\" />");
     	
     	out.write("<p>If you have any other comments about how this diagnosis " +
-    			"(or this tool) could be improved, you may enter them here:</p>");
-    	out.write("<textarea name=\"comments\" rows=\"4\" cols=\"60\" /></textarea>");
-    	out.write("<input type=\"submit\" value=\"Submit\"></div>");
-    	out.write("</form></div>");
+    			"(or this tool) could be improved, you may enter them here:</p>\r\n");
+    	out.write("<textarea name=\"comments\" rows=\"2\" cols=\"50\" /></textarea>\r\n");
+    	out.write("<input type=\"submit\" value=\"Submit\"></div>\r\n");
+	out.write("<span id=\"hide_button\" onclick=\"hide_feedback_form()\">hide</span>\r\n");
+	
+    	out.write("</form></div>\r\n");
     }
     
     public String getTail () {
