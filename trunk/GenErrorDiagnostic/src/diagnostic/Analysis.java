@@ -44,7 +44,7 @@ import constraint.parse.GrmLexer;
 import constraint.parse.parser;
 
 public class Analysis {
-	boolean DEBUG = false;
+    boolean DEBUG = false;
     boolean SHOW_WHOLE_GRAPH=true;
     boolean GEN_CUT = true;
     boolean GEN_ASSUMP = true;
@@ -69,7 +69,7 @@ public class Analysis {
 		
 		Options options = new Options();
 		options.addOption("f", false, "show full dependency graph");
-		options.addOption("s", false, "symmentric");
+		options.addOption("s", false, "symmetric");
 		options.addOption("c", false, "generate cut");
 		options.addOption("a", false, "generate assumptions");
 		options.addOption("o", true, "output file");
@@ -576,7 +576,7 @@ public class Analysis {
     }
     
     public void writeFeedback(Writer out) throws IOException {
-    	out.write("<div id=feedback class=feedback>\r\n");
+    	out.write("<div id=feedback class=feedback action=\"\">\r\n");
     	out.write("<form>");
     	out.write("<p>Please rate this error diagnosis on a scale of 1 to 5:<br>");
 
@@ -599,6 +599,7 @@ public class Analysis {
     	out.write("<p>If you have any other comments about how this diagnosis " +
     			"(or this tool) could be improved, you may enter them here:</p>");
     	out.write("<textarea name=\"comments\" rows=\"4\" cols=\"60\" /></textarea>");
+    	out.write("<input type=\"submit\" value=\"Submit\"></div>");
     	out.write("</form></div>");
     }
     
