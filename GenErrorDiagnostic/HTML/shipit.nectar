@@ -1,0 +1,20 @@
+#!/bin/sh
+
+WEBHOST=localhost
+DIR=/Library/WebServer/Documents
+CGIBIN=/cgi-bin/diagnostic
+CGIBINDIR=/Library/WebServer/CGI-Executables/diagnostic
+TEMP=tmp$$
+mkdir $TEMP
+
+svn update;
+
+sed -e 's|@CGIBIN@|'$CGIBIN'|' diagnostic.html > $TEMP/diagnostic.html
+
+sed -e 's|@ROOT@|'$ROOT_DIR'|' \
+    -e 's|@HOME@|'$HOME_DIR'|' \
+    -e 's|@DIAG_DIR@|'$DIAG_DIR'|' cgi-bin/run.pl > $TEMP/run.pl
+
+rsync $TEMP/diagnostic.html -truvlC --exclude cgi-bin $DIR
+rsync cgi-bin/ -truvlC $CGIBINDIR/
+rm -r $TEMP
