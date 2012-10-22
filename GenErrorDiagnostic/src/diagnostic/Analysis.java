@@ -713,7 +713,8 @@ public class Analysis {
     		StringBuffer locBuffer = new StringBuffer();
     		StringBuffer textBuffer = new StringBuffer();
         	for (EquationEdge c : edges) {
-        		locBuffer.append("'"+c.getEquation().getPos()+"',");
+        		locBuffer.append("'"+c.getEquation().getFirstElement().getPosition()+"',");
+        		locBuffer.append("'"+c.getEquation().getSecondElement().getPosition()+"',");
    				textBuffer.append("<code>"+c.getEquation().toHTMLString() +"</code> ; ");
         	}
 
