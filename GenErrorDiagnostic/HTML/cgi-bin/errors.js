@@ -1,18 +1,24 @@
-function display_info(id) {
-    var elem = document.getElementById(id);
-    elem.style.display = 'block';
+function show_cut(id) {
+    var left = document.getElementById("left"+id);
+    left.className = 'left';
+    var right = document.getElementById("right"+id);
+    right.className = 'right';
 }
-function hide(id) {
-    var elem = document.getElementById(id);
-    elem.style.display = 'none';
+
+function hide_cut (id) {
+    var left = document.getElementById("left"+id);
+    left.className = '';
+    var right = document.getElementById("right"+id);
+    right.className = '';
 }
 var suggnum = 0;
 
-function show_elements(classname, ids) {
+function show_elements(numbering, ids) {
     var posnum = 0;
     var handled = {};
     for (var i in ids) {
-	var id = ids[i];
+	var classname = ids[i][0];
+	var id = ids[i][1];
 	if (handled[id])
 	    continue;
 	else
@@ -21,26 +27,28 @@ function show_elements(classname, ids) {
 	if(loc) {
             posnum++;
             var n = loc.parentNode;
-            var outer = document.createElement('span');
-            var num = document.createElement('span');
+            if (numbering) {
+                var outer = document.createElement('span');
+                var num = document.createElement('span');
+                var content = document.createTextNode("" + posnum);
+                num.className = 'suggestion';
+                num.appendChild(content);
+                outer.appendChild(num);
+                outer.className = 'outerSuggestion';
+                n.insertBefore(outer, loc);
+            }
             var highlight = document.createElement('span');
-            var content = document.createTextNode("" + posnum);
-            num.className = 'suggestion';
-            num.appendChild(content);
-            outer.appendChild(num);
-            outer.className = 'outerSuggestion';
 	    highlight.className = classname;
 	    highlight.appendChild(loc.cloneNode(true));
-            n.insertBefore(outer, loc);
 	    n.replaceChild(highlight, loc);
 	}
     }
 }
 
-function hide_elements(ids) {
+function hide_elements(numbering, ids) {
     var handled = {};
     for (var i in ids) {
-	var id = ids[i];
+	var id = ids[i][1];
 	if (handled[id])
 	    continue;
 	else
@@ -50,25 +58,49 @@ function hide_elements(ids) {
             var highlight = loc.parentNode;
 	    var inner = loc.cloneNode(true);
 	    var n = highlight.parentNode;
-	    var suggest = highlight.previousSibling;
-	    n.removeChild(suggest);
+            if (numbering) {
+	        var suggest = highlight.previousSibling;
+	        n.removeChild(suggest);
+            }
 	    n.replaceChild(inner, highlight);
 	}
     }
 }
 
 var last_shown = [];
+var last_numbering = null;
+var last_cutid = null;
 
-function show_elements_perm (classname, ids) {
+function show_elements_perm (numbering, ids) {
     last_shown = ids;
-    show_elements(classname, ids);
+    last_numbering = numbering;
+    show_elements(numbering, ids);
 }
 
 function hide_elements_perm () {
-    hide_elements(last_shown);
-    last_shown = [];
+    if (last_numbering != null) {
+        hide_elements(last_numbering, last_shown);
+        last_shown = [];
+        last_numbering = null;
+    }
 }
 
+function show_cut_perm (id) {
+    last_cutid = id;
+    show_cut(id);
+}
+
+function hide_cut_perm () {
+    if (last_cutid != null) {
+        hide_cut(last_cutid);
+        last_cutid = null;
+    }
+}
+
+function hide_all () {
+    hide_elements_perm();
+    hide_cut_perm();
+}
 
 function numberSuggestions() {
 /*    var spans = document.getElementsByTagName('span');
