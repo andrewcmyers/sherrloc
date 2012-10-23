@@ -531,16 +531,13 @@ public class Analysis {
         if (GEN_ASSUMP)
         	genAssumptions(errorPaths.keySet());
         	
-        StringBuffer sb = new StringBuffer();
-        sb.append(getHeader());
-    	   		
         try {
             FileWriter fstream = new FileWriter(htmlFileName);
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write(getHeader());
+            // out.write(getHeader());
             writeFeedback(out);
             out.write(getOneSuggestion(sourceName));
-            out.write(getTail());
+            // out.write(getTail());
             out.close();
         } catch (IOException e) {
             System.out.println("Unable to write the HTML file to: " + htmlFileName);
@@ -616,7 +613,7 @@ public class Analysis {
     	sb.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
     			"<H2>\n" +
     			"<BR>\n" +
-    			"Error Diagnostic Report for file " + sourceName + " </H2>\n" +
+    			"Error Diagnostic Report </H2>\n" +
     			"<HR>\n");
     	// type check succeeded
     	if (unsatPath.size()==0) {

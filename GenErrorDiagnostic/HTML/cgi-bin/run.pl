@@ -15,30 +15,30 @@ my $diagbin = '/home/zhangdf/diagnostic/GenErrorDiagnostic';
 my $ecaml= $ocamlbin."/ecaml";
 my $diagnostic= $diagbin."/diagnostic";
 my $source = "program";
+my $cons_file = "error.con";
 
 chdir "$root/temp";
 open (PROGRAM, ">$source");
-# print header(-charset=>'utf-8');
-# print start_html();
-# print start_html(
-#     -title=>'Error Diagnostic Report',
-#     -style=>{'src'=>'style.css'},
-# 
-#     -BGCOLOR=>'white',
-# 
-#     -script=>{-type=>'JAVASCRIPT',
-#               -code=>'function windowTitle()\n',
-#                      '{\n' ,
-#     	             '\tif (location.href.indexOf(\'is-external=true\') == -1) {\n' ,
-#                      '\t\tparent.document.title=\"report\";\n' ,
-#                      '\t}\n' ,
-# 		     '}\n' },
-# 
-#     -script=>{-type=>'JAVASCRIPT',
-#               -src=>'/error.js'},
-#     -script=>{-type=>'JAVASCRIPT',
-#               -src=>'/colorize.js'},
-# );
+
+print header(-charset=>'utf-8');\
+print start_html(
+    -title=>'Error Diagnostic Report',
+    -style=>{'src'=>'style.css'},
+
+    -BGCOLOR=>'white',
+
+    -script=>[ {-code=>"function windowTitle()
+                       {
+                         if (location.href.indexOf(\'is-external=true\') == -1) {
+                            parent.document.title=\"report\";
+                         }
+                       }" },
+        
+               {-src=>'errors.js'},
+
+               {-src=>'colorize.js'},],
+);
+
 my $upload_filename = param("prog_file");
 
 if ($upload_filename) {
@@ -53,36 +53,39 @@ else {
 close (PROGRAM);
 my $md5 = md5_hex (param('prog'));
 system ("cp", "$source", "archive/"."$source"."$md5"); 
+
+system ("rm", "$cons_file");
 my $result =  `$ecaml $source 2>&1`;
 if ($result) {
-    print header(-charset=>'utf-8');\
-    print start_html(
-        -title=>'Error Diagnostic Report',
-        -style=>{'src'=>'style.css'},
-    
-        -BGCOLOR=>'white',
-    
-        -script=>{-type=>'JAVASCRIPT',
-                  -code=>'function windowTitle()\n',
-                         '{\n' ,
-        	             '\tif (location.href.indexOf(\'is-external=true\') == -1) {\n' ,
-                         '\t\tparent.document.title=\"report\";\n' ,
-                         '\t}\n' ,
-   	     '}\n' },
-   
-        -script=>{-type=>'JAVASCRIPT',
-                  -src=>'/error.js'},
-        -script=>{-type=>'JAVASCRIPT',
-                  -src=>'/colorize.js'},
-    );
+    print "<H2><BR>The Ocaml Compiler Report</H2>";
+    print "<HR>\n";
+    print "<pre>\n";
     print $result;
-    print "<pre class=\"code\">\n";
-    print param('prog');
-    print "\n</pre>";
-    print end_html();
+    print "</pre>\n";
+}
+
+if (-e $cons_file) {
+    system ("$diagnostic", "-c", "-s", "-i", "$source", "-o", "error.html", "$cons_file", ">/dev/null");
+    open (DIAG_RESULT, "error.html");
+    while (<DIAG_RESULT>) {
+        print;
+    } 
+    close (DIAG_RESULT);
 }
 else {
-    system ("$diagnostic", "-c", "-s", "-i", "$source", "-o", "error.html", "error.con", ">/dev/null");
-    system ("chmod", "a+r", "error.html");
-    print redirect('http://apl.cs.cornell.edu/~zhangdf/temp/error.html');
+    if(!$result) {
+        print "no type error is found";
+    }
+    print "<pre class=\"code\">\n";
+    open (PROGRAM, "$source");
+    while (<PROGRAM>) {
+        print $. . '. ';
+        print;
+    } 
+    close (PROGRAM);
+    print "\n</pre>";
 }
+
+print end_html();
+# print redirect('http://apl.cs.cornell.edu/~zhangdf/temp/error.html');
+
