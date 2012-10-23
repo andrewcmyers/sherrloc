@@ -262,6 +262,11 @@ public class Analysis {
 			sb.append("A value with type "+goal.getSource().getElement().toHTMLString() + 
 				    " is being used at type " + goal.getSink().getElement().toHTMLString());
 			sb.append("</span>\n");
+        	sb.append("<button onclick=\"hide_elements_perm();show_elements_perm('pathelement', [");
+        	sb.append(path_buff.toString());
+        	sb.append("])\" ");
+			setShowHideActions(sb, "pathelement", path_buff.toString());
+			sb.append(">Show it</button><br>\n");
 		}
 		sb.append("</UL>\n");
 		return sb.toString();
@@ -607,6 +612,15 @@ public class Analysis {
     			"</BODY>\n" +
     			"</HTML>";
     }
+
+    public void setShowHideActions(StringBuffer sb, String classname, String loc) {
+		sb.append(" onmouseover=\"show_elements('"+classname+"', [");
+		sb.append(loc);
+		sb.append("]) \" ");
+		sb.append(" onmouseout=\"hide_elements([");
+		sb.append(loc);
+		sb.append("]) \" ");
+	}
     
     public String getOneSuggestion (String sourcefile) {
     	StringBuffer sb = new StringBuffer();
@@ -697,13 +711,6 @@ public class Analysis {
     		return new Integer(rank).compareTo(o.rank);
     	}
     	
-		private void setShowHideActions(StringBuffer sb, String loc) {
-			sb.append(" onmouseover=\"show_elements('cut', [");
-			sb.append(loc);
-			sb.append("]) \" ");
-			sb.append(" onmouseout=\"hide_elements([");
-			sb.append(loc);
-		}
     	public String toHTML () {
     		StringBuffer sb = new StringBuffer();
 //    		sb.append("<LI>\n");
@@ -717,8 +724,8 @@ public class Analysis {
 
 			String loc = locBuffer.toString();
 			sb.append("<span class=\"mincut\" ");
-			setShowHideActions(sb, loc);
-			sb.append("]) \">");
+			setShowHideActions(sb, "cut", loc);
+			sb.append(">");
 
     		sb.append(textBuffer.toString());
     		sb.append("(weight="+rank+")");
@@ -726,8 +733,8 @@ public class Analysis {
         	sb.append("<button onclick=\"hide_elements_perm();show_elements_perm('cut', [");
         	sb.append(loc);
         	sb.append("])\" ");
-			setShowHideActions(sb, loc);
-			sb.append("])\">Show it</button><br>\n");
+			setShowHideActions(sb, "cut", loc);
+			sb.append(">Show it</button><br>\n");
 			return sb.toString();
     	}
     }
