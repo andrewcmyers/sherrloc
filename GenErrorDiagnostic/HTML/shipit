@@ -3,4 +3,4 @@
 WEBHOST=zhangdf@mal.cs.cornell.edu
 HOME_DIR=/home/zhangdf/public_html
 svn update;
-rsync "$@" -truvlC --exclude shipit . "$WEBHOST:$HOME_DIR"
+rsync "$@" -truvlC --exclude shipit --exclude shipit.nectar . "$WEBHOST:$HOME_DIR"
