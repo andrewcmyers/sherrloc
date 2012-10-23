@@ -419,31 +419,33 @@ let beta_error loc p err =
 
 let type_and_compare_implementation sourcefile outputprefix modulename initial_env parse_tree fs =
   logger#debug "Conf.load_path: [%a]" (EzyUtils.List.print Format.pp_print_string ", ") (!Config.load_path);
-  let enr_str, _ =
+  (* let enr_str, _ = *)
     let str = EzyEnrichedAst.import_structure fs parse_tree in
     logger#debug "@[<2>Ezy imported tree:@ %a@]" (fun ppf -> List.iter (EzyAst.print_structure_item () ppf)) str ;
-    type_implementation sourcefile initial_env str in
-  (* let ted_str = EzyEnrichedAst.apply_substitution s enr_str in *)
-  begin try
-    let tt, mc = Typemod.type_implementation sourcefile outputprefix modulename initial_env parse_tree in
-    (* begin match EzyEnrichedAst.eq_structure s enr_str tt with
-      | Some msg -> alpha_error msg
-      | None -> ()
-    end ; *)
-    (tt, mc)
-  with
+    begin try
+      let tt, mc = Typemod.type_implementation sourcefile outputprefix modulename initial_env parse_tree in
+      (* begin match EzyEnrichedAst.eq_structure s enr_str tt with
+        | Some msg -> alpha_error msg
+        | None -> ()
+      end ; *)
+      (tt, mc)
+    with
     | Typemod.Error (loc, err) ->
-        beta_error loc Typemod.report_error err
+        Location.print Format.std_formatter loc; Typemod.report_error Format.std_formatter err; 
+        exit 101
     | Typecore.Error (loc, err) ->
-        beta_error loc Typecore.report_error err
+        Location.Original.print Format.std_formatter loc; 
+        Format.fprintf Format.std_formatter "%a@\n" Typecore.report_error err; 
+        type_implementation sourcefile initial_env str; exit 101
+
+    (*    beta_error loc Typecore.report_error err *)
+    (* let ted_str = EzyEnrichedAst.apply_substitution s enr_str in *)
+
   end 
 
 
 let type_and_compare_top_phrase fs oldenv str =
   logger#debug "Conf.load_path: [%a]" (EzyUtils.List.print Format.pp_print_string ", ") (!Config.load_path);
-  let enr_str, env =
-  let str' = EzyEnrichedAst.import_structure fs str in
-  type_structure oldenv str' in
   (* dz: no need to compare the results. Feed the str to ocaml type inference
    * to identify typing errors *)
   (* let ted_str = EzyEnrichedAst.apply_substitution s enr_str in *)
@@ -458,7 +460,10 @@ let type_and_compare_top_phrase fs oldenv str =
     (str, sg, newenv)
   with
     | Typemod.Error (loc, err) ->
-        beta_error loc Typemod.report_error err
+        Location.print Format.std_formatter loc; Typemod.report_error Format.std_formatter err; 
+        exit 101
     | Typecore.Error (loc, err) ->
-        beta_error loc Typecore.report_error err
+        Location.Original.print Format.std_formatter loc; 
+        Format.fprintf Format.std_formatter "%a@\n" Typecore.report_error err; 
+        let str' = EzyEnrichedAst.import_structure fs str in type_structure oldenv str'; exit 101
   end
