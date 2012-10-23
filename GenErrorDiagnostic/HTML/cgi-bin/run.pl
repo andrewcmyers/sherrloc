@@ -74,7 +74,7 @@ if (-e $cons_file) {
 }
 else {
     if(!$result) {
-        print "no type error is found";
+        print "<H3>The program passed type checking. No errors were found.</H3>";
     }
     print "<pre class=\"code\">\n";
     open (PROGRAM, "$source");

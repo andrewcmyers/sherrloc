@@ -251,21 +251,18 @@ public class Analysis {
 			StringBuffer path_buff = new StringBuffer();
 			List<Node> nodes = errorPaths.get(goal).getNodes();
 			for (Node n : nodes) {
-				path_buff.append("'"+((ElementNode)n).getElement().getPosition()+"', ");
+				path_buff.append("['pathelement', \'"+((ElementNode)n).getElement().getPosition()+"\'], ");
 			}
-			sb.append("<LI>\n<span class=\"path\" onmouseover=\"show_elements('pathelement', [");
-			sb.append(path_buff.toString());
-			sb.append("])\"");
-			sb.append(" onmouseout=\"hide_elements([");
-			sb.append(path_buff.toString());
-			sb.append("]) \">");
+			sb.append("<LI>\n<span class=\"path\" ");
+			setShowHideActions(true, sb, path_buff.toString(), 0);
+			sb.append(">");
 			sb.append("A value with type "+goal.getSource().getElement().toHTMLString() + 
 				    " is being used at type " + goal.getSink().getElement().toHTMLString());
 			sb.append("</span>\n");
-        	sb.append("<button onclick=\"hide_elements_perm();show_elements_perm('pathelement', [");
-        	sb.append(path_buff.toString());
-        	sb.append("])\" ");
-			setShowHideActions(sb, "pathelement", path_buff.toString());
+        		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
+	        	sb.append(path_buff.toString());
+        		sb.append("])\" ");
+			// setShowHideActions(true, sb, path_buff.toString(), 0);
 			sb.append(">Show it</button><br>\n");
 		}
 		sb.append("</UL>\n");
@@ -613,13 +610,18 @@ public class Analysis {
     			"</HTML>";
     }
 
-    public void setShowHideActions(StringBuffer sb, String classname, String loc) {
-		sb.append(" onmouseover=\"show_elements('"+classname+"', [");
-		sb.append(loc);
-		sb.append("]) \" ");
-		sb.append(" onmouseout=\"hide_elements([");
-		sb.append(loc);
-		sb.append("]) \" ");
+    public void setShowHideActions(boolean isPath, StringBuffer sb, String loc, int id) {
+		String num = isPath?"true":"false"; 
+		sb.append(" onmouseover=\"show_elements("+num+", [");
+		sb.append(loc+"]) ");
+		if (!isPath)
+			sb.append("; show_cut("+id+") ");
+		sb.append("\"");
+		sb.append(" onmouseout=\"hide_elements("+num+", [");
+		sb.append(loc+"]) ");
+		if (!isPath)
+			sb.append("; hide_cut("+id+") ");
+		sb.append("\"");
 	}
     
     public String getOneSuggestion (String sourcefile) {
@@ -645,8 +647,8 @@ public class Analysis {
     			genMissingAssumptions() +
     			genCutItems() +
     			genAnnotatedCode() +
-    			(sourceName.contains("jif")?("<script>display_info('info'); colorize_all(); numberSuggestions();</script>\n")
-    					:("<script>display_info('info'); numberSuggestions();</script>\n")));
+    			(sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
+    					:("<script>numberSuggestions();</script>\n")));
     	}
     	return sb.toString();
     }
@@ -698,13 +700,16 @@ public class Analysis {
     private class CutSuggestion implements Comparable<CutSuggestion> {
     	int rank=0;
     	Set<EquationEdge> edges;
+	int id;
+
     	
-    	public CutSuggestion(Set<EquationEdge> edges) {
+    	public CutSuggestion(int id, Set<EquationEdge> edges) {
     		this.edges = edges;
+		this.id = id;
     		for (EquationEdge edge : edges) {
     			rank += edge.getEquation().getSuccPaths();
     		}
-		}
+	}
     	
     	@Override
     	public int compareTo(CutSuggestion o) {
@@ -714,28 +719,28 @@ public class Analysis {
     	public String toHTML () {
     		StringBuffer sb = new StringBuffer();
 //    		sb.append("<LI>\n");
-    		StringBuffer locBuffer = new StringBuffer();
-    		StringBuffer textBuffer = new StringBuffer();
+    		sb.append("(weight="+rank+")");
         	for (EquationEdge c : edges) {
-        		locBuffer.append("'"+c.getEquation().getFirstElement().getPosition()+"',");
-        		locBuffer.append("'"+c.getEquation().getSecondElement().getPosition()+"',");
-   				textBuffer.append("<code>"+c.getEquation().toHTMLString() +"</code> ; ");
-        	}
-
+			StringBuffer locBuffer = new StringBuffer();
+			Element left = c.getEquation().getFirstElement();
+			locBuffer.append("['left', \'"+left.getPosition().toString()+"\'],");
+			Element right = c.getEquation().getSecondElement();
+			locBuffer.append("['right', \'"+right.getPosition().toString()+"\']");
 			String loc = locBuffer.toString();
 			sb.append("<span class=\"mincut\" ");
-			setShowHideActions(sb, "cut", loc);
+			setShowHideActions(false, sb, loc, id);
 			sb.append(">");
-
-    		sb.append(textBuffer.toString());
-    		sb.append("(weight="+rank+")");
-			sb.append("</span>\n");
-        	sb.append("<button onclick=\"hide_elements_perm();show_elements_perm('cut', [");
-        	sb.append(loc);
-        	sb.append("])\" ");
-			setShowHideActions(sb, "cut", loc);
+			sb.append("<code id=\"left"+id+"\">"+left.toHTMLString()+"</code>");
+			sb.append(" has the same type as ");
+			sb.append("<code id=\"right"+id+"\">"+right.toHTMLString()+"</code></span>");
+			sb.append("<button onclick=\"hide_all();show_elements_perm(false, [");
+        		sb.append(loc);
+        		sb.append("]); ");
+			sb.append("show_cut_perm("+id+")\" ");
+			// setShowHideActions(false, sb, loc, id);
 			sb.append(">Show it</button><br>\n");
-			return sb.toString();
+        	}
+       		return sb.toString();
     	}
     }
     
@@ -745,14 +750,17 @@ public class Analysis {
     	if (GEN_CUT) {
             Set<Set<EquationEdge>> results=null;
         	results = genCuts(errorPaths.keySet());
-        	sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):<br>");
+        	sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):<br>\n");
 
 //        	sb.append("<OL>\n");
         	
         	// get all cuts and rank them
         	List<CutSuggestion> cuts = new ArrayList<CutSuggestion>();
-        	for (Set<EquationEdge> set : results) 
-        		cuts.add(new CutSuggestion(set));
+        	int count=1;
+		for (Set<EquationEdge> set : results) {
+        		cuts.add(new CutSuggestion(count, set));
+			count++;
+		}
         	Collections.sort(cuts);
         	
         	for (CutSuggestion cut : cuts) {
@@ -804,6 +812,7 @@ public class Analysis {
     // find all locations involved in the unsat paths, and then wrap the corresponding code with <span> </span> notations
     public String genAnnotatedCode () {
     	StringBuffer sb = new StringBuffer();
+        sb.append("<button onclick=\"hide_all()\">Hide all</button><br>\n");
     	sb.append("\n<pre class=\"code\" id=\"code\">\n");
     	
     	// collect all position information, and sort them
