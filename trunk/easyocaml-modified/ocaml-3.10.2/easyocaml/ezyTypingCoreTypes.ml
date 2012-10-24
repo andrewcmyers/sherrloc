@@ -60,7 +60,7 @@ module TyImportVarmap =
 
 module rec Ty: sig
   type t = 
-    | Var of ExtLocation.t option * TyVar.t 
+    | Var of ExtLocation.t option * string option * TyVar.t 
     | Tuple of ExtLocation.t * t list
     | Constr of ExtLocation.t * Path.t * t list
     | Arrow of ExtLocation.t * t * t 
@@ -69,9 +69,9 @@ module rec Ty: sig
   val print: Format.formatter -> t -> unit
   val print_loc: Format.formatter -> t -> unit
   val print_loc_slice: Format.formatter -> t * EzyAst.imported_structure -> unit
+  val print_detail: Format.formatter -> t * EzyAst.imported_structure -> unit
 
-
-  val fresh_var: ?loc:(ExtLocation.t option) -> unit -> t
+  val fresh_var: ?loc:(ExtLocation.t option) -> ?detail:string option -> unit -> t
 
   val set_label : t -> ExtLocation.t -> t
   val get_label : t -> ExtLocation.t
@@ -95,18 +95,18 @@ module rec Ty: sig
 end = struct
 
   type t = 
-    | Var of ExtLocation.t option * TyVar.t 
+    | Var of ExtLocation.t option * string option * TyVar.t 
     | Tuple of ExtLocation.t * t list
     | Constr of ExtLocation.t * Path.t * t list
     | Arrow of ExtLocation.t * t * t 
   type printable = t
 
-  let fresh_var ?(loc=None) () =
-    Var (loc, TyVar.fresh ())
+  let fresh_var ?(loc=None) ?(detail=None) () =
+    Var (loc, detail, TyVar.fresh ())
 
   let rec set_label ty label =
     match ty with
-      | Var (_, tys) -> Var (Some label, tys)
+      | Var (_, detail, tys) -> Var (Some label, detail, tys)
       | Tuple (_, tys) -> Tuple (label, List.map (set_label // label) tys)
       | Constr (_, k, tys) -> Constr (label, k, List.map (set_label // label) tys)
       | Arrow (_, tx, ty) -> Arrow (label, set_label tx label, set_label ty label)
@@ -115,13 +115,13 @@ end = struct
     | _ -> invalid_arg "get_label"
 
   let rec fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) = function
-    | Var (label, tyvar) ->
+    | Var (label, detail, tyvar) ->
         begin try
-          tyvarmap, Ty.Var (label, TyVarMap.find tyvar tyvarmap)
+          tyvarmap, Ty.Var (label, detail, TyVarMap.find tyvar tyvarmap)
         with Not_found as exc ->
           if create then
             let ty' = TyVar.fresh () in
-            TyVarMap.add tyvar ty' tyvarmap, Ty.Var (label, ty')
+            TyVarMap.add tyvar ty' tyvarmap, Ty.Var (label, detail, ty')
           else
             raise exc
         end
@@ -144,7 +144,7 @@ end = struct
     logger#debug "Check %a <= %a" Ty.print tx Ty.print ty ;
     let rec aux tyvarmap tx ty =
       match tx, ty with
-        | Ty.Var (_, var), _ ->
+        | Ty.Var (_, _, var), _ ->
             begin try
               if compare (TyVarSubst.find tyvarmap var) ty = 0 then
                 Some tyvarmap
@@ -180,7 +180,7 @@ end = struct
     Option.is_some (aux TyVarSubst.empty tx ty')
 
   let rec free_vars = function
-    | Var (_, tyvar) ->
+    | Var (_, _, tyvar) ->
         TyVarSet.singleton tyvar 
     | Tuple (_, tys)
     | Constr (_, _, tys) ->
@@ -197,12 +197,12 @@ end = struct
           lexical3 ExtLocation.compare Path.compare (lexical_list compare) (l1, k1, tys1) (l2, k2, tys2)
       | Arrow (l1, tx1, ty1), Arrow (l2, tx2, ty2) ->
           lexical3 ExtLocation.compare compare compare (l1, tx1, ty1) (l2, tx2, ty2)
-      | Var (_, v), Var (_, w) -> TyVar.compare v w
+      | Var (_, _, v), Var (_, _, w) -> TyVar.compare v w
       | _ -> f ty2 - f ty1
 
   let rec equal_modulo_tyvarmap ?(tyvarmap=TyVarMap.empty) ty1 ty2 =
     match ty1, ty2 with
-      | Var (_, v), Var (_, w) ->
+      | Var (_, _, v), Var (_, _, w) ->
           begin try
             tyvarmap, TyVarMap.find v tyvarmap = w
           with Not_found ->
@@ -230,7 +230,7 @@ end = struct
       | _ -> tyvarmap, false
 
   let rec tyvars = function
-    | Var (_, tyvar) ->
+    | Var (_, _, tyvar) ->
         TyVarSet.singleton tyvar
     | Tuple (_, tys) ->
         TyVarSet.big_union (List.map tyvars tys)
@@ -241,7 +241,7 @@ end = struct
 
   let rec type_substitute ty s = 
     match ty with
-      | Var (_, v) ->
+      | Var (_, _, v) ->
           TyVarSubst.apply s v
       | Tuple (l, tys) ->
           Tuple (l, List.map (type_substitute // s) tys)
@@ -251,7 +251,7 @@ end = struct
           Arrow (l, type_substitute tx s, type_substitute ty s)
 
   let rec print ppf = function
-    | Var (_, tyv) ->
+    | Var (_, _, tyv) ->
         TyVar.print ppf tyv
     |  Constr (_, lid, tys) -> (
         match tys with
@@ -269,7 +269,7 @@ end = struct
     | ty -> print ppf ty
 
   let print_loc ppf = function
-    | Var (loc, tyv) -> (
+    | Var (loc, _, tyv) -> (
         match loc with 
         | None -> Format.fprintf ppf ""
         | Some l -> Format.fprintf ppf "%a" ExtLocation.print l
@@ -294,9 +294,14 @@ end = struct
       let sliced_ast = EzyErrorReportUtils.create_slices ast locs in
         List.iter ((escape_char '"' (EzyAst.print_structure_item ())) ppf) sliced_ast in
     match ty with
-    | Var (None, tyv) -> Format.fprintf ppf "%a" print_slice ExtLocationSet.empty
-    | Var (Some loc, _) | Constr (loc, _, _ ) | Tuple (loc, _) | Arrow (loc, _, _) -> 
+    | Var (None, _, tyv) -> Format.fprintf ppf "%a" print_slice ExtLocationSet.empty
+    | Var (Some loc, _,  _) | Constr (loc, _, _ ) | Tuple (loc, _) | Arrow (loc, _, _) -> 
         Format.fprintf ppf "%a" print_slice (ExtLocationSet.add loc ExtLocationSet.empty)
+
+  let print_detail ppf (ty, ast) =
+    match ty with
+    | Var (_, Some detail, _) -> (escape_char '"' pp_print_string) ppf detail
+    | _ -> print_loc_slice ppf (ty, ast)
 
   let rec import ?(tyvarmap=TyImportVarmap.empty) creative loc oty =
     match oty with
@@ -339,7 +344,7 @@ end = struct
   let rec export : t -> Types.type_desc TyVarMap.t -> Types.type_expr * Types.type_desc TyVarMap.t
         = fun ty ty_var_map ->
     match ty with
-      | Ty.Var (_, tyvar) -> 
+      | Ty.Var (_, _, tyvar) -> 
           begin try
             Btype.newgenty (TyVarMap.find tyvar ty_var_map), ty_var_map
           with Not_found ->
@@ -403,11 +408,11 @@ end = struct
     try
       TyVarMap.find tyv s
     with Not_found ->
-      Ty.Var (None, tyv)
+      Ty.Var (None, None, tyv)
 
   let rec apply_to_ty (S s) ty =
     let rec aux = function
-      | Ty.Var (_, tyv) ->
+      | Ty.Var (_, _, tyv) ->
           apply (S s) tyv
       | Ty.Constr (l, lid, tys) ->
           Ty.Constr (l, lid, List.map aux tys)

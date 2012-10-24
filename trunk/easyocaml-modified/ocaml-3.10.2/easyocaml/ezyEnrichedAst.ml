@@ -63,14 +63,14 @@ let rec import_core_type creative lookup_ctor tyvarmap ct =
   let label = ExtLocation.Source ct.Parsetree.ptyp_loc in
   match ct.Parsetree.ptyp_desc with
     | Parsetree.Ptyp_any ->
-        tyvarmap, Ty.Var (Some label, TyVar.fresh ())
+        tyvarmap, Ty.Var (Some label, None, TyVar.fresh ())
     | Parsetree.Ptyp_var var ->
         begin try
-           tyvarmap, Ty.Var (Some label, StringMap.find var tyvarmap)
+           tyvarmap, Ty.Var (Some label, None, StringMap.find var tyvarmap)
         with Not_found ->
           if creative then
             let tyvar = TyVar.fresh () in
-            StringMap.add var tyvar tyvarmap, Ty.Var (Some label, tyvar)
+            StringMap.add var tyvar tyvarmap, Ty.Var (Some label, None, tyvar)
           else 
             raise (TyVarNotFound var)
         end
@@ -580,7 +580,7 @@ module Equality = struct
     match ety, ty.Types.desc with
       | _, Types.Tlink ty ->
           eq_type ?loc env oenv ety ty
-      | Ty.Var (_, tyv), Types.Tvar ->
+      | Ty.Var (_, _, tyv), Types.Tvar ->
           M.inspect >>= fun conf ->
           begin try
             if (TyVarMap.find tyv conf.Conf.tyvarmap = ty.Types.id)
