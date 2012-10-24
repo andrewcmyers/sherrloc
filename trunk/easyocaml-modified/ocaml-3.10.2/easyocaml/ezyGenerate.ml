@@ -691,8 +691,11 @@ and for_expr: imported_expression -> EzyEnv.t -> generated_expression * AtConstr
 
       | Pexp_function rules ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
-          let enr_rules, ty_p, ty_e, cs0, pp = for_rules eloc rules env in
-          let cs1 = AtConstrSet.singleton a eloc (Ty.Arrow (eloc, ty_p, ty_e)) in
+          let pat_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("param type of "^detail)) () in
+          let expr_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("ret type of "^detail)) () in
+
+          let enr_rules, cs0, pp = for_rules eloc rules env pat_type expr_type in
+          let cs1 = AtConstrSet.singleton a eloc (Ty.Arrow (eloc, pat_type, expr_type)) in
           let cs = AtConstrSet.union cs0 cs1 in
           build_exp a (Pexp_function enr_rules), cs, pp
 
@@ -725,13 +728,19 @@ and for_expr: imported_expression -> EzyEnv.t -> generated_expression * AtConstr
 
       | Pexp_match (exp, rules) ->
           let enr_exp, cs1, us1 = for_expr exp env in
-          let enr_rules, ty_p, ty_e, cs2, us2 = for_rules eloc rules env in
+          let pat_type = ty_of_expr enr_exp in
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
-          let cs0 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp) eloc ty_p ;
-            AtConstr.create a eloc ty_e ;
-          ] in
-          let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
+
+          (* let pat_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some "match
+           * expression") () in *)
+          (* let expr_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some "return
+           * type") () in *)
+          let enr_rules, cs2, us2 = for_rules eloc rules env pat_type a in
+          (* let cs0 = AtConstrSet.from_list [
+            AtConstr.create (ty_of_expr enr_exp) eloc pat_type ;
+            AtConstr.create a eloc expr_type ;
+          ] in *)
+          let cs = List.reduce AtConstrSet.union [(*cs0;*) cs1; cs2] in
           let us = PostProcess.union us1 us2 in
           build_exp a (Pexp_match (enr_exp, enr_rules)), cs, us
 
@@ -960,11 +969,14 @@ and for_expr: imported_expression -> EzyEnv.t -> generated_expression * AtConstr
       | Pexp_try (exp, rules) ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exp, cs1, pp1 = for_expr exp env in
-          let enr_rules, ty_p, ty_e, cs2, pp2 = for_rules eloc rules env in
+          let pat_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("try pattern of "^detail)) () in
+          (* let expr_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some "return
+           * type of try") () in *)
+          let enr_rules, cs2, pp2 = for_rules eloc rules env pat_type a in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create ty_p eloc (EzyPredef.exn_type eloc) ;
+            AtConstr.create pat_type eloc (EzyPredef.exn_type eloc) ;
             AtConstr.create a eloc (ty_of_expr enr_exp) ;
-            AtConstr.create a eloc ty_e ;
+            (* AtConstr.create a eloc expr_type ; *)
           ] in
           let desc = Pexp_try (enr_exp, enr_rules) in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
@@ -1150,44 +1162,30 @@ and for_rule:
     (enr_pat, enr_exp), enr_pat.ppat_data.pa_ty, ty_of_expr enr_exp, AtConstrSet.union cs_p cs_e, PostProcess.union pp1 pp2
 
 and for_rules:
-    ExtLocation.t -> (imported_pattern * imported_expression) list -> EzyEnv.t ->
-    (generated_pattern * generated_expression) list * Ty.t * Ty.t * AtConstrSet.t * PostProcess.t =
-  fun eloc rules env ->
+    ExtLocation.t -> (imported_pattern * imported_expression) list -> EzyEnv.t -> Ty.t -> Ty.t ->
+    (generated_pattern * generated_expression) list * AtConstrSet.t * PostProcess.t =
+  fun eloc rules env pat_type expr_type ->
     match rules with
       | ((pat, exp) as rule) :: [] ->
           let enr_rule, ty_p1, ty_e1, cs1, pp1 = for_rule rule env in
-          Format.fprintf Format.str_formatter "%a" print_pat_short pat;
-          let pat_detail = Format.flush_str_formatter () in
-          Format.fprintf Format.str_formatter "%a" print_expr_short exp;
-          let exp_detail = Format.flush_str_formatter () in
-          let a_p = Ty.fresh_var ~loc:(Some (ExtLocation.Source pat.ppat_loc)) ~detail:(Some pat_detail) () in
-          let a_e = Ty.fresh_var ~loc:(Some (ExtLocation.Source exp.pexp_loc)) ~detail:(Some exp_detail) () in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create a_p eloc ty_p1 ;
-            AtConstr.create a_e eloc ty_e1 ;
+            AtConstr.create pat_type eloc ty_p1 ;
+            AtConstr.create expr_type eloc ty_e1 ;
           ] in
           let cs = List.reduce AtConstrSet.union [cs0; cs1] in
-          enr_rule::[], a_p, a_e, cs, pp1
+          enr_rule::[], cs, pp1
 
       | ((pat, exp) as rule) :: rem_rules ->
           let enr_rule, ty_p1, ty_e1, cs1, pp1 = for_rule rule env in
-          let enr_rules, ty_p2, ty_e2, cs2, pp2 = for_rules eloc rem_rules env in
-          Format.fprintf Format.str_formatter "%a" print_pat_short pat;
-          let pat_detail = Format.flush_str_formatter () in
-          Format.fprintf Format.str_formatter "%a" print_expr_short exp;
-          let exp_detail = Format.flush_str_formatter () in
-          let a_p = Ty.fresh_var ~loc:(Some (ExtLocation.Source pat.ppat_loc)) ~detail:(Some pat_detail) () in
-          let a_e = Ty.fresh_var ~loc:(Some (ExtLocation.Source exp.pexp_loc)) ~detail:(Some exp_detail) () in
+          let enr_rules, cs2, pp2 = for_rules eloc rem_rules env pat_type expr_type in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create a_p eloc ty_p1 ;
-            AtConstr.create a_p eloc ty_p2 ;
-            AtConstr.create a_e eloc ty_e1 ;
-            AtConstr.create a_e eloc ty_e2 ;
+            AtConstr.create pat_type eloc ty_p1 ;
+            AtConstr.create expr_type eloc ty_e1 ;
           ] in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
-          enr_rule :: enr_rules, a_p, a_e, cs, PostProcess.union pp1 pp2
+          enr_rule :: enr_rules, cs, PostProcess.union pp1 pp2
 
-      | [] -> [], Ty.fresh_var ~loc:(Some eloc) (), Ty.fresh_var ~loc:(Some eloc) (), AtConstrSet.empty, PostProcess.empty
+      | [] -> [], AtConstrSet.empty, PostProcess.empty
 
 (* }}} *)
 
