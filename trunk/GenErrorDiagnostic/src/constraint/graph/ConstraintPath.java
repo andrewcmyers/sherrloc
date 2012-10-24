@@ -28,7 +28,7 @@ public class ConstraintPath {
 		return edges;
 	}
     
-	public List<Node> getNodes( ) {
+	public List<Node> getIdNodes( ) {
 		ArrayList<Node> ret = new ArrayList<Node>();
 		
 		if (edges.size()==0) return ret;
@@ -41,6 +41,22 @@ public class ConstraintPath {
 			Edge edge = edges.get(k);
 			if (finder.getPath(first, edge.to)!=null)
 				ret.add(edge.to);
+		}
+		return ret;
+	}
+	
+	public List<Node> getAllNodes( ) {
+		ArrayList<Node> ret = new ArrayList<Node>();
+		
+		if (edges.size()==0) return ret;
+
+		// System.out.println("Checking one equation in env: "+path.env);
+		Node first = getFirst();
+		ret.add(first);
+
+		for (int k = 0; k < size(); k++) {
+			Edge edge = edges.get(k);
+			ret.add(edge.to);
 		}
 		return ret;
 	}

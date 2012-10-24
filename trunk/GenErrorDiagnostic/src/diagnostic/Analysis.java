@@ -249,7 +249,7 @@ public class Analysis {
 			//		errorPaths.get(goal).toString() + " \n");
 			//sb.append("</div>);
 			StringBuffer path_buff = new StringBuffer();
-			List<Node> nodes = errorPaths.get(goal).getNodes();
+			List<Node> nodes = errorPaths.get(goal).getIdNodes();
 			for (Node n : nodes) {
 				path_buff.append("['pathelement', \'"+((ElementNode)n).getElement().getPosition()+"\'], ");
 			}
@@ -821,7 +821,7 @@ public class Analysis {
     	List<LineColumnPair> emptyList = new ArrayList<LineColumnPair>(); // the set where start=end
     	Set<Position> posSet = new HashSet<Position>();
     	for (ConstraintPath path : errorPaths.values()) {
-    		List<Node> nodes = path.getNodes();
+    		List<Node> nodes = path.getAllNodes();
     		for (Node node : nodes) {
     			posSet.add(((ElementNode)node).getElement().getPosition());
     		}
