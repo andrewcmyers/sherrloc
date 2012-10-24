@@ -39,8 +39,8 @@ module AtConstr = struct
 
   let cons_print ppf ast { loc = loc; tys = (x, y); leq = leq } =
     Format.fprintf ppf "%a[\"%a\":%a] == %a[\"%a\":%a];[%a]@\n" 
-    Ty.print x Ty.print_loc_slice (x, ast) Ty.print_loc x 
-    Ty.print y Ty.print_loc_slice (y, ast) Ty.print_loc y 
+    Ty.print x Ty.print_detail (x, ast) Ty.print_loc x 
+    Ty.print y Ty.print_detail (y, ast) Ty.print_loc y 
     ExtLocation.print loc
 
   let type_substitute { loc = loc; tys = (x, y); leq = leq } s =
@@ -242,7 +242,7 @@ module DerEnv = struct
     *)
   let rec apply_to_ty e ty =
     match ty with
-      | Ty.Var (_, tyvar) ->
+      | Ty.Var (_, _, tyvar) ->
           begin try 
             let ty', _ = TyVarMap.find tyvar e in
             apply_to_ty e ty'

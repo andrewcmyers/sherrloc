@@ -454,6 +454,124 @@ let print_pat, print_expr, print_structure_item =
     (fun ?eap ?iap ?nap ?pap () -> let (_,g,_) = aux ?eap ?iap ?nap ?pap () in g),
     (fun ?eap ?iap ?nap ?pap () -> let (_,_,h) = aux ?eap ?iap ?nap ?pap () in h)
 
+let rec print_pat_short ppf pat =
+    match pat.ppat_desc with
+      | Ppat_any ->
+          pp_print_string ppf "_"
+      | Ppat_var { nm_name = v } ->
+          pp_print_string ppf v
+      | Ppat_constant c ->
+          print_constant ppf c
+      | Ppat_tuple ps ->
+          fprintf ppf "@[<h 2>(%a)@]" (List.print print_pat_short ", ") ps
+      | Ppat_construct ({ lid_name = lid }, opt_pat, _) ->
+          let p ppf = function None -> () | Some pat -> print_pat_short ppf pat in
+            fprintf ppf "@[<h 2>%a %a@]" Longident.print lid p opt_pat
+      | Ppat_record fs ->
+          let print_field ppf ({ lid_name = field }, pat) =
+            fprintf ppf "@[<h 2>%a = %a@]" Longident.print field print_pat_short pat in
+            fprintf ppf "@[<h 2>{%a}@]" (List.print print_field "; ") fs
+      | Ppat_or (p1, p2) ->
+          fprintf ppf "@[<h 2>%a | %a@]" print_pat_short p1 print_pat_short p2
+      | Ppat_constraint (p, ct) ->
+          fprintf ppf "@[<h 2>%a : %a@]" print_pat_short p print_core_type ct
+      | Ppat_alias (p, nm) ->
+          fprintf ppf "@[<h 2>%a as %s@]" print_pat_short p nm.nm_name
+      | Ppat_dots ps -> ()
+ 
+let rec print_rule_short ppf (pat, exp) =
+    fprintf ppf "%a -> %a" print_pat_short pat print_expr_short exp
+
+and print_rules_short ppf rules =
+  fprintf ppf "%a" (List.print print_rule_short " | ") rules
+               
+and print_expr_short ppf expr =
+    let print_expr_desc ppf = function
+      | Pexp_ident { lid_name = v } ->
+          Longident.print ppf v
+      | Pexp_constant c ->
+          print_constant ppf c
+      | Pexp_let (bindings, body) ->
+          pp_print_string ppf "let . in ." 
+      | Pexp_letrec (bindings, body) ->
+          pp_print_string ppf "let rec . in ." 
+      | Pexp_function rules ->
+          fprintf ppf "@[<h 2>function %a@]" print_rules_short rules
+      | Pexp_apply ({ pexp_desc = Pexp_apply ({ pexp_desc = Pexp_ident {lid_name = Longident.Lident nm}}, exp1)}, exp2)
+          when is_infix nm ->
+          fprintf ppf "@[<h 2>%a %s %a@]" print_expr_short exp1 nm print_expr_short exp2
+      | Pexp_apply (exp1, exp2) ->
+        let a, al = get_expr_args exp1 [exp2] in
+          fprintf ppf "@[<h 2>%a %a@]" print_expr_short a (List.print print_expr_short " ") al
+      | Pexp_match (exp, rules) ->
+          pp_print_string ppf "match . with ." 
+      | Pexp_try (exp, rules) ->
+          pp_print_string ppf "try . with ." 
+      | Pexp_tuple exps ->
+          fprintf ppf "@[<h 2>(%a)@]"
+            (List.print print_expr_short ", ") exps
+      | Pexp_construct ({ lid_name = lid }, opt_exp, _) ->
+          begin match lid with
+            | Longident.Lident "::" ->
+                let print_proper_list ppf =
+                  fprintf ppf "@[<h 2>[%a]@]" (List.print print_expr_short "; ") in
+                let rec print_list ppf sofar expr =
+                  match expr.pexp_desc with
+                    | Pexp_construct ({lid_name = Longident.Lident "[]"}, None, _) ->
+                        print_proper_list ppf (List.rev sofar)
+                    | Pexp_dots _ ->
+                        print_proper_list ppf (List.rev (expr :: sofar))
+                    | Pexp_construct ({lid_name = Longident.Lident "::"},
+                                      Some ({pexp_desc = Pexp_tuple [head; tail]}), _) ->
+                        print_list ppf (head :: sofar) tail
+                    | _ ->
+                        List.print print_expr_short " :: " ppf (List.rev (expr :: sofar)) in
+                print_list ppf [] expr
+            | _ ->
+                let p ppf = function
+                  | Some exps ->
+                      fprintf ppf " %a"
+                        print_expr_short exps
+                  | None -> () in
+                fprintf ppf "@[<h 2>%s%a@]"
+                  (String.concat "." (Longident.flatten lid))
+                  p opt_exp
+          end
+      | Pexp_constraint (exp, ty) ->
+          fprintf ppf "@[<h 2>(%a : %a)@]" print_expr_short exp print_core_type ty 
+      | Pexp_sequence (exp1, exp2) ->
+          fprintf ppf "@[<h 2>%a; %a@]" print_expr_short exp1 print_expr_short exp2
+      | Pexp_assertfalse ->
+          pp_print_string ppf "assert false"
+      | Pexp_assert exp ->
+          fprintf ppf "@[<h 2>assert %a@]" print_expr_short exp
+      | Pexp_ifthenelse (exp1, exp2, opt_exp3) ->
+          pp_print_string ppf "if . then . else ."
+      | Pexp_field (exp, fl) ->
+          fprintf ppf "@[<h 2>%a.%a@]" print_expr_short exp Longident.print fl.lid_name
+      | Pexp_for (nm, expr1, expr2, dir, expr3) ->
+          pp_print_string ppf "for . from . do . done"
+      | Pexp_while (expr1, expr2) ->
+          pp_print_string ppf "while . do . done"
+      | Pexp_setfield (expr1, lid, expr2) ->
+          fprintf ppf "@[<h 2>(%a).%a <- %a@]" print_expr_short expr1
+          Longident.print lid.lid_name print_expr_short expr2
+      | Pexp_record (fs, head) ->
+          let print_head ppf =
+            match head with
+              | None -> ()
+              | Some expr -> fprintf ppf "%a with " print_expr_short expr in
+          let print_fields ppf =
+            let aux ppf (lid,expr) = fprintf ppf "@[<h 2>%a = %a;@] "
+            Longident.print lid.lid_name print_expr_short expr in
+            fprintf ppf "@[<h 2>%a@]" (List.print aux ":@] @[<h 2>") fs in
+          fprintf ppf "@[<h 2>{%t%t}@]" print_head print_fields
+      | Pexp_dots ps -> ()
+    in
+    fprintf ppf "%a"
+      print_expr_desc expr.pexp_desc
+
+
 
 (** A utility to collect all occurring locations in an AST.
   *)
