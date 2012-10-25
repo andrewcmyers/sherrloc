@@ -119,24 +119,24 @@ public class ShortestPathFinder extends CFLPathFinder {
 				else if (edge instanceof LeftEdge) {
 					for (EdgeCondition ec : shortestLeft[sIndex][fIndex].keySet()) {
 						// left := left id
-						if (!shortestLeft[sIndex][tIndex].containsKey(ec) ||
-							shortestLeft[sIndex][fIndex].get(ec) + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex].get(ec)) {
-							shortestLeft[sIndex][tIndex].put(ec, shortestLeft[sIndex][fIndex].get(ec) + shortestID[fIndex][tIndex]);
-							if (leftPath[sIndex][tIndex].containsKey(ec))
-								leftPath[sIndex][tIndex].get(ec).clear();
-							List<Edge> edges = new ArrayList<Edge>();
-							if (leftPath[sIndex][fIndex].get(ec) == null) {
-								System.out.println(edge);
+						if (shortestID[fIndex][tIndex]<MAX) {
+							if (!shortestLeft[sIndex][tIndex].containsKey(ec) || 
+									shortestLeft[sIndex][fIndex].get(ec) + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex].get(ec)) {
+								shortestLeft[sIndex][tIndex].put(ec, shortestLeft[sIndex][fIndex].get(ec) + shortestID[fIndex][tIndex]);
+								if (leftPath[sIndex][tIndex].containsKey(ec))
+									leftPath[sIndex][tIndex].get(ec).clear();
+								List<Edge> edges = new ArrayList<Edge>();
+								edges.addAll(leftPath[sIndex][fIndex].get(ec));
+								edges.addAll(idPath[fIndex][tIndex]);
+								leftPath[sIndex][tIndex].put(ec, edges);
+								leftConditions[sIndex][tIndex].add(ec);
+								queue.offer(new LeftEdge(ec, edge.getFrom(),
+										to, edges));
+								// System.out.println(edge.getFrom()+"-left-"+from+"-id-"+to+" implies "+edge.getFrom()+"-left-"+to);
 							}
-							edges.addAll(leftPath[sIndex][fIndex].get(ec));
-							edges.addAll(idPath[fIndex][tIndex]);
-							leftPath[sIndex][tIndex].put(ec, edges);
-							leftConditions[sIndex][tIndex].add(ec);
-							queue.offer(new LeftEdge(ec, edge.getFrom(), to, edges));
-//								System.out.println(edge.getFrom()+"-left-"+from+"-id-"+to+" implies "+edge.getFrom()+"-left-"+to);
 						}
 			
-				// id = left right
+						// id = left right
 						if (shortestLeft[sIndex][fIndex].get(ec) + 1 < shortestID[sIndex][tIndex]) {
 							// first check that left and right edges can be cancelled
 							for (RightEdge e : getRightEdges(from, to)) {
