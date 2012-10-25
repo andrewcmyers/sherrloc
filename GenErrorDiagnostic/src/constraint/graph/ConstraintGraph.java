@@ -157,6 +157,7 @@ public class ConstraintGraph extends Graph {
                     	addEdge(srcnode, currentnode, new JoinEdge(srcnode, currentnode));
                     }
                     else if (e instanceof ConstructorElement){
+                    	allConstructors.add(((ConstructorElement) e).getCons());
                     	addEdge(srcnode, currentnode, new ConstructorEdge(new EdgeCondition(((ConstructorElement)e).getCons(), index, false), srcnode, currentnode));
                     	addEdge(currentnode, srcnode, new ConstructorEdge(new EdgeCondition(((ConstructorElement)e).getCons(), index, true), currentnode, srcnode));
                     }
@@ -243,6 +244,10 @@ public class ConstraintGraph extends Graph {
     
     public Set<Constraint> getConstraints() {
 		return constraints;
+	}
+    
+    public Set<Constructor> getAllConstructors() {
+		return allConstructors;
 	}
     
     public void showAllConstraints() {
