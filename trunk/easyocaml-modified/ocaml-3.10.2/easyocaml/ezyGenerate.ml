@@ -559,7 +559,10 @@ let rec collect_bindings env loc bindings =
     let enr_pat, cs0, pp0, b = for_pattern pat env in
     let b_keys = StringMap.keys b in
     let b_key_inter = StringSet.inter b_keys vars_sofar in
-    let enr_expr, cs1, pp1 = for_expr expr env in
+    let bind_name =
+      Format.fprintf Format.str_formatter "%a" print_pat_short enr_pat;
+      Format.flush_str_formatter () in
+    let enr_expr, cs1, pp1 = for_expr ~binding:(Some bind_name) expr env in
     let pp2 =
       if StringSet.is_empty b_key_inter then
         PostProcess.empty
@@ -623,9 +626,10 @@ and collect_rec_bindings env loc bindings =
     List.foldmap process_binding (AtConstrSet.empty, PostProcess.empty, StringSet.empty, env) bindings' in
   (cs, pp, env'), enr_bindings
 
-
-and for_expr: imported_expression -> EzyEnv.t -> generated_expression * AtConstrSet.t * PostProcess.t =
-  fun expr env ->
+(* dz: the binding informatio is feeded to make the named functions more
+ * meaningful *)
+and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> generated_expression * AtConstrSet.t * PostProcess.t =
+  fun ?(binding=None) expr env ->
 
     let loc = expr.pexp_loc in
     let eloc = ExtLocation.Source loc in
@@ -690,11 +694,15 @@ and for_expr: imported_expression -> EzyEnv.t -> generated_expression * AtConstr
           build_exp a desc, cs, PostProcess.empty
 
       | Pexp_function rules ->
+          let bind_name = 
+              match binding with 
+              | None -> detail
+              | Some p -> p in
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
-          let pat_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("param type of "^detail)) () in
-          let expr_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("ret type of "^detail)) () in
+          let pat_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("param of "^bind_name)) () in
+          let expr_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("ret value of "^bind_name)) () in
 
-          let enr_rules, cs0, pp = for_rules eloc rules env pat_type expr_type in
+          let enr_rules, cs0, pp = for_rules ~binding:binding eloc rules env pat_type expr_type in
           let cs1 = AtConstrSet.singleton a eloc (Ty.Arrow (eloc, pat_type, expr_type)) in
           let cs = AtConstrSet.union cs0 cs1 in
           build_exp a (Pexp_function enr_rules), cs, pp
@@ -1142,9 +1150,9 @@ and for_expr: imported_expression -> EzyEnv.t -> generated_expression * AtConstr
 (* Rules {{{ *)                    
 
 and for_rule:
-    imported_pattern * imported_expression -> EzyEnv.t -> 
+    string option -> imported_pattern * imported_expression -> EzyEnv.t -> 
     (generated_pattern * generated_expression) * Ty.t * Ty.t * AtConstrSet.t * PostProcess.t =
-  fun (pat, exp) env ->
+  fun binding (pat, exp) env ->
     let enr_pat, cs_p, pp1, b = for_pattern pat env in
     let env' = 
       let aux name env =
@@ -1158,16 +1166,22 @@ and for_rule:
         } in
         snd (EzyEnv.enter_value name vd env) in
       StringSet.fold aux (StringMap.keys b) env in
-    let enr_exp, cs_e, pp2 = for_expr exp env' in
+    Format.fprintf Format.str_formatter "%a" print_pat_short enr_pat;
+    let pat_string = Format.flush_str_formatter () in
+    let binding = 
+        match binding with
+        | None -> None
+        | Some p -> Some (p^" "^pat_string) in
+    let enr_exp, cs_e, pp2 = for_expr ~binding:binding exp env' in
     (enr_pat, enr_exp), enr_pat.ppat_data.pa_ty, ty_of_expr enr_exp, AtConstrSet.union cs_p cs_e, PostProcess.union pp1 pp2
 
 and for_rules:
-    ExtLocation.t -> (imported_pattern * imported_expression) list -> EzyEnv.t -> Ty.t -> Ty.t ->
+    ?binding:string option -> ExtLocation.t -> (imported_pattern * imported_expression) list -> EzyEnv.t -> Ty.t -> Ty.t ->
     (generated_pattern * generated_expression) list * AtConstrSet.t * PostProcess.t =
-  fun eloc rules env pat_type expr_type ->
+  fun ?(binding=None) eloc rules env pat_type expr_type ->
     match rules with
       | ((pat, exp) as rule) :: [] ->
-          let enr_rule, ty_p1, ty_e1, cs1, pp1 = for_rule rule env in
+          let enr_rule, ty_p1, ty_e1, cs1, pp1 = for_rule binding rule env in
           let cs0 = AtConstrSet.from_list [
             AtConstr.create pat_type eloc ty_p1 ;
             AtConstr.create expr_type eloc ty_e1 ;
@@ -1176,7 +1190,7 @@ and for_rules:
           enr_rule::[], cs, pp1
 
       | ((pat, exp) as rule) :: rem_rules ->
-          let enr_rule, ty_p1, ty_e1, cs1, pp1 = for_rule rule env in
+          let enr_rule, ty_p1, ty_e1, cs1, pp1 = for_rule binding rule env in
           let enr_rules, cs2, pp2 = for_rules eloc rem_rules env pat_type expr_type in
           let cs0 = AtConstrSet.from_list [
             AtConstr.create pat_type eloc ty_p1 ;

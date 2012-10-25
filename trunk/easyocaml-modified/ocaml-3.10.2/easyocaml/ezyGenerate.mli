@@ -52,8 +52,8 @@ val for_pattern :
 val ty_of_expr :
   EzyEnrichedAst.generated_expression -> EzyTypingCoreTypes.Ty.t
 
-val for_expr :
-  EzyAst.imported_expression -> EzyEnv.t ->
+val for_expr : 
+  ?binding: string option -> EzyAst.imported_expression -> EzyEnv.t ->
   generated_expression * EzyConstraints.AtConstrSet.t * PostProcess.t
 
 val for_structure :
