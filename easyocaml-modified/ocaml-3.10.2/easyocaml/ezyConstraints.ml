@@ -39,7 +39,7 @@ module AtConstr = struct
 
   let cons_print ppf ast { loc = loc; tys = (x, y); leq = leq } =
     Format.fprintf ppf "%a[\"%a\":%a] == %a[\"%a\":%a];[%a]@\n" 
-    Ty.print x Ty.print_detail (x, ast) Ty.print_loc x 
+    Ty.print x Ty.print_detail (x, ast) Ty.print_loc x
     Ty.print y Ty.print_detail (y, ast) Ty.print_loc y 
     ExtLocation.print loc
 
