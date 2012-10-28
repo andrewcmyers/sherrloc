@@ -653,31 +653,23 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                 | ExtLocation.Interface _ -> 
                     Ty.set_label vd.EzyEnv.val_ty eloc in
             let x' = { lid_name = x.lid_name; lid_data = path } in
-            (* dz: there is no need to distinguish Poly or Mono as long if we
-             * treat the poly type as a super typ *)
-            let poly = 
-              match vd.EzyEnv.val_binding with
-              | EzyEnv.Poly -> true
-            (*      let a = Ty.fresh_var () in
-                  let ax = Ty.fresh_var () in
+            match vd.EzyEnv.val_binding with
+              | EzyEnv.Poly ->
+                  let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
                   let tyvarmap, ty' = Ty.fresh_variant val_ty in
                   let tyvarmap, cs' = AtConstrSet.fresh_variant ~tyvarmap vd.EzyEnv.val_constraints in
                   let cs'' = AtConstrSet.from_list [
-                    AtConstr.create ax eloc a ;
-                    AtConstr.create ty' vd.EzyEnv.val_loc ax ;
+                    AtConstr.create ty' eloc a ;
                   ] in
                   let cs = AtConstrSet.union cs' cs'' in
-                  logger#trace "Polymorph: %a, %a -> %a, %a"
-                    Ty.print val_ty AtConstrSet.print vd.EzyEnv.val_constraints
-                    Ty.print ty'  AtConstrSet.print cs' ;
-                  build_exp a (Pexp_ident x'), cs, PostProcess.empty *)
-              | EzyEnv.Mono -> false in
+                  build_exp a (Pexp_ident x'), cs, PostProcess.empty
+              | EzyEnv.Mono -> 
               let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
               (* let ax = Ty.fresh_var () in *)
               let cs = AtConstrSet.from_list [
                 (* AtConstr.create a eloc ax ;
                 AtConstr.create ax vd.EzyEnv.val_loc val_ty ; *)
-                AtConstr.create ~leq:poly a eloc val_ty;
+                AtConstr.create a eloc val_ty;
               ] in
               build_exp a (Pexp_ident x'), cs, PostProcess.empty
           with Not_found ->
