@@ -13,11 +13,14 @@ public class RightEdge extends ReductionEdge {
 	}
 	
 	public boolean equals(Object obj) {
-		return (obj instanceof RightEdge) && cons.equals(((RightEdge)obj).cons);
+		if (obj instanceof RightEdge) {
+			return cons.equals(((RightEdge)obj).cons) && from.equals(((RightEdge)obj).from) && to.equals(((RightEdge)obj).to);
+		}
+		return false;
 	}
 	
 	public int hashCode() {
-		return cons.hashCode();
+		return from.hashCode()*7103+to.hashCode()*3343+cons.hashCode();
 	}
 	
 	public String toString() {

@@ -13,11 +13,14 @@ public class LeftEdge extends ReductionEdge {
 	}
 	
 	public boolean equals(Object obj) {
-		return (obj instanceof LeftEdge) && cons.equals(((LeftEdge)obj).cons);
+		if (obj instanceof LeftEdge) {
+			return cons.equals(((LeftEdge)obj).cons) && from.equals(((LeftEdge)obj).from) && to.equals(((LeftEdge)obj).to);
+		}
+		return false;
 	}
 	
 	public int hashCode() {
-		return cons.hashCode();
+		return from.hashCode()*8009+to.hashCode()*4327+cons.hashCode();
 	}
 	
 	public String toDotString() {
@@ -26,5 +29,9 @@ public class LeftEdge extends ReductionEdge {
 	
 	public String toString() {
 		return "left";
+	}
+	
+	public EdgeCondition getCondition () {
+		return cons;
 	}
 }
