@@ -41,7 +41,7 @@ public class ElementNode extends Node {
     }
     
     public String toString() {
-        return "Current node: "+getName()+"\n";
+        return getName();
     }
     
     public String printNodeToDotString () {

@@ -82,13 +82,14 @@ public class Constraint implements Comparable<Constraint> {
     @Override
     public boolean equals(Object obj) {
     	if (obj instanceof Constraint) {
-    		return this.toString().equals(((Constraint)obj).toString());
+    		return e1.equals(((Constraint) obj).e1) && e2.equals(((Constraint) obj).e2) 
+    		&& r.equals(((Constraint) obj).r) && pos.equals(((Constraint) obj).pos);
     	}
     	return false;
     }
     
     @Override
     public int hashCode() {
-    	return toString().hashCode();
+    	return e1.hashCode()*4759 + e2.hashCode()*523 + pos.hashCode()*3 + ((r==Relation.EQ)?1:0);
     }
 }

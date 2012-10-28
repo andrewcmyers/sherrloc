@@ -60,13 +60,6 @@ public class ConstraintPath {
 		}
 		return ret;
 	}
-        
-    // increase # path each node appears in    
-	public void increaseTotal() {
-		for (Edge edge : edges) {
-			edge.to.totalcount++;
-		}
-	}
     
 	public Node getFirst() {
 		if (edges.size() != 0)
@@ -89,9 +82,12 @@ public class ConstraintPath {
 	public void incSuccCounter ( ) {
 		if (edges.size()==0) return;
 
+		ElementNode leftmost = (ElementNode) getFirst();
+		leftmost.incSuccCounter();
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			edge.incSuccCounter();
+			edge.getTo().incSuccCounter();
 		}
 	}
 	
@@ -99,7 +95,7 @@ public class ConstraintPath {
 		if (edges.size()==0) return;
 
 		ElementNode leftmost = (ElementNode) getFirst();
-//		leftmost.setCause();
+		leftmost.setCause();
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			edge.from.setCause();
@@ -122,8 +118,9 @@ public class ConstraintPath {
 		ret += leftmost.getName()+"\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
-			ret += "--> (" + (edge.toString()) + ")\n";
-			ret += ((ElementNode)edge.to).getName()+"\n";
+//			ret += "--> (" + (edge.toString()) + ")\n";
+			if (finder.getPath(leftmost, edge.to)!=null)
+				ret += ((ElementNode)edge.to).getName()+"\n";
 		}
 		ret += "----End of one path----\n";
 		return ret;
