@@ -7,7 +7,7 @@ import constraint.ast.Environment;
 /*
  * Special edges used in CFL-reachability algorithm
  */
-public class ReductionEdge extends Edge implements Comparable<ReductionEdge> {
+public class ReductionEdge extends Edge{
 	List<Edge> edges;
 	
 	public ReductionEdge(Node from, Node to, List<Edge> edges) {
@@ -29,10 +29,6 @@ public class ReductionEdge extends Edge implements Comparable<ReductionEdge> {
 	
 	public List<Edge> getEdges() {
 		return edges;
-	}
-	
-	public int compareTo(ReductionEdge n) {
-		return Double.compare(edges.size(), ((ReductionEdge) n).edges.size());
 	}
 	
 	@Override

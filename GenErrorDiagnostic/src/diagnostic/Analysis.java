@@ -1,3 +1,4 @@
+
 package diagnostic;
 
 import java.io.BufferedReader;
@@ -31,7 +32,6 @@ import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Position;
-import constraint.ast.Variable;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
@@ -188,30 +188,13 @@ public class Analysis {
 				
 				ConstraintPath path = new ConstraintPath(l, finder);
 
-				if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
-					if (!((ConstructorElement)e1).getCons().sameas(((ConstructorElement)e2).getCons())) {
-//						System.out.println(path.toString());
-						path.setCause();
-						AttemptGoal goal = new AttemptGoal(start, end, path.getAssumption());
-						unsatPath.add(goal);
-						errorPaths.put(goal, path);
-						continue;
-					}
-					else {
-						path.incSuccCounter();
-						continue;
-					}
-				}
-
-				if ( e1 instanceof Variable || e2 instanceof Variable)
-					continue;
-				
 				// successful path
 				if (graph.getEnv().leq(start.getElement(), end.getElement())) {
 					path.incSuccCounter();
 					continue;
 				}
 
+				// if failed, try to use the assumptions on path
 				Environment env;
 				if (cachedEnv.containsKey(path.getAssumption()))
 					env = cachedEnv.get(path.getAssumption());
@@ -228,7 +211,7 @@ public class Analysis {
 					continue;
 				}
 				path.setCause();
-				// System.out.println(path.toString());
+//				System.out.println(path.toString());
 				AttemptGoal goal = new AttemptGoal(start, end, env);
 				unsatPath.add(goal);
 				errorPaths.put(goal, path);
@@ -313,6 +296,30 @@ public class Analysis {
     	// we do an interative deeping search until at least one cut is returned
     	for (int level=1; level <= REC_MAX; level++) {
    			boundedDepthSearch (level, candidates, map, new HashSet<EquationEdge>(), results);
+   			if (results.size()!=0)
+   				break;
+    	}
+
+    	return results;
+    }
+    
+    public Set<Set<Node>> genNodeCuts (Set<AttemptGoal> remaining) {
+    	HashSet<Node> candidates = new HashSet<Node>();
+    	Set<Set<Node>> results = new HashSet<Set<Node>>();
+    	HashMap<AttemptGoal, List<Node>> map = new HashMap<AttemptGoal, List<Node>>();
+
+    	for (AttemptGoal goal : remaining) {
+    		List<Node> l = new ArrayList<Node>();
+    		for (Node n : errorPaths.get(goal).getAllNodes()) {
+    			l.add(n);
+    			candidates.add(n);
+    		}
+    		map.put(goal, l);
+    	}
+    	
+    	// we do an interative deeping search until at least one cut is returned
+    	for (int level=1; level <= REC_MAX; level++) {
+   			boundedDepthSearch (level, candidates, map, new HashSet<Node>(), results);
    			if (results.size()!=0)
    				break;
     	}
@@ -698,18 +705,17 @@ public class Analysis {
     }
     
     private class CutSuggestion implements Comparable<CutSuggestion> {
-    	int rank=0;
-    	Set<EquationEdge> edges;
-	int id;
+		int rank = 0;
+		Set<EquationEdge> edges;
+		int id;
 
-    	
-    	public CutSuggestion(int id, Set<EquationEdge> edges) {
-    		this.edges = edges;
-		this.id = id;
-    		for (EquationEdge edge : edges) {
-    			rank += edge.getEquation().getSuccPaths();
-    		}
-	}
+		public CutSuggestion(int id, Set<EquationEdge> edges) {
+			this.edges = edges;
+			this.id = id;
+			for (EquationEdge edge : edges) {
+				rank += edge.getEquation().getSuccPaths();
+			}
+		}
     	
     	@Override
     	public int compareTo(CutSuggestion o) {
@@ -747,28 +753,41 @@ public class Analysis {
     public String genCutItems () {
     	StringBuffer sb = new StringBuffer();
     	
-    	if (GEN_CUT) {
-            Set<Set<EquationEdge>> results=null;
-        	results = genCuts(errorPaths.keySet());
-        	sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):<br>\n");
+		if (GEN_CUT) {
+			Set<Set<EquationEdge>> results = null;
+			results = genCuts(errorPaths.keySet());
+			sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):<br>\n");
 
-//        	sb.append("<OL>\n");
-        	
-        	// get all cuts and rank them
-        	List<CutSuggestion> cuts = new ArrayList<CutSuggestion>();
-        	int count=1;
-		for (Set<EquationEdge> set : results) {
-        		cuts.add(new CutSuggestion(count, set));
-			count++;
+			// sb.append("<OL>\n");
+
+			// get all cuts and rank them
+			List<CutSuggestion> cuts = new ArrayList<CutSuggestion>();
+			int count = 1;
+			for (Set<EquationEdge> set : results) {
+				cuts.add(new CutSuggestion(count, set));
+				count++;
+			}
+			Collections.sort(cuts);
+
+			for (CutSuggestion cut : cuts) {
+				sb.append(cut.toHTML());
+			}
+			// sb.append("</OL>\n");
 		}
-        	Collections.sort(cuts);
-        	
-        	for (CutSuggestion cut : cuts) {
-        		sb.append(cut.toHTML());
-       		}
-//   			sb.append("</OL>\n");
-        }
     	
+//		if (GEN_CUT) {
+//			Set<Set<Node>> results = null;
+//			results = genNodeCuts(errorPaths.keySet());
+//
+//			// get all cuts and rank them
+//			for (Set<Node> set : results) {
+//				for (Node n : set)
+//					System.out.print(n.getSuccCounter() + ": " + ((ElementNode)n).getElement() +"; ");
+//				System.out.println();
+//			}
+//			// sb.append("</OL>\n");
+//		}
+		
     	return sb.toString();
     }
     

@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import util.AttemptGoal;
+
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
@@ -62,9 +64,17 @@ public class Environment {
 		if (e1.equals(e2))
 			return true;
 		
+		if ( e1 instanceof Variable || e2 instanceof Variable)
+			return true;
+		
 		if (e1 instanceof Constructor && e2 instanceof Constructor) {
 			if (((Constructor)e1).sameas(e2))
 				return true;
+		}
+		
+		if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
+			if (!((ConstructorElement)e1).getCons().sameas(((ConstructorElement)e2).getCons()))
+				return false;
 		}
 		
 		// the assumption can be made on the join/meet

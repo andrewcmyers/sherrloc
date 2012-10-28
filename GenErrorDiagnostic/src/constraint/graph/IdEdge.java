@@ -13,11 +13,14 @@ public class IdEdge extends ReductionEdge {
 	}	
 	
 	public boolean equals(Object obj) {
-		return (obj instanceof IdEdge);
+		if (obj instanceof IdEdge) {
+			return from.equals(((IdEdge) obj).from) && to.equals(((IdEdge) obj).to);
+		}
+		return false;
 	}
 	
 	public int hashCode() {
-		return 89;
+		return from.hashCode()*5237 + to.hashCode();
 	}
 	
 	public String toString() {

@@ -2,36 +2,52 @@ CONSTRUCTOR array 1
 CONSTRUCTOR char 0
 CONSTRUCTOR bool 0
 CONSTRUCTOR float 0
-
 CONSTRUCTOR exn 0
 CONSTRUCTOR format6 6
 CONSTRUCTOR int 0
 CONSTRUCTOR Pervasives.in_channel 0
-
 CONSTRUCTOR Pervasives.fpclass 0
 CONSTRUCTOR int64 0
 CONSTRUCTOR list 1
-
 CONSTRUCTOR lazy_t 1
 CONSTRUCTOR option 1
 CONSTRUCTOR Pervasives.open_flag 0
-
 CONSTRUCTOR Pervasives.ref 1
 CONSTRUCTOR unit 0
 CONSTRUCTOR string 0
-
 CONSTRUCTOR Pervasives.out_channel 0
 CONSTRUCTOR nativeint 0
 CONSTRUCTOR int32 0
 
-
-q2[3,7-8] == r2[3,15-20];[3,3-35]
-p2[3,3-35] == u2[3,26-35];[3,3-35]
-s2[3,11-15] == (float -> float)[3,11-15];[3,11-15]
-s2[3,11-15] == (t2 -> r2)[3,15-20];[3,15-20]
-float[3,16-19] == t2[3,16-19];[3,16-19]
-x2[3,24-25] == q2[3,7-8];[3,24-25]
-w2[3,26-27] == (x2 -> v2)[3,26-25];[3,26-25]
-w2[3,26-27] == (string -> (string -> string))[3,26-27];[3,26-27]
-v2[3,26-25] == (y2 -> u2)[3,26-35];[3,26-35]
-string[3,28-35] == y2[3,28-35];[3,28-35]
+k3["f":1,4-5] == l3["function x -> function y -> x + y":1,6-17];[1,0-36]
+q2["f":1,4-5] == r2["function x -> function y -> x + y":1,6-17];[1,0-36]
+p2["let . in .":1,0-36] == f3["f 2 ^ \"Hello\"":1,27-36];[1,0-36]
+o3["param of f":1,6-17] == p3["x":1,6-7];[1,6-17]
+m3["ret value of f":1,6-17] == n3["function y -> x + y":1,8-17];[1,6-17]
+l3["function x -> function y -> x + y":1,6-17] == (o3 -> m3)[".. function .. -> .. ..":1,6-17];[1,6-17]
+t2["ret value of f":1,6-17] == v2["function y -> x + y":1,8-17];[1,6-17]
+s2["param of f":1,6-17] == u2["x":1,6-7];[1,6-17]
+r2["function x -> function y -> x + y":1,6-17] == (s2 -> t2)[".. function .. -> .. ..":1,6-17];[1,6-17]
+s3["param of f x":1,8-17] == t3["y":1,8-9];[1,8-17]
+q3["ret value of f x":1,8-17] == r3["x + y":1,14-17];[1,8-17]
+n3["function y -> x + y":1,8-17] == (s3 -> q3)[".. function .. -> .. ..":1,8-17];[1,8-17]
+x2["ret value of f x":1,8-17] == a3["x + y":1,14-17];[1,8-17]
+w2["param of f x":1,8-17] == y2["y":1,8-9];[1,8-17]
+v2["function y -> x + y":1,8-17] == (w2 -> x2)[".. function .. -> .. ..":1,8-17];[1,8-17]
+u3["x":1,12-13] == p3["x":1,6-7];[1,12-13]
+d3["x":1,12-13] == u2["x":1,6-7];[1,12-13]
+v3["(+)":1,14-15] == (u3 -> w3)[".. ..~.. ..":1,14-13];[1,14-13]
+c3["(+)":1,14-15] == (d3 -> b3)[".. ..~.. ..":1,14-13];[1,14-13]
+(int -> (int -> int))[".. (+) ..":1,14-15] == v3["(+)":1,14-15];[1,14-15]
+(int -> (int -> int))[".. (+) ..":1,14-15] == c3["(+)":1,14-15];[1,14-15]
+w3["(+) x":1,14-13] == (x3 -> r3)[".. ..~.. ..":1,14-17];[1,14-17]
+b3["(+) x":1,14-13] == (e3 -> a3)[".. ..~.. ..":1,14-17];[1,14-17]
+x3["y":1,16-17] == t3["y":1,8-9];[1,16-17]
+e3["y":1,16-17] == y2["y":1,8-9];[1,16-17]
+k3["f":1,4-5] == j3["f":1,22-23];[1,22-23]
+int[".. ..~2 ..":1,24-25] == y3["2":1,24-25];[1,24-25]
+j3["f":1,22-23] == (y3 -> i3)[".. ..~2 ..":1,24-25];[1,24-25]
+h3["(^)":1,27-28] == (i3 -> g3)[".. ..~.. ..":1,27-25];[1,27-25]
+(string -> (string -> string))[".. (^) ..":1,27-28] == h3["(^)":1,27-28];[1,27-28]
+g3["(^) f 2":1,27-25] == (a4 -> f3)[".. ..~.. ..":1,27-36];[1,27-36]
+string[".. \"Hello\" ..":1,29-36] == a4["\"Hello\"":1,29-36];[1,29-36]
