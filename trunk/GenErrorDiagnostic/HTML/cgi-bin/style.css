@@ -4,7 +4,15 @@ body {padding: 0 2em}
 .right { background-color: #3ff; font-weight: bold; border: solid #c90 1px }
 .pathelement { background-color: #ff9; font-weight: bold; border: solid #c90 1px }
 .cut { background-color: #fb9; font-weight: bold }
-pre.code {font-size: 110%; background-color: #ffe; padding: 1ex; border: solid gray 1px}
+pre.code {
+    font-size: 110%;
+    background-color: #ffe;
+    padding: 1ex;
+    border: solid gray 1px;
+    overflow: auto;
+    max-width: 120ex;
+    max-height: 30em;
+}
 span.comment {color: #008; font-style: italic}
 pre.code .keyword {font-weight: bold}
 span.suggestion {
