@@ -802,7 +802,7 @@ public class Analysis {
         	sb.append("<span class=\"path\" ");
 			setShowHideActions(false, sb, locBuffer.toString(), 0);
 			sb.append(">");
-			sb.append("<code>"+exprBuffer.toString()+"</code>");
+			sb.append("<code>"+exprBuffer.toString()+"</code></span>");
         	sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
 	        sb.append(locBuffer.toString());
         	sb.append("])\" ");
