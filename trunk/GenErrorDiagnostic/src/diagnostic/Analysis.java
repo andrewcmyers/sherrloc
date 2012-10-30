@@ -303,8 +303,11 @@ public class Analysis {
     		List<EquationEdge> l = new ArrayList<EquationEdge>();
     		for (Edge e : errorPaths.get(goal).getEdges()) {
     			if (e instanceof EquationEdge) {
-    				l.add((EquationEdge)e);
-    				candidates.add((EquationEdge)e);
+    				EquationEdge ee = (EquationEdge) e;
+    				if (!ee.getEquation().getFirstElement().toDetailString().equals(ee.getEquation().getSecondElement().toDetailString())) {
+    					l.add(ee);
+    					candidates.add(ee);
+    				}
     			}
     		}
     		map.put(goal, l);
@@ -755,9 +758,9 @@ public class Analysis {
         		sb.append("<span class=\"mincut\" ");
         		setShowHideActions(true, sb, loc, id);
         		sb.append(">");
-        		sb.append("<code id=\"left"+id+"\">"+left.toHTMLString()+"</code>");
+        		sb.append("<code id=\"left"+id+"\">"+left.toDetailString()+"</code>");
         		sb.append(" has the same type as ");
-        		sb.append("<code id=\"right"+id+"\">"+right.toHTMLString()+"</code></span>");
+        		sb.append("<code id=\"right"+id+"\">"+right.toDetailString()+"</code></span>");
         		sb.append("<button onclick=\"hide_all();show_elements_perm(false, [");
         		sb.append(loc);
         		sb.append("]); ");
