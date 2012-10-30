@@ -58,5 +58,6 @@ div.feedback form input { font-size: 80%; font-family: sans-serif }
     overflow: hidden;
 }
 
+span.rank { font-family: serif; font-size: 80%; color: #666 }
 
 ol li {font-family: Baskerville, serif}
