@@ -13,6 +13,7 @@ my $root = '/home/zhangdf/public_html';
 my $ocamlbin = '/home/zhangdf/diagnostic/easyocaml-modified/ocaml-3.10.2/bin';
 my $diagbin = '/home/zhangdf/diagnostic/GenErrorDiagnostic';
 my $ecaml= $ocamlbin."/ecaml";
+my $ocaml= $ocamlbin."/ocaml";
 my $diagnostic= $diagbin."/diagnostic";
 my $source = "program";
 my $cons_file = "error.con";
@@ -55,7 +56,7 @@ my $md5 = md5_hex (param('prog'));
 system ("cp", "$source", "archive/"."$source"."$md5"); 
 
 system ("rm", "$cons_file");
-my $result =  `$ecaml $source 2>&1`;
+my $result =  `$ocaml $source 2>&1`;
 if ($result) {
     print "<H2><BR>OCaml Compiler report</H2>";
     print "<pre>\n";
@@ -63,6 +64,8 @@ if ($result) {
     print "</pre>\n";
     print "<HR>\n";
 }
+
+system ("$ecaml", "$source");
 
 if (-e $cons_file) {
     system ("$diagnostic", "-c", "-s", "-i", "$source", "-o", "error.html", "$cons_file", ">/dev/null");
