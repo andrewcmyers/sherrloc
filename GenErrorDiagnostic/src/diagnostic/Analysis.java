@@ -263,7 +263,7 @@ public class Analysis {
 	        	sb.append(path_buff.toString());
         		sb.append("])\" ");
 			// setShowHideActions(true, sb, path_buff.toString(), 0);
-			sb.append(">Show it</button><br>\n");
+			sb.append(">show it</button><br>\n");
 		}
 		sb.append("</UL>\n");
 		return sb.toString();
@@ -763,7 +763,7 @@ public class Analysis {
         		sb.append("]); ");
         		sb.append("show_cut_perm("+id+")\" ");
         		// setShowHideActions(false, sb, loc, id);
-        		sb.append(">Show it</button><br>\n");
+        		sb.append(">show it</button><br>\n");
         	}
        		return sb.toString();
     	}
@@ -807,7 +807,7 @@ public class Analysis {
 	        sb.append(locBuffer.toString());
         	sb.append("])\" ");
 			// setShowHideActions(true, sb, path_buff.toString(), 0);
-			sb.append(">Show it</button><br>\n");
+			sb.append(">show it</button><br>\n");
         	
        		return sb.toString();
     	}
@@ -820,7 +820,7 @@ public class Analysis {
 			Set<Set<String>> results = null;
 			results = genNodeCuts(errorPaths.keySet());
 			
-			sb.append("Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):<br>\n");
+			sb.append("<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
 			List<ExprSuggestion> cuts = new ArrayList<ExprSuggestion>();
 			int count = 1;
@@ -830,16 +830,26 @@ public class Analysis {
 			}
 			Collections.sort(cuts);
 
-			for (ExprSuggestion cut : cuts) {
-				sb.append(cut.toHTML());
+			int best=Integer.MAX_VALUE;
+			int i=0;
+			for ( ; i<cuts.size(); i++) {
+				if (cuts.get(i).rank>best)
+					break;
+				best = cuts.get(i).rank;
+				sb.append(cuts.get(i).toHTML());
 			}
-			
+			sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
+			sb.append("<div id=\"more_expr\">");
+			for ( ; i<cuts.size(); i++) {
+				sb.append(cuts.get(i).toHTML());
+			}
+			sb.append("</div>\n");
 		}
 		
 		if (GEN_CUT) {
 			Set<Set<EquationEdge>> results = null;
 			results = genCuts(errorPaths.keySet());
-			sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):<br>\n");
+			sb.append("<H4>Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
 			// sb.append("<OL>\n");
 
@@ -852,9 +862,20 @@ public class Analysis {
 			}
 			Collections.sort(cuts);
 
-			for (ConsSuggestion cut : cuts) {
-				sb.append(cut.toHTML());
+                        int best=Integer.MAX_VALUE;
+			int i=0;
+			for ( ; i<cuts.size(); i++) {
+				if (cuts.get(i).rank>best)
+					break;
+				best = cuts.get(i).rank;
+				sb.append(cuts.get(i).toHTML());
 			}
+			sb.append("<button onclick=\"show_more_cons()\">show/hide more</button><br>\n");
+			sb.append("<div id=\"more_cons\">");
+			for ( ; i<cuts.size(); i++) {
+				sb.append(cuts.get(i).toHTML());
+			}
+			sb.append("</div>\n");
 			// sb.append("</OL>\n");
 		}
 		
@@ -901,7 +922,7 @@ public class Analysis {
     // find all locations involved in the unsat paths, and then wrap the corresponding code with <span> </span> notations
     public String genAnnotatedCode () {
     	StringBuffer sb = new StringBuffer();
-        sb.append("<button onclick=\"hide_all()\">Hide all</button><br>\n");
+        sb.append("<button onclick=\"hide_all()\">hide all highlights</button><br>\n");
     	sb.append("\n<pre class=\"code\" id=\"code\">\n");
     	
     	// collect all position information, and sort them
