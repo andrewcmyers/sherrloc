@@ -256,8 +256,8 @@ public class Analysis {
 			sb.append("<LI>\n<span class=\"path\" ");
 			setShowHideActions(true, sb, path_buff.toString(), 0);
 			sb.append(">");
-			sb.append("A value with type "+goal.getSource().getElement().toHTMLString() + 
-				    " is being used at type " + goal.getSink().getElement().toHTMLString());
+			sb.append("A value with type "+goal.getSource().getElement().toDetailString() + 
+				    " is being used at type " + goal.getSink().getElement().toDetailString());
 			sb.append("</span>\n");
         		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
 	        	sb.append(path_buff.toString());
@@ -604,8 +604,9 @@ public class Analysis {
     }
     
     public void writeFeedback(Writer out) throws IOException {
-    	out.write("<div id=feedback class=feedback action=\"\">\r\n");
-    	out.write("<form>");
+    	out.write("<div id=feedback class=feedback>\r\n");
+    	out.write("<form method=\"POST\" action=\"submit.pl\" accept-charset=\"UTF-8\">");
+
     	out.write("Please rate this error diagnosis:<br>\r\n");
 
     	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> 1. not helpful\r\n");
