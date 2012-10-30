@@ -135,3 +135,21 @@ function hide_feedback_form() {
 	style.display = 'none';
     }
 }
+
+function show_more_expr() {
+    var style = document.getElementById('more_expr').style;
+    if (style.height == 'auto') {
+	style.height = 0;
+    } else {
+	style.height = 'auto';
+    }
+}
+
+function show_more_cons() {
+    var style = document.getElementById('more_cons').style;
+    if (style.height == 'auto') {
+	style.height = 0;
+    } else {
+	style.height = 'auto';
+    }
+}

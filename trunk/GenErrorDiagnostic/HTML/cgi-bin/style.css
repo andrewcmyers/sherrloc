@@ -40,4 +40,15 @@ div.feedback form input { font-size: 80%; font-family: sans-serif }
     border: 1px solid #aaa;
 }
 
+#more_expr {
+    height: 0px;
+    overflow: hidden;
+}
+
+#more_cons {
+    height: 0px;
+    overflow: hidden;
+}
+
+
 ol li {font-family: Baskerville, serif}
