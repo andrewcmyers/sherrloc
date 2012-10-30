@@ -194,6 +194,11 @@ let null_pat = {
   ppat_data = { pa_ty = Ty.Var (None, None, TyVar.none) ; pa_ident = Ident.none; pa_env = EzyEnv.empty } ;
 }
 
+let pat_string pat =
+  Format.fprintf Format.str_formatter "%a" print_pat_short pat;
+  let detail = Format.flush_str_formatter () in
+  detail
+
 (* Monadic implementation of contraint generation for patterns *)
 let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtConstrSet.t * pat_bindings * PostProcess.t) monad =
   fun pat env ->
@@ -202,8 +207,7 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
     let annotation ?(ident=Ident.none) ty = { pa_ty = ty; pa_ident = ident; pa_env = env } in
     let loc = pat.ppat_loc in
     let eloc = ExtLocation.Source loc in
-    Format.fprintf Format.str_formatter "%a" print_pat_short pat;
-    let detail = Format.flush_str_formatter () in
+    let detail = pat_string pat in
 
     let pairwise_disjoint_heavies loc bs =
       let severals =
@@ -245,7 +249,7 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
             ppat_loc = loc ;
             ppat_desc = Ppat_constant c ;
           } in
-          let cs = AtConstrSet.singleton (ty_for_constant eloc c) eloc a in
+          let cs = AtConstrSet.singleton (ty_for_constant eloc c) detail eloc a detail in
           M.return (pat', cs, StringMap.empty, PostProcess.empty)
 
       | Ppat_or (p1, p2) ->
@@ -265,15 +269,15 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
                 [snd (StringMap.find v b1) + snd (StringMap.find v b2)].  *)
               let cs1' =
                 let ty, l' = StringMap.find v b1 in
-                AtConstrSet.add cs1' (AtConstr.create a_id (ExtLocation.Source l') ty) in
+                AtConstrSet.add cs1' (AtConstr.create a_id v (ExtLocation.Source l') ty v) in
               let cs2' =
                 let ty, l' = StringMap.find v b2 in
-                AtConstrSet.add cs2' (AtConstr.create a_id (ExtLocation.Source l') ty) in
+                AtConstrSet.add cs2' (AtConstr.create a_id v (ExtLocation.Source l') ty v) in
               b', cs1', cs2' in
             let (b:pat_bindings), cs1', cs2' = StringSet.fold f (StringMap.keys b1) (StringMap.empty, cs1, cs2) in
             let cs0 = AtConstrSet.from_list [
-              AtConstr.create a eloc enr_p1.ppat_data.pa_ty ;
-              AtConstr.create a eloc enr_p2.ppat_data.pa_ty
+              AtConstr.create a detail eloc enr_p1.ppat_data.pa_ty (pat_string p1);
+              AtConstr.create a detail eloc enr_p2.ppat_data.pa_ty (pat_string p2)
             ] in
             let cs = List.reduce AtConstrSet.union [cs0; cs1'; cs2'] in
             let pp = PostProcess.union pp1 pp2 in
@@ -301,7 +305,7 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
             ppat_loc = loc ;
             ppat_desc = Ppat_alias (enr_pat, name) ;
           } in
-          let cs' = AtConstrSet.add cs (AtConstr.create a eloc (ty_of_pat enr_pat)) in
+          let cs' = AtConstrSet.add cs (AtConstr.create a detail eloc (ty_of_pat enr_pat) (pat_string pat)) in
           M.return (pat', cs', b', pp)
 
       | Ppat_tuple pats ->
@@ -312,7 +316,7 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let cs0 = 
             let ty_tuple = Ty.Tuple (eloc, List.map (fun pat -> pat.ppat_data.pa_ty) enr_pats) in
-            AtConstrSet.singleton a eloc ty_tuple in
+            AtConstrSet.singleton a detail eloc ty_tuple detail in
           let pat' = {
             ppat_data = annotation a;
             ppat_loc = loc;
@@ -346,13 +350,19 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
               begin try
                 let tyvarmap, ty'_r = T2.map2 ~f:(Ty.set_label // eloc) (Ty.fresh_variant cd.EzyEnv.ctor_result) in
                 let tyvarmap, tys' = Ty.fresh_variants ~tyvarmap cd.EzyEnv.ctor_args in
+                let tys' = List.map (Ty.set_label // eloc) tys' in
+                let rec map3 f l1 l2 l3 =
+                  match (l1, l2, l3) with
+                  ([], [], []) -> []
+                  | (a1::l1, a2::l2, a3::l3) -> let r = f a1 a2 a3 in r :: map3 f l1 l2 l3
+                  | (_, _, _) -> [] in
                 let cs0 =
-                  let aux ty' enr_pat =
-                    AtConstr.create ty' eloc (ty_of_pat enr_pat) in
-                  AtConstrSet.from_list (
-                    AtConstr.create a eloc ty'_r ::
-                    List.map2 aux tys' enr_pats
-                  ) in
+                  let aux ty' enr_pat pat =
+                    AtConstr.create ty' (pat_string pat) eloc (ty_of_pat enr_pat) (pat_string pat) in
+                      AtConstrSet.from_list (
+                        AtConstr.create a detail eloc ty'_r detail::
+                        map3 aux tys' enr_pats pats
+                    ) in
                 let ctor' = { lid_name = ctor.lid_name; lid_data = EzyEnv.path_of_tag cd.EzyEnv.ctor_tag } in
                 let desc' =
                   if flag then 
@@ -430,8 +440,8 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
             let ty = ty_of_pat enr_pat in
             let _, ty' = EzyEnrichedAst.import_core_type true (env_for_ct env) StringMap.empty ct in
             let cs1 = AtConstrSet.from_list [
-              AtConstr.create ty eloc' ty' ;
-              AtConstr.create a1 eloc ty' ;
+              AtConstr.create ty detail eloc' ty' detail ;
+              AtConstr.create a1 detail eloc ty' detail ;
             ] in
             let pp1 = PostProcess.type_annotations [TypeAnnotation.create ty loc ct] in
             let pat' = {
@@ -553,6 +563,11 @@ let null_exp = {
   pexp_data = { ea_ty = Ty.Var (None, None, TyVar.none); ea_env = EzyEnv.empty } ;
 }
 
+let expr_string exp =
+    Format.fprintf Format.str_formatter "%a" print_expr_short exp;
+    let detail = Format.flush_str_formatter () in
+    detail
+
 (* Auxiliary to collect the bindings in a `let ... and ... and ... (in)' expression *)
 let rec collect_bindings env loc bindings =
   let aux (cs_sofar, pp_sofar, vars_sofar, env_sofar) (pat, expr) =
@@ -569,7 +584,7 @@ let rec collect_bindings env loc bindings =
       else
         let heavy = EzyErrors.Several_bindings (StringSet.elements b_key_inter) in
         PostProcess.heavies [loc, heavy] in
-    let csx = AtConstrSet.singleton (ty_of_pat enr_pat) (ExtLocation.Source loc) (ty_of_expr enr_expr) in
+    let csx = AtConstrSet.singleton (ty_of_pat enr_pat) (pat_string pat) (ExtLocation.Source loc) (ty_of_expr enr_expr) (expr_string expr) in
     let cs = List.reduce AtConstrSet.union [csx; cs0; cs1] in
     let sofar =
       List.reduce AtConstrSet.union [cs0; cs1; csx; cs_sofar],
@@ -610,7 +625,8 @@ and collect_rec_bindings env loc bindings =
       val_constraints = cs ;
       val_loc = eloc ;
     } in
-    let csx = AtConstrSet.add cs (AtConstr.create ty eloc (ty_of_expr enr_expr)) in
+    let csx = AtConstrSet.add cs (AtConstr.create ty (expr_string expr) eloc
+    (ty_of_expr enr_expr) (expr_string expr)) in
     let pp' =
       if StringSet.mem var.nm_name vars_sofar then
         PostProcess.heavies [loc, EzyErrors.Several_bindings [var.nm_name]]
@@ -626,15 +642,13 @@ and collect_rec_bindings env loc bindings =
     List.foldmap process_binding (AtConstrSet.empty, PostProcess.empty, StringSet.empty, env) bindings' in
   (cs, pp, env'), enr_bindings
 
-(* dz: the binding informatio is feeded to make the named functions more
- * meaningful *)
+(* dz: the binding information is feeded to make the named functions more meaningful *)
 and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> generated_expression * AtConstrSet.t * PostProcess.t =
   fun ?(binding=None) expr env ->
 
     let loc = expr.pexp_loc in
     let eloc = ExtLocation.Source loc in
-    Format.fprintf Format.str_formatter "%a" print_expr_short expr;
-    let detail = Format.flush_str_formatter () in
+    let detail = expr_string expr in
 
     let build_exp ty ?(env=env) expr =
       { pexp_loc = loc; pexp_desc = expr; pexp_data = { ea_ty = ty; ea_env = env } } in
@@ -657,9 +671,10 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
               | EzyEnv.Poly ->
                   let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
                   let tyvarmap, ty' = Ty.fresh_variant val_ty in
+                  let ty' = Ty.set_label ty' eloc in
                   let tyvarmap, cs' = AtConstrSet.fresh_variant ~tyvarmap vd.EzyEnv.val_constraints in
                   let cs'' = AtConstrSet.from_list [
-                    AtConstr.create ty' eloc a ;
+                    AtConstr.create ty' detail eloc a detail;
                   ] in
                   let cs = AtConstrSet.union cs' cs'' in
                   build_exp a (Pexp_ident x'), cs, PostProcess.empty
@@ -669,7 +684,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
               let cs = AtConstrSet.from_list [
                 (* AtConstr.create a eloc ax ;
                 AtConstr.create ax vd.EzyEnv.val_loc val_ty ; *)
-                AtConstr.create a eloc val_ty;
+                AtConstr.create a detail eloc val_ty detail;
               ] in
               build_exp a (Pexp_ident x'), cs, PostProcess.empty
           with Not_found ->
@@ -682,65 +697,52 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
       | Pexp_constant c ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let desc = Pexp_constant c in
-          let cs = AtConstrSet.singleton (ty_for_constant eloc c) eloc a in
+          let cs = AtConstrSet.singleton (ty_for_constant eloc c) detail eloc a detail in
           build_exp a desc, cs, PostProcess.empty
 
       | Pexp_function rules ->
-          let bind_name = 
-              match binding with 
-              | None -> detail
-              | Some p -> p in
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
-          let pat_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("param of "^bind_name)) () in
-          let expr_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("ret value of "^bind_name)) () in
-
-          let enr_rules, cs0, pp = for_rules ~binding:binding eloc rules env pat_type expr_type in
-          let cs1 = AtConstrSet.singleton a eloc (Ty.Arrow (eloc, pat_type, expr_type)) in
+          let enr_rules, ty_p, _, ty_e, _, cs0, pp = for_rules ~binding:binding eloc rules env in
+          let cs1 = AtConstrSet.singleton a detail eloc (Ty.Arrow (eloc, ty_p, ty_e)) detail in
           let cs = AtConstrSet.union cs0 cs1 in
           build_exp a (Pexp_function enr_rules), cs, pp
 
       | Pexp_apply (exp1, exp2) ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
-          (* let a1 = Ty.fresh_var () in
-          let a2 = Ty.fresh_var () in *)
+          let exp2_loc = ExtLocation.Source exp2.pexp_loc in
+          let a1 = Ty.fresh_var ~loc:(Some exp2_loc) ~detail:(Some (expr_string exp2)) () in
+          (* let a2 = Ty.fresh_var () in *)
           let enr_exp1, cs1, pp1 = for_expr exp1 env in
           let enr_exp2, cs2, pp2 = for_expr exp2 env in
           let cs0 = AtConstrSet.from_list [
-            (* AtConstr.create (ty_of_expr enr_exp1) eloc (Ty.Arrow (eloc, a1, a2)) ;
-            AtConstr.create (ty_of_expr enr_exp2) eloc a1 ; 
-            AtConstr.create a eloc a2 ; *) 
-            AtConstr.create (ty_of_expr enr_exp1) eloc (Ty.Arrow (eloc, (ty_of_expr enr_exp2), a));
+            AtConstr.create (ty_of_expr enr_exp2) (expr_string exp2) eloc a1 (expr_string exp2) ; 
+            (* AtConstr.create a eloc a2 ; *) 
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (Ty.Arrow (eloc, a1, a)) (expr_string exp1);
           ] in
           build_exp a (Pexp_apply (enr_exp1, enr_exp2)), AtConstrSet.big_union [cs0; cs1; cs2], PostProcess.union pp1 pp2
       | Pexp_let (bindings, body) ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let (cs, pp, env'), enr_bindings = collect_bindings env loc bindings in
           let enr_body, csm, ppm = for_expr body env' in
-          let csx = AtConstrSet.singleton a eloc (ty_of_expr enr_body) in
+          let csx = AtConstrSet.singleton a detail eloc (ty_of_expr enr_body) (expr_string body) in
           build_exp a (Pexp_let (enr_bindings, enr_body)), List.reduce AtConstrSet.union [cs; csx; csm], PostProcess.union pp ppm
 
       | Pexp_letrec (bindings, body) ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let (cs, pp, env'), enr_bindings = collect_rec_bindings env loc bindings in
           let enr_body, csm, ppm = for_expr body env' in
-          let csx = AtConstrSet.singleton a eloc (ty_of_expr enr_body) in
+          let csx = AtConstrSet.singleton a detail eloc (ty_of_expr enr_body) (expr_string body) in
           build_exp a (Pexp_letrec (enr_bindings, enr_body)), List.reduce AtConstrSet.union [cs; csm; csx], PostProcess.union pp ppm
 
       | Pexp_match (exp, rules) ->
           let enr_exp, cs1, us1 = for_expr exp env in
-          let pat_type = ty_of_expr enr_exp in
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
-
-          (* let pat_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some "match
-           * expression") () in *)
-          (* let expr_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some "return
-           * type") () in *)
-          let enr_rules, cs2, us2 = for_rules eloc rules env pat_type a in
-          (* let cs0 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp) eloc pat_type ;
-            AtConstr.create a eloc expr_type ;
-          ] in *)
-          let cs = List.reduce AtConstrSet.union [(*cs0;*) cs1; cs2] in
+          let enr_rules, ty_p, pat_detail, ty_e, expr_detail, cs2, us2 = for_rules eloc rules env in
+          let cs0 = AtConstrSet.from_list [
+            AtConstr.create (ty_of_expr enr_exp) (expr_string exp) eloc ty_p pat_detail;
+            AtConstr.create a detail eloc ty_e expr_detail;
+          ] in
+          let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
           let us = PostProcess.union us1 us2 in
           build_exp a (Pexp_match (enr_exp, enr_rules)), cs, us
 
@@ -757,19 +759,20 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                 | Some se -> [se], false in
             let enr_exps, css, uss = List.split3 (List.map (for_expr // env) sargs) in
             if List.length sargs = expected_arg_count then
-              (* let tyvarmap, ty'_r = Ty.fresh_variant cd.EzyEnv.ctor_result in
+              let tyvarmap, ty'_r = Ty.fresh_variant cd.EzyEnv.ctor_result in
               let tyvarmap, tys' = Ty.fresh_variants ~tyvarmap cd.EzyEnv.ctor_args in
               let ty'_r = Ty.set_label ty'_r eloc in
-              let tys' = List.map (Ty.set_label // eloc) tys' in *)
-              let gen_constr ty' enr_exp =
-                AtConstr.create ty' eloc (ty_of_expr enr_exp) in
+              let tys' = List.map (Ty.set_label // eloc) tys' in
+              let rec map3 f l1 l2 l3 =
+                match (l1, l2, l3) with
+                ([], [], []) -> []
+                | (a1::l1, a2::l2, a3::l3) -> let r = f a1 a2 a3 in r :: map3 f l1 l2 l3
+                | (_, _, _) -> [] in
+              let gen_constr ty' enr_exp exp =
+                AtConstr.create ty' detail eloc (ty_of_expr enr_exp) (expr_string exp) in
               let cs0 = AtConstrSet.from_list (
-                (* 
-                AtConstr.create a eloc ty'_r ::
-                List.map2 gen_constr tys' enr_exps
-                *)
-                AtConstr.create a eloc cd.EzyEnv.ctor_result ::
-                List.map2 gen_constr cd.EzyEnv.ctor_args enr_exps
+                AtConstr.create a detail eloc ty'_r detail ::
+                map3 gen_constr tys' enr_exps sargs
               ) in
               let ctor' = { lid_name = ctor.lid_name; lid_data = EzyEnv.path_of_tag cd.EzyEnv.ctor_tag } in
               let cs = AtConstrSet.big_union (cs0 :: css) in
@@ -800,7 +803,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
       | Pexp_tuple exps ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exps, css, uss = List.split3 (List.map (for_expr // env) exps) in
-          let cs0 = AtConstrSet.singleton a eloc (Ty.Tuple (eloc, List.map ty_of_expr enr_exps)) in
+          let cs0 = AtConstrSet.singleton a detail eloc (Ty.Tuple (eloc, List.map ty_of_expr enr_exps)) detail in
           let cs = List.fold_left AtConstrSet.union cs0 css in
           let us = List.fold_left PostProcess.union PostProcess.empty uss in
           build_exp a (Pexp_tuple enr_exps), cs, us
@@ -811,9 +814,9 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let enr_exp2, cs2, us2 = for_expr lexp2 env in
           let enr_exp3, cs3, us3 = for_expr lexp3 env in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp1) eloc (EzyPredef.bool_type eloc) ;
-            AtConstr.create (ty_of_expr enr_exp2) eloc a ;
-            AtConstr.create (ty_of_expr enr_exp3) eloc a ;
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string lexp1) eloc (EzyPredef.bool_type eloc) (expr_string lexp1);
+            AtConstr.create (ty_of_expr enr_exp2) (expr_string lexp2) eloc a detail;
+            AtConstr.create (ty_of_expr enr_exp3) (expr_string lexp3) eloc a detail;
           ] in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2; cs3] in
           let us = List.reduce PostProcess.union [us1; us2; us3] in
@@ -824,9 +827,9 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let enr_exp1, cs1, us1 = for_expr lexp1 env in
           let enr_exp2, cs2, us2 = for_expr lexp2 env in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp1) eloc (EzyPredef.bool_type eloc) ;
-            AtConstr.create (ty_of_expr enr_exp2) eloc (EzyPredef.unit_type eloc);
-            AtConstr.create a eloc (EzyPredef.unit_type eloc) ;
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string lexp1) eloc (EzyPredef.bool_type eloc) (expr_string lexp1) ;
+            AtConstr.create (ty_of_expr enr_exp2) (expr_string lexp2) eloc (EzyPredef.unit_type eloc) (expr_string lexp2) ;
+            AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail;
           ] in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
           let us = PostProcess.union us1 us2 in
@@ -848,8 +851,8 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
               AtConstr.create a3 eloc' ty' ;
               AtConstr.create a1 eloc a3 ;
               *)
-              AtConstr.create a1 eloc ty ;
-              AtConstr.create ty eloc' ty' ;
+              AtConstr.create a1 detail eloc ty (expr_string exp);
+              AtConstr.create ty (expr_string exp) eloc' ty' (expr_string exp);
             ] in
             let pp1 = PostProcess.type_annotations [TypeAnnotation.create ty loc ct] in
             build_exp a1 (Pexp_constraint (enr_exp, ct)), AtConstrSet.union cs0 cs1, PostProcess.union pp0 pp1
@@ -864,8 +867,8 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exp, cs1, pp = for_expr exp env in
           let cs2 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp) eloc (EzyPredef.bool_type eloc) ;
-            AtConstr.create a eloc (EzyPredef.unit_type eloc) ;
+            AtConstr.create (ty_of_expr enr_exp) (expr_string exp) eloc (EzyPredef.bool_type eloc) (expr_string exp);
+            AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail ;
           ] in
           let desc = Pexp_assert enr_exp in
           build_exp a desc, AtConstrSet.union cs1 cs2, pp
@@ -874,9 +877,8 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           build_exp a Pexp_assertfalse, AtConstrSet.empty, PostProcess.empty
 
       | Pexp_for (var, exp1, exp2, dir_flag, exp3) ->
-          Format.fprintf Format.str_formatter "%a" print_expr_short exp1;
-          let det = Format.flush_str_formatter () in
-          let ax = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some det) () in
+          let exp1_loc = ExtLocation.Source exp1.pexp_loc in
+          let ax = Ty.fresh_var ~loc:(Some exp1_loc) ~detail:(Some (expr_string exp1)) () in
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exp1, cs1, pp1 = for_expr exp1 env in
           let enr_exp2, cs2, pp2 = for_expr exp2 env in
@@ -885,16 +887,16 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
               EzyEnv.val_ty = ax ;
               val_kind = Types.Val_reg ;
               val_binding = EzyEnv.Mono ;
-              val_constraints = AtConstrSet.singleton ax eloc (EzyPredef.int_type eloc) ;
+              val_constraints = AtConstrSet.singleton ax (expr_string exp1) eloc (EzyPredef.int_type eloc) (expr_string exp1) ;
               val_loc = ExtLocation.Source loc ;
             } in
             EzyEnv.enter_value var.nm_name vd env in
           let enr_exp3, cs3, pp3 = for_expr exp3 env' in
           let var' = { nm_name = var.nm_name; nm_loc = loc; nm_data = ident } in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create a eloc (EzyPredef.unit_type eloc) ;
-            AtConstr.create (ty_of_expr enr_exp1) eloc (EzyPredef.int_type eloc) ;
-            AtConstr.create (ty_of_expr enr_exp2) eloc (EzyPredef.int_type eloc) ;
+            AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail ;
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (EzyPredef.int_type eloc) (expr_string exp1) ;
+            AtConstr.create (ty_of_expr enr_exp2) (expr_string exp2) eloc (EzyPredef.int_type eloc) (expr_string exp2) ;
           ] in
           let desc = Pexp_for (var', enr_exp1, enr_exp2, dir_flag, enr_exp3) in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2; cs3] in
@@ -906,9 +908,9 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let enr_exp1, cs1, pp1 = for_expr exp1 env in
           let enr_exp2, cs2, pp2 = for_expr exp2 env in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp1) eloc (EzyPredef.bool_type eloc) ;
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (EzyPredef.bool_type eloc) (expr_string exp1);
             (* AtConstr.create (ty_of_expr enr_exp2) eloc (EzyPredef.unit eloc) ; *)
-            AtConstr.create a eloc (EzyPredef.unit_type eloc) ;
+            AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail;
           ] in
           let desc = Pexp_while (enr_exp1, enr_exp2) in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
@@ -928,9 +930,9 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                 | Immutable ->
                     PostProcess.error loc (EzyErrors.Mutable_content f.lid_name) in
             let cs0 = AtConstrSet.from_list [
-              AtConstr.create a eloc (EzyPredef.unit_type eloc) ;
-              AtConstr.create fd.EzyEnv.fld_result eloc (ty_of_expr enr_exp1) ;
-              AtConstr.create fd.EzyEnv.fld_arg eloc (ty_of_expr enr_exp2) ;
+              AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail;
+              AtConstr.create fd.EzyEnv.fld_result (expr_string exp1) eloc (ty_of_expr enr_exp1) (expr_string exp1) ;
+              AtConstr.create fd.EzyEnv.fld_arg (expr_string exp2) eloc (ty_of_expr enr_exp2) (expr_string exp2) ;
             ] in
             let f' = { lid_name = f.lid_name; lid_data = fd.EzyEnv.fld_path } in
             let desc = Pexp_setfield(enr_exp1, f', enr_exp2) in
@@ -940,7 +942,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           with Not_found ->
             let pp0 = PostProcess.errors [loc, EzyErrors.Unknown_field f.lid_name] in
             let f' = { lid_name = f.lid_name; lid_data = Path.none } in
-            let cs0 = AtConstrSet.singleton a eloc (EzyPredef.unit_type eloc) in
+            let cs0 = AtConstrSet.singleton a  detail eloc (EzyPredef.unit_type eloc) detail in
             let cs = AtConstrSet.big_union [cs0; cs1; cs2] in
             build_exp a (Pexp_setfield (enr_exp1, f', enr_exp2)), cs, (PostProcess.big_union [pp0; pp1; pp2])
           end
@@ -953,8 +955,8 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
               StringMap.KeySet.print (StringMap.keys env.EzyEnv.fields) ;
             let _, fd = EzyEnv.lookup_field f.lid_name env in
             let cs0 = AtConstrSet.from_list [
-              AtConstr.create a eloc fd.EzyEnv.fld_arg ;
-              AtConstr.create (ty_of_expr enr_exp) eloc fd.EzyEnv.fld_result ;
+              AtConstr.create a detail eloc fd.EzyEnv.fld_arg detail;
+              AtConstr.create (ty_of_expr enr_exp) (expr_string exp) eloc fd.EzyEnv.fld_result (expr_string exp) ;
             ] in
             let f' = { lid_name = f.lid_name; lid_data = fd.EzyEnv.fld_path } in
             let desc = Pexp_field (enr_exp, f') in
@@ -969,14 +971,11 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
       | Pexp_try (exp, rules) ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exp, cs1, pp1 = for_expr exp env in
-          let pat_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some ("try pattern of "^detail)) () in
-          (* let expr_type = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some "return
-           * type of try") () in *)
-          let enr_rules, cs2, pp2 = for_rules eloc rules env pat_type a in
+          let enr_rules, ty_p, pat_detail, ty_e, expr_detail, cs2, pp2 = for_rules eloc rules env in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create pat_type eloc (EzyPredef.exn_type eloc) ;
-            AtConstr.create a eloc (ty_of_expr enr_exp) ;
-            (* AtConstr.create a eloc expr_type ; *)
+            AtConstr.create ty_p pat_detail eloc (EzyPredef.exn_type eloc) detail ;
+            AtConstr.create a detail eloc (ty_of_expr enr_exp) (expr_string exp) ;
+            AtConstr.create a detail eloc ty_e expr_detail ;
           ] in
           let desc = Pexp_try (enr_exp, enr_rules) in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
@@ -989,7 +988,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let enr_exp2, cs2, pp2 = for_expr exp2 env in
           let cs0 = AtConstrSet.from_list [
             (* AtConstr.create EzyEPredef.unit eloc (ty_of_expr enr_exp1) ; *)
-            AtConstr.create a eloc (ty_of_expr enr_exp2) ;
+            AtConstr.create a detail eloc (ty_of_expr enr_exp2) (expr_string exp2) ;
           ] in
           let desc = Pexp_sequence(enr_exp1, enr_exp2) in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
@@ -1074,7 +1073,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                     | EzyEnv.Record res_fs -> res_fs
                     | _ -> invalid_arg "fields_of_ty,1"
                   )
-              | _ -> invalid_arg "fields_of_ty,2" in
+              | _ -> invalid_arg "fields_of_ty,2" in 
 
           (* Returns either a list of heavy errors or a (possible) empty list of heavy errors
            * and errors and a common type. This is for the case without a base record. *)
@@ -1105,8 +1104,8 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                 let enr_exps, css, pps = List.split3 enrs_css_pps in
                 let cs0 =
                   let aux ty_f' enr_exp =
-                    AtConstr.create ty_f' eloc (ty_of_expr enr_exp) in
-                  AtConstrSet.from_list (AtConstr.create a eloc ty_r' :: List.map2 aux ty_fs' enr_exps) in
+                    AtConstr.create ty_f' detail eloc (ty_of_expr enr_exp) detail in
+                  AtConstrSet.from_list (AtConstr.create a detail eloc ty_r' detail :: List.map2 aux ty_fs' enr_exps) in
                 let cs = List.fold_left AtConstrSet.union cs0 css in
                 let pp =
                   match missing_error with
@@ -1142,8 +1141,8 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
 (* Rules {{{ *)                    
 
 and for_rule:
-    string option -> imported_pattern * imported_expression -> EzyEnv.t -> 
-    (generated_pattern * generated_expression) * Ty.t * Ty.t * AtConstrSet.t * PostProcess.t =
+    string option -> imported_pattern * imported_expression -> EzyEnv.t ->
+    (generated_pattern * generated_expression) * Ty.t * string * Ty.t * string * AtConstrSet.t * PostProcess.t =
   fun binding (pat, exp) env ->
     let enr_pat, cs_p, pp1, b = for_pattern pat env in
     let env' = 
@@ -1158,40 +1157,39 @@ and for_rule:
         } in
         snd (EzyEnv.enter_value name vd env) in
       StringSet.fold aux (StringMap.keys b) env in
-    Format.fprintf Format.str_formatter "%a" print_pat_short enr_pat;
-    let pat_string = Format.flush_str_formatter () in
+    let pat_string = pat_string pat in
     let binding = 
         match binding with
         | None -> None
         | Some p -> Some (p^" "^pat_string) in
     let enr_exp, cs_e, pp2 = for_expr ~binding:binding exp env' in
-    (enr_pat, enr_exp), enr_pat.ppat_data.pa_ty, ty_of_expr enr_exp, AtConstrSet.union cs_p cs_e, PostProcess.union pp1 pp2
+    (enr_pat, enr_exp), enr_pat.ppat_data.pa_ty, pat_string, ty_of_expr enr_exp, expr_string exp, AtConstrSet.union cs_p cs_e, PostProcess.union pp1 pp2
+
 
 and for_rules:
-    ?binding:string option -> ExtLocation.t -> (imported_pattern * imported_expression) list -> EzyEnv.t -> Ty.t -> Ty.t ->
-    (generated_pattern * generated_expression) list * AtConstrSet.t * PostProcess.t =
-  fun ?(binding=None) eloc rules env pat_type expr_type ->
+    ?binding:string option -> ExtLocation.t -> (imported_pattern * imported_expression) list -> EzyEnv.t ->
+    (generated_pattern * generated_expression) list * Ty.t * string * Ty.t * string * AtConstrSet.t * PostProcess.t =
+  fun ?(binding=None) eloc rules env ->
     match rules with
-      | ((pat, exp) as rule) :: [] ->
-          let enr_rule, ty_p1, ty_e1, cs1, pp1 = for_rule binding rule env in
-          let cs0 = AtConstrSet.from_list [
-            AtConstr.create pat_type eloc ty_p1 ;
-            AtConstr.create expr_type eloc ty_e1 ;
-          ] in
-          let cs = List.reduce AtConstrSet.union [cs0; cs1] in
-          enr_rule::[], cs, pp1
-
+      | [] -> (* failwith "EzyGenerate.for_rules" *)
+          [], Ty.fresh_var (), "", Ty.fresh_var (), "", AtConstrSet.empty, PostProcess.empty
       | ((pat, exp) as rule) :: rem_rules ->
-          let enr_rule, ty_p1, ty_e1, cs1, pp1 = for_rule binding rule env in
-          let enr_rules, cs2, pp2 = for_rules eloc rem_rules env pat_type expr_type in
+          let enr_rule, ty_p1, p1_detail, ty_e1, e1_detail, cs1, pp1 = for_rule binding rule env in
+          let enr_rules, ty_p2, p2_detail, ty_e2, e2_detail, cs2, pp2 = for_rules eloc rem_rules env in
+          let pat_loc = ExtLocation.Source pat.ppat_loc in
+          let exp_loc = ExtLocation.Source exp.pexp_loc in
+          let pat_detail = pat_string pat in
+          let exp_detail = expr_string exp in
+          let a_p = Ty.fresh_var ~loc:(Some pat_loc) ~detail:(Some pat_detail) () in
+          let a_e = Ty.fresh_var ~loc:(Some exp_loc) ~detail:(Some exp_detail) () in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create pat_type eloc ty_p1 ;
-            AtConstr.create expr_type eloc ty_e1 ;
+            AtConstr.create a_p pat_detail eloc ty_p1 p1_detail;
+            AtConstr.create a_p pat_detail eloc ty_p2 p2_detail;
+            AtConstr.create a_e exp_detail eloc ty_e1 e1_detail;
+            AtConstr.create a_e exp_detail eloc ty_e2 e2_detail;
           ] in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
-          enr_rule :: enr_rules, cs, PostProcess.union pp1 pp2
-
-      | [] -> [], AtConstrSet.empty, PostProcess.empty
+          enr_rule :: enr_rules, a_p, pat_detail, a_e, exp_detail, cs, PostProcess.union pp1 pp2
 
 (* }}} *)
 
