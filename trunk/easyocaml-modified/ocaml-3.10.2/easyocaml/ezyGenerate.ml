@@ -494,12 +494,12 @@ let rec binding_for_exp exp =
     else EzyEnv.Mono in
   match exp.pexp_desc with
     | Pexp_function _
+      -> EzyEnv.Poly
     | Pexp_ident _
     | Pexp_constant _
     | Pexp_construct (_, None, _)
     | Pexp_assertfalse 
-      -> EzyEnv.Poly
-
+      -> EzyEnv.Mono
     | Pexp_record (fs, opt) ->
         let exps = List.map snd fs in
         begin match opt with
