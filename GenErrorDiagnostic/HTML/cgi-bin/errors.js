@@ -16,6 +16,7 @@ var suggnum = 0;
 function show_elements(numbering, ids) {
     var posnum = 0;
     var handled = {};
+    var ret = null;
     for (var i in ids) {
 	var classname = ids[i][0];
 	var id = ids[i][1];
@@ -41,8 +42,10 @@ function show_elements(numbering, ids) {
 	    highlight.className = classname;
 	    highlight.appendChild(loc.cloneNode(true));
 	    n.replaceChild(highlight, loc);
+            ret = n;
 	}
     }
+    return ret;
 }
 
 function hide_elements(numbering, ids) {
@@ -74,7 +77,8 @@ var last_cutid = null;
 function show_elements_perm (numbering, ids) {
     last_shown = ids;
     last_numbering = numbering;
-    show_elements(numbering, ids);
+    var n = show_elements(numbering, ids);
+    if (n != null) n.scrollIntoView();
 }
 
 function hide_elements_perm () {
