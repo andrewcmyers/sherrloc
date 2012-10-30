@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -57,12 +58,16 @@ public class Analysis {
 	String sourceName;
 	String htmlFileName;
 	Position pos=null;
+	Map<String, Node> map;
+	Map<String, Integer> succCount;
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
         errorPaths = new HashMap<AttemptGoal, ConstraintPath>();
         cachedEnv = new HashMap<Environment, Environment>();
         unsatPath = new HashSet<AttemptGoal>();
+        map = new HashMap<String, Node>();
+        succCount = new HashMap<String, Integer>();
 	}
 	
 	public static void main(String[] args) {
@@ -156,6 +161,12 @@ public class Analysis {
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
         Set<Element> elements = graph.getAllElements();
         
+        // initialize the map
+        for (Node n : graph.getAllNodes()) {
+        	map.put(n.toString(), n);
+        	succCount.put(n.toString(), 0);
+        }
+        
         if (DEBUG) {
         	System.out.println("Total nodes before path generaton: " + elements.size());        
         }
@@ -216,6 +227,12 @@ public class Analysis {
 				unsatPath.add(goal);
 				errorPaths.put(goal, path);
 			}
+		}
+		
+		// get succ count
+		for (Node n : graph.getAllNodes()) {
+			int count = succCount.get(n.toString());
+			succCount.put(n.toString(), count+n.getSuccCounter());
 		}
 		done = true;
 
@@ -303,23 +320,25 @@ public class Analysis {
     	return results;
     }
     
-    public Set<Set<Node>> genNodeCuts (Set<AttemptGoal> remaining) {
-    	HashSet<Node> candidates = new HashSet<Node>();
-    	Set<Set<Node>> results = new HashSet<Set<Node>>();
-    	HashMap<AttemptGoal, List<Node>> map = new HashMap<AttemptGoal, List<Node>>();
+    public Set<Set<String>> genNodeCuts (Set<AttemptGoal> remaining) {
+    	HashSet<String> candidates = new HashSet<String>();
+    	Set<Set<String>> results = new HashSet<Set<String>>();
+    	HashMap<AttemptGoal, List<String>> map = new HashMap<AttemptGoal, List<String>>();
 
     	for (AttemptGoal goal : remaining) {
-    		List<Node> l = new ArrayList<Node>();
+    		Set<String> l = new HashSet<String>();
     		for (Node n : errorPaths.get(goal).getAllNodes()) {
-    			l.add(n);
-    			candidates.add(n);
+    			if (((ElementNode)n).isInCons()) {
+    				l.add(n.toString());
+    				candidates.add(n.toString());
+    			}
     		}
-    		map.put(goal, l);
+    		map.put(goal, new ArrayList<String>(l));
     	}
     	
     	// we do an interative deeping search until at least one cut is returned
     	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, candidates, map, new HashSet<Node>(), results);
+   			boundedDepthSearch (level, candidates, map, new HashSet<String>(), results);
    			if (results.size()!=0)
    				break;
     	}
@@ -704,12 +723,12 @@ public class Analysis {
     	return sb.toString();
     }
     
-    private class CutSuggestion implements Comparable<CutSuggestion> {
+    private class ConsSuggestion implements Comparable<ConsSuggestion> {
 		int rank = 0;
 		Set<EquationEdge> edges;
 		int id;
 
-		public CutSuggestion(int id, Set<EquationEdge> edges) {
+		public ConsSuggestion(int id, Set<EquationEdge> edges) {
 			this.edges = edges;
 			this.id = id;
 			for (EquationEdge edge : edges) {
@@ -718,7 +737,7 @@ public class Analysis {
 		}
     	
     	@Override
-    	public int compareTo(CutSuggestion o) {
+    	public int compareTo(ConsSuggestion o) {
     		return new Integer(rank).compareTo(o.rank);
     	}
     	
@@ -727,25 +746,69 @@ public class Analysis {
 //    		sb.append("<LI>\n");
     		sb.append("(weight="+rank+")");
         	for (EquationEdge c : edges) {
-			StringBuffer locBuffer = new StringBuffer();
-			Element left = c.getEquation().getFirstElement();
-			locBuffer.append("['left', \'"+left.getPosition().toString()+"\'],");
-			Element right = c.getEquation().getSecondElement();
-			locBuffer.append("['right', \'"+right.getPosition().toString()+"\']");
-			String loc = locBuffer.toString();
-			sb.append("<span class=\"mincut\" ");
-			setShowHideActions(false, sb, loc, id);
-			sb.append(">");
-			sb.append("<code id=\"left"+id+"\">"+left.toHTMLString()+"</code>");
-			sb.append(" has the same type as ");
-			sb.append("<code id=\"right"+id+"\">"+right.toHTMLString()+"</code></span>");
-			sb.append("<button onclick=\"hide_all();show_elements_perm(false, [");
+        		StringBuffer locBuffer = new StringBuffer();
+        		Element left = c.getEquation().getFirstElement();
+        		locBuffer.append("['left', \'"+left.getPosition().toString()+"\'],");
+        		Element right = c.getEquation().getSecondElement();
+        		locBuffer.append("['right', \'"+right.getPosition().toString()+"\']");
+        		String loc = locBuffer.toString();
+        		sb.append("<span class=\"mincut\" ");
+        		setShowHideActions(true, sb, loc, id);
+        		sb.append(">");
+        		sb.append("<code id=\"left"+id+"\">"+left.toHTMLString()+"</code>");
+        		sb.append(" has the same type as ");
+        		sb.append("<code id=\"right"+id+"\">"+right.toHTMLString()+"</code></span>");
+        		sb.append("<button onclick=\"hide_all();show_elements_perm(false, [");
         		sb.append(loc);
         		sb.append("]); ");
-			sb.append("show_cut_perm("+id+")\" ");
-			// setShowHideActions(false, sb, loc, id);
-			sb.append(">Show it</button><br>\n");
+        		sb.append("show_cut_perm("+id+")\" ");
+        		// setShowHideActions(false, sb, loc, id);
+        		sb.append(">Show it</button><br>\n");
         	}
+       		return sb.toString();
+    	}
+    }
+    
+    private class ExprSuggestion implements Comparable<ExprSuggestion> {
+		int rank = 0;
+		Set<String> exprs;
+		int id;
+
+		public ExprSuggestion(int id, Set<String> exprs) {
+			this.exprs = exprs;
+			this.id = id;
+			for (String expr : exprs) {
+				rank += succCount.get(expr);
+			}
+		}
+    	
+    	@Override
+    	public int compareTo(ExprSuggestion o) {
+    		return new Integer(rank).compareTo(o.rank);
+    	}
+    	
+    	public String toHTML () {
+    		StringBuffer sb = new StringBuffer();
+//    		sb.append("<LI>\n");
+    		sb.append("(weight="+rank+")");
+			
+			StringBuffer locBuffer = new StringBuffer();
+        	StringBuffer exprBuffer = new StringBuffer();
+			for (String c : exprs) {
+				Element en = ((ElementNode)map.get(c)).getElement();
+        		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
+        		exprBuffer.append(en.toHTMLString()+"    ");
+        	}
+        	sb.append("<span class=\"path\" ");
+			setShowHideActions(false, sb, locBuffer.toString(), 0);
+			sb.append(">");
+			sb.append("<code>"+exprBuffer.toString()+"</code>");
+        	sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
+	        sb.append(locBuffer.toString());
+        	sb.append("])\" ");
+			// setShowHideActions(true, sb, path_buff.toString(), 0);
+			sb.append(">Show it</button><br>\n");
+        	
        		return sb.toString();
     	}
     }
@@ -754,6 +817,26 @@ public class Analysis {
     	StringBuffer sb = new StringBuffer();
     	
 		if (GEN_CUT) {
+			Set<Set<String>> results = null;
+			results = genNodeCuts(errorPaths.keySet());
+			
+			sb.append("Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):<br>\n");
+
+			List<ExprSuggestion> cuts = new ArrayList<ExprSuggestion>();
+			int count = 1;
+			for (Set<String> set : results) {
+				cuts.add(new ExprSuggestion(count, set));
+				count++;
+			}
+			Collections.sort(cuts);
+
+			for (ExprSuggestion cut : cuts) {
+				sb.append(cut.toHTML());
+			}
+			
+		}
+		
+		if (GEN_CUT) {
 			Set<Set<EquationEdge>> results = null;
 			results = genCuts(errorPaths.keySet());
 			sb.append("Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):<br>\n");
@@ -761,32 +844,19 @@ public class Analysis {
 			// sb.append("<OL>\n");
 
 			// get all cuts and rank them
-			List<CutSuggestion> cuts = new ArrayList<CutSuggestion>();
+			List<ConsSuggestion> cuts = new ArrayList<ConsSuggestion>();
 			int count = 1;
 			for (Set<EquationEdge> set : results) {
-				cuts.add(new CutSuggestion(count, set));
+				cuts.add(new ConsSuggestion(count, set));
 				count++;
 			}
 			Collections.sort(cuts);
 
-			for (CutSuggestion cut : cuts) {
+			for (ConsSuggestion cut : cuts) {
 				sb.append(cut.toHTML());
 			}
 			// sb.append("</OL>\n");
 		}
-    	
-//		if (GEN_CUT) {
-//			Set<Set<Node>> results = null;
-//			results = genNodeCuts(errorPaths.keySet());
-//
-//			// get all cuts and rank them
-//			for (Set<Node> set : results) {
-//				for (Node n : set)
-//					System.out.print(n.getSuccCounter() + ": " + ((ElementNode)n).getElement() +"; ");
-//				System.out.println();
-//			}
-//			// sb.append("</OL>\n");
-//		}
 		
     	return sb.toString();
     }

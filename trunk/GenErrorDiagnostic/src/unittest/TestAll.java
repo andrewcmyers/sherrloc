@@ -41,10 +41,10 @@ public class TestAll {
 	@Test
 	public void testOcaml () {
 		/* test for OCaml constraint */
-		testErrorPaths("src/constraint/tests/ocaml/test1.con", 1, true);
+//		testErrorPaths("src/constraint/tests/ocaml/test1.con", 1, true);
 //		testErrorPaths("src/constraint/tests/ocaml/test2.con", 4, true);
 //		testErrorPaths("src/constraint/tests/ocaml/test3.con", 4, true);
-//		testErrorPaths("src/constraint/tests/ocaml/option.con", 4, true);
+		testErrorPaths("src/constraint/tests/ocaml/option.con", 4, true);
 	}
 	
 	@Test

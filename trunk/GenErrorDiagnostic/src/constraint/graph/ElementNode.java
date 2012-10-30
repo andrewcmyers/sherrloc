@@ -10,12 +10,14 @@ public class ElementNode extends Node {
     String uid;
     Element e;
     Graph g;
+    boolean isInCons;
           
-    public ElementNode (String id, Element e, Graph g) {
+    public ElementNode (String id, Element e, Graph g, boolean isIncons) {
         super(g);
         this.uid = id;
         this.e = e;
         this.g = g;
+        this.isInCons = isIncons;
     }
     
     // TODO: shall we distinguish pc labels for better explanation?
@@ -31,9 +33,9 @@ public class ElementNode extends Node {
 		return e;
 	}
     
-//    public Position position () {
-//        return e.position();
-//    }
+    public boolean isInCons () {
+    	return isInCons;
+    }
     
     /* treat join labels in backtracking specially for better error message */
     public boolean isend () {

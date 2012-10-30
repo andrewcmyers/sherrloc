@@ -54,9 +54,13 @@ public class ConstraintGraph extends Graph {
     
     /* get the corresponding node in graph. Create one if none exists */
     public ElementNode getNode (Element e) {
+    	return getNode(e, false);
+    }
+    
+    public ElementNode getNode (Element e, boolean inCons) {
         if (! eleToNode.containsKey(e)) {
             String vid = "v"+varCounter;
-            ElementNode n = new ElementNode(vid, e, this); 
+            ElementNode n = new ElementNode(vid, e, this, inCons); 
             varCounter++;
             // record the source files involved
 //            if (e.position()!=null) {
@@ -92,8 +96,8 @@ public class ConstraintGraph extends Graph {
 //			}
 //		}
 //    	else {
-    		ElementNode source = getNode(first);
-			ElementNode to = getNode(second);
+    		ElementNode source = getNode(first, true);
+			ElementNode to = getNode(second, true);
 
 			addEdge(source, to, new EquationEdge(e, source, to));
 
