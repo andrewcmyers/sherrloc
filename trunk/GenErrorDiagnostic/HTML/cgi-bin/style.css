@@ -29,10 +29,12 @@ div.feedback { position: fixed; right: 10px; bottom: 10px;
     font-size: 80%;
 }
 div.feedback form input { font-size: 80%; font-family: sans-serif }
-#hide_button { position: absolute;
-    padding: 1px;
-    bottom: 0;
-    right: 0;
+#hide_button { position: fixed;
+    font-family: sans-serif;
+    font-size: 90%;
+    padding: 2px;
+    bottom: 1px;
+    right: 1px;
     background-color: white;
     border: 1px solid #aaa;
 }
