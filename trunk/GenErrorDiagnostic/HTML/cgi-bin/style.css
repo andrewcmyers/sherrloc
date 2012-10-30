@@ -1,7 +1,7 @@
 h1, h2, h3 { font-family: Tahoma }
 body {padding: 0 2em}
-.left { background-color: #90f; font-weight: bold; border: solid #c90 1px }
-.right { background-color: #3ff; font-weight: bold; border: solid #c90 1px }
+.left { background-color: #c9f; font-weight: bold; border: solid #70b 1px }
+.right { background-color: #aff; font-weight: bold; border: solid #0aa 1px }
 .pathelement { background-color: #ff9; font-weight: bold; border: solid #c90 1px }
 .cut { background-color: #fb9; font-weight: bold }
 pre.code {
