@@ -13,13 +13,14 @@ module AtConstr = struct
   type t = {
     loc : ExtLocation.t ;
     tys : (Ty.t * Ty.t) ;
+    exps : (string * string) ;
     leq : bool;
   }
   type printable = t
   type tyvar_container = t
 
-  let create ?(leq = false) x loc y = 
-  { loc = loc; tys = (x, y); leq = leq; }
+  let create ?(leq = false) x exp1 loc y exp2 = 
+    { loc = loc; tys = (x, y); exps = (exp1, exp2); leq = leq; }
 
   let compare c1 c2 =
     match ExtLocation.compare c1.loc c2.loc with
@@ -32,19 +33,19 @@ module AtConstr = struct
   let fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) c =
     let tyvarmap, ty1 = Ty.fresh_variant ~create ~tyvarmap (fst c.tys) in
     let tyvarmap, ty2 = Ty.fresh_variant ~create ~tyvarmap (snd c.tys) in
-    tyvarmap, { loc = c.loc; tys = ty1, ty2; leq = false; }
+    tyvarmap, { loc = c.loc; tys = ty1, ty2; exps = (fst c.exps), (snd c.exps); leq = c.leq; }
 
   let print ppf { loc = loc; tys = (x, y) } =
     Format.fprintf ppf "%a =%a= %a" Ty.print x ExtLocation.print loc Ty.print y 
 
-  let cons_print ppf ast { loc = loc; tys = (x, y); leq = leq } =
+  let cons_print ppf ast { loc = loc; tys = (x, y); exps= (expr1, expr2); leq = leq } =
     Format.fprintf ppf "%a[\"%a\":%a] == %a[\"%a\":%a];[%a]@\n" 
-    Ty.print x Ty.print_detail (x, ast) Ty.print_loc x
-    Ty.print y Ty.print_detail (y, ast) Ty.print_loc y 
+    Ty.print x Ty.print_without_quote expr1 Ty.print_loc x
+    Ty.print y Ty.print_without_quote expr2 Ty.print_loc y
     ExtLocation.print loc
 
-  let type_substitute { loc = loc; tys = (x, y); leq = leq } s =
-  { loc = loc ; tys = Ty.type_substitute x s, Ty.type_substitute y s; leq = leq }
+  let type_substitute { loc = loc; tys = (x, y); exps=(exp1, exp2); leq = leq } s =
+  { loc = loc ; tys = Ty.type_substitute x s, Ty.type_substitute y s; exps = exp1, exp2;  leq = leq }
 end
 
 
@@ -114,8 +115,8 @@ module AtConstrSet = struct
       ExtLocationMap.add l (ExtLocationMap.find l cs) sofar in
     ExtLocationSet.fold f ls empty
 
-  let singleton ty1 loc ty2  =
-    ExtLocationMap.add loc (SimpleAtConstrSet.add (AtConstr.create ty1 loc ty2) SimpleAtConstrSet.empty) empty
+  let singleton ty1 exp1 loc ty2 exp2 =
+    ExtLocationMap.add loc (SimpleAtConstrSet.add (AtConstr.create ty1 exp1 loc ty2 exp2) SimpleAtConstrSet.empty) empty
 
   let all_constraints cs =
     let folder _ cs sofar = SimpleAtConstrSet.union cs sofar in

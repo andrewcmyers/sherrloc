@@ -70,6 +70,7 @@ module rec Ty: sig
   val print_loc: Format.formatter -> t -> unit
   val print_loc_slice: Format.formatter -> t * EzyAst.imported_structure -> unit
   val print_detail: Format.formatter -> t * EzyAst.imported_structure -> unit
+  val print_without_quote: Format.formatter -> string -> unit
 
   val fresh_var: ?loc:(ExtLocation.t option) -> ?detail:string option -> unit -> t
 
@@ -302,6 +303,9 @@ end = struct
     match ty with
     | Var (_, Some detail, _) -> (escape_char '"' pp_print_string) ppf detail
     | _ -> print_loc_slice ppf (ty, ast)
+
+  let print_without_quote ppf str =
+    (escape_char '"' pp_print_string) ppf str
 
   let rec import ?(tyvarmap=TyImportVarmap.empty) creative loc oty =
     match oty with
