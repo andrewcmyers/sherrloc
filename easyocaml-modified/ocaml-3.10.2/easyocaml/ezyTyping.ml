@@ -431,11 +431,11 @@ let type_and_compare_implementation sourcefile outputprefix modulename initial_e
       (tt, mc)
     with
     | Typemod.Error (loc, err) ->
-        Location.print Format.std_formatter loc; Typemod.report_error Format.std_formatter err; 
+        (* Location.print Format.std_formatter loc; Typemod.report_error Format.std_formatter err; *)
         exit 101
     | Typecore.Error (loc, err) ->
-        Location.Original.print Format.std_formatter loc; 
-        Format.fprintf Format.std_formatter "%a@\n" Typecore.report_error err; 
+        (* Location.Original.print Format.std_formatter loc; 
+        Format.fprintf Format.std_formatter "%a@\n" Typecore.report_error err; *)
         type_implementation sourcefile initial_env str; exit 101
 
     (*    beta_error loc Typecore.report_error err *)
@@ -460,10 +460,10 @@ let type_and_compare_top_phrase fs oldenv str =
     (str, sg, newenv)
   with
     | Typemod.Error (loc, err) ->
-        Location.print Format.std_formatter loc; Typemod.report_error Format.std_formatter err; 
+        (* Location.print Format.std_formatter loc; Typemod.report_error Format.std_formatter err; *)
         exit 101
     | Typecore.Error (loc, err) ->
-        Location.Original.print Format.std_formatter loc; 
-        Format.fprintf Format.std_formatter "%a@\n" Typecore.report_error err; 
+        (* Location.Original.print Format.std_formatter loc; 
+        Format.fprintf Format.std_formatter "%a@\n" Typecore.report_error err; *)
         let str' = EzyEnrichedAst.import_structure fs str in type_structure oldenv str'; exit 101
   end
