@@ -57,11 +57,11 @@ system ("cp", "$source", "archive/"."$source"."$md5");
 system ("rm", "$cons_file");
 my $result =  `$ecaml $source 2>&1`;
 if ($result) {
-    print "<H2><BR>The Ocaml Compiler Report</H2>";
-    print "<HR>\n";
+    print "<H2><BR>OCaml Compiler report</H2>";
     print "<pre>\n";
     print $result;
     print "</pre>\n";
+    print "<HR>\n";
 }
 
 if (-e $cons_file) {

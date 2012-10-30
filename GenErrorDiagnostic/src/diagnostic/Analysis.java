@@ -241,7 +241,7 @@ public class Analysis {
     public String unsatPathsToHTML () {
     	StringBuffer sb = new StringBuffer();
     	sb.append("<H3>");
-    	sb.append(errorPaths.size() +" type error(s) found: \n");
+    	sb.append(errorPaths.size() +" type error" + (errorPaths.size() == 1 ? "" : "s") + " found: \n");
 		sb.append("</H3>\n");
 		sb.append("<UL>\n");
 		for (AttemptGoal goal : unsatPath) {
@@ -582,7 +582,7 @@ public class Analysis {
     			"<HEAD>\n" +
     			"<meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\" />\n" +
     			"<TITLE>\n" +
-    			"Error Diagnostic Report\n" +
+    			"Experimental Error Diagnosis\n" +
     			"</TITLE>\n" +
     			"<SCRIPT type=\"text/javascript\">\n" +
     					"function windowTitle()\n" +
