@@ -10,8 +10,9 @@ pre.code {
     padding: 1ex;
     border: solid gray 1px;
     overflow: auto;
-    max-width: 120ex;
-    max-height: 30em;
+    width: 120ex;
+    height: 30em;
+    resize: both;
 }
 span.comment {color: #008; font-style: italic}
 pre.code .keyword {font-weight: bold}
