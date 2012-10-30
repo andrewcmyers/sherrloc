@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="http://www.cs.cornell.edu/w8/~andru/civs/style.css" />
 <style>
  pre#examples {font-size: 80%}
- div#instructions {
+ div.instructions {
     float:right;
     border-style: solid;
     border-width: 1px;
@@ -20,8 +20,8 @@
  }
  mem[8] mod 6 = 0 and 1 < mem[2] --> mem[2] := 5 mem[1+mem[3]] := 2 + ahead[4] left
 
- div#instructions ul {
-    padding-left: 1em; list-style-type: none;
+ div.instructions ul {
+    padding-left: 0.5em; list-style-type: none;
  }
  .hint { font-size: 80%; margin: -2ex 0 0 0}
  input { font-family: serif; font-weight: bold; font-size: 110% }
@@ -42,7 +42,17 @@ This web page demonstrates a general method for diagnosing errors found in compu
 this case the method is being applied to OCaml programs.
 </p>
 
-<div id=instructions>
+<div class=instructions>
+<h3>Limitations</h3>
+<ul>
+<li>Programs spanning multiple files are not supported.
+<li>Modules are not fully supported.
+<li>The program must be self-contained, though it can use some standard libraries.
+<li>Array constants and hexadecimal constants are not supported.
+</ul>
+</div>
+
+<div class=instructions>
 <h3>How to use it</h3>
 <ol>
 <li>Read the notice below about how we will use your code.</li>
@@ -52,7 +62,6 @@ can see what part of the program is determined to be the likely cause of the err
 </li>
 </ol>
 </div>
-
 <form method="POST"
     action="cgi-bin/run.pl"
     enctype="multipart/form-data"

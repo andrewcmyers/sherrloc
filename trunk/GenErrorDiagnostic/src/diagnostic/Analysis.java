@@ -629,9 +629,10 @@ public class Analysis {
     			"(or this tool) could be improved, you may enter them here:</p>\r\n");
     	out.write("<textarea name=\"comments\" rows=\"2\" cols=\"50\" /></textarea>\r\n");
     	out.write("<input type=\"submit\" value=\"Submit\"></div>\r\n");
+    	out.write("</form>\r\n");
 	    out.write("<button id=\"hide_button\" onclick=\"hide_feedback_form()\">show/hide</button>\r\n");
 	
-    	out.write("</form></div>\r\n");
+    	out.write("</div>\r\n");
     }
     
     public String getTail () {
