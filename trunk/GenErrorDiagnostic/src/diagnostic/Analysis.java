@@ -747,7 +747,7 @@ public class Analysis {
     	public String toHTML () {
     		StringBuffer sb = new StringBuffer();
 //    		sb.append("<LI>\n");
-    		sb.append("(weight="+rank+")");
+    		sb.append("<span class=rank>(rank "+rank+")</span>");
         	for (EquationEdge c : edges) {
         		StringBuffer locBuffer = new StringBuffer();
         		Element left = c.getEquation().getFirstElement();
