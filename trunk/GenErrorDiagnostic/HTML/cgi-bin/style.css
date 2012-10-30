@@ -32,6 +32,7 @@ div.feedback form input { font-size: 80%; font-family: sans-serif }
 #hide_button { position: fixed;
     font-family: sans-serif;
     font-size: 90%;
+    cursor: pointer;
     padding: 2px;
     bottom: 1px;
     right: 1px;
