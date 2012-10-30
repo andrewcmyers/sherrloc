@@ -31,6 +31,10 @@ public class ReductionEdge extends Edge{
 		return edges;
 	}
 	
+	public double getLength () {
+		return edges.size();
+	}
+	
 	@Override
 	public Environment getAssumption() {
 		Environment env = new Environment();

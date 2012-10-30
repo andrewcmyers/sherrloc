@@ -20,6 +20,9 @@ public abstract class EnumerableElement extends Element {
 	abstract String getSymbol();
 	
 	public String toHTMLString() {
+		if (!pos.isEmpty()) {
+			return pos.snippet.toString();
+		}
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
