@@ -21,10 +21,10 @@ public class Constructor extends Element {
 		return contraVariant;
 	}
 		
-	/**
-	 * To simplify the output, use UpperCase to indicate a constructor
-	 */
 	public String toHTMLString () {
+		if (!pos.isEmpty())
+			return pos.snippet;
+		
 		if (name.equals("arrow"))
 			return "->";
 		if (name.equals("larrow"))
@@ -83,7 +83,7 @@ public class Constructor extends Element {
 	
 	@Override
 	public void setPosition(Position pos) {
-		// do nothing, since it does not make any sense 
+		this.pos = pos;
 	}
 	
 	public Constructor getInstance () {
