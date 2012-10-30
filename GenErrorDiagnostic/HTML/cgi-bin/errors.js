@@ -128,7 +128,7 @@ function numberSuggestions() {
 }
 
 function hide_feedback_form() {
-    var style = document.getElementById('feedback_form').style;
+    var style = document.getElementById('feedback').style;
     if (style.display == 'none') {
 	style.display = 'block';
     } else {
