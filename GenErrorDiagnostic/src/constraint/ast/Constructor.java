@@ -35,6 +35,17 @@ public class Constructor extends Element {
 			return name;
 	}
 	
+	public String toDetailString () {
+		if (name.equals("arrow"))
+			return "->";
+		if (name.equals("larrow"))
+			return "<-";
+		else if (name.equals("pair"))
+			return "*";
+		else
+			return name;
+	}
+	
 	public String toDotString () {
 		return toString();
 	}

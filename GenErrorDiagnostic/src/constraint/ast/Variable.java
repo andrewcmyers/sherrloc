@@ -28,6 +28,11 @@ public class Variable extends Element {
 	}
 	
 	@Override
+	public String toDetailString() {
+		return toHTMLString();
+	}
+	
+	@Override
 	public int hashCode() {
 		return name.hashCode();
 	}

@@ -37,6 +37,21 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 	
+	public String toDetailString() {
+		String symbol = getSymbol();
+		String ret = "";
+		// infix
+		if (symbol.equals("->") || symbol.equals("*") || symbol.equals("<-")) {
+			return infixToHTMLString();
+		}
+		else {
+			ret += symbol;
+			for (Element e : elements)
+				ret += " ("+e.toHTMLString() + ")";
+		}
+		return ret;
+	}
+	
 	@Override
 	public String toDotString() {
 		String symbol = getSymbol();
