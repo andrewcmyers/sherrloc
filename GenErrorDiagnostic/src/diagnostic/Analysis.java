@@ -1020,7 +1020,7 @@ public class Analysis {
 					sb.append(chars[col]);
 				}
 				// handle the possible end annotation after the last character
-				while (end.line==currentline && end.column==col) {
+				while (end.line==currentline && end.column>=col) {
 					sb.append("</span>");
 					if (endIndex<endList.size())
 						end = endList.get(endIndex++);
