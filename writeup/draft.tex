@@ -1,5 +1,17 @@
-\documentclass{sig-alternate}
+\newif\ifsubmission \submissionfalse
+\newif\ifanonymous \anonymoustrue
+\newif\ifieee \ieeefalse
 
-\newif\iftr\trfalse
+\ifieee
+  \documentclass[10pt, conference, compsocconf]{IEEEtran}
+\else
+    \ifsubmission
+        \documentclass[9pt]{sigplanconf}
+        \newcounter{copyrightbox}
+    \else
+        \documentclass[9pt, preprint]{sigplanconf}
+        \newcounter{copyrightbox}
+    \fi
+\fi
 
 \input{main}

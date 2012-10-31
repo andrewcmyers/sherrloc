@@ -6,7 +6,7 @@
 @inproceedings{aiken-typeinclusion,
     author = {Alexander Aiken and Edward L. Wimmers},
     title = {Type Inclusion Constraints and Type Inference},
-    booktitle = {In proceedings of the 1993 Conference on Functional Programming Languages and Computer Architecture},
+    booktitle = {the 1993 Conference on Functional Programming Languages and Computer Architecture},
     year = {1993},
     pages = {31--41}
 }
@@ -29,13 +29,61 @@
     pages={115--122}
 }
 
-@inproceedings{wand-popl86, 
+@inproceedings{wand-errorfinding, 
     author={Wand, Mitchell},
     title={Finding the source of type errors}, 
     booktitle=POPL,
     year={1986}
 }
 
+@inproceedings{johnson-popl86, 
+    author={Gregory F. Johnson and Janet A. Walz},
+    title={A maximum flow appraoch to anomaly isolation in unification-based incremental type inference}, 
+    booktitle=POPL,
+    year={1986}
+}
+
+@article{lee:toplas,
+    author = {Oukseh Lee and Kwangkeun Yi},
+    title = {Poofs about a folklore let-polymorphic type inference algorithm}, 
+    journal= TOPLAS,    
+    volume={20},
+    number={4},
+    pages={707--723}, 
+    year={1998}
+}
+
+@inproceedings{mcadam:unification,
+    author = {Bruce James McAdam},
+    title = {On the Unification of Substitutions in Type Inference},
+    booktitle = {Implementation of Functional Languages},
+    year = {1998},
+    pages = {139--154}
+}
+
+@phdthesis{mcadam:thesis,
+    author = {Bruce James McAdam},
+    title = {Repairing Type Errors in Functional Programs},
+    school = {Laboratory for Foundatations of Computer Science, The University of Edinburgh},
+    year = {2001}
+}
+
+@phdthesis{ heeren:thesis,
+   author = "Bastiaan J. Heeren",
+   school = "Universiteit Utrecht, The Netherlands",
+   title  = "Top Quality Type Error Messages",
+   year   = "2005",
+   month  = sep,
+   url    = "\url{http://www.cs.uu.nl/people/bastiaan/phdthesis}",
+}
+
+@techreport{choppella95,
+    author = {Venkatesh Choppella and Christopher T. Haynes},
+    title = {Diagnosis of Ill-typed Programs},
+    institution = {Indiana University},
+    month = {December},
+    year = {1995}
+}
 
 @article{aiken-setconstraint,
     author = {Alexander Aiken},
@@ -49,15 +97,24 @@
 @inproceedings{king:esop10,
     author={Dave King and Susmit Jha and Divya Muthukumaran and Trent Jaeger and Somesh Jha and Sanjit A. Seshia},
     title ={Automating Security Mediation Placement},
-    booktitle={In Proceedings of European Symposium on Programming (ESOP)},
+    booktitle={European Symposium on Programming (ESOP)},
     pages={327--344},
     year={2010}
 }
 
+@inproceedings{king:fse,
+ author = {King, Dave and Jaeger, Trent and Jha, Somesh and Seshia, Sanjit A.},
+ title = {Effective blame for information-flow violations},
+ booktitle = {the 16th ACM SIGSOFT International Symposium on Foundations of software engineering (FSE)},
+ year = {2008},
+ pages = {250--260},
+ numpages = {11},
+} 
+
 @inproceedings{chong:sp11,
     author={Jeffrey A. Vaughan and Stephen Chong},
     title={Inference of Expressive Declassification Policies},
-    booktitle={Proceedings of the 2011 {IEEE} Symposium on Security and Privacy},
+    booktitle={the 2011 {IEEE} Symposium on Security and Privacy},
     year=2011,
     pages={180--195}
 }
@@ -65,7 +122,7 @@
 @inproceedings{harris:ccs10,
     author = {Harris, William R. and Jha, Somesh and Reps, Thomas},
     title = {DIFC programs by automatic instrumentation},
-    booktitle = {Proceedings of the 17th ACM conference on Computer and communications security},
+    booktitle = {the 17th ACM conference on Computer and communications security},
     year = {2010},
     pages = {284--296}
 } 
@@ -96,6 +153,43 @@
     booktitle = PLDI,
     year = {2007},
     pages = {425--434}
+} 
+
+@article{haack:slicing,
+    author={Christian Haack and J. B. Wells},
+    title={Type error slicing in implicitly typed higher-order languages},
+    journal={Science of Computer Programming},
+    volume={50}, 
+    number={1--3},
+    year={2004}, 
+    pages={189--224}
+}
+
+@article{tip:slicing,
+    author = {Frank Tip and T. B. Dinesh},
+    title = {A slicing-based approach for locating type errors},
+    journal = {ACM Transactions on software engineering and methodology},
+    year = {2001},
+    volume = {10},
+    number = {1},
+    pages = {5--55}
+}
+
+@inproceedings{livshits:merlin,
+ author = {Livshits, Benjamin and Nori, Aditya V. and Rajamani, Sriram K. and Banerjee, Anindya},
+ title = {Merlin: specification inference for explicit information flow problems},
+ booktitle = PLDI,
+ year = {2009},
+ pages = {75--86},
+} 
+
+@inproceedings{dillig:pldi12,
+ author = {Dillig, Isil and Dillig, Thomas and Aiken, Alex},
+ title = {Automated error diagnosis using abductive inference},
+ booktitle = PLDI, 
+ year = {2012},
+ pages = {181--192},
+ numpages = {12},
 } 
 
 
