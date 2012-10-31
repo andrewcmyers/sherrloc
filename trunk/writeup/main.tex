@@ -8,39 +8,21 @@
 \renewcommand{\floatpagefraction}{0.75}
 \renewcommand{\dblfloatpagefraction}{0.75}
 
-\title{General Error Diagnostic for Constraint-Based Program Analysis}
+\title{General Error Diagnostic for Program Analyses}
 
-
-
-\def\sharedaffiliation{%
-\end{tabular}
-\begin{tabular}{c}}
-%
-
-
-\numberofauthors{2}
-\author{
-\alignauthor Danfeng Zhang\\
-\email{zhangdf@cs.cornell.edu}
-%\affaddr{Department of Computer Science} \\
-%\affaddr{Cornell University} \\
-%\affaddr{Ithaca, NY, 14853}\\
-%
-\alignauthor Andrew C. Myers\\
-\email{andru@cs.cornell.edu}
-%\affaddr{Department of Computer Science} \\
-%\affaddr{Cornell University} \\
-%\affaddr{Ithaca, NY, 14853}\\
-%
-\sharedaffiliation
-\affaddr{Department of Computer Science} \\
-\affaddr{Cornell University} \\
-\affaddr{Ithaca, NY 14853}
-}
-
+\ifanonymous
+  \authorinfo{Anonymous}{}{}
+\else
+\authorinfo{Danfeng Zhang}
+           {Department of Computer Science\\ Cornell University\\ Ithaca, NY, 14853}
+           {zhangdf@cs.cornell.edu}
+\authorinfo{Andrew C. Myers}
+           {Department of Computer Science\\ Cornell University\\ Ithaca, NY, 14853}
+           {andru@cs.cornell.edu}
+\fi
 \begin{document}
 
-%\maketitle
+\maketitle
 
 \begin{abstract}
 \end{abstract}
@@ -52,7 +34,7 @@ instance, Jif ... Type checking for ML-like language is also by nature
 constraint solving. However, it has also been acknowledged for
 decades that error diagnostic for such systems are difficult
 since the type-checker often reports error locations that are far from the
-simplest source of the problem~\cite{wand-popl86}.
+simplest source of the problem~\cite{wand-errorfinding}.
 
 %\paragraph{Contributions}
 
@@ -69,19 +51,31 @@ application to error diagnosis
 evaluation
 \end{enumerate}
 
-\section{Model}
-\label{sec:model}
+\section{Program analyses and constraint solving}
 
-\paragraph{Syntax}
+Many program analyses can be modeled as constraint solving problems. In this
+section, we use two apparently different kinds of analyses, information-flow
+control and ML-like language type inference, to motivate why error diagnostic
+is difficult and illustrate the main approach of our work.
+
+
+\section{Constraint language}
+\label{sec:language}
+
+In this section, we describe the core constraint language capturing the essence
+of various program analyses. How information flow control and ML-like type
+inference can be expressed by this language is also discussed. 
+
+\subsection{Syntax}
 
 The syntax of our general constraint language is formalized in
 Figure~\ref{figure:lang:syntax}.
 
 \begin{figure}
 \begin{align*}
-G &::=\; G \land G\ |\ A \\
-A &::=\; C \proves C \\
-C &::= C \land C\ |\  E \leq E \\
+G &::=\; G_1 \land G_2\ |\ A \\
+A &::=\; C_1 \proves C_2 \\
+C &::= C_1 \land C_2\ |\  E_1 \leq E_2 |\ \Empty \\
 E &::= x\ |\ c(E_1,\dots,E_{a(c)})\ |\ c^{-i}(E)\ |\ E_1 \join E_2 \
 |\ E_1 \meet E_2
 \end{align*}
@@ -89,45 +83,66 @@ E &::= x\ |\ c(E_1,\dots,E_{a(c)})\ |\ c^{-i}(E)\ |\ E_1 \join E_2 \
 \label{figure:lang:syntax}
 \end{figure}
 
-The goal $G$ to be solved is a conjunction of assertions $A$ of the
-form $C \proves C$, where constraint $C$ on the LHS of the judgement
-is the hypothesis whereas $C$ on the RHS is the assertion needs to be
-satisfied. Constraint $C$ is simply an conjunction in the form of $E
-\leq E$, claiming the partial order on elements $E$. 
+The top-level goal $G$ to be solved is a conjunction of assertions $A$. An
+assertion has the form form $C_1 \proves C_1$, where constraint $C_1$ is the
+hypothesis whereas constraint $C_2$ is the conclusion needs to be satisfied. We
+write $ \proves C_2$ instead of $ C_1 \proves C_2$ when $C_1=\Empty$.
 
-Let $V$ be a set of variables and $C$ be a set of constructors. Each
-$c\in C$ has a fixed arity $a(c)$. When $a(c)=0$ then $c$ is a
-constant. Basic element $E$ contains the variables to be inferred
-$x\in V$, constructors $c$ and corresponding destructors $c^{-i}$,
-where $c\in C$. For simplicity, we write $c$ for constants. We can
-also take the join/meet or elements, which models the least upper
-bound/greatest lower bound of two elements in the partial order
-respectively. 
+Constraint $C$, either serving as the hypothesis or the conclusion, is a
+conjunction of partial orders on the elements $E$.
 
-Intuitively, the goal is to show that there exists a valuation of
-variable such that the right hand side of all constraints can be
-satisfied under the hypothesis. We formalize this in the next part.
+Let $\varset$ be a set of variables and $\conset$ be a set of constructors.
+Each $c\in C$ has a fixed arity $a(c)$. When $a(c)=0$ then $c$ is a constant.
 
-\DZ{Delete this? When join and meet are used, we assume for all $e_1,
-e_2 \in E, e_1 \join e_2 \in E \land e_1 \meet e_2 \in E$ to make the
-constraints well-formed. In another word, the elements form a
-lattice.}
+Element $E$ contains the variables to be inferred $x\in V$, constructors $c$
+and corresponding projection $c^{-i}$, where $c\in C$. For simplicity, we
+write $c$ for constants. Join ($\join$) and meet ($\meet$) of elements models
+the least upper bound/greatest lower bound of two elements in the partial order
+respectively. When join and meet are used, we assume for all $e_1, e_2 \in E,
+e_1 \join e_2 \in E \land e_1 \meet e_2 \in E$ to make the constraints
+well-formed. In another word, the elements form a lattice.
 
-\paragraph{Solving}
+We say an assertion $A = C_1 \proves C_2$ is _valid_ if the all the partial
+orders in $C_2$ can be inferred under assumption $C_1$, assuming that $\leq$ is
+a partial order and the definition of $\join$ and $\meet$.
 
-A valuation is a mapping of the type variables to _ground types_,
-where ground types form a Herbrand universe.
+\paragraph{Example}
 
-A goal is satisfiable when there is a valuation s.t. all constraints
-are _valid_. Therefore, formally, the goal of this paper is to answer
-which element or constraint to blame when a goal is unsatisfiable. A
-possible reason may both be the existence of an element or the absence
-of one. \DZ{a missing condition (missing where clause) is common in
-Jif}
+Let $c_1, c_2, c_3$ be three constants. Then $c_1 \leq c_2 \land c_2 \leq c_3
+\proves c_1 \leq c_3$ is valid by the transitivity of $\leq$. Assertion $
+\proves c_1 \leq c_1 \join c_2$ is valid by the definition of join. 
 
-More specifically, $e_1\leq e_2$ iff this partial order can be
-inferred under the standard rules for a partial order, namely
-transitivity and reflexivity. 
+\subsection{Satisfiability}
+
+Intuitively, a goal $G$ is _satisfiable_ if there exists a valuation of
+variables such that all partial orders in $C_2$ can be satisfied under
+hypothesis $C_1$.
+
+More formally, let $\conset$ be all _ground terms_, which forms a Herbrand
+universe. A valuation $\valuation: v \to g, v\in \varset, g\in \groundset$ is a
+function from variables to ground terms. A goal is satisfiable when there
+exists a valuation s.t. all constraints are _valid_. 
+
+\paragraph{Example}
+
+Let $x\in \varset$, $c_1, c_2, c_3\in \groundset$. Then $\proves x \leq c_1$ is
+trivially satisfiable considering the valuation $\valuation(x)=c_1$. However,
+$\proves x \leq c_1 \land c_2 \leq x$ is unsatisfiable since otherwise, $c_2
+\leq c_1$ by the transitivity of $\leq$. But such partial order on $c_1, c_2$
+is nowhere to be inferred.
+
+\subsection{Error diagnostic}
+
+Based on the definitions above, the goal of this paper is to answer which
+element or constraint is most likely be wrong when a goal is unsatisfiable. 
+
+In general, there are two categories of causes: missing hypothesis and
+inconsistent constraints. For instance, consider the unsatisfiable goal
+$\proves x \leq c_1 \land c_2 \leq x$.
+
+The possible reasons may be the missing of an hypothesis $c_1\leq c_2$, or one
+of the constraints $\proves x \leq c_1$ and $c_2 \leq x$. We discuss general
+diagnostic approach for both kinds of causes in Section~\ref{sec:ranking}.
 
 For type inference:
 
@@ -141,16 +156,7 @@ e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
 
 \DZ{We may eliminate the $\exists$ by creating fresh variables}
 
-\begin{figure}[b]
-\begin{align*}
-C &::=\; \tau = \tau\ |\ C \land C \\
-\tau &::= x\ |\ \tau\rightarrow \tau
-\end{align*}
-\caption{Syntax of constraints}
-\label{figure:cons:syntax}
-\end{figure}
-
-\paragraph{Expressiveness}
+\paragraph{Relation with set constraints}
 
 Although the core constraint language we proposed is similar to set
 constraints~\cite{aiken-setconstraint} in spirit. There are several
@@ -158,14 +164,12 @@ noticeable differences:
 
 \begin{enumerate}
 
-\item Most importantly, instead of interpreting $\leq$ as the subset
-relation of sets, the partial order is freely defined in the
-hypothesis in out language. This extended expressiveness is essential
-for modeling real-world type systems, such as the ``where'' clause in
-Jif and the subtyping relationship in many object-oriented systems.
-Moreover, as we will show in ..., introducing such expressiveness does
-not increase the symbolic complicity of our error diagnostic
-algorithm.
+\item Most importantly, hypotheses is modeled in our language. This extended
+expressiveness is essential for modeling real-world program analyses, such as
+the ``where'' clause in Jif and the subtyping relationship in many
+object-oriented systems. Moreover, as we will show in ..., introducing such
+expressiveness does not increase the symbolic complicity of our error
+diagnostic algorithm.
 
 \item The exclusion of the negation of an element in our model since
 it is not essential in modeling the type systems we are aware of.
@@ -177,27 +181,38 @@ for real-world type systems.
 
 \end{enumerate}
 
+\subsection{Expressiveness}
+
 Due to the similarity between our core constraint language and set
 constraint, the applications modeled by the later without negations
 are automatically expressed by our model. Such examples includes type
 inference with sum type and product type and closure analysis.
-Moreover, our language is also expressive enough to model the
-non-trivial DLM model, which is discussed in more detail in next part.
 
-\subsection{Examples}
+In this part, we discuss how a information-flow control model DLM, and ML-like
+type inference with polymorphism can be expressed by our constraint language.
 
-\paragraph{Jif}
+\paragraph{DLM model}
 
 For information flow control, elements are security labels, which in
 nature forms a lattice~\cite{denning-lattice}. Join and meet
 operations in constraints are consistent with that in the lattice.
-$\leq$ is consistent with the partial order in lattice. Some languages
-such as Jif allows ``where'' clauses that adding partial orders into
-the lattice. The ``where'' clauses corresponds to the hypothesis.  For
-other models, the hypothesis is always empty.
+$\leq$ is consistent with the partial order in lattice.
+ 
+In this part, we focus on the DLM model, although other models would be simpler
+to be modeled. The DLM model is complicated in the following ways:
 
-In this part, we would focus on the DLM model adopted by Jif, although
-other models would be simpler to be modeled.
+\begin{enumerate}
+\item The decentralized model brings more complexity in the labels.
+
+\item DLM introduces an implicit form of parametric polymorphism, called _label
+polymorphism_, to express procedures that are parametric with respect to the
+security labels of their arguments.
+
+\item Jif allows ``where'' clauses. The ``where'' clauses makes static
+assumptions on the partial orders on principals or labels. The security of a
+program is checked based on such assumptions, while the validity of the
+assumptions are checked at runtime. 
+\end{enumerate}
 
 DLM assumes a set of _principals_ represienting users and other
 authority entities. Examples of principals could be student A,
@@ -220,27 +235,19 @@ Such allowed flows are complicated by the _actsfor_ relationship of
 principals. For instance, if we know that $r_4$ actsfor $r_2$, then
 $r_4$ should also be able to read the data above.
 
-\begin{enumerate}
-\item DLM introduces an implicit form of parametric polymorphism, called _label
-polymorphism_, to express procedures that are parametric with respect to the
-security labels of their arguments.
-\end{enumerate}
-
-\paragraph{ML-like language}
+\paragraph{ML-like type inference}
 
 Type inference can also naturally map into constraint solving. This
 view is not new. For instance, Wand~\cite{wand-typeinference} recast
 Hindley-Milner type system into equality constraints. Aiken and
 Wimmers~\cite{aiken-typeinclusion} extends the Hindley-Milner type
 system with inclusion constraints, and models function types,
-constructor types, liberal intersection and union types. Moreover,
-with sophisticated systems, constraint solvers are used for dependent
-types \DZ{REF}, \DZ{and so on}. In this setting, types are the
-elements. Join and meet operations are the usual intersection and
-union types if that is well defined.  $\leq$ is consistent with the
-subtype relationship between two labels.  Since the definition is
-abstract, both syntactic subtyping \DZ{REF} and semantic
-subtyping~\cite{aiken-typeinclusion} fit in this model.
+constructor types, liberal intersection and union types. In this setting, types
+are the elements. Join and meet operations are the usual intersection and union
+types if that is well defined.  $\leq$ is consistent with the subtype
+relationship between two labels.  Since the definition is abstract, both
+syntactic subtyping \DZ{REF} and semantic subtyping~\cite{aiken-typeinclusion}
+fit in this model.
 
 \paragraph{Polymorphic Types}
 
@@ -258,61 +265,118 @@ is a polymorphic type is satisfiable.
 
 \section{Graph} 
 
-In this section, we formalize the constraint-solving problem into a
-graph problem: to find a path in graph where no partial order on the
-source and sink exist. The insight is consistent with ``A flow model
-FM is _secure_ if and only if execution of a sequence of operations
-cannot give rise to a flow that violates the relation
-$\rightarrow$''~\cite{denning-lattice}.
+In this section, we transform the constraint-solving problem into the
+reachability in a graph: to find a path in graph where no partial order on the
+source and sink exist. 
 
-First, for all the constraints in the right-hand-side, we
-first split the constraints into _atomic_ form according to the
-straightforward rules \DZ{only when the lattice is distributive}:
+Transformation ... 
+%The insight is consistent with ``A flow model FM is _secure_ if and only if
+%execution of a sequence of operations cannot give rise to a flow that violates
+%the relation $\rightarrow$''~\cite{denning-lattice}.
 
-\[
-\G \proves l_1 \meet l_2 \meet \dots \meet l_m \leq r_1 \join r_2 \join \dots
-\join r_n
-\]
+% First, for all the constraints in the right-hand-side, we
+% first split the constraints into _atomic_ form according to the
+% straightforward rules \DZ{only when the lattice is distributive}:
+% 
+% \[
+% \G \proves l_1 \meet l_2 \meet \dots \meet l_m \leq r_1 \join r_2 \join \dots
+% \join r_n
+% \]
+% 
+% For constraints in this form, we generate nodes for each side, and
+% add one _conditional edge_.
+% 
+% Static edges?
+% 
+% Back edges?
+% 
+% \DZ{No need} Conservative edge. When the right part constrains more
+% than one variable, in general, satisfiability would be undecidable. As
+% a common practice\DZ{true?}, we conservatively add edges from the
+% union node to all variable components.
+% 
+\section{Ranking}
+\label{sec:ranking}
 
-For constraints in this form, we generate nodes for each side, and
-add one _conditional edge_.
+\subsection{Inferring missing assumptions}
 
-Static edges?
+\subsection{Inferring likely wrong entities in program}
 
-Back edges?
+MAP model
 
-\DZ{No need} Conservative edge. When the right part constrains more
-than one variable, in general, satisfiability would be undecidable. As
-a common practice\DZ{true?}, we conservatively add edges from the
-union node to all variable components.
+\section{Evaluation}
+
+\subsection{Extensibility}
+
+\subsection{Ranking quality}
 
 \section{Related Work}
 
-Set-constraint program analysis~\cite{aiken-setconstraint}.
+Modeling program analyses via constraint solving is not a new idea. The most
+related work is set-based constraint program
+analysis~\cite{aiken-setconstraint, aiken-typeinclusion}.  However, such
+constraints does not model hypothesis, which is important in program analyses
+such as information-flow control.
+ 
+Program slicing, shape analysis, flow-insensitive points-to analysis are
+amenable to graph-reachability~\cite{reps-graph}. Melski and
+Reps~\cite{melski-cflgraph} noticed the equality between context-free-language
+reachability (CFG-reachability) and a subset of set-based constraints. But only
+a small set of constraints, namely only one variable may appear on the right
+hand side of an partial order. Moreover, no general error diagnostic approach
+is proposed on the graphs to the best of our knowledge. 
 
-Using graph reachability as program analysis is also not
-new. Program slicing, shape analysis, flow-insensitive points-to
-analysis are amenable to graph-reachability program~\cite{reps-graph}.
+Due to the unsatisfactory quality of error reports, a considerable amount of
+work have been proposed to improve both error message of ML-like languages and
+Jif.
 
-Interestingly, the equality between context-free-language reachability
-(CFG-reachability) and a class of set constraints was also notice
-before~\cite{melski-cflgraph}. But only a very restrict set of
-constraints, namely the constraints $sexp \leq V$ where $V$ is a
-set variable, are considered.
+Efforts on improving ML-like language type-error message can be traced back to
+the early work of Wand~\cite{wand-errorfinding} and Johnson and
+Walz~\cite{johnson-popl86}. These two pieces of work represent two directions
+in improving type-error messages: the former one traces _everything_ that
+contributes to the error, whereas the latter attempts to infer the _most
+likely_ cause. We only discuss the most related among them in this paper. More
+details can be found in Heeren's summary~\cite{heeren:thesis}.
 
-Policy inference~\cite{chong:sp11, harris:ccs10}.
+In the first direction, many work~\cite{choppella95, haack:slicing,
+tip:slicing} follow improves the basic idea of Wand~\cite{wand-errorfinding} in
+several ways. Despite the attractiveness of feeding all related details to the
+programmer, the reports are usually verbose and hard to follow.
 
-Automatic instrumentation~\cite{king:esop10}.
+In the second direction, one approach is to alter the order of type
+unification~\cite{lee:toplas, mcadam:unification}. However, since error
+location may appear anywhere in the unification procedure, any specific order
+would fail. Some previous work try to advice the programmer how to fix the
+error~\cite{mcadam:thesis, lerner:pldi07}. McAdam~\cite{mcadam:thesis} suggests
+using morphisms along with standard type inference to identify potential fixes
+of type errors. Lerner et. al.~\cite{lerner:pldi07} try to produce type-error
+messages by searching changes to the AST until a program type checks. However,
+both approaches are highly specific to the purpose of type inference. There is
+no easy way of extending them for information-flow control analysis, for
+instance.
 
-Previous work on error diagnostic are application specific. For type errors of
-ML-like language, slicing is used to identify possible causes of an
-inconsistency in type checking. However, the result can be too large to be
-useful. Lerner et al.~\cite{lerner:pldi07} propose searching modifications and
-ranking the ones passing type checking to provides useful error message. But
-this approach is application specific and the performance relies on heuristics. Moreover, the algorithm handles one error per analysis.
+For information-flow control, King et. al.~\cite{king:fse} propose to
+generate a trace of information flow explaining the information-flow violation
+in program. Despite the fact that this approach also diagnoses on a constructed
+dependency graph, only a subset of DLM model is handled (hypothesis is not
+supported). Moreover, similar to the limitation of type-error slicing,
+reporting a whole path can be verbose for programmer.
+Merlin~\cite{livshits:merlin} uses probabilistic inference to automatically
+infer explicit information flow specifications from program code, an different
+application as our paper.
 
-Using statisctical
-analysis for bug finding is not new. Dawson Engler.
+The most related work on inferring likely missing hypothesis is the recent work
+on error diagnosis using abductive inference~\cite{dillig:pldi12}. This work
+computes small, relevant queries presented to a user that capture exactly the
+information a program analysis is missing to either discharge or validate the
+error. But it is handling first-order logic and there is no straightforward way
+of encoding our constraint language into first-order logic. Also, our
+missing-hypothesis inference is more straightforward.
+
+% Automatic instrumentation~\cite{king:esop10}
+% Policy inference~\cite{chong:sp11, harris:ccs10}.
+% Using statisctical
+% analysis for bug finding is not new. Dawson Engler.
 
 \bibliographystyle{abbrv}
 \bibliography{constraint,../bibtex/pm-master}
