@@ -156,9 +156,16 @@ Based on the definitions above, the goal of this paper is to answer which
 element or constraint is most likely to be wrong when a goal is unsatisfiable. 
 
 In general, there are two categories of causes: missing hypothesis and
-inconsistent constraints, formally defined as follows.
+inconsistent constraints, formally defined as follows. We discuss
+general diagnostic approach for both kinds of causes in
+Section~\ref{sec:ranking}.
 
 \paragraph{Missing hypothesis}
+
+The first possible cause of unsatisfiable goal is due to the absence
+of constraints in the hypothesis. Such error corresponds to the
+failure of writing down assumptions. Missing hypothesis is defined in
+the following way.
 
 Given an unsatisfiable goal $C_{11} \proves C_{12} \land C_{21} \proves C_{22}
 \land \dots \land C_{n1} \proves C_{n2}$, a constraint $C$ is a _missing
@@ -173,22 +180,20 @@ more detail in Section~\ref{sec:assumptions}}.
 
 \paragraph{Example}
 Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$.
+One possible cause of the unsatisfiability may be the missing of an
+hypothesis $c_1\leq c_2$.
 
-The possible reasons may be the missing of an hypothesis $c_1\leq c_2$, or one
-of the constraints $x \leq c_1$ and $c_2 \leq x$. We discuss general
-diagnostic approach for both kinds of causes in Section~\ref{sec:ranking}.
+\paragraph{Abnormal constraints}
 
-For type inference:
+Another possible cause of an unsatisfiable goal is due to the
+existence of some constraints in the conclusion. We define a set of
+constraints $\mathcal{C}$ to be _abnormal_ if removing these
+constraints from conclusions make an unsatisfiable goal satisfiable.
 
-Type inference is reduced to constraint solving by defining a mapping
-of _pre-judgements_to constraints:
-\[\trans{\G \proves x:\tau} = x =\tau\]
-\[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
-(def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
-\[\trans{\G\proves e_1 e_2 : \tau} = \exists a.(\trans{\G \proves
-e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
-
-\DZ{We may eliminate the $\exists$ by creating fresh variables}
+\paragraph{Example}
+Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$
+again. Another possible cause of the unsatisfiability may be one of
+the constraints $x \leq c_1$ and $c_2 \leq x$. 
 
 \paragraph{Relation with set constraints}
 
@@ -276,12 +281,31 @@ view is not new. For instance, Wand~\cite{wand-typeinference} recast
 Hindley-Milner type system into equality constraints. Aiken and
 Wimmers~\cite{aiken-typeinclusion} extends the Hindley-Milner type
 system with inclusion constraints, and models function types,
-constructor types, liberal intersection and union types. In this setting, types
-are the elements. Join and meet operations are the usual intersection and union
-types if that is well defined.  $\leq$ is consistent with the subtype
-relationship between two labels.  Since the definition is abstract, both
-syntactic subtyping \DZ{REF} and semantic subtyping~\cite{aiken-typeinclusion}
-fit in this model.
+constructor types, liberal intersection and union types. 
+
+For simplicity, we discuss how the type inference of a subset
+(including let polymorphism) of ML-like language can be transformed
+into _labeled constraints_~\cite{haack:slicing}, a subset of our
+constraint language.
+
+In this setting, types are the elements. Join and
+meet operations are the usual intersection and union types if that is
+well defined.
+$\leq$ is consistent with the subtype relationship between two labels.
+Since the definition is abstract, both syntactic subtyping \DZ{REF}
+and semantic subtyping~\cite{aiken-typeinclusion} fit in this model.
+
+For type inference:
+
+Type inference is reduced to constraint solving by defining a mapping
+of _pre-judgements_to constraints:
+\[\trans{\G \proves x:\tau} = x =\tau\]
+\[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
+(def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
+\[\trans{\G\proves e_1 e_2 : \tau} = \exists a.(\trans{\G \proves
+e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
+
+\DZ{We may eliminate the $\exists$ by creating fresh variables}
 
 \paragraph{Polymorphic Types}
 
