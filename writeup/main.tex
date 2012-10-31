@@ -77,34 +77,43 @@ G &::=\; G_1 \land G_2\ |\ A \\
 A &::=\; C_1 \proves C_2 \\
 C &::= C_1 \land C_2\ |\  E_1 \leq E_2 |\ \Empty \\
 E &::= x\ |\ c(E_1,\dots,E_{a(c)})\ |\ c^{-i}(E)\ |\ E_1 \join E_2 \
-|\ E_1 \meet E_2
+|\ E_1 \meet E_2 |\ \bot |\ \top
 \end{align*}
 \caption{Syntax of constraints}
 \label{figure:lang:syntax}
 \end{figure}
 
 The top-level goal $G$ to be solved is a conjunction of assertions $A$. An
-assertion has the form form $C_1 \proves C_1$, where constraint $C_1$ is the
+assertion has the form of $C_1 \proves C_2$, where constraint $C_1$ is the
 hypothesis whereas constraint $C_2$ is the conclusion needs to be satisfied. We
 write $ \proves C_2$ instead of $ C_1 \proves C_2$ when $C_1=\Empty$.
 
 Constraint $C$, either serving as the hypothesis or the conclusion, is a
-conjunction of partial orders on the elements $E$.
+conjunction of partial orders $\leq$ on the elements $E$. The meaning
+of $\leq$ is abstract in the language and our inference. The
+application is free to define the meaning of $\leq$ as long as the
+relationship is a partial order (namely, $\leq$ is reflexive,
+antisymmetric, and transitive).
 
 Let $\varset$ be a set of variables and $\conset$ be a set of constructors.
-Each $c\in C$ has a fixed arity $a(c)$. When $a(c)=0$ then $c$ is a constant.
+Each $c\in C$ has a fixed arity $a(c)$. When $a(c)=0$, $c$ is a constant.
 
-Element $E$ contains the variables to be inferred $x\in V$, constructors $c$
-and corresponding projection $c^{-i}$, where $c\in C$. For simplicity, we
-write $c$ for constants. Join ($\join$) and meet ($\meet$) of elements models
-the least upper bound/greatest lower bound of two elements in the partial order
-respectively. When join and meet are used, we assume for all $e_1, e_2 \in E,
-e_1 \join e_2 \in E \land e_1 \meet e_2 \in E$ to make the constraints
-well-formed. In another word, the elements form a lattice.
+Element $E$ contains the variables to be inferred $x\in V$,
+constructors $c$ and corresponding projection $c^{-i}$, where $c\in
+C$. Join ($\join$) and meet ($\meet$) are the standard operations on
+elements, which form a partially ordered set. $\bot$ and $\top$ are
+two special elements making the elements closed under the operation of
+$\join$ and $\meet$.
 
-We say an assertion $A = C_1 \proves C_2$ is _valid_ if the all the partial
-orders in $C_2$ can be inferred under assumption $C_1$, assuming that $\leq$ is
-a partial order and the definition of $\join$ and $\meet$.
+%When join and meet are
+%used, we assume for all $e_1, e_2 \in E, e_1 \join e_2 \in E \land e_1
+%\meet e_2 \in E$ to make the constraints well-formed. In another word,
+%the elements form a lattice.
+
+We say an assertion $C_1 \proves C_2$ is _valid_ if and only if all
+the partial orders in $C_2$ can be inferred under assumption $C_1$,
+assuming that $\leq$ is a partial order and $\join$ and $\meet$ are
+join and meet operations on partially ordered elements.
 
 \paragraph{Example}
 
@@ -118,14 +127,23 @@ Intuitively, a goal $G$ is _satisfiable_ if there exists a valuation of
 variables such that all partial orders in $C_2$ can be satisfied under
 hypothesis $C_1$.
 
-More formally, let $\conset$ be all _ground terms_, which forms a Herbrand
-universe. A valuation $\valuation: v \to g, v\in \varset, g\in \groundset$ is a
-function from variables to ground terms. A goal is satisfiable when there
-exists a valuation s.t. all constraints are _valid_. 
+More formally, we define $\termset$ recursively: a term is $c(t_1,
+\dots, t_{a(c)})$ where $c\in C$ and $\forall i. t_i\in \termset$. All
+terms form a Herbrand universe under $\join$ and $\meet$.
+
+A valuation $\valuation: v \to t, v\in \varset, t\in \termset$ is a
+function from variables to terms. A goal is _satisfiable_ when there
+exists a valuation such that all constraints after the substitution
+are _valid_. 
+
+The terms can also have infinite representations. This feature is
+important in modeling recursive types. For instance, $\proves x \leq
+\text{List} \ x$, where $\text{List} \in \conset, x\in \varset$ is
+satisfiable by replacing $x$ with $\text{List} \ \text{List} \ \dots$.    
 
 \paragraph{Example}
 
-Let $x\in \varset$, $c_1, c_2, c_3\in \groundset$. Then $\proves x \leq c_1$ is
+Let $x\in \varset$, $c_1, c_2, c_3\in \termset$. Then $\proves x \leq c_1$ is
 trivially satisfiable considering the valuation $\valuation(x)=c_1$. However,
 $\proves x \leq c_1 \land c_2 \leq x$ is unsatisfiable since otherwise, $c_2
 \leq c_1$ by the transitivity of $\leq$. But such partial order on $c_1, c_2$
@@ -312,6 +330,8 @@ MAP model
 
 \section{Related Work}
 
+\paragraph{Program analyses, constraints and graph} 
+
 Modeling program analyses via constraint solving is not a new idea. The most
 related work is set-based constraint program
 analysis~\cite{aiken-setconstraint, aiken-typeinclusion}.  However, such
@@ -320,15 +340,19 @@ such as information-flow control.
  
 Program slicing, shape analysis, flow-insensitive points-to analysis are
 amenable to graph-reachability~\cite{reps-graph}. Melski and
-Reps~\cite{melski-cflgraph} noticed the equality between context-free-language
-reachability (CFG-reachability) and a subset of set-based constraints. But only
-a small set of constraints, namely only one variable may appear on the right
-hand side of an partial order. Moreover, no general error diagnostic approach
-is proposed on the graphs to the best of our knowledge. 
+Reps~\cite{melski-cflgraph} show the interchangeability between
+context-free-language reachability (CFG-reachability) and a subset of
+set-based constraints. But only a small set of constraints, namely
+only one variable may appear on the right hand side of an partial
+order. Moreover, no general error diagnostic approach is proposed on
+the graphs to the best of our knowledge. 
 
-Due to the unsatisfactory quality of error reports, a considerable amount of
-work have been proposed to improve both error message of ML-like languages and
-Jif.
+\paragraph{Error diagnostic on type inference and information-flow
+control} 
+
+Due to the unsatisfactory quality of error reports, a considerable
+amount of work have been proposed to improve both error message of
+ML-like languages and Jif.
 
 Efforts on improving ML-like language type-error message can be traced back to
 the early work of Wand~\cite{wand-errorfinding} and Johnson and
@@ -364,6 +388,8 @@ reporting a whole path can be verbose for programmer.
 Merlin~\cite{livshits:merlin} uses probabilistic inference to automatically
 infer explicit information flow specifications from program code, an different
 application as our paper.
+
+\paragraph{Missing hypothesis inference}
 
 The most related work on inferring likely missing hypothesis is the recent work
 on error diagnosis using abductive inference~\cite{dillig:pldi12}. This work
