@@ -749,7 +749,7 @@ public class Analysis {
     	public String toHTML () {
     		StringBuffer sb = new StringBuffer();
 //    		sb.append("<LI>\n");
-    		sb.append("<span class=rank>(rank "+rank+")</span>");
+    		sb.append("<span class=rank>(rank "+rank+")</span> ");
         	for (EquationEdge c : edges) {
         		StringBuffer locBuffer = new StringBuffer();
         		Element left = c.getEquation().getFirstElement();
@@ -981,8 +981,9 @@ public class Analysis {
 			String current;
 			int currentline = 0;
 			while ((current = in.readLine()) != null) {
-				currentline ++;
-				sb.append(currentline + ". ");
+				currentline++;
+				sb.append("<span class=lineno>" + currentline);
+				sb.append(".</span>");
 
 				if (end.line != currentline && start.line != currentline && empty.line != currentline) {
 					sb.append(current);
