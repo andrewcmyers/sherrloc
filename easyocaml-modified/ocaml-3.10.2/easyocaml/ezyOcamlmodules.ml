@@ -33,16 +33,23 @@ module Location = struct
         loc.loc_end.Lexing.pos_lnum
         (col loc.loc_end)
 
+  let compare_position p1 p2 =
+      let compare_num n1 n2 = n1 - n2 in
+      lexical compare_num (p1.Lexing.pos_lnum, p1.Lexing.pos_cnum) (p2.Lexing.pos_lnum, p2.Lexing.pos_cnum)
+
   let compare l1 l2 =
-    let compare_position p1 p2 =
-      p1.Lexing.pos_cnum - p2.Lexing.pos_cnum in
     match lexical compare_position (l1.loc_start, l1.loc_end) (l2.loc_start, l2.loc_end) with
       | 0 -> Pervasives.compare l1 l2
       | n -> n
 
   let span l1 l2 =
-    { loc_start = l1.loc_start ;
-      loc_end = l2.loc_end ;
+    { 
+      loc_start =
+        if (compare_position l1.loc_start l2.loc_start)>0 
+        then l2.loc_start else l1.loc_start;
+      loc_end = 
+        if (compare_position l1.loc_end l2.loc_end)>0 
+        then l1.loc_end else l2.loc_end;
       loc_ghost = l1.loc_ghost || l2.loc_ghost }
 end
 
