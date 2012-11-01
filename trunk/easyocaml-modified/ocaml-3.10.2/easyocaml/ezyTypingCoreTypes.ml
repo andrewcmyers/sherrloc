@@ -257,7 +257,7 @@ end = struct
     |  Constr (_, lid, tys) -> (
         match tys with
           | [] -> Format.fprintf ppf "%s" (Path.name lid)
-          | _ -> Format.fprintf ppf "%s %a" (Path.name lid) (List.print print " ") tys
+          | _ -> Format.fprintf ppf "(%s %a)" (Path.name lid) (List.print print " ") tys
       )
     | Tuple (_, tys) ->
         Format.fprintf ppf "(%a)" (List.print print " , ") tys
