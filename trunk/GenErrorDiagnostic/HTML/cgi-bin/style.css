@@ -60,5 +60,6 @@ div.feedback form input { font-size: 80%; font-family: sans-serif }
 }
 
 span.rank { font-family: serif; font-size: 80%; color: #666 }
+span.lineno { font-family: Baskerville, serif; font-style: italic; font-size: 90%; width: 4ex }
 
 ol li {font-family: Baskerville, serif}
