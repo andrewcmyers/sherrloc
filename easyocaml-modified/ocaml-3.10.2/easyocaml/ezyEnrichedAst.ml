@@ -258,7 +258,10 @@ and import_expression ef x =
           begin match args with
             | [] -> assert false
             | [_, arg] ->
-                build_expr (Pexp_apply (import_expression ef head, import_expression ef arg))
+                let imported_head = import_expression ef head in
+                let imported_arg = import_expression ef arg in
+                let loc = Location.span imported_head.pexp_loc imported_arg.pexp_loc in
+                build_expr ~loc (Pexp_apply (imported_head, imported_arg))
             | args ->
                 logger#info
                   "A different parser than Ocaml's default should be used to avoid inaccuracy for the location of multiple application (%a)."
@@ -266,8 +269,16 @@ and import_expression ef x =
                 let rec aux sofar = function
                   | [] -> sofar
                   | (_, arg) :: rem_args ->
-                      let loc = Location.span head.Parsetree.pexp_loc arg.Parsetree.pexp_loc in
-                      let app = build_expr ~loc (Pexp_apply (sofar, import_expression ef arg)) in
+                      let imported_arg = import_expression ef arg in
+                      logger#info
+                      "sofar (%a) arg (%a)\n" Location.print sofar.pexp_loc
+                      Location.print imported_arg.pexp_loc ;
+
+                      let loc = Location.span sofar.pexp_loc imported_arg.pexp_loc in
+                      logger#info
+                      "spaned (%a)\n" Location.print loc;
+
+                      let app = build_expr ~loc (Pexp_apply (sofar, imported_arg)) in
                       aux app rem_args in
                 aux (import_expression ef head) args
           end
