@@ -25,7 +25,7 @@ function show_elements(numbering, ids) {
 	else
 	    handled[id] = true;
         var loc = document.getElementById(id);
-	if(loc) {
+	if (loc) {
             posnum++;
             var n = loc.parentNode;
             if (numbering) {
