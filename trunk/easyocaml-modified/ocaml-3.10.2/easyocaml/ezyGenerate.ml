@@ -709,6 +709,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
 
       | Pexp_apply (exp1, exp2) ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
+          let exp1_loc = ExtLocation.Source exp1.pexp_loc in
           let exp2_loc = ExtLocation.Source exp2.pexp_loc in
           let a1 = Ty.fresh_var ~loc:(Some exp2_loc) ~detail:(Some (expr_string exp2)) () in
           (* let a2 = Ty.fresh_var () in *)
@@ -717,7 +718,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let cs0 = AtConstrSet.from_list [
             AtConstr.create (ty_of_expr enr_exp2) (expr_string exp2) eloc a1 (expr_string exp2) ; 
             (* AtConstr.create a eloc a2 ; *) 
-            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (Ty.Arrow (eloc, a1, a)) (expr_string exp1);
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (Ty.Arrow (exp1_loc, a1, a)) (expr_string exp1);
           ] in
           build_exp a (Pexp_apply (enr_exp1, enr_exp2)), AtConstrSet.big_union [cs0; cs1; cs2], PostProcess.union pp1 pp2
       | Pexp_let (bindings, body) ->
