@@ -28,6 +28,11 @@ public class Variable extends Element {
 	}
 	
 	@Override
+	public boolean sameas(Object o) {
+		return equals(o);
+	}
+	
+	@Override
 	public String toDetailString() {
 		return toHTMLString();
 	}

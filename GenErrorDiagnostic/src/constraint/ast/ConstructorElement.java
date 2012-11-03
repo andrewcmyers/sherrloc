@@ -30,6 +30,16 @@ public class ConstructorElement extends EnumerableElement {
 	}
 	
 	@Override
+	public boolean sameas(Object o) {
+		if (o instanceof ConstructorElement) {
+			ConstructorElement ce = (ConstructorElement)o;
+			if (cons.sameas(ce.cons))
+				return super.sameas(o);
+		}
+		return false;
+	}
+	
+	@Override
 	public int hashCode() {
 		return cons.hashCode()^super.hashCode();
 	}
