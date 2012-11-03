@@ -1342,18 +1342,46 @@ let for_structure_item env types strit =
        logger#debug "for_structure_item at %a@ %a:@ %a" Location.print strit.pstr_loc (EzyAst.print_structure_item ()) enr_strit AtConstrSet.print cs)
 
 
-let for_structure: imported_structure -> EzyEnv.t -> generated_structure * AtConstrSet.t * PostProcess.t * EzyEnv.t =
-  fun str env ->
+let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.t -> generated_structure * AtConstrSet.t * PostProcess.t * EzyEnv.t =
+  fun str parse_tree env oenv ->
 
-  let rec aux (str_its, cs, pp, env, type_accu) = function
-    | [] ->
-        List.rev str_its, cs, pp, env
-    | str_it :: str_rem ->
-        let enr_strit, env0, cs0, pp0, type_accu = for_structure_item env type_accu str_it in
-        logger#debug "Generated for strit, resulting env:\n%a" (EzyEnv.print false) env0 ;
-        aux (enr_strit :: str_its, AtConstrSet.union cs cs0, PostProcess.union pp pp0, env0, type_accu) str_rem in
-
-  aux ([], AtConstrSet.empty, PostProcess.empty, env, []) str
+  let aux (str_its, cs, pp, ecaml_env, ocaml_env, type_accu) str_it tree_it =
+    let import_env = EzyEnv.import ocaml_env in
+    let enr_strit, env0, cs0, pp0, type_accu = for_structure_item import_env type_accu str_it in
+    logger#debug "Generated for strit, resulting env:\n%a" (EzyEnv.print false) env0 ;
+    begin try
+      Typecore.reset_delayed_checks ();
+      let (o_str, o_sg, o_newenv) = Typemod.type_structure ocaml_env (tree_it::[]) in
+      Typecore.force_delayed_checks ();
+      (enr_strit :: str_its, cs0, PostProcess.union pp pp0, env0, o_newenv, type_accu)
+    with
+      | Typemod.Error (loc, err) ->
+          exit 101
+      | Typecore.Error (loc, err) -> (
+          (* report generated constriants *)
+          logger#info "%d constraints generated." (AtConstrSet.cardinal cs0) ;
+          logger#debug "@[<2>generated constraints:@ %a@]" AtConstrSet.print cs0 ;
+          let out = open_out "error.con" in
+          let formater = (Format.formatter_of_out_channel out) in  
+          (* let predefined = "CONSTRUCTOR int 0\nCONSTRUCTOR bool 0\nCONSTRUCTOR char
+           * 0\nCONSTRUCTOR unit 0\nCONSTRUCTOR float 0\nCONSTRUCTOR array
+           * 1\nCONSTRUCTOR string 0\nCONSTRUCTOR option 1\nCONSTRUCTOR Pervasives.ref
+           * 1\n\n" in 
+          Format.fprintf formater "%s" predefined; *)
+          Format.pp_set_margin formater 10000;
+          Format.pp_set_max_indent formater 5000;
+          EzyEnv.print_constructor formater true env0;
+          Format.fprintf formater "@\n";
+          EzyEnv.print_cons formater true env0;
+          AtConstrSet.cons_print formater cs0 (tree_it::[]);
+          Format.pp_print_flush formater ();
+          close_out out;
+          exit 101
+      )
+    end in
+  let (gen_str, gen_cons, gen_pp, gen_env, _, _) = 
+    List.fold_left2 aux ([], AtConstrSet.empty, PostProcess.empty, env, oenv, []) str parse_tree in
+  (gen_str, gen_cons, gen_pp, gen_env)
 
 (* }}} *)
 
