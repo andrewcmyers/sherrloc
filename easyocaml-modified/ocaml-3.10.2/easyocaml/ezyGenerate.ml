@@ -760,9 +760,12 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                 | Some se -> [se], false in
             let enr_exps, css, uss = List.split3 (List.map (for_expr // env) sargs) in
             if List.length sargs = expected_arg_count then
+              let _, ty'_r_cand = Ty.fresh_variant cd.EzyEnv.ctor_result in
+              let vars = Ty.tyvars ty'_r_cand in
               let tyvarmap, ty'_r = Ty.fresh_variant cd.EzyEnv.ctor_result in
+              let vars' = Ty.tyvars ty'_r in
               let tyvarmap, tys' = Ty.fresh_variants ~tyvarmap cd.EzyEnv.ctor_args in
-              let ty'_r = Ty.set_label ty'_r eloc in
+              let ty'_r_cand = Ty.set_label ty'_r_cand eloc in
               let tys' = List.map (Ty.set_label // eloc) tys' in
               let rec map3 f l1 l2 l3 =
                 match (l1, l2, l3) with
@@ -771,10 +774,18 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                 | (_, _, _) -> [] in
               let gen_constr ty' enr_exp exp =
                 AtConstr.create ty' detail eloc (ty_of_expr enr_exp) (expr_string exp) in
-              let cs0 = AtConstrSet.from_list (
-                AtConstr.create a detail eloc ty'_r detail ::
-                map3 gen_constr tys' enr_exps sargs
-              ) in
+              let gen_constr_pair var1 var2 =
+                AtConstr.create (Ty.Var (Some eloc,Some detail,var1)) detail eloc (Ty.Var (Some eloc,Some detail,var2)) detail in
+              let cs0 = 
+                AtConstrSet.big_union [
+                  AtConstrSet.from_list (
+                    AtConstr.create a detail eloc ty'_r_cand detail ::
+                    map3 gen_constr tys' enr_exps sargs
+                  );
+                  AtConstrSet.from_list (
+                    List.map2 gen_constr_pair (TyVarSet.elements vars) (TyVarSet.elements vars')
+                  )]
+              in
               let ctor' = { lid_name = ctor.lid_name; lid_data = EzyEnv.path_of_tag cd.EzyEnv.ctor_tag } in
               let cs = AtConstrSet.big_union (cs0 :: css) in
               let us = PostProcess.big_union uss in
