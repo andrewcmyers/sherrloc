@@ -57,5 +57,5 @@ val for_expr :
   generated_expression * EzyConstraints.AtConstrSet.t * PostProcess.t
 
 val for_structure :
-  EzyAst.imported_structure -> EzyEnv.t ->
+  EzyAst.imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.t ->
   generated_structure * EzyConstraints.AtConstrSet.t * PostProcess.t * EzyEnv.t

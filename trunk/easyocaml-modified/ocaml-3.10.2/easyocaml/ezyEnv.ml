@@ -524,18 +524,18 @@ let print_constructor ppf everything env =
     let td = find_type (Path.Pident ident) env in
     match td.type_kind with
       | Abstract ->
-        Format.fprintf ppf "@[CONSTRUCTOR %a %i\n@]"
-          ExtLocation.print td.type_loc
+        Format.fprintf ppf "@[CONSTRUCTOR %s %i\n@]"
+          (Ident.name ident)
           (List.length td.type_params)
 
       | Variant vs ->
-        Format.fprintf ppf "@[CONSTRUCTOR %a %i\n@]"
-          ExtLocation.print td.type_loc
+        Format.fprintf ppf "@[CONSTRUCTOR %s %i\n@]"
+          (Ident.name ident)
           (List.length td.type_params)
 
       | Record fs ->
-        Format.fprintf ppf "@[CONSTRUCTOR %a %i\n@]"
-          ExtLocation.print td.type_loc
+        Format.fprintf ppf "@[CONSTRUCTOR %s %i\n@]"
+          (Ident.name ident)
           (List.length td.type_params)
       | _ -> ()
   in
