@@ -123,5 +123,19 @@ public abstract class EnumerableElement extends Element {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean sameas(Object o) {
+		if (o instanceof EnumerableElement) {
+			EnumerableElement ce = (EnumerableElement)o;
+			if (ce.getElements().size()==elements.size()) {
+				for (int i=0; i<elements.size(); i++)
+					if (!elements.get(i).sameas(ce.getElements().get(i))) 
+						return false;
+				return true;
+			}
+		}
+		return false;
+	}
 		
 }
