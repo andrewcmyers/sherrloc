@@ -319,28 +319,11 @@ let rec print_strs_info s env ppf = function
       Format.fprintf ppf "@[EzyTyping.print_strs_info cannot print@] " ;
       print_strs_info s env ppf rem
 
-let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) =
+let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) (parsetree : Parsetree.structure)=
   let env = (* logger#atime "Env import" *) EzyEnv.import oenv in
   (* logger#debug "@[<2>Type structure in env:@ %a@]" (EzyEnv.print true) env ; *)
   let enr_str, cs, pp, env' =
-    (* logger#atime "Generate constraints" $ *) EzyGenerate.for_structure sstr $ env in
-  logger#info "%d constraints generated." (AtConstrSet.cardinal cs) ;
-  logger#debug "@[<2>generated constraints:@ %a@]" AtConstrSet.print cs ;
-  let out = open_out "error.con" in
-  let formater = (Format.formatter_of_out_channel out) in  
-  (* let predefined = "CONSTRUCTOR int 0\nCONSTRUCTOR bool 0\nCONSTRUCTOR char
-   * 0\nCONSTRUCTOR unit 0\nCONSTRUCTOR float 0\nCONSTRUCTOR array
-   * 1\nCONSTRUCTOR string 0\nCONSTRUCTOR option 1\nCONSTRUCTOR Pervasives.ref
-   * 1\n\n" in 
-  Format.fprintf formater "%s" predefined; *)
-  Format.pp_set_margin formater 10000;
-  Format.pp_set_max_indent formater 5000;
-  EzyEnv.print_constructor formater true env';
-  Format.fprintf formater "@\n";
-  EzyEnv.print_cons formater true env';
-  AtConstrSet.cons_print formater cs sstr;
-  Format.pp_print_flush formater ();
-  close_out out;
+    (* logger#atime "Generate constraints" $ *) EzyGenerate.for_structure sstr parsetree env oenv in
   enr_str, env'
   (* dz: generate constraints only *)
   (* if not (EzyErrors.HeavyErrorSet.is_empty pp.EzyGenerate.PostProcess.heavies) then begin
@@ -361,13 +344,13 @@ let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) =
 (* string -> string -> string -> Env.t -> Parsetree.structure ->
                                Typedtree.structure * Typedtree.module_coercion *)
 let type_implementation : 
-    string -> Env.t -> imported_structure -> (EzyEnrichedAst.generated_structure * EzyEnv.t) =
-  fun sourcefile initial_env ast ->
+    string -> Env.t -> imported_structure -> Parsetree.structure -> (EzyEnrichedAst.generated_structure * EzyEnv.t) =
+  fun sourcefile initial_env ast parsetree ->
   let program = lazy begin
     let ic = open_in sourcefile in
     between input_all ic (fun _ -> close_in ic)
   end in
-  let enr_str, env as res = type_structure ~program initial_env ast in
+  let enr_str, env as res = type_structure ~program initial_env ast parsetree in
   (* let check_polymorphy strit =
     let aux (loc, v) =
       let vd = EzyEnv.find_value (Path.Pident v.nm_data) env in
@@ -391,16 +374,6 @@ let type_implementation :
     (EzyEnv.print ~s false) env ; *)
   res
 
-
-let type_structure ?program env sstr =
-  let enr_str, env as res =
-    (* logger#atime "Type structure" $ *)
-      type_structure ?program env $ sstr in
-  (* logger#info "Succeeded typing structure@ %awith substitution@ %a@ and env enriched by@ %a"
-    (print_strs_info s env) enr_str
-    TyVarSubst.print s
-    (EzyEnv.print ~s false) env ; *)
-  res
 
 (*
 let type_implementation sourcefile initial_env ast =
@@ -436,7 +409,7 @@ let type_and_compare_implementation sourcefile outputprefix modulename initial_e
     | Typecore.Error (loc, err) ->
         (* Location.Original.print Format.std_formatter loc; 
         Format.fprintf Format.std_formatter "%a@\n" Typecore.report_error err; *)
-        type_implementation sourcefile initial_env str; exit 101
+        type_implementation sourcefile initial_env str parse_tree; exit 101
 
     (*    beta_error loc Typecore.report_error err *)
     (* let ted_str = EzyEnrichedAst.apply_substitution s enr_str in *)
@@ -465,5 +438,5 @@ let type_and_compare_top_phrase fs oldenv str =
     | Typecore.Error (loc, err) ->
         (* Location.Original.print Format.std_formatter loc; 
         Format.fprintf Format.std_formatter "%a@\n" Typecore.report_error err; *)
-        let str' = EzyEnrichedAst.import_structure fs str in type_structure oldenv str'; exit 101
+        let str' = EzyEnrichedAst.import_structure fs str in type_structure oldenv str' str; exit 101
   end
