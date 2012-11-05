@@ -5,10 +5,12 @@ import java.util.List;
 public abstract class Element {
 	String name;
 	Position pos;
+    double succCount;
 	
 	public Element(String name, Position pos) {
 		this.name = name;
 		this.pos = pos;
+        succCount = 0;
 	}
 	
 	public String toString () {
@@ -32,6 +34,14 @@ public abstract class Element {
 	
 	public void setPosition (Position pos) {
 		this.pos = pos;
+	}
+	
+    public void incSuccCounter () {
+        succCount ++;
+    }
+    
+    public double getSuccCounter () {
+		return succCount;
 	}
 	
 	abstract public String toDotString ();

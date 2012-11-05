@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import util.AttemptGoal;
-
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
@@ -64,8 +62,20 @@ public class Environment {
 		if (e1.equals(e2))
 			return true;
 		
-		if ( e1 instanceof Variable || e2 instanceof Variable)
-			return true;
+		// the type to be inferred cannot have recursive types
+		if ( e1 instanceof Variable) {
+			if (e2.getVars().contains(e1))
+				return false;
+			else
+				return true;
+		}
+		
+		if (e2 instanceof Variable) {
+			if (e1.getVars().contains(e2))
+				return false;
+			else
+				return true;
+		}
 		
 		if (e1 instanceof Constructor && e2 instanceof Constructor) {
 			if (((Constructor)e1).sameas(e2))
