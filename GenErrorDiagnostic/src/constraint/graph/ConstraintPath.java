@@ -103,6 +103,22 @@ public class ConstraintPath {
 			edge.to.setCause();
 		}
 	}
+	
+	public boolean intersects (ConstraintPath path) {
+		// check if there are common "expressions"
+	    List<Node> nodes1 = getAllNodes();
+	    List<Node> nodes2 = path.getAllNodes();
+	    for (Node n1 : nodes1) {
+	    	for (Node n2 : nodes2) {
+    			if (((ElementNode)n1).isInCons() && ((ElementNode)n2).isInCons()) {
+    				if (n1.toString().equals(n2.toString())) {
+    					return true;
+    				}
+    			}
+	    	}
+	    }
+	    return false;
+	}
     
 	public String toString( ) {
 		// boolean detail = shouldReport(detailedMessage);

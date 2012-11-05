@@ -52,7 +52,7 @@ public class Analysis {
     int REC_MAX = 3;
 	boolean done = false;
 	ConstraintGraph graph;
-	HashMap<AttemptGoal, ConstraintPath> errorPaths;
+	HashMap<AttemptGoal, ConstraintPath> errPaths;
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	HashSet<AttemptGoal> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
 	String sourceName;
@@ -63,7 +63,7 @@ public class Analysis {
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
-        errorPaths = new HashMap<AttemptGoal, ConstraintPath>();
+        errPaths = new HashMap<AttemptGoal, ConstraintPath>();
         cachedEnv = new HashMap<Environment, Environment>();
         unsatPath = new HashSet<AttemptGoal>();
         map = new HashMap<String, Node>();
@@ -225,7 +225,7 @@ public class Analysis {
 //				System.out.println(path.toString());
 				AttemptGoal goal = new AttemptGoal(start, end, env);
 				unsatPath.add(goal);
-				errorPaths.put(goal, path);
+				errPaths.put(goal, path);
 			}
 		}
 		
@@ -238,13 +238,13 @@ public class Analysis {
 
 	}
     
-    public String unsatPathsToHTML () {
+    public String unsatPathsToHTML (Map<AttemptGoal, ConstraintPath> errorPaths) {
     	StringBuffer sb = new StringBuffer();
     	sb.append("<H3>");
-    	sb.append(errorPaths.size() +" type error" + (errorPaths.size() == 1 ? "" : "s") + " found: \n");
+    	sb.append(errorPaths.size() +" type mismatch" + (errorPaths.size() == 1 ? "" : "s") + " found: \n");
 		sb.append("</H3>\n");
 		sb.append("<UL>\n");
-		for (AttemptGoal goal : unsatPath) {
+		for (AttemptGoal goal : errorPaths.keySet()) {
 			//sb.append("<div class=\"moreinfo\"> " +
 			//		errorPaths.get(goal).toString() + " \n");
 			//sb.append("</div>);
@@ -293,7 +293,7 @@ public class Analysis {
     	return ret;
     }
     
-    /* Calculating a min cut is NP complete. Currently, we use interative deeping search to quickly identify the goal */
+    /* Calculating a min cut is NP complete. Currently, we use iterative deeping search to quickly identify the goal */
     public Set<Set<EquationEdge>> genCuts (Set<AttemptGoal> remaining) {
     	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
     	Set<Set<EquationEdge>> results = new HashSet<Set<EquationEdge>>();
@@ -301,7 +301,7 @@ public class Analysis {
 
     	for (AttemptGoal goal : remaining) {
     		List<EquationEdge> l = new ArrayList<EquationEdge>();
-    		for (Edge e : errorPaths.get(goal).getEdges()) {
+    		for (Edge e : errPaths.get(goal).getEdges()) {
     			if (e instanceof EquationEdge) {
     				EquationEdge ee = (EquationEdge) e;
     				if (!ee.getEquation().getFirstElement().toDetailString().equals(ee.getEquation().getSecondElement().toDetailString())) {
@@ -330,7 +330,7 @@ public class Analysis {
 
     	for (AttemptGoal goal : remaining) {
     		Set<String> l = new HashSet<String>();
-    		for (Node n : errorPaths.get(goal).getAllNodes()) {
+    		for (Node n : errPaths.get(goal).getAllNodes()) {
     			if (((ElementNode)n).isInCons()) {
     				l.add(n.toString());
     				candidates.add(n.toString());
@@ -506,7 +506,7 @@ public class Analysis {
     	if (!done) {
     		genErrorPaths();
     	}
-    	int ret = errorPaths.size();
+    	int ret = errPaths.size();
     	printRank();
     	return ret;
     }
@@ -515,7 +515,7 @@ public class Analysis {
     	if (!done) {
     		genErrorPaths();
     	}
-        Set<AttemptGoal> result = genAssumptions(errorPaths.keySet());
+        Set<AttemptGoal> result = genAssumptions(errPaths.keySet());
     	return result.size();
     }
     
@@ -529,7 +529,7 @@ public class Analysis {
     }
     
     public void showErrorPaths() {
-    	for (ConstraintPath path : errorPaths.values())
+    	for (ConstraintPath path : errPaths.values())
     		System.out.println(path.toString());
     }
     
@@ -560,19 +560,78 @@ public class Analysis {
         	genErrorPaths();
         
         if (GEN_ASSUMP)
-        	genAssumptions(errorPaths.keySet());
+        	genAssumptions(errPaths.keySet());
         	
         try {
             FileWriter fstream = new FileWriter(htmlFileName);
             BufferedWriter out = new BufferedWriter(fstream);
             // out.write(getHeader());
             writeFeedback(out);
-            out.write(getOneSuggestion(sourceName));
-            // out.write(getTail());
+        	
+        	out.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
+        			"<H1>\n" +
+        			"<BR>\n" +
+        			"Error Diagnostic Report </H1>\n" +
+        			"<HR>\n");
+        	// type check succeeded
+        	if (unsatPath.size()==0) {
+        		out.append("<H2>");
+    			out.append("The program passed type checking. No errors were found.</H2>");
+                out.append("<script type=\"text/javascript\">"+
+                          "document.getElementById('feedback').style.display = 'none';</script>");
+        	}
+        	else {
+        		List<HashMap<AttemptGoal, ConstraintPath>> l = genIndependentPaths(errPaths);
+        		if (l.size()==1) {
+        			out.append("<H2>One typing error is identified<H2>");
+        		}
+        		else {
+        			out.append("<H2>"+l.size()+" separate typing errors are identified</H2>");
+        		}
+        		int count = 1;	
+        		for (HashMap<AttemptGoal, ConstraintPath> paths : l)
+        			out.append(getOneSuggestion(sourceName,paths, count++));
+        		
+        		out.append(genAnnotatedCode() +
+        				(sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
+        				:("<script>numberSuggestions();</script>\n")));
+            }
             out.close();
         } catch (IOException e) {
             System.out.println("Unable to write the HTML file to: " + htmlFileName);
         }
+    }
+    
+    public List<HashMap<AttemptGoal, ConstraintPath>> genIndependentPaths (HashMap<AttemptGoal, ConstraintPath> errorPaths) {
+    	List<HashMap<AttemptGoal, ConstraintPath>> ret = new ArrayList<HashMap<AttemptGoal, ConstraintPath>>();
+    	for (AttemptGoal goal : errorPaths.keySet()) {
+    		List<HashMap<AttemptGoal, ConstraintPath>> matched = new ArrayList<HashMap<AttemptGoal,ConstraintPath>>();
+    		for (HashMap<AttemptGoal, ConstraintPath> group : ret) {
+    			for (AttemptGoal g1 : group.keySet()) {
+    				if (errorPaths.get(goal).intersects(group.get(g1)))
+    					matched.add(group);
+    			}
+    		}
+    		if (matched.size()==0) {
+    			HashMap<AttemptGoal, ConstraintPath> newmap = new HashMap<AttemptGoal, ConstraintPath>();
+    			newmap.put(goal, errorPaths.get(goal));    			
+    			ret.add(newmap);
+    		}
+    		else if(matched.size()==1) {
+    			matched.get(0).put(goal, errorPaths.get(goal));
+    		}
+    		// the most complicated case when the current path unions multiple previously separate paths
+    		else {
+    			HashMap<AttemptGoal, ConstraintPath> newmap = new HashMap<AttemptGoal, ConstraintPath>();
+    			newmap.put(goal, errorPaths.get(goal));    			
+    			for (HashMap<AttemptGoal, ConstraintPath> map : matched) {
+    				newmap.putAll(map);
+    				ret.remove(map);
+    			}
+    			ret.add(newmap);
+    		}
+    	}
+    	return ret;
     }
     
     public String getHeader () {
@@ -655,40 +714,23 @@ public class Analysis {
 		sb.append("\"");
 	}
     
-    public String getOneSuggestion (String sourcefile) {
+    public String getOneSuggestion (String sourcefile, HashMap<AttemptGoal, ConstraintPath> errorPaths, int count) {
     	StringBuffer sb = new StringBuffer();
-    	sb.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
-    			"<H2>\n" +
-    			"<BR>\n" +
-    			"Error Diagnostic Report </H2>\n" +
-    			"<HR>\n");
-    	// type check succeeded
-    	if (unsatPath.size()==0) {
-    		sb.append("<H3>");
-			sb.append("The program passed type checking. No errors were found.");
-            sb.append("<script type=\"text/javascript\">"+
-                      "document.getElementById('feedback').style.display = 'none';</script>");
-    	}
-    	else {
-    		sb.append(
-    			unsatPathsToHTML() +
-    			"<HR>\n" +
-    			"<H3>\n" +
-    			"Suggestions</H3>\n" +
-    			genMissingAssumptions() +
-    			genCutItems() +
-    			genAnnotatedCode() +
-    			(sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
-    					:("<script>numberSuggestions();</script>\n")));
-    	}
+   		sb.append(
+    		"<HR>\n" +
+    		"<H2>\n" +
+    		"Error "+ count + "</H2>\n" +
+   			unsatPathsToHTML(errorPaths) +
+    		genMissingAssumptions(errorPaths) +
+    		genCutItems(errorPaths));
     	return sb.toString();
     }
     
-    public String genMissingAssumptions () {
+    public String genMissingAssumptions (Map<AttemptGoal, ConstraintPath> errorPaths) {
     	StringBuffer sb = new StringBuffer();
     	if (GEN_ASSUMP) {
     		Set<AttemptGoal> result = genAssumptions(errorPaths.keySet());
-    		sb.append("Likely missing assumption(s): \n");
+    		sb.append("<H3>Likely missing assumption(s): </H3>\n");
         	sb.append("<UL>\n");
         	sb.append("<LI>");
         	sb.append("<OL>\n");
@@ -818,7 +860,7 @@ public class Analysis {
     	}
     }
     
-    public String genCutItems () {
+    public String genCutItems (HashMap<AttemptGoal, ConstraintPath> errorPaths) {
     	StringBuffer sb = new StringBuffer();
     	
 		if (GEN_CUT) {
@@ -935,7 +977,7 @@ public class Analysis {
     	List<LineColumnPair> endList = new ArrayList<LineColumnPair>();
     	List<LineColumnPair> emptyList = new ArrayList<LineColumnPair>(); // the set where start=end
     	Set<Position> posSet = new HashSet<Position>();
-    	for (ConstraintPath path : errorPaths.values()) {
+    	for (ConstraintPath path : errPaths.values()) {
     		List<Node> nodes = path.getAllNodes();
     		for (Node node : nodes) {
     			posSet.add(((ElementNode)node).getElement().getPosition());
