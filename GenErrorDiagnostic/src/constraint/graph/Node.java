@@ -3,7 +3,6 @@ package constraint.graph;
 
 abstract public class Node implements Comparable<Node>{
     int count;
-    int succCount;
     public boolean shouldprint;
     boolean iscause;
           
@@ -11,7 +10,6 @@ abstract public class Node implements Comparable<Node>{
         shouldprint = false;
         iscause = false;
         count = 0;
-        succCount = 0;
         g.addNode(this);
     }
         
@@ -23,14 +21,6 @@ abstract public class Node implements Comparable<Node>{
     public boolean isCause () {
         return iscause;
     }
-    
-    void incSuccCounter () {
-        succCount ++;
-    }
-    
-    public int getSuccCounter () {
-		return succCount;
-	}
     
     int getCount () {
         return count;
@@ -49,4 +39,6 @@ abstract public class Node implements Comparable<Node>{
     }
         
     abstract public boolean isend();
+    abstract public void incSuccCounter ();
+    abstract public double getSuccCounter ();
 }

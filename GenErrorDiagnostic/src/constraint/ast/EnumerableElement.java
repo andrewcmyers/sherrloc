@@ -137,5 +137,4 @@ public abstract class EnumerableElement extends Element {
 		}
 		return false;
 	}
-		
 }

@@ -1,7 +1,9 @@
 package constraint.graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import constraint.ast.Environment;
 import constraint.graph.pathfinder.PathFinder;
@@ -81,13 +83,19 @@ public class ConstraintPath {
 	
 	public void incSuccCounter ( ) {
 		if (edges.size()==0) return;
+		// avoid duplicate expressions
+		Set<String> processed = new HashSet<String>();
 
 		ElementNode leftmost = (ElementNode) getFirst();
 		leftmost.incSuccCounter();
+		processed.add(leftmost.toString());
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			edge.incSuccCounter();
-			edge.getTo().incSuccCounter();
+			if (!processed.contains(edge.getTo().toString())) {
+				edge.getTo().incSuccCounter();
+				processed.add(edge.getTo().toString());
+			}
 		}
 	}
 	

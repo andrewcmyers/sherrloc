@@ -46,6 +46,14 @@ public class ElementNode extends Node {
         return getName();
     }
     
+    public void incSuccCounter () {
+        e.incSuccCounter();
+    }
+    
+    public double getSuccCounter () {
+		return e.getSuccCounter();
+	}
+    
     public String printNodeToDotString () {
         if (isCause())
             return  uid + " [style=filled, fillcolor=yellow, label=\"" + e.toDotString()+ "\"];\n";

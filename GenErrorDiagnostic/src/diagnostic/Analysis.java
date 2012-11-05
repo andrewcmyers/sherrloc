@@ -33,6 +33,7 @@ import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Position;
+import constraint.ast.Variable;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
@@ -59,7 +60,7 @@ public class Analysis {
 	String htmlFileName;
 	Position pos=null;
 	Map<String, Node> map;
-	Map<String, Integer> succCount;
+	Map<String, Double> succCount;
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
@@ -67,7 +68,7 @@ public class Analysis {
         cachedEnv = new HashMap<Environment, Environment>();
         unsatPath = new HashSet<AttemptGoal>();
         map = new HashMap<String, Node>();
-        succCount = new HashMap<String, Integer>();
+        succCount = new HashMap<String, Double>();
 	}
 	
 	public static void main(String[] args) {
@@ -164,7 +165,7 @@ public class Analysis {
         // initialize the map
         for (Node n : graph.getAllNodes()) {
         	map.put(n.toString(), n);
-        	succCount.put(n.toString(), 0);
+        	succCount.put(n.toString(), 0.0);
         }
         
         if (DEBUG) {
@@ -172,9 +173,9 @@ public class Analysis {
         }
         
         for (Element element : elements) {
-            if (element.isStart())                    
+//            if (element.isStart())                    
             	startNodes.add(graph.getNode(element));
-			if (element.isEnd())
+//			if (element.isEnd())
             	endNodes.add(graph.getNode(element));
         }
         
@@ -197,11 +198,19 @@ public class Analysis {
 				
 				if (l==null) continue;
 				
+				// also ignore the path if its satisfiability depends on other paths
+				if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
+					if (((ConstructorElement)e1).getCons().sameas(((ConstructorElement)e2).getCons()))
+							continue;
+				}
+				
 				ConstraintPath path = new ConstraintPath(l, finder);
+//				System.out.println(path.toString());
 
 				// successful path
-				if (graph.getEnv().leq(start.getElement(), end.getElement())) {
-					path.incSuccCounter();
+				if (graph.getEnv().leq(e1, e2)) {
+					if (!(e1 instanceof Variable) && !(e2 instanceof Variable))
+						path.incSuccCounter();
 					continue;
 				}
 
@@ -222,16 +231,14 @@ public class Analysis {
 					continue;
 				}
 				path.setCause();
-//				System.out.println(path.toString());
 				AttemptGoal goal = new AttemptGoal(start, end, env);
 				unsatPath.add(goal);
 				errPaths.put(goal, path);
 			}
 		}
 		
-		// get succ count
 		for (Node n : graph.getAllNodes()) {
-			int count = succCount.get(n.toString());
+			double count = succCount.get(n.toString());
 			succCount.put(n.toString(), count+n.getSuccCounter());
 		}
 		done = true;
