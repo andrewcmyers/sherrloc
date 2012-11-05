@@ -825,8 +825,9 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let enr_exp1, cs1, us1 = for_expr lexp1 env in
           let enr_exp2, cs2, us2 = for_expr lexp2 env in
           let enr_exp3, cs3, us3 = for_expr lexp3 env in
+          let exp1_loc = ExtLocation.Source lexp1.pexp_loc in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp1) (expr_string lexp1) eloc (EzyPredef.bool_type eloc) (expr_string lexp1);
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string lexp1) eloc (EzyPredef.bool_type exp1_loc) (expr_string lexp1);
             AtConstr.create (ty_of_expr enr_exp2) (expr_string lexp2) eloc a detail;
             AtConstr.create (ty_of_expr enr_exp3) (expr_string lexp3) eloc a detail;
           ] in
@@ -838,10 +839,12 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exp1, cs1, us1 = for_expr lexp1 env in
           let enr_exp2, cs2, us2 = for_expr lexp2 env in
+          let exp1_loc = ExtLocation.Source lexp1.pexp_loc in
+          let exp2_loc = ExtLocation.Source lexp2.pexp_loc in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp1) (expr_string lexp1) eloc (EzyPredef.bool_type eloc) (expr_string lexp1) ;
-            AtConstr.create (ty_of_expr enr_exp2) (expr_string lexp2) eloc (EzyPredef.unit_type eloc) (expr_string lexp2) ;
-            AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail;
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string lexp1) eloc (EzyPredef.bool_type exp1_loc) (expr_string lexp1) ;
+            AtConstr.create (ty_of_expr enr_exp2) (expr_string lexp2) eloc (EzyPredef.unit_type exp2_loc) (expr_string lexp2) ;
+            AtConstr.create a detail eloc (ty_of_expr enr_exp2) (expr_string lexp2);
           ] in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
           let us = PostProcess.union us1 us2 in
@@ -878,8 +881,9 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
       | Pexp_assert exp ->
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exp, cs1, pp = for_expr exp env in
+          let exp_loc = ExtLocation.Source exp.pexp_loc in
           let cs2 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp) (expr_string exp) eloc (EzyPredef.bool_type eloc) (expr_string exp);
+            AtConstr.create (ty_of_expr enr_exp) (expr_string exp) eloc (EzyPredef.bool_type exp_loc) (expr_string exp);
             AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail ;
           ] in
           let desc = Pexp_assert enr_exp in
@@ -894,12 +898,14 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exp1, cs1, pp1 = for_expr exp1 env in
           let enr_exp2, cs2, pp2 = for_expr exp2 env in
+          let exp1_loc = ExtLocation.Source exp1.pexp_loc in
+          let exp2_loc = ExtLocation.Source exp2.pexp_loc in
           let ident, env' =
             let vd = {
               EzyEnv.val_ty = ax ;
               val_kind = Types.Val_reg ;
               val_binding = EzyEnv.Mono ;
-              val_constraints = AtConstrSet.singleton ax (expr_string exp1) eloc (EzyPredef.int_type eloc) (expr_string exp1) ;
+              val_constraints = AtConstrSet.singleton ax (expr_string exp1) eloc (EzyPredef.int_type exp1_loc) (expr_string exp1) ;
               val_loc = ExtLocation.Source loc ;
             } in
             EzyEnv.enter_value var.nm_name vd env in
@@ -907,8 +913,8 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let var' = { nm_name = var.nm_name; nm_loc = loc; nm_data = ident } in
           let cs0 = AtConstrSet.from_list [
             AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail ;
-            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (EzyPredef.int_type eloc) (expr_string exp1) ;
-            AtConstr.create (ty_of_expr enr_exp2) (expr_string exp2) eloc (EzyPredef.int_type eloc) (expr_string exp2) ;
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (EzyPredef.int_type exp1_loc) (expr_string exp1) ;
+            AtConstr.create (ty_of_expr enr_exp2) (expr_string exp2) eloc (EzyPredef.int_type exp2_loc) (expr_string exp2) ;
           ] in
           let desc = Pexp_for (var', enr_exp1, enr_exp2, dir_flag, enr_exp3) in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2; cs3] in
@@ -919,8 +925,9 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
           let enr_exp1, cs1, pp1 = for_expr exp1 env in
           let enr_exp2, cs2, pp2 = for_expr exp2 env in
+          let exp1_loc = ExtLocation.Source exp1.pexp_loc in
           let cs0 = AtConstrSet.from_list [
-            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (EzyPredef.bool_type eloc) (expr_string exp1);
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (EzyPredef.bool_type exp1_loc) (expr_string exp1);
             (* AtConstr.create (ty_of_expr enr_exp2) eloc (EzyPredef.unit eloc) ; *)
             AtConstr.create a detail eloc (EzyPredef.unit_type eloc) detail;
           ] in
@@ -1382,6 +1389,7 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
           Format.pp_set_margin formater 10000;
           Format.pp_set_max_indent formater 5000;
           EzyEnv.print_constructor formater true env0;
+          EzyEnv.print_cons_in_kind formater env0;
           Format.fprintf formater "@\n";
           EzyEnv.print_cons formater true env0;
           AtConstrSet.cons_print formater cs0 (tree_it::[]);
