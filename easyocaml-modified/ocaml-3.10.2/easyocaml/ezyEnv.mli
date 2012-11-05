@@ -103,3 +103,4 @@ val full_expand_type: t -> Ty.t -> Ty.t
 val print: ?s:TyVarSubst.t -> bool -> Format.formatter -> t -> unit
 val print_cons: Format.formatter -> bool -> t -> unit
 val print_constructor: Format.formatter -> bool -> t -> unit
+val print_cons_in_kind: Format.formatter -> t -> unit

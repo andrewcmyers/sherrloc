@@ -519,6 +519,30 @@ let print_cons ppf everything env =
     "@[%a@]"(*"@[Ctors:@ %a@]@ @[Fields:@ %a@]"*)
     (List.print print_type "") (Ident.keys env.types)
 
+let print_cons_in_kind ppf env =
+  let print_cons_param ppf ident =
+    let td = find_type (Path.Pident ident) env in
+    match td.type_kind with
+      | Variant vs ->
+          let aux k = function
+            | tys -> (
+               let p ty = (
+                 match ty with
+                 | Ty.Constr (_, _, tlist) ->
+                     if List.is_empty(tlist) then Format.fprintf ppf "CONSTRUCTOR %a 0\n" Ty.print ty 
+                 | _ -> ()) in
+               List.iter p tys
+            )
+            | [] -> () in
+          StringMap.iter aux vs
+      | _ -> ()
+  
+  in
+  Format.fprintf ppf
+    "@[%a@]"(*"@[Ctors:@ %a@]@ @[Fields:@ %a@]"*)
+    (List.print print_cons_param "") (Ident.keys env.types)
+
+
 let print_constructor ppf everything env =
   let print_type ppf ident =
     let td = find_type (Path.Pident ident) env in

@@ -545,7 +545,9 @@ and print_expr_short ppf expr =
           pp_print_string ppf "assert false"
       | Pexp_assert exp ->
           fprintf ppf "@[<h 2>assert %a@]" print_expr_short exp
-      | Pexp_ifthenelse (exp1, exp2, opt_exp3) ->
+      | Pexp_ifthenelse (exp1, exp2, None) ->
+          pp_print_string ppf "if . then . "
+      | Pexp_ifthenelse (exp1, exp2, Some exp3) ->
           pp_print_string ppf "if . then . else ."
       | Pexp_field (exp, fl) ->
           fprintf ppf "@[<h 2>%a.%a@]" print_expr_short exp Longident.print fl.lid_name
