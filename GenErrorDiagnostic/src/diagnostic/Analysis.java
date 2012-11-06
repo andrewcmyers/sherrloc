@@ -205,7 +205,6 @@ public class Analysis {
 				}
 				
 				ConstraintPath path = new ConstraintPath(l, finder);
-//				System.out.println(path.toString());
 
 				// successful path
 				if (graph.getEnv().leq(e1, e2)) {
@@ -230,6 +229,8 @@ public class Analysis {
 					path.incSuccCounter();
 					continue;
 				}
+//				System.out.println(path.toString());
+				path.incFailCounter();
 				path.setCause();
 				AttemptGoal goal = new AttemptGoal(start, end, env);
 				unsatPath.add(goal);

@@ -36,8 +36,8 @@ public abstract class Element {
 		this.pos = pos;
 	}
 	
-    public void incSuccCounter () {
-        succCount ++;
+    public void incSuccCounter (int i) {
+        succCount += i;
     }
     
     public double getSuccCounter () {
