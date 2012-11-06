@@ -494,12 +494,11 @@ let rec binding_for_exp exp =
     else EzyEnv.Mono in
   match exp.pexp_desc with
     | Pexp_function _
-      -> EzyEnv.Poly
     | Pexp_ident _
     | Pexp_constant _
     | Pexp_construct (_, None, _)
     | Pexp_assertfalse 
-      -> EzyEnv.Mono
+      -> EzyEnv.Poly
     | Pexp_record (fs, opt) ->
         let exps = List.map snd fs in
         begin match opt with
@@ -1364,7 +1363,10 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
   fun str parse_tree env oenv ->
 
   let aux (str_its, cs, pp, ecaml_env, ocaml_env, type_accu) str_it tree_it =
-    let import_env = EzyEnv.import ocaml_env in
+    let import_env = ecaml_env (* EzyEnv.import ocaml_env *) in
+    (* EzyEnv.print true Format.str_formatter import_env;
+    let detail = Format.flush_str_formatter () in
+    print_string detail; *)
     let enr_strit, env0, cs0, pp0, type_accu = for_structure_item import_env type_accu str_it in
     logger#debug "Generated for strit, resulting env:\n%a" (EzyEnv.print false) env0 ;
     begin try
