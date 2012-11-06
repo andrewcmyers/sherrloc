@@ -142,7 +142,6 @@ let store_type id path td env =
       fld_arg = ty ;
       fld_path = path_aux f path ;
     } in
-    logger#debug "Adding field %s" f ;
     StringMap.add f fd fields in
   { env with
     types = Ident.add id (path, td) env.types ;
