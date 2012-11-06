@@ -215,7 +215,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							if (e != null && ec.matches(e.cons)) {
 								List<Edge> list = new ArrayList<Edge>();
 								list.addAll(leftPath[sIndex][fIndex].get(ec).getEdges());
-								list.add(e);
+								list.addAll(e.getEdges());
 								ReductionEdge newedge = new IdEdge(edge.getFrom(), to, list);
 								
 								if (!EARLY_TERMINATION || env.leq(((ElementNode)edge.getFrom()).getElement(), 
@@ -304,7 +304,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							if (shortestLeft[sIndex][fIndex].get(ec) + 1 < shortestID[sIndex][tIndex]) {
 								List<Edge> list = new ArrayList<Edge>();
 								list.addAll(leftPath[sIndex][fIndex].get(ec).getEdges());
-								list.add(edge);
+								list.addAll(edge.getEdges());
 								ReductionEdge newedge = new IdEdge(from, edge.getTo(), list);
 
 								if (!EARLY_TERMINATION || env.leq(((ElementNode)from).getElement(), 
