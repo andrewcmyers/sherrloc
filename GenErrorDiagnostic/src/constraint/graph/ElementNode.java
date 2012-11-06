@@ -47,7 +47,11 @@ public class ElementNode extends Node {
     }
     
     public void incSuccCounter () {
-        e.incSuccCounter();
+        e.incSuccCounter(1);
+    }
+    
+    public void incNestedCounter (int i) {
+        e.incSuccCounter(i);
     }
     
     public double getSuccCounter () {
