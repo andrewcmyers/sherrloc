@@ -101,33 +101,33 @@ public class ConstraintPath {
 	
 	// increase the unlikelihood for constructor nodes
 	public void incFailCounter ( ) {
-		if (edges.size()==0) return;
-		// avoid duplicate expressions
-		Set<String> processed = new HashSet<String>();
-
-		ElementNode leftmost = (ElementNode) getFirst();
-		processed.add(leftmost.toString());
-		int curriedLevel = 0;
-		boolean ltor = true;
-		for (int k = 0; k < size(); k++) {
-			Edge edge = edges.get(k);
-			edge.incSuccCounter();
-			if (!processed.contains(edge.getTo().toString())) {
-				if (edge instanceof ConstructorEdge) {
-					ConstructorEdge ce = (ConstructorEdge) edge;
-					if (!ce.getCondition().isReverse() && ltor)
-						curriedLevel++;
-					else if (curriedLevel!=0)
-						curriedLevel--;
-					else {
-						ltor = !ltor;
-						curriedLevel ++;
-					}
-				}
-				edge.getTo().incNestedCounter(curriedLevel);
-				processed.add(edge.getTo().toString());
-			}
-		}
+//		if (edges.size()==0) return;
+//		// avoid duplicate expressions
+//		Set<String> processed = new HashSet<String>();
+//
+//		ElementNode leftmost = (ElementNode) getFirst();
+//		processed.add(leftmost.toString());
+//		int curriedLevel = 0;
+//		boolean ltor = true;
+//		for (int k = 0; k < size(); k++) {
+//			Edge edge = edges.get(k);
+//			edge.incSuccCounter();
+//			if (!processed.contains(edge.getTo().toString())) {
+//				if (edge instanceof ConstructorEdge) {
+//					ConstructorEdge ce = (ConstructorEdge) edge;
+//					if (!ce.getCondition().isReverse() && ltor)
+//						curriedLevel++;
+//					else if (curriedLevel!=0)
+//						curriedLevel--;
+//					else {
+//						ltor = !ltor;
+//						curriedLevel ++;
+//					}
+//				}
+//				edge.getTo().incNestedCounter(curriedLevel);
+//				processed.add(edge.getTo().toString());
+//			}
+//		}
 	}
 	
 	public void setCause ( ) {
