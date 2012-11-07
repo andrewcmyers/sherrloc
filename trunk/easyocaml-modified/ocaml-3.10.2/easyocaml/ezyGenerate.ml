@@ -858,6 +858,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
             let eloc' = ExtLocation.Source ct.Parsetree.ptyp_loc in
             let ty = ty_of_expr enr_exp in
             let _, ty' = EzyEnrichedAst.import_core_type true (env_for_ct env) StringMap.empty ct in
+            let ty' = Ty.set_label ty' eloc' in
             let cs1 = AtConstrSet.from_list [
               (*
               AtConstr.create a2 eloc ty ;
@@ -1122,7 +1123,9 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                 let enr_exps, css, pps = List.split3 enrs_css_pps in
                 let cs0 =
                   let aux ty_f' enr_exp =
-                    AtConstr.create ty_f' detail eloc (ty_of_expr enr_exp) detail in
+                    let exp_loc = ExtLocation.Source enr_exp.pexp_loc in
+                    let ty_f' = Ty.set_label ty_f' exp_loc in
+                    AtConstr.create ty_f' (expr_string enr_exp) exp_loc (ty_of_expr enr_exp) (expr_string enr_exp) in
                   AtConstrSet.from_list (AtConstr.create a detail eloc ty_r' detail :: List.map2 aux ty_fs' enr_exps) in
                 let cs = List.fold_left AtConstrSet.union cs0 css in
                 let pp =
@@ -1363,7 +1366,7 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
   fun str parse_tree env oenv ->
 
   let aux (str_its, cs, pp, ecaml_env, ocaml_env, type_accu) str_it tree_it =
-    let import_env = ecaml_env (* EzyEnv.import ocaml_env *) in
+    let import_env = (* ecaml_env *) EzyEnv.import ocaml_env in
     (* EzyEnv.print true Format.str_formatter import_env;
     let detail = Format.flush_str_formatter () in
     print_string detail; *)
@@ -1391,7 +1394,7 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
           Format.pp_set_margin formater 10000;
           Format.pp_set_max_indent formater 5000;
           EzyEnv.print_constructor formater true env0;
-          EzyEnv.print_cons_in_kind formater env0;
+          (* EzyEnv.print_cons_in_kind formater env0; *)
           Format.fprintf formater "@\n";
           EzyEnv.print_cons formater true env0;
           AtConstrSet.cons_print formater cs0 (tree_it::[]);

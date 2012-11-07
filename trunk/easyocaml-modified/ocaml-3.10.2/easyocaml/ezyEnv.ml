@@ -504,11 +504,14 @@ let print_cons ppf everything env =
               true
             with Not_found -> false in 
           if not (contains s "format") then (
-                  Format.fprintf ppf "@[%s %a[%a] == %a[];[%a]@\n@]"
+                  Format.fprintf ppf "@[%s %a[\"%s\":%a] == %a[\"%s\":%a];[%a]@\n@]"
             (Ident.name ident)
             (List.print Ty.print " ") td.type_params
+            (Ident.name ident)
             ExtLocation.print td.type_loc
             print_kind td.type_kind
+            (Ident.name ident)
+            ExtLocation.print td.type_loc
             ExtLocation.print td.type_loc
           )
         )
