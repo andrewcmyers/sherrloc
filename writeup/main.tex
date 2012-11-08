@@ -60,9 +60,17 @@ error is likely to be found. Rather than just looking at the failed
 constraint in isolation, the structure of the constraint system as
 a whole should be considered. Both satisfiable and unsatisfiable
 paths through the constraint system may yield valuable information
-about where the error is located.
+about where the error is located.  An expression that is involved
+in many unsatisfiable paths is more likely to be erroneous, whereas
+an expression that lies on many satisfiable paths is more likely to
+be correct.
 
-MAP
+In many languages, the satisfiability of constraint systems may depend
+on environmental assumptions.
+
+Talk about MAP? The underlying assumption is that the programmer is
+likely to have made fewer errors rather than more errors, so simpler
+explanations of the error are preferred to more complex ones.
 
 Nowadays, more and more type systems relies on constraint solving. For
 instance, Jif ... Type checking for ML-like language is also by nature
