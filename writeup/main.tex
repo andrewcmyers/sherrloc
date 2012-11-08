@@ -4,6 +4,29 @@
 
 \section{Introduction}
 
+Over the past couple of decades, many sophisticated type systems and
+program analyses have been developed, allowing complex, important
+properties of software to be verified. Advances in type
+inference, dataflow analysis, and constraint solving have made
+programming with such verification more practical, by lowering the
+annotation burden and making verification time more acceptable.
+Use of these techniques has become more common, but expressive
+type systems are still infrequently used.
+
+We posit that a key barrier to adoption of these sophisticated
+analyses is the difficulty of debugging programs when the analysis
+reports an error. Because deep, non-local software properties are
+being checked, the analysis may detect an inconsistency in a part of
+the program that is far from the actual error. Reporting on the
+inconsistency at the point of detection can result in a misleading
+error message. Determinining where the true error lies based on this
+error message can require excessive effort from the programmer, and an
+unreasonably high degree of understanding of how the analysis works.
+
+Examples of these properties include
+type safety
+secure information flow, r
+ 
 Nowadays, more and more type systems relies on constraint solving. For
 instance, Jif ... Type checking for ML-like language is also by nature
 constraint solving. However, it has also been acknowledged for
