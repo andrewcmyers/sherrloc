@@ -1,0 +1,20 @@
+In this paper, we introduce a new, general approach to diagnosing
+program errors detected by type systems or other program analyses.
+This approach works on any analysis that can be described as a
+constraint system, in which a detected error corresponds to one or
+more unsatisfiable constraints.  Both satisfiable and unsatisfiable
+paths through the constraint system are analyzed, to identify the
+program expressions most likely to be the cause of the unsatisfiable
+constraints. The likelihood of different error explanations is
+evaluated under the assumption that the programmer's code is mostly
+correct, so the simplest error explanations are chosen, according to
+maximum a posteriori principles. For analyses that depend on
+programmer-stated assumptions about the environment, the error
+diagnosis also identifies likely missing assumptions.  The new error
+diagnosis approach has been implemented for two very different program
+analyses: type inference in OCaml and information flow checking in
+Jif. The effectiveness of the approach is evaluated using a corpus of
+previously collected programs containing errors. The results show that
+the technique identifies the location of program errors significantly
+more accurately than in the original compilers, and also identifies
+missing assumptions effectively.
