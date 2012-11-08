@@ -50,8 +50,9 @@ determines there is no way to satisfy some particular constraint. The
 question is then how to report this failure, indicating a program
 error, to the user. Current practice involves mapping the constraint
 back to the program point that generated it, and reporting a
-corresponding message. Unfortunately, the actual error may be located
-in the program text far away from the failed constraint.
+corresponding message. Unfortunately, the actual error in the program
+text may be located far from the code that generated the failed
+constraint, causing misleading error messages.
 
 Our insight is that when the constraint system is unsatisfiable, a
 more holistic approach should be taken to deciding where the program
