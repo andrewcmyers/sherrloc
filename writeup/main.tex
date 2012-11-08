@@ -1,29 +1,3 @@
-%\usepackage[margin=1in]{geometry}
- 
-\usepackage{times,graphicx,color}
-\usepackage{amsmath, amssymb, stmaryrd}
-\usepackage{ttquot,utf8}
-\usepackage[comments]{declarations}
-
-\renewcommand{\floatpagefraction}{0.75}
-\renewcommand{\dblfloatpagefraction}{0.75}
-
-\title{General Error Diagnostic for Program Analyses}
-
-\ifanonymous
-  \authorinfo{Anonymous}{}{}
-\else
-\authorinfo{Danfeng Zhang}
-           {Department of Computer Science\\ Cornell University\\ Ithaca, NY, 14853}
-           {zhangdf@cs.cornell.edu}
-\authorinfo{Andrew C. Myers}
-           {Department of Computer Science\\ Cornell University\\ Ithaca, NY, 14853}
-           {andru@cs.cornell.edu}
-\fi
-\begin{document}
-
-\maketitle
-
 \begin{abstract}
 \end{abstract}
 
@@ -305,7 +279,7 @@ of _pre-judgements_to constraints:
 \[\trans{\G\proves e_1 e_2 : \tau} = \exists a.(\trans{\G \proves
 e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
 
-\DZ{We may eliminate the $\exists$ by creating fresh variables}
+\DZ{We may eliminate the 'exists' by creating fresh variables}
 
 \paragraph{Polymorphic Types}
 

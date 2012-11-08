@@ -10,6 +10,14 @@
 
 \ProcessOptions
 
+\ifcomments
+    \IfFileExists{.nocomments}
+        {\usepackage[disabled]{aplcomments}}
+        {\IfFileExists{.inlinecomments}
+            {\usepackage[inline]{aplcomments}}
+            {\usepackage{aplcomments}}}
+\fi
+
 \newcommand{\RuleSideCond}[4]
 {\centerline{
    { \ensuremath{
@@ -114,7 +122,7 @@
 \newcommand{\true}{\cod{True}}
 \newcommand{\false}{\cod{False}}
 \newcommand{\If}{\cod{if}}
-\newcommand{\ifthenelse}[3]{\cod{if}~#1~\cod{then}~#2~\cod{else}~#3}
+%\newcommand{\ifthenelse}[3]{\cod{if}~#1~\cod{then}~#2~\cod{else}~#3}
 \newcommand{\ifthen}[2]{\cod{if}~#1~\cod{then}~#2}
 \newcommand{\while}[2]{\cod{while}~#1~\cod{do}~#2}
 \newcommand{\Int}{\mathit{Int}} % Type of Integers
@@ -655,11 +663,11 @@
 \newcommand{\ih}{\cod{ih}}
 
 \ifcomments
-\newcommand{\ACM}[1]{{\color{blue} {[\bf Andrew:} #1] }}
-\newcommand{\DZ}[1]{{\color{red} {[\bf Danfeng:} #1] }}
+    \newcommenter{ACM}{1.0,0.8,0.7}
+    \newcommenter{DZ}{0.7,1.0,0.4}
 \else
-\newcommand{\ACM}[1]{}
-\newcommand{\DZ}[1]{}
+    \newcommand{\ACM}[1]{}
+    \newcommand{\DZ}[1]{}
 \fi
 
 \newcommand{\diff}{d}
