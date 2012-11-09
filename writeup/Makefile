@@ -20,7 +20,7 @@ FIGS =
 #
 # List of postscript figures to be included
 
-MAKEDIR=../make
+MAKEDIR=$(HOME)/aplpapers/make
 
 include $(MAKEDIR)/commondefs
 #
