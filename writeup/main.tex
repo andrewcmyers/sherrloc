@@ -150,89 +150,115 @@ E &::= x \bnf c(E_1,\dots,E_{\arity{c}}) \bnf c^{-i}(E) \\
 
 The top-level goal $G$ to be solved is a conjunction of assertions $A$. An
 assertion has the form of $C_1 \proves C_2$, where constraint $C_1$ is the
-hypothesis and constraint $C_2$ is a conclusion to be satisfied. We
-write $ \proves C_2$ instead of $ C_1 \proves C_2$ when $C_1=\Empty$.
-
+hypothesis and constraint $C_2$ is a conclusion to be satisfied.
+ 
 Constraint $C$, either serving as the hypothesis or the conclusion, is a
-conjunction of inequations over elements from $E$. The meaning
-of $\leq$ is abstract in the language and our inference. The
-application is free to define the meaning of $\leq$ as long as the
-relationship is a partial order.
+conjunction of inequations over elements from $E$. Constaint may also be empty
+$\Empty$. When the hypothesis or the conclusion is $\Empty$, we emit the
+constraint for simplicity. For instance, we write $ \proves C_2$ instead of $
+C_1 \proves C_2$ when $C_1=\Empty$.
 
-Let $\varset$ be a set of variables and $\conset$ be a set of
-constructors.  Each constructor $c$ has a fixed arity $\arity{c}$.
-When $\arity{c}=0$, $c$ is a constant.
+Elements $E$ are defined in the space of $\varset$, a set of variables, and
+$\conset$, a set of constructors. Each constructor $c\in \conset$ has a fixed
+arity $\arity{c}$.  When $\arity{c}=0$, $c$ is a constant.
+ 
+An element $E$ may be a variable $x\in\varset$ to be inferred, a constructor
+application $c$ or the $i$-th projection ($i$-th component) of a constructor
+application, represented by $c^{-i}(E)$. For example, element
+$E=\rightarrow(int, bool)$ is a function from integer to boolean. The first
+projection of $E$, $\rightarrow^{-1} (E)$, is $int$.
 
-An element $E$ may be a variables $x\in\varset$ to be inferred,
-a constructor application $c$ or a corresponding projection $c^{-i}$.
-\ACM{A concrete example of these projections is needed here.}
-Join ($\join$) and meet ($\meet$) are the standard operations on
-elements, which form a partially ordered set. $\bot$ and $\top$ are
-two special elements making the elements closed under the operation of
-$\join$ and $\meet$.
-
+Elements can also be the join ($\join$) and meet ($\meet$) of elements. $\bot$
+and $\top$ are two special elements. We define their meanings in the next part.
 %When join and meet are
 %used, we assume for all $e_1, e_2 \in E, e_1 \join e_2 \in E \land e_1
 %\meet e_2 \in E$ to make the constraints well-formed. In another word,
 %the elements form a lattice.
 
-We say an assertion $C_1 \proves C_2$ is _valid_ if and only if all
-the partial orders in $C_2$ can be inferred under assumption $C_1$,
-assuming that $\leq$ is a partial order and $\join$ and $\meet$ are
-join and meet operations on partially ordered elements.
+\subsection{Interpretation of constraints}
+
+The meaning of $\leq$ is abstract in the language and our inference. The
+application is free to define the meaning of $\leq$ as long as the relation
+is a partial order.
+
+$\join$ and $\meet$ are the standard join and meet operations on partially
+ordered elements, with respect to the relation $\leq$. $\bot$ and $\top$ are
+the least and greatest element with respect to $\leq$ respectively, making all
+elements closed under the operation of $\join$ and $\meet$.
+
+We further assume that the partial order on constructors is pairwise. That is,
+$\forall c\in \conset, c(E_1, \dots, E_{a(c)})\leq c(E_1', \dots, E_{a(c)}')
+\Iff E_1\leq E_1' \land \dots, E_{a(c)}\leq E_{a(c)}'$.
+
+With these abstract definitions, the _validity_ of constraints can be defined
+in a natural way: an assertion $C_1 \proves C_2$ is _valid_ if and only if all
+the partial orders in $C_2$ can be inferred from $C_1$, giving the abstract
+meaning of the operations defined so far.
+
+Consequently, a goal $G$ is valid if all assertions it contains are valid.
 
 \paragraph{Example}
 
 Let $c_1, c_2, c_3$ be three constants. Then $c_1 \leq c_2 \land c_2 \leq c_3
 \proves c_1 \leq c_3$ is valid by the transitivity of $\leq$. Assertion $
-\proves c_1 \leq c_1 \join c_2$ is valid by the definition of join. 
+\proves c_1 \leq c_1 \join c_2$ is valid by the definition of join. But
+$\proves c_1\leq c_2$ is invalid since conclusion cannot be inferred from the
+empty assumption.
 
 \subsection{Satisfiability}
 
-Intuitively, a goal $G$ is _satisfiable_ if there exists a valuation of
-variables such that all partial orders in $C_2$ can be satisfied under
-hypothesis $C_1$.
+Validity defined so far works for constraints without variables. In general,
+when variable are involved, it is desirable to ask if there exists a valuation
+of variables such that the goal after value substitution is valid or not. This
+is formalized as the _satisfiability_ of constraints.
 
-More formally, we define $\termset$ recursively: a term is $c(t_1,
-\dots, t_{\arity{c}})$ where $c\in C$ and $\forall i. t_i\in \termset$. All
-terms form a Herbrand universe under $\join$ and $\meet$.
+The _satisfiability_ depends on the _ground terms_ $\termset$ that a variable
+can map into. To be more specific, we define $\termset$ recursively: 
+
+\begin{itemize}
+\item All constants are in $\termset$
+
+\item $c(t_1, \dots, t_{\arity{c}})\in \termset$ if and only if $c\in C$ and
+$\forall i. t_i\in \termset$.
+\end{itemize}
+
+% All terms form a Herbrand universe under $\join$ and $\meet$.
 
 A valuation $\valuation: v \to t, v\in \varset, t\in \termset$ is a
 function from variables to terms. A goal is _satisfiable_ when there
-exists a valuation such that all constraints after the substitution
-are _valid_. 
+exists a valuation such that the goal after the substitution is valid. 
+
+Notice that ground terms may have infinite representations. This feature is
+essential in modeling recursive types.
 
 \paragraph{Example}
 
 Let $x\in \varset$, $c_1, c_2, c_3\in \termset$. Then $\proves x \leq c_1$ is
-trivially satisfiable considering the valuation $\valuation(x)=c_1$. However,
-$\proves x \leq c_1 \land c_2 \leq x$ is unsatisfiable since otherwise, $c_2
-\leq c_1$ by the transitivity of $\leq$. But such partial order on $c_1, c_2$
-is nowhere to be inferred.
+trivially satisfiable considering the valuation $\valuation(x)=c_1$ or
+$\valuation(x)=\bot$. However, $\proves x \leq c_1 \land c_2 \leq x$ is
+unsatisfiable since otherwise, $c_2 \leq c_1$ by the transitivity of $\leq$.
+But such partial order on $c_1, c_2$ is nowhere to be inferred.
 
-The terms can also have infinite representations. This feature is
-important in modeling recursive types. For instance, $\proves x \leq
-\text{List} \ x$, where $\text{List} \in \conset \land a(\text{List})=1$ and
-$x\in \varset$ is satisfiable by replacing $x$ with $(\text{List} \
-(\text{List} \ \dots))$.    
+The terms can also have infinite representations. For instance, $\proves x \leq
+c(\text{zero}, x)$, where $\text{zero} \in \conset \land a(\text{zero})=1$
+$x\in \varset$ is satisfiable by replacing $x$ with $c(\text{zero},
+c(\text{zero}, \dots))$.    
 
 \subsection{Error diagnostic}
 
-Based on the definitions above, the goal of this paper is to answer which
-element or constraint is most likely to be wrong when a goal is unsatisfiable. 
+Besides the satisfiability of a set of assertions, another useful but difficult
+question is which subset of elements or constraints is most likely to be wrong
+when a goal is unsatisfiable. 
 
-In general, there are two categories of causes: missing hypothesis and
-inconsistent constraints, formally defined as follows. We discuss
-general diagnostic approach for both kinds of causes in
-Section~\ref{sec:ranking}.
+In general, a goal can be unsatisfiable in two ways: missing hypothesis and/or
+inconsistent constraints.
 
 \paragraph{Missing hypothesis}
 
-The first possible cause of unsatisfiable goal is due to the absence
-of constraints in the hypothesis. Such error corresponds to the
-failure of writing down assumptions. Missing hypothesis is defined in
-the following way.
+The first possible cause of unsatisfiability the absence of constraints in the
+hypothesis. Such error corresponds to the failure of writing down assumptions.
 
+Missing hypothesis is defined in the following way.
 Given an unsatisfiable goal $C_{11} \proves C_{12} \land C_{21} \proves C_{22}
 \land \dots \land C_{n1} \proves C_{n2}$, a constraint $C$ is a _missing
 hypothesis_ if and only if $C_{11} \land C \proves C_{12} \land C_{21} \land C
@@ -249,49 +275,46 @@ Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$.
 One possible cause of the unsatisfiability may be the missing of an
 hypothesis $c_1\leq c_2$.
 
-\paragraph{Abnormal constraints}
+\paragraph{Wrong constraints}
 
-Another possible cause of an unsatisfiable goal is due to the
-existence of some constraints in the conclusion. We define a set of
-constraints $\mathcal{C}$ to be _abnormal_ if removing these
-constraints from conclusions make an unsatisfiable goal satisfiable.
+Another possible cause of unsatisfiability the existence of some constraints in
+the conclusion. We define a set of constraints $\mathcal{C}$ to be
+_inconsistent_ if removing these constraints from conclusions make an
+unsatisfiable goal satisfiable.
 
 \paragraph{Example}
 Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$
-again. Another possible cause of the unsatisfiability may be one of
-the constraints $x \leq c_1$ and $c_2 \leq x$. 
+again. Another possible cause of the unsatisfiability may be that one of the
+constraints $x \leq c_1$ and $c_2 \leq x$ is wrong. 
 
 \paragraph{Relation with set constraints}
 
-Although the core constraint language we proposed is similar to set
-constraints~\cite{aiken-setconstraint} in spirit. There are several
+Although the core constraint language we propose is similar to set
+constraints~\cite{aiken-setconstraint} in spirit, there are several
 noticeable differences:
 
 \begin{enumerate}
 
 \item Most importantly, hypotheses is modeled in our language. This extended
-expressiveness is essential for modeling real-world program analyses, such as
-the ``where'' clause in Jif and the subtyping relationship in many
-object-oriented systems. Moreover, as we will show in ..., introducing such
-expressiveness does not increase the symbolic complicity of our error
-diagnostic algorithm.
+expressiveness enabled the modeling of some real-world program analyses, such
+as the ``where'' clause in Jif and the subtyping relationship in many
+object-oriented systems. 
 
-\item The exclusion of the negation of an element in our model since
-it is not essential in modeling the type systems we are aware of.
-Also, previous work showed that although solving the full set of set
-constraints is decidable, the complexity ranges from NP to NEXPTIME
-for non-trivial ground term models~\cite{aiken-complexity}. We believe
-that the subset we used in this work is both expressive and practical
-for real-world type systems.
+\item We exclude the negation of elements in our model since it is not
+essential in modeling many program analyses. Also, previous work showed that
+the complexity of solving the full set of set constraints is NP to
+NEXPTIME~\cite{aiken-complexity}. We believe that the constraint language we
+proposed in this work is both expressive and practical for real-world program
+analyses.
 
 \end{enumerate}
 
 \subsection{Expressiveness}
 
-Due to the similarity between our core constraint language and set
-constraint, the applications modeled by the later without negations
-are automatically expressed by our model. Such examples includes type
-inference with sum type and product type and closure analysis.
+% Due to the similarity between our core constraint language and set
+% constraint, the applications modeled by the later without negations
+% are automatically expressed by our model. Such examples includes type
+% inference with sum type and product type and closure analysis.
 
 In this part, we discuss how a information-flow control model DLM, and ML-like
 type inference with polymorphism can be expressed by our constraint language.
