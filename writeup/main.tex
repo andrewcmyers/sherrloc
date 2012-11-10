@@ -68,12 +68,12 @@ justified on maximum a posteriori principles, under the assumption
 that programmers write code that is mostly correct.
 
 In many languages, the satisfiability of constraint systems may depend
-on environmental assumptions (or hypotheses). The conceptual framework for identifying
-likely errors can also be applied to identifying likely
+on environmental assumptions (or hypotheses). The conceptual framework
+for identifying likely errors can also be applied to identifying likely
 missing hypotheses. Again, programmers are not likely to have omitted
-many hypotheses, so a small set of hypotheses that makes the
-constraint satisfiable is more likely to be correct than a larger
-set or a large set of erroneous expressions.
+many hypotheses, so a small set of hypotheses that makes the constraint
+satisfiable is more likely to be correct than a larger set or a large
+set of erroneous expressions.
 %Recent work on abductive inference~\cite{dillig:pldi12} has studied
 %inferring missing hypotheses but has 
 
@@ -93,8 +93,8 @@ A general algorithm for identifying likely program errors,
 based on an analysis of the constraint system corresponding
 to the program. This algorithm proposes both program expressions
 that are likely to be errors, based on maximum a posteriori
-principles, but also hypotheses that the programmer is
-likely to have omitted.
+principles, and also hypotheses that the programmer is
+deemed likely to have omitted.
 (Sections~\ref{sec:graph} and~\ref{sec:ranking}.)
 
 \item
@@ -137,7 +137,8 @@ Figure~\ref{figure:lang:syntax}.
 \begin{align*}
 G &::= G_1 \land G_2 \bnf A \\
 A &::= C_1 \proves C_2 \\
-C &::= E_1 \leq E_2 \land C \bnf \Empty \\
+C &::= I_1 \land ... \land I_n~~^{n≥0} \\
+I &::= E_1 ≤ E_2 \\
 E &::= x \bnf c(E_1,\dots,E_{\arity{c}}) \bnf c^{-i}(E) \\
   & \bnf E_1 \join E_2 \
 \bnf E_1 \meet E_2 \bnf \bot \bnf \top
@@ -153,23 +154,21 @@ assertion has the form of $C_1 \proves C_2$, where constraint $C_1$ is the
 hypothesis and constraint $C_2$ is a conclusion to be satisfied.
  
 Constraint $C$, either serving as the hypothesis or the conclusion, is a
-conjunction of inequations over elements from $E$. Constaint may also be empty
-$\Empty$. When the hypothesis or the conclusion is $\Empty$, we emit the
-constraint for simplicity. For instance, we write $ \proves C_2$ instead of $
-C_1 \proves C_2$ when $C_1=\Empty$.
+possibly empty conjunction of inequations $I$ over elements from $E$,
+based on some ordering $≤$. We denote an empty conjunction as ∅.
+We abbreviate $∅ \proves C_2$ as $\proves C_2$
 
-Elements $E$ are defined in the space of $\varset$, a set of variables, and
-$\conset$, a set of constructors. Each constructor $c\in \conset$ has a fixed
-arity $\arity{c}$.  When $\arity{c}=0$, $c$ is a constant.
- 
-An element $E$ may be a variable $x\in\varset$ to be inferred, a constructor
-application $c$ or the $i$-th projection ($i$-th component) of a constructor
-application, represented by $c^{-i}(E)$. For example, element
-$E=\rightarrow(int, bool)$ is a function from integer to boolean. The first
-projection of $E$, $\rightarrow^{-1} (E)$, is $int$.
-
-Elements can also be the join ($\join$) and meet ($\meet$) of elements. $\bot$
-and $\top$ are two special elements. We define their meanings in the next part.
+An element $E$ may be a variable $x\in\varset$ whose value is to be
+solved for, a constructor application $c$ or the $i$-th projection
+($i$-th component) of a constructor application, represented by
+$c^{-i}(E)$. For example, if modeling ML type inference, we would
+represent the type "int->bool" as a constructor application
+$\mathit{arrow}(\mathit{int}, \mathit{bool})$, where $\mathit{int}$
+and $\mathit{bool}$ are themselves nullary constructor applications.
+Its first projection, or $\mathit{arrow}^{-1} (\mathit{arrow}(\mathit{int}, \mathit{bool}))$, is $int$.
+%
+Elements can also be the join ($\join$) or meet ($\meet$) of elements.
+$\bot$ and $\top$ are the bottom and top of the element ordering.
 %When join and meet are
 %used, we assume for all $e_1, e_2 \in E, e_1 \join e_2 \in E \land e_1
 %\meet e_2 \in E$ to make the constraints well-formed. In another word,
@@ -177,22 +176,27 @@ and $\top$ are two special elements. We define their meanings in the next part.
 
 \subsection{Interpretation of constraints}
 
-The meaning of $\leq$ is abstract in the language and our inference. The
-application is free to define the meaning of $\leq$ as long as the relation
-is a partial order.
+The ordering $\leq$ is treated abstractly by our diagnosis algorithm,
+but it must define a lattice. The operators $\join$ (join) and $\meet$
+(meet) produce the least upper bound and greatest lower bound
+of their operands, respectively.
 
-$\join$ and $\meet$ are the standard join and meet operations on partially
-ordered elements, with respect to the relation $\leq$. $\bot$ and $\top$ are
-the least and greatest element with respect to $\leq$ respectively, making all
-elements closed under the operation of $\join$ and $\meet$.
+The elements $\bot$ and $\top$ are the least and greatest element with
+respect to $\leq$ respectively, so the lattice is closed under the
+operation of all joins and meets.
 
-We further assume that the partial order on constructors is pairwise. That is,
-$\forall c\in \conset, c(E_1, \dots, E_{a(c)})\leq c(E_1', \dots, E_{a(c)}')
-\Iff E_1\leq E_1' \land \dots, E_{a(c)}\leq E_{a(c)}'$.
+We further assume that the partial ordering on constructor applications
+is determined by the polarities of that constructor's arguments.
+For each argument, the ordering of the constructor is either
+covariant with respect to that argument, contravariant with respect
+to that argument, or invariant with respect to that argument.
+%That is, $\forall c\in \conset, c(E_1, \dots, E_{a(c)})\leq c(E_1',
+%\dots, E_{a(c)}') \Iff E_1\leq E_1' \land \dots, E_{a(c)}\leq
+%E_{a(c)}'$.
 
 With these abstract definitions, the _validity_ of constraints can be defined
 in a natural way: an assertion $C_1 \proves C_2$ is _valid_ if and only if all
-the partial orders in $C_2$ can be inferred from $C_1$, giving the abstract
+the partial orderings in $C_2$ can be inferred from $C_1$, giving the abstract
 meaning of the operations defined so far.
 
 Consequently, a goal $G$ is valid if all assertions it contains are valid.
