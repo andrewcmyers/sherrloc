@@ -94,7 +94,8 @@ based on an analysis of the constraint system corresponding
 to the program. This algorithm proposes both program expressions
 that are likely to be errors, based on maximum a posteriori
 principles, and also hypotheses that the programmer is
-deemed likely to have omitted.
+deemed likely to have omitted. Importantly, the algorithm
+requires little language-specific tuning to generate good results.
 (Sections~\ref{sec:graph} and~\ref{sec:ranking}.)
 
 \item
@@ -139,7 +140,7 @@ G &::= G_1 \land G_2 \bnf A \\
 A &::= C_1 \proves C_2 \\
 C &::= I_1 \land ... \land I_n~~^{n≥0} \\
 I &::= E_1 ≤ E_2 \\
-E &::= x \bnf c(E_1,\dots,E_{\arity{c}}) \bnf c^{-i}(E) \\
+E &::= x \bnf c(E_1,\dots,E_{\arity{c}}) \bnf \invcabs{c}{i}(E) \\
   & \bnf E_1 \join E_2 \
 \bnf E_1 \meet E_2 \bnf \bot \bnf \top
 \end{align*}
@@ -161,14 +162,17 @@ We abbreviate $∅ \proves C_2$ as $\proves C_2$
 An element $E$ may be a variable $x\in\varset$ whose value is to be
 solved for, a constructor application $c$ or the $i$-th projection
 ($i$-th component) of a constructor application, represented by
-$c^{-i}(E)$. For example, if modeling ML type inference, we would
+$\invcabs{c}{i}(E)$. The arity of constructor $c$ is represented
+as $a(c)$.  For example, if modeling ML type inference, we would
 represent the type "int->bool" as a constructor application
-$\mathit{arrow}(\mathit{int}, \mathit{bool})$, where $\mathit{int}$
-and $\mathit{bool}$ are themselves nullary constructor applications.
-Its first projection, or $\mathit{arrow}^{-1} (\mathit{arrow}(\mathit{int}, \mathit{bool}))$, is $int$.
+$\cons{arrow}{\atom{int}, \atom{bool}}$, where $\atom{int}$
+and $\atom{bool}$ are themselves nullary constructor applications.
+Its first projection $\invc{arrow}{1}
+(\cons{arrow}{\atom{int}, \atom{bool}})$ is equal to $\atom{int}$.
 %
 Elements can also be the join ($\join$) or meet ($\meet$) of elements.
-$\bot$ and $\top$ are the bottom and top of the element ordering.
+The bottom and top of the element ordering are 
+$\bot$ and $\top$.
 %When join and meet are
 %used, we assume for all $e_1, e_2 \in E, e_1 \join e_2 \in E \land e_1
 %\meet e_2 \in E$ to make the constraints well-formed. In another word,
@@ -180,10 +184,9 @@ The ordering $\leq$ is treated abstractly by our diagnosis algorithm,
 but it must define a lattice. The operators $\join$ (join) and $\meet$
 (meet) produce the least upper bound and greatest lower bound
 of their operands, respectively.
-
-The elements $\bot$ and $\top$ are the least and greatest element with
-respect to $\leq$ respectively, so the lattice is closed under the
-operation of all joins and meets.
+%
+The elements $\bot$ and $\top$ are respectively the least and greatest
+element with respect to $\leq$.
 
 We further assume that the partial ordering on constructor applications
 is determined by the polarities of that constructor's arguments.
@@ -206,34 +209,37 @@ Consequently, a goal $G$ is valid if all assertions it contains are valid.
 Let $c_1, c_2, c_3$ be three constants. Then $c_1 \leq c_2 \land c_2 \leq c_3
 \proves c_1 \leq c_3$ is valid by the transitivity of $\leq$. Assertion $
 \proves c_1 \leq c_1 \join c_2$ is valid by the definition of join. But
-$\proves c_1\leq c_2$ is invalid since conclusion cannot be inferred from the
-empty assumption.
+assertion $\proves c_1\leq c_2$ is invalid since the
+conclusion cannot be inferred from the empty assumption.
 
 \subsection{Satisfiability}
 
-Validity defined so far works for constraints without variables. In general,
-when variable are involved, it is desirable to ask if there exists a valuation
-of variables such that the goal after value substitution is valid or not. This
-is formalized as the _satisfiability_ of constraints.
+Validity as defined so far works for constraints without variables. In
+general, when variables are involved, we want to know whether there
+exists a valuation of all variables such that the goal after value
+substitution is valid or not. This is formalized as _satisfiability_
+of constraints.
 
-The _satisfiability_ depends on the _ground terms_ $\termset$ that a variable
-can map into. To be more specific, we define $\termset$ recursively: 
+Satisfiability depends on the _ground terms_ $\termset$ that a
+variable can map into. We define $\termset$ as the greatest fixed
+point of the following rules:
 
 \begin{itemize}
-\item All constants are in $\termset$
+\item All constants are in $\termset$.
 
-\item $c(t_1, \dots, t_{\arity{c}})\in \termset$ if and only if $c\in C$ and
-$\forall i. t_i\in \termset$.
+\item $c(t_1, \dots, t_{\arity{c}})\in \termset$ if 
+$\forall{i∈\{1,\dots,a(c)\}}~t_i\in \termset$ and $c\in C$.
 \end{itemize}
+
+\noindent
+Notice that ground terms may have infinite representations. This feature is
+essential in modeling recursive types.
 
 % All terms form a Herbrand universe under $\join$ and $\meet$.
 
-A valuation $\valuation: v \to t, v\in \varset, t\in \termset$ is a
-function from variables to terms. A goal is _satisfiable_ when there
-exists a valuation such that the goal after the substitution is valid. 
-
-Notice that ground terms may have infinite representations. This feature is
-essential in modeling recursive types.
+A valuation $\valuation: \varset→\termset$ is a function from
+variables to terms. A goal is _satisfiable_ when there exists a
+valuation such that the goal after the substitution is valid. 
 
 \paragraph{Example}
 
@@ -243,26 +249,45 @@ $\valuation(x)=\bot$. However, $\proves x \leq c_1 \land c_2 \leq x$ is
 unsatisfiable since otherwise, $c_2 \leq c_1$ by the transitivity of $\leq$.
 But such partial order on $c_1, c_2$ is nowhere to be inferred.
 
-The terms can also have infinite representations. For instance, $\proves x \leq
-c(\text{zero}, x)$, where $\text{zero} \in \conset \land a(\text{zero})=1$
-$x\in \varset$ is satisfiable by replacing $x$ with $c(\text{zero},
-c(\text{zero}, \dots))$.    
+The terms can have infinite representations. For instance, $\proves x
+\leq \cons{\textit{c}}{\atom{zero}, x}$, where $\atom{zero} \in
+\conset \land a(\atom{zero})=1$ and $x\in \varset$ is satisfiable by
+replacing $x$ with $c(\atom{zero}, c(\atom{zero}, \dots))$.    
+\ACM{This seems broken. a(zero) = 0, right? and a(c) = 2?}
 
 \subsection{Error diagnostic}
 
-Besides the satisfiability of a set of assertions, another useful but difficult
-question is which subset of elements or constraints is most likely to be wrong
-when a goal is unsatisfiable. 
+Recall that the goal of this work is to diagnose the cause of errors.
+Therefore we are primarily interested not in the satisfiability of a
+set of assertions, but in where to place the blame when
+a goal is unsatisfiable. The goal is to find the most plausible
+explanation for the failure of satisfiability. In our approach,
+an explanation consists of a subset of elements from the constraint
+system, constraints from the constraint system, and possibly some
+missing hypotheses. Under the assumption that programmers write
+mostly correct code, the more plausible explanations are those that
+involve the fewest programmer errors.
 
-In general, a goal can be unsatisfiable in two ways: missing hypothesis and/or
-inconsistent constraints.
+\paragraph{Incorrect constraints}
 
-\paragraph{Missing hypothesis}
+One cause of unsatisfiability the is the existence of some constraints
+in the goal's conclusions. We say that a set of constraints
+$\mathcal{C}$ is _inconsistent_ if removing those constraints from
+goal conclusions make an unsatisfiable goal satisfiable.
 
-The first possible cause of unsatisfiability the absence of constraints in the
-hypothesis. Such error corresponds to the failure of writing down assumptions.
+\paragraph{Example}
 
-Missing hypothesis is defined in the following way.
+Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$
+again. Another possible cause of the unsatisfiability may be that one
+of the constraints $x \leq c_1$ and $c_2 \leq x$ is wrong. 
+
+\paragraph{Missing hypotheses}
+
+A second cause of unsatisfiability is the absence of constraints in
+the hypothesis. Such error corresponds to the failure to write down
+assumptions.
+
+A missing hypothesis is defined in the following way.
 Given an unsatisfiable goal $C_{11} \proves C_{12} \land C_{21} \proves C_{22}
 \land \dots \land C_{n1} \proves C_{n2}$, a constraint $C$ is a _missing
 hypothesis_ if and only if $C_{11} \land C \proves C_{12} \land C_{21} \land C
@@ -278,18 +303,6 @@ more detail in Section~\ref{sec:assumptions}}.
 Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$.
 One possible cause of the unsatisfiability may be the missing of an
 hypothesis $c_1\leq c_2$.
-
-\paragraph{Wrong constraints}
-
-Another possible cause of unsatisfiability the existence of some constraints in
-the conclusion. We define a set of constraints $\mathcal{C}$ to be
-_inconsistent_ if removing these constraints from conclusions make an
-unsatisfiable goal satisfiable.
-
-\paragraph{Example}
-Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$
-again. Another possible cause of the unsatisfiability may be that one of the
-constraints $x \leq c_1$ and $c_2 \leq x$ is wrong. 
 
 \paragraph{Relation with set constraints}
 
