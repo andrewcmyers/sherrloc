@@ -578,7 +578,7 @@ exp ::=\; & x \mid n \mid exp\; + \; exp \mid \fn\; x \rightarrow exp \\
         & \mid exp\; exp \mid \kwlet\; \val\; x = exp\; \kwin\; exp\; \kwend\\
 \end{align*}
 \end{minipage}
-\caption{Syntax of a subset of ML language and the corresponding constraint}
+\caption{Syntax of a subset of ML language}
 \label{figure:mltypes}
 \end{figure}
 
@@ -654,9 +654,162 @@ is a polymorphic type is satisfiable.
 \section{Graph} 
 \label{sec:graph}
 
-A key insight is that we can transform the constraint-solving problem
-into reachability in a graph: to find a path in graph where no partial
-order on the source and sink exist. 
+Besides the expressiveness of our constraint language, it also has a natural
+graph representation which enables efficient analysis on the constraints.
+
+In this section, we show how the constraints are transformed into a graph, and
+the fact that the satisfiability of the constraints corresponds to the
+reachability in a graph. 
+
+\subsection{Idea behind the transformation}
+
+Before going into details, we use a simple example to illustrate the key ideas
+behind the transformation. This example shows how can we identify subsets of
+unsatisfiable constraints from the _constraint graph_ transformed from our
+constraint language.
+
+\paragraph{Example} Consider the following set of constraints.
+\begin{align*}
+      &\; \proves x \leq \fn (\cod{ty1}, \cod{bool}) \\
+\land &\; \proves \fn (\cod{ty2}, \cod{int}) \leq y \\
+\land &\; \cod{ty2} \leq \cod{ty1} \proves y \leq x
+\end{align*}
+
+In this example, we can interpret $\leq$ as the subtyping relation. $\fn$ is
+the function type where the first parameter is covariant and the second
+parameter is contravariant. $\cod{ty1}, \cod{ty2}, \cod{bool}, \cod{int}$ are
+constants and $x,y$ are type variables to be inferred.
+
+The first assertion claims that $x$ is a subtype of $\fn (\cod{ty1},
+\cod{bool}$, with empty assumptions. Similarly for the second assertion. The
+third assertion says that $y$ is a subset of $x$ if $\cod{ty2}$ is a subtype of
+$\cod{ty1}$.
+
+To check if a goal is satisfiable or not, the key idea is to identify
+inconsistency in the constraints, based on the inference rules of $\leq, \join,
+\meet$.
+
+The basic idea is that the partial order $\leq$ corresponds to a directed edge
+in graph. Elements are presented by nodes. However, non-constant constructors
+and the hypothesis needs more dedicate transformation.
+
+Consider the element $\fn (\cod{ty1}, \cod{bool})$. We want to capture the fact
+that the constructor is decomposable. The idea is to add special _constructor
+edges_ between the constructor and its components, as illustrated in
+Figure~\ref{fig:consgraph:first}.
+
+\begin{figure*}
+\begin{center}
+\subfigure[Constructor edges]{
+    \includegraphics[width=0.19\textwidth]{graph/onecons}
+    \label{fig:consgraph:first}
+}
+%
+\subfigure[Constraint graph]{
+    \includegraphics[width=0.4\textwidth]{graph/consexample}
+    \label{fig:consgraph:second}
+}
+\end{center}
+\caption{An example of constraint graph}
+\label{fig:consgraph}
+\end{figure*}
+
+Constructor edges are labeled by the following information: the constructor,
+position of the component, and the polarity (covariant, contravariant or
+invariant). For instance, a label $\polarity{+}{\fn_1}$ means the first
+component (which is covariant) of constructor $\fn$.
+%
+Decomposition edges are also added from the constructor to the components,
+distinguished by a $(^{-1})$ in the graph.
+
+To enable the flow from potentially contravariant variables, the LEQ edges,
+representing $\leq$ relation, are duplicated in the reverse direction with
+polarity $-$. For instance, there are two LEQ edges connecting $x$ and
+$\fn(\cod{ty1},\cod{bool})$, with different polarity.
+
+Some edges only exist when an assumption is true, like the third constraint
+$\cod{ty2} \leq \cod{ty1} \proves y \leq x$. For assertions with hypotheses, we
+construct the edges as discussed so far, and track the hypotheses on the edges.
+Such information is used in the path finding process.
+
+The transformed graph is shown in Figure~\ref{fig:consgraph:second}. The
+systematic way of constructing a constraint graph from constrains is covered in
+Section~\ref{sec:consgraph}.
+
+More LEQ edges can be inferred in the constraint graph. For instance, following
+the path from $\cod{bool}$ to $\cod{int}$ in Figure~\ref{fig:consgraph:second},
+the constructor edges $\polarity{-}{\cod{fn}_2}$ and
+$\polarity{-}{\cod{fn}_2^{-1}}$ cancels out. Similarly, we can infer another
+LEQ edge from  $\cod{ty2}$ to $\cod{ty1}$. By the construction of graph, such
+inferred LEQ edge must also hold if all the constraints in conclusion are true.
+More generally, inferring all LEQ edge is a _all-pairs LEQ-path problem_, a
+variance of _context-free-language reachability problems_ (CFL-reachability
+problems). More details are discussed in Section~\ref{sec:leqedge}.
+
+Given all pairs of nodes connected by LEQ edge (along the paths), the next step
+is to check the inferred LEQ relation is satisfiable giving the hypothesis
+along the edges. Since a constraint where either the LHS or RHS is a variable
+is trivially satisfiable, there are two non-trivial LEQ pairs in
+Figure~\ref{fig:consgraph:second}, namely $(\cod{bool, int})$ and $(\cod{ty2,
+ty1})$. Notice that in order to infer these two LEQ relation, the hypothesis
+along the path must hold too, which is $\cod{ty2}\leq \cod{y1}$ for both pairs.
+Therefore, the satisfiability of the goal reduces to check the validity of two
+assertions 
+%
+\[\cod{ty2}\leq \cod{y1}\proves \cod{bool}\leq \cod{int}\]
+\[\cod{ty2}\leq \cod{y1}\proves \cod{ty2}\leq \cod{ty1}\]
+, which is easy to tell that only the first assertion is invalid. Constraints
+on the path from $\cod{bool}$ to $\cod{int}$ is a witness of the
+unsatisfiability of the constraint set.
+
+In general, checking the validity under hypothesis corresponds to check the LEQ
+relation in the _hypothesis graph_, which we discuss in
+Section~\ref{sec:hypograph}.
+
+\subsection{Constructing constraint graph}
+\label{sec:consgraph}
+
+
+\subsection{Inferring LEQ edges}
+\label{sec:leqedge}
+
+ we automatically generate a prove why $\cod{bool}\leq \cod{ty1}$ must be true
+if all constraints hold. 
+
+More generally, the constraint graph can identify all provable ``leq'' ordering
+on nodes by reducing the edges notations according to the context-free gramma
+shown in Figure~\ref{figure:cfg}. Finding all provable ``leq'' relation in the
+graph is a _all-pairs LEQ-path problem_, a variance of _context-free-language
+reachability problems_ (CFL-reachability problems), which is used for a number
+of program-analysis applications~\cite{reps-graph}. Both the
+reachability~\cite{melski-cflgraph} and shortest LEQ path
+finding~\cite{barrett-cflpath} problems can be solved in polynomial time. We
+adopt the dynamic programming approach~\cite{barrett-cflpath} to find the
+shortest LEQ paths in this work.
+
+\begin{figure}
+\hfil
+\begin{minipage}{2.3in}
+\begin{align*}
+\polarity{p}{LEQ} ::=\; & \polarity{p}{LEQ}\; \polarity{p}{LEQ}, p\in \{+,-\} \\
+\polarity{p}{LEQ} ::=\; & \polarity{p}{c_i}\; \polarity{p}{LEQ}\; \polarity{p}{c_i^{-1}} \text{, where }  
+    c\in \conset \land 1 \leq i\leq \arity{c} \\
+\end{align*}
+\end{minipage}
+\caption{Context-free grammar of reduction}
+\label{figure:cfg}
+\end{figure}
+
+\[\trans{x} = VarNode(x)\]
+\[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
+(def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
+\[\trans{\G\proves e_1 e_2 : \tau} = \exists a.(\trans{\G \proves
+e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
+
+\subsection{Hypothesis graph}
+\label{sec:hypograph}
+
+
 
 Transformation ... 
 %The insight is consistent with ``A flow model FM is _secure_ if and only if
