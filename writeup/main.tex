@@ -359,8 +359,8 @@ analyses of interest.
 % inference with sum type and product type and closure analysis.
 
 To show how the constraint language can model a variety of different
-program analyses, we discuss how information-flow control and ML type
-inference with polymorphism can be expressed by our constraint
+program analyses, we discuss how both information-flow control and ML
+type inference with polymorphism can be expressed by our constraint
 language.
 
 \subsubsection{Information-flow control}
@@ -396,55 +396,60 @@ security labels in nature forms a lattice~\cite{denning-lattice}. The goal of
 such systems is to restrict insecure flows from information to a place with
 less restrictive labels, such as from top secret to unclassified. 
 
-In this part, we focus on a sophisticated information-flow control language,
-Jif~\cite{jif} and outline how Jif label checking can be expressed by our core
-constraint language. Of course, models with less intricacy can also be
-described by our core constraint language.
- 
+In this part, we focus on a sophisticated information-flow control
+language, Jif~\cite{jif} and outline how checking of Jif information
+flow labels are expressed by our core constraint language. Of
+course, less intricate models can also be described by our core
+constraint language.
+
 \paragraph{Label inference and checking}
 
 Jif~\cite{jif} is a version of Java that statically analyzes the security of
 information flow within programs based on the DLM model~\cite{ml-ifc-97}. In
 this language, memory locations are tagged with security labels.
 
-Label checking is transformed into a constraint-solving in Jif. For instance,
-consider an assignment $x := y$. This assignment generates a constraint
-$L(y)\leq L(x)$, reads the label of $x$ must be more restrictive than $x$.
+Information flow is checked by the Jif compiler using constraint
+solving. For instance, consider an assignment $x := y$. This
+assignment generates a constraint $L(y)\leq L(x)$, meaning that the
+label of $x$ must be more restrictive than $x$.
 
-Moreover, the programmer can emit some security labels and let the compiler
-generate them when possible. For instance, when the label of $x$ is not
-specified, assignment $x := y$ generates a constraint $L(y)\leq \alpha$, where
-$\alpha$ is a label variable to be inferred. Hence, the Jif constraints has a
-similar format to our constraint language in a high level. 
+Moreover, the programmer can emit some security labels and let the
+compiler generate them when possible. For instance, when the label of
+$x$ is not specified, assignment $x := y$ generates a constraint
+$L(y)\leq \alpha$, where $\alpha$ is a label variable to be inferred.
+Hence, Jif constraints are broadly similar in structure
+to our general constraint language.
 
-However, it is challenging to model some non-trivial features of Jif. To the
-best of our knowledge, our constraint language is the first one that expressive
-enough to model these features.
+However, some features of Jif are challenging to model.  In fact, to
+the best of our knowledge, our constraint language is the first
+general constraint language expressive enough to model these features.
 
 \paragraph{Label model}
 
-The basic building block of the DLM model is a set of _principals_ representing
-users and other authority entities. Examples of principals could be patient A,
-patient B, doctor A and so on. Principals can be expressed by constants.
+The basic building block of the DLM model is a set of _principals_
+representing users and other authority entities. Examples of
+principals could be patient A, patient B, doctor A and so on.
+Principals can be expressed by constants.
 
-Principals are structured as a lattice with respect to a relation _actsfor_.
-$actsfor(A,B)$ means that $A$ is more privileged than $B$.
+Principals are structured as a lattice with respect to a relation
+_actsfor_.  The proposition $\cons{actsfor}{A,B}$ means that $A$ is more
+privileged than $B$.
 % 
-For instance, if doctor A _actsfor_ patient A, then doctor A is allowed to read
-all information that patient A can read. However, such relation does not grant
-doctor A to read any information patient B can read, unless doctor A _actsfor_
-patient B too. The _actsfor_ relation can be expressed by the partial ordering
-$\leq$.
+For instance, if doctor A _actsfor_ patient A, then doctor A is
+allowed to read all information that patient A can read. However, such
+relation does not grant doctor A to read any information patient B can
+read, unless doctor A _actsfor_ patient B too. The _actsfor_ relation
+can be expressed by the partial ordering $\leq$.
 
-The security concern of information is expressed by _labels_. The modeling of
-the labels requires some insights of the label model.
+The security concern of information is expressed by _labels_. The
+modeling of the labels requires some insights of the label model.
 
-In the DLM model, a label $L$ contains a set of principals called the _owners_.
-For each owner $O$, the label also contains a set of principals called the
-_readers_. Readers are the principals owner $O$ is willing to release the
-information. 
+In the DLM model, a label $L$ contains a set of principals called the
+_owners_.  For each owner $O$, the label also contains a set of
+principals called the _readers_. Readers are the principals owner $O$
+is willing to release the information. 
 
-For instance, a label $\{o_1:r_1,r_2;\ o_2:r_2,r_3\}$ can be read as: principal
+For instance, a label $\lab{o_1:r_1,r_2;\ o_2:r_2,r_3}$ can be read as: principal
 $o_1$ allows principals $r_1$ \emph{or} $r_2$ to read the tagged information,
 \emph{and} principal $o_2$ allows principals $r_2$ \emph{or} $r_3$ to read.
 Hence effectively, only the principals in the _effective reader set_, the
@@ -452,85 +457,89 @@ intersection of the readers of all owners, may read the information.
 
 In the presence of the _actsfor_ relation $\leq$, the effective reader set is
 defined as follows:
-\[readers(p, o→r) ≜ \{q  | \text{if}\ p \leq o\ \text{then} (o \leq q\
+\[readers(p, o→r) ≜ \{q  \mid \text{if}\ p \leq o\ \text{then} (o \leq q\
 \text{or}\ r \leq q)\}\]
 
 Based on this definition, the ``no more restrictive than'' relation
 $\sqsubseteq$ on confidentiality policies is formalized as:
+\[ c \sqsubseteq d \Iff \forall p, readers(p, c) ⊇ readers(p, d) \]
 
-$c \sqsubseteq d \Iff \forall p, readers(p, c) ⊇ readers(p, d)$
-
-Although from the definition, it is not clear that the confidential policy is a
-constructor of principals, we make it clear by the following theorem, which
-shows that the confidential policy can be expressed by constructor in our
-constraint language.
+Although from the definition, it is not clear that the confidential
+policy is a constructor of principals, we make it clear by the
+following theorem, which shows that the confidential policy can be
+expressed by constructor in our constraint language.
+\ACM{Not clear this theorem is sufficiently interesting to spell
+out in detail. Also, presumably there is an integrity policy
+property to be stated?}
 
 \begin{Theorem}
-Confidential policy in the DLM model is a constructor of principals and it is
-covariant.  
+A confidentiality policy in the DLM model is a covariant constructor
+of principals.
 \end{Theorem}
 
 \begin{proof}
-It is sufficient to show that $a→b \sqsubseteq c→d \Iff a\leq c \land b\leq d$.
+It is sufficient to show that $a→b \sqsubseteq c→d \Iff a\leq c \land
+b\leq d$.
 
-$\Longrightarrow$: by definition $readers(a, a→b) ⊇ readers(a, c→d)$. If $a\not\leq
-c$, then the second part is the entire principal space. Contradiction since
-$\bot\not\in readers(a, a→b)$. Given $a\leq c$, $d \in readers(a, c→d)$. So $d
-\in readers(a, a→b)$. That is, $a\leq d$ or $b\leq d$. In either case, we have
-$b\leq d$ by noticing that $a$ is an implicit reader of $a→b$, or, $b=a\meet
-\dots\leq a$.
+$\Longrightarrow$: by definition, $readers(a, a→b) ⊇ readers(a, c→d)$.
+If $a\not\leq c$, then the second part is the entire principal space.
+This is a contradiction since $\bot\not\in readers(a, a→b)$. Given $a\leq c$, $d
+\in readers(a, c→d)$. So $d \in readers(a, a→b)$. That is, $a\leq d$
+or $b\leq d$. In either case, we have $b\leq d$ by noticing that $a$
+is an implicit reader of $a→b$, or, $b=a\meet \dots\leq a$.
 
-$\Longleftarrow$: consider any principal $p$. If $p\not\leq a$, $readers(p,
-a→b)$ is the entire principal space, hence result is trivial. Otherwise, $p\leq
-a \leq c$. Hence, sufficient to show that $\{q | a\leq q\ \text{or}\ b\leq q\}
-⊇ \{q | c\leq q\ \text{or}\ d\leq q\}$ which is obvious from assumptions.
+$\Longleftarrow$: consider any principal $p$. If $p\not\leq a$,
+$readers(p, a→b)$ is the entire principal space, hence result is
+trivial. Otherwise, $p\leq a \leq c$. Hence, sufficient to show that
+$\{q \mid a\leq q\ \text{or}\ b\leq q\} ⊇ \{q \mid c\leq q\ \text{or}\ d\leq
+q\}$ which is obvious from assumptions.
 
 \end{proof}
 
 \paragraph{Label polymorphism}
-define
-Polymorphism makes it possible to write reusable code that is not tied to any
-specific security policy. One common form of polymorphism is over the labels of
-method parameters. 
 
-For instance, consider a function \texttt{int foo(bool\{Alice→Alice\} b)}.
-Instead of requiring the parameter \texttt{b} to have the exact label of
-\texttt{\{Alice→Alice\}}, the label actually serves as an upper bound on the
+Polymorphism makes it possible to write reusable code that is not tied
+to any specific security policy. One common form of polymorphism is
+over the labels of method parameters. 
+
+For instance, consider a function "int foo(bool\lab{Alice→Alice} b)".
+Instead of requiring the parameter "b" to have exactly the label
+"\{Alice→Alice\}", the label actually serves as an upper bound on the
 real parameter.
 
-The introduction of hypothesis in our constraint language makes the modeling of
-such label polymorphism straightforward. Instead of requiring the label of b to
-be \texttt{\{Alice→Alice\}}, we add the constraint $c\leq
-\texttt{\{Alice→Alice\}}$ to the hypothesis all constraints generated in the
+The introduction of hypotheses in our constraint language makes the
+modeling of such label polymorphism straightforward. Instead of
+requiring the label of b to
+be "\lab{Alice→Alice}", we add the constraint $c\leq
+"\lab{Alice→Alice}"$ to the hypothesis of all constraints generated in the
 method body.
 
 \paragraph{Method constraints}
 
-Methods in Jif may contain ``where'' clauses, explicitly stating the assumed
-constraints to hold true during the execution of the method body. The complier
-type checks the method body with the assumptions and guarantees the assumptions
-are true at the method call sites. 
+Methods in Jif may contain ``where'' clauses, explicitly stating
+constraints assumed to hold true during the execution of the method
+body. The compiler type-checks the method body under these assumptions
+and checks the assumptions are true at all method call sites. 
 
-Method constraints can easily modeled by the hypothesis in our constraint
-language.
+Method constraints can easily modeled by the hypothesis in our
+constraint language.
  
 \subsubsection{ML type inference}
 
-Type inference can also naturally map into constraint solving. This
+Type inference also naturally maps into constraint solving. This
 view is not new. For instance, Wand~\cite{wand-typeinference} recast
-Hindley-Milner type system into equality constraints. Aiken and
+the Hindley-Milner type system into equality constraints. Aiken and
 Wimmers~\cite{aiken-typeinclusion} extends the Hindley-Milner type
-system with inclusion constraints, and models function types,
-constructor types, liberal intersection and union types. 
+system with inclusion constraints, and model function types,
+constructor types, and liberal intersection and union types. 
 
 For simplicity, we discuss how the type inference of a subset
 (including let polymorphism) of ML-like language can be transformed
 into _labeled constraints_~\cite{haack:slicing}, a subset of our
 constraint language.
 
-In this setting, types are the elements. Join and
-meet operations are the usual intersection and union types if that is
-well defined.
+In this setting, types are the elements. Join and meet operations are
+the usual intersection and union types if that is well defined.
 $\leq$ is consistent with the subtype relationship between two labels.
 Since the definition is abstract, both syntactic subtyping \DZ{REF}
 and semantic subtyping~\cite{aiken-typeinclusion} fit in this model.
@@ -550,8 +559,8 @@ e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
 \paragraph{Polymorphic Types}
 
 Our model is also powerful enough to capture polymorphic types.  Jif
-has polymorphic types, for instance, $caller\_pc$. Polymorphic types
-are also crucial for ML-like languages.
+has polymorphic labels. Polymorphic types are also important for
+ML-like languages.
 
 Polymorphic types can be naturally modeled in our core constraint
 language as follows. For a polymorphic type $t$ instance, we create a
@@ -564,9 +573,9 @@ is a polymorphic type is satisfiable.
 \section{Graph} 
 \label{sec:graph}
 
-In this section, we transform the constraint-solving problem into the
-reachability in a graph: to find a path in graph where no partial order on the
-source and sink exist. 
+A key insight is that we can transform the constraint-solving problem
+into reachability in a graph: to find a path in graph where no partial
+order on the source and sink exist. 
 
 Transformation ... 
 %The insight is consistent with ``A flow model FM is _secure_ if and only if
@@ -615,72 +624,81 @@ MAP model
 
 \paragraph{Program analyses, constraints and graph} 
 
-Modeling program analyses via constraint solving is not a new idea. The most
-related work is set-based constraint program
-analysis~\cite{aiken-setconstraint, aiken-typeinclusion}.  However, such
-constraints does not model hypothesis, which is important in program analyses
-such as information-flow control.
+Modeling program analyses via constraint solving is not a new idea.
+The most related work is set-based constraint program
+analysis~\cite{aiken-setconstraint, aiken-typeinclusion}.  However,
+these constraint languages do not model hypotheses, which is important
+for some program analyses such as information-flow control.
  
-Program slicing, shape analysis, flow-insensitive points-to analysis are
-amenable to graph-reachability~\cite{reps-graph}. Melski and
-Reps~\cite{melski-cflgraph} show the interchangeability between
+Program slicing, shape analysis, and flow-insensitive points-to
+analysis are amenable to graph-reachability~\cite{reps-graph}. Melski
+and Reps~\cite{melski-cflgraph} show the interchangeability between
 context-free-language reachability (CFG-reachability) and a subset of
-set-based constraints. But only a small set of constraints, namely
-only one variable may appear on the right hand side of an partial
-order. Moreover, no general error diagnostic approach is proposed on
-the graphs to the best of our knowledge. 
+set-based constraints. But only a small set of constraints---in fact,
+a single variable---may appear on the right hand side of an partial
+order. Moreover, no error diagnostic approach is proposed for the
+graphs.
 
-\paragraph{Error diagnostic on type inference and information-flow
-control} 
+\paragraph{Error diagnoses for type inference
+	    and information-flow control} 
 
 Due to the unsatisfactory quality of error reports, a considerable
-amount of work have been proposed to improve both error message of
+amount of work has been done on improving the error messages of both
 ML-like languages and Jif.
 
-Efforts on improving ML-like language type-error message can be traced back to
-the early work of Wand~\cite{wand-errorfinding} and Johnson and
-Walz~\cite{johnson-popl86}. These two pieces of work represent two directions
-in improving type-error messages: the former one traces _everything_ that
-contributes to the error, whereas the latter attempts to infer the _most
-likely_ cause. We only discuss the most related among them in this paper. More
-details can be found in Heeren's summary~\cite{heeren:thesis}.
+Efforts on improving ML-like language type-error message can be
+traced back to the early work of Wand~\cite{wand-errorfinding} and
+of Johnson and Walz~\cite{johnson-popl86}. These two pieces of work
+represent two directions in improving type-error messages: the former
+traces _everything_ that contributes to the error, whereas the
+latter attempts to infer the _most likely_ cause. We only discuss the
+most related among them in this paper. More details can be found in
+Heeren's summary~\cite{heeren:thesis}.
 
-In the first direction, many work~\cite{choppella95, haack:slicing,
-tip:slicing} follow improves the basic idea of Wand~\cite{wand-errorfinding} in
-several ways. Despite the attractiveness of feeding all related details to the
-programmer, the reports are usually verbose and hard to follow.
+In the first direction, several efforts~\cite{choppella95,
+haack:slicing, tip:slicing} improve the basic idea of
+Wand~\cite{wand-errorfinding} in several ways. Despite the
+attractiveness of feeding a full explanation to the programmer, the
+reports are usually verbose and hard to follow.
+\ACM{Can we cite anything for this claim of verbosity etc.? Right
+now it is an unsupported assertion that doesn't sound very scientific.}
 
 In the second direction, one approach is to alter the order of type
-unification~\cite{lee:toplas, mcadam:unification}. However, since error
-location may appear anywhere in the unification procedure, any specific order
-would fail. Some previous work try to advice the programmer how to fix the
-error~\cite{mcadam:thesis, lerner:pldi07}. McAdam~\cite{mcadam:thesis} suggests
-using morphisms along with standard type inference to identify potential fixes
-of type errors. Lerner et. al.~\cite{lerner:pldi07} try to produce type-error
-messages by searching changes to the AST until a program type checks. However,
-both approaches are highly specific to the purpose of type inference. There is
-no easy way of extending them for information-flow control analysis, for
+unification~\cite{lee:toplas, mcadam:unification}. However, since
+error location may appear anywhere in the unification procedure, any
+specific order fails in some circumstance. Some previous works tries
+to advise the programmer how to fix the error.
+McAdam~\cite{mcadam:thesis} suggests using morphisms along with
+standard type inference to identify potential fixes for type errors.
+Lerner et al.~\cite{lerner:pldi07} try to produce type-error messages
+by trying changes to the AST until a program type-checks.  However,
+both approaches are fairly specific to type inference. There is no
+easy way of extending them for information-flow control analysis, for
 instance.
 
 For information-flow control, King et. al.~\cite{king:fse} propose to
-generate a trace of information flow explaining the information-flow violation
-in program. Despite the fact that this approach also diagnoses on a constructed
-dependency graph, only a subset of DLM model is handled (hypothesis is not
-supported). Moreover, similar to the limitation of type-error slicing,
-reporting a whole path can be verbose for programmer.
-Merlin~\cite{livshits:merlin} uses probabilistic inference to automatically
-infer explicit information flow specifications from program code, an different
-application as our paper.
+generate a trace of information flow explaining the information-flow
+violation in program. Despite the fact that this approach also
+constructs a diagnosis from a dependency graph, only a subset of DLM
+model is handled. In particular, hypotheses are not supported.
+Moreover, as in type-error slicing, reporting a whole path can be
+too verbose for the programmer.  Merlin~\cite{livshits:merlin} uses
+probabilistic inference to automatically infer explicit information
+flow specifications from program code; this is a different
+application from our paper.\ACM{maybe we can say more about why Merlin
+is relevant.}
 
 \paragraph{Missing hypothesis inference}
 
-The most related work on inferring likely missing hypotheses is the recent work
-on error diagnosis using abductive inference~\cite{dillig:pldi12}. This work
-computes small, relevant queries presented to a user that capture exactly the
-information a program analysis is missing to either discharge or validate the
-error. But it is handling first-order logic and there is no straightforward way
-of encoding our constraint language into first-order logic. Also, our
-missing-hypothesis inference is more straightforward.
+The most related work on inferring likely missing hypotheses is the
+recent work on error diagnosis using abductive
+inference~\cite{dillig:pldi12}. This work computes small, relevant
+queries presented to a user that capture exactly the information a
+program analysis is missing to either discharge or validate the error.
+It handles first-order logic, but there is no straightforward
+way to encode our constraint language into first-order logic.
+Also, our missing-hypothesis inference is more straightforward.
+\ACM{Is it less powerful, though? Sounds a bit subjective.}
 
 % Automatic instrumentation~\cite{king:esop10}
 % Policy inference~\cite{chong:sp11, harris:ccs10}.
