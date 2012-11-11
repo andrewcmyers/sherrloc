@@ -338,41 +338,67 @@ with polymorphism can be expressed by our constraint language.
 
 \subsubsection{Information-flow control}
 
-In information-flow control systems, information is tagged with security
-labels, such as labels from unclassified to top secret. More generally, the
-security labels in nature forms a lattice~\cite{denning-lattice}. The goal of
-such systems is to restrict insecure flows from information to a place with
-less restrictive labels, such as from top secret to unclassified. 
-
 % The security labels can be modeled by the constants in our constraint language.
 % $\leq$ is interpreted as ``less restrictive'' in this problem domain. The join
 % and meet operations in constraints are consistent with that in the lattice.
 % $\bot$ is the most public label, while $\top$ corresponds to the most
 % restrictive one. 
 
-In this part, we focus on a sophisticated information-flow control model, the
-DLM model~\cite{ml-ifc-97}, due to the following challenging features. Of
-course, models with less intricacy can also be described by our core constraint
-language.
+% In this part, we focus on a sophisticated information-flow control model, the
+% DLM model~\cite{ml-ifc-97}, due to the following challenging features. Of
+% course, models with less intricacy can also be described by our core constraint
+% language.
+% 
+% \begin{enumerate}
+% \item The label model is more complicated than traditional multilevel security
+% system.
+% 
+% \item DLM introduces an implicit form of parametric polymorphism, called _label
+% polymorphism_, to express procedures that are parametric with respect to the
+% security labels of their arguments.
+% 
+% \item DLM allows assertions on labels to enable the combination of a static
+% program analysis provably enforces security under some assumptions, while the
+% validity of the assumptions are enforced at runtime. 
+% \end{enumerate}
+% 
 
-\begin{enumerate}
-\item The label model is more complicated than traditional multilevel security
-system.
+In information-flow control systems, information is tagged with security
+labels, such as labels from unclassified to top secret. More generally, the
+security labels in nature forms a lattice~\cite{denning-lattice}. The goal of
+such systems is to restrict insecure flows from information to a place with
+less restrictive labels, such as from top secret to unclassified. 
 
-\item DLM introduces an implicit form of parametric polymorphism, called _label
-polymorphism_, to express procedures that are parametric with respect to the
-security labels of their arguments.
+In this part, we focus on a sophisticated information-flow control language,
+Jif~\cite{jif} and outline how Jif label checking can be expressed by our core
+constraint language. Of course, models with less intricacy can also be
+described by our core constraint language.
+ 
+\paragraph{Label inference and checking}
 
-\item DLM allows assertions on labels to enable the combination of a static
-program analysis provably enforces security under some assumptions, while the
-validity of the assumptions are enforced at runtime. 
-\end{enumerate}
+Jif~\cite{jif} is a version of Java that statically analyzes the security of
+information flow within programs based on the DLM model~\cite{ml-ifc-97}. In
+this language, memory locations are tagged with security labels.
+
+Label checking is transformed into a constraint-solving in Jif. For instance,
+consider an assignment $x := y$. This assignment generates a constraint
+$L(y)\leq L(x)$, reads the label of $x$ must be more restrictive than $x$.
+
+Moreover, the programmer can emit some security labels and let the compiler
+generate them when possible. For instance, when the label of $x$ is not
+specified, assignment $x := y$ generates a constraint $L(y)\leq \alpha$, where
+$\alpha$ is a label variable to be inferred. Hence, the Jif constraints has a
+similar format to our constraint language in a high level. 
+
+However, it is challenging to model some non-trivial features of Jif. To the
+best of our knowledge, our constraint language is the first one that expressive
+enough to model these features.
 
 \paragraph{Label model}
 
 The basic building block of the DLM model is a set of _principals_ representing
 users and other authority entities. Examples of principals could be patient A,
-patient B, doctor A and so on. 
+patient B, doctor A and so on. Principals can be expressed by constants.
 
 Principals are structured as a lattice with respect to a relation _actsfor_.
 $actsfor(A,B)$ means that $A$ is more privileged than $B$.
@@ -380,24 +406,88 @@ $actsfor(A,B)$ means that $A$ is more privileged than $B$.
 For instance, if doctor A _actsfor_ patient A, then doctor A is allowed to read
 all information that patient A can read. However, such relation does not grant
 doctor A to read any information patient B can read, unless doctor A _actsfor_
-patient B too.
+patient B too. The _actsfor_ relation can be expressed by the partial ordering
+$\leq$.
 
-The security concern of information is expressed by _labels_. A label $L$
-contains a set of principals called the _owners_. For each owner $O$, the label
-also contains a set of principals called the _readers_. Readers are the
-principals owner $O$ is willing to release the information. 
+The security concern of information is expressed by _labels_. The modeling of
+the labels requires some insights of the label model.
+
+In the DLM model, a label $L$ contains a set of principals called the _owners_.
+For each owner $O$, the label also contains a set of principals called the
+_readers_. Readers are the principals owner $O$ is willing to release the
+information. 
 
 For instance, a label $\{o_1:r_1,r_2;\ o_2:r_2,r_3\}$ can be read as: principal
 $o_1$ allows principals $r_1$ \emph{or} $r_2$ to read the tagged information,
 \emph{and} principal $o_2$ allows principals $r_2$ \emph{or} $r_3$ to read.
-Hence effectively, the _effective reader set_ is the intersection of the
-readers of all owners. That is $\{r_2\}$ in this example.
+Hence effectively, only the principals in the _effective reader set_, the
+intersection of the readers of all owners, may read the information.
 
-The partial order on labels can be complicated by the _actsfor_ relationship of
-principals.
+In the presence of the _actsfor_ relation $\leq$, the effective reader set is
+defined as follows:
+\[readers(p, o→r) ≜ \{q  | \text{if}\ p \leq o\ \text{then} (o \leq q\
+\text{or}\ r \leq q)\}\]
 
+Based on this definition, the ``no more restrictive than'' relation
+$\sqsubseteq$ on confidentiality policies is formalized as:
+
+$c \sqsubseteq d \Iff \forall p, readers(p, c) ⊇ readers(p, d)$
+
+Although from the definition, it is not clear that the confidential policy is a
+constructor of principals, we make it clear by the following theorem, which
+shows that the confidential policy can be expressed by constructor in our
+constraint language.
+
+\begin{Theorem}
+Confidential policy in the DLM model is a constructor of principals and it is
+covariant.  
+\end{Theorem}
+
+\begin{proof}
+It is sufficient to show that $a→b \sqsubseteq c→d \Iff a\leq c \land b\leq d$.
+
+$\Longrightarrow$: by definition $readers(a, a→b) ⊇ readers(a, c→d)$. If $a\not\leq
+c$, then the second part is the entire principal space. Contradiction since
+$\bot\not\in readers(a, a→b)$. Given $a\leq c$, $d \in readers(a, c→d)$. So $d
+\in readers(a, a→b)$. That is, $a\leq d$ or $b\leq d$. In either case, we have
+$b\leq d$ by noticing that $a$ is an implicit reader of $a→b$, or, $b=a\meet
+\dots\leq a$.
+
+$\Longleftarrow$: consider any principal $p$. If $p\not\leq a$, $readers(p,
+a→b)$ is the entire principal space, hence result is trivial. Otherwise, $p\leq
+a \leq c$. Hence, sufficient to show that $\{q | a\leq q\ \text{or}\ b\leq q\}
+⊇ \{q | c\leq q\ \text{or}\ d\leq q\}$ which is obvious from assumptions.
+
+\end{proof}
+
+\paragraph{Label polymorphism}
+define
+Polymorphism makes it possible to write reusable code that is not tied to any
+specific security policy. One common form of polymorphism is over the labels of
+method parameters. 
+
+For instance, consider a function \texttt{int foo(bool\{Alice→Alice\} b)}.
+Instead of requiring the parameter \texttt{b} to have the exact label of
+\texttt{\{Alice→Alice\}}, the label actually serves as an upper bound on the
+real parameter.
+
+The introduction of hypothesis in our constraint language makes the modeling of
+such label polymorphism straightforward. Instead of requiring the label of b to
+be \texttt{\{Alice→Alice\}}, we add the constraint $c\leq
+\texttt{\{Alice→Alice\}}$ to the hypothesis all constraints generated in the
+method body.
+
+\paragraph{Method constraints}
+
+Methods in Jif may contain ``where'' clauses, explicitly stating the assumed
+constraints to hold true during the execution of the method body. The complier
+type checks the method body with the assumptions and guarantees the assumptions
+are true at the method call sites. 
+
+Method constraints can easily modeled by the hypothesis in our constraint
+language.
  
-\paragraph{ML-like type inference}
+\subsubsection{ML type inference}
 
 Type inference can also naturally map into constraint solving. This
 view is not new. For instance, Wand~\cite{wand-typeinference} recast
