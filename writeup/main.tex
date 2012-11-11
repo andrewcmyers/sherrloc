@@ -220,20 +220,20 @@ exists a valuation of all variables such that the goal after value
 substitution is valid or not. This is formalized as _satisfiability_
 of constraints.
 
-Satisfiability depends on the _ground terms_ $\termset$ that a
-variable can map into. We define $\termset$ as the greatest fixed
-point of the following rules:
+Satisfiability depends on the _ground terms_ $\termset$ 
+that a variable can map into. We define $\termset$ as the
+greatest fixed point of the following rules:
 
 \begin{itemize}
 \item All constants are in $\termset$.
 
 \item $c(t_1, \dots, t_{\arity{c}})\in \termset$ if 
-$\forall{i∈\{1,\dots,a(c)\}}~t_i\in \termset$ and $c\in C$.
+$\forall_ {i∈\{1,\dots,a(c)\}}~t_i \in \termset$ and $c\in C$.
 \end{itemize}
 
 \noindent
-Notice that ground terms may have infinite representations. This feature is
-essential in modeling recursive types.
+Notice that ground terms may be infinite. This feature is essential in
+modeling recursive types.
 
 % All terms form a Herbrand universe under $\join$ and $\meet$.
 
@@ -244,16 +244,20 @@ valuation such that the goal after the substitution is valid.
 \paragraph{Example}
 
 Let $x\in \varset$, $c_1, c_2, c_3\in \termset$. Then $\proves x \leq c_1$ is
-trivially satisfiable considering the valuation $\valuation(x)=c_1$ or
+trivially satisfiable by the valuation $\valuation(x)=c_1$ or
 $\valuation(x)=\bot$. However, $\proves x \leq c_1 \land c_2 \leq x$ is
-unsatisfiable since otherwise, $c_2 \leq c_1$ by the transitivity of $\leq$.
-But such partial order on $c_1, c_2$ is nowhere to be inferred.
+unsatisfiable since otherwise, $c_2 \leq c_1$ by the transitivity of
+$\leq$, yet this ordering on $c_1, c_2$ cannot be inferred.
 
-The terms can have infinite representations. For instance, $\proves x
-\leq \cons{\textit{c}}{\atom{zero}, x}$, where $\atom{zero} \in
-\conset \land a(\atom{zero})=1$ and $x\in \varset$ is satisfiable by
-replacing $x$ with $c(\atom{zero}, c(\atom{zero}, \dots))$.    
+Infinite terms are needed to solve some constraints. For instance,
+$\proves x \leq \cons{\textit{c}}{\atom{zero}, x}$, where $\atom{zero}
+\in \conset \land a(\atom{zero})=1$ and $x\in \varset$ is satisfiable
+by replacing $x$ with $c(\atom{zero}, c(\atom{zero}, \dots))$.
 \ACM{This seems broken. a(zero) = 0, right? and a(c) = 2?}
+\ACM{It would be nice to understand why we need infinite terms.
+In particular, might the infinite terms be incorrect solutions
+to some constraint systems?}
+
 
 \subsection{Error diagnostic}
 
