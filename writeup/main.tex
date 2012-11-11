@@ -161,17 +161,18 @@ hypothesis and constraint $C_2$ is a conclusion to be satisfied.
  
 Constraint $C$, either serving as the hypothesis or the conclusion, is a
 possibly empty conjunction of inequations $I$ over elements from $E$,
-based on some ordering $≤$. We denote an empty conjunction as ∅.
-We abbreviate $∅ \proves C_2$ as $\proves C_2$
+based on some ordering $≤$. We denote an empty conjunction as ∅,
+and abbreviate $∅ \proves C_2$ as $\proves C_2$.
 
 An element $E$ may be a variable $x\in\varset$ whose value is to be
 solved for, a constructor application $c$ or the $i$-th projection
 ($i$-th component) of a constructor application, represented by
 $\invcabs{c}{i}(E)$. The arity of constructor $c$ is represented
-as $a(c)$.  For example, if modeling ML type inference, we would
+as $a(c)$. Constants $c$ are nullary constructors, with arity 0.
+For example, if modeling ML type inference, we can
 represent the type "int->bool" as a constructor application
 $\cons{arrow}{\atom{int}, \atom{bool}}$, where $\atom{int}$
-and $\atom{bool}$ are themselves nullary constructor applications.
+and $\atom{bool}$ are constants.
 Its first projection $\invc{arrow}{1}
 (\cons{arrow}{\atom{int}, \atom{bool}})$ is equal to $\atom{int}$.
 %
@@ -210,16 +211,18 @@ to that argument, or invariant with respect to that argument.
 
 With these abstract definitions, the _validity_ of constraints can be defined
 in a natural way: an assertion $C_1 \proves C_2$ is _valid_ if and only if all
-the partial orderings in $C_2$ can be inferred from $C_1$, giving the abstract
-meaning of the operations defined so far.
+the partial orderings in $C_2$ can be inferred from $C_1$, using just
+the lattice properties of the relation ≤ and the polarities of the
+various constructor arguments. Validity of an assertion does not
+depend on the variables are instantiated.
 
 Consequently, a goal $G$ is valid if all assertions it contains are valid.
 
 \paragraph{Example}
 
 Let $c_1, c_2, c_3$ be three constants. Then $c_1 \leq c_2 \land c_2 \leq c_3
-\proves c_1 \leq c_3$ is valid by the transitivity of $\leq$. Assertion $
-\proves c_1 \leq c_1 \join c_2$ is valid by the definition of join. But
+\proves c_1 \leq c_3$ is valid by the transitivity of $\leq$. Assertion
+$\proves c_1 \leq c_1 \join c_2$ is valid by the definition of join. But
 assertion $\proves c_1\leq c_2$ is invalid since the
 conclusion cannot be inferred from the empty assumption.
 

@@ -518,11 +518,6 @@
 \newcommand{\pc}{\mathit{pc}}
 \newcommand{\join}{\sqcup}
 
-\newcommand\invcabs[2]{\ensuremath{#1^{-#2}}}
-\newcommand\invc[2]{\invcabs{\atom{#1}}{#2}}
-\newcommand\atom[1]{\ensuremath{\textsf{#1}}}
-\newcommand\cons[2]{\ensuremath{\atom{#1}(#2)}}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Dec 2005 - Ale
@@ -696,13 +691,14 @@
 
 \newcommand\lb{\mathop{\operator@font lb}\nolimits}
 
+%% For error diagnosis paper
+
 \newcommand{\varset}{\mathbf{Var}}
 \newcommand{\conset}{\mathbf{Con}}
 \newcommand{\valuation}{\Phi}
 \newcommand{\termset}{\mathcal{T}}
  
 \newcommand{\bnf}{\ensuremath{\ \ | \ \ }}
-\newcommand\arity[1]{a(#1)}
 \newcommand\emptyenv{\cod{empty}}
 \newcommand\fn{\cod{fn}}
 \newcommand\kwlet{\cod{let}}
@@ -710,7 +706,14 @@
 \newcommand\kwin{\cod{in}}
 \newcommand\kwend{\cod{end}}
 
+\newcommand\arity[1]{a(#1)}
 \newcommand\lab[1]{\texttt{\char123}#1\texttt{\char125}}
+\newcommand\invcabs[2]{\ensuremath{\overline{#1}^{#2}}}
+%\newcommand\invcabs[2]{\ensuremath{#1^{-#2}}}
+\newcommand\invc[2]{\invcabs{\atom{#1}}{#2}}
+\newcommand\atom[1]{\ensuremath{\textsf{#1}}}
+\newcommand\cons[2]{\ensuremath{\atom{#1}(#2)}}
+
 
 % Local Variables: 
 % mode: latex
