@@ -526,25 +526,101 @@ constraint language.
  
 \subsubsection{ML type inference}
 
-Type inference also naturally maps into constraint solving. This
-view is not new. For instance, Wand~\cite{wand-typeinference} recast
-the Hindley-Milner type system into equality constraints. Aiken and
-Wimmers~\cite{aiken-typeinclusion} extends the Hindley-Milner type
-system with inclusion constraints, and model function types,
-constructor types, and liberal intersection and union types. 
+ML type inference can also naturally map into constraint solving. Numerous 
+efforts have been made in this direction. For instance,
+Wand~\cite{wand-typeinference} recast Hindley-Milner type system into equality
+constraints. Aiken and Wimmers~\cite{aiken-typeinclusion} extends the
+Hindley-Milner type system with inclusion constraints, and models function
+types, constructor types, liberal intersection and union types. Haack and Wells
+~\cite{haack:slicing} recast Damas’s algorithm T into constraints.
 
-For simplicity, we discuss how the type inference of a subset
-(including let polymorphism) of ML-like language can be transformed
-into _labeled constraints_~\cite{haack:slicing}, a subset of our
-constraint language.
+Since most of these constraints languages are similar, we discuss how the
+_labeled constraints_ proposed in~\cite{haack:slicing} can be transformed in to
+our language. We pick this constraint language since let polymorphism is
+supported and our evaluation extends one implementation of this approach on
+Ocaml.
 
-In this setting, types are the elements. Join and meet operations are
-the usual intersection and union types if that is well defined.
-$\leq$ is consistent with the subtype relationship between two labels.
-Since the definition is abstract, both syntactic subtyping \DZ{REF}
-and semantic subtyping~\cite{aiken-typeinclusion} fit in this model.
+For simplicity, we only discuss a subset of ML-like language, syntax shown in
+Figure~\ref{figure:mltypes} in this part, though a larger sublanguage of Ocaml
+can be handled in similar way.
 
-For type inference:
+In this language subset, expressions can be variables ($x$), integers ($n$),
+operation on two expressions ($+$), functions $\fn x\rightarrow exp$, function
+application ($exp exp$), or let bindings ($\kwlet\; \val\; x = exp\; \kwin\;
+exp\; \kwend$). Notice that let-polymorphism is allowed since the expression in
+the let binding may contain free variables.
+
+Haack and Wells~\cite{haack:slicing} show that type checking the language in
+Figure~\ref{figure:mltypes} is equivalent to solving type constraints in the
+form of $\configThree{ty}{ty'}{L}$, stating a constraint $ty = ty'$ is
+generated at location $L$. 
+
+Types $ty$ in the constraints are defined as follows.
+\[ty ::=\; a \mid int \mid ty \rightarrow ty\]
+, where $a$ is
+type variable to be inferred, $int$ is the predefined type integer and
+$\rightarrow$ is the predefined constructor, function type. The details of the
+transformation from typing rules to constraints are less relevant in this
+paper, we refer~\cite{haack:slicing} for more details. 
+
+Hence, labeled constraints is a strict subset of our constraint language ($L$
+is just the annotation on the constraints): $ty$ corresponds to elements, and
+equalities $ty=ty'$ is equivalent to $ty\leq ty' \land ty'\leq ty$. 
+
+\begin{figure}
+\begin{minipage}{2in}
+\begin{align*}
+exp ::=\; & x \mid n \mid exp\; + \; exp \mid \fn\; x \rightarrow exp \\
+        & \mid exp\; exp \mid \kwlet\; \val\; x = exp\; \kwin\; exp\; \kwend\\
+\end{align*}
+\end{minipage}
+\caption{Syntax of a subset of ML language and the corresponding constraint}
+\label{figure:mltypes}
+\end{figure}
+
+
+% In this setting, types are the elements. Join and
+% meet operations are the usual intersection and union types if that is
+% well defined.
+% $\leq$ is consistent with the subtype relationship between two labels.
+% Since the definition is abstract, both syntactic subtyping \DZ{REF}
+% and semantic subtyping~\cite{aiken-typeinclusion} fit in this model.
+% 
+
+\if 0
+The syntax and transformation rules are stated in
+Figure~\ref{figure:ml-constraints} (we simplified the rules
+in~\cite{haack:slicing} for better presentation).
+
+\begin{figure}
+\hfil
+\begin{minipage}{2.3in}
+\begin{align*}
+exp ::=\; & x \mid n \mid exp\; + \; exp \mid \fn\; x \rightarrow exp \\
+        & \mid exp\; exp \mid \kwlet\; \val\; x = exp\; \kwin\; exp\; \kwend
+\end{align*}
+
+\begin{mathpar}
+\inferrule{}{x \Downarrow \configThree{\emptyenv\{x\mapsto \{a_x\}\}}{a}{\{a_x=a\}}} \text{ where $a_x, a$ fresh}
+\and
+\inferrule{}{n \Downarrow \configThree{\emptyenv}{a}{\{int=a\}}} \text{ where $a$ fresh}
+\and
+\inferrule{exp_1 \Downarrow \configThree{\G_1}{ty_1}{C_1} \and exp_2 \Downarrow \configThree{\G_2}{ty_2}{C_2}}
+{exp_1+exp_2 \Downarrow \configThree{\G_1\union\Gamma_2}{a}{\{ty_1=int;ty_2=int\}\union C_1\union C_2}} \text{ where $a$ fresh}
+\and
+\inferrule{exp \Downarrow \configThree{\G}{ty}{C}}
+{\fn\; x \rightarrow exp \Downarrow \configThree{\G[x\mapsto \{\}]}{a}{\{a_x=ty' \bnf ty'\in S\}\union\{a_x\rightarrow ty = a\}\union C}} \text{ where $a$ fresh}
+\and
+\inferrule{exp_1 \Downarrow \configThree{\G}{ty}{C}}
+{\fn\; x \rightarrow exp \Downarrow \configThree{\G[x\mapsto \{\}]}{a}{\{a_x=ty' \bnf ty'\in S\}\union\{a_x\rightarrow ty = a\}\union C}} \text{ where $a$ fresh}
+
+\end{mathpar}
+\end{minipage}
+\hfil
+\caption{Syntax and constraint generating rules}
+\label{figure:ml-constraints}
+\end{figure}
+
 
 Type inference is reduced to constraint solving by defining a mapping
 of _pre-judgements_to constraints:
@@ -569,6 +645,7 @@ the constraints. This is sufficient since the semantics of a
 polymorphic type is that the constraints should be satisfied
 regardless of the value of $t$. For instance, $t\leq \top$ where $t$
 is a polymorphic type is satisfiable.
+\fi
 
 \section{Graph} 
 \label{sec:graph}
