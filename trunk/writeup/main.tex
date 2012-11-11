@@ -209,14 +209,14 @@ to that argument, or invariant with respect to that argument.
 %\dots, E_{a(c)}') \Iff E_1\leq E_1' \land \dots, E_{a(c)}\leq
 %E_{a(c)}'$.
 
-With these abstract definitions, the _validity_ of constraints can be defined
-in a natural way: an assertion $C_1 \proves C_2$ is _valid_ if and only if all
+With these abstract definitions, the _validity_ of variable-free constraints can be defined
+in a natural way. A variable-free goal $G$ is valid if all assertions it contains are valid.
+An assertion $C_1 \proves C_2$ is valid if
 the partial orderings in $C_2$ can be inferred from $C_1$, using just
 the lattice properties of the relation ≤ and the polarities of the
-various constructor arguments. Validity of an assertion does not
-depend on the variables are instantiated.
-
-Consequently, a goal $G$ is valid if all assertions it contains are valid.
+various constructor arguments.
+%Thus, validity of an assertion does not
+%depend on how variables are instantiated.
 
 \paragraph{Example}
 
@@ -228,8 +228,8 @@ conclusion cannot be inferred from the empty assumption.
 
 \subsection{Satisfiability}
 
-Validity as defined so far works for constraints without variables. In
-general, when variables are involved, we want to know whether there
+Validity as defined so far works for constraints without variables.
+When constraints mention variables, we want to know whether there
 exists a valuation of all variables such that the goal after value
 substitution is valid or not. This is formalized as _satisfiability_
 of constraints.
@@ -246,14 +246,15 @@ $\forall_ {i∈\{1,\dots,a(c)\}}~t_i \in \termset$ and $c\in C$.
 \end{itemize}
 
 \noindent
-Notice that ground terms may be infinite. This feature is essential in
+Notice that ground terms may be infinite. This feature is essential for
 modeling recursive types.
 
 % All terms form a Herbrand universe under $\join$ and $\meet$.
 
 A valuation $\valuation: \varset→\termset$ is a function from
 variables to terms. A goal is _satisfiable_ when there exists a
-valuation such that the goal after the substitution is valid. 
+valuation $\valuation$ such that the goal is valid after substitution using
+\valuation.
 
 \paragraph{Example}
 
