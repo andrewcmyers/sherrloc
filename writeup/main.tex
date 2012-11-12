@@ -171,10 +171,10 @@ $\invcabs{c}{i}(E)$. The arity of constructor $c$ is represented
 as $a(c)$. Constants $c$ are nullary constructors, with arity 0.
 For example, if modeling ML type inference, we can
 represent the type "int->bool" as a constructor application
-$\cons{arrow}{\atom{int}, \atom{bool}}$, where $\atom{int}$
+$\cons{fn}{\atom{int}, \atom{bool}}$, where $\atom{int}$
 and $\atom{bool}$ are constants.
-Its first projection $\invc{arrow}{1}
-(\cons{arrow}{\atom{int}, \atom{bool}})$ is equal to $\atom{int}$.
+Its first projection $\invc{fn}{1}
+(\cons{fn}{\atom{int}, \atom{bool}})$ is equal to $\atom{int}$.
 %
 Elements can also be the join ($\join$) or meet ($\meet$) of elements.
 The bottom and top of the element ordering are 
@@ -549,6 +549,8 @@ Figure~\ref{figure:mltypes} in this part, though a larger sublanguage
 of OCaml can be handled in similar way.
 
 \newcommand\expr{\mathit{e}}
+\newcommand\ty{\mathit{t}}
+%\newcommand\ty{\mathit{ty}}
 
 In this language subset, expressions can be variables ($x$), integers ($n$),
 operation on two expressions ($+$), functions $\fn~x\rightarrow \expr$, function
@@ -556,22 +558,23 @@ application ($\expr~\expr$), or let bindings ($\kwlet\; \val\; x = \expr\; \kwin
 \expr\; \kwend$). Notice that let-polymorphism is allowed since the expression in
 the let binding may contain free variables.
 
-Haack and Wells~\cite{haack:slicing} show that type checking the language in
-Figure~\ref{figure:mltypes} is equivalent to solving type constraints in the
-form of $\configThree{ty}{ty'}{L}$, stating a constraint $ty = ty'$ is
+Haack and Wells~\cite{haack:slicing} show that type-checking the language in
+Figure~\ref{figure:mltypes} is equivalent to solving type constraints
+of the
+form $\configThree{\ty}{\ty'}{L}$, which mean that constraint $\ty = \ty'$ is
 generated at location $L$. 
 
-Types $ty$ in the constraints are defined as follows.
-\[ty ::=\; a \mid int \mid ty \rightarrow ty\]
-, where $a$ is
-type variable to be inferred, $int$ is the predefined type integer and
+Types $\ty$ in the constraints are defined as follows.
+\[\ty ::=\; x \mid \atom{int} \mid \ty \rightarrow \ty\]
+\noindent where $x$ is a type variable to be inferred, $\atom{int}$ is the predefined type integer and
 $\rightarrow$ is the predefined constructor, function type. The details of the
 transformation from typing rules to constraints are less relevant in this
 paper, we refer~\cite{haack:slicing} for more details. 
 
-Hence, labeled constraints is a strict subset of our constraint language ($L$
-is just the annotation on the constraints): $ty$ corresponds to elements, and
-equalities $ty=ty'$ is equivalent to $ty\leq ty' \land ty'\leq ty$. 
+Hence, labeled constraints form a strict subset of our constraint
+language ($L$ is just the annotation on the constraints): $\ty$
+corresponds to elements, and equality $\ty=\ty'$ is equivalent to
+$\ty\leq \ty' \land \ty'\leq \ty$. 
 
 \begin{figure}
 \begin{minipage}{2in}
