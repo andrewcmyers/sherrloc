@@ -949,12 +949,194 @@ missing assumptions, and a most likely wrong subset of constraints that caused
 the unsatisfiability based on maximum a posteriori principle.
  
 
-\subsection{Inferring missing assumptions}
+\subsection{Inferring missing hypotheses}
 \label{sec:assumptions}
 
-\subsection{Inferring likely wrong entities in program}
+The first cause of error is the absence of hypothesis.
 
-MAP model
+Given a set of unsatisfiable paths $P_1 = (a_1, \dots, b_1), P_2 = (a_2, \dots,
+b_2), \dots,  P_n = (a_n, \dots, b_n)$, one trivial solution is to add all
+invalid partial orders $a_1\leq b_1 \land a_2\leq b_2, \dots, a_n\leq b_n$ to
+the hypothesis.
+
+However, such naive approach may provide an unnecessarily complicated and
+strong assumption. For instance, consider the following assertion which is
+generated from a Jif program with label checking errors (though the example is
+simplified for better understanding): 
+
+\[B\leq C \proves A\leq B \land A\leq C \land A\leq C\meet \bot \]
+
+Since the only hypothesis we have is $B\leq C$, none of the three constraints
+in the conclusion may hold. Hence, the naive suggestion would be adding all
+constrains in conclusion to the hypothesis.
+
+Another try is adding one constraint $\top\leq \bot$, then any partial order $a
+\leq b$ can be proved since $a\leq \top\leq \bot\leq b$. However, such
+assumption is obviously too strong to be a good suggestion.
+
+However, adding only one hypothesis $A\leq B$ can make the assertion
+satisfiable. Moreover, this is the real cause of error in the corresponding Jif
+program.
+
+There is a reason why $A\leq B$ is a better suggestion than others.
+Intuitively, we are not interested in just any solution to the missing
+assumption problem. What we propose is an approach finding the weakest and
+minimum set of hypothesis which removes error, in order to make the suggestion
+small and general for the user.
+
+\subsubsection{Missing hypotheses}
+
+Given an unsatisfiable goal $C_{11} \proves C_{12} \land C_{21} \proves C_{22}
+\land \dots \land C_{n1} \proves C_{n2}$, a constraint $C$ is a _missing
+hypothesis_ if and only if $C_{11} \land C \proves C_{12} \land C_{21} \land C
+\proves C_{22} \land \dots \land C_{n1} \land C \proves C_{n2}$ is
+satisfiable.
+
+\paragraph{Example} For example, consider the goal
+\[B\leq C \proves A\leq B \land A\leq C \land A\leq C\meet \bot \]
+All of $\{A\leq B\}, \{A\leq B \land A\leq C\}, \{A\leq B \land A\leq C \land
+A\leq C\meet \bot\}$ are missing hypotheses of the goal.
+
+\subsubsection{Weakest and strongest missing hypotheses}
+
+Our insight is that some of the unsatisfiable constraints are ``more
+important'' than others.
+
+To be more specific, we say a conclusion $C_{i2}$ in an unsatisfiable goal
+_subsumes_ another conclusion $C_{j2}$ if $C_{i2}\join C_{j1} \proves C_{j2}$
+is valid. Hence, if adding hypothesis $\G$ makes $C_{i1}\proves C_{i2}$ valid,
+then for any $C_{j2}$ s.t. $C_{i2}$ subsumes $C_{j2}$, $\G\land C_{j1}\proves
+C_{j2}$
+
+
+if one hypotheses satisfies one conjunction of assertions,
+then the conclusion of the assertion can also be used when checking the
+satisfiability of other conductions.
+
+More specifically, we say an hypothesis A subsumes B ...
+
+\subsection{Inferring likely wrong entities in program}
+\label{sec:mapmodel}
+
+\subsubsection{Maximum a posteriori interpretation of error inference}
+
+In the error inference process, we are given a buggy program and try to infer
+which subset of entities in the program is most likely wrong.  
+
+In this scenario, our observation is the satisfiability of LEQ paths in the
+constraint graph. More formally, we define $O$ the observations, which
+followings some unknown joint distribution $G(p_1, p_2, .., p_n)$, where
+$p_i$ corresponds to a single path in the constraint graph, and the range of
+$p_i$ is $\{0, 1\}$, representing satisfiable and unsatisfiable respectively.
+
+Let $\Omega$ be all constraints. Then a possible cause $c$ is a subset of
+$\Omega$. Given the observation, we need to find a subset of constraints that
+maximizes the probability that this subset is an error. That is, to find
+$\arg\max_{c \subseteq \Omega} P(c|o)$, where $o$ is the observation.  Assume the
+causes follow some prior distribution $H$.
+
+By the maximum a posteriori (MAP) model, this equals to $\arg\max_{c \subseteq
+\Omega} P(o|c) H(c) / G(o)$. Since $G(o)$ is irrelevant to the variable $c$ in
+this term, we get
+\[\arg\max_{c \subseteq \Omega} P(o|c) H(c) / G(o) =  \arg\max_{c
+\subseteq \Omega} P(o|c) H(c)\]
+
+The terms $P(o|c)$ and $H(c)$ are easier to calculate.
+
+$H(c)$ is the prior knowledge of how likely a subset of constraints $c$ is
+wrong. This term can be estimated by running machine learning algorithms on
+buggy program corpus. But due to the limited number of such program corpus, we
+assume that each constraint is equality likely to be wrong, and each constraint
+being the cause is independent. Hence, $H(c)$ is estimated by $P^{|c|}$, where
+$P$ is a constant estimating the likelihood that a single constraint is wrong.
+Learning a more precise model of $H(c)$ is among our future work.
+
+$P(o|c)$ is the probability of observing the constraint graph we have given
+that $c$ is the cause.
+
+Since the satisfiability of different LEQ paths may be dependent, we first
+eliminate one obvious source of dependence by noticing that the satisfiability
+of a path from constructor application $c(E_1, \dots, E_{\arity{c}})$ to
+constructor application $c(E_1', \dots, E_{\arity{c}'})$ is totally determined
+by the component-wise satisfiability of sub elements. So we can remove such
+paths in $o$.
+
+To estimate the remaining term, we assume that satisfiability of the remaining
+paths are independent. This allows us to write $P(o|c) = \Pi_i P(p_i|c)$. The
+term $P(p_i|c)$ is easy to calculate based on two heuristics:
+
+\begin{enumerate}
+\item Something must wrong on an unsatisfiable path. That is, at least one
+constraint on an unsatisfiable path is in the cause: $P(p_i=0|c) = 1$ if path
+$p_i$ contains some constraint in $c$. Otherwise 0.
+
+\item An satisfiable path is unlikely (say a constant $P_2<0.5$ for instance)
+to contain error cause: $P(p_i=1|c) = P_2$ if path $p_i$ contains some
+constraint in $c$.  Otherwise $1-P_2$.  
+\end{enumerate}
+
+Based on the assumptions, we have
+\[\arg\max_{c \subseteq \Omega} P(o|c) H(c) = P_1^{|c|} \Pi_i P(p_i|c) \]
+
+An intuitive understanding of the estimation is that the cause is likely to be
+small and cut all unsatisfiable paths while not appearing on satisfiable ones.
+
+\subsubsection{An algorithm estimating the likelihood of entities being the error}    
+
+An estimation of the term $P_1^{|c|} \Pi_i P(p_i|c)$ can be used to estimate
+the likelihood that a subset of constraints is the cause. However, the
+computation can be impractical. Instead, we propose an algorithm that provides
+the same top ranking results as using term $P_1^{|c|} \Pi_i P(p_i|c)$.
+
+\paragraph{Ranking algorithm}
+
+Given a constraint graph $G$, we calculate the mincuts of all unsatisfiable
+paths. If multiple cuts with same length are returned, ties are broken by
+ranking them in the increasing order of the number of satisfiable paths using
+them.
+
+\begin{Theorem}
+Let $S$ be the top rank suggestions returned by the algorithm defined above.
+It holds that $S = \arg\max_{c\subseteq \Omega}P_1^{|c|} \Pi_i P(p_i|c)$.  
+\end{Theorem}
+
+\begin{proof}
+By the heuristic 1, a subset of constraints has a non-zero probability of being
+the cause only when the subset forms a cut of all unsatisfiable paths. Hence,
+the subset of constraints maximizing $\Pi_i P(p_i|c) P_1^{|c|}$ must be a cut.
+
+Moreover, any $c\in \arg\max_{c\subseteq \Omega}\Pi_i P(p_i|c) P_1^{|c|}$ must
+be a mincut. Otherwise, $\exists c'\subset c$ such that $c'$ is a cut too. Then
+it must be true that 
+\begin{equation}
+\label{equ}
+P_1^{|c'|} \Pi_i P(p_i|c') > P_1^{|c|} \Pi_i P(p_i|c)
+\end{equation}
+which contradicts the fact that $c$ maximizes $P_1^{|c|} \Pi_i P(p_i|c)$.
+
+The reason for (\ref{equ}) is that since $c'\subset c$, $P_1^{|c'|}>
+P_1^{|c|}$. Moreover, for any $i$,  $P(p_i|c') \geq P(p_i|c)$, since if
+$p_i=0$, $P(p_i|c')=P(p_i|c)=1$; if $p_i=1$, $P(p_i=1|c')\geq P(p_i=1|c)$ since
+if $P(p_i=1|c')=P_2$, then $P(p_i=1|c')$ must be $P_2$ because $c'$ is a subset
+of $c$.  Otherwise, $P(p_i=1|c')=1-P_2\geq P(p_i=1|c)$.
+
+Since $S$ and $\arg\max_{c\subseteq \Omega}P_1^{|c|} \Pi_i P(p_i|c)$ both
+contain mincuts only, result is true since $S$ appears in least number of paths
+where $p_i=1$.
+\end{proof}
+
+In the worst case, computing mincut for multiple sources and multiple sinks can
+still be NP complete. However, we believe our algorithm is practical for the
+following reasons:
+\begin{enumerate}
+\item Program usually only contain a small number of errors, corresponding to
+small cut size.
+
+\item A large cut, which corresponds to large fragment of code, is less helpful
+for the programmers anyway.
+\end{enumerate}
+
+The performance of this algorithm is evaluated in Section~\ref{sec:evaluation}.
 
 \section{Evaluation}
 \label{sec:evaluation}
