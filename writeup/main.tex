@@ -769,23 +769,101 @@ Section~\ref{sec:hypograph}.
 \subsection{Constructing constraint graph}
 \label{sec:consgraph}
 
+In this part, we describe the systematic way of transforming the constraints
+into a constraint graph. Remind that the goal is an conjunction of assertion,
+the algorithm works by adding assertions to graph one by one.
+
+Given an assertion $C_1 \proves C_2$, hypothesis $C_1$ is saved in the
+environment. Inequalities of $C_2$ are handled one by one.
+
+Given an constraint $E_1 \leq E_2$ under environment $C$, we first transform
+$E_1$ into conjunction normal form (CNF) and $E_2$ into disjunction normal form
+(DNF): 
+\[E_{11}\join E_{12} \join \dots \join E_{1n} \leq E_{21}\meet E_{22}
+\meet \dots \meet E_{2m}\]
+
+Since $\join$ and $\meet$ are standard least upper bound and greatest lower
+bounds of the partial order, we can immediately break the constraint into
+$n\times m$ _atomic constraints_: $E_{1i}\leq E_{2j}$, where $1\leq i\leq n
+\land 1\leq j\leq m$.
+
+To simplify the presentation, we assume that different elements have different
+ids, and a unique node $N_{id}$ corresponds to element with $id$. There are
+five different kinds of directed edges in the constraint graph, used in
+Section~\ref{sec:leqedge}:
+
+\begin{enumerate}
+\item $LEQ$: an edge representing the partial ordering on source and sink
+
+\item $\polarity{p}{cons_i}$: source is the $i$-th component of the sink. $p\in
+\{+,-\}$ is the polarity of the component.
+
+\item $\polarity{p}{cons_i^{-1}}$: the reverse of $cons$ edge
+
+\item $join$: sink is a join element, and the source is one component
+
+\item $meet$: sink is a meet element, and the source is one component
+
+\end{enumerate}
+
+For element $E$ with id $id$, graph is constructed in the following way:
+
+\begin{itemize}
+\item Variable $x$ or constant $c$: the graph contains node $N_{id}$. 
+
+\item Constructor application $c(\polarity{p_1}{E_1}, \dots,
+\polarity{p_2}{E_{\arity{c}}})$: for each $E_i$, $1\leq i \leq \arity{c}$,
+the graph is constructed for $E_i$. Moreover, graph contains
+$\polarity{p_i}{cons_i}$ edge from $E_i$'s node to $N_{id}$.  Also, create
+$cons^{-1}(p_i,i)$ edge from $N_{id}$ to $E_i$'s node.
+
+\item Projection $c^{-i}(E)$: construct graph for $E$. Also, create
+$cons(p_i,i)$ edge from E's node to $N_{id}$ and create $cons^{-1}(p_i,i)$ edge
+in the reverse direction.
+
+\item Join $E_1\join E_2$: construct graph for both $E_1$ and $E_2$. Then,
+create $\polarity{+}{LEQ}$ and $join$ edge from $E_1$ and $E_2$'s node to
+$N_{id}$. Create $\polarity{-}{LEQ}$ in the reverse direction.
+
+\item Meet $E_1\meet E_2$: construct graph for both $E_1$ and $E_2$. Then,
+create $\polarity{+}{LEQ}$ edge from $N_{id}$ to $E_1$ and $E_2$'s node. Create
+$meet$ and $\polarity{-}{LEQ}$ edge in the reverse direction.
+\end{itemize}
+
+Finally, for constraint $E_1\leq E_2$, construct graph for both $E_1$ and $E_2$. Then,
+create $\polarity{+}{LEQ}$ edge from $E_1$'s node to $E_2$'s node, and
+$\polarity{-}{LEQ}$ edge in the reverse direction.
 
 \subsection{Inferring LEQ edges}
 \label{sec:leqedge}
 
- we automatically generate a prove why $\cod{bool}\leq \cod{ty1}$ must be true
-if all constraints hold. 
+By construction, the inference of $\leq$ relation on the constraints is
+transformed into the inference of LEQ edges in the constraint graph constructed
+in Section~\ref{sec:consgraph}.
 
-More generally, the constraint graph can identify all provable ``leq'' ordering
-on nodes by reducing the edges notations according to the context-free gramma
-shown in Figure~\ref{figure:cfg}. Finding all provable ``leq'' relation in the
-graph is a _all-pairs LEQ-path problem_, a variance of _context-free-language
-reachability problems_ (CFL-reachability problems), which is used for a number
-of program-analysis applications~\cite{reps-graph}. Both the
-reachability~\cite{melski-cflgraph} and shortest LEQ path
+More specifically, the constraint graph can identify all provable $\leq$
+ordering on elements by reducing the edges types according to the context-free
+gramma shown in Figure~\ref{figure:cfg}. Finding all provable ``leq'' relation
+in the graph is a _all-pairs LEQ-path problem_, a variance of
+_context-free-language reachability problems_ (CFL-reachability problems),
+which is used for a number of program-analysis applications~\cite{reps-graph}.
+Both the reachability~\cite{melski-cflgraph} and shortest LEQ path
 finding~\cite{barrett-cflpath} problems can be solved in polynomial time. We
 adopt the dynamic programming approach~\cite{barrett-cflpath} to find the
-shortest LEQ paths in this work.
+shortest LEQ paths in this work. 
+
+However, the CFG-reachability solution does not incorporate join and meet
+edges. Hence, the graph may miss LEQ edges which can be inferred from the
+constraints. For instance,  given constraints $a\meet b \leq c\land d\leq a
+\land d\leq b$, by the rule $e\leq a\meet b \Iff e\leq a\land e\leq b$, we can
+infer that $d\leq a\meet b \leq c$. 
+
+To incorporate such inference into LEQ edge inference, whenever a LEQ edge
+$LEQ(a,b)$ is processed, we check if this edge enables an join/meet inference
+as follows. Let $JOIN(a)=\{n \bnf \exists. join(a,n) \}$ be the set of all join
+elements where $a$ is a component. We check if all the components of such join
+elements $J$ has a LEQ edge to $b$. If so, an LEQ edge is added from $J$ to
+$b$. Meet elements are handled in a dual way.
 
 \begin{figure}
 \hfil
@@ -793,25 +871,33 @@ shortest LEQ paths in this work.
 \begin{align*}
 \polarity{p}{LEQ} ::=\; & \polarity{p}{LEQ}\; \polarity{p}{LEQ}, p\in \{+,-\} \\
 \polarity{p}{LEQ} ::=\; & \polarity{p}{c_i}\; \polarity{p}{LEQ}\; \polarity{p}{c_i^{-1}} \text{, where }  
-    c\in \conset \land 1 \leq i\leq \arity{c} \\
+    c\in \conset \land 1 \leq i\leq \arity{c} \land p\in \{+,-\}\\
 \end{align*}
 \end{minipage}
 \caption{Context-free grammar of reduction}
 \label{figure:cfg}
 \end{figure}
 
-\[\trans{x} = VarNode(x)\]
-\[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
-(def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
-\[\trans{\G\proves e_1 e_2 : \tau} = \exists a.(\trans{\G \proves
-e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
-
 \subsection{Hypothesis graph}
 \label{sec:hypograph}
 
+When algorithm in Section~\ref{sec:leqedge} infers a LEQ relation on two nodes,
+all constraints constructing the corresponding edges automatically forms a
+proof. However, the LEQ relation is valid only when all edges along the path
+hold. That is, all the hypothesis along the path have to hold too.
 
+Let $H_1, H_2, \dots, H_n$ be the hypothesis saved along the path from $a$ to
+$b$, where $LEQ(a,b)$. 
 
-Transformation ... 
+Therefore, we can check the satisfiability of the subset of all constraints
+along the path by checking the satisfiability of 
+\[H_1 \land H_2 \land \dots \land H_n \proves a \leq b\]
+, which is easy to test given the technique we discussed so far by noticing
+that all the partial orders provable from the constraints in the hypothesis
+must have a corresponding LEQ edge in the constraint graph constructed from the
+hypothesis along, as described in Section~\label{sec:consgraph} and
+Section~\ref{sec:leqedge}.
+
 %The insight is consistent with ``A flow model FM is _secure_ if and only if
 %execution of a sequence of operations cannot give rise to a flow that violates
 %the relation $\rightarrow$''~\cite{denning-lattice}.
@@ -839,6 +925,18 @@ Transformation ...
 % 
 \section{Ranking}
 \label{sec:ranking}
+
+The algorithm in Section~\ref{sec:graph} identifies unsatisfiable paths in the
+constraint graph, which corresponds to a subset of unsatisfiable constraint
+expressed by our constraint language. Reporting the information on a single
+path already captures all information why the goal is unsatisfiable.
+
+However, reporting all constraints along a path may still give too much
+information that a programmer can digest. To alleviate such problem, we propose
+to approaches to infer the likely cause of error: both a weakest and minimal
+missing assumptions, and a most likely wrong subset of constraints that caused
+the unsatisfiability based on maximum a posteriori principle.
+ 
 
 \subsection{Inferring missing assumptions}
 \label{sec:assumptions}
