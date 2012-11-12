@@ -893,12 +893,12 @@ $b$. Meet elements are handled in a dual way.
 \label{figure:cfg}
 \end{figure}
 
-\[\trans{x} = VarNode(x)\]
-\[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
-(def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
-\[\trans{\G\proves e_1~e_2 : \tau} = \exists a.(\trans{\G \proves
-e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
-
+% \[\trans{x} = VarNode(x)\]
+% \[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
+% (def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
+% \[\trans{\G\proves e_1~e_2 : \tau} = \exists a.(\trans{\G \proves
+% e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
+% 
 \subsection{Hypothesis graph}
 \label{sec:hypograph}
 
@@ -965,65 +965,144 @@ the unsatisfiability based on maximum a posteriori principle.
 The first cause of error is the absence of hypothesis.
 
 Given a set of unsatisfiable paths $P_1 = (a_1, \dots, b_1), P_2 = (a_2, \dots,
-b_2), \dots,  P_n = (a_n, \dots, b_n)$, one trivial solution is to add all
-invalid partial orders $a_1\leq b_1 \land a_2\leq b_2, \dots, a_n\leq b_n$ to
-the hypothesis.
+b_2), \dots,  P_n = (a_n, \dots, b_n)$, the satisfiability is
+equivalent to the validity of assertion $C_1 \proves a_1 \leq b_1
+\land C_2 \proves a_2 \leq b_2 \land \dots \land C_n \proves a_n \leq
+b_n$. Then one nature question is that what hypothesis $\G$ reduce all
+of the unsatisfiable paths. Or more specifically, find the set of
+hypothesis $\G$ such that 
+%
+$C_1 \land \G \proves a_1 \leq b_1 \land C_2 \land \G \proves a_2 \leq
+b_2 \land \dots \land C_n \land \G \proves a_n \leq b_n$. 
+%
+We call this set _missing hypotheses_.
 
-However, such naive approach may provide an unnecessarily complicated and
-strong assumption. For instance, consider the following assertion which is
-generated from a Jif program with label checking errors (though the example is
+One trivial solution is to add all invalid partial orders $a_1\leq b_1
+\land a_2\leq b_2, \dots, a_n\leq b_n$ to the hypothesis.  However,
+such naive approach may provide an unnecessarily complicated
+explanation for a programmer to verify the validity of the hypothesis
+itself. 
+%
+For instance, consider the following assertion which is generated from
+a Jif program with label checking errors (though the example is
 simplified for better understanding): 
 
-\[B\leq C \proves A\leq B \land A\leq C \land A\leq C\meet \bot \]
+\[B\leq C \proves A\leq B \land B\leq C \proves A\leq C \land B\leq C
+\proves A\leq C\meet \bot \]
 
 Since the only hypothesis we have is $B\leq C$, none of the three constraints
 in the conclusion may hold. Hence, the naive suggestion would be adding all
-constrains in conclusion to the hypothesis.
+constrains in conclusion to the hypothesis, which is hard for the
+programmer to justify.
 
-Another try is adding one constraint $\top\leq \bot$, then any partial order $a
-\leq b$ can be proved since $a\leq \top\leq \bot\leq b$. However, such
-assumption is obviously too strong to be a good suggestion.
+It is also attempting to select the minimal missing hypothesis. But
+this approach does not work well either since a single assumption
+$\top\leq \bot$ is always a minimal missing hypothesis for all
+unsatisfiable paths. The reason is that given $\top\leq \bot$, any
+partial order $a \leq b$ can be proved since $a\leq \top\leq \bot\leq
+b$. However, such assumption is obviously too strong to be a good
+suggestion.
 
-However, adding only one hypothesis $A\leq B$ can make the assertion
-satisfiable. Moreover, this is the real cause of error in the corresponding Jif
-program.
+Notice that adding only one hypothesis $A\leq B$ can make the
+assertion satisfiable (which is the real cause of error in the
+corresponding Jif program). Moreover, there is a principal reason why
+this missing hypothesis is better than others.
+%
+The intuition is that we are not interested in just any solution to
+the missing assumption problem. What we propose is an approach finding
+the weakest and minimum set of hypothesis which removes error.
 
-There is a reason why $A\leq B$ is a better suggestion than others.
-Intuitively, we are not interested in just any solution to the missing
-assumption problem. What we propose is an approach finding the weakest and
-minimum set of hypothesis which removes error, in order to make the suggestion
-small and general for the user.
+% \subsubsection{Missing hypotheses}
+% 
+% Given an unsatisfiable goal $C_{11} \proves C_{12} \land C_{21}
+% \proves C_{22} \land \dots \land C_{n1} \proves C_{n2}$, a constraint
+% $C$ is a _missing hypothesis_ if and only if $C_{11} \land C \proves
+% C_{12} \land C_{21} \land C \proves C_{22} \land \dots \land C_{n1}
+% \land C \proves C_{n2}$ is satisfiable.
+% 
+% \paragraph{Example} For example, consider the goal
+% \[B\leq C \proves A\leq B \land B\leq C \proves A\leq C \land B\leq C
+% \proves A\leq C\meet \bot \]
+% 
+% All of $\{A\leq B\}, \{A\leq B \land A\leq C\}, \{A\leq B \land A\leq C \land
+% A\leq C\meet \bot\}$ are missing hypotheses of the goal.
+% 
+\subsubsection{Weakest and minimal hypotheses}
 
-\subsubsection{Missing hypotheses}
+To simplify the notation, we denote $\hypothesisset{P_1, P_2, \dots,
+P_n} = \{ H | \exists P_i,c_i = H \proves c_i\}$ and
+$\conclusionset{P_1, P_2, \dots, P_n} = \{ C | \exists P_i,h_i = h_i
+\proves C\}$. When the context is clear, we simply write $\hyposet$
+and $\concset$ respectively.
 
-Given an unsatisfiable goal $C_{11} \proves C_{12} \land C_{21} \proves C_{22}
-\land \dots \land C_{n1} \proves C_{n2}$, a constraint $C$ is a _missing
-hypothesis_ if and only if $C_{11} \land C \proves C_{12} \land C_{21} \land C
-\proves C_{22} \land \dots \land C_{n1} \land C \proves C_{n2}$ is
-satisfiable.
+The first insight is that the inferred missing hypotheses $\G$ should
+not be too _strong_, in a sense that there is another missing
+hypotheses $\G'$ such that $\forall c\in \G'.\exists h\in \hyposet.
+\G \land h \proves c$. In another word, $\G$ is stronger than $\G'$ if
+all the constraints in $\G'$ can be proved from $\G$, by using one
+hypothesis.
 
-\paragraph{Example} For example, consider the goal
-\[B\leq C \proves A\leq B \land A\leq C \land A\leq C\meet \bot \]
-All of $\{A\leq B\}, \{A\leq B \land A\leq C\}, \{A\leq B \land A\leq C \land
-A\leq C\meet \bot\}$ are missing hypotheses of the goal.
+Given this definition, it is easy to show the following useful result.
+%
+\begin{Lemma}
+For any set of unsatisfiable paths $P_1, P_2, \dots, P_n$, any subset
+of $\conclusionset{P_1, P_2, \dots, P_n}$, if forms a missing
+hypotheses, is _weakest_.
+\end{Lemma}
+\begin{proof}
+Otherwise, exists some weaker hypotheses $\G$. Since $\G$ is a missing
+hypothesis, $C_i \land \G\proves a_i\leq b_i$  for all $i$s. Since
+subset of $\conclusionset{P_1, P_2, \dots, P_n}$ contains only a
+subset of $a_i \leq b_i$, hence $\G$ is at least as strong as the
+subset. Contradiction.
+\end{proof}
 
-\subsubsection{Weakest and strongest missing hypotheses}
+\DZ{not sure if the weakest hypothesis must be a subset of $\concset$}
 
-Our insight is that some of the unsatisfiable constraints are ``more
-important'' than others.
+The lemma above suggests that subset of $\concset$ can be good
+candidates for minimal hypothesis, however, they are not necessarily
+minimal. For instance the entire set $\concset$ is always a weakest
+hypothesis. To remove the redundancy in weakest hypothesis, our
+insight is that some of the conclusions are subsumed by others. 
 
-To be more specific, we say a conclusion $C_{i2}$ in an unsatisfiable goal
-_subsumes_ another conclusion $C_{j2}$ if $C_{i2}\join C_{j1} \proves C_{j2}$
-is valid. Hence, if adding hypothesis $\G$ makes $C_{i1}\proves C_{i2}$ valid,
-then for any $C_{j2}$ s.t. $C_{i2}$ subsumes $C_{j2}$, $\G\land C_{j1}\proves
-C_{j2}$
+To be more specific, we say a conclusion $c_i \in \concset$ 
+_subsumes_ another conclusion $c_j\in \concset$ if $c_i \land h_j
+\proves c_j$. Hence, if $c_i$ is included in a missing hypothesis
+$\G$, then $\G \land h_j\proves c_j$, for any $c_j$ s.t. $c_i$
+subsumes $c_j$. Easy to notice that $\forall c_i \in \concset$, $c_i$
+subsumes $c_i$ by definition.
 
+\paragraph{Example} Return to the previous example \[B\leq C \proves
+A\leq B \land B\leq C \proves A\leq C \land B\leq C \proves A\leq
+C\meet \bot \]
 
-if one hypotheses satisfies one conjunction of assertions,
-then the conclusion of the assertion can also be used when checking the
-satisfiability of other conductions.
+Based on the definition above, finding minimal and weakest missing
+hypothesis in $\concset$ is equivalent to finding the minimal subset
+of $\concset$ which subsumes any $c\in \concset$, which gives us an
+algorithm of finding the minimal and weakest hypothesis below.
 
-More specifically, we say an hypothesis A subsumes B ...
+\subsubsection{Algorithm}
+
+Given a set of unsatisfiable paths $P_1, P_2, \dots, P_n$, the
+algorithm works in the following steps:
+
+\begin{enumerate}
+\item Construct the set $\concset = \conclusionset{P_1, P_2, \dots,
+P_n}$.
+
+\item For each pair $c_i$ and $c_j$ in graph, add $n_j$ to some set
+$s_i$ if $c_i$ subsumes $c_j$.
+
+\item Find the min cover of $S=\{s_1, s_2, \dots, s_n\}$.
+\end{enumerate}
+
+Notice that a trivial minimal weakest missing hypothesis finding
+algorithm may check all possible missing hypothesis, which is in the
+order of $2^{N^2}$ (number of all subsets of $leq$ orderings on
+elements) where $N$ is the total number of elements in used in the
+constraint. However, $n$ here is the same as the number of
+unsatisfiable paths in the constraint graph, which in most cases, is a
+small number. So it is still feasible for the computation.
 
 \subsection{Inferring likely wrong entities in program}
 \label{sec:mapmodel}
@@ -1136,7 +1215,7 @@ where $p_i=1$.
 \end{proof}
 
 In the worst case, computing mincut for multiple sources and multiple sinks can
-still be NP complete. However, we believe our algorithm is practical for the
+still be NP complete. However, we believe the algorithm is practical for the
 following reasons:
 \begin{enumerate}
 \item Program usually only contain a small number of errors, corresponding to
