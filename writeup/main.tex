@@ -714,6 +714,11 @@ Figure~\ref{fig:consgraph:first}.
     \includegraphics[width=0.4\textwidth]{graph/consexample}
     \label{fig:consgraph:second}
 }
+%
+\subfigure[Hypothesis graph]{
+    \includegraphics[width=0.17\textwidth]{graph/hypograph}
+    \label{fig:consgraph:third}
+}
 \end{center}
 \caption{An example of constraint graph}
 \label{fig:consgraph}
@@ -767,8 +772,13 @@ assertions
 on the path from $\cod{bool}$ to $\cod{int}$ is a witness of the
 unsatisfiability of the constraint set.
 
-In general, checking the validity under hypothesis corresponds to check the LEQ
-relation in the _hypothesis graph_, which we discuss in
+In general, there can be an conjunction of constraints in the
+hypothesis. The insight is that checking the validity under hypothesis
+corresponds to check the LEQ relation in the _hypothesis graph_, which
+is constructed in exactly the same way as constraint graph, as shown
+in Figure~\ref{fig:consgraph:third}. 
+
+We discuss more details of hypothesis graph in
 Section~\ref{sec:hypograph}.
 
 \subsection{Constructing constraint graph}
@@ -1144,6 +1154,35 @@ The performance of this algorithm is evaluated in Section~\ref{sec:evaluation}.
 \subsection{Extensibility}
 
 \subsection{Ranking quality}
+
+\begin{figure*}
+\begin{center}
+\subfigure[Result separated by student]{
+    \includegraphics[width=0.58\textwidth]{graph/breakdownstudent}
+    \label{fig:consgraph:first}
+}
+%
+\subfigure[Result separated by assignment]{
+    \includegraphics[width=0.38\textwidth]{graph/breakdownhw}
+    \label{fig:consgraph:second}
+}
+\end{center}
+\caption{Results separated by student and by homework assignment.
+Moving from bottom to top, the stacks represent Ocaml programs where
+%
+(1) both approaches miss the error location; 
+%
+(2) our tool miss the error location while Ocaml compiler identifies
+one of them; 
+%
+(3) both approaches report the correct error location; 
+%
+(4) both approaches report the correct error location, but our tool
+reports multiple (correct) error locations; 
+%
+(5) our tool finds correct error location that Ocaml compiler misses} 
+\label{fig:ocamlresult}
+\end{figure*}
 
 \section{Related Work}
 
