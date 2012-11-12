@@ -538,20 +538,22 @@ Hindley-Milner type system with inclusion constraints, and models function
 types, constructor types, liberal intersection and union types. Haack and Wells
 ~\cite{haack:slicing} recast Damas’s algorithm T into constraints.
 
-Since most of these constraints languages are similar, we discuss how the
-_labeled constraints_ proposed in~\cite{haack:slicing} can be transformed in to
-our language. We pick this constraint language since let polymorphism is
-supported and our evaluation extends one implementation of this approach on
-Ocaml.
+Since most of these constraint languages are similar, we discuss how
+the _labeled constraints_ proposed in~\cite{haack:slicing} can be
+transformed to our language. We pick this constraint language since it
+supports let-polymorphism, and our evaluation extends one
+implementation of this approach on OCaml.
 
 For simplicity, we only discuss a subset of ML-like language, syntax shown in
-Figure~\ref{figure:mltypes} in this part, though a larger sublanguage of Ocaml
-can be handled in similar way.
+Figure~\ref{figure:mltypes} in this part, though a larger sublanguage
+of OCaml can be handled in similar way.
+
+\newcommand\expr{\mathit{e}}
 
 In this language subset, expressions can be variables ($x$), integers ($n$),
-operation on two expressions ($+$), functions $\fn x\rightarrow exp$, function
-application ($exp exp$), or let bindings ($\kwlet\; \val\; x = exp\; \kwin\;
-exp\; \kwend$). Notice that let-polymorphism is allowed since the expression in
+operation on two expressions ($+$), functions $\fn~x\rightarrow \expr$, function
+application ($\expr~\expr$), or let bindings ($\kwlet\; \val\; x = \expr\; \kwin\;
+\expr\; \kwend$). Notice that let-polymorphism is allowed since the expression in
 the let binding may contain free variables.
 
 Haack and Wells~\cite{haack:slicing} show that type checking the language in
@@ -574,11 +576,11 @@ equalities $ty=ty'$ is equivalent to $ty\leq ty' \land ty'\leq ty$.
 \begin{figure}
 \begin{minipage}{2in}
 \begin{align*}
-exp ::=\; & x \mid n \mid exp\; + \; exp \mid \fn\; x \rightarrow exp \\
-        & \mid exp\; exp \mid \kwlet\; \val\; x = exp\; \kwin\; exp\; \kwend\\
+\expr ::=\; & x \mid n \mid \expr\; + \; \expr \mid \fn\; x \rightarrow \expr \\
+        & \mid \expr\; \expr \mid \kwlet\; \val\; x = \expr\; \kwin\; \expr\; \kwend\\
 \end{align*}
 \end{minipage}
-\caption{Syntax of a subset of ML language}
+\caption{Syntax of a subset of ML}
 \label{figure:mltypes}
 \end{figure}
 
@@ -600,8 +602,8 @@ in~\cite{haack:slicing} for better presentation).
 \hfil
 \begin{minipage}{2.3in}
 \begin{align*}
-exp ::=\; & x \mid n \mid exp\; + \; exp \mid \fn\; x \rightarrow exp \\
-        & \mid exp\; exp \mid \kwlet\; \val\; x = exp\; \kwin\; exp\; \kwend
+\expr ::=\; & x \mid n \mid \expr\; + \; \expr \mid \fn\; x \rightarrow \expr \\
+        & \mid \expr\; \expr \mid \kwlet\; \val\; x = \expr\; \kwin\; \expr\; \kwend
 \end{align*}
 
 \begin{mathpar}
@@ -609,14 +611,14 @@ exp ::=\; & x \mid n \mid exp\; + \; exp \mid \fn\; x \rightarrow exp \\
 \and
 \inferrule{}{n \Downarrow \configThree{\emptyenv}{a}{\{int=a\}}} \text{ where $a$ fresh}
 \and
-\inferrule{exp_1 \Downarrow \configThree{\G_1}{ty_1}{C_1} \and exp_2 \Downarrow \configThree{\G_2}{ty_2}{C_2}}
-{exp_1+exp_2 \Downarrow \configThree{\G_1\union\Gamma_2}{a}{\{ty_1=int;ty_2=int\}\union C_1\union C_2}} \text{ where $a$ fresh}
+\inferrule{\expr_1 \Downarrow \configThree{\G_1}{ty_1}{C_1} \and \expr_2 \Downarrow \configThree{\G_2}{ty_2}{C_2}}
+{\expr_1+\expr_2 \Downarrow \configThree{\G_1\union\Gamma_2}{a}{\{ty_1=int;ty_2=int\}\union C_1\union C_2}} \text{ where $a$ fresh}
 \and
-\inferrule{exp \Downarrow \configThree{\G}{ty}{C}}
-{\fn\; x \rightarrow exp \Downarrow \configThree{\G[x\mapsto \{\}]}{a}{\{a_x=ty' \bnf ty'\in S\}\union\{a_x\rightarrow ty = a\}\union C}} \text{ where $a$ fresh}
+\inferrule{\expr \Downarrow \configThree{\G}{ty}{C}}
+{\fn\; x \rightarrow \expr \Downarrow \configThree{\G[x\mapsto \{\}]}{a}{\{a_x=ty' \bnf ty'\in S\}\union\{a_x\rightarrow ty = a\}\union C}} \text{ where $a$ fresh}
 \and
-\inferrule{exp_1 \Downarrow \configThree{\G}{ty}{C}}
-{\fn\; x \rightarrow exp \Downarrow \configThree{\G[x\mapsto \{\}]}{a}{\{a_x=ty' \bnf ty'\in S\}\union\{a_x\rightarrow ty = a\}\union C}} \text{ where $a$ fresh}
+\inferrule{\expr_1 \Downarrow \configThree{\G}{ty}{C}}
+{\fn\; x \rightarrow \expr \Downarrow \configThree{\G[x\mapsto \{\}]}{a}{\{a_x=ty' \bnf ty'\in S\}\union\{a_x\rightarrow ty = a\}\union C}} \text{ where $a$ fresh}
 
 \end{mathpar}
 \end{minipage}
@@ -877,6 +879,12 @@ $b$. Meet elements are handled in a dual way.
 \caption{Context-free grammar of reduction}
 \label{figure:cfg}
 \end{figure}
+
+\[\trans{x} = VarNode(x)\]
+\[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
+(def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
+\[\trans{\G\proves e_1~e_2 : \tau} = \exists a.(\trans{\G \proves
+e_1:a\rightarrow \tau}\land \trans{\G\proves e_2:a})\]
 
 \subsection{Hypothesis graph}
 \label{sec:hypograph}
