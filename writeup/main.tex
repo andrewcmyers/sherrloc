@@ -128,10 +128,10 @@ let rec append lst1 =
   | Cons(x,rest) -> Cons(x, append rest lst1)
 \end{lstlisting}
 
-In this example, Ocaml blames that the expression $\cod{Cons(x, append
+In this example, OCaml blames that the expression $\cod{Cons(x, append
 rest lst1)}$ has a wrong type. But the real error is $\cod{()}$.
 
-Here is a more tricky example
+Here is an example from real OCaml programmers.
 
 %file: stu01, hw2-logo 20060319-20:22:42
 \begin{lstlisting}
@@ -153,7 +153,7 @@ let interpSmall (movelist : move list) : (float*float) list =
   List.rev (loop movelist 0.0 0.0 0.0 [(0.0,0.0)])
 \end{lstlisting}
 
-In this example, Ocaml blames that the whole match expression at line
+In this example, OCaml blames that the whole match expression at line
 3 has a wrong type. But the real error is $2$ at line 5.
 
 % stu02, hw2-logo 20060322-14:52:42
@@ -161,7 +161,7 @@ In this example, Ocaml blames that the whole match expression at line
 let result = (2.0*3.1416)
 \end{lstlisting}
 
-This is a simple one, Ocaml blames 2.0, but the error is that (*.)
+This is a simple one, OCaml blames 2.0, but the error is that (*.)
 should be used.
 
 % file: stu03, hw2-imp 20060323-23:05:28
@@ -173,7 +173,7 @@ let lookup_var h str =
   | Heap(_) -> 0
 \end{lstlisting}
 
-This is a simple one, Ocaml blames $\cod{Var(_,i)}$, but the error is that 0
+This is a simple one, OCaml blames $\cod{Var(_,i)}$, but the error is that 0
 should be Nil.
 
 \section{Constraint language}
@@ -1299,17 +1299,17 @@ Figure~\ref{figure:lang:syntax}, as inputs. The input constraints are
 emitted by the program analyses to be diagnosed.
 
 To evaluate our error diagnostic tool on real-world program analyses,
-we modified the Jif compiler and an extension to the Ocaml compiler,
-easyOcaml~\footnote{easyocaml.forge.ocamlcore.org}, to generate
+we modified the Jif compiler and an extension to the OCaml compiler,
+easyOCaml~\footnote{easyocaml.forge.ocamlcore.org}, to generate
 constraints in our constraint language format. EasyOCaml is an
-extension of Ocaml 3.10.2 generating the labeled constraints defined
+extension of OCaml 3.10.2 generating the labeled constraints defined
 in~\cite{haack:slicing}.
 
 Generating constraints in our language format involves only moderate
 efforts. Changes to the Jif compiler includes about 300 LOC, among
-over 45000 LOC of the Jif compiler. Change to easyOcaml includes about
+over 45000 LOC of the Jif compiler. Change to easyOCaml includes about
 500 LOC, among 9000 LOC of the easyOCaml extension.  Slightly more
-efforts are involved for easyOcaml since the location of type
+efforts are involved for easyOCaml since the location of type
 variables are not tracked in the implementation, which forbids
 tracking back from constraints to the source code.
 
@@ -1317,12 +1317,12 @@ tracking back from constraints to the source code.
 
 To evaluate the quality of our ranking algorithm in
 Section~\ref{sec:rankingalg}, we use a corpus of previously collected
-Ocaml programs containing errors~\cite{lerner:pldi07}.
+OCaml programs containing errors~\cite{lerner:pldi07}.
 
 The data were collected from a graduate-level programming-language
 course for part-time students with at least two years professional
 software development experience. Since those students were not
-beginner programmers but were new to Ocaml, the errors presented in
+beginner programmers but were new to OCaml, the errors presented in
 the data are particularly interesting.
 
 We analyzed 5 homework assignments, each requiring 100--200 lines of
@@ -1360,11 +1360,11 @@ to judge the correctness of location.
 To avoid reporting the same error multiple times, we reuse the
 grouping tags in the data. Using only one representative data from
 same errors removes the potential dependencies among the errors:
-sometimes the user just recompile the program since Ocaml error
+sometimes the user just recompile the program since OCaml error
 reporting is confusing. Counting each of these files would make our
 approach look better.
 
-Since Ocaml error message reports which expression may have a wrong
+Since OCaml error message reports which expression may have a wrong
 type, we select the expressions as the program entities we run our
 inference algorithm to make the reports comparable. But remind that
 our tool can also generate reports why the expression has a wrong
@@ -1374,11 +1374,11 @@ message, but we exclude that capability in the evaluation process.
 
 Another potential source of unfairness is that our tool inherently
 reports a small set of program entities (expressions in this case)
-with same quality, while Ocaml reports one error at one time. To make
+with same quality, while OCaml reports one error at one time. To make
 the comparison fair, we make the following efforts:
 \begin{enumerate}
 \item For cases where we report a better result (our tools finds the
-error location that Ocaml misses), we ensure that all locations
+error location that OCaml misses), we ensure that all locations
 returned are closely related to the fix
 
 \item For other cases, we ensure that the majority of the suggestions
@@ -1426,7 +1426,7 @@ Total & 100\% \\
 }
 \end{center}
 \caption{Results separated by student and by homework assignment.
-Moving from bottom to top, the stacks represent Ocaml programs where
+Moving from bottom to top, the stacks represent OCaml programs where
 %
 (1) our tool miss the error location while the other tool identifies
 one of them; 
@@ -1442,13 +1442,13 @@ reports multiple (correct) error locations;
 \label{fig:ocamlresult}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure}
 \begin{center}
-\includegraphics[width=0.6\textwidth]{graph/ocaml-performance}
+\includegraphics[width=0.5\textwidth]{graph/ocaml-performance}
 \end{center}
 \caption{Performance} 
 \label{fig:performance}
-\end{figure*}
+\end{figure}
 
 From the data, we analyze only type mismatch errors, which corresponds
 to unsatisfiable constraints. Errors such as unbound values, too many
@@ -1456,11 +1456,11 @@ arguments to a constructor are usually better localized and they are
 not the focus of our work. 
 
 We also exclude programs using unsupported feature of the modified
-easyOcaml and files where the user's fix is unclear. After excluding
+easyOCaml and files where the user's fix is unclear. After excluding
 these files, there are 336 samples left.
 
 For each file we analyze, we consider both the error location reported
-by Ocaml and the top rank suggestion of our tool. Since the Seminal
+by OCaml and the top rank suggestion of our tool. Since the Seminal
 tool~\cite{lerner:pldi07} is not directly available, we reused the data
 offered from the authors where the correctness of Seminal's error
 location report is labeled. 
@@ -1486,12 +1486,12 @@ programmer's fix
 it
 \end{enumerate}
 
-The result shows that although the Ocaml and Seminal's report on error
+The result shows that although the OCaml and Seminal's report on error
 locations differs for different files, the overall quality are very
 close: they are able to find around $80\%$ of the error locations
 correctly, but miss the rest. 
 
-However, compared with both of Ocaml and Seminal, our tool
+However, compared with both of OCaml and Seminal, our tool
 consistently identify more percentage of errors locations from
 assignment 1 to assignment 5, ranging from $93\%$ to $100\%$, with an
 average of $96\%$.
@@ -1499,7 +1499,7 @@ average of $96\%$.
 Besides improving location report precision, there are about $7\%$
 cases where our tool reports multiple error locations at once.
 According to the data, the programmers typically fix these errors one
-by one as the Ocaml compiler only reports one at a time. This
+by one as the OCaml compiler only reports one at a time. This
 improvement may not be crucial, but ...
 
 \paragraph{Limitation of our approach}
@@ -1511,15 +1511,15 @@ that programmer only make limited number of errors fail. However, as
 our result suggests, such situation is unlikely to happen.
 
 Remind that we only collect type mismatch errors in the evaluation. We
-think Ocaml can be very effective in finding localized errors such as
+think OCaml can be very effective in finding localized errors such as
 unbound value, too many arguments to a constructor; Seminal can be
-promising in identify errors tricky for Ocaml and our tool, such as
+promising in identify errors tricky for OCaml and our tool, such as
 swapped arguments or missing arguments, the error types not evaluated
 in this work. We think these tools do complement each other in finding
 different kinds of errors. A combination of our tool and other
 technique is among our future work.
 
-Although our tool do have its limitations, since both Ocaml and
+Although our tool do have its limitations, since both OCaml and
 Seminal are application specific, the results above suggests our
 general tool can be very promising in diagnosing program analyses
 errors.
@@ -1632,8 +1632,6 @@ Total & 40 & 100\% \\
 \label{table:hyporesult}
 \caption{Hypothesis inference result}
 \end{table}
-
-
 
 \begin{enumerate}
 \item The program passed Jif/Fabric label checking after removing the
