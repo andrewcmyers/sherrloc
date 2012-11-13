@@ -1375,7 +1375,7 @@ message, but we exclude that capability in the evaluation process.
 Another potential source of unfairness is that our tool inherently
 reports a small set of program entities (expressions in this case)
 with same quality, while Ocaml reports one error at one time. To make
-the comparison fair, we ensure that 
+the comparison fair, we make the following efforts:
 \begin{enumerate}
 \item For cases where we report a better result (our tools finds the
 error location that Ocaml misses), we ensure that all locations
@@ -1389,10 +1389,11 @@ Moreover, we calculate the distribution of top rank group size,
 reported in Table~\ref{table:groupsize}. We can see that in more than
 $92\%$ of the cases, the top rank suggestion size is considerably
 small. Remind that there can be multiple good location suggestions in
-many cases, we think the advantage of reporting more suggestions is
-not abused in our evaluation.
+many cases, we think the fact multiple suggestions are reported by our
+tool has limited effects on in our evaluation results.
 
 \begin{table}
+\centering
 \begin{tabular}{|c | c|}
 \hline
 1 & 46.87\% \\
@@ -1406,38 +1407,183 @@ $\geq 4$ & 7.35\% \\
 Total & 100\% \\
 \hline
 \end{tabular}
+\caption{Top rank suggestion size}
 \label{table:groupsize}
-\caption{Top rank suggestion size breakdown}
 \end{table}
+
+\subsubsection{Results}
 
 \begin{figure*}
 \begin{center}
-\subfigure[Result separated by student]{
-    \includegraphics[width=0.58\textwidth]{graph/breakdownstudent}
+\subfigure[Comparison with OCaml compiler]{
+    \includegraphics[width=0.38\textwidth]{graph/ocaml}
     \label{fig:consgraph:first}
 }
 %
-\subfigure[Result separated by assignment]{
-    \includegraphics[width=0.38\textwidth]{graph/breakdownhw}
+\subfigure[Comparison with Seminal]{
+    \includegraphics[width=0.39\textwidth]{graph/seminal}
     \label{fig:consgraph:second}
 }
 \end{center}
 \caption{Results separated by student and by homework assignment.
 Moving from bottom to top, the stacks represent Ocaml programs where
 %
-(1) both approaches miss the error location; 
-%
-(2) our tool miss the error location while Ocaml compiler identifies
+(1) our tool miss the error location while the other tool identifies
 one of them; 
+%
+(2) both approaches miss the error location; 
 %
 (3) both approaches report the correct error location; 
 %
 (4) both approaches report the correct error location, but our tool
 reports multiple (correct) error locations; 
 %
-(5) our tool finds correct error location that Ocaml compiler misses} 
+(5) our tool finds correct error location that the other tool misses} 
 \label{fig:ocamlresult}
 \end{figure*}
+
+\begin{figure*}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{graph/ocaml-performance}
+\end{center}
+\caption{Performance} 
+\label{fig:performance}
+\end{figure*}
+
+From the data, we analyze only type mismatch errors, which corresponds
+to unsatisfiable constraints. Errors such as unbound values, too many
+arguments to a constructor are usually better localized and they are
+not the focus of our work. 
+
+We also exclude programs using unsupported feature of the modified
+easyOcaml and files where the user's fix is unclear. After excluding
+these files, there are 336 samples left.
+
+For each file we analyze, we consider both the error location reported
+by Ocaml and the top rank suggestion of our tool. Since the Seminal
+tool~\cite{lerner:pldi07} is not directly available, we reused the data
+offered from the authors where the correctness of Seminal's error
+location report is labeled. 
+
+We divide the files we analyzed in one of the following five
+categories and summarize the results in Figure~\ref{fig:ocamlresult}.
+
+\begin{enumerate}
+\item Our approach suggests error location that matches programmer's
+fix, but the other tools' location missed the error
+
+\item Our approach reports multiple correct error locations that
+matches programmer's fix, but the other tools' only reports one of
+them 
+
+\item Both approaches find the error locations corresponding to
+programmer's fix
+
+\item Both approaches miss the error locations corresponding to
+programmer's fix
+
+\item Our tool misses the error location while the other tool captures
+it
+\end{enumerate}
+
+The result shows that although the Ocaml and Seminal's report on error
+locations differs for different files, the overall quality are very
+close: they are able to find around $80\%$ of the error locations
+correctly, but miss the rest. 
+
+However, compared with both of Ocaml and Seminal, our tool
+consistently identify more percentage of errors locations from
+assignment 1 to assignment 5, ranging from $93\%$ to $100\%$, with an
+average of $96\%$.
+
+Besides improving location report precision, there are about $7\%$
+cases where our tool reports multiple error locations at once.
+According to the data, the programmers typically fix these errors one
+by one as the Ocaml compiler only reports one at a time. This
+improvement may not be crucial, but ...
+
+\paragraph{Limitation of our approach}
+Of course, our tool do miss errors. We took a close look at the
+programs where our tool missed the error location. We find that all
+the examples involve multiple errors and sometime, user make error in
+the same way. Our tool fails identify such errors since our assumption
+that programmer only make limited number of errors fail. However, as
+our result suggests, such situation is unlikely to happen.
+
+Remind that we only collect type mismatch errors in the evaluation. We
+think Ocaml can be very effective in finding localized errors such as
+unbound value, too many arguments to a constructor; Seminal can be
+promising in identify errors tricky for Ocaml and our tool, such as
+swapped arguments or missing arguments, the error types not evaluated
+in this work. We think these tools do complement each other in finding
+different kinds of errors. A combination of our tool and other
+technique is among our future work.
+
+Although our tool do have its limitations, since both Ocaml and
+Seminal are application specific, the results above suggests our
+general tool can be very promising in diagnosing program analyses
+errors.
+
+\subsubsection{Performance}
+
+Beside the quality of error report, we also measure the performance of
+our tool on a Ubuntu 11.04 system using a dual core at 2.93GHz with 4G
+memory. We separate the time spent on generating and inferring LEQ
+edges in the graph and computing the rankings. Results are shown in
+Figure~\ref{fig:performance}.
+
+The results suggests that the running time of either graph building
+time and ranking time are scalable with increasing constraint graph
+size. One interesting observation is that the graph size has less
+impact on the running time of our inference algorithm. We suspect the
+reason is that the running time of our ranking algorithm is
+dominated by the number of unsatisfiable path identified the graph,
+which has a small correlation with graph size.
+
+For graph construction time, over $99\%$ are done in 2 minutes.
+Ranking is more efficient, there over $99\%$ can be done in 1 second.
+Considering the human hour in identifying the error location, the
+performance is totally acceptable.
+
+\begin{table}
+\subfigure[Ranking time]{
+\centering
+\begin{tabular}{|c | c|}
+\hline
+0--0.01 & 74.20\% \\
+\hline
+0.01--0.1 & 17.20\% \\
+\hline
+0.1-1 & 7.96\% \\
+\hline
+1-10 & 0.64\% \\
+\hline
+Total & 100\% \\
+\hline
+\end{tabular}
+\label{table:rankingtime}}
+\subfigure[Graph construction time]{
+\centering
+\begin{tabular}{|c | c|}
+\hline
+0--0.01 & 7.89\% \\
+\hline
+0.01--0.1 & 29.97\% \\
+\hline
+0.1-1 & 23.97\% \\
+\hline
+1-10 & 19.56\% \\
+\hline
+10-100 & 17.67\% \\
+\hline
+$>100$ & 0.94\% \\
+\hline
+Total & 100\% \\
+\hline
+\end{tabular}
+\label{table:graphtime}}
+\end{table}
+
 
 \section{Related Work}
 
