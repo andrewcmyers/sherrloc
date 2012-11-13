@@ -690,8 +690,7 @@ $\ty\leq \ty' \land \ty'\leq \ty$.
 \begin{align*}
 \expr ::=\; & x \mid n \mid \expr\; + \; \expr \mid \fn\; x
 \rightarrow \expr;\ \mid \expr\; \expr \mid \kwlet\; \val\; x =
-\expr\; \kwin\; \expr\; \kwend\\
-\end{align*}
+\expr\; \kwin\; \expr\; \kwend\\ \end{align*}
 \end{minipage}
 \caption{Syntax of a subset of ML}
 \label{figure:mltypes}
@@ -766,22 +765,27 @@ regardless of the value of $t$. For instance, $t\leq \top$ where $t$
 is a polymorphic type is satisfiable.
 \fi
 
-\section{Graph} 
+\section{Constraint graph} 
 \label{sec:graph}
 
-Besides the expressiveness of our constraint language, it also has a natural
-graph representation which enables efficient analysis on the constraints.
+Besides the expressiveness of our constraint language, it also has a
+natural graph representation which enables powerful analysis on the
+constraints.
 
-In this section, we show how the constraints are transformed into a graph, and
-the fact that the satisfiability of the constraints corresponds to the
-reachability in a graph. 
+In this section, we show how the constraints are transformed into a
+graph. Inferring provable $\leq$ ordering on the constraints is
+translated into context-free-language reachability in the graph (with
+specially rules for joins and meets). Hypothesis of the assertions are
+used to construct a hypothesis graph in the same way, which checks the
+satisfiability of a path in graph.
 
 \subsection{Idea behind the transformation}
 
-Before going into details, we use a simple example to illustrate the key ideas
-behind the transformation. This example shows how can we identify subsets of
-unsatisfiable constraints from the _constraint graph_ transformed from our
-constraint language.
+Before going into the details, we use a simple example to illustrate
+the key ideas behind the transformation. This example shows how can we
+identify subsets of unsatisfiable constraints from the _constraint
+graph_ transformed from constraints expressed in our constraint
+language.
 
 \paragraph{Example} Consider the following set of constraints.
 \begin{align*}
@@ -791,27 +795,32 @@ constraint language.
 \end{align*}
 
 In this example, we can interpret $\leq$ as the subtyping relation. $\fn$ is
-the function type where the first parameter is covariant and the second
-parameter is contravariant. $\cod{ty1}, \cod{ty2}, \cod{bool}, \cod{int}$ are
-constants and $x,y$ are type variables to be inferred.
+a function type where the first parameter is covariant and the second
+parameter is contravariant. $\cod{ty1}, \cod{ty2}, \cod{bool},
+\cod{int}$ are constants and $x,y$ are type variables to be inferred.
 
 The first assertion claims that $x$ is a subtype of $\fn (\cod{ty1},
-\cod{bool}$, with empty assumptions. Similarly for the second assertion. The
-third assertion says that $y$ is a subset of $x$ if $\cod{ty2}$ is a subtype of
-$\cod{ty1}$.
+\cod{bool})$, with empty hypotheses, similar for the second assertion.
+The third assertion says that $y$ is a subtype of $x$ if $\cod{ty2}$ is
+a subtype of $\cod{ty1}$.
 
-To check if a goal is satisfiable or not, the key idea is to identify
-inconsistency in the constraints, based on the inference rules of $\leq, \join,
-\meet$.
+To check if this goal is satisfiable or not, the key idea is to
+identify inconsistency in the constraints, by applying the inference
+rules of $\leq, \join, \meet$ until a conflict is identified. Such
+inference is equivalent to finding all reachable node pairs in a
+constraint graph where the all labels along the path can be reduced to
+a nonterminal according to a context-free gramma.
 
-The basic idea is that the partial order $\leq$ corresponds to a directed edge
-in graph. Elements are presented by nodes. However, non-constant constructors
-and the hypothesis needs more dedicate transformation.
+\paragraph{Constraint graph construction}
+To start, the partial order $\leq$ corresponds to a directed edge in
+the constraint graph; elements are presented by nodes. However,
+non-constant constructors and the hypothesis needs more dedicate
+transformation.
 
-Consider the element $\fn (\cod{ty1}, \cod{bool})$. We want to capture the fact
-that the constructor is decomposable. The idea is to add special _constructor
-edges_ between the constructor and its components, as illustrated in
-Figure~\ref{fig:consgraph:first}.
+Consider the element $\fn (\cod{ty1}, \cod{bool})$. We need to capture
+the fact that the constructor is decomposable in the graph. The idea is to add
+special _constructor edges_ between the constructor and its
+components, as illustrated in Figure~\ref{fig:consgraph:first}.
 
 \begin{figure*}
 \begin{center}
@@ -836,102 +845,133 @@ Figure~\ref{fig:consgraph:first}.
 
 Constructor edges are labeled by the following information: the constructor,
 position of the component, and the polarity (covariant, contravariant or
-invariant). For instance, a label $\polarity{+}{\fn_1}$ means the first
-component (which is covariant) of constructor $\fn$.
+invariant). For instance, the edge labeled $\polarity{+}{\fn_1}$
+connects the first (covariant) component to the constructor
+application.
 %
-Decomposition edges are also added from the constructor to the components,
-distinguished by a $(^{-1})$ in the graph.
+Decomposition edges are also added from the constructor applications
+to the components, distinguished by a $(^{-1})$ in the graph.
 
 To enable the flow from potentially contravariant variables, the LEQ edges,
 representing $\leq$ relation, are duplicated in the reverse direction with
 polarity $-$. For instance, there are two LEQ edges connecting $x$ and
-$\fn(\cod{ty1},\cod{bool})$, with different polarity.
+$\fn(\cod{ty1},\cod{bool})$, with different polarity and direction.
 
-Some edges only exist when an assumption is true, like the third constraint
-$\cod{ty2} \leq \cod{ty1} \proves y \leq x$. For assertions with hypotheses, we
-construct the edges as discussed so far, and track the hypotheses on the edges.
-Such information is used in the path finding process.
+Some edges are conditioned on hypotheses, such as the third constraint
+$\cod{ty2} \leq \cod{ty1} \proves y \leq x$. For assertions with
+hypotheses, we construct the edges as discussed so far, and save the
+hypotheses on the edges to be used later.
 
 The transformed graph is shown in Figure~\ref{fig:consgraph:second}. The
 systematic way of constructing a constraint graph from constrains is covered in
 Section~\ref{sec:consgraph}.
 
-More LEQ edges can be inferred in the constraint graph. For instance, following
-the path from $\cod{bool}$ to $\cod{int}$ in Figure~\ref{fig:consgraph:second},
-the constructor edges $\polarity{-}{\cod{fn}_2}$ and
-$\polarity{-}{\cod{fn}_2^{-1}}$ cancels out. Similarly, we can infer another
-LEQ edge from  $\cod{ty2}$ to $\cod{ty1}$. By the construction of graph, such
-inferred LEQ edge must also hold if all the constraints in conclusion are true.
-More generally, inferring all LEQ edge is a _all-pairs LEQ-path problem_, a
-variance of _context-free-language reachability problems_ (CFL-reachability
-problems). More details are discussed in Section~\ref{sec:leqedge}.
+\paragraph{Inferring $\leq$ ordering in graph}
 
-Given all pairs of nodes connected by LEQ edge (along the paths), the next step
-is to check the inferred LEQ relation is satisfiable giving the hypothesis
-along the edges. Since a constraint where either the LHS or RHS is a variable
-is trivially satisfiable, there are two non-trivial LEQ pairs in
-Figure~\ref{fig:consgraph:second}, namely $(\cod{bool, int})$ and $(\cod{ty2,
-ty1})$. Notice that in order to infer these two LEQ relation, the hypothesis
-along the path must hold too, which is $\cod{ty2}\leq \cod{y1}$ for both pairs.
-Therefore, the satisfiability of the goal reduces to check the validity of two
-assertions 
+The initialized graph is then used to infer all provable $\leq$
+relations from corresponding constraints.
+
+The idea is that we can construct a context-free gramma, whose reduction
+rules corresponds to the inference rules in the constraint system. For
+instance, the transitivity rule is transform into a reduction rule
+$\polarity{p}{\LEQ} ::= \polarity{p}{\LEQ}\; \polarity{p}{\LEQ}$ in
+the gramma, where $p\in \{+,-\}$. Constructor edges can be reduced
+if they are connected by $\LEQ$ edge with same polarity.
+
+For example, consider the path from $\cod{ty2}$ to $\cod{ty1}$ in
+Figure~\ref{fig:consgraph:second}, the constructor edges
+$\polarity{+}{\cod{fn}_1}\; \polarity{+}{\LEQ}\; \polarity{+}{\LEQ}\;
+\polarity{+}{\LEQ}\; \polarity{+}{\cod{fn}_1^{-1}}$ reduces to an
+$\polarity{+}{\LEQ}$ edge from $\cod{ty2}$ to $\cod{ty1}$.
+Similarly, we can infer another $\polarity{+}{\LEQ}$ edge from
+$\cod{bool}$ to $\cod{int}$, though the polarity needs to be flipped
+since the component is contravariant.
+
+By construction, finding $\polarity{+}{\LEQ}$-reachable edges in the
+graph is equivalent to inferring provable $\leq$ relation in the
+constraint system. More generally, finding all $\polarity{+}{\LEQ}$
+edges is an _all-pairs $\polarity{+}{\LEQ}$-path problem_, a variance
+of _context-free-language reachability problems_ (CFL-reachability
+problems). Moreover, $meet$ and $join$ elements need special rules,
+which we discuss in Section~\ref{sec:leqedge}.
+
+\paragraph{Checking the satisfiability of $\polarity{+}{\LEQ}$ paths}
+
+Notice that an $\polarity{+}{\LEQ}$ edges is introduced only when the
+corresponding $\leq$ ordering can be inferred from the constraints
+along the path. Hence, the subset of constraints along the path must
+be unsatisfiable if the partial ordering on the end nodes is
+unsatisfiable.
+
+In the general model, a constraint where either the LHS or RHS is a
+variable is trivially satisfiable since recursion is allowed. However,
+application specific rules can be used to judge the satisfiability
+when necessary.
+
+There are two $\polarity{+}{\LEQ}$ paths connecting constructor
+applications in Figure~\ref{fig:consgraph:second}, namely the path
+between $(\cod{bool, int})$ and $(\cod{ty2, ty1})$. 
+
+Using the constraints along $\polarity{+}{\LEQ}$ paths assumes all
+hypotheses must hold too, which is $\cod{ty2}\leq \cod{y1}$ for
+both paths in this example. Therefore, the satisfiability of the goal
+reduces to checking the validity of two assertions 
 %
 \[\cod{ty2}\leq \cod{y1}\proves \cod{bool}\leq \cod{int}\]
 \[\cod{ty2}\leq \cod{y1}\proves \cod{ty2}\leq \cod{ty1}\]
-, which is easy to tell that only the first assertion is invalid. Constraints
-on the path from $\cod{bool}$ to $\cod{int}$ is a witness of the
-unsatisfiability of the constraint set.
+, which is easy to judge. Moreover, constraints along the path from
+$\cod{bool}$ to $\cod{int}$ forms a proof of the unsatisfiability.
 
 In general, there can be an conjunction of constraints in the
-hypothesis. The insight is that checking the validity under hypothesis
-corresponds to check the LEQ relation in the _hypothesis graph_, which
-is constructed in exactly the same way as constraint graph, as shown
-in Figure~\ref{fig:consgraph:third}. 
-
-We discuss more details of hypothesis graph in
-Section~\ref{sec:hypograph}.
+hypotheses set. In this case, the insight is that checking the
+validity under these hypotheses is equivalent to checking if the
+conclusion can be proves from all constraints in the hypothesis.
+Therefore, a _hypothesis graph_ is constructed in exactly the same
+way as constraint graph to find all provable $\leq$ relations. For
+this example, the hypothesis graph is shown in
+Figure~\ref{fig:consgraph:third}. 
 
 \subsection{Constructing constraint graph}
 \label{sec:consgraph}
 
-In this part, we describe the systematic way of transforming the constraints
-into a constraint graph. Remind that the goal is an conjunction of assertion,
-the algorithm works by adding assertions to graph one by one.
+In this part, we describe a systematic way of transforming constraints
+into a constraint graph. The algorithm works by adding assertions to
+graph one by one.
 
-Given an assertion $C_1 \proves C_2$, hypothesis $C_1$ is saved in the
-environment. Inequalities of $C_2$ are handled one by one.
+Given an assertion $C_1 \proves C_2$, we use constraints in $C_2$ to
+construct the constraint graph. Hypothesis $C_1$ is added to $\LEQ$
+edges when necessary.
 
-Given an constraint $E_1 \leq E_2$ under environment $C$, we first transform
-$E_1$ into conjunction normal form (CNF) and $E_2$ into disjunction normal form
-(DNF): 
-\[E_{11}\join E_{12} \join \dots \join E_{1n} \leq E_{21}\meet E_{22}
-\meet \dots \meet E_{2m}\]
+For an constraint $E_1 \leq E_2$, we first transform $E_1$ into
+conjunction normal form (CNF) and $E_2$ into disjunction normal form
+(DNF): $E_{11}\join E_{12} \join \dots \join E_{1n} \leq E_{21}\meet
+E_{22} \meet \dots \meet E_{2m}$. This transformation helps to break
+the constraint into $n\times m$ _atomic constraints_: $E_{1i}\leq
+E_{2j}$, where $1\leq i\leq n \land 1\leq j\leq m$.
 
-Since $\join$ and $\meet$ are standard least upper bound and greatest lower
-bounds of the partial order, we can immediately break the constraint into
-$n\times m$ _atomic constraints_: $E_{1i}\leq E_{2j}$, where $1\leq i\leq n
-\land 1\leq j\leq m$.
-
-To simplify the presentation, we assume that different elements have different
-ids, and a unique node $N_{id}$ corresponds to element with $id$. There are
-five different kinds of directed edges in the constraint graph, used in
-Section~\ref{sec:leqedge}:
+To simplify the presentation, we assume that different elements have
+unique ids, and a unique node $N_{id}$ corresponds to element with
+$id$. There are five different kinds of directed edges in the
+constraint graph, used in Section~\ref{sec:leqedge}:
 
 \begin{enumerate}
-\item $LEQ$: an edge representing the partial ordering on source and sink
+\item $\polarity{p}{\LEQ}$: an edge representing the partial ordering
+on source and sink, where $p\in \{+,-\}$.
 
-\item $\polarity{p}{cons_i}$: source is the $i$-th component of the sink. $p\in
-\{+,-\}$ is the polarity of the component.
+\item $\polarity{p}{cons_i}$: an edge connecting the $i$-th component
+to the constructor application. $p\in \{+,-\}$ is the polarity of the
+component.
 
-\item $\polarity{p}{cons_i^{-1}}$: the reverse of $cons$ edge
+\item $\polarity{p}{cons_i^{-1}}$: the reverse of edge
+$\polarity{p}{cons_i}$.
 
-\item $join$: sink is a join element, and the source is one component
+\item $join$: an edge from component to a $join$ element.
 
-\item $meet$: sink is a meet element, and the source is one component
+\item $meet$: an edge from component to a $meet$ element.
 
 \end{enumerate}
 
-For element $E$ with id $id$, graph is constructed in the following way:
+The subgraph for $E$ with id $id$ is constructed as follows:
 
 \begin{itemize}
 \item Variable $x$ or constant $c$: the graph contains node $N_{id}$. 
@@ -940,42 +980,41 @@ For element $E$ with id $id$, graph is constructed in the following way:
 \polarity{p_2}{E_{\arity{c}}})$: for each $E_i$, $1\leq i \leq \arity{c}$,
 the graph is constructed for $E_i$. Moreover, graph contains
 $\polarity{p_i}{cons_i}$ edge from $E_i$'s node to $N_{id}$.  Also, create
-$cons^{-1}(p_i,i)$ edge from $N_{id}$ to $E_i$'s node.
+$cons^{-1}(p_i,i)$ edge from $N_{id}$ to $E_i$'s node. Invariant
+component is treated as both covariant and contravariant.
 
-\item Projection $c^{-i}(E)$: construct graph for $E$. Also, create
-$cons(p_i,i)$ edge from E's node to $N_{id}$ and create $cons^{-1}(p_i,i)$ edge
-in the reverse direction.
+\item Projection $c^{-i}(E)$: construct graph for $E$. Then, create
+$cons(p_i,i)$ edge from E's node to $N_{id}$ and create
+$cons^{-1}(p_i,i)$ edge in the reverse direction.
 
-\item Join $E_1\join E_2$: construct graph for both $E_1$ and $E_2$. Then,
-create $\polarity{+}{LEQ}$ and $join$ edge from $E_1$ and $E_2$'s node to
-$N_{id}$. Create $\polarity{-}{LEQ}$ in the reverse direction.
+\item $E_1\join E_2$: construct graph for both $E_1$ and $E_2$. Then,
+create $\polarity{+}{\LEQ}$ and $join$ edge from $E_1$ and $E_2$'s node to
+$N_{id}$. Create $\polarity{-}{\LEQ}$ in the reverse direction.
 
-\item Meet $E_1\meet E_2$: construct graph for both $E_1$ and $E_2$. Then,
-create $\polarity{+}{LEQ}$ edge from $N_{id}$ to $E_1$ and $E_2$'s node. Create
-$meet$ and $\polarity{-}{LEQ}$ edge in the reverse direction.
+\item $E_1\meet E_2$: construct graph for both $E_1$ and $E_2$. Then,
+create $\polarity{+}{\LEQ}$ edge from $N_{id}$ to $E_1$ and $E_2$'s node. Create
+$meet$ and $\polarity{-}{\LEQ}$ edge in the reverse direction.
 \end{itemize}
 
-Finally, for constraint $E_1\leq E_2$, construct graph for both $E_1$ and $E_2$. Then,
-create $\polarity{+}{LEQ}$ edge from $E_1$'s node to $E_2$'s node, and
-$\polarity{-}{LEQ}$ edge in the reverse direction.
+Finally, for constraint $E_1\leq E_2$, construct subgraph for both
+$E_1$ and $E_2$. Then, create $\polarity{+}{\LEQ}$ edge from $E_1$'s
+node to $E_2$'s node, and $\polarity{-}{\LEQ}$ edge in the reverse
+direction.
 
-\subsection{Inferring LEQ edges}
+\subsection{Inferring $\polarity{+}{\LEQ}$-reachable paths}
 \label{sec:leqedge}
 
-By construction, the inference of $\leq$ relation on the constraints is
-transformed into the inference of LEQ edges in the constraint graph constructed
-in Section~\ref{sec:consgraph}.
-
-More specifically, the constraint graph can identify all provable $\leq$
-ordering on elements by reducing the edges types according to the context-free
-gramma shown in Figure~\ref{figure:cfg}. Finding all provable ``leq'' relation
-in the graph is a _all-pairs LEQ-path problem_, a variance of
-_context-free-language reachability problems_ (CFL-reachability problems),
-which is used for a number of program-analysis applications~\cite{reps-graph}.
-Both the reachability~\cite{melski-cflgraph} and shortest LEQ path
-finding~\cite{barrett-cflpath} problems can be solved in polynomial time. We
-adopt the dynamic programming approach~\cite{barrett-cflpath} to find the
-shortest LEQ paths in this work. 
+The constraint graph is used identify all provable $\leq$ ordering on
+elements according to a context-free gramma shown in
+Figure~\ref{figure:cfg}. Finding all provable ``leq'' relation in the
+graph is a _all-pairs LEQ-path problem_, a variance of
+_context-free-language reachability problems_ (CFL-reachability
+problems), which is used for a number of program-analysis
+applications~\cite{reps-graph}.  Both the
+reachability~\cite{melski-cflgraph} and shortest LEQ path
+finding~\cite{barrett-cflpath} problems can be solved in polynomial
+time. We adopt the dynamic programming approach~\cite{barrett-cflpath}
+to find the shortest LEQ paths in this work. 
 
 However, the CFG-reachability solution does not incorporate join and meet
 edges. Hence, the graph may miss LEQ edges which can be inferred from the
@@ -994,9 +1033,10 @@ $b$. Meet elements are handled in a dual way.
 \hfil
 \begin{minipage}{2.3in}
 \begin{align*}
-\polarity{p}{LEQ} ::=\; & \polarity{p}{LEQ}\; \polarity{p}{LEQ}, p\in \{+,-\} \\
-\polarity{p}{LEQ} ::=\; & \polarity{p}{c_i}\; \polarity{p}{LEQ}\; \polarity{p}{c_i^{-1}} \text{, where }  
-    c\in \conset \land 1 \leq i\leq \arity{c} \land p\in \{+,-\}\\
+\polarity{p}{\LEQ} ::=\; & \polarity{p}{\LEQ}\; \polarity{p}{\LEQ}, p\in \{+,-\} \\
+\polarity{+}{\LEQ} ::=\; & \polarity{p}{c_i}\; \polarity{p}{\LEQ}\; \polarity{p}{c_i^{-1}} \\
+\polarity{-}{\LEQ} ::=\; & \polarity{p}{c_i^{-1}}\; \polarity{p}{\LEQ}\; \polarity{p}{c_i} \\
+     & \text{, where } c\in \conset \land 1 \leq i\leq \arity{c} \land p\in \{+,-\}\\
 \end{align*}
 \end{minipage}
 \caption{Context-free grammar of reduction}
