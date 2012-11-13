@@ -119,6 +119,63 @@ for Jif where the compiler gets it completely wrong and is misleading,
 and that we can use later on to show how the approach is very
 effective.}
 
+% file: stu01, hw1 20060303-20:59:18
+\lstset{numbers=left, xleftmargin=15pt, framexleftmargin=15pt}
+\begin{lstlisting}
+let rec append lst1 =
+  match lst1 with
+    Null -> ()
+  | Cons(x,rest) -> Cons(x, append rest lst1)
+\end{lstlisting}
+
+In this example, Ocaml blames that the expression $\cod{Cons(x, append
+rest lst1)}$ has a wrong type. But the real error is $\cod{()}$.
+
+Here is a more tricky example
+
+%file: stu01, hw2-logo 20060319-20:22:42
+\begin{lstlisting}
+let interpSmall (movelist : move list) : (float*float) list = 
+  let interpSmallStep movelist x y dir : move list * float * float * float = 
+  match movelist with
+    [] -> raise EmptyMoveList
+  | Home::tl -> (tl, 2, 0.0, 0.0)
+  | Forward(f)::tl -> raise Unimplemented  
+  | Turn(f)::tl -> raise Unimplemented  
+  | For(i,moves)::tl -> raise Unimplemented  
+  in
+  let rec loop movelist x y dir acc =
+    match interpSmallStep movelist x y dir with
+      (newLise,newX,newY,newDir) -> 
+        if(x <> newX) then print_string "x doesnt match";
+        failwith "implement";
+  in 
+  List.rev (loop movelist 0.0 0.0 0.0 [(0.0,0.0)])
+\end{lstlisting}
+
+In this example, Ocaml blames that the whole match expression at line
+3 has a wrong type. But the real error is $2$ at line 5.
+
+% stu02, hw2-logo 20060322-14:52:42
+\begin{lstlisting}
+let result = (2.0*3.1416)
+\end{lstlisting}
+
+This is a simple one, Ocaml blames 2.0, but the error is that (*.)
+should be used.
+
+% file: stu03, hw2-imp 20060323-23:05:28
+\begin{lstlisting}
+let lookup_var h str = 
+  match lookup_raw h str with
+    0 -> 0
+  | Var(_,i) -> i
+  | Heap(_) -> 0
+\end{lstlisting}
+
+This is a simple one, Ocaml blames $\cod{Var(_,i)}$, but the error is that 0
+should be Nil.
+
 \section{Constraint language}
 \label{sec:language}
 
@@ -1170,7 +1227,8 @@ Based on the assumptions, we have
 An intuitive understanding of the estimation is that the cause is likely to be
 small and cut all unsatisfiable paths while not appearing on satisfiable ones.
 
-\subsubsection{An algorithm estimating the likelihood of entities being the error}    
+\subsubsection{An algorithm estimating the likelihood of entities being the error}
+\label{sec:rankingalg}
 
 An estimation of the term $P_1^{|c|} \Pi_i P(p_i|c)$ can be used to estimate
 the likelihood that a subset of constraints is the cause. However, the
@@ -1230,9 +1288,127 @@ The performance of this algorithm is evaluated in Section~\ref{sec:evaluation}.
 \section{Evaluation}
 \label{sec:evaluation}
 
-\subsection{Extensibility}
+\subsection{Implementation}
 
-\subsection{Ranking quality}
+We implement our general error diagnostic tool in Java. The
+implementation includes about 5500 lines of source code, excluding
+comments and blank lines.
+
+The diagnostic tool takes constraint files, following the syntax of
+Figure~\ref{figure:lang:syntax}, as inputs. The input constraints are
+emitted by the program analyses to be diagnosed.
+
+To evaluate our error diagnostic tool on real-world program analyses,
+we modified the Jif compiler and an extension to the Ocaml compiler,
+easyOcaml~\footnote{easyocaml.forge.ocamlcore.org}, to generate
+constraints in our constraint language format. EasyOCaml is an
+extension of Ocaml 3.10.2 generating the labeled constraints defined
+in~\cite{haack:slicing}.
+
+Generating constraints in our language format involves only moderate
+efforts. Changes to the Jif compiler includes about 300 LOC, among
+over 45000 LOC of the Jif compiler. Change to easyOcaml includes about
+500 LOC, among 9000 LOC of the easyOCaml extension.  Slightly more
+efforts are involved for easyOcaml since the location of type
+variables are not tracked in the implementation, which forbids
+tracking back from constraints to the source code.
+
+\subsection{Case study: OCaml error reporting}
+
+To evaluate the quality of our ranking algorithm in
+Section~\ref{sec:rankingalg}, we use a corpus of previously collected
+Ocaml programs containing errors~\cite{lerner:pldi07}.
+
+The data were collected from a graduate-level programming-language
+course for part-time students with at least two years professional
+software development experience. Since those students were not
+beginner programmers but were new to Ocaml, the errors presented in
+the data are particularly interesting.
+
+We analyzed 5 homework assignments, each requiring 100--200 lines of
+code. The data we received came from 10 students participated in the
+class.
+
+\paragraph{Analysis}
+
+Analyzing a file and the quality of error report message manually can
+be inherently subjective. We made the following efforts to make our
+analysis less subjective:
+\begin{enumerate}
+\item Instead of judging which error message is more useful, we decide
+if the error location reported by OCaml and our tool finds the error.
+
+\item To locate the real error in program, we use the user's changes
+with larger timestamps as a reference. The files where the error
+location is unclear are excluded in our evaluation.
+\end{enumerate}
+
+One slight subtlety is that multiple locations can be good suggestions
+even if the programmer only fix the error in one of them. For
+instance, consider a simple OCaml program:
+\begin{lstlisting}
+let x = true in x + 1
+\end{lstlisting}
+
+Even if the programmer later changed $\cod{true}$ to be some integer,
+the error suggestion of the let binding of $\cod{x}$ and the use of
+$\cod{x}$ are still good suggestions since they are highly related to
+the fix. However, operation $\cod{+}$ and integer $\cod{1}$ are not
+since the fix is not related. This principal is used in our evaluation
+to judge the correctness of location.
+
+To avoid reporting the same error multiple times, we reuse the
+grouping tags in the data. Using only one representative data from
+same errors removes the potential dependencies among the errors:
+sometimes the user just recompile the program since Ocaml error
+reporting is confusing. Counting each of these files would make our
+approach look better.
+
+Since Ocaml error message reports which expression may have a wrong
+type, we select the expressions as the program entities we run our
+inference algorithm to make the reports comparable. But remind that
+our tool can also generate reports why the expression has a wrong
+type, which corresponds to unsatisfiable paths in the constraint
+graph. Using such extra information would definitely improve the error
+message, but we exclude that capability in the evaluation process.
+
+Another potential source of unfairness is that our tool inherently
+reports a small set of program entities (expressions in this case)
+with same quality, while Ocaml reports one error at one time. To make
+the comparison fair, we ensure that 
+\begin{enumerate}
+\item For cases where we report a better result (our tools finds the
+error location that Ocaml misses), we ensure that all locations
+returned are closely related to the fix
+
+\item For other cases, we ensure that the majority of the suggestions
+are closely related to the fix. 
+\end{enumerate}
+
+Moreover, we calculate the distribution of top rank group size,
+reported in Table~\ref{table:groupsize}. We can see that in more than
+$92\%$ of the cases, the top rank suggestion size is considerably
+small. Remind that there can be multiple good location suggestions in
+many cases, we think the advantage of reporting more suggestions is
+not abused in our evaluation.
+
+\begin{table}
+\begin{tabular}{|c | c|}
+\hline
+1 & 46.87\% \\
+\hline
+2 & 35.97\% \\
+\hline
+3 & 9.81\% \\
+\hline
+$\geq 4$ & 7.35\% \\
+\hline
+Total & 100\% \\
+\hline
+\end{tabular}
+\label{table:groupsize}
+\caption{Top rank suggestion size breakdown}
+\end{table}
 
 \begin{figure*}
 \begin{center}

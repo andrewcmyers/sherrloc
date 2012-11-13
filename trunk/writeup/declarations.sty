@@ -719,6 +719,26 @@
 \newcommand\atom[1]{\ensuremath{\textsf{#1}}}
 \newcommand\cons[2]{\ensuremath{\atom{#1}(#2)}}
 
+\lstset{
+  basicstyle=\small\ttfamily,
+  keywordstyle=\small\bfseries,
+  numberstyle=\ttfamily\scriptsize,
+  tabsize=4,
+  captionpos=b,
+  frame=lines,
+  language=Caml,
+  backgroundcolor=\color[rgb]{1,0.98,.98},
+  breaklines=false,
+  breakautoindent=false,
+  postbreak=\space,
+  breakindent=5pt,
+  escapeinside={/*@}{@*/},
+  aboveskip=3pt,
+  belowskip=3pt,
+  belowcaptionskip=0pt,
+  morecomment=[l]{//},
+  mathescape=true
+}
 
 % Local Variables: 
 % mode: latex
