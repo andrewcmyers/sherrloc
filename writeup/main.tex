@@ -1550,6 +1550,8 @@ performance is totally acceptable.
 \centering
 \begin{tabular}{|c | c|}
 \hline
+Time & Percentage \\
+\hline
 0--0.01 & 74.20\% \\
 \hline
 0.01--0.1 & 17.20\% \\
@@ -1565,6 +1567,8 @@ Total & 100\% \\
 \subfigure[Graph construction time]{
 \centering
 \begin{tabular}{|c | c|}
+\hline
+Time & Percentage \\
 \hline
 0--0.01 & 7.89\% \\
 \hline
@@ -1584,7 +1588,81 @@ Total & 100\% \\
 \label{table:graphtime}}
 \end{table}
 
+\subsection{Case study: Jif hypothesis inference}
 
+The quality of inferring wrong entities is evaluated in the previous
+part. We evaluate how helpful our hypothesis inference algorithm can
+be useful for Jif, where hypothesis is frequently used and missing
+hypothesis can be a common error according to our experience of using
+Jif.
+
+Due to limited users of the Jif language and the lack of a corpus of
+buggy programs, we take 4 Jif and Fabric (an extension of Jif)
+applications developed for other projects. These applications are
+interesting since they model application with real-world security
+concerns.
+
+To mimic the potential errors programmer would meet while writing the
+application, we randomly remove hypothesis in these programs. In
+total, we generate 40 files missing 1-5 hypothesis, the proportion of
+each application approximately corresponds to the complexity of
+application, measured by lines of code.
+
+For all files we generated in this way, we divide the files into the
+following four categories. The results are summarized in
+Table~\ref{table:hyporesult}.
+
+\begin{table}
+\centering
+\begin{tabular}{|c | c | c|}
+\hline
+Category & Number & Percentage \\
+\hline
+Secure & 12 & 40\% \\
+\hline
+Tie & 17 & 42.5\% \\
+\hline
+Better & 11 & 27.5\% \\
+\hline
+Worse & 0 & 0\% \\
+\hline
+Total & 40 & 100\% \\
+\hline
+\end{tabular}
+\label{table:hyporesult}
+\caption{Hypothesis inference result}
+\end{table}
+
+
+
+\begin{enumerate}
+\item The program passed Jif/Fabric label checking after removing the
+hypothesis. In this case, the programmer is making a too strong
+assumption in the program.
+
+\item The generated missing hypothesis matches the one we remove
+
+\item The generated missing hypothesis provides a weaker assumption
+that removes error, compared with the one we remove
+
+\item Our tool fails to find any suggestion better than the one we
+remove
+\end{enumerate}
+
+First of all, the number of redundant assumptions in these
+applications is considerable ($40\%$). We suspect the reason is that
+the security model in these applications are nontrivial. Hence the
+hypothesis model is too complicated for the programmers to contrive.
+They have to write down additional assumptions to pass the compiler.
+This observation suggests that the ability of automatically inferring
+the missing hypothesis could be very useful to the programmers.
+
+Secondly, all the hypothesis inferred has at least the same quality as
+manually written down ones. Although a more systematic way of
+evaluating real-world errors, we think this preliminary result
+suggests that our hypothesis inference algorithm is likely to generate
+the natural/better hypothesis a real programmer may add.
+ 
 \section{Related Work}
 
 \paragraph{Program analyses, constraints and graph} 
