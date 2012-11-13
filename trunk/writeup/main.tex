@@ -119,63 +119,115 @@ for Jif where the compiler gets it completely wrong and is misleading,
 and that we can use later on to show how the approach is very
 effective.}
 
+\paragraph{ML type inference}
+
+The power of ML type inference is that the programmers are relieved
+from explicitly writing all types. However, such power also brings
+confusing error messages when the type inference fails. The following
+program came from the data collected from real
+programmers~\cite{lerner:pldi07} (though slightly simplified for
+better representation).
+
 % file: stu01, hw1 20060303-20:59:18
 \lstset{numbers=left, xleftmargin=15pt, framexleftmargin=15pt}
 \begin{lstlisting}
-let rec append lst1 =
-  match lst1 with
+type 'a lst = Null | Cons of 'a * 'a lst
+
+let rec append lst =
+  match lst with
     Null -> ()
-  | Cons(x,rest) -> Cons(x, append rest lst1)
+  | Cons(x,rest) -> Cons(x, append rest lst)
 \end{lstlisting}
 
-In this example, OCaml blames that the expression $\cod{Cons(x, append
-rest lst1)}$ has a wrong type. But the real error is $\cod{()}$.
+For this example, the OCaml compiler blames that the expression
+$\cod{Cons(x,\ append\ rest\ lst)}$ at line $4$ is wrong. But
+according to the user's fix, the real error is $\cod{()}$ at line $3$.
 
-Here is an example from real OCaml programmers.
+To understand why $\cod{Cons(x,\ append\ rest\ lst)}$ is blamed, it
+is easier to think type inference as constraint solving: to find types
+for expressions such that some basic rules hold.
+
+For instance, one rule requires that $\cod()$, type union, has the
+same type as $\cod{Cons(x,\ append\ rest\ lst)}$, since they are both
+the return type of function $\cod{append}$. Hence, type inference
+fails since these two expressions have different types---they cannot
+be unified.
+
+Although it seems which expression to blame can be an arbitrary
+decision, there is a reason why $\cod()$ is _more likely_ to be wrong
+if we notice that the return type of function $\cod{append}$ is also
+used as the second parameter in constructor $\cod{Cons}$.  By the
+definition in line 1, it has the same type as $\cod{Cons(x,\ append\
+rest\ lst)}$.
+
+Therefore, based on the hypothesis that the programmer is less likely
+to make a lot mistakes, $\cod()$ is inferred to be _more likely_
+wrong.
+
+The approach of inferring likely wrong expressions is more powerful in
+the following program---also came from real programmer, where the
+location reported OCaml compiler is confusing.
 
 %file: stu01, hw2-logo 20060319-20:22:42
 \begin{lstlisting}
-let interpSmall (movelist : move list) : (float*float) list = 
-  let interpSmallStep movelist x y dir : move list * float * float * float = 
-  match movelist with
-    [] -> raise EmptyMoveList
-  | Home::tl -> (tl, 2, 0.0, 0.0)
-  | Forward(f)::tl -> raise Unimplemented  
-  | Turn(f)::tl -> raise Unimplemented  
-  | For(i,moves)::tl -> raise Unimplemented  
+let p1 (lst : move list) : (float*float) list = 
+  let p2 lst x y dir : 
+    move list * $\shadow{float}$ * float * float = 
+  match lst with
+  | [] -> raise EmptyMoveList
+  | Home::tl -> (tl, $\shadow{2}$, 0.0, 0.0)
+  |  ... (* more statements *)... 
   in
-  let rec loop movelist x y dir acc =
-    match interpSmallStep movelist x y dir with
-      (newLise,newX,newY,newDir) -> 
-        if(x <> newX) then print_string "x doesnt match";
+  let rec loop lst $\shadow{x}$ y dir acc =
+    match p2 lst $\shadow{x}$ y dir with
+      (List,$\shadow{nX}$,nY,Dir) -> 
+        if($\shadow{x}$ <> $\shadow{nX}$) then print_string "no match";
         failwith "implement";
   in 
-  List.rev (loop movelist 0.0 0.0 0.0 [(0.0,0.0)])
+  List.rev (loop lst $\shadow{0.0}$ 0.0 0.0 [(0.0,0.0)])
 \end{lstlisting}
 
-In this example, OCaml blames that the whole match expression at line
-3 has a wrong type. But the real error is $2$ at line 5.
+For this example, OCaml reports that the whole match expression (line
+4-7) is wrong. This error message is misleading since the programmer's
+fix shows that the real error is that $2$ at line 6 should be $2.0$.
+Moreover, the shadowed variable name $\cod{lst}$ (we preserved them in
+this example) makes finding the error more challenging.
 
-% stu02, hw2-logo 20060322-14:52:42
-\begin{lstlisting}
-let result = (2.0*3.1416)
-\end{lstlisting}
+However, without any specific rule, the error location can be inferred
+in the same way as we illustrated earlier by noticing that all
+expressions we shadowed must have the same type. The intuition is that
+only expression $2$ is used in a complete wrong way; the subset of
+excluding $2$ is satisfiable by following the path
+$\cod{0.0=x_{9}=x_{10}=x_{12}=nX_{12}=nX_{11}=float}$ (subscription
+corresponds to the line number).
 
-This is a simple one, OCaml blames 2.0, but the error is that (*.)
-should be used.
+The set of all shadowed expressions is also a typical result following
+the idea of tracing everything related to the
+error~\cite{wand-errorfinding,choppella95, haack:slicing,
+tip:slicing}. Clearly, such result requires much more efforts to
+identify the error compared with our precise location (though our
+approach also generates such information in an intermediate step).
 
-% file: stu03, hw2-imp 20060323-23:05:28
-\begin{lstlisting}
-let lookup_var h str = 
-  match lookup_raw h str with
-    0 -> 0
-  | Var(_,i) -> i
-  | Heap(_) -> 0
-\end{lstlisting}
-
-This is a simple one, OCaml blames $\cod{Var(_,i)}$, but the error is that 0
-should be Nil.
-
+% % stu02, hw2-logo 20060322-14:52:42
+% \begin{lstlisting}
+% let result = (2.0*3.1416)
+% \end{lstlisting}
+% 
+% This is a simple one, OCaml blames 2.0, but the error is that (*.)
+% should be used.
+% 
+% % file: stu03, hw2-imp 20060323-23:05:28
+% \begin{lstlisting}
+% let lookup_var h str = 
+%   match lookup_raw h str with
+%     0 -> 0
+%   | Var(_,i) -> i
+%   | Heap(_) -> 0
+% \end{lstlisting}
+% 
+% This is a simple one, OCaml blames $\cod{Var(_,i)}$, but the error is that 0
+% should be Nil.
+% 
 \section{Constraint language}
 \label{sec:language}
 
