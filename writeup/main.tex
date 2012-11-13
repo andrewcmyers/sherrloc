@@ -205,8 +205,8 @@ The set of all shadowed expressions is also a typical result following
 the idea of tracing everything related to the
 error~\cite{wand-errorfinding,choppella95, haack:slicing,
 tip:slicing}. Clearly, such result requires much more efforts to
-identify the error compared with our precise location (though our
-approach also generates such information in an intermediate step).
+identify the error compared with our precise location report (though
+our approach also generates such information in an intermediate step).
 
 % % stu02, hw2-logo 20060322-14:52:42
 % \begin{lstlisting}
@@ -688,8 +688,9 @@ $\ty\leq \ty' \land \ty'\leq \ty$.
 \begin{figure}
 \begin{minipage}{2in}
 \begin{align*}
-\expr ::=\; & x \mid n \mid \expr\; + \; \expr \mid \fn\; x \rightarrow \expr \\
-        & \mid \expr\; \expr \mid \kwlet\; \val\; x = \expr\; \kwin\; \expr\; \kwend\\
+\expr ::=\; & x \mid n \mid \expr\; + \; \expr \mid \fn\; x
+\rightarrow \expr;\ \mid \expr\; \expr \mid \kwlet\; \val\; x =
+\expr\; \kwin\; \expr\; \kwend\\
 \end{align*}
 \end{minipage}
 \caption{Syntax of a subset of ML}
