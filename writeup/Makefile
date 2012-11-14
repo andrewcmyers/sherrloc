@@ -10,8 +10,7 @@ TARGETS = $(DOC).pdf
 #
 # TARGETS could be $(DOC).dvi instead, if there are no figures
 
-TEXS = $(DOC).tex main.tex declarations.sty abstract.tex header.tex \
-    tightheaders.sty
+TEXS = $(DOC).tex main.tex declarations.sty abstract.tex header.tex
 #*.tex *.sty
 #
 # Add any included TeX files to TEXS
@@ -22,7 +21,7 @@ FIGS = breakdownhw.pdf breakdownstudent.pdf consgraph.pdf consgraph.pdf \
 #
 # List of postscript figures to be included
 
-MAKEDIR=$(HOME)/aplpapers/make
+MAKEDIR=$(HOME)/APL/Aplpaper/aplpapers/make
 
 include $(MAKEDIR)/commondefs
 #
