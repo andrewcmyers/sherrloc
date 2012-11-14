@@ -46,7 +46,7 @@ solver. For example, in the case of ML type inference, variables
 stand for types, and constraints are equalities between different
 type expressions mentioning these variables. When the constraint
 system is unsatisfiable, the constraint solver at some point
-determines there is no way to satisfy some particular constraint. The
+determines there is no way to satisfy some particular constraints. The
 question is then how to report this failure, indicating a program
 error, to the user. Current practice involves mapping the constraint
 back to the program point that generated it, and reporting a
@@ -141,9 +141,9 @@ let rec append lst =
 \end{lstlisting}
 
 For this example, the OCaml compiler blames the expression
-$\cod{Cons(x,\ append\ rest\ lst)}$ at line 4. But
+$\cod{Cons(x,\ append\ rest\ lst)}$ at line 6. But
 according to the user's fix, the real error is the expression
-$\cod{()}$ at line 3.
+$\cod{()}$ at line 5.
 
 To understand why "Cons(x, append rest lst)" is blamed, it
 is easier to think of type inference as constraint solving: to find types
@@ -154,8 +154,8 @@ same type as "Cons(x, append rest lst)" because they are both
 returned by function "append". Hence, type inference fails since these two expressions have different types---they cannot
 be unified.
 
-Although it might seem arbitrary to blame one of these two expressions to
-blame, there is a reason why "()" is _more likely_ to be wrong.
+Although it might seem arbitrary to blame one of these two
+expressions, there is a reason why "()" is _more likely_ to be wrong.
 Notice that the return type of function "append" is also
 used as the second parameter in constructor "Cons".  By the
 definition in line 1, it has the same type as "Cons(x, append rest lst)".
@@ -177,7 +177,7 @@ let p1 (lst : move list) : (float*float) list =
   |  ... (* more statements *)... 
   in
   let rec loop lst $\shadow{x}$ y dir acc =
-    match p2 lst $\shadow{x}$ y dir with
+    match p2 lst x y dir with
       (List,$\shadow{nX}$,nY,Dir) -> 
         if($\shadow{x}$ <> $\shadow{nX}$) then print_string "no match";
         failwith "implement";
@@ -188,6 +188,7 @@ let p1 (lst : move list) : (float*float) list =
 For this example, OCaml reports that the whole match expression (lines
 4--7) is wrong. This error message is misleading because the programmer's
 fix shows that the real error is that the "2" at line 6 should be "2.0".
+Our tool correctly points out the error.
 %Moreover, the shadowed variable name $\cod{lst}$ (we preserved them in
 %this example) makes finding the error more challenging.
 
@@ -197,7 +198,7 @@ expressions must have the same type. The intuition is that
 the type expression "2" is inconsistent with that of the several
 other highlighted expressions that must have the same type;
 excluding "2", the type constraints are satisfiable along the path
-$\cod{0.0=x_{9}=x_{10}=x_{12}=nX_{12}=nX_{11}=float}$ (where the
+$\cod{0.0=x_{9}=x_{12}=nX_{12}=nX_{11}=float}$ (where the
 subscript identifies the line number).
 
 Prior work has explored the idea of tracing and reporting everything
@@ -296,7 +297,7 @@ based on some ordering $≤$. We denote an empty conjunction as ∅,
 and abbreviate $∅ \proves C_2$ as $\proves C_2$.
 
 An element $E$ may be a variable $x\in\varset$ whose value is to be
-solved for, a constructor application $c$ or the $i$-th projection
+solved for, a constructor application $c\in \conset$ or the $i$-th projection
 ($i$-th component) of a constructor application, represented by
 $\invcabs{c}{i}(E)$. The arity of constructor $c$ is represented
 as $a(c)$. Constants $c$ are nullary constructors, with arity 0.
@@ -374,7 +375,7 @@ greatest fixed point of the following rules:
 \item All constants are in $\termset$.
 
 \item $c(t_1, \dots, t_{\arity{c}})\in \termset$ if 
-$\forall_ {i∈\{1,\dots,a(c)\}}~t_i \in \termset$ and $c\in C$.
+$\forall_ {i∈\{1,\dots,a(c)\}}~t_i \in \termset$ and $c\in \conset$.
 \end{itemize}
 
 \noindent
@@ -438,7 +439,7 @@ goal conclusions make an unsatisfiable goal satisfiable.
 \paragraph{Example}
 
 Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$
-again. Another possible cause of the unsatisfiability may be that one
+again. One possible cause of the unsatisfiability may be that one
 of the constraints $x \leq c_1$ and $c_2 \leq x$ is wrong. 
 
 \paragraph{Missing hypotheses}
@@ -449,7 +450,7 @@ assumptions.
 
 \paragraph{Example}
 Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$.
-One possible cause of the unsatisfiability may be the omission of a
+Another possible cause of the unsatisfiability may be the omission of a
 hypothesis $c_2\leq c_1$.
 \ACM{I flipped this hypothesis around, hopefully correctly...}
 
@@ -557,8 +558,8 @@ representing users and other authority entities. Examples of
 principals could be patient A, patient B, doctor A and so on.
 Principals can be expressed by constants.
 
-Labels form a lattice, but principals themselves are also structured
-as a lattice with respect to a relation _actsfor_.  The proposition
+Principals are structured as a lattice with respect to a relation
+_actsfor_.  The proposition
 $\cons{actsfor}{A,B}$ means that $A$ is at least as privileged than
 $B$.
 % 
@@ -869,8 +870,8 @@ components, as illustrated in Figure~\ref{fig:consgraph}(a).
 
 Constructor edges are labeled by the following information: the constructor,
 position of the component, and the polarity (covariant, contravariant or
-invariant). For instance, the edge labeled $\polarity{+}{\consi{fn}{1}}$
-connects the first (covariant) component to the constructor
+invariant). For instance, the edge labeled $\polarity{-}{\consi{fn}{1}}$
+connects the first (contravariant) component to the constructor
 application.
 %
 Decomposition edges are also added from the constructor applications
@@ -903,18 +904,20 @@ $\polarity{p}{\LEQ} ::= \polarity{p}{\LEQ}\; \polarity{p}{\LEQ}$ in
 the grammar, where $p\in \{+,-\}$. Constructor edges can be reduced
 if they are connected by $\LEQ$ edge with same polarity.
 
-For example, consider the path from $\cod{ty2}$ to $\cod{ty1}$ in
+For example, consider the path from $\cod{int}$ to $\cod{bool}$ in
 Figure~\ref{fig:consgraph:second}, the constructor edges
-$\polarity{+}{\cod{fn}_1}\; \polarity{+}{\LEQ}\; \polarity{+}{\LEQ}\;
-\polarity{+}{\LEQ}\; \polarity{+}{\invc{fn}{1}}$ reduces to an
-$\polarity{+}{\LEQ}$ edge from "ty2" to "ty1".
+$\polarity{+}{\consi{fn}{2}}\; \polarity{+}{\LEQ}\; \polarity{+}{\LEQ}\;
+\polarity{+}{\LEQ}\; \polarity{+}{\invc{fn}{2}}$ reduces to an
+$\polarity{+}{\LEQ}$ edge from "int" to "bool".
 Similarly, we can infer another $\polarity{+}{\LEQ}$ edge from
-$\cod{bool}$ to $\cod{int}$, though the polarity needs to be flipped
+$\cod{ty1}$ to $\cod{ty2}$, though the polarity needs to be flipped
 since the component is contravariant.
 
 By construction, finding $\polarity{+}{\LEQ}$-reachable edges in the
 graph is equivalent to inferring a provable $\leq$ relation in the
-constraint system.
+constraint system. However, special rules are necessary to handle
+join and meet in the constraints, which is covered in
+Section~\ref{sec:leqedge}.
 %More generally, finding all $\polarity{+}{\LEQ}$
 %edges is an _all-pairs $\polarity{+}{\LEQ}$-reachability problem_, a
 %variant
@@ -937,18 +940,18 @@ when necessary.
 
 There are two $\polarity{+}{\LEQ}$ paths connecting constructor
 applications in Figure~\ref{fig:consgraph:second}, namely the path
-between $(\cod{bool, int})$ and $(\cod{ty1, ty2})$. 
+between $(\cod{int, bool})$ and $(\cod{ty1, ty2})$. 
 
 Using the constraints along $\polarity{+}{\LEQ}$ paths assumes all
-hypotheses must hold too, which is $\cod{ty2}\leq \cod{y1}$ for
+hypotheses must hold too, which is $\cod{ty1}\leq \cod{ty2}$ for
 both paths in this example. Therefore, the satisfiability of the goal
 reduces to checking the validity of two assertions 
 %
-\[\cod{ty1}\leq \cod{ty2}\proves \cod{bool}\leq \cod{int}\qquad
+\[\cod{ty1}\leq \cod{ty2}\proves \cod{int}\leq \cod{bool}\qquad
 \cod{ty1}\leq \cod{ty2}\proves \cod{ty1}\leq \cod{ty2}\]
 \noindent
 which is easy to judge. Moreover, constraints along the path from
-$\cod{bool}$ to $\cod{int}$ forms a proof of the unsatisfiability.
+$\cod{int}$ to $\cod{bool}$ forms a proof of the unsatisfiability.
 
 In general, there can be a conjunction of constraints in the
 hypotheses set. In this case, the insight is that checking the
