@@ -244,8 +244,8 @@ assumptions about trust relationships in the program.
 For instance, an assignment from a memory location labeled with a
 patient's security label to another location with a doctor's label
 may fail to label-check because the hypothesis that doctor acts for
-patient, meaning that the security model allows the flow from patient
-to doctor, is missing. 
+patient---meaning that the security model allows the flow from patient
+to doctor---is missing. 
 
 In this paper, we also propose a general way to infer likely
 missing hypotheses.
@@ -422,7 +422,7 @@ Under the assumption that programmers write mostly correct code,
 explanations are more plausible when they involve fewer and more
 likely programmer errors. To keep this diagnostic method as general as
 possible, we avoid building in domain-specific knowledge about which
-errors programmers tend to make. However, the framework does
+errors programmers tend to make.  However, the framework does
 accommodate adding such knowledge in a straightforward way.
 
 \ACM{What happened to our story about mixed explanations that
@@ -454,6 +454,7 @@ One possible cause of the unsatisfiability may be the omission of a
 hypothesis $c_2\leq c_1$.
 \ACM{I flipped this hypothesis around, hopefully correctly...}
 
+\if 0
 \paragraph{Relation with set constraints}
 
 Although the core constraint language is similar in spirit to set
@@ -475,6 +476,7 @@ proposed constraint language is expressive enough for most program
 analyses of interest.
 
 \end{enumerate}
+\fi
 
 \subsection{Expressiveness}
 
@@ -521,10 +523,9 @@ security labels naturally form a lattice~\cite{denning-lattice},
 and the goal of such systems is to ensure that all information flows
 upward in the lattice.
 
-To demonstrate the expressiveness of our core  constraint language, we
-we focus on the Jif language~\cite{jif}, showing how 
-checking of information flow in Jif can be expressed by
-the core constraint language.
+To demonstrate the expressiveness of our core constraint language, we
+show that it can express the information flow checking in 
+the Jif language~\cite{jif}.
 %Of course, less intricate models can also be described by our core
 %constraint language.
 
@@ -643,7 +644,7 @@ The introduction of hypotheses in our constraint language makes the
 modeling of such label polymorphism straightforward. Instead of
 requiring the label of "b" to
 be "\lab{Alice→Alice}", we add the constraint $c_{\,\texttt{b}} \leq
-"\lab{Alice→Alice}"$ to the hypothesis of all constraints generated in the
+"\lab{Alice→Alice}"$ to the hypotheses of all constraints generated in the
 method body, where $c_{\,\texttt{b}}$ is a constant representing the label of
 variable "b".
 
@@ -837,7 +838,7 @@ a nonterminal according to a context-free grammar.
 \paragraph{Constraint graph construction}
 To start, the partial order $\leq$ corresponds to a directed edge in
 the constraint graph; elements are presented by nodes. However,
-non-constant constructors and the hypothesis needs more dedicate
+non-constant constructors and hypotheses needs more dedicate
 transformation.
 
 Consider the element $\fn (\cod{ty1}, \cod{bool})$. We need to capture
@@ -846,7 +847,7 @@ special _constructor edges_ between the constructor and its
 components, as illustrated in Figure~\ref{fig:consgraph}(a).
 
 \begin{figure*}
-\newcommand\fh{12em}
+\newcommand\fh{11em}
 \begin{center}
 \subfigure[Constructor edges]{
     \includegraphics[height=\fh]{graph/onecons}
@@ -896,11 +897,11 @@ Section~\ref{sec:consgraph}.
 \paragraph{Inferring $\leq$ ordering in graph}
 
 The initialized graph is then used to infer all provable $\leq$
-relations from corresponding constraints.
-
-The idea is that we can construct a context-free grammar, whose reduction
+relationship from corresponding constraints.
+%
+The idea is that we can construct a context-free grammar whose reduction
 rules corresponds to the inference rules in the constraint system. For
-instance, the transitivity rule is transform into a reduction rule
+instance, the transitivity rule is transformed into a reduction rule
 $\polarity{p}{\LEQ} ::= \polarity{p}{\LEQ}\; \polarity{p}{\LEQ}$ in
 the grammar, where $p\in \{+,-\}$. Constructor edges can be reduced
 if they are connected by $\LEQ$ edge with same polarity.
@@ -925,7 +926,7 @@ constraint system.
 
 \paragraph{Checking the satisfiability of $\polarity{+}{\LEQ}$ paths}
 
-Notice that an $\polarity{+}{\LEQ}$ edges is introduced only when the
+Notice that an $\polarity{+}{\LEQ}$ edge is introduced only when the
 corresponding $\leq$ ordering can be inferred from the constraints
 along the path. Hence, the subset of constraints along the path must
 be unsatisfiable if the partial ordering on the end nodes is
@@ -933,7 +934,7 @@ unsatisfiable.
 
 In the general model, a constraint where either the LHS or RHS is a
 variable is trivially satisfiable since recursion is allowed. However,
-application specific rules can be used to judge the satisfiability
+application-specific rules can be used to judge the satisfiability
 when necessary.
 
 There are two $\polarity{+}{\LEQ}$ paths connecting constructor
@@ -954,9 +955,9 @@ $\cod{bool}$ to $\cod{int}$ forms a proof of the unsatisfiability.
 In general, there can be a conjunction of constraints in the
 hypotheses set. In this case, the insight is that checking the
 validity under these hypotheses is equivalent to checking if the
-conclusion can be proves from all constraints in the hypothesis.
-Therefore, a _hypothesis graph_ is constructed in exactly the same
-way as constraint graph to find all provable $\leq$ relations. For
+conclusion can be proved from all constraints in the hypothesis.
+Therefore, a _hypothesis graph_ is constructed in exactly the same way
+as the constraint graph to find all provable $\leq$ relations. For
 this example, the hypothesis graph is shown in
 Figure~\ref{fig:consgraph:third}. 
 
@@ -1040,7 +1041,7 @@ Section~\ref{sec:hypograph}.
 \subsection{Inferring $\polarity{+}{\LEQ}$-reachable paths}
 \label{sec:leqedge}
 
-The constraint graph is used identify all provable $\leq$ ordering on
+The constraint graph is used identify all provable $\leq$ orderings on
 elements according to a context-free grammar shown in
 Figure~\ref{figure:cfg}. Notice that regardless of the polarity of
 constructor edges, a $\polarity{+}{\LEQ}$ 
@@ -1103,10 +1104,10 @@ to $b$.
 
 When algorithm in Section~\ref{sec:leqedge} infers a $\LEQ$ relation
 on two nodes, all constraints along the path automatically forms a
-proof of the partial ordering. Moreover, all the hypothesis along the
+proof of the partial ordering. Moreover, all the hypotheses along the
 path can be used to prove its satisfiability.
 
-Let $H_1, H_2, \dots, H_n$ be the hypothesis saved along the path from $a$ to
+Let $H_1, H_2, \dots, H_n$ be the hypotheses saved along the path from $a$ to
 $b$, where $\LEQ(a,b)$. Then the set of constraints along the path is
 satisfiable only when
 \[H_1 \land H_2 \land \dots \land H_n \proves a \leq b\]
@@ -1160,17 +1161,16 @@ principle.
 \subsection{Inferring missing hypotheses}
 \label{sec:assumptions}
 
-The first cause of error is the absence of hypothesis.
-
-Recall if $P$ is an path from element $A$ to $B$, with an conjunction
+One cause of errors is the absence of hypotheses.
+Recall if $P$ is a path from element $A$ to $B$, with a conjunction
 of hypotheses, denote as $C$ along the path. $P$ is unsatisfiable when
 $C\not\proves A\leq B$. For simplicity, we denote the hypothesis set
 of $P$ as $\hyposet{P}=C$, and the conclusion set
 $\concset{P}=A\leq B$.
 
-Given a set of unsatisfiable paths $P_1, P_2, \dots,  P_n$, one nature
-question is that what hypothesis $\G$ removes all of the unsatisfiable
-paths. Or more specifically, find the set of hypothesis $\G$ such that 
+Given a set of unsatisfiable paths $P_1, P_2, \dots,  P_n$, one natural
+question is that what hypotheses $\G$ would remove all the unsatisfiable
+paths. Or more specifically, find the hypotheses $\G$ such that 
 %
 $\hyposet{P_1} \land \G \proves \concset{P_1} \land
 \hyposet{P_2} \land \G \proves \concset{P_2} \land \dots
@@ -1193,36 +1193,36 @@ constraints in the conclusion may hold.
 
 One trivial solution is to add all invalid conclusions to the
 hypothesis. For the example above, this approach will add $A\leq B
-\land A\leq C \land A\leq C\meet \bot$ to the hypothesis.
+\land A\leq C \land A\leq C\meet \bot$ to the hypotheses.
 
 However, such naive approach is undesirable for two reasons: 
 %
 \begin{enumerate}
-\item introducing an invalid hypothesis may totally break a program
+\item introducing an invalid hypothesis may invalidate a program
 analysis. For instance, adding an insecure information flow to the
-hypotheses can totally break security. So the programmer has to check
+hypotheses can violate security. So the programmer has to check
 the truthfulness of all hypotheses carefully, which can be time
-consuming and error-prone
+consuming and error-prone.
 
-\item a program analysis can be a combination of static and dynamic
+\item a program analysis use a combination of static and dynamic
 approaches. For instance, although most of Jif label checking is
-static, some hypothesis are dynamically checked. So a large hypothesis
-may also hurt performance
+static, some hypotheses are checked dynamically. So a large hypothesis
+may also hurt run-time performance.
 \end{enumerate}
 
-It may also be attempting to select the minimal missing hypothesis.
-But this approach does not work well either since a single assumption
+It may also be tempting to select the minimal missing hypothesis,
+but this approach does not work well either: a single assumption
 $\top\leq \bot$ is always a minimal missing hypothesis for all
-unsatisfiable paths. The reason is that given $\top\leq \bot$, any
+unsatisfiable paths. Given $\top\leq \bot$, any
 partial order $a \leq b$ can be proved since $a\leq \top\leq \bot\leq
-b$. However, such assumption is obviously too strong to be useful.
+b$. However, this assumption is obviously too strong to be useful.
 
 So intuitively, we are interested in a solution that is both the
 _weakest_ and _minimal_, which we will formalize and give an algorithm
 finding such missing hypotheses. 
 
 Return to the example above, our algorithm returns only one hypothesis
-$A\leq B$, which both weakest and minimal.
+$A\leq B$, which is both weakest and minimal.
 %
 % \subsubsection{Missing hypotheses}
 % 
@@ -1241,22 +1241,22 @@ $A\leq B$, which both weakest and minimal.
 % 
 \subsubsection{Weakest and minimal hypotheses}
 
-Rest of discussed focuses on defining and finding weakest and minimal
-hypotheses for some set of unsatisfiable paths, we denote as
+We want to finding weakest and minimal
+hypotheses for some set of unsatisfiable paths, denoted as
 $\pathset=\{P_1, P_2, \dots, P_n\}$. We further define the conclusion
-set of all paths the union all the conclusion set of all paths:
+set of all paths as the union of all conclusions:
 $\concset{\pathset}=\bigcup\{\concset{P_i} \mid P_i\in \pathset\}$.
 
 The first insight is that the inferred missing hypotheses $\G$ should
-not be too _strong_. More formally, a missing hypotheses is no weaker
+not be too _strong_. A missing hypothesis is no weaker
 than another $\G'$ if $\forall c\in \G'.\exists P\in \pathset.  \G
-\land \hyposet{P} \proves c$. In another word, $\G$ is no weaker than
-$\G'$ if all the constraints in $\G'$ can be proved from $\G$, by
+\land \hyposet{P} \proves c$. That is, $\G$ is no weaker than
+$\G'$ if all constraints in $\G'$ can be proved from $\G$,
 using one hypothesis.
 
-Given this definition, the first property we show is that every subset
-of $\hyposet{\pathset}$, if forms a missing hypothesis, then it is
-the weakest:
+Given this definition, the first property we show is that for every
+subset of $\hyposet{\pathset}$, if forms a missing hypothesis, then it
+is the weakest:
 %
 \begin{Lemma}
 \label{lemma:weakest}
@@ -1264,11 +1264,11 @@ $\forall S\subseteq \concset{\pathset}$. $S$ is a missing hypothesis
 $\implies S$ is the _weakest_.
 \end{Lemma}
 \begin{proof}
-Otherwise, exists some weaker hypotheses $\G$. Since $\G$ is a missing
-hypothesis, $\hyposet{P_i} \land \G\proves \concset{P_i}$  for all
-$i$s. Since $S\subseteq \concset{\pathset}$, $\forall s_i\in S.
-\hyposet{P_i} \land \G\proves s_i$. So $\G$ is at least as strong
-$S$. Contradiction.
+Otherwise, there exist a weaker hypothesis $\G$. Since $\G$ is a
+missing hypothesis, $\hyposet{P_i} \land \G\proves \concset{P_i}$  for
+all $i$. Since $S\subseteq \concset{\pathset}$, $\forall s_i\in S.
+\hyposet{P_i} \land \G\proves s_i$. So $\G$ is at least as strong $S$.
+Contradiction.
 \end{proof}
 %
 %\DZ{not sure if the weakest hypothesis must be a subset of $\concset$}
@@ -1295,8 +1295,8 @@ C\meet \bot \]
 Based on Lemma~\ref{lemma:weakest} and the definition above, finding
 minimal and weakest missing hypothesis in $\concset{\pathset}$ is
 equivalent to finding the minimal subset of $\concset{\pathset}$ which
-subsumes all $c\in \concset{\pathset}$, which gives us an algorithm of
-finding the minimal and weakest hypothesis below.
+subsumes all $c\in \concset{\pathset}$, which gives us an algorithm to
+find the minimal and weakest hypothesis:
 
 \paragraph{Algorithm}
 
@@ -1306,21 +1306,21 @@ algorithm works in the following steps:
 \begin{enumerate}
 \item Construct the set $\concset{\pathset}$ from unsatisfiable paths.
 
-\item For each pair $c_i$ and $c_j$ in $\concset{\pathset}$, add $c_j$
+\item For all $c_i, c_j$ in $\concset{\pathset}$, add $c_j$
 to set $s_i$ if $c_i$ subsumes $c_j$.
 
 \item Find the minimal cover of $\concset{\pathset}$.
 \end{enumerate}
 
 Notice that a trivial minimal weakest missing hypothesis finding
-algorithm may check all possible missing hypothesis, which is in the
-order of $2^{N^2}$ (number of all subsets of $leq$ orderings on
+algorithm may check all possible missing hypotheses, which is in the
+order of $2^{N^2}$ (number of all subsets of $\leq$ orderings on
 elements) where $N$ is the total number of elements used in the
 constraints. However, $n$ here is the same as the number of
 unsatisfiable paths in the constraint graph, which in most cases, is a
 small number. So it is still feasible for the computation.
 
-The quality of the generated hypotheses in Section~\ref{sec:jifeval}.
+%The quality of the generated hypotheses in Section~\ref{sec:jifeval}.
 
 \subsection{Inferring likely wrong entities in program}
 \label{sec:mapmodel}
@@ -1397,7 +1397,7 @@ Based on the assumptions, we have
 An intuitive understanding of the estimation is that the cause is likely to be
 small and it cuts all unsatisfiable paths while not used often on satisfiable ones.
 
-\subsubsection{An algorithm estimating the likelihood of entities being the error}
+\subsubsection{Estimating the likelihood of an entity being the error}
 \label{sec:rankingalg}
 
 An estimation of the term $P_1^{|e|} \Pi_i P(p_i|e)$ can be used to
@@ -1481,7 +1481,7 @@ in~\cite{haack:slicing}.
 Generating constraints in our language format involves only moderate
 effort. Changes to the Jif compiler include about 300 LOC among
 over 45,000 LOC of the Jif compiler. Changes to easyOCaml include about
-500 LOC, among 9000 LOC of the easyOCaml extension.  Slightly more
+500 LOC, among the 9,000 LOC of the easyOCaml extension.  Slightly more
 effort is required for easyOCaml because the location of type
 variables are not tracked in the implementation; this prevents
 tracking back from constraints to the source code.
@@ -1589,7 +1589,7 @@ Total & 100\% \\
 
 \begin{figure*}
 \begin{center}
-\subfigure[Comparison OCaml]{
+\subfigure[Comparison with the OCaml compiler]{
     \includegraphics[height=16em]{graph/ocaml}
     \label{fig:consgraph:first}
 }
@@ -1629,7 +1629,7 @@ to unsatisfiable constraints. Errors such as unbound values, too many
 arguments to a constructor are usually better localized and they are
 not the focus of our work. 
 
-We also exclude programs using unsupported feature of the modified
+We also exclude programs using unsupported features of the modified
 easyOCaml and files where the user's fix is unclear. After excluding
 these files, there are 336 samples left.
 
@@ -1720,6 +1720,7 @@ minutes.  Ranking is more efficient, where over $99\%$ can be done in
 1 second.  Considering the human cost to identify error locations, the
 performance seem acceptable.
 
+\if 0
 \begin{table}
 \subfigure[Ranking time]{
 \centering
@@ -1761,7 +1762,9 @@ Total & 100\% \\
 \hline
 \end{tabular}
 \label{table:graphtime}}
+\caption{Performance results}
 \end{table}
+\fi
 
 \subsection{Case study: Jif hypothesis inference}
 \label{sec:jifeval}
@@ -1775,8 +1778,8 @@ or Fabric (a Jif extension). These applications are interesting since
 they deal with real-world security concerns.
 
 To mimic the potential errors programmer would meet while writing the
-application, we randomly remove hypothesis in these programs. In
-total, we generate 40 files missing 1-5 hypothesis, the proportion of
+application, we randomly remove hypotheses from these programs. In
+total, we generate 40 files missing 1--5 hypotheses, the proportion of
 each application approximately corresponds to the complexity of
 application, measured by lines of code.
 
@@ -1807,11 +1810,11 @@ Total & 40 & 100\% \\
 
 \begin{enumerate}
 \item The program passed Jif/Fabric label checking after removing the
-hypothesis: the programmer made an unneeded assumption.
+hypotheses: the programmer made unneeded assumptions.
 
-\item The generated missing hypothesis matches the one we remove.
+\item The generated missing hypotheses matches the one we remove.
 
-\item The generated missing hypothesis provides a weaker assumption
+\item The generated missing hypotheses provides a weaker assumption
 that removes error, compared with the one we remove.
 
 \item Our tool fails to find a suggestion better than the one
@@ -1823,7 +1826,7 @@ applications is considerable ($40\%$). We suspect the reason is that
 the security model in these applications are nontrivial, so
 programmers have difficulty formulating their security assumptions.
 %They have to write down additional assumptions to pass the compiler.
-This observation suggests that the ability of automatically inferring
+This observation suggests that the ability to automatically infer
 the missing hypothesis could be very useful to the programmers.
 
 All the automatically inferred hypotheses had at least the same quality as
