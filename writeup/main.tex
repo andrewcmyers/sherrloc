@@ -19,7 +19,7 @@ reports an error. Because deep, non-local software properties are
 being checked, the analysis may detect an inconsistency in a part of
 the program that is far from the actual error. Reporting on the
 inconsistency at the point of detection can result in a misleading
-error message. Determinining where the true error lies based on this
+error message. Determining where the true error lies based on this
 error message can require excessive effort from the programmer, and an
 unreasonably high degree of understanding of how the analysis works
 in order to interpret the error report.
@@ -153,16 +153,14 @@ the return type of function $\cod{append}$. Hence, type inference
 fails since these two expressions have different types---they cannot
 be unified.
 
-Although it seems which expression to blame can be an arbitrary
-decision, there is a reason why $\cod()$ is _more likely_ to be wrong
-if we notice that the return type of function $\cod{append}$ is also
+Although it might seem that choosing which expression to blame is an arbitrary
+decision, there is a reason why $\cod()$ is _more likely_ to be wrong.
+Notice that the return type of function $\cod{append}$ is also
 used as the second parameter in constructor $\cod{Cons}$.  By the
 definition in line 1, it has the same type as $\cod{Cons(x,\ append\
 rest\ lst)}$.
-
-Therefore, based on the hypothesis that the programmer is less likely
-to make a lot mistakes, $\cod()$ is inferred to be _more likely_
-wrong.
+Therefore, assuming that the programmer is less likely to make many
+mistakes, $\cod()$ appears _more likely_ to be wrong.
 
 The approach of inferring likely wrong expressions is more powerful in
 the following program---also came from real programmer, where the
@@ -438,7 +436,7 @@ more detail in Section~\ref{sec:assumptions}}.
 
 \paragraph{Example}
 Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$.
-One possible cause of the unsatisfiability may be the omission of an
+One possible cause of the unsatisfiability may be the omission of a
 hypothesis $c_2\leq c_1$.
 \ACM{I flipped this hypothesis around, hopefully correctly...}
 
@@ -741,7 +739,7 @@ in~\cite{haack:slicing} for better presentation).
 
 
 Type inference is reduced to constraint solving by defining a mapping
-of _pre-judgements_to constraints:
+of _pre-judgments_to constraints:
 \[\trans{\G \proves x:\tau} = x =\tau\]
 \[\trans{\G \proves \lambda x.e:\tau} = \exists a_1 a_2.
 (def x: a_1 in \trans{e:a_2} \land a_1 \rightarrow a_2 =\tau)\]
@@ -769,7 +767,7 @@ is a polymorphic type is satisfiable.
 \label{sec:graph}
 
 Besides the expressiveness of our constraint language, it also has a
-natural graph representation which enables powerful analysis on the
+natural graph representation that enables powerful analysis on the
 constraints.
 
 In this section, we show how the constraints are transformed into a
@@ -922,7 +920,7 @@ reduces to checking the validity of two assertions
 , which is easy to judge. Moreover, constraints along the path from
 $\cod{bool}$ to $\cod{int}$ forms a proof of the unsatisfiability.
 
-In general, there can be an conjunction of constraints in the
+In general, there can be a conjunction of constraints in the
 hypotheses set. In this case, the insight is that checking the
 validity under these hypotheses is equivalent to checking if the
 conclusion can be proves from all constraints in the hypothesis.
@@ -942,7 +940,7 @@ Given an assertion $C_1 \proves C_2$, we use constraints in $C_2$ to
 construct the constraint graph. Hypothesis $C_1$ is added to $\LEQ$
 edges when necessary.
 
-For an constraint $E_1 \leq E_2$, we first transform $E_1$ into
+For a constraint $E_1 \leq E_2$, we first transform $E_1$ into
 conjunction normal form (CNF) and $E_2$ into disjunction normal form
 (DNF): $E_{11}\join E_{12} \join \dots \join E_{1n} \leq E_{21}\meet
 E_{22} \meet \dots \meet E_{2m}$. This transformation helps to break
@@ -1024,8 +1022,8 @@ variance of _context-free-language reachability problems_
 (CFL-reachability problems), it is used for a number of
 program-analysis applications~\cite{reps-graph}. 
 
-In this work, we adopt the dynamic programming algorithm which also
-finds shortest $\polarity{+}{\LEQ}$ paths in~\cite{barrett-cflpath}
+In this work, we adopt the dynamic programming algorithm, which also
+finds shortest $\polarity{+}{\LEQ}$ paths in~\cite{barrett-cflpath},
 since the path information is used in our ranking algorithm in
 Section~\ref{sec:ranking}.
 
@@ -1148,7 +1146,7 @@ such naive approach may provide an unnecessarily complicated
 explanation for a programmer to verify the validity of the hypothesis
 itself. 
 %
-For instance, consider the following assertion which is generated from
+For instance, consider the following assertion, which is generated from
 a Jif program with label checking errors (though the example is
 simplified for better understanding): 
 
@@ -1175,7 +1173,7 @@ this missing hypothesis is better than others.
 %
 The intuition is that we are not interested in just any solution to
 the missing assumption problem. What we propose is an approach finding
-the weakest and minimum set of hypothesis which removes error.
+the weakest, minimum set of hypotheses that removes the error.
 
 % \subsubsection{Missing hypotheses}
 % 
@@ -1784,7 +1782,7 @@ analysis are amenable to graph-reachability~\cite{reps-graph}. Melski
 and Reps~\cite{melski-cflgraph} show the interchangeability between
 context-free-language reachability (CFG-reachability) and a subset of
 set-based constraints. But only a small set of constraints---in fact,
-a single variable---may appear on the right hand side of an partial
+a single variable---may appear on the right hand side of a partial
 order. Moreover, no error diagnostic approach is proposed for the
 graphs.
 
