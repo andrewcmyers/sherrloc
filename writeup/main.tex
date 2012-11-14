@@ -139,26 +139,25 @@ let rec append lst =
   | Cons(x,rest) -> Cons(x, append rest lst)
 \end{lstlisting}
 
-For this example, the OCaml compiler blames that the expression
-$\cod{Cons(x,\ append\ rest\ lst)}$ at line $4$ is wrong. But
-according to the user's fix, the real error is $\cod{()}$ at line $3$.
+For this example, the OCaml compiler blames the expression
+$\cod{Cons(x,\ append\ rest\ lst)}$ at line 4. But
+according to the user's fix, the real error is the expression
+$\cod{()}$ at line 3.
 
-To understand why $\cod{Cons(x,\ append\ rest\ lst)}$ is blamed, it
-is easier to think type inference as constraint solving: to find types
-for expressions such that some basic rules hold.
+To understand why "Cons(x, append rest lst)" is blamed, it
+is easier to think of type inference as constraint solving: to find types
+that satisfy some constraints induced by program expressions.
 
-For instance, one rule requires that $\cod()$, type union, has the
-same type as $\cod{Cons(x,\ append\ rest\ lst)}$, since they are both
-the return type of function $\cod{append}$. Hence, type inference
-fails since these two expressions have different types---they cannot
+For instance, expression $\cod()$, with type "unit", must have the
+same type as "Cons(x, append rest lst)" because they are both
+returned by function "append". Hence, type inference fails since these two expressions have different types---they cannot
 be unified.
 
-Although it might seem that choosing which expression to blame is an arbitrary
-decision, there is a reason why $\cod()$ is _more likely_ to be wrong.
-Notice that the return type of function $\cod{append}$ is also
-used as the second parameter in constructor $\cod{Cons}$.  By the
-definition in line 1, it has the same type as $\cod{Cons(x,\ append\
-rest\ lst)}$.
+Although it might seem arbitrary to blame one of these two expressions to
+blame, there is a reason why "()" is _more likely_ to be wrong.
+Notice that the return type of function "append" is also
+used as the second parameter in constructor "Cons".  By the
+definition in line 1, it has the same type as "Cons(x, append rest lst)".
 Therefore, assuming that the programmer is less likely to make many
 mistakes, $\cod()$ appears _more likely_ to be wrong.
 
