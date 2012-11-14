@@ -1010,15 +1010,15 @@ The subgraph for $E$ with id $id$ is constructed as follows:
 \item Constructor application $c(\polarity{p_1}{E_1}, \dots,
 \polarity{p_2}{E_{\arity{c}}})$: for each $E_i$, $1\leq i \leq \arity{c}$,
 the graph is constructed for $E_i$. Moreover, graph contains
-$\polarity{p_i}{\atom{cons}_i}$ edge from $E_i$'s node to $N_{id}$. 
+$\polarity{p_i}{\consi{cons}{i}}$ edge from $E_i$'s node to $N_{id}$. 
 Also, create
-$\polarity{p_i}{\invc{cons}{1}}$ edge from $N_{id}$ to $E_i$'s node.
+$\polarity{p_i}{\invc{cons}{i}}$ edge from $N_{id}$ to $E_i$'s node.
 An invariant
 component is treated as both covariant and contravariant.
 
 \item Projection $\invcabs{c}{i}(E)$: construct graph for $E$. Then, create
 $\polarity{p_i}{\consi{cons}i}$ edge from E's node to $N_{id}$ and create an
-$\polarity{p_i}{\invc{cons}{1}}$ edge in the reverse direction.
+$\polarity{p_i}{\invc{cons}{i}}$ edge in the reverse direction.
 
 \item $E_1\join E_2$: construct graph for both $E_1$ and $E_2$. Then,
 create $\polarity{+}{\LEQ}$ and $join$ edge from $E_1$ and $E_2$'s node to
@@ -1044,9 +1044,9 @@ Section~\ref{sec:hypograph}.
 
 The constraint graph is used to identify all provable $\leq$ orderings on
 elements according to a context-free grammar shown in
-Figure~\ref{figure:cfg}. Notice that regardless of the polarity of
-constructor edges, a $\polarity{+}{\LEQ}$ 
-corresponds to the $\leq$ ordering on elements. The third rule ensures
+Figure~\ref{figure:cfg}. The second rule produces a
+$\polarity{+}{\LEQ}$ corresponds to the $\leq$ ordering on elements
+regardless of the polarity of constructor edges. The third rule ensures
 the $\polarity{+}{\LEQ}$ edge always has a $\polarity{-}{\LEQ}$ edge
 in the reverse direction to enable the reduction of contravariant
 components.
@@ -1074,7 +1074,7 @@ already handled when we break elements into atomic components in
 Section~\ref{sec:consgraph}.
 
 To use the rule in the other direction, we do the following check
-whenever a new $\LEQ$ edge $\LEQ(a,b)$ is processed: for each join
+whenever a new $\polarity{+}{\LEQ}$ edge $\polarity{+}{\LEQ}(a,b)$ is processed: for each join
 element $E$ where $a$ is a component (following join edges), we add
 an edge from $E$ to $b$ if all components of $E$ have a $\LEQ$ edge
 to $b$. 
@@ -1104,13 +1104,14 @@ to $b$.
 \subsection{Hypothesis graph}
 \label{sec:hypograph}
 
-When algorithm in Section~\ref{sec:leqedge} infers a $\LEQ$ relation
-on two nodes, all constraints along the path automatically forms a
-proof of the partial ordering. Moreover, all the hypotheses along the
-path can be used to prove its satisfiability.
+When algorithm in Section~\ref{sec:leqedge} infers a
+$\polarity{+}{\LEQ}$ relation on two nodes, all constraints along the
+path automatically forms a proof of the partial ordering. Moreover,
+all the hypotheses along the path can be used to prove its
+satisfiability.
 
 Let $H_1, H_2, \dots, H_n$ be the hypotheses saved along the path from $a$ to
-$b$, where $\LEQ(a,b)$. Then the set of constraints along the path is
+$b$, where $\polarity{+}{\LEQ}(a,b)$. Then the set of constraints along the path is
 satisfiable only when
 \[H_1 \land H_2 \land \dots \land H_n \proves a \leq b\]
 
@@ -1160,7 +1161,7 @@ weakest and minimal missing assumptions, and most likely wrong subsets
 of constraints that caused the error, based on the maximum a posteriori
 principle.
  
-\subsection{Inferring missing hypotheses}
+\subsection{Inferring missing hypothesis}
 \label{sec:assumptions}
 
 One cause of errors is the absence of hypotheses.
@@ -1174,9 +1175,9 @@ Given a set of unsatisfiable paths $P_1, P_2, \dots,  P_n$, one natural
 question is that what hypotheses $\G$ would remove all the unsatisfiable
 paths. Or more specifically, find the hypotheses $\G$ such that 
 %
-$\hyposet{P_1} \land \G \proves \concset{P_1} \land
-\hyposet{P_2} \land \G \proves \concset{P_2} \land \dots
-\hyposet{P_n} \land \G \proves \concset{P_n}$.
+$(\hyposet{P_1} \land \G \proves \concset{P_1}) \land
+(\hyposet{P_2} \land \G \proves \concset{P_2}) \land \dots
+(\hyposet{P_n} \land \G \proves \concset{P_n})$.
 %
 We call any set of constraints satisfying the condition above a
 _missing hypothesis_~\footnote{This definition is an estimation of a
@@ -1187,8 +1188,8 @@ are inferred for different paths. But it is less feasible to do so.}.
 
 Consider the following assertions: 
 %
-\[B\leq C \proves A\leq B \land B\leq C \proves A\leq C \land B\leq C
-\proves A\leq C\meet \bot \]
+\[(B\leq C \proves A\leq B) \land (B\leq C \proves A\leq C) \land (B\leq C
+\proves A\leq C\meet \bot) \]
 
 Since the only hypothesis we have is $B\leq C$, none of the three
 constraints in the conclusion may hold. 
@@ -1221,8 +1222,8 @@ b$. However, this assumption is obviously too strong to be useful.
 
 So intuitively, we are interested in a solution that is both the
 _weakest_ and _minimal_. We will now give an algorithm finding such
-missing hypotheses; in the example above, it returns only one
-hypothesis $A\leq B$, which is both weakest and minimal.
+missing hypothesis; in the example above, it returns a hypothesis with
+only one constraint $A\leq B$, which is both weakest and minimal.
 %
 % \subsubsection{Missing hypotheses}
 % 
@@ -1239,15 +1240,15 @@ hypothesis $A\leq B$, which is both weakest and minimal.
 % All of $\{A\leq B\}, \{A\leq B \land A\leq C\}, \{A\leq B \land A\leq C \land
 % A\leq C\meet \bot\}$ are missing hypotheses of the goal.
 % 
-\subsubsection{Weakest and minimal hypotheses}
+\subsubsection{Weakest and minimal hypothesis}
 
 We want to find weakest and minimal
-hypotheses for some set of unsatisfiable paths, denoted as
+hypothesis for some set of unsatisfiable paths, denoted as
 $\pathset=\{P_1, P_2, \dots, P_n\}$. We further define the conclusion
 set of all paths as the union of all conclusions:
 $\concset{\pathset}=\bigcup\{\concset{P_i} \mid P_i\in \pathset\}$.
 
-The first insight is that the inferred missing hypotheses $\G$ should
+The first insight is that the inferred missing hypothesis $\G$ should
 not be too _strong_. A missing hypothesis is no weaker
 than another $\G'$ if $\forall c\in \G'.\exists P\in \pathset.  \G
 \land \hyposet{P} \proves c$. That is, $\G$ is no weaker than
@@ -1264,7 +1265,7 @@ $\forall S\subseteq \concset{\pathset}$. $S$ is a missing hypothesis
 $\implies S$ is the _weakest_.
 \end{Lemma}
 \begin{proof}
-Otherwise, there exist a weaker hypothesis $\G$. Since $\G$ is a
+Otherwise, there exists a weaker hypothesis $\G$. Since $\G$ is a
 missing hypothesis, $\hyposet{P_i} \land \G\proves \concset{P_i}$  for
 all $i$. Since $S\subseteq \concset{\pathset}$, $\forall s_i\in S.
 \hyposet{P_i} \land \G\proves s_i$. So $\G$ is at least as strong $S$.
@@ -1274,11 +1275,11 @@ Contradiction.
 %\DZ{not sure if the weakest hypothesis must be a subset of $\concset$}
 %
 The lemma above suggests that subsets of $\concset{\pathset}$ can be
-good candidates for weakest hypothesis. However, they are not
+good candidates for weakest missing hypothesis. However, they are not
 necessarily minimal. For instance the entire set $\concset{\pathset}$
 is always a weakest missing hypothesis. 
 
-To remove the redundancy in weakest hypotheses, our insight is that
+To remove the redundancy in weakest hypothesis, our insight is that
 some of the conclusions are subsumed by others. 
 %
 To be more specific, we say a conclusion $c_i=\concset{P_i}$
@@ -1288,9 +1289,10 @@ $c_i$ ``covers'' the unsatisfiable path $P_j$. Finding the minimal
 hypothesis is equivalent to finding a minimal cut in the covering
 program.
 
-\paragraph{Example} Return to the previous example \[B\leq C \proves
-A\leq B \land B\leq C \proves A\leq C \land B\leq C \proves A\leq
-C\meet \bot \]
+\paragraph{Example} Return to the previous example \[(B\leq C \proves
+A\leq B) \land (B\leq C \proves A\leq C) \land (B\leq C \proves A\leq
+C\meet \bot )\]
+The missing hypothesis $A\leq B$ is both weakest and minimal.
 
 Based on Lemma~\ref{lemma:weakest} and the definition above, finding
 the minimal and weakest missing hypothesis in $\concset{\pathset}$ is
@@ -1363,7 +1365,7 @@ wrong. This term might be estimated by running machine learning algorithms on
 buggy program corpus. Such corpuses are not easy to find, so
 we assume that each entity is equally likely to be wrong, and each
 entity being the cause is independent. Hence, $H(e)$ is estimated by
-$P^{|e|}$, where $P$ is a constant estimating the likelihood that a
+$P_1^{|e|}$, where $P_1$ is a constant estimating the likelihood that a
 single entity is wrong.
 %Learning a more precise model of $H(e)$ is
 %among our future work.
@@ -1403,11 +1405,11 @@ small and it cuts all unsatisfiable paths while not used often on satisfiable on
 \subsubsection{Estimating the likelihood of an entity being the error}
 \label{sec:rankingalg}
 
-An estimation of the term $P_1^{|e|} \Pi_i P(p_i|e)$ can be used to
-calculate the likelihood that a subset of entities is the cause.
-However, the computation can be impractical. Instead, we propose an
-algorithm that provides the same top ranking results as using term
-$P_1^{|e|} \Pi_i P(p_i|e)$.
+The term $P_1^{|e|} \Pi_i P(p_i|e)$ can be used to calculate the
+likelihood that a subset of entities is the cause.  However, the
+computation can be impractical. Instead, we propose an algorithm that
+provides the same top ranking results as using term $P_1^{|e|} \Pi_i
+P(p_i|e)$.
 
 \paragraph{Ranking algorithm}
 
@@ -1424,7 +1426,7 @@ It holds that $S = \arg\max_{e\subseteq \Omega}P_1^{|e|} \Pi_i P(p_i|e)$.
 \begin{proof}
 By heuristic 1, a subset of entities has a non-zero probability of being
 the cause only when the subset forms a cut of all unsatisfiable paths. Hence,
-the subset of entities maximizing $\Pi_i P(p_i|e) P_1^{|e|}$ must be a cut.
+the subset of entities maximizing $P_1^{|e|} \Pi_i P(p_i|e)$ must be a cut.
 
 Moreover, any $e\in \arg\max_{e\subseteq \Omega}\Pi_i P(p_i|e) P_1^{|e|}$ must
 be a mincut. Otherwise, $\exists e'\subset e$ such that $e'$ is a cut too. Then
@@ -1442,11 +1444,10 @@ $p_i=0$, $P(p_i|e')=P(p_i|e)=1$ since they are both cuts; if $p_i=1$,
 $P(p_i=1|e')\geq P(p_i=1|e)$ since when $P(p_i=1|e')=P_2$,
 $P(p_i=1|e')$ must be $P_2$ because $e'$ is a subset of $e$.
 Otherwise, $P(p_i=1|e')=1-P_2\geq P(p_i=1|e)$ anyway.
-
+\fi
 Since $S$ and $\arg\max_{e\subseteq \Omega}P_1^{|e|} \Pi_i P(p_i|e)$ both
 contain mincuts only, the result is true since $S$ appears in the least
 number of paths where $p_i=1$.
-\fi
 \end{proof}
 
 In the worst case, computing mincut for multiple sources and sinks can
@@ -1572,11 +1573,12 @@ we think the fact multiple suggestions are reported by our
 tool has limited effects on our evaluation results.
 
 \begin{table}
+\label{table:combined}
 \centering
-\subfigure[Top rank suggestion size]{
+\subfigure[Top rank suggestion]{
 \begin{tabular}{|c | c|}
 \hline
-size & Percentage \\
+Size & Percentage \\
 \hline
 1 & 46.87\% \\
 \hline
@@ -1626,8 +1628,8 @@ Total & 40 & 100\% \\
     \label{fig:consgraph:second}
 }
 \end{center}
-\caption{Results separated by student and by homework assignment.
-Moving from bottom to top, the stacks represent OCaml programs where
+\caption{Results separated by homework assignment.  Moving from bottom
+to top, the stacks represent OCaml programs where
 %
 (1) our tool miss the error location while the other tool identifies
 one of them; 
@@ -1645,7 +1647,7 @@ reports multiple (correct) error locations;
 
 \begin{figure}
 \begin{center}
-\includegraphics[height=14em]{graph/ocaml-performance}
+\includegraphics[height=18em]{graph/ocaml-performance}
 \end{center}
 \caption{Performance} 
 \label{fig:performance}
@@ -1671,10 +1673,10 @@ categories and summarize the results in Figure~\ref{fig:ocamlresult}.
 
 \begin{enumerate}
 \item Our approach suggests error location that matches the programmer's
-fix, but the other tools' location missed the error.
+fix, but the other tool's location missed the error.
 
 \item Our approach reports multiple correct error locations that
-matches the programmer's fix, but the other tools' only reports one of
+matches the programmer's fix, but the other tool only reports one of
 them.
 
 \item Both approaches find the error locations corresponding to
@@ -1745,7 +1747,7 @@ which has a small correlation with graph size.
 Considering graph construction time, over $99\%$ are done in 2
 minutes.  Ranking is more efficient, where over $99\%$ can be done in
 1 second.  Considering the human cost to identify error locations, the
-performance seem acceptable.
+performance seems acceptable.
 
 \if 0
 \begin{table}
