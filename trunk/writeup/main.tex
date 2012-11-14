@@ -336,8 +336,7 @@ is determined by the polarities of that constructor's arguments.
 For each argument, the ordering of constructor applications is either
 covariant with respect to that argument (denoted by "+"),
 contravariant with respect
-to that argument ("-"), or invariant with respect to that argument
-("0").
+to that argument ("-"), or invariant with respect to that argument.
 %That is, $\forall c\in \conset, c(E_1, \dots, E_{a(c)})\leq c(E_1',
 %\dots, E_{a(c)}') \Iff E_1\leq E_1' \land \dots, E_{a(c)}\leq
 %E_{a(c)}'$.
@@ -368,7 +367,7 @@ substitution is valid or not. This is formalized as _satisfiability_
 of constraints.
 
 Satisfiability depends on the _ground terms_ $\termset$ 
-that a variable can map into. We define $\termset$ as the
+that a variable can map into. Let $\termset$ be the
 greatest fixed point of the following rules:
 
 \begin{itemize}
@@ -421,9 +420,9 @@ explanation for the failure of satisfiability.
 Under the assumption that programmers write mostly correct code,
 explanations are more plausible when they involve fewer and more
 likely programmer errors. To keep this diagnostic method as general as
-possible, we avoid building in domain-specific knowledge about which
+possible, we avoid building in domain-specific knowledge about
 errors programmers tend to make.  However, the framework does
-accommodate adding such knowledge in a straightforward way.
+permit adding such knowledge in a straightforward way.
 
 \ACM{What happened to our story about mixed explanations that
 consist of constraints + hypotheses? The distinction here between
@@ -541,7 +540,7 @@ generates a constraint $L(y)\leq L(x)$, meaning that the
 label of $x$ must be more restrictive than that of $y$.
 
 Moreover, the programmer can omit some security labels and let the
-compiler generate them when possible. For instance, when the label of
+compiler generate them. For instance, when the label of
 $x$ is not specified, assignment $x := y$ generates a constraint
 $L(y)\leq \alpha$, where $\alpha$ is a label variable to be inferred.
 Hence, Jif constraints are broadly similar in structure
@@ -631,9 +630,8 @@ q\}$ which is obvious from assumptions.
 \paragraph{Label polymorphism}
 
 Polymorphism makes it possible to write reusable code that is not tied
-to any specific security policy. One common form of polymorphism is
-over the labels of method parameters. 
-
+to any specific security policy. Polymorphism
+over the labels of method parameters is common.
 For instance, consider a function "foo"
 with the signature "int foo(bool\lab{Alice→Alice} b)".
 Instead of requiring the parameter "b" to have exactly the label
@@ -807,7 +805,7 @@ graph.
 We use a simple example to illustrate the key ideas behind the
 transformation to a constraint graph.  This example shows we
 identify subsets of unsatisfiable constraints from a _constraint
-graph_ generated from constraints.
+graph_ generated from the constraints.
 
 \paragraph{Example} Consider the following set of constraints.
 \begin{align*}
@@ -826,13 +824,13 @@ The first assertion claims that $x$ is a subtype of $\fn ("ty1",
 The third assertion says that $y$ is a subtype of $x$ if "ty1" is
 a subtype of "ty2".
 
-To check if this goal is satisfiable or not, the key idea is to
+To check if this goal is satisfiable, the key idea is to
 identify inconsistency in the constraints, by applying the inference
 rules associated with the relation $\leq$ and the operators $\join$
 and $\meet$ until a conflict is identified. Such
 inference is equivalent to finding all reachable node pairs in a
-constraint graph where the all labels along the path can be reduced to
-a nonterminal according to a context-free grammar.
+constraint graph where all labels along the path can be reduced to
+a nonterminal, using a context-free grammar.
 
 \paragraph{Constraint graph construction}
 To start, the partial order $\leq$ corresponds to a directed edge in
@@ -881,7 +879,7 @@ name in the graph.
 
 To enable the flow from potentially contravariant variables, the LEQ edges,
 representing $\leq$ relation, are duplicated in the reverse direction with
-polarity $-$. For instance, there are two LEQ edges connecting $x$ and
+polarity $-$. For instance, two LEQ edges connect $x$ and
 $\fn(\cod{ty1},\cod{bool})$, with different polarity and direction.
 
 Some edges are conditioned on hypotheses, such as the third constraint
@@ -889,11 +887,11 @@ $\cod{ty1} \leq \cod{ty2} \proves y \leq x$. For assertions with
 hypotheses, we construct the edges as discussed so far, and save the
 hypotheses on the edges to be used later.
 
-The transformed graph is shown in Figure~\ref{fig:consgraph:second}. The
-systematic way of constructing a constraint graph from constrains is covered in
-Section~\ref{sec:consgraph}.
+The transformed graph is shown in Figure~\ref{fig:consgraph:second}.
+The systematic way of constructing a constraint graph from constraints
+is covered in Section~\ref{sec:consgraph}.
 
-\paragraph{Inferring $\leq$ ordering in graph}
+\paragraph{Inferring the $\leq$ ordering in graph}
 
 The initialized graph is then used to infer all provable $\leq$
 relationship from corresponding constraints.
@@ -918,7 +916,8 @@ By construction, finding $\polarity{+}{\LEQ}$-reachable edges in the
 graph is equivalent to inferring a provable $\leq$ relation in the
 constraint system.
 %More generally, finding all $\polarity{+}{\LEQ}$
-%edges is an _all-pairs $\polarity{+}{\LEQ}$-reachability problem_, a variance
+%edges is an _all-pairs $\polarity{+}{\LEQ}$-reachability problem_, a
+%variant
 %of _context-free-language reachability_ (CFL-reachability).
 %However, $meet$ and $join$ elements need special rules,
 %which we discuss in Section~\ref{sec:leqedge}.
@@ -1040,7 +1039,7 @@ Section~\ref{sec:hypograph}.
 \subsection{Inferring $\polarity{+}{\LEQ}$-reachable paths}
 \label{sec:leqedge}
 
-The constraint graph is used identify all provable $\leq$ orderings on
+The constraint graph is used to identify all provable $\leq$ orderings on
 elements according to a context-free grammar shown in
 Figure~\ref{figure:cfg}. Notice that regardless of the polarity of
 constructor edges, a $\polarity{+}{\LEQ}$ 
@@ -1051,29 +1050,30 @@ components.
 
 The _all-pairs $\polarity{+}{\LEQ}$-reachability_ problem is
 well-studied in literature\cite{melski-cflgraph,barrett-cflpath}. As a
-variance of _context-free-language reachability problems_
+variant of _context-free-language reachability problems_
 (CFL-reachability problems), it is used for a number of
 program-analysis applications~\cite{reps-graph}. 
 
-In this work, we adopt the dynamic programming algorithm, which also
-finds shortest $\polarity{+}{\LEQ}$ paths in~\cite{barrett-cflpath},
+In this work, we adopt the dynamic programming algorithm
+in~\cite{barrett-cflpath}, which also
+finds shortest $\polarity{+}{\LEQ}$ paths,
 since the path information is used in our ranking algorithm in
 Section~\ref{sec:ranking}.
-
+%
 However, one difference from previous work is that we also handle
 inference rules for join and meet nodes while producing
 $\polarity{+}{\LEQ}$ edges.
 
-Take join operation for instance (meet operation can be handled in a
-dual way). The rule $E_1\join E_2\leq E \Iff E_1\leq E \land E_2 \leq
+Take the join operation for instance (meet can be handled dually).
+The rule $E_1\join E_2\leq E \Iff E_1\leq E \land E_2 \leq
 E $ can be used in two directions. The direction from left to right is
 already handled when we break elements into atomic components in
 Section~\ref{sec:consgraph}.
 
 To use the rule in the other direction, we do the following check
 whenever a new $\LEQ$ edge $\LEQ(a,b)$ is processed: for each join
-element $E$ where $a$ is a component (by following join edges), we add
-an edge from $E$ to $b$ if all the components of $E$ has a $\LEQ$ edge
+element $E$ where $a$ is a component (following join edges), we add
+an edge from $E$ to $b$ if all components of $E$ have a $\LEQ$ edge
 to $b$. 
 
 \begin{figure}
@@ -1085,7 +1085,7 @@ to $b$.
 \polarity{p}{\invcabs{c}{i}} \\
 \polarity{-}{\LEQ} ::=\; & \polarity{p}{\invcabs{c}{i}}\;
 \polarity{p}{\LEQ}\; \polarity{p}{\consiabs ci} \\
-     & \text{, where } c\in \conset \land 1 \leq i\leq \arity{c} \land p\in \{+,-\}\\
+     & \text{where } c\in \conset \land 1 \leq i\leq \arity{c} \land p\in \{+,-\}
 \end{align*}
 \end{minipage}
 \caption{Context-free grammar of reduction}
@@ -1176,7 +1176,7 @@ $\hyposet{P_1} \land \G \proves \concset{P_1} \land
 \hyposet{P_n} \land \G \proves \concset{P_n}$.
 %
 We call any set of constraints satisfying the condition above a
-_missing hypotheses_~\footnote{This definition is an estimation of a
+_missing hypothesis_~\footnote{This definition is an estimation of a
 more general form of missing hypothesis, where individual hypotheses
 are inferred for different paths. But it is less feasible to do so.}.
 
@@ -1189,12 +1189,12 @@ Consider the following assertions:
 
 Since the only hypothesis we have is $B\leq C$, none of the three
 constraints in the conclusion may hold. 
-
+%
 One trivial solution is to add all invalid conclusions to the
 hypothesis. For the example above, this approach will add $A\leq B
 \land A\leq C \land A\leq C\meet \bot$ to the hypotheses.
 
-However, such naive approach is undesirable for two reasons: 
+However, this naive approach is undesirable for two reasons: 
 %
 \begin{enumerate}
 \item introducing an invalid hypothesis may invalidate a program
@@ -1203,7 +1203,7 @@ hypotheses can violate security. So the programmer has to check
 the truthfulness of all hypotheses carefully, which can be time
 consuming and error-prone.
 
-\item a program analysis use a combination of static and dynamic
+\item a program analysis may combine static and dynamic
 approaches. For instance, although most of Jif label checking is
 static, some hypotheses are checked dynamically. So a large hypothesis
 may also hurt run-time performance.
@@ -1217,11 +1217,9 @@ partial order $a \leq b$ can be proved since $a\leq \top\leq \bot\leq
 b$. However, this assumption is obviously too strong to be useful.
 
 So intuitively, we are interested in a solution that is both the
-_weakest_ and _minimal_, which we will formalize and give an algorithm
-finding such missing hypotheses. 
-
-Return to the example above, our algorithm returns only one hypothesis
-$A\leq B$, which is both weakest and minimal.
+_weakest_ and _minimal_. We will now give an algorithm finding such
+missing hypotheses; in the example above, it returns only one
+hypothesis $A\leq B$, which is both weakest and minimal.
 %
 % \subsubsection{Missing hypotheses}
 % 
@@ -1240,7 +1238,7 @@ $A\leq B$, which is both weakest and minimal.
 % 
 \subsubsection{Weakest and minimal hypotheses}
 
-We want to finding weakest and minimal
+We want to find weakest and minimal
 hypotheses for some set of unsatisfiable paths, denoted as
 $\pathset=\{P_1, P_2, \dots, P_n\}$. We further define the conclusion
 set of all paths as the union of all conclusions:
@@ -1284,7 +1282,7 @@ To be more specific, we say a conclusion $c_i=\concset{P_i}$
 _subsumes_ another conclusion $c_j=\concset{P_j}$ if $c_i \land
 \hyposet{P_j} \proves c_j$. Intuitively, if $c_i$ subsumes $c_j$, then
 $c_i$ ``covers'' the unsatisfiable path $P_j$. Finding the minimal
-hypotheses is equivalent to finding a minimal cut the in covering
+hypothesis is equivalent to finding a minimal cut in the covering
 program.
 
 \paragraph{Example} Return to the previous example \[B\leq C \proves
@@ -1292,9 +1290,9 @@ A\leq B \land B\leq C \proves A\leq C \land B\leq C \proves A\leq
 C\meet \bot \]
 
 Based on Lemma~\ref{lemma:weakest} and the definition above, finding
-minimal and weakest missing hypothesis in $\concset{\pathset}$ is
+the minimal and weakest missing hypothesis in $\concset{\pathset}$ is
 equivalent to finding the minimal subset of $\concset{\pathset}$ which
-subsumes all $c\in \concset{\pathset}$, which gives us an algorithm to
+subsumes all $c\in \concset{\pathset}$. This gives us an algorithm to
 find the minimal and weakest hypothesis:
 
 \paragraph{Algorithm}
@@ -1326,11 +1324,11 @@ small number. So it is still feasible for the computation.
 
 \subsubsection{Maximum a posteriori interpretation of error inference}
 
-The entity of error reporting can be application specific. For
-instance, OCaml compiler reports typing error in the form of
-expressions, Jif reports error in the form of information-flow
-constraints. To make our error inference approach general, we treat
-the entities as an abstract set $\Omega$ and we assume is a mapping
+The entity about which errors are reported can be application-specific: e.g., 
+OCaml reports typing errors in expressions, whereas
+Jif reports errors in information-flow
+constraints. To make our diagnosis approach general, we treat
+entities as an abstract set $\Omega$ and assume a mapping
 $\Phi$ from entities to constraints.
 
 The error inference process can be interpreted in the following way:
@@ -1352,17 +1350,20 @@ By the maximum a posteriori (MAP) model, maximizing the term $P(e|o)$
 equals to finding $\arg\max_{e \subseteq \Omega} P(o|e) H(e) / G(o)$.
 Since $G(o)$ is irrelevant to the variable $e$ in this term, we get
 \[\arg\max_{e \subseteq \Omega} P(o|e) H(e) / G(o) =  \arg\max_{e
-\subseteq \Omega} P(o|e) H(e)\] , where the terms $P(o|e)$ and $H(e)$
+\subseteq \Omega} P(o|e) H(e)\]
+\noindent
+where the terms $P(o|e)$ and $H(e)$
 are easier to calculate.
 
 $H(e)$ is the prior knowledge of how likely a subset of entities $e$ is
-wrong. This term can be estimated by running machine learning algorithms on
-buggy program corpus. But due to the limited number of such program corpus, we
-assume that each entity is equality likely to be wrong, and each
+wrong. This term might be estimated by running machine learning algorithms on
+buggy program corpus. Such corpuses are not easy to find, so
+we assume that each entity is equally likely to be wrong, and each
 entity being the cause is independent. Hence, $H(e)$ is estimated by
 $P^{|e|}$, where $P$ is a constant estimating the likelihood that a
-single entity is wrong. Learning a more precise model of $H(e)$ is
-among our future work.
+single entity is wrong.
+%Learning a more precise model of $H(e)$ is
+%among our future work.
 
 $P(o|e)$ is the probability of observing the constraint graph we have
 given that entities $e$ is the cause.
@@ -1376,11 +1377,11 @@ remove such paths in $o$.
 
 To estimate the remaining term, we assume that satisfiability of the
 rest paths are independent. This allows us to write $P(o|e) = \Pi_i
-P(p_i|e)$, where the term $P(p_i|e)$ is calculate based on two
+P(p_i|e)$, where the term $P(p_i|e)$ is calculated based on two
 heuristics:
 
 \begin{enumerate}
-\item Something must wrong on an unsatisfiable path. That is, at least
+\item Something must be wrong on an unsatisfiable path. That is, at least
 one constraint on an unsatisfiable path is generated by $e$:
 $P(p_i=0|e) = 1$ if path $p_i$ contains some constraint generated by
 an entity in $e$.  Otherwise 0.
@@ -1403,7 +1404,7 @@ An estimation of the term $P_1^{|e|} \Pi_i P(p_i|e)$ can be used to
 calculate the likelihood that a subset of entities is the cause.
 However, the computation can be impractical. Instead, we propose an
 algorithm that provides the same top ranking results as using term
-$P_1^{|e|} \Pi_i P(p_i|e)$ next.
+$P_1^{|e|} \Pi_i P(p_i|e)$.
 
 \paragraph{Ranking algorithm}
 
@@ -1418,7 +1419,7 @@ It holds that $S = \arg\max_{e\subseteq \Omega}P_1^{|e|} \Pi_i P(p_i|e)$.
 \end{Theorem}
 
 \begin{proof}
-By the heuristic 1, a subset of entities has a non-zero probability of being
+By heuristic 1, a subset of entities has a non-zero probability of being
 the cause only when the subset forms a cut of all unsatisfiable paths. Hence,
 the subset of entities maximizing $\Pi_i P(p_i|e) P_1^{|e|}$ must be a cut.
 
@@ -1431,6 +1432,7 @@ P_1^{|e'|} \Pi_i P(p_i|e') > P_1^{|e|} \Pi_i P(p_i|e)
 \end{equation}
 which contradicts the fact that $e$ maximizes $P_1^{|e|} \Pi_i P(p_i|e)$.
 
+\iftr
 The reason for (\ref{equ}) is that since $e'\subset e$, $P_1^{|e'|}>
 P_1^{|e|}$. Moreover, for any $i$,  $P(p_i|e') \geq P(p_i|e)$. Because if
 $p_i=0$, $P(p_i|e')=P(p_i|e)=1$ since they are both cuts; if $p_i=1$,
@@ -1441,6 +1443,7 @@ Otherwise, $P(p_i=1|e')=1-P_2\geq P(p_i=1|e)$ anyway.
 Since $S$ and $\arg\max_{e\subseteq \Omega}P_1^{|e|} \Pi_i P(p_i|e)$ both
 contain mincuts only, the result is true since $S$ appears in the least
 number of paths where $p_i=1$.
+\fi
 \end{proof}
 
 In the worst case, computing mincut for multiple sources and sinks can
@@ -1499,7 +1502,7 @@ beginner programmers but were new to OCaml, the errors presented in
 the data are particularly interesting.
 
 We analyzed 5 homework assignments, each requiring 100--200 lines of
-code. The data we received came from 10 students participated in the
+code. The data we received came from 10 students participating in the
 class.
 
 \paragraph{Analysis}
@@ -1527,13 +1530,13 @@ Even if the programmer later changed $\cod{true}$ to be some integer,
 the error suggestion of the let binding of $\cod{x}$ and the use of
 $\cod{x}$ are still good suggestions since they are highly related to
 the fix. However, operation $\cod{+}$ and integer $\cod{1}$ are not
-since the fix is not related. This principal is used in our evaluation
+since the fix is not related. This principle is used in our evaluation
 to judge the correctness of location.
 
 To avoid reporting the same error multiple times, we reuse the
 grouping tags in the data. Using only one representative data from
 same errors removes the potential dependencies among the errors:
-sometimes the user just recompile the program since OCaml error
+sometimes the user just recompiles the program since OCaml error
 reporting is confusing. Counting each of these files would make our
 approach look better.
 
@@ -1561,9 +1564,9 @@ are closely related to the fix.
 Moreover, we calculate the distribution of top rank group size,
 reported in Table~\ref{table:groupsize}. We can see that in more than
 $92\%$ of the cases, the top rank suggestion size is considerably
-small. Recall that there can be multiple good location suggestions in
-many cases, we think the fact multiple suggestions are reported by our
-tool has limited effects on in our evaluation results.
+small. Since often there are multiple good location suggestions,
+we think the fact multiple suggestions are reported by our
+tool has limited effects on our evaluation results.
 
 \begin{table}
 \centering
@@ -1646,8 +1649,8 @@ reports multiple (correct) error locations;
 \end{figure}
 
 From the data, we analyze only type mismatch errors, which corresponds
-to unsatisfiable constraints. Errors such as unbound values, too many
-arguments to a constructor are usually better localized and they are
+to unsatisfiable constraints. Errors such as unbound values or too many
+arguments to a constructor are more easily localized; they are
 not the focus of our work. 
 
 We also exclude programs using unsupported features of the modified
