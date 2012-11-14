@@ -885,7 +885,7 @@ polarity $-$. For instance, there are two LEQ edges connecting $x$ and
 $\fn(\cod{ty1},\cod{bool})$, with different polarity and direction.
 
 Some edges are conditioned on hypotheses, such as the third constraint
-$\cod{ty2} \leq \cod{ty1} \proves y \leq x$. For assertions with
+$\cod{ty1} \leq \cod{ty2} \proves y \leq x$. For assertions with
 hypotheses, we construct the edges as discussed so far, and save the
 hypotheses on the edges to be used later.
 
@@ -938,15 +938,15 @@ when necessary.
 
 There are two $\polarity{+}{\LEQ}$ paths connecting constructor
 applications in Figure~\ref{fig:consgraph:second}, namely the path
-between $(\cod{bool, int})$ and $(\cod{ty2, ty1})$. 
+between $(\cod{bool, int})$ and $(\cod{ty1, ty2})$. 
 
 Using the constraints along $\polarity{+}{\LEQ}$ paths assumes all
 hypotheses must hold too, which is $\cod{ty2}\leq \cod{y1}$ for
 both paths in this example. Therefore, the satisfiability of the goal
 reduces to checking the validity of two assertions 
 %
-\[\cod{ty2}\leq \cod{y1}\proves \cod{bool}\leq \cod{int}\]
-\[\cod{ty2}\leq \cod{y1}\proves \cod{ty2}\leq \cod{ty1}\]
+\[\cod{ty1}\leq \cod{ty2}\proves \cod{bool}\leq \cod{int}\qquad
+\cod{ty1}\leq \cod{ty2}\proves \cod{ty1}\leq \cod{ty2}\]
 \noindent
 which is easy to judge. Moreover, constraints along the path from
 $\cod{bool}$ to $\cod{int}$ forms a proof of the unsatisfiability.
