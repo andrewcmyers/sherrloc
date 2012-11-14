@@ -229,7 +229,26 @@ constructing such paths is an intermediate step in our approach.
 % 
 % This is a simple one, OCaml blames $\cod{Var(_,i)}$, but the error is that 0
 % should be Nil.
-% 
+%
+
+\paragraph{Jif label checking}
+
+Jif~\cite{jif} is a Java extension that statically analyzes the
+security of information flow within programs. 
+
+Besides the confusing error messages~\cite{king:fse} that root in the
+constraint solving process similar to ML type inference, the error
+may also correspond to missing hypotheses in the program.
+
+For instance, an assignment from a memory location labeled with a
+patient's security label to another location with a doctor's label
+may fail to label check because the hypothesis that doctor acts for
+patient, which means the security model allows the flow from patient
+to doctor, is missing. 
+
+We also propose a way of inferring a likely missing hypothesis in this
+paper.
+
 \section{Constraint language}
 \label{sec:language}
 
