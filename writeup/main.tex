@@ -121,12 +121,12 @@ effective.}
 
 \paragraph{ML type inference}
 
-The power of ML type inference is that the programmers are relieved
-from explicitly writing all types. However, such power also brings
-confusing error messages when the type inference fails. The following
-program came from the data collected from real
-programmers~\cite{lerner:pldi07} (though slightly simplified for
-better representation).
+The power of type inference is that programmers need not
+explicitly write all types. When type inference fails, however,
+this power has the downside of possibly confusing error messages.
+For example, the following code was written by a real
+programmer~\cite{lerner:pldi07}. (It has been simplified slightly
+for clarity.)
 
 % file: stu01, hw1 20060303-20:59:18
 \lstset{numbers=left, xleftmargin=15pt, framexleftmargin=15pt}
@@ -1851,6 +1851,22 @@ Also, our missing-hypothesis inference is more straightforward.
 % Policy inference~\cite{chong:sp11, harris:ccs10}.
 % Using statisctical
 % analysis for bug finding is not new. Dawson Engler.
+
+\section{Conclusion}
+
+Better tools for helping programmers find the errors resulting from
+program analysis will make programmers more willing to use the many
+powerful program analyses that have been developed. This paper has
+introduced an analysis of program constraint graphs that offers a
+powerful and general way to diagnose both locations of errors in
+programs and missing environmental hypotheses.
+
+There are clearly many interesting directions to take this work.
+Though we have shown that the technique works well on two very
+different type systems, it would likely be fruitful to apply these
+ideas to other type systems and program analyses, and to explore more
+sophisticated ways to estimate the likelihood of different error
+explanations.
 
 \bibliographystyle{abbrv}
 \bibliography{constraint,../bibtex/pm-master}
