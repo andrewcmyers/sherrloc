@@ -21,7 +21,7 @@ FIGS = breakdownhw.pdf breakdownstudent.pdf consgraph.pdf consgraph.pdf \
 #
 # List of postscript figures to be included
 
-MAKEDIR=$(HOME)/APL/Aplpaper/aplpapers/make
+MAKEDIR=$(HOME)/aplpapers/make
 
 include $(MAKEDIR)/commondefs
 #
