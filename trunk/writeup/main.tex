@@ -124,8 +124,9 @@ effective.}
 The power of type inference is that programmers need not
 explicitly write all types. When type inference fails, however,
 this power has the downside of possibly confusing error messages.
-For example, the following code was written by a real
-programmer~\cite{lerner:pldi07}. (It has been simplified slightly
+For example, the following code was written by a student
+programmer attempting to solve a programming
+assignment~\cite{lerner:pldi07}. (It has been simplified slightly
 for clarity.)
 
 % file: stu01, hw1 20060303-20:59:18
@@ -159,11 +160,11 @@ Notice that the return type of function "append" is also
 used as the second parameter in constructor "Cons".  By the
 definition in line 1, it has the same type as "Cons(x, append rest lst)".
 Therefore, assuming that the programmer is less likely to make many
-mistakes, $\cod()$ appears _more likely_ to be wrong.
+mistakes, "()" appears more likely to be wrong.
 
 The approach of inferring likely wrong expressions is more powerful in
-the following program---also came from real programmer, where the
-location reported OCaml compiler is confusing.
+the following student program, for which the location reported by the
+OCaml compiler is confusing.
 
 %file: stu01, hw2-logo 20060319-20:22:42
 \begin{lstlisting}
@@ -184,26 +185,30 @@ let p1 (lst : move list) : (float*float) list =
   List.rev (loop lst $\shadow{0.0}$ 0.0 0.0 [(0.0,0.0)])
 \end{lstlisting}
 
-For this example, OCaml reports that the whole match expression (line
-4-7) is wrong. This error message is misleading since the programmer's
-fix shows that the real error is that $2$ at line 6 should be $2.0$.
-Moreover, the shadowed variable name $\cod{lst}$ (we preserved them in
-this example) makes finding the error more challenging.
+For this example, OCaml reports that the whole match expression (lines
+4--7) is wrong. This error message is misleading because the programmer's
+fix shows that the real error is that the "2" at line 6 should be "2.0".
+%Moreover, the shadowed variable name $\cod{lst}$ (we preserved them in
+%this example) makes finding the error more challenging.
 
-However, without any specific rule, the error location can be inferred
-in the same way as we illustrated earlier by noticing that all
-expressions we shadowed must have the same type. The intuition is that
-only expression $2$ is used in a complete wrong way; the subset of
-excluding $2$ is satisfiable by following the path
-$\cod{0.0=x_{9}=x_{10}=x_{12}=nX_{12}=nX_{11}=float}$ (subscription
-corresponds to the line number).
+The error location can be inferred by the same kind of reasoning as
+above: we notice that all highlighted
+expressions must have the same type. The intuition is that
+the type expression "2" is inconsistent with that of the several
+other highlighted expressions that must have the same type;
+excluding "2", the type constraints are satisfiable along the path
+$\cod{0.0=x_{9}=x_{10}=x_{12}=nX_{12}=nX_{11}=float}$ (where the
+subscript identifies the line number).
 
-The set of all shadowed expressions is also a typical result following
-the idea of tracing everything related to the
-error~\cite{wand-errorfinding,choppella95, haack:slicing,
-tip:slicing}. Clearly, such result requires much more efforts to
-identify the error compared with our precise location report (though
-our approach also generates such information in an intermediate step).
+Prior work has explored the idea of tracing and reporting everything
+along paths related to a type inference
+failure~\cite{wand-errorfinding,choppella95, haack:slicing,
+tip:slicing}. Our goal is to be more useful, by identifying the
+precise point along the path where the error occurs. However,
+constructing such paths is an intermediate step in our approach.
+%Clearly, such result requires much more efforts to
+%identify the error compared with our precise location report (though
+%our approach also generates such information in an intermediate step).
 
 % % stu02, hw2-logo 20060322-14:52:42
 % \begin{lstlisting}
@@ -308,9 +313,11 @@ element with respect to $\leq$.
 
 We further assume that the partial ordering on constructor applications
 is determined by the polarities of that constructor's arguments.
-For each argument, the ordering of the constructor is either
-covariant with respect to that argument, contravariant with respect
-to that argument, or invariant with respect to that argument.
+For each argument, the ordering of constructor applications is either
+covariant with respect to that argument (denoted by "+"),
+contravariant with respect
+to that argument ("-"), or invariant with respect to that argument
+("0").
 %That is, $\forall c\in \conset, c(E_1, \dots, E_{a(c)})\leq c(E_1',
 %\dots, E_{a(c)}') \Iff E_1\leq E_1' \land \dots, E_{a(c)}\leq
 %E_{a(c)}'$.
@@ -449,8 +456,8 @@ differences:
 
 \item Most importantly, this constraint language models hypotheses,
 enabling the modeling of some existing program analyses, such as the
-``where'' clause in Jif and the subtyping relationship in many
-object-oriented systems. 
+``where'' clause in Jif and the subtype constraints used in Java
+generics.
 
 \item We exclude the negation of elements in our model since it is not
 essential in modeling many program analyses. Also, previous work
@@ -501,29 +508,30 @@ language.
 % 
 
 In information-flow control systems, information is tagged with security
-labels, such as labels from unclassified to top secret. More generally, the
-security labels in nature forms a lattice~\cite{denning-lattice}. The goal of
-such systems is to restrict insecure flows from information to a place with
-less restrictive labels, such as from top secret to unclassified. 
+labels, such as ``unclassified'' or ``top secret''. Such 
+security labels naturally form a lattice~\cite{denning-lattice},
+and the goal of such systems is to ensure that all information flows
+upward in the lattice.
 
-In this part, we focus on a sophisticated information-flow control
-language, Jif~\cite{jif} and outline how checking of Jif information
-flow labels are expressed by our core constraint language. Of
-course, less intricate models can also be described by our core
-constraint language.
+To demonstrate the expressiveness of our core  constraint language, we
+we focus on the Jif language~\cite{jif}, showing how 
+checking of information flow in Jif can be expressed by
+the core constraint language.
+%Of course, less intricate models can also be described by our core
+%constraint language.
 
 \paragraph{Label inference and checking}
 
 Jif~\cite{jif} is a version of Java that statically analyzes the security of
 information flow within programs based on the DLM model~\cite{ml-ifc-97}. In
-this language, memory locations are tagged with security labels.
+this language, types are annotated with security labels.
 
 Information flow is checked by the Jif compiler using constraint
-solving. For instance, consider an assignment $x := y$. This
-assignment generates a constraint $L(y)\leq L(x)$, meaning that the
-label of $x$ must be more restrictive than $x$.
+solving. For instance, given an assignment $x := y$, the compiler
+generates a constraint $L(y)\leq L(x)$, meaning that the
+label of $x$ must be more restrictive than that of $y$.
 
-Moreover, the programmer can emit some security labels and let the
+Moreover, the programmer can omit some security labels and let the
 compiler generate them when possible. For instance, when the label of
 $x$ is not specified, assignment $x := y$ generates a constraint
 $L(y)\leq \alpha$, where $\alpha$ is a label variable to be inferred.
@@ -541,9 +549,10 @@ representing users and other authority entities. Examples of
 principals could be patient A, patient B, doctor A and so on.
 Principals can be expressed by constants.
 
-Principals are structured as a lattice with respect to a relation
-_actsfor_.  The proposition $\cons{actsfor}{A,B}$ means that $A$ is more
-privileged than $B$.
+Labels form a lattice, but principals themselves are also structured
+as a lattice with respect to a relation _actsfor_.  The proposition
+$\cons{actsfor}{A,B}$ means that $A$ is at least as privileged than
+$B$.
 % 
 For instance, if doctor A _actsfor_ patient A, then doctor A is
 allowed to read all information that patient A can read. However, such
@@ -551,42 +560,49 @@ relation does not grant doctor A to read any information patient B can
 read, unless doctor A _actsfor_ patient B too. The _actsfor_ relation
 can be expressed by the partial ordering $\leq$.
 
-The security concern of information is expressed by _labels_. The
-modeling of the labels requires some insights of the label model.
-
-In the DLM model, a label $L$ contains a set of principals called the
+Security policies on information are expressed as _labels_ that
+mention these principals.
+A label $L$ contains a set of principals called the
 _owners_.  For each owner $O$, the label also contains a set of
-principals called the _readers_. Readers are the principals owner $O$
-is willing to release the information. 
+principals called the _readers_. Readers are the principals to whome
+owner $O$ is willing to release the information. 
 
-For instance, a label $\lab{o_1:r_1,r_2;\ o_2:r_2,r_3}$ can be read as: principal
-$o_1$ allows principals $r_1$ \emph{or} $r_2$ to read the tagged information,
-\emph{and} principal $o_2$ allows principals $r_2$ \emph{or} $r_3$ to read.
-Hence effectively, only the principals in the _effective reader set_, the
-intersection of the readers of all owners, may read the information.
+For instance, a label $\lab{o_1:r_1,r_2;\ o_2:r_2,r_3}$ can be read
+as: principal $o_1$ allows principals $r_1$ \emph{or} $r_2$ to read
+the tagged information, \emph{and} principal $o_2$ allows principals
+$r_2$ \emph{or} $r_3$ to read.  Hence effectively, only the principals
+in the _effective reader set_, the intersection of the readers of all
+owners, may read the information.
+\newcommand\readers{\mathit{readers}}
 
 In the presence of the _actsfor_ relation $\leq$, the effective reader set is
 defined as follows:
-\[readers(p, o→r) ≜ \{q  \mid \text{if}\ p \leq o\ \text{then} (o \leq q\
+\[\readers(p, o→r) ≜ \{q  \mid \text{if}\ p \leq o\ \text{then} (o \leq q\
 \text{or}\ r \leq q)\}\]
 
 Based on this definition, the ``no more restrictive than'' relation
 $\sqsubseteq$ on confidentiality policies is formalized as:
-\[ c \sqsubseteq d \Iff \forall p, readers(p, c) ⊇ readers(p, d) \]
+\[ c \sqsubseteq d \Iff \forall p.~\readers(p, c) ⊇ \readers(p, d) \]
 
-Although from the definition, it is not clear that the confidential
+Although from the definition, it is not clear that the confidentiality
 policy is a constructor of principals, we make it clear by the
-following theorem, which shows that the confidential policy can be
-expressed by constructor in our constraint language.
+following theorem, which shows that the confidentiality policy can be
+expressed as a constructor in the core constraint language.
+
 \ACM{Not clear this theorem is sufficiently interesting to spell
 out in detail. Also, presumably there is an integrity policy
 property to be stated?}
 
 \begin{Theorem}
 A confidentiality policy in the DLM model is a covariant constructor
-of principals.
+on principals.
 \end{Theorem}
 
+The DLM model also supports integrity policies. Because these are
+dual to confidentiality policies, a DLM integrity policy is a
+_contravariant_ constructor on principals.
+
+\iftr
 \begin{proof}
 It is sufficient to show that $a→b \sqsubseteq c→d \Iff a\leq c \land
 b\leq d$.
@@ -605,6 +621,7 @@ $\{q \mid a\leq q\ \text{or}\ b\leq q\} ⊇ \{q \mid c\leq q\ \text{or}\ d\leq
 q\}$ which is obvious from assumptions.
 
 \end{proof}
+\fi
 
 \paragraph{Label polymorphism}
 
@@ -612,17 +629,19 @@ Polymorphism makes it possible to write reusable code that is not tied
 to any specific security policy. One common form of polymorphism is
 over the labels of method parameters. 
 
-For instance, consider a function "int foo(bool\lab{Alice→Alice} b)".
+For instance, consider a function "foo"
+with the signature "int foo(bool\lab{Alice→Alice} b)".
 Instead of requiring the parameter "b" to have exactly the label
 "\{Alice→Alice\}", the label actually serves as an upper bound on the
 real parameter.
 
 The introduction of hypotheses in our constraint language makes the
 modeling of such label polymorphism straightforward. Instead of
-requiring the label of b to
-be "\lab{Alice→Alice}", we add the constraint $c\leq
+requiring the label of "b" to
+be "\lab{Alice→Alice}", we add the constraint $c_{\,\texttt{b}} \leq
 "\lab{Alice→Alice}"$ to the hypothesis of all constraints generated in the
-method body.
+method body, where $c_{\,\texttt{b}}$ is a constant representing the label of
+variable "b".
 
 \paragraph{Method constraints}
 
@@ -685,9 +704,10 @@ $\ty\leq \ty' \land \ty'\leq \ty$.
 \begin{figure}
 \begin{minipage}{2in}
 \begin{align*}
-\expr ::=\; & x \mid n \mid \expr\; + \; \expr \mid \fn\; x
-\rightarrow \expr;\ \mid \expr\; \expr \mid \kwlet\; \val\; x =
-\expr\; \kwin\; \expr\; \kwend\\ \end{align*}
+\expr ::=  & x \mid n \mid \expr_1 + \expr_2 \mid \fn x → \expr \mid
+\expr_0  \expr_1 \mid \kwlet x =
+\expr_1  \kwin  \expr_2  \\
+\end{align*}
 \end{minipage}
 \caption{Syntax of a subset of ML}
 \label{figure:mltypes}
@@ -711,8 +731,9 @@ in~\cite{haack:slicing} for better presentation).
 \hfil
 \begin{minipage}{2.3in}
 \begin{align*}
-\expr ::=\; & x \mid n \mid \expr\; + \; \expr \mid \fn\; x \rightarrow \expr \\
-        & \mid \expr\; \expr \mid \kwlet\; \val\; x = \expr\; \kwin\; \expr\; \kwend
+\expr ::=  & x \mid n \mid \expr  +   \expr \mid \fn  x \rightarrow \expr \\
+        & \mid \expr  \expr \mid \kwlet  \val  x = \expr  \kwin 
+	\expr  \kwend
 \end{align*}
 
 \begin{mathpar}
