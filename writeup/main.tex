@@ -584,25 +584,21 @@ Based on this definition, the ``no more restrictive than'' relation
 $\sqsubseteq$ on confidentiality policies is formalized as:
 \[ c \sqsubseteq d \Iff \forall p.~\readers(p, c) ⊇ \readers(p, d) \]
 
-Although from the definition, it is not clear that the confidentiality
-policy is a constructor of principals, we make it clear by the
-following theorem, which shows that the confidentiality policy can be
-expressed as a constructor in the core constraint language.
+Because of this definition, a confidentiality policy in the DLM
+model can be treated as a covariant constructor on principals.
+Integrity policies are dual to confidentiality policies, so they
+can be treated as contravariant constructor on principals.
 
 \ACM{Not clear this theorem is sufficiently interesting to spell
 out in detail. Also, presumably there is an integrity policy
 property to be stated?}
 
+\iftr
 \begin{Theorem}
 A confidentiality policy in the DLM model is a covariant constructor
 on principals.
 \end{Theorem}
 
-The DLM model also supports integrity policies. Because these are
-dual to confidentiality policies, a DLM integrity policy is a
-_contravariant_ constructor on principals.
-
-\iftr
 \begin{proof}
 It is sufficient to show that $a→b \sqsubseteq c→d \Iff a\leq c \land
 b\leq d$.
@@ -649,7 +645,7 @@ Methods in Jif may contain ``where'' clauses, explicitly stating
 constraints assumed to hold true during the execution of the method
 body. The compiler type-checks the method body under these assumptions
 and checks that the assumptions are true at all method call sites. 
-Method constraints can easily modeled by the hypothesis in our
+Method constraints are easily modeled by hypotheses in our
 constraint language.
  
 \subsubsection{ML type inference}
@@ -839,7 +835,7 @@ transformation.
 Consider the element $\fn (\cod{ty1}, \cod{bool})$. We need to capture
 the fact that the constructor is decomposable in the graph. The idea is to add
 special _constructor edges_ between the constructor and its
-components, as illustrated in Figure~\ref{fig:consgraph:first}.
+components, as illustrated in Figure~\ref{fig:consgraph}(a).
 
 \begin{figure*}
 \newcommand\fh{12em}
@@ -867,12 +863,13 @@ components, as illustrated in Figure~\ref{fig:consgraph:first}.
 
 Constructor edges are labeled by the following information: the constructor,
 position of the component, and the polarity (covariant, contravariant or
-invariant). For instance, the edge labeled $\polarity{+}{\fn_1}$
+invariant). For instance, the edge labeled $\polarity{+}{\consi{fn}{1}}$
 connects the first (covariant) component to the constructor
 application.
 %
 Decomposition edges are also added from the constructor applications
-to the components, distinguished by a $(^{-1})$ in the graph.
+to the components, distinguished by a overline above the constructor
+name in the graph.
 
 To enable the flow from potentially contravariant variables, the LEQ edges,
 representing $\leq$ relation, are duplicated in the reverse direction with
@@ -967,7 +964,7 @@ construct the constraint graph. Hypothesis $C_1$ is added to $\LEQ$
 edges when necessary.
 
 For a constraint $E_1 \leq E_2$, we first transform $E_1$ into
-conjunction normal form (CNF) and $E_2$ into disjunction normal form
+conjunctive normal form (CNF) and $E_2$ into disjunctive normal form
 (DNF): $E_{11}\join E_{12} \join \dots \join E_{1n} \leq E_{21}\meet
 E_{22} \meet \dots \meet E_{2m}$. This transformation helps to break
 the constraint into $n\times m$ _atomic constraints_: $E_{1i}\leq
@@ -1003,13 +1000,15 @@ The subgraph for $E$ with id $id$ is constructed as follows:
 \item Constructor application $c(\polarity{p_1}{E_1}, \dots,
 \polarity{p_2}{E_{\arity{c}}})$: for each $E_i$, $1\leq i \leq \arity{c}$,
 the graph is constructed for $E_i$. Moreover, graph contains
-$\polarity{p_i}{\atom{cons}_i}$ edge from $E_i$'s node to $N_{id}$.  Also, create
-$\invc{cons}{1}(p_i,i)$ edge from $N_{id}$ to $E_i$'s node. Invariant
+$\polarity{p_i}{\atom{cons}_i}$ edge from $E_i$'s node to $N_{id}$. 
+Also, create
+$\polarity{p_i}{\invc{cons}{1}}$ edge from $N_{id}$ to $E_i$'s node.
+An invariant
 component is treated as both covariant and contravariant.
 
 \item Projection $\invcabs{c}{i}(E)$: construct graph for $E$. Then, create
-$\atom{cons}(p_i,i)$ edge from E's node to $N_{id}$ and create an
-$\invc{cons}{1}(p_i,i)$ edge in the reverse direction.
+$\polarity{p_i}{\consi{cons}i}$ edge from E's node to $N_{id}$ and create an
+$\polarity{p_i}{\invc{cons}{1}}$ edge in the reverse direction.
 
 \item $E_1\join E_2$: construct graph for both $E_1$ and $E_2$. Then,
 create $\polarity{+}{\LEQ}$ and $join$ edge from $E_1$ and $E_2$'s node to
@@ -1036,9 +1035,9 @@ Section~\ref{sec:hypograph}.
 The constraint graph is used identify all provable $\leq$ ordering on
 elements according to a context-free grammar shown in
 Figure~\ref{figure:cfg}. Notice that regardless of the polarity of
-constructor edges, a $\polarity{+}{\LEQ}$ since that edges
+constructor edges, a $\polarity{+}{\LEQ}$ 
 corresponds to the $\leq$ ordering on elements. The third rule ensures
-the $\polarity{+}{\LEQ}$ edge always has a $\polarity{+}{\LEQ}$ edge
+the $\polarity{+}{\LEQ}$ edge always has a $\polarity{-}{\LEQ}$ edge
 in the reverse direction to enable the reduction of contravariant
 components.
 
@@ -1143,20 +1142,19 @@ constraint graph, which corresponds to a subset of unsatisfiable constraint
 expressed by our constraint language. Reporting the information on a single
 path already captures all information why the goal is unsatisfiable.
 
-However, reporting all constraints along a path may still give too much
-information that a programmer can digest. To alleviate such problem, we propose
-two approaches to inferring the likely cause of error: both weakest
-and minimal missing assumptions, and most likely wrong subsets of
-constraints that caused the error, based on maximum a posteriori
+However, reporting all constraints along a path may still give more
+information that a programmer can digest. To alleviate this, we
+propose two approaches to inferring the likely cause of error: both
+weakest and minimal missing assumptions, and most likely wrong subsets
+of constraints that caused the error, based on the maximum a posteriori
 principle.
  
-
 \subsection{Inferring missing hypotheses}
 \label{sec:assumptions}
 
 The first cause of error is the absence of hypothesis.
 
-Remind if $P$ is an path from element $A$ to $B$, with an conjunction
+Recall if $P$ is an path from element $A$ to $B$, with an conjunction
 of hypotheses, denote as $C$ along the path. $P$ is unsatisfiable when
 $C\not\proves A\leq B$. For simplicity, we denote the hypothesis set
 of $P$ as $\hyposet{P}=C$, and the conclusion set
@@ -1432,8 +1430,8 @@ $P(p_i=1|e')$ must be $P_2$ because $e'$ is a subset of $e$.
 Otherwise, $P(p_i=1|e')=1-P_2\geq P(p_i=1|e)$ anyway.
 
 Since $S$ and $\arg\max_{e\subseteq \Omega}P_1^{|e|} \Pi_i P(p_i|e)$ both
-contain mincuts only, result is true since $S$ appears in least number of paths
-where $p_i=1$.
+contain mincuts only, the result is true since $S$ appears in the least
+number of paths where $p_i=1$.
 \end{proof}
 
 In the worst case, computing mincut for multiple sources and sinks can
@@ -1443,12 +1441,12 @@ for the following reasons:
 \item Program usually only contain a small number of errors, corresponding to
 small cut size.
 
-\item A large cut, which corresponds to large fragment of code, is less helpful
-for the programmers anyway.
+\item A large cut, corresponding to a large code fragment, is
+less helpful for the programmers anyway.
 \end{enumerate}
 
-We evaluate both the quality and performance of the ranking algorithm
-in Section~\ref{sec:ocamleval}.
+%We evaluate both the quality and performance of the ranking algorithm
+%in Section~\ref{sec:ocamleval}.
 
 \section{Evaluation}
 \label{sec:evaluation}
@@ -1554,7 +1552,7 @@ are closely related to the fix.
 Moreover, we calculate the distribution of top rank group size,
 reported in Table~\ref{table:groupsize}. We can see that in more than
 $92\%$ of the cases, the top rank suggestion size is considerably
-small. Remind that there can be multiple good location suggestions in
+small. Recall that there can be multiple good location suggestions in
 many cases, we think the fact multiple suggestions are reported by our
 tool has limited effects on in our evaluation results.
 
@@ -1581,13 +1579,13 @@ Total & 100\% \\
 
 \begin{figure*}
 \begin{center}
-\subfigure[Comparison with OCaml compiler]{
-    \includegraphics[width=0.38\textwidth]{graph/ocaml}
+\subfigure[Comparison OCaml]{
+    \includegraphics[height=16em]{graph/ocaml}
     \label{fig:consgraph:first}
 }
 %
 \subfigure[Comparison with Seminal]{
-    \includegraphics[width=0.39\textwidth]{graph/seminal}
+    \includegraphics[height=16em]{graph/seminal}
     \label{fig:consgraph:second}
 }
 \end{center}
@@ -1610,7 +1608,7 @@ reports multiple (correct) error locations;
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{graph/ocaml-performance}
+\includegraphics[height=14em]{graph/ocaml-performance}
 \end{center}
 \caption{Performance} 
 \label{fig:performance}
@@ -1628,88 +1626,89 @@ these files, there are 336 samples left.
 For each file we analyze, we consider both the error location reported
 by OCaml and the top rank suggestion of our tool. Since the Seminal
 tool~\cite{lerner:pldi07} is not directly available, we reused the data
-offered from the authors where the correctness of Seminal's error
-location report is labeled. 
+offered by the authors, who labeled the correctness of Seminal's error
+location report.
 
-We divide the files we analyzed in one of the following five
+We classify the files into one of the following five
 categories and summarize the results in Figure~\ref{fig:ocamlresult}.
 
 \begin{enumerate}
 \item Our approach suggests error location that matches programmer's
-fix, but the other tools' location missed the error
+fix, but the other tools' location missed the error.
 
 \item Our approach reports multiple correct error locations that
 matches programmer's fix, but the other tools' only reports one of
-them 
+them.
 
 \item Both approaches find the error locations corresponding to
-programmer's fix
+programmer's fix.
 
 \item Both approaches miss the error locations corresponding to
-programmer's fix
+programmer's fix.
 
-\item Our tool misses the error location while the other tool captures
-it
+\item Our tool misses the error location but the other tool captures
+it.
 \end{enumerate}
 
-The result shows that although the OCaml and Seminal's report on error
-locations differs for different files, the overall quality are very
-close: they are able to find around $80\%$ of the error locations
-correctly, but miss the rest. 
+The result shows that although OCaml's and Seminal's reports on error
+locations differ across files, the overall quality is very similar:
+they find around $80\%$ of the error locations correctly, but miss the
+rest. 
 
-However, compared with both of OCaml and Seminal, our tool
-consistently identify more percentage of errors locations from
-assignment 1 to assignment 5, ranging from $93\%$ to $100\%$, with an
-average of $96\%$.
+Compared with both OCaml and Seminal, our tool consistently identifies
+a higher percentage of error locations,
+ranging from $93\%$ to $100\%$, with an average of $96\%$.
 
-Besides improving location report precision, there are about $7\%$
-cases where our tool reports multiple error locations at once.
+In about $7\%$ of
+cases, our tool reports multiple error locations at once.
 According to the data, the programmers typically fix these errors one
-by one as the OCaml compiler only reports one at a time. This
-improvement may not be crucial, but ...
+by one as the OCaml compiler only reports one at a time.
+Reporting multiple errors at once may be more helpful.
 
 \paragraph{Limitation of our approach}
-Of course, our tool do miss errors. We took a close look at the
-programs where our tool missed the error location. We find that all
-the examples involve multiple errors and sometime, user make error in
-the same way. Our tool fails identify such errors since our assumption
-that programmer only make limited number of errors fail. However, as
-our result suggests, such situation is unlikely to happen.
+Of course, our tool does miss errors. We studied
+programs where our tool missed the error location, finding that
+in each case it involved multiple interacting errors. In some cases
+the programmer made a similar error multiple times.
+the same way. Our tool fails to identify such errors because
+it violates the assumption of error independence.
+However, as our result suggests, this situation is rare.
 
-Remind that we only collect type mismatch errors in the evaluation. We
-think OCaml can be very effective in finding localized errors such as
-unbound value, too many arguments to a constructor; Seminal can be
-promising in identify errors tricky for OCaml and our tool, such as
-swapped arguments or missing arguments, the error types not evaluated
-in this work. We think these tools do complement each other in finding
-different kinds of errors. A combination of our tool and other
-technique is among our future work.
+The comparison between the tools is not completely apples-to-apples.
+Recall that we only collect type mismatch errors in the evaluation.
+OCaml is very effective in finding some localized program errors such as
+unbound variables or wrong numbers of arguments; Seminal not only
+finds errors but also proposes fixes, which our tool does not do.
+%It can also identify some errors that are out of scope for our tool,
+%such as swapped or missing arguments, error types we did not evaluated
+%in this work.
+In fact, these tools appear to be complementary.
+%different kinds of errors. A combination of our tool and other
+%technique is among our future work.
 
-Although our tool do have its limitations, since both OCaml and
-Seminal are application specific, the results above suggests our
-general tool can be very promising in diagnosing program analyses
-errors.
+%Although our tool does have its limitations, it is more general
+%than OCaml and Seminal are application specific, 
 
 \subsubsection{Performance}
 
-Beside the quality of error report, we also measure the performance of
+We measure the performance of
 our tool on a Ubuntu 11.04 system using a dual core at 2.93GHz with 4G
 memory. We separate the time spent on generating and inferring LEQ
 edges in the graph and computing the rankings. Results are shown in
 Figure~\ref{fig:performance}.
 
-The results suggests that the running time of either graph building
-time and ranking time are scalable with increasing constraint graph
+The results show that the running time of either graph building
+time and ranking time scale with increasing constraint graph
 size. One interesting observation is that the graph size has less
 impact on the running time of our inference algorithm. We suspect the
 reason is that the running time of our ranking algorithm is
-dominated by the number of unsatisfiable path identified the graph,
+dominated by the number of unsatisfiable paths identified in the graph,
 which has a small correlation with graph size.
 
-For graph construction time, over $99\%$ are done in 2 minutes.
-Ranking is more efficient, there over $99\%$ can be done in 1 second.
-Considering the human hour in identifying the error location, the
-performance is totally acceptable.
+Considering graph construction time, over $99\%$ are done in 2
+minutes.  Ranking is more efficient, where over $99\%$ can be done in
+1 second.  Considering the human cost to identify error locations, the
+performance seem acceptable.
 
 \begin{table}
 \subfigure[Ranking time]{
@@ -1722,9 +1721,9 @@ Time & Percentage \\
 \hline
 0.01--0.1 & 17.20\% \\
 \hline
-0.1-1 & 7.96\% \\
+0.1--1 & 7.96\% \\
 \hline
-1-10 & 0.64\% \\
+1--10 & 0.64\% \\
 \hline
 Total & 100\% \\
 \hline
@@ -1740,11 +1739,11 @@ Time & Percentage \\
 \hline
 0.01--0.1 & 29.97\% \\
 \hline
-0.1-1 & 23.97\% \\
+0.1--1 & 23.97\% \\
 \hline
-1-10 & 19.56\% \\
+1--10 & 19.56\% \\
 \hline
-10-100 & 17.67\% \\
+10--100 & 17.67\% \\
 \hline
 $>100$ & 0.94\% \\
 \hline
@@ -1756,17 +1755,14 @@ Total & 100\% \\
 
 \subsection{Case study: Jif hypothesis inference}
 \label{sec:jifeval}
-The quality of inferring wrong entities is evaluated in the previous
-part. We evaluate how helpful our hypothesis inference algorithm can
-be useful for Jif, where hypothesis is frequently used and missing
-hypothesis can be a common error according to our experience of using
-Jif.
+We also evaluated how helpful our hypothesis inference algorithm is
+for Jif. We have found missing hypotheses to be a common
+source of errors in our experience with using Jif.
 
-Due to limited users of the Jif language and the lack of a corpus of
-buggy programs, we take 4 Jif and Fabric (an extension of Jif)
-applications developed for other projects. These applications are
-interesting since they model application with real-world security
-concerns.
+A corpus of buggy programs was harder to find for Jif than for OCaml.
+We took 4 applications developed for other projects using either Jif
+or Fabric (a Jif extension). These applications are interesting since
+they deal with real-world security concerns.
 
 To mimic the potential errors programmer would meet while writing the
 application, we randomly remove hypothesis in these programs. In
@@ -1774,8 +1770,8 @@ total, we generate 40 files missing 1-5 hypothesis, the proportion of
 each application approximately corresponds to the complexity of
 application, measured by lines of code.
 
-For all files we generated in this way, we divide the files into the
-following four categories. The results are summarized in
+For all files we generated in this way, we classify each file into
+one of four categories, with results summarized in
 Table~\ref{table:hyporesult}.
 
 \begin{table}
@@ -1801,31 +1797,31 @@ Total & 40 & 100\% \\
 
 \begin{enumerate}
 \item The program passed Jif/Fabric label checking after removing the
-hypothesis. In this case, the programmer is making a too strong
-assumption in the program.
+hypothesis: the programmer made an unneeded assumption.
 
-\item The generated missing hypothesis matches the one we remove
+\item The generated missing hypothesis matches the one we remove.
 
 \item The generated missing hypothesis provides a weaker assumption
-that removes error, compared with the one we remove
+that removes error, compared with the one we remove.
 
-\item Our tool fails to find any suggestion better than the one we
-remove
+\item Our tool fails to find a suggestion better than the one
+removed.
 \end{enumerate}
 
-First of all, the number of redundant assumptions in these
+The number of redundant assumptions in these
 applications is considerable ($40\%$). We suspect the reason is that
-the security model in these applications are nontrivial. Hence the
-hypothesis model is too complicated for the programmers to contrive.
-They have to write down additional assumptions to pass the compiler.
+the security model in these applications are nontrivial, so
+programmers have difficulty formulating their security assumptions.
+%They have to write down additional assumptions to pass the compiler.
 This observation suggests that the ability of automatically inferring
 the missing hypothesis could be very useful to the programmers.
 
-Secondly, all the hypothesis inferred has at least the same quality as
-manually written down ones. Although a more systematic way of
-evaluating real-world errors, we think this preliminary result
-suggests that our hypothesis inference algorithm is likely to generate
-the natural/better hypothesis a real programmer may add.
+All the automatically inferred hypotheses had at least the same quality as
+manually written ones.
+%Although a more systematic way of
+%evaluating real-world errors,
+This preliminary result suggests that our hypothesis inference
+algorithm is very effective and should be useful to programmers.
  
 \section{Related Work}
 
@@ -1880,7 +1876,7 @@ standard type inference to identify potential fixes for type errors.
 Lerner et al.~\cite{lerner:pldi07} try to produce type-error messages
 by trying changes to the AST until a program type-checks.  However,
 both approaches are fairly specific to type inference. There is no
-easy way of extending them for information-flow control analysis, for
+easy way to extending them to information-flow control analysis, for
 instance.
 
 For information-flow control, King et. al.~\cite{king:fse} propose to
@@ -1920,6 +1916,10 @@ powerful program analyses that have been developed. This paper has
 introduced an analysis of program constraint graphs that offers a
 powerful and general way to diagnose both locations of errors in
 programs and missing environmental hypotheses.
+
+The results using our tool with relatively little OCaml-specific or
+Jif-specific customization suggest it is a promising approach for
+diagnosing program analysis errors.
 
 There are clearly many interesting directions to take this work.
 Though we have shown that the technique works well on two very
