@@ -1142,9 +1142,10 @@ path already captures all information why the goal is unsatisfiable.
 
 However, reporting all constraints along a path may still give too much
 information that a programmer can digest. To alleviate such problem, we propose
-to approaches to infer the likely cause of error: both a weakest and minimal
-missing assumptions, and a most likely wrong subset of constraints that caused
-the unsatisfiability based on maximum a posteriori principle.
+two approaches to inferring the likely cause of error: both weakest
+and minimal missing assumptions, and most likely wrong subsets of
+constraints that caused the error, based on maximum a posteriori
+principle.
  
 
 \subsection{Inferring missing hypotheses}
@@ -1152,54 +1153,66 @@ the unsatisfiability based on maximum a posteriori principle.
 
 The first cause of error is the absence of hypothesis.
 
-Given a set of unsatisfiable paths $P_1 = (a_1, \dots, b_1), P_2 = (a_2, \dots,
-b_2), \dots,  P_n = (a_n, \dots, b_n)$, the satisfiability is
-equivalent to the validity of assertion $C_1 \proves a_1 \leq b_1
-\land C_2 \proves a_2 \leq b_2 \land \dots \land C_n \proves a_n \leq
-b_n$. Then one nature question is that what hypothesis $\G$ reduce all
-of the unsatisfiable paths. Or more specifically, find the set of
-hypothesis $\G$ such that 
-%
-$C_1 \land \G \proves a_1 \leq b_1 \land C_2 \land \G \proves a_2 \leq
-b_2 \land \dots \land C_n \land \G \proves a_n \leq b_n$. 
-%
-We call this set _missing hypotheses_.
+Remind if $P$ is an path from element $A$ to $B$, with an conjunction
+of hypotheses, denote as $C$ along the path. $P$ is unsatisfiable when
+$C\not\proves A\leq B$. For simplicity, we denote the hypothesis set
+of $P$ as $\hyposet{P}=C$, and the conclusion set
+$\concset{P}=A\leq B$.
 
-One trivial solution is to add all invalid partial orders $a_1\leq b_1
-\land a_2\leq b_2, \dots, a_n\leq b_n$ to the hypothesis.  However,
-such naive approach may provide an unnecessarily complicated
-explanation for a programmer to verify the validity of the hypothesis
-itself. 
+Given a set of unsatisfiable paths $P_1, P_2, \dots,  P_n$, one nature
+question is that what hypothesis $\G$ removes all of the unsatisfiable
+paths. Or more specifically, find the set of hypothesis $\G$ such that 
 %
-For instance, consider the following assertion, which is generated from
-a Jif program with label checking errors (though the example is
-simplified for better understanding): 
+$\hyposet{P_1} \land \G \proves \concset{P_1} \land
+\hyposet{P_2} \land \G \proves \concset{P_2} \land \dots
+\hyposet{P_n} \land \G \proves \concset{P_n}$.
+%
+We call any set of constraints satisfying the condition above a
+_missing hypotheses_.
 
+\subsubsection{Motivating example}
+
+Consider the following assertions: 
+%
 \[B\leq C \proves A\leq B \land B\leq C \proves A\leq C \land B\leq C
 \proves A\leq C\meet \bot \]
 
-Since the only hypothesis we have is $B\leq C$, none of the three constraints
-in the conclusion may hold. Hence, the naive suggestion would be adding all
-constrains in conclusion to the hypothesis, which is hard for the
-programmer to justify.
+Since the only hypothesis we have is $B\leq C$, none of the three
+constraints in the conclusion may hold. 
 
-It is also attempting to select the minimal missing hypothesis. But
-this approach does not work well either since a single assumption
+One trivial solution is to add all invalid conclusions to the
+hypothesis. For the example above, this approach will add $A\leq B
+\land A\leq C \land A\leq C\meet \bot$ to the hypothesis.
+
+However, such naive approach is undesirable for two reasons: 
+%
+\begin{enumerate}
+\item introducing an invalid hypothesis may totally break a program
+analysis. For instance, adding an insecure information flow to the
+hypotheses can totally break security. So the programmer has to check
+the truthfulness of all hypotheses carefully, which can be time
+consuming and error-prone
+
+\item a program analysis can be a combination of static and dynamic
+approaches. For instance, although most of Jif label checking is
+static, some hypothesis are dynamically checked. So a large hypothesis
+may also hurt performance
+\end{enumerate}
+
+It may also be attempting to select the minimal missing hypothesis.
+But this approach does not work well either since a single assumption
 $\top\leq \bot$ is always a minimal missing hypothesis for all
 unsatisfiable paths. The reason is that given $\top\leq \bot$, any
 partial order $a \leq b$ can be proved since $a\leq \top\leq \bot\leq
-b$. However, such assumption is obviously too strong to be a good
-suggestion.
+b$. However, such assumption is obviously too strong to be useful.
 
-Notice that adding only one hypothesis $A\leq B$ can make the
-assertion satisfiable (which is the real cause of error in the
-corresponding Jif program). Moreover, there is a principal reason why
-this missing hypothesis is better than others.
+So intuitively, we are interested in a solution that is both the
+_weakest_ and _minimal_, which we will formalize and give an algorithm
+finding such missing hypotheses. 
+
+Return to the example above, our algorithm returns only one hypothesis
+$A\leq B$, which both weakest and minimal.
 %
-The intuition is that we are not interested in just any solution to
-the missing assumption problem. What we propose is an approach finding
-the weakest, minimum set of hypotheses that removes the error.
-
 % \subsubsection{Missing hypotheses}
 % 
 % Given an unsatisfiable goal $C_{11} \proves C_{12} \land C_{21}
@@ -1217,135 +1230,150 @@ the weakest, minimum set of hypotheses that removes the error.
 % 
 \subsubsection{Weakest and minimal hypotheses}
 
-To simplify the notation, we denote $\hypothesisset{P_1, P_2, \dots,
-P_n} = \{ H | \exists P_i,c_i = H \proves c_i\}$ and
-$\conclusionset{P_1, P_2, \dots, P_n} = \{ C | \exists P_i,h_i = h_i
-\proves C\}$. When the context is clear, we simply write $\hyposet$
-and $\concset$ respectively.
+Rest of discussed focuses on defining and finding weakest and minimal
+hypotheses for some set of unsatisfiable paths, we denote as
+$\pathset=\{P_1, P_2, \dots, P_n\}$. We further define the conclusion
+set of all paths the union all the conclusion set of all paths:
+$\concset{\pathset}=\Union\{\concset{P_i} | P_i\in \pathset\}$.
 
 The first insight is that the inferred missing hypotheses $\G$ should
-not be too _strong_, in a sense that there is another missing
-hypotheses $\G'$ such that $\forall c\in \G'.\exists h\in \hyposet.
-\G \land h \proves c$. In another word, $\G$ is stronger than $\G'$ if
-all the constraints in $\G'$ can be proved from $\G$, by using one
-hypothesis.
+not be too _strong_. More formally, a missing hypotheses is no weaker
+than another $\G'$ if $\forall c\in \G'.\exists P\in \pathset.  \G
+\land \hyposet{P} \proves c$. In another word, $\G$ is no weaker than
+$\G'$ if all the constraints in $\G'$ can be proved from $\G$, by
+using one hypothesis.
 
-Given this definition, it is easy to show the following useful result.
+Given this definition, the first property we show is that every subset
+of $\hyposet{\pathset}$, if forms a missing hypothesis, then it is
+the weakest:
 %
 \begin{Lemma}
-For any set of unsatisfiable paths $P_1, P_2, \dots, P_n$, any subset
-of $\conclusionset{P_1, P_2, \dots, P_n}$, if forms a missing
-hypotheses, is _weakest_.
+\label{lemma:weakest}
+$\forall S\subseteq \concset{\pathset}$. $S$ is a missing hypothesis
+$\implies S$ is the _weakest_.
 \end{Lemma}
 \begin{proof}
 Otherwise, exists some weaker hypotheses $\G$. Since $\G$ is a missing
-hypothesis, $C_i \land \G\proves a_i\leq b_i$  for all $i$s. Since
-subset of $\conclusionset{P_1, P_2, \dots, P_n}$ contains only a
-subset of $a_i \leq b_i$, hence $\G$ is at least as strong as the
-subset. Contradiction.
+hypothesis, $\hyposet{P_i} \land \G\proves \concset{P_i}$  for all
+$i$s. Since $S\subseteq \concset{\pathset}$, $\forall s_i\in S.
+\hyposet{P_i} \land \G\proves s_i$. So $\G$ is at least as strong
+$S$. Contradiction.
 \end{proof}
+%
+%\DZ{not sure if the weakest hypothesis must be a subset of $\concset$}
+%
+The lemma above suggests that subsets of $\concset{\pathset}$ can be
+good candidates for weakest hypothesis. However, they are not
+necessarily minimal. For instance the entire set $\concset{\pathset}$
+is always a weakest missing hypothesis. 
 
-\DZ{not sure if the weakest hypothesis must be a subset of $\concset$}
-
-The lemma above suggests that subset of $\concset$ can be good
-candidates for minimal hypothesis, however, they are not necessarily
-minimal. For instance the entire set $\concset$ is always a weakest
-hypothesis. To remove the redundancy in weakest hypothesis, our
-insight is that some of the conclusions are subsumed by others. 
-
-To be more specific, we say a conclusion $c_i \in \concset$ 
-_subsumes_ another conclusion $c_j\in \concset$ if $c_i \land h_j
-\proves c_j$. Hence, if $c_i$ is included in a missing hypothesis
-$\G$, then $\G \land h_j\proves c_j$, for any $c_j$ s.t. $c_i$
-subsumes $c_j$. Easy to notice that $\forall c_i \in \concset$, $c_i$
-subsumes $c_i$ by definition.
+To remove the redundancy in weakest hypotheses, our insight is that
+some of the conclusions are subsumed by others. 
+%
+To be more specific, we say a conclusion $c_i=\concset{P_i}$
+_subsumes_ another conclusion $c_j=\concset{P_j}$ if $c_i \land
+\hyposet{P_j} \proves c_j$. Intuitively, if $c_i$ subsumes $c_j$, then
+$c_i$ ``covers'' the unsatisfiable path $P_j$. Finding the minimal
+hypotheses is equivalent to finding a minimal cut the in covering
+program.
 
 \paragraph{Example} Return to the previous example \[B\leq C \proves
 A\leq B \land B\leq C \proves A\leq C \land B\leq C \proves A\leq
 C\meet \bot \]
 
-Based on the definition above, finding minimal and weakest missing
-hypothesis in $\concset$ is equivalent to finding the minimal subset
-of $\concset$ which subsumes any $c\in \concset$, which gives us an
-algorithm of finding the minimal and weakest hypothesis below.
+Based on Lemma~\ref{lemma:weakest} and the definition above, finding
+minimal and weakest missing hypothesis in $\concset{\pathset}$ is
+equivalent to finding the minimal subset of $\concset{\pathset}$ which
+subsumes all $c\in \concset{\pathset}$, which gives us an algorithm of
+finding the minimal and weakest hypothesis below.
 
-\subsubsection{Algorithm}
+\paragraph{Algorithm}
 
 Given a set of unsatisfiable paths $P_1, P_2, \dots, P_n$, the
 algorithm works in the following steps:
 
 \begin{enumerate}
-\item Construct the set $\concset = \conclusionset{P_1, P_2, \dots,
-P_n}$.
+\item Construct the set $\concset{\pathset}$ from unsatisfiable paths.
 
-\item For each pair $c_i$ and $c_j$ in graph, add $n_j$ to some set
-$s_i$ if $c_i$ subsumes $c_j$.
+\item For each pair $c_i$ and $c_j$ in $\concset{\pathset}$, add $c_j$
+to set $s_i$ if $c_i$ subsumes $c_j$.
 
-\item Find the min cover of $S=\{s_1, s_2, \dots, s_n\}$.
+\item Find the minimal cover of $\concset{\pathset}$.
 \end{enumerate}
 
 Notice that a trivial minimal weakest missing hypothesis finding
 algorithm may check all possible missing hypothesis, which is in the
 order of $2^{N^2}$ (number of all subsets of $leq$ orderings on
-elements) where $N$ is the total number of elements in used in the
-constraint. However, $n$ here is the same as the number of
+elements) where $N$ is the total number of elements used in the
+constraints. However, $n$ here is the same as the number of
 unsatisfiable paths in the constraint graph, which in most cases, is a
 small number. So it is still feasible for the computation.
+
+The quality of the generated hypotheses in Section~\ref{sec:jifeval}.
 
 \subsection{Inferring likely wrong entities in program}
 \label{sec:mapmodel}
 
 \subsubsection{Maximum a posteriori interpretation of error inference}
 
-In the error inference process, we are given a buggy program and try to infer
-which subset of entities in the program is most likely wrong.  
+The entity of error reporting can be application specific. For
+instance, OCaml compiler reports typing error in the form of
+expressions, Jif reports error in the form of information-flow
+constraints. To make our error inference approach general, we treat
+the entities as an abstract set $\Omega$ and we assume is a mapping
+$\Phi$ from entities to constraints.
 
-In this scenario, our observation is the satisfiability of LEQ paths in the
-constraint graph. More formally, we define $O$ the observations, which
-followings some unknown joint distribution $G(p_1, p_2, .., p_n)$, where
-$p_i$ corresponds to a single path in the constraint graph, and the range of
-$p_i$ is $\{0, 1\}$, representing satisfiable and unsatisfiable respectively.
+The error inference process can be interpreted in the following way:
+we are given a buggy program to diagnose. Since the constraint
+generation and constraint graph transformation are all deterministic,
+the program is transformed all the way to the satisfiability of all
+$\polarity{+}{\LEQ}$ paths we identify in the constraint graph. This
+corresponds to our observation $o$, which is the satisfiability of
+$\polarity{+}{\LEQ}$ paths: $(p_1, p_2, \dots, p_n)$ where $p_i\in
+\{0, 1\}$, , representing satisfiable and unsatisfiable respectively.
+The observation follows some $G(o)$.
 
-Let $\Omega$ be all constraints. Then a possible cause $c$ is a subset of
-$\Omega$. Given the observation, we need to find a subset of constraints that
-maximizes the probability that this subset is an error. That is, to find
-$\arg\max_{c \subseteq \Omega} P(c|o)$, where $o$ is the observation.  Assume the
-causes follow some prior distribution $H$.
+What we are interested in is a subset of $\Omega$, the whole space of
+entities, which maximizes the term $P(c|o)$, where $o$ is the
+observation, and $P$ is the probability that $c$ is the cause. Assume
+the causes follow some prior distribution $H$.
 
-By the maximum a posteriori (MAP) model, this equals to $\arg\max_{c \subseteq
-\Omega} P(o|c) H(c) / G(o)$. Since $G(o)$ is irrelevant to the variable $c$ in
-this term, we get
-\[\arg\max_{c \subseteq \Omega} P(o|c) H(c) / G(o) =  \arg\max_{c
-\subseteq \Omega} P(o|c) H(c)\]
+By the maximum a posteriori (MAP) model, this equals to finding
+$\arg\max_{c \subseteq \Omega} P(o|c) H(c) / G(o)$. Since $G(o)$ is
+irrelevant to the variable $c$ in this term, we get \[\arg\max_{c
+\subseteq \Omega} P(o|c) H(c) / G(o) =  \arg\max_{c \subseteq \Omega}
+P(o|c) H(c)\]
+, where the terms $P(o|c)$ and $H(c)$ are easier to calculate.
 
-The terms $P(o|c)$ and $H(c)$ are easier to calculate.
-
-$H(c)$ is the prior knowledge of how likely a subset of constraints $c$ is
+$H(c)$ is the prior knowledge of how likely a subset of entities $c$ is
 wrong. This term can be estimated by running machine learning algorithms on
 buggy program corpus. But due to the limited number of such program corpus, we
-assume that each constraint is equality likely to be wrong, and each constraint
-being the cause is independent. Hence, $H(c)$ is estimated by $P^{|c|}$, where
-$P$ is a constant estimating the likelihood that a single constraint is wrong.
-Learning a more precise model of $H(c)$ is among our future work.
+assume that each entity is equality likely to be wrong, and each
+entity being the cause is independent. Hence, $H(c)$ is estimated by
+$P^{|c|}$, where $P$ is a constant estimating the likelihood that a
+single entity is wrong. Learning a more precise model of $H(c)$ is
+among our future work.
 
 $P(o|c)$ is the probability of observing the constraint graph we have given
 that $c$ is the cause.
+%
+Since the satisfiability of different paths may be dependent, we first
+eliminate one obvious source of dependence: the satisfiability of a
+path from constructor application $c(E_1, \dots, E_{\arity{c}})$ to
+another constructor application $c(E_1', \dots, E_{\arity{c}'})$ is
+totally determined by the component-wise satisfiability. So we can
+remove such paths in $o$.
 
-Since the satisfiability of different LEQ paths may be dependent, we first
-eliminate one obvious source of dependence by noticing that the satisfiability
-of a path from constructor application $c(E_1, \dots, E_{\arity{c}})$ to
-constructor application $c(E_1', \dots, E_{\arity{c}'})$ is totally determined
-by the component-wise satisfiability of sub elements. So we can remove such
-paths in $o$.
-
-To estimate the remaining term, we assume that satisfiability of the remaining
-paths are independent. This allows us to write $P(o|c) = \Pi_i P(p_i|c)$. The
-term $P(p_i|c)$ is easy to calculate based on two heuristics:
+To estimate the remaining term, we assume that satisfiability of the
+rest paths are independent. This allows us to write $P(o|c) = \Pi_i
+P(p_i|c)$, where the term $P(p_i|c)$ is calculate based on two
+heuristics:
 
 \begin{enumerate}
-\item Something must wrong on an unsatisfiable path. That is, at least one
-constraint on an unsatisfiable path is in the cause: $P(p_i=0|c) = 1$ if path
-$p_i$ contains some constraint in $c$. Otherwise 0.
+\item Something must wrong on an unsatisfiable path. That is, at least
+one constraint on an unsatisfiable path is generated by $c$:
+$P(p_i=0|c) = 1$ if path $p_i$ contains some constraint in $\Phi(c)$.
+Otherwise 0.
 
 \item An satisfiable path is unlikely (say a constant $P_2<0.5$ for instance)
 to contain error cause: $P(p_i=1|c) = P_2$ if path $p_i$ contains some
@@ -1720,7 +1748,7 @@ Total & 100\% \\
 \end{table}
 
 \subsection{Case study: Jif hypothesis inference}
-
+\label{sec:jifeval}
 The quality of inferring wrong entities is evaluated in the previous
 part. We evaluate how helpful our hypothesis inference algorithm can
 be useful for Jif, where hypothesis is frequently used and missing
