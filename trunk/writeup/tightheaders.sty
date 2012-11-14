@@ -29,6 +29,7 @@
    \fi
 
 \def\ttquot@ttfont{\def\ttdefault{cmtt}\tt}
+\def\bibitemsep{-2pt}
 
 \renewenvironment{thebibliography}[1]
      {\section*{\refname
@@ -41,7 +42,7 @@
             \usecounter{enumiv}%
             \let\p@enumiv\@empty
             \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-	\setlength\itemsep{-1pt}
+	\setlength\itemsep{\bibitemsep}
       \bibfont
       \clubpenalty4000
       \@clubpenalty \clubpenalty

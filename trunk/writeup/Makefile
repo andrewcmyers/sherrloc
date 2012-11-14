@@ -10,7 +10,8 @@ TARGETS = $(DOC).pdf
 #
 # TARGETS could be $(DOC).dvi instead, if there are no figures
 
-TEXS = $(DOC).tex main.tex declarations.sty abstract.tex header.tex
+TEXS = $(DOC).tex main.tex declarations.sty abstract.tex header.tex \
+    tightheaders.sty
 #*.tex *.sty
 #
 # Add any included TeX files to TEXS
