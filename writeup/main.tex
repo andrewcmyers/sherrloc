@@ -236,18 +236,19 @@ constructing such paths is an intermediate step in our approach.
 Jif~\cite{jif} is a Java extension that statically analyzes the
 security of information flow within programs. 
 
-Besides the confusing error messages~\cite{king:fse} that root in the
-constraint solving process similar to ML type inference, the error
-may also correspond to missing hypotheses in the program.
+Jif can generate confusing error messages~\cite{king:fse} that result
+from the constraint solving process it uses to infer security labels.
+In many cases, the error results from a failure to write down
+assumptions about trust relationships in the program.
 
 For instance, an assignment from a memory location labeled with a
 patient's security label to another location with a doctor's label
-may fail to label check because the hypothesis that doctor acts for
-patient, which means the security model allows the flow from patient
+may fail to label-check because the hypothesis that doctor acts for
+patient, meaning that the security model allows the flow from patient
 to doctor, is missing. 
 
-We also propose a way of inferring a likely missing hypothesis in this
-paper.
+In this paper, we also propose a general way to infer likely
+missing hypotheses.
 
 \section{Constraint language}
 \label{sec:language}
