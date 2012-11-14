@@ -711,7 +711,7 @@ $\ty\leq \ty' \land \ty'\leq \ty$.
 \begin{align*}
 \expr ::=  & x \mid n \mid \expr_1 + \expr_2 \mid \fn x → \expr \mid
 \expr_0  \expr_1 \mid \kwlet x =
-\expr_1  \kwin  \expr_2  \\
+\expr_1  \kwin  \expr_2
 \end{align*}
 \end{minipage}
 \caption{Syntax of a subset of ML}
@@ -805,16 +805,15 @@ graph.
 \subsection{The intuition behind the transformation}
 
 We use a simple example to illustrate the key ideas behind the
-transformation to a constraint graph.  This example shows how can we
-identify subsets of unsatisfiable constraints from the _constraint
-graph_ generated from constraints expressed in our constraint
-language.
+transformation to a constraint graph.  This example shows we
+identify subsets of unsatisfiable constraints from a _constraint
+graph_ generated from constraints.
 
 \paragraph{Example} Consider the following set of constraints.
 \begin{align*}
-      &\; \proves x \leq \fn (\cod{ty1}, \cod{bool}) \\
-\land &\; \proves \fn (\cod{ty2}, \cod{int}) \leq y \\
-\land &\; \cod{ty2} \leq \cod{ty1} \proves y \leq x
+      &\; \proves x \leq \fn (\cod{ty1}, \cod{bool})  ~~\land~~
+          \proves \fn (\cod{ty2}, \cod{int}) \leq y \\
+\land &\; \cod{ty1} ≤ \cod{ty2} \proves y \leq x
 \end{align*}
 
 In this example, we can interpret $\leq$ as the subtyping relation. $\fn$ is
@@ -824,8 +823,8 @@ parameter is covariant. The identifiers $\cod{ty1}, \cod{ty2}, \cod{bool},
 
 The first assertion claims that $x$ is a subtype of $\fn ("ty1",
 "bool")$, with no hypotheses. The second is similar.
-The third assertion says that $y$ is a subtype of $x$ if $\cod{ty2}$ is
-a subtype of $\cod{ty1}$.
+The third assertion says that $y$ is a subtype of $x$ if "ty1" is
+a subtype of "ty2".
 
 To check if this goal is satisfiable or not, the key idea is to
 identify inconsistency in the constraints, by applying the inference
