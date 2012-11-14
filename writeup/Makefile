@@ -15,7 +15,7 @@ TEXS = $(DOC).tex main.tex declarations.sty abstract.tex header.tex
 #
 # Add any included TeX files to TEXS
 
-FIGS = breakdownhw.pdf breakdownstudent.pdf consexample.pdf consgraph.pdf \
+FIGS = breakdownhw.pdf breakdownstudent.pdf consgraph.pdf consgraph.pdf \
        hypograph.pdf ocaml-performance.pdf ocaml.pdf onecons.pdf seminal.pdf
 
 #
