@@ -890,7 +890,7 @@ since the component is contravariant.
 By construction, finding $\polarity{+}{\LEQ}$-reachable edges in the
 graph is equivalent to inferring provable $\leq$ relation in the
 constraint system. More generally, finding all $\polarity{+}{\LEQ}$
-edges is an _all-pairs $\polarity{+}{\LEQ}$-path problem_, a variance
+edges is an _all-pairs $\polarity{+}{\LEQ}$-reachability problem_, a variance
 of _context-free-language reachability problems_ (CFL-reachability
 problems). Moreover, $meet$ and $join$ elements need special rules,
 which we discuss in Section~\ref{sec:leqedge}.
@@ -992,42 +992,58 @@ create $\polarity{+}{\LEQ}$ and $join$ edge from $E_1$ and $E_2$'s node to
 $N_{id}$. Create $\polarity{-}{\LEQ}$ in the reverse direction.
 
 \item $E_1\meet E_2$: construct graph for both $E_1$ and $E_2$. Then,
-create $\polarity{+}{\LEQ}$ edge from $N_{id}$ to $E_1$ and $E_2$'s node. Create
-$meet$ and $\polarity{-}{\LEQ}$ edge in the reverse direction.
+create $\polarity{+}{\LEQ}$ edge from $N_{id}$ to $E_1$ and $E_2$'s
+node. Create $meet$ and $\polarity{-}{\LEQ}$ edge in the reverse
+direction.
 \end{itemize}
 
 Finally, for constraint $E_1\leq E_2$, construct subgraph for both
 $E_1$ and $E_2$. Then, create $\polarity{+}{\LEQ}$ edge from $E_1$'s
 node to $E_2$'s node, and $\polarity{-}{\LEQ}$ edge in the reverse
-direction.
+direction. 
+
+Moreover, the hypothesis corresponding to the constraint is saved
+along with the edge. This information is used in
+Section~\ref{sec:hypograph}.
 
 \subsection{Inferring $\polarity{+}{\LEQ}$-reachable paths}
 \label{sec:leqedge}
 
 The constraint graph is used identify all provable $\leq$ ordering on
 elements according to a context-free gramma shown in
-Figure~\ref{figure:cfg}. Finding all provable ``leq'' relation in the
-graph is a _all-pairs LEQ-path problem_, a variance of
-_context-free-language reachability problems_ (CFL-reachability
-problems), which is used for a number of program-analysis
-applications~\cite{reps-graph}.  Both the
-reachability~\cite{melski-cflgraph} and shortest LEQ path
-finding~\cite{barrett-cflpath} problems can be solved in polynomial
-time. We adopt the dynamic programming approach~\cite{barrett-cflpath}
-to find the shortest LEQ paths in this work. 
+Figure~\ref{figure:cfg}. Notice that regardless of the polarity of
+constructor edges, a $\polarity{+}{\LEQ}$ since that edges
+corresponds to the $\leq$ ordering on elements. The third rule ensures
+the $\polarity{+}{\LEQ}$ edge always has a $\polarity{+}{\LEQ}$ edge
+in the reverse direction to enable the reduction of contravariant
+components.
 
-However, the CFG-reachability solution does not incorporate join and meet
-edges. Hence, the graph may miss LEQ edges which can be inferred from the
-constraints. For instance,  given constraints $a\meet b \leq c\land d\leq a
-\land d\leq b$, by the rule $e\leq a\meet b \Iff e\leq a\land e\leq b$, we can
-infer that $d\leq a\meet b \leq c$. 
+The _all-pairs $\polarity{+}{\LEQ}$-reachability_ problem is
+well-studied in literature\cite{melski-cflgraph,barrett-cflpath}. As a
+variance of _context-free-language reachability problems_
+(CFL-reachability problems), it is used for a number of
+program-analysis applications~\cite{reps-graph}. 
 
-To incorporate such inference into LEQ edge inference, whenever a LEQ edge
-$LEQ(a,b)$ is processed, we check if this edge enables an join/meet inference
-as follows. Let $JOIN(a)=\{n \bnf \exists. join(a,n) \}$ be the set of all join
-elements where $a$ is a component. We check if all the components of such join
-elements $J$ has a LEQ edge to $b$. If so, an LEQ edge is added from $J$ to
-$b$. Meet elements are handled in a dual way.
+In this work, we adopt the dynamic programming algorithm which also
+finds shortest $\polarity{+}{\LEQ}$ paths in~\cite{barrett-cflpath}
+since the path information is used in our ranking algorithm in
+Section~\ref{sec:ranking}.
+
+However, one difference from previous work is that we also handle
+inference rules for join and meet nodes while producing
+$\polarity{+}{\LEQ}$ edges.
+
+Take join operation for instance (meet operation can be handled in a
+dual way). The rule $E_1\join E_2\leq E \Iff E_1\leq E \land E_2 \leq
+E $ can be used in two directions. The direction from left to right is
+already handled when we break elements into atomic components in
+Section~\ref{sec:consgraph}.
+
+To use the rule in the other direction, we do the following check
+whenever a new $\LEQ$ edge $\LEQ(a,b)$ is processed: for each join
+element $E$ where $a$ is a component (by following join edges), we add
+an edge from $E$ to $b$ if all the components of $E$ has a $\LEQ$ edge
+to $b$. 
 
 \begin{figure}
 \hfil
@@ -1052,22 +1068,21 @@ $b$. Meet elements are handled in a dual way.
 \subsection{Hypothesis graph}
 \label{sec:hypograph}
 
-When algorithm in Section~\ref{sec:leqedge} infers a LEQ relation on two nodes,
-all constraints constructing the corresponding edges automatically forms a
-proof. However, the LEQ relation is valid only when all edges along the path
-hold. That is, all the hypothesis along the path have to hold too.
+When algorithm in Section~\ref{sec:leqedge} infers a $\LEQ$ relation
+on two nodes, all constraints along the path automatically forms a
+proof of the partial ordering. Moreover, all the hypothesis along the
+path can be used to prove its satisfiability.
 
 Let $H_1, H_2, \dots, H_n$ be the hypothesis saved along the path from $a$ to
-$b$, where $LEQ(a,b)$. 
-
-Therefore, we can check the satisfiability of the subset of all constraints
-along the path by checking the satisfiability of 
+$b$, where $\LEQ(a,b)$. Then the set of constraints along the path is
+satisfiable only when
 \[H_1 \land H_2 \land \dots \land H_n \proves a \leq b\]
-, which is easy to test given the technique we discussed so far by noticing
-that all the partial orders provable from the constraints in the hypothesis
-must have a corresponding LEQ edge in the constraint graph constructed from the
-hypothesis along, as described in Section~\label{sec:consgraph} and
-Section~\ref{sec:leqedge}.
+
+One insight is that this check can be achieved by using the technique
+we discussed so far, by building a hypothesis graph using the
+constraints in hypothesis, since we already showed that all provable
+partial ordering from a set of constraints can be judged by the
+existence of a $\polarity{+}{\LEQ}$ edge in the constraint graph.
 
 %The insight is consistent with ``A flow model FM is _secure_ if and only if
 %execution of a sequence of operations cannot give rise to a flow that violates
