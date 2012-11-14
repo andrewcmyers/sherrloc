@@ -448,17 +448,6 @@ A second cause of unsatisfiability is the absence of constraints in
 the hypothesis. Such error corresponds to the failure to write down
 assumptions.
 
-A missing hypothesis is defined in the following way.
-Given an unsatisfiable goal $C_{11} \proves C_{12} \land C_{21} \proves C_{22}
-\land \dots \land C_{n1} \proves C_{n2}$, a constraint $C$ is a _missing
-hypothesis_ if and only if $C_{11} \land C \proves C_{12} \land C_{21} \land C
-\proves C_{22} \land \dots \land C_{n1} \land C \proves C_{n2}$ is
-satisfiable~\footnote{This definition is an estimation of a more general form
-of missing hypothesis, namely a vector of $(C_1', C_2', \dots, C_n')$ such that
-$C_{11} \land C_1' \proves C_{12} \land C_{21} \land C_2' \proves C_{22} \land
-\dots \land C_{n1} \land C_n' \proves C_{n2}$. But it is less feasible to
-calculate the missing assumptions based on this definition.}
-
 \paragraph{Example}
 Consider the unsatisfiable goal $\proves x \leq c_1 \land c_2 \leq x$.
 One possible cause of the unsatisfiability may be the omission of a
@@ -1188,7 +1177,9 @@ $\hyposet{P_1} \land \G \proves \concset{P_1} \land
 \hyposet{P_n} \land \G \proves \concset{P_n}$.
 %
 We call any set of constraints satisfying the condition above a
-_missing hypotheses_.
+_missing hypotheses_~\footnote{This definition is an estimation of a
+more general form of missing hypothesis, where individual hypotheses
+are inferred for different paths. But it is less feasible to do so.}.
 
 \subsubsection{Motivating example}
 
