@@ -564,7 +564,7 @@ Security policies on information are expressed as _labels_ that
 mention these principals.
 A label $L$ contains a set of principals called the
 _owners_.  For each owner $O$, the label also contains a set of
-principals called the _readers_. Readers are the principals to whome
+principals called the _readers_. Readers are the principals to whom
 owner $O$ is willing to release the information. 
 
 For instance, a label $\lab{o_1:r_1,r_2;\ o_2:r_2,r_3}$ can be read
@@ -677,28 +677,29 @@ of OCaml can be handled in similar way.
 \newcommand\ty{\mathit{t}}
 %\newcommand\ty{\mathit{ty}}
 
-In this language subset, expressions can be variables ($x$), integers ($n$),
-operation on two expressions ($+$), functions $\fn~x\rightarrow \expr$, function
-application ($\expr~\expr$), or let bindings ($\kwlet\; \val\; x = \expr\; \kwin\;
-\expr\; \kwend$). Notice that let-polymorphism is allowed since the expression in
-the let binding may contain free variables.
+In this language subset, expressions can be variables ($x$), integers
+($n$), operation on two expressions ($+$), functions $\fn~x→\expr$,
+function application ($\expr_0~\expr_1$), or let bindings
+($\kwlet x = \expr_1 \kwin \expr_2$). Notice that
+let-polymorphism is allowed since the expression in the let binding
+may contain free variables.
 
-Haack and Wells~\cite{haack:slicing} show that type-checking the language in
-Figure~\ref{figure:mltypes} is equivalent to solving type constraints
-of the
-form $\configThree{\ty}{\ty'}{L}$, which mean that constraint $\ty = \ty'$ is
-generated at location $L$. 
+Haack and Wells~\cite{haack:slicing} show that type-checking the
+language of Figure~\ref{figure:mltypes} is equivalent to a set of
+type constraints of the form $\ty = \ty'$.
 
 Types $\ty$ in the constraints are defined as follows.
 \[\ty ::=\; x \mid \atom{int} \mid \ty \rightarrow \ty\]
 \noindent where $x$ is a type variable to be inferred, $\atom{int}$ is the predefined type integer and
-$\rightarrow$ is the predefined constructor, function type. The details of the
-transformation from typing rules to constraints are less relevant in this
-paper, we refer~\cite{haack:slicing} for more details. 
+$\rightarrow$ is the predefined constructor, function type. Because
+the details of the
+transformation from typing rules to constraints
+are less relevant, see~\cite{haack:slicing} for more details. 
 
-Hence, labeled constraints form a strict subset of our constraint
-language ($L$ is just the annotation on the constraints): $\ty$
-corresponds to elements, and equality $\ty=\ty'$ is equivalent to
+Labeled constraints form a strict subset of our constraint
+language:
+%($L$ is just the annotation on the constraints)
+types $\ty$ are elements, and equality $\ty=\ty'$ is equivalent to
 $\ty\leq \ty' \land \ty'\leq \ty$. 
 
 \begin{figure}
@@ -786,23 +787,23 @@ is a polymorphic type is satisfiable.
 \section{Constraint graph} 
 \label{sec:graph}
 
-Besides the expressiveness of our constraint language, it also has a
-natural graph representation that enables powerful analysis on the
-constraints.
+The core constraint language has a natural graph representation that
+enables analyses of the system of constraints. The key insight is that
+satisfiability of the constraints corresponds to reachability in the
+graph.
 
-In this section, we show how the constraints are transformed into a
-graph. Inferring provable $\leq$ ordering on the constraints is
-translated into context-free-language reachability in the graph (with
-specially rules for joins and meets). Hypothesis of the assertions are
-used to construct a hypothesis graph in the same way, which checks the
-satisfiability of a path in graph.
+%Inferring provable $\leq$ ordering on the constraints is
+%translated into context-free-language reachability in the graph (with
+%specially rules for joins and meets). Hypothesis of the assertions are
+%used to construct a hypothesis graph in the same way, which checks the
+%satisfiability of a path in graph.
 
-\subsection{Idea behind the transformation}
+\subsection{The intuition behind the transformation}
 
-Before going into the details, we use a simple example to illustrate
-the key ideas behind the transformation. This example shows how can we
+We use a simple example to illustrate the key ideas behind the
+transformation to a constraint graph.  This example shows how can we
 identify subsets of unsatisfiable constraints from the _constraint
-graph_ transformed from constraints expressed in our constraint
+graph_ generated from constraints expressed in our constraint
 language.
 
 \paragraph{Example} Consider the following set of constraints.
@@ -813,21 +814,22 @@ language.
 \end{align*}
 
 In this example, we can interpret $\leq$ as the subtyping relation. $\fn$ is
-a function type where the first parameter is covariant and the second
-parameter is contravariant. $\cod{ty1}, \cod{ty2}, \cod{bool},
-\cod{int}$ are constants and $x,y$ are type variables to be inferred.
+a function type where the first parameter is contravariant and the second
+parameter is covariant. The identifiers $\cod{ty1}, \cod{ty2}, \cod{bool},
+\cod{int}$ are constants and $x, y$ are type variables to be inferred.
 
-The first assertion claims that $x$ is a subtype of $\fn (\cod{ty1},
-\cod{bool})$, with empty hypotheses, similar for the second assertion.
+The first assertion claims that $x$ is a subtype of $\fn ("ty1",
+"bool")$, with no hypotheses. The second is similar.
 The third assertion says that $y$ is a subtype of $x$ if $\cod{ty2}$ is
 a subtype of $\cod{ty1}$.
 
 To check if this goal is satisfiable or not, the key idea is to
 identify inconsistency in the constraints, by applying the inference
-rules of $\leq, \join, \meet$ until a conflict is identified. Such
+rules associated with the relation $\leq$ and the operators $\join$
+and $\meet$ until a conflict is identified. Such
 inference is equivalent to finding all reachable node pairs in a
 constraint graph where the all labels along the path can be reduced to
-a nonterminal according to a context-free gramma.
+a nonterminal according to a context-free grammar.
 
 \paragraph{Constraint graph construction}
 To start, the partial order $\leq$ corresponds to a directed edge in
@@ -889,11 +891,11 @@ Section~\ref{sec:consgraph}.
 The initialized graph is then used to infer all provable $\leq$
 relations from corresponding constraints.
 
-The idea is that we can construct a context-free gramma, whose reduction
+The idea is that we can construct a context-free grammar, whose reduction
 rules corresponds to the inference rules in the constraint system. For
 instance, the transitivity rule is transform into a reduction rule
 $\polarity{p}{\LEQ} ::= \polarity{p}{\LEQ}\; \polarity{p}{\LEQ}$ in
-the gramma, where $p\in \{+,-\}$. Constructor edges can be reduced
+the grammar, where $p\in \{+,-\}$. Constructor edges can be reduced
 if they are connected by $\LEQ$ edge with same polarity.
 
 For example, consider the path from $\cod{ty2}$ to $\cod{ty1}$ in
@@ -1028,7 +1030,7 @@ Section~\ref{sec:hypograph}.
 \label{sec:leqedge}
 
 The constraint graph is used identify all provable $\leq$ ordering on
-elements according to a context-free gramma shown in
+elements according to a context-free grammar shown in
 Figure~\ref{figure:cfg}. Notice that regardless of the polarity of
 constructor edges, a $\polarity{+}{\LEQ}$ since that edges
 corresponds to the $\leq$ ordering on elements. The third rule ensures
