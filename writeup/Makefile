@@ -15,7 +15,8 @@ TEXS = $(DOC).tex main.tex declarations.sty abstract.tex header.tex
 #
 # Add any included TeX files to TEXS
 
-FIGS = 
+FIGS = breakdownhw.pdf breakdownstudent.pdf consexample.pdf consgraph.pdf \
+       hypograph.pdf ocaml-performance.pdf ocaml.pdf onecons.pdf seminal.pdf
 
 #
 # List of postscript figures to be included
@@ -56,6 +57,6 @@ $(DOC).ps: $(DOC).dvi $(FIGS)
 #
 # These are standard dependencies. Shouldn't need to modify these.
 
-VPATH = ../tex-macros
+VPATH = ../tex-macros:graph:
 
 include $(COMMONRULES)
