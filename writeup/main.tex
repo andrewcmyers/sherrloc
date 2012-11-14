@@ -843,7 +843,7 @@ special _constructor edges_ between the constructor and its
 components, as illustrated in Figure~\ref{fig:consgraph:first}.
 
 \begin{figure*}
-\newcommand\fh{15em}
+\newcommand\fh{12em}
 \begin{center}
 \subfigure[Constructor edges]{
     \includegraphics[height=\fh]{graph/onecons}
@@ -862,7 +862,7 @@ components, as illustrated in Figure~\ref{fig:consgraph:first}.
     \label{fig:consgraph:third}
 }
 \end{center}
-\caption{An example of constraint graph}
+\caption{Example of a constraint graph}
 \label{fig:consgraph}
 \end{figure*}
 
@@ -1009,7 +1009,7 @@ $\invc{cons}{1}(p_i,i)$ edge from $N_{id}$ to $E_i$'s node. Invariant
 component is treated as both covariant and contravariant.
 
 \item Projection $\invcabs{c}{i}(E)$: construct graph for $E$. Then, create
-$cons(p_i,i)$ edge from E's node to $N_{id}$ and create an
+$\atom{cons}(p_i,i)$ edge from E's node to $N_{id}$ and create an
 $\invc{cons}{1}(p_i,i)$ edge in the reverse direction.
 
 \item $E_1\join E_2$: construct graph for both $E_1$ and $E_2$. Then,
@@ -1238,7 +1238,7 @@ Rest of discussed focuses on defining and finding weakest and minimal
 hypotheses for some set of unsatisfiable paths, we denote as
 $\pathset=\{P_1, P_2, \dots, P_n\}$. We further define the conclusion
 set of all paths the union all the conclusion set of all paths:
-$\concset{\pathset}=\Union\{\concset{P_i} | P_i\in \pathset\}$.
+$\concset{\pathset}=\bigcup\{\concset{P_i} \mid P_i\in \pathset\}$.
 
 The first insight is that the inferred missing hypotheses $\G$ should
 not be too _strong_. More formally, a missing hypotheses is no weaker
@@ -1469,11 +1469,11 @@ extension of OCaml 3.10.2 generating the labeled constraints defined
 in~\cite{haack:slicing}.
 
 Generating constraints in our language format involves only moderate
-efforts. Changes to the Jif compiler includes about 300 LOC, among
-over 45000 LOC of the Jif compiler. Change to easyOCaml includes about
+effort. Changes to the Jif compiler include about 300 LOC among
+over 45,000 LOC of the Jif compiler. Changes to easyOCaml include about
 500 LOC, among 9000 LOC of the easyOCaml extension.  Slightly more
-efforts are involved for easyOCaml since the location of type
-variables are not tracked in the implementation, which forbids
+effort is required for easyOCaml because the location of type
+variables are not tracked in the implementation; this prevents
 tracking back from constraints to the source code.
 
 \subsection{Case study: OCaml error reporting}
@@ -1527,9 +1527,9 @@ sometimes the user just recompile the program since OCaml error
 reporting is confusing. Counting each of these files would make our
 approach look better.
 
-Since OCaml error message reports which expression may have a wrong
-type, we select the expressions as the program entities we run our
-inference algorithm to make the reports comparable. But remind that
+Since the OCaml error message reports which expression may have a wrong
+type, we select expressions as the program entities on which we run our
+inference algorithm, to make the reports comparable. But recall that
 our tool can also generate reports why the expression has a wrong
 type, which corresponds to unsatisfiable paths in the constraint
 graph. Using such extra information would definitely improve the error
@@ -1542,7 +1542,7 @@ the comparison fair, we make the following efforts:
 \begin{enumerate}
 \item For cases where we report a better result (our tools finds the
 error location that OCaml misses), we ensure that all locations
-returned are closely related to the fix
+returned are closely related to the fix.
 
 \item For other cases, we ensure that the majority of the suggestions
 are closely related to the fix. 
