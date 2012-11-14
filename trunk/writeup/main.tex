@@ -904,19 +904,20 @@ if they are connected by $\LEQ$ edge with same polarity.
 For example, consider the path from $\cod{ty2}$ to $\cod{ty1}$ in
 Figure~\ref{fig:consgraph:second}, the constructor edges
 $\polarity{+}{\cod{fn}_1}\; \polarity{+}{\LEQ}\; \polarity{+}{\LEQ}\;
-\polarity{+}{\LEQ}\; \polarity{+}{\cod{fn}_1^{-1}}$ reduces to an
-$\polarity{+}{\LEQ}$ edge from $\cod{ty2}$ to $\cod{ty1}$.
+\polarity{+}{\LEQ}\; \polarity{+}{\invc{fn}{1}}$ reduces to an
+$\polarity{+}{\LEQ}$ edge from "ty2" to "ty1".
 Similarly, we can infer another $\polarity{+}{\LEQ}$ edge from
 $\cod{bool}$ to $\cod{int}$, though the polarity needs to be flipped
 since the component is contravariant.
 
 By construction, finding $\polarity{+}{\LEQ}$-reachable edges in the
-graph is equivalent to inferring provable $\leq$ relation in the
-constraint system. More generally, finding all $\polarity{+}{\LEQ}$
-edges is an _all-pairs $\polarity{+}{\LEQ}$-reachability problem_, a variance
-of _context-free-language reachability problems_ (CFL-reachability
-problems). Moreover, $meet$ and $join$ elements need special rules,
-which we discuss in Section~\ref{sec:leqedge}.
+graph is equivalent to inferring a provable $\leq$ relation in the
+constraint system.
+%More generally, finding all $\polarity{+}{\LEQ}$
+%edges is an _all-pairs $\polarity{+}{\LEQ}$-reachability problem_, a variance
+%of _context-free-language reachability_ (CFL-reachability).
+%However, $meet$ and $join$ elements need special rules,
+%which we discuss in Section~\ref{sec:leqedge}.
 
 \paragraph{Checking the satisfiability of $\polarity{+}{\LEQ}$ paths}
 
@@ -942,7 +943,8 @@ reduces to checking the validity of two assertions
 %
 \[\cod{ty2}\leq \cod{y1}\proves \cod{bool}\leq \cod{int}\]
 \[\cod{ty2}\leq \cod{y1}\proves \cod{ty2}\leq \cod{ty1}\]
-, which is easy to judge. Moreover, constraints along the path from
+\noindent
+which is easy to judge. Moreover, constraints along the path from
 $\cod{bool}$ to $\cod{int}$ forms a proof of the unsatisfiability.
 
 In general, there can be a conjunction of constraints in the
@@ -957,7 +959,7 @@ Figure~\ref{fig:consgraph:third}.
 \subsection{Constructing constraint graph}
 \label{sec:consgraph}
 
-In this part, we describe a systematic way of transforming constraints
+We now more formally describe how to transform constraints
 into a constraint graph. The algorithm works by adding assertions to
 graph one by one.
 
@@ -981,16 +983,16 @@ constraint graph, used in Section~\ref{sec:leqedge}:
 \item $\polarity{p}{\LEQ}$: an edge representing the partial ordering
 on source and sink, where $p\in \{+,-\}$.
 
-\item $\polarity{p}{cons_i}$: an edge connecting the $i$-th component
+\item $\polarity{p}{\consi{cons}{i}}$: an edge connecting the $i$-th component
 to the constructor application. $p\in \{+,-\}$ is the polarity of the
 component.
 
-\item $\polarity{p}{cons_i^{-1}}$: the reverse of edge
-$\polarity{p}{cons_i}$.
+\item $\polarity{p}{\invc{cons}{i}}$: the reverse of edge
+$\polarity{p}{\consi{cons}{i}}$.
 
-\item $join$: an edge from component to a $join$ element.
+\item $\mathit{join}$: an edge from component to a $\mathit{join}$ element.
 
-\item $meet$: an edge from component to a $meet$ element.
+\item $\mathit{meet}$: an edge from component to a $\mathit{meet}$ element.
 
 \end{enumerate}
 
@@ -1002,13 +1004,13 @@ The subgraph for $E$ with id $id$ is constructed as follows:
 \item Constructor application $c(\polarity{p_1}{E_1}, \dots,
 \polarity{p_2}{E_{\arity{c}}})$: for each $E_i$, $1\leq i \leq \arity{c}$,
 the graph is constructed for $E_i$. Moreover, graph contains
-$\polarity{p_i}{cons_i}$ edge from $E_i$'s node to $N_{id}$.  Also, create
-$cons^{-1}(p_i,i)$ edge from $N_{id}$ to $E_i$'s node. Invariant
+$\polarity{p_i}{\atom{cons}_i}$ edge from $E_i$'s node to $N_{id}$.  Also, create
+$\invc{cons}{1}(p_i,i)$ edge from $N_{id}$ to $E_i$'s node. Invariant
 component is treated as both covariant and contravariant.
 
-\item Projection $c^{-i}(E)$: construct graph for $E$. Then, create
-$cons(p_i,i)$ edge from E's node to $N_{id}$ and create
-$cons^{-1}(p_i,i)$ edge in the reverse direction.
+\item Projection $\invcabs{c}{i}(E)$: construct graph for $E$. Then, create
+$cons(p_i,i)$ edge from E's node to $N_{id}$ and create an
+$\invc{cons}{1}(p_i,i)$ edge in the reverse direction.
 
 \item $E_1\join E_2$: construct graph for both $E_1$ and $E_2$. Then,
 create $\polarity{+}{\LEQ}$ and $join$ edge from $E_1$ and $E_2$'s node to
@@ -1073,8 +1075,10 @@ to $b$.
 \begin{minipage}{2.3in}
 \begin{align*}
 \polarity{p}{\LEQ} ::=\; & \polarity{p}{\LEQ}\; \polarity{p}{\LEQ}, p\in \{+,-\} \\
-\polarity{+}{\LEQ} ::=\; & \polarity{p}{c_i}\; \polarity{p}{\LEQ}\; \polarity{p}{c_i^{-1}} \\
-\polarity{-}{\LEQ} ::=\; & \polarity{p}{c_i^{-1}}\; \polarity{p}{\LEQ}\; \polarity{p}{c_i} \\
+\polarity{+}{\LEQ} ::=\; & \polarity{p}{\consi{c}{i}}\; \polarity{p}{\LEQ}\;
+\polarity{p}{\invcabs{c}{i}} \\
+\polarity{-}{\LEQ} ::=\; & \polarity{p}{\invcabs{c}{i}}\;
+\polarity{p}{\LEQ}\; \polarity{p}{\consiabs ci} \\
      & \text{, where } c\in \conset \land 1 \leq i\leq \arity{c} \land p\in \{+,-\}\\
 \end{align*}
 \end{minipage}
