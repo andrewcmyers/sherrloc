@@ -59,11 +59,11 @@ more holistic approach should be taken to deciding where the program
 error is likely to be found. Rather than just looking at the failed
 constraint in isolation, the structure of the constraint system as
 a whole should be considered. Both satisfiable and unsatisfiable
-paths through the constraint system may yield valuable information
-about where the error is located.  An expression that is involved
-in many unsatisfiable paths is more likely to be erroneous, whereas
-an expression that lies on many satisfiable paths is more likely to
-be correct. This approach to identifying errors can be
+paths through the constraint system may help identify
+the error location.  An expression that is involved
+in many unsatisfiable paths is more likely to be erroneous;
+an expression that lies on many satisfiable paths is more likely
+correct. This approach to identifying errors can be
 justified on maximum a posteriori principles, under the assumption
 that programmers write code that is mostly correct.
 
@@ -94,9 +94,9 @@ based on an analysis of the constraint system corresponding
 to the program. This algorithm proposes both program expressions
 that are likely to be errors, based on maximum a posteriori
 principles, and also hypotheses that the programmer is
-deemed likely to have omitted. Importantly, the algorithm
-requires little language-specific tuning to generate good results.
-(Sections~\ref{sec:graph} and~\ref{sec:ranking}.)
+deemed likely to have omitted. Importantly,
+little language-specific tuning is needed to generate good results.
+(Sections~\ref{sec:graph}, \ref{sec:ranking}.)
 
 \item
 An evaluation of this new error diagnosis algorithm on two
