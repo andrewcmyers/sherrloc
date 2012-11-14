@@ -1567,7 +1567,10 @@ tool has limited effects on in our evaluation results.
 
 \begin{table}
 \centering
+\subfigure[Top rank suggestion size]{
 \begin{tabular}{|c | c|}
+\hline
+size & Percentage \\
 \hline
 1 & 46.87\% \\
 \hline
@@ -1580,10 +1583,29 @@ $\geq 4$ & 7.35\% \\
 Total & 100\% \\
 \hline
 \end{tabular}
-\caption{Top rank suggestion size}
+%\caption{Top rank suggestion size}
 \label{table:groupsize}
+}
+\subfigure[Hypothesis inference result]{
+\begin{tabular}{|c | c | c|}
+\hline
+Category & Number & Percentage \\
+\hline
+Secure & 12 & 40\% \\
+\hline
+Tie & 17 & 42.5\% \\
+\hline
+Better & 11 & 27.5\% \\
+\hline
+Worse & 0 & 0\% \\
+\hline
+Total & 40 & 100\% \\
+\hline
+\end{tabular}
+\label{table:hyporesult}
+}
+\caption{Suggestion size and hypothesis inference result}
 \end{table}
-
 \subsubsection{Results}
 
 \begin{figure*}
@@ -1785,27 +1807,6 @@ application, measured by lines of code.
 For all files we generated in this way, we classify each file into
 one of four categories, with results summarized in
 Table~\ref{table:hyporesult}.
-
-\begin{table}
-\centering
-\begin{tabular}{|c | c | c|}
-\hline
-Category & Number & Percentage \\
-\hline
-Secure & 12 & 40\% \\
-\hline
-Tie & 17 & 42.5\% \\
-\hline
-Better & 11 & 27.5\% \\
-\hline
-Worse & 0 & 0\% \\
-\hline
-Total & 40 & 100\% \\
-\hline
-\end{tabular}
-\label{table:hyporesult}
-\caption{Hypothesis inference result}
-\end{table}
 
 \begin{enumerate}
 \item The program passed Jif/Fabric label checking after removing the
