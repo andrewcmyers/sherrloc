@@ -1,0 +1,379 @@
+First review
+
+         >>> Summary of the submission <<<
+
+Type checkers and program analyses can identify errors (i.e., unsatisfiable
+constraints), but they often report misleading errors. The submission's
+approach tries to give better errors by suggesting a fix that is either (1) a
+minimal, weakest missing hypothesis or (2) a minimal incorrect constraint. The
+submission presents a general constraint language that should be applicable to
+various kinds of type checkers and program analyses, and they apply it to two
+different kinds of checkers: ML type checking and Jif information flow checking.
+
+
+          >>> Evaluation <<<
+
+The approach seems to be a novel, versatile way to improve error reports. The
+authors demonstrate the potential broad applicability of their approach by
+applying it to both ML type checking and Jif information flow checking. The
+approach is explained well, and I think I was able to understand it fairly well
+despite knowing little about this area.
+
+I can't find any major weaknesses. Some other weaknesses and comments:
+
+What exactly are the paper's main contributions? In particular, how much of the
+constraint language and the graph building novel, and what are the key insights
+here that make it work well for giving better error reports. For example,
+Section 3.5.1 says: "In fact, to the best of our knowledge, our constraint
+language is the first general constraint language expressive enough to model
+these features." And Section 4 says: "The key insight is
+that satisfiability of the constraints corresponds to reachability in the
+graph." These statements suggest that there are key contributions here, but I'm
+not sure what they are.
+
+At the end of Section 2, it would be nice to have a real example of a Jif
+information flow error, similar to those provided for OCaml. It would help to
+see what Jif looks like and what the errors look like, to understand how the
+submission's constraint language can apply to this case. Similarly, it would be
+nice if there were some way to have more detailed Jif experiments in Section
+6.
+
+I don't really understand the comparison under "Missing hypothesis inference"
+in Section 7.
+
+I didn't understand what it means to "save hypotheses for later." How is a
+hypothesis that only applies to some constraint(s), such as in Figure 3(c)
+applied to only those constraints, e.g., only to the y <= x constraint?
+
+Section 3.5.1: "A is at least as privileged than B"
+
+Section 5.1.2: "if forms" -> "if it forms"
+
+End of Section 5.1.2: "N" and "n" are both used. I think they're supposed to be
+the same.
+
+Section 6.3: Table 0(b) -> Table 1(b)
+
+*******************************************************************************
+
+Second Review
+
+          >>> Summary of the submission <<<
+
+This paper addresses the problem of how to diagnose errors reported by some
+static program analysis techniques. Specifically, this work focused on flow- or
+inclusion constraints that arise in type inference and some forms of
+information flow analysis. The paper starts by giving a constraint language
+that only allows conjunctions of inequalities composed of variables and
+constructor applications. The authors then explain how satisfiability and
+validity in this setting can be reduced to graph reachability, which follows
+the well known standard examples, such as CFL reachability. On these constraint
+graphs, the paper then shows how to obtain a weakest and minimal missing
+hypothesis for a desired property to hold as well as inferring likely wrong
+parts in a program based on a probability-based heuristic. The authors show
+that for OCaml type errors their technique performs comparably to an existing
+specialized tool and that the new technique adds value for finding missing
+hypothesis in Jif.
+
+
+
+          >>> Evaluation <<<
+
+This paper deals with an important problem, how to make the results, and
+specifically, the failure of a static program reasoning technique
+understandable to human users. I found the introduction also very accessible.
+Generally, the beginning of this paper does a good job exposing the high-level
+ideas in this work.
+
+However, I have some questions with regard to the chosen constraint language.
+While I certainly agree that this constraint formulation is appropriate for
+type inference and some forms of information flow, most other interesting
+program analysis clearly do not fit into this language, for instance, any
+analysis that generates disjunctive constraints, or arithmetic. Furthermore, it
+at least seems to me that the presented technical contribution, specifically
+formulating solving such constraints as a graph reachability problem, is
+unfortunately only applicable to the specific form of constraints considered in
+this work. Therefore, I believe that the authors could greatly strengthen this
+paper by demonstrating that either their constraint language can indeed capture
+many interesting analyses or that the presented techniques on graphs can be
+generalized to richer constraints.
+
+Furthermore, I am a bit puzzled by the comparison with [6]. As far as I can
+tell, [6] does not diagnose first-order logic, but works on any theory where
+quantifier elimination is decidable. In [6], the theory used is presburger
+arithmetic. Clearly, it is easily possible to encode the constraints from this
+paper into such theories. In fact, a straightforward encoding simply interprets
+<= as arithmetic <=. (I agree that some encoding effort is required to capture
+constructors.) Therefore, is is unclear for me why the abduction technique from
+[6] is not a semantic generalization of a special case presented in this paper.
+I believe that this paper would be much stronger if the authors clearly explain
+the advantage of their approach in this more limited setting and provide more
+and accurate details on how they differ from [6]. I am intrigued by some of the
+results obtained on constraint graphs and I have the hunch that there are
+interesting differences, but they are currently not explained. One important
+difference to the abduction algorithm used in [6] is that this paper can
+generate multiple different explanations with the same set of variables. This
+could potentially be a crucial difference that makes the presented technique
+extremely valuable in the more restricted setting considered in this paper.
+Discussing this would greatly strengthen this submission.
+
+The experimental results show that the presented technique is effective in
+practice. 
+
+In summary, for this paper to be considered, I believe that the title and
+introduction needs to properly scope the problem considered (type inference,
+flow properties vs. general error diagnosis). Furthermore, a meaningful
+comparison with abduction as used in [6] needs to be added.
+
+*****************************************************************************
+
+Third Review
+
+          >>> Summary of the submission <<<
+
+This paper presents an algorithm for identifying likely sources of a
+type error during type inference; i.e., it aims to improve type error
+messages. The approach aims to be generic, applying to type inference
+algorithms expressed as constraint satisfaction procedures. Given a
+constraint graph, the approach solves as many "paths" in the graph as
+possible, leaving only the unsatifiable ones as the sources of the
+type error. To minimize the reported information, the proposed
+approach identifies potential errors by either (a) identifying a
+missing hypothesis (e.g., as might have been established by a dynamic
+type test), or (b) identifying the *most likely* wrong expression when
+many possible paths are involved (making the assumption that there is
+a single error). The approach has been applied to type inference in
+Jif (a "with information flow" extension to Java) and in OCaml. The
+paper shows the encoding as constraints for both applications, and
+gives a detailed evaluation of the Ocaml case (using data from the
+PLDI'07 "Seminal" paper), and a more ad hoc evaluation of the Jif
+case. For the former, the evaluation shows an improvement over both
+standard OCaml and Seminal in identifying expressions likely involved
+in the error.
+
+
+
+          >>> Evaluation <<<
+
+This paper presents a promising idea---rather than randomly reporting
+the expression corresponding to one constraint in a set of
+unsatisfiable constraints (as the standard type inference algorithms
+tend to do) or reporting all of the expressions corresponding to all
+constraints (which would overwhelm the user), identify that expression
+that seems "most likely" involved in the error, based on the both the
+staisfiable and unsatisfiable constraints. The "missing hypothesis"
+idea also seems promising, in that the authors aim to find the
+"weakest, minimal" hypothesis, rather than just the weakest (which
+would end up reporting a big pile of missing hypotheses) or the
+minimal (which would end up reporting a single constraint that was far
+too strong). It's nice that the approach works on constraint graphs,
+and thus should apply to many type inference algorithms. The
+experiments the authors have presented show the idea has some promise.
+
+While I think the paper is heading in a good direction, I don't think
+it's ready yet. My main problem is that the paper is not yet clear
+enough about what the algorithm is doing, and the experimental
+evaluation could be improved. For the first, there are several issues
+for me:
+
+(a) It seems like the two approaches, handling hypotheses vs. wrong
+expressions, are not integrated; if I'm reading the paper right, there
+are basically two algorithms, where the wrong-expression stuff is
+evaluated for Ocaml, and the missing-hypothesis stuff is evaluated for
+Jif. Thus, I'm less convinced about the claims of generality, since
+there is not actually one algorithm. Indeed, it's not clear when you
+should suggest a missing hypothesis vs. identify broken code (or when
+missing hypotheses make sense as a fix, outside of the Jif case).
+
+(b) While the high level idea of wrong-expression identification is
+clear, I found the details to be lacking. Basically they come as 3/4
+of p. 7, which shows no examples, diagrams, etc. to give the reader an
+idea of how the algorithm would work. This part of the paper should
+be far more detailed/explanatory, since it's the key to most of what's
+presented in the paper. On its surface, there appear to be some
+important magic numbers (in particular P_1 and P_2) and the paper does
+not suggest how the definition of these two will affect the results.
+
+(c) I found the discussion of the constraint graphs to be cryptic, but
+at the same time long-winded. I think I basically get what's being
+proposed, but there are some loose ends. For example, why are the
+rules in Fig. 4 sound? It's suprising that you can just change the
+polarity of a constraint (as per the latter two rules). Why are the
+encodings of ML types and Jif types sound given these rules? Fig. 3
+is helpful, but why paths through the graph make sense, given the
+encoding 4.2, is not explained. (Also, Fig. 3 doesn't illustrate how
+the hypothesis constraints are "saved" on the original graph.) The
+authors don't give the reader a sense of what the pieces are doing, or
+why this way is the right way to encode the constraints as a graph. (I
+was particularly confused as to what the overbar is doing---the
+polarity, index, and constructor are clear enough.)
+
+My other problem is that I think the experimental evaluation should be
+improved, to be more clear about the outcome. In particular, for the
+Ocaml part, the given approach is deemed reasonable if it reports many
+possible expressions as erroneous, but the actual error is among them.
+But it's trivial to report lots of locations; you really want to get
+credit for reporting exactly the right one, and degrade the quality of
+a message for each additional location reported. (It occurs to me:
+the authors never show us what their error messages actually look
+like---seems like a big omission.) The authors mention they filter
+the results based on whether the reported expression is "closely
+related" to the actual fix. But this notion is not formally/clearly
+defined. The Jif part seems really contrived: delete some hypotheses
+and then see if the system finds the ones that were deleted. But this
+assumes that a deleted hypothesis is the problem in the first place,
+or that these are hypotheses that programmers would mess up. (This is
+in part a problem already mentioend in (a), that there are basically
+two algorithms here.)
+
+I note that that the Seminal paper (PLDI'07) does not have these
+problems, so the authors may look there for inspiration. That paper
+shows quite well what they are actually doing, what the error messages
+look like, and how they performed their evaluation.
+
+Nits/questions:
+
+p. 2: The append example in Section 2 is missing an argument (in
+addition to having the type error mentioned in the text). This
+confused me for a while.
+
+p. 4: "discuss a subset of [an] ML-like language"
+
+p. 5: why not make the translation from type inference constraints to
+constraint graphs a bit more formal, rather than semi-formal as is now
+the case in 4.2?
+
+p. 7: In the rightmost column, you write P(pi = 0|e) = 1 for an
+unsatisfiable path, but in the leftmost column, when you introduce the
+idea of observation o, you suggest that pi = 0 occurs when the path is
+satisfiable, not when it's unsatisfiable. Presumably you've just
+flipped the 0/1 meaning.
+
+p. 7: P_2 < 0.5 seems very high---I would think a satisfiable path
+woud have a far lower chance of being the source of an error cause.
+Where does this come from?
+
+p. 8 (Fig. 6): graph building seems *really* expensive. I find this
+very surprising. Can you explain? How does this performance compare
+to Seminal, or normal type inference?
+
+*************************************************************************
+
+Forth Review
+
+          >>> Summary of the submission <<<
+
+This paper presents a constraint language for expressing type systems and other
+program analyses together with an approach to represent constraints in a
+constraint graph, which is used for supporting precise error diagnosis, when
+one or more constraints are found unsatisfiable. In this case, both satisfiable
+and unsatisfiable paths through the constraint graph are analyzed to localize
+program expressions most likely to be the source of the problem. The
+localization algorithm calculates the mincut of all unsatisfiable paths in the
+constraint graph. If several cuts of the same length are found they are ranked
+by the increasing order of the number of satisfiable paths using them. The
+soundness of the algorithm is based on (a) the maximum a posteriori model for
+estimating the probability that an expression e is the cause of observing a
+certain state of satisfiable and unsatisfiable paths in the constraint graph
+and (b) the assumption that programmer's code is mostly correct. The proposed
+technique is also capable of finding hypotheses that the programmer has likely
+omitted for analyses that involve programmer-defined assumptions about the
+environment. To this end, an algorithm is presented to determine the weakest
+minimal hypothesis that makes unsatisfiable paths satisfiable, starting with
+the conclusions of unsatisfiable paths as the basis.
+
+The approach presented in this paper abstracts from specific analysis
+techniques by using an ordering operation for elements of the constraint
+language that is treated abstractly: The only assumption about the ordering
+operator is that it must define a lattice. To instantiate the approach for a
+particular analysis problem, few analysis specific tunings are needed,
+including the instantiation of the ordering relation for a particular kind of
+analysis. Two concrete instantiations are presented for two kinds of analyses:
+OCaml's type inference and Jif's information flow analysis. The approach is
+implemented as an error diagnosis tool in Java. The input are constraints files
+omitted by the program analyses to be diagnosed, OCaml's type inference and
+Jif's security analysis, which have been correspondingly modified to produce
+the constraint files obeying the grammar rules of the constraint language. The
+tool is evaluated on two benchmarks of erroneous programs, one for each
+analysis. The evaluation shows that the approach localizes sources of program
+errors more accurately than OCaml's compiler and also finds missing
+programmer-defined assumptions in case of Jif.
+
+
+          >>> Evaluation <<<
+
+The paper addresses a highly relevant problem. The proposed solution seems very
+interesting. The paper does a good job in showing that the proposed solution is
+theoretically sound (modulo some assumptions about the behavior of erroneous
+programs) and empirically effective. 
+
+There are a few points on the negative side. 
+
+The paper seems to claim a broader applicability of the proposed techniques
+than actually provided evidence for. Actually, what is shown is that the
+proposed technique is applicable to type inference and information flow
+analyses. The reader is left to guess how the approach is applicable to other
+kinds of analyses. This reviewer suggest that the authors tone down the
+applicability claim (in the title and in the introduction). 
+
+A key assumptions underlying the maximum a posteriori interpretation of error
+inference is that each program entity is equally likely to cause an error and
+that each entity being the cause is independent. It seems to me that the
+assumption is quite strong and the paper does not give evidence for its
+validity. Making one clearly stated assumption is legitimate, but the authors
+should at least discuss the extent to which their statements are affected, if
+the assumption is invalidated. How would one accommodate a non-equal likelihood
+of entities? How would one integrate a model os dependencies between
+livelihoods of entities being error sources? 
+
+The evaluation section needs some revision/elaboration. Concerning the OCaml
+case study, it is not clear how big the corpus actually was. The authors report
+that they analyzed 5 HW assignments and the data came from 10 participants,
+which makes the reader guess that there were 50 (erroneous?) programs analyzed.
+But then after some filtering of data is explained, the authors mention that
+"336 samples" were left. What is meant by "samples"? Where does the number 336
+come from? Also, the numbers in Fig. 5 are not sufficiently interpreted in
+text, or the link between text and tables/figures is missing. In any case, this
+reviewer was not able to interpret Figure 5.
+
+The comparison to Seminal comes at a surprise. The authors should mention it
+when they introduce the set up of their experiments. Why the comparison with
+this particular related approach only?
+
+Availability of the implementation and of the evaluation data: it is not clear
+whether the latter are available online. 
+
+The presentation is overall of good quality, but there are several points that
+can be improved.
+
+First of all, it would make the paper much more easy to grasp and joyful to
+read, if the examples used presented in section 2 to illustrate the ML type
+inference and Jif label checking were consequently used in the rest of the
+paper to illustrate the constraint language constructs, the constraint graph
+construction and the identification of likely erroneous entities in the
+program, instead of examples using synthetic entities (c, x, …).
+
+Some explanations need more elaboration. E.g. the explanation why infinite
+terms are needed to solve some constraints at the end of 3.3 is hard to grasp.
+What is btw a in a(zero) = 1? Is it the arty of the constructor zero? 
+
+The terminology should be streamlined. Often different terms are used for the
+same thing, which hamper readability. Also, it may make sense to carefully
+check that different letters are used to denote different categories in the
+grammar of the constraint language. This reviewer often got confused by the use
+of the letter c to denote both constructors of elements and constraints. Also,
+some terminology is never really defined and left for reader's intuition to
+interpret. E.g., this reviewer did not find a precise definition of the term
+"weakest missing hypothesis"
+
+Sometimes, the use of notation is mixed up, again hampering understandability.
+For e.g., in the paragraph above Lemma 1 in 5.1.2, I believe that the reference
+to H(P) is wrong and it should be C(P). 
+
+There are many small grammatical mistakes, especially missing prepositions (in,
+the, that,…), misspelling of verbs in the third personal singular/plural
+("locations that match*es*", "errors, which correspond*s*", etc.), 
+
+There are some wrong references to figures. Section 4.1 refers to figure 5 - I
+think, it should refer to Figure 3. Section 6.2.1 refers to Table 0(a) - should
+probably be Table 1(a).
