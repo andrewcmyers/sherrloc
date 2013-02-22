@@ -1,4 +1,3 @@
-// For5.jif:2,4-10
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@For5.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@For5.jif:2,4-10
 CONSTRUCTOR this 0
@@ -32,12 +31,12 @@ _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-v_secret == (Alice -> *) [this <= caller_pc;];@"For5.jif:3,17-23"
-(caller_pc) <= v_secret [this <= caller_pc;];@"For5.jif:3,26-30"
-v_leak == (_ -> _) [this <= caller_pc;];@"For5.jif:4,11-15"
-(caller_pc) <= v_leak [this <= caller_pc;];@"For5.jif:4,18-23"
-(v_secret) ⊔ (v_for) <= v_for1 [this <= caller_pc;];@"For5.jif:8,21-27"
-(v_secret) ⊔ (v_for) <= (* -> *) [this <= caller_pc;];@"For5.jif:9,15-30"
-caller_pc <= v_for [this <= caller_pc;];@"For5.jif:7,5-18"
-(v_for) ⊔ (v_for1) <= v_leak [this <= caller_pc;];@"For5.jif:11,5-9"
-(v_secret) ⊔ (v_for) ⊔ (v_newException) <= v_e [this <= caller_pc;];@"For5.jif:13,8-19"
+v_secret == (Alice -> *) {this <= caller_pc;};["":3,17-23]
+(caller_pc) <= v_secret {this <= caller_pc;};["":3,26-30]
+v_leak == (_ -> _) {this <= caller_pc;};["":4,11-15]
+(caller_pc) <= v_leak {this <= caller_pc;};["":4,18-23]
+(v_secret) ⊔ (v_for) <= v_for1 {this <= caller_pc;};["":8,21-27]
+(v_secret) ⊔ (v_for) <= (* -> *) {this <= caller_pc;};["":9,15-30]
+caller_pc <= v_for {this <= caller_pc;};["":7,5-18]
+(v_for) ⊔ (v_for1) <= v_leak {this <= caller_pc;};["":11,5-9]
+(v_secret) ⊔ (v_for) ⊔ (v_newException) <= v_e {this <= caller_pc;};["":13,8-19]

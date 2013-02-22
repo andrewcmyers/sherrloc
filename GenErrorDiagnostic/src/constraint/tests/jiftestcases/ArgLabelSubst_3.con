@@ -1,4 +1,3 @@
-// ArgLabelSubst.jif:23,11-29
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:22,0-13
 CONSTRUCTOR lbl 0 //class jif.types.label.ParamLabel_c@ArgLabelSubst.jif:23,18-21
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:23,11-29
@@ -13,4 +12,4 @@ _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 
 %%
-(caller_pc) <= (lbl) ⊔ (caller_pc) [this <= caller_pc;];@"ArgLabelSubst.jif:24,1-14"
+(caller_pc) <= (lbl) ⊔ (caller_pc) {this <= caller_pc;};["":24,1-14]

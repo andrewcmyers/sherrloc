@@ -1,4 +1,3 @@
-// LabelLeConstraint02.jif:2,4-17
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint02.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint02.jif:2,4-17
 CONSTRUCTOR *lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint02.jif:3,6-10
@@ -19,6 +18,6 @@ _ -> _ <= *lbl1;
 *lbl1 <= * -> *;
 
 %%
-v_x == (caller_pc) ⊔ (*lbl1) [*lbl1 <= (Alice -> *);this <= caller_pc;];@"LabelLeConstraint02.jif:3,12-13"
-(caller_pc) <= v_x [*lbl1 <= (Alice -> *);this <= caller_pc;];@"LabelLeConstraint02.jif:3,16-17"
-(v_x) ⊔ (caller_pc) <= ((Alice -> *)) ⊔ (caller_pc) [*lbl1 <= (Alice -> *);this <= caller_pc;];@"LabelLeConstraint02.jif:4,1-10"
+v_x == (caller_pc) ⊔ (*lbl1) {*lbl1 <= (Alice -> *);this <= caller_pc;};["":3,12-13]
+(caller_pc) <= v_x {*lbl1 <= (Alice -> *);this <= caller_pc;};["":3,16-17]
+(v_x) ⊔ (caller_pc) <= ((Alice -> *)) ⊔ (caller_pc) {*lbl1 <= (Alice -> *);this <= caller_pc;};["":4,1-10]

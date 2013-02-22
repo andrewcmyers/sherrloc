@@ -1,10 +1,9 @@
-// Dyn4.jif:1,0-10
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0-10
 CONSTRUCTOR Dyn4.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR Dyn4.provider1 0 //class jif.types.label.ProviderLabel_c@Dyn4.jif:1,0-10
 CONSTRUCTOR *M 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:14,42-43
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:1,0-10
 CONSTRUCTOR *L 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:4,16-17
+CONSTRUCTOR Dyn4.provider1 0 //class jif.types.label.ProviderLabel_c@Dyn4.jif:1,0-10
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:1,0-10
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@Dyn4.jif:4,32-38
 CONSTRUCTOR * 0 //@Compiler Generated
@@ -16,14 +15,14 @@ _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= Dyn4.provider;
 Dyn4.provider <= * -> *;
-_ -> _ <= Dyn4.provider1;
-Dyn4.provider1 <= * -> *;
 _ -> _ <= *M;
 *M <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
 _ -> _ <= *L;
 *L <= * -> *;
+_ -> _ <= Dyn4.provider1;
+Dyn4.provider1 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> _);
@@ -32,18 +31,18 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Dyn4.provider <= (* -> *) [];@"Dyn4.jif:1,0-10"
-(_ -> _) == (_ -> _) [];@"Dyn4.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:4,11-20"
-*L <= *L [];@"Dyn4.jif:4,11-20"
-(* -> *) <= (* -> *) [];@"Dyn4.jif:10,11-21"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:10,11-21"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:10,11-21"
-(* -> *) <= (* -> *) [];@"Dyn4.jif:14,18-27"
-*M <= *M [];@"Dyn4.jif:14,18-27"
-(* -> *) <= (* -> *) [];@"Dyn4.jif:14,18-27"
-(_ -> _) <= (_ -> _) [];@"Dyn4.jif:14,18-27"
-*M <= *M [];@"Dyn4.jif:14,18-27"
-Dyn4.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (Dyn4.provider1);];@"Dyn4.jif:1,0-0"
+Dyn4.provider <= (* -> *) {};["":1,0-10]
+(_ -> _) == (_ -> _) {};["":2,4-10]
+(_ -> _) <= (_ -> _) {};["":4,11-20]
+(_ -> _) <= (_ -> _) {};["":4,11-20]
+(_ -> _) <= (_ -> _) {};["":4,11-20]
+*L <= *L {};["":4,11-20]
+(* -> *) <= (* -> *) {};["":10,11-21]
+(_ -> _) <= (_ -> _) {};["":10,11-21]
+(_ -> _) <= (_ -> _) {};["":10,11-21]
+(* -> *) <= (* -> *) {};["":14,18-27]
+*M <= *M {};["":14,18-27]
+(* -> *) <= (* -> *) {};["":14,18-27]
+(_ -> _) <= (_ -> _) {};["":14,18-27]
+*M <= *M {};["":14,18-27]
+Dyn4.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (Dyn4.provider1);};["":1,0-0]

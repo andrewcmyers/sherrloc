@@ -12,33 +12,33 @@ _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= leak;
-leak <= * -> *;
+_ -> _ <= v_leak;
+v_leak <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= secret;
-secret <= * -> *;
-_ -> _ <= e;
-e <= * -> *;
-_ -> _ <= i;
-i <= * -> *;
-_ -> _ <= for;
-for <= * -> *;
+_ -> _ <= v_secret;
+v_secret <= * -> *;
+_ -> _ <= v_e;
+v_e <= * -> *;
+_ -> _ <= v_i;
+v_i <= * -> *;
+_ -> _ <= v_for;
+v_for <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= newException;
-newException <= * -> *;
+_ -> _ <= v_newException;
+v_newException <= * -> *;
 
 %%
-secret == (Alice -> *) [this <= caller_pc;];@"For3.jif:3,17-23"
-(caller_pc) <= secret [this <= caller_pc;];@"For3.jif:3,26-30"
-leak == (_ -> _) [this <= caller_pc;];@"For3.jif:4,18-22"
-(caller_pc) <= leak [this <= caller_pc;];@"For3.jif:4,25-30"
-(caller_pc) <= i [this <= caller_pc;];@"For3.jif:6,25-26"
-(for) ⊔ (i) <= leak [this <= caller_pc;];@"For3.jif:7,16-20"
-(secret) ⊔ (for) ⊔ (i) <= (* -> *) [this <= caller_pc;];@"For3.jif:8,35-50"
-(secret) ⊔ (for) ⊔ (i) <= i [this <= caller_pc;];@"For3.jif:6,35-36"
-(secret) ⊔ (for) ⊔ (i) ⊔ (caller_pc) <= for [this <= caller_pc;];@"For3.jif:6,12-34"
-(secret) ⊔ (for) ⊔ (i) ⊔ (newException) <= e [this <= caller_pc;];@"For3.jif:11,15-26"
+v_secret == (Alice -> *) {this <= caller_pc;};["":3,17-23]
+(caller_pc) <= v_secret {this <= caller_pc;};["":3,26-30]
+v_leak == (_ -> _) {this <= caller_pc;};["":4,18-22]
+(caller_pc) <= v_leak {this <= caller_pc;};["":4,25-30]
+(caller_pc) <= v_i {this <= caller_pc;};["":6,25-26]
+(v_for) ⊔ (v_i) <= v_leak {this <= caller_pc;};["":7,16-20]
+(v_secret) ⊔ (v_for) ⊔ (v_i) <= (* -> *) {this <= caller_pc;};["":8,35-50]
+(v_secret) ⊔ (v_for) ⊔ (v_i) <= v_i {this <= caller_pc;};["":6,35-36]
+(v_secret) ⊔ (v_for) ⊔ (v_i) ⊔ (caller_pc) <= v_for {this <= caller_pc;};["":6,12-34]
+(v_secret) ⊔ (v_for) ⊔ (v_i) ⊔ (v_newException) <= v_e {this <= caller_pc;};["":11,15-26]

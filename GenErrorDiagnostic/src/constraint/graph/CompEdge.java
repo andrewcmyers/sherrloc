@@ -5,10 +5,12 @@ import constraint.ast.Environment;
 /* this edge is inferred only when all components of an Constructor element flow into another */
 public class CompEdge extends Edge {
 		String info;
+		Environment env;
 	
-		public CompEdge(Node from, Node to, String info) {
+		public CompEdge(Node from, Node to, Environment env, String info) {
 			super(from, to);
 			this.info = info;
+			this.env = env;
 		}
 		
 		@Override
@@ -33,7 +35,7 @@ public class CompEdge extends Edge {
 		
 		@Override
 		public Environment getAssumption() {
-			return new Environment();
+			return env;
 		}
 
 }

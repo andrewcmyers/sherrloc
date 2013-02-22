@@ -1,9 +1,8 @@
-// A.jif:1,0-7
-CONSTRUCTOR A.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@A.jif:1,0-7
+CONSTRUCTOR A.provider 0 //class jif.types.label.ProviderLabel_c@A.jif:1,0-7
 CONSTRUCTOR a 0 //class jif.types.label.ArgLabel_c@A.jif:9,27-38
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@A.jif:1,0-7
-CONSTRUCTOR A.provider1 0 //class jif.types.label.ProviderLabel_c@A.jif:1,0-7
+CONSTRUCTOR A.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@null
@@ -14,10 +13,10 @@ CONSTRUCTOR * 0 //@Compiler Generated
 a <= (Alice -> Bob);
 A.provider == _ -> _;
 A.provider1 == _ -> _;
-_ -> _ <= A.provider;
-A.provider <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
+_ -> _ <= A.provider;
+A.provider <= * -> *;
 _ -> _ <= a;
 a <= * -> *;
 _ -> _ <= caller_pc;
@@ -32,11 +31,11 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-A.provider <= (* -> *) [];@"A.jif:1,0-7"
-(Alice -> Bob) == (Alice -> Bob) [];@"A.jif:2,11-28"
-(Alice -> Bob) <= (Alice -> Bob) [];@"A.jif:4,11-21"
-(_ -> _) <= (_ -> _) [];@"A.jif:4,11-21"
-(Alice -> Bob) <= (Alice -> Bob) [];@"A.jif:9,11-20"
-a <= a [];@"A.jif:9,11-20"
-(_ -> _) <= (_ -> _) [];@"A.jif:9,11-20"
-A.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (A.provider1);];@"A.jif:1,0-0"
+A.provider1 <= (* -> *) {};["":1,0-7]
+(Alice -> Bob) == (Alice -> Bob) {};["":2,11-28]
+(Alice -> Bob) <= (Alice -> Bob) {};["":4,11-21]
+(_ -> _) <= (_ -> _) {};["":4,11-21]
+(Alice -> Bob) <= (Alice -> Bob) {};["":9,11-20]
+a <= a {};["":9,11-20]
+(_ -> _) <= (_ -> _) {};["":9,11-20]
+A.provider <= (* -> *) {this <= caller_pc;caller_pc <= (A.provider);};["":1,0-0]

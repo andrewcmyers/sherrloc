@@ -173,9 +173,9 @@ public class Analysis {
         }
         
         for (Element element : elements) {
-//            if (element.isStart())                    
+            if (element.isStart())                    
             	startNodes.add(graph.getNode(element));
-//			if (element.isEnd())
+			if (element.isEnd())
             	endNodes.add(graph.getNode(element));
         }
         
@@ -197,6 +197,8 @@ public class Analysis {
 					continue;
 				
 				if (l==null) continue;
+				
+//				System.out.println("comparing "+e1 + " and " + e2);
 				
 				// also ignore the path if its satisfiability depends on other paths
 				if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
@@ -229,7 +231,7 @@ public class Analysis {
 					path.incSuccCounter();
 					continue;
 				}
-//				System.out.println(path.toString());
+				System.out.println(path.toString());
 				path.incFailCounter();
 				path.setCause();
 				AttemptGoal goal = new AttemptGoal(start, end, env);
@@ -277,7 +279,7 @@ public class Analysis {
 		return sb.toString();
     }
     
-    public Set<AttemptGoal> genAssumptions (Set<AttemptGoal> remaining) {    	    	
+    public Set<Set<AttemptGoal>> genAssumptions (Set<AttemptGoal> remaining) {    	    	
     	HashMap<AttemptGoal, List<AttemptGoal>> dep = genAssumptionDep(remaining);
     	Set<Set<AttemptGoal>> results = new HashSet<Set<AttemptGoal>>();
     	
@@ -289,16 +291,8 @@ public class Analysis {
     	}
 
 //		System.out.println("Likely missing assumptions:");
-		HashSet<AttemptGoal> ret = new HashSet<AttemptGoal>();
-    	for (Set<AttemptGoal> result : results) {
-    		for (AttemptGoal s : result) {
-    			ret.add(s);
-//        		System.out.print(" "+s.getSource().getElement() +" <= "+s.getSink().getElement()+";");
-    		}
-//    		System.out.println();
-    	}
     	
-    	return ret;
+    	return results;
     }
     
     /* Calculating a min cut is NP complete. Currently, we use iterative deeping search to quickly identify the goal */
@@ -523,8 +517,27 @@ public class Analysis {
     	if (!done) {
     		genErrorPaths();
     	}
-        Set<AttemptGoal> result = genAssumptions(errPaths.keySet());
+        Set<Set<AttemptGoal>> result = genAssumptions(errPaths.keySet());
     	return result.size();
+    }
+    
+    public String getAssumptionString () {
+    	if (!done) {
+    		genErrorPaths();
+    	}
+        Set<Set<AttemptGoal>> result = genAssumptions(errPaths.keySet());
+        StringBuffer sb = new StringBuffer();
+        int counter = 0;
+        for (Set<AttemptGoal> s : result) {
+            List<String> list = new ArrayList<String>();
+        	for (AttemptGoal g :s )
+        		list.add(g.toString());
+        	Collections.sort(list);
+        	for (String str : list)
+        		sb.append(str+";");
+        	sb.append("\n");
+        }
+    	return sb.toString();
     }
     
     void printRank () {    	
@@ -737,7 +750,7 @@ public class Analysis {
     public String genMissingAssumptions (Map<AttemptGoal, ConstraintPath> errorPaths) {
     	StringBuffer sb = new StringBuffer();
     	if (GEN_ASSUMP) {
-    		Set<AttemptGoal> result = genAssumptions(errorPaths.keySet());
+    		Set<AttemptGoal> result = genAssumptions(errorPaths.keySet()).iterator().next();
     		sb.append("<H3>Likely missing assumption(s): </H3>\n");
         	sb.append("<UL>\n");
         	sb.append("<LI>");

@@ -1,4 +1,3 @@
-// LabelLeConstraint11.jif
 CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint11.jif:2,8-9
 CONSTRUCTOR this 0
 
@@ -9,4 +8,4 @@ _ -> _ <= v_f;
 v_f <= * -> *;
 
 %%
-v_f == L [];@"LabelLeConstraint11.jif:2,4-13"
+v_f == L {};["":2,4-13]

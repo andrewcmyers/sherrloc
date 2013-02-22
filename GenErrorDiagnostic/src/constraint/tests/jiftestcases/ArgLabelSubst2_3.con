@@ -1,4 +1,3 @@
-// ArgLabelSubst2.jif:22,11-24
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:21,0-8
 CONSTRUCTOR z 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,55-60
 CONSTRUCTOR q 0 //class jif.types.label.ParamLabel_c@ArgLabelSubst2.jif:22,18-19
@@ -32,16 +31,16 @@ _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-(caller_pc) <= q [this <= caller_pc;];@"ArgLabelSubst2.jif:23,16-30"
-v_answer2 == y [this <= caller_pc;];@"ArgLabelSubst2.jif:25,11-18"
-(caller_pc) <= v_answer2 [this <= caller_pc;];@"ArgLabelSubst2.jif:25,21-25"
-(x) <= (_ -> _) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,17-21"
-z <= (* -> *) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,23-24"
-y <= (* -> *) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,26-27"
-x <= (_ -> _) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
-v_receiver == x [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
-v_arg1label == (x) [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
-v_arg2label == z [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
-v_arg3label == y [this <= caller_pc;];@"ArgLabelSubst2.jif:27,11-28"
-y <= v_answer2 [this <= caller_pc;];@"ArgLabelSubst2.jif:27,1-8"
-(caller_pc) <= q [this <= caller_pc;];@"ArgLabelSubst2.jif:30,1-16"
+(caller_pc) <= q {this <= caller_pc;};["":23,16-30]
+v_answer2 == y {this <= caller_pc;};["":25,11-18]
+(caller_pc) <= v_answer2 {this <= caller_pc;};["":25,21-25]
+(x) <= (_ -> _) {this <= caller_pc;};["":27,17-21]
+z <= (* -> *) {this <= caller_pc;};["":27,23-24]
+y <= (* -> *) {this <= caller_pc;};["":27,26-27]
+x <= (_ -> _) {this <= caller_pc;};["":27,11-28]
+v_receiver == x {this <= caller_pc;};["":27,11-28]
+v_arg1label == (x) {this <= caller_pc;};["":27,11-28]
+v_arg2label == z {this <= caller_pc;};["":27,11-28]
+v_arg3label == y {this <= caller_pc;};["":27,11-28]
+y <= v_answer2 {this <= caller_pc;};["":27,1-8]
+(caller_pc) <= q {this <= caller_pc;};["":30,1-16]

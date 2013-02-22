@@ -1,4 +1,3 @@
-// ArgLabelSubst.jif:29,11-28
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,11-28
 CONSTRUCTOR w 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,38-40
@@ -8,10 +7,10 @@ CONSTRUCTOR * 0 //@ArgLabelSubst.jif:29,19-23
 
 %%
 w <= (_ -> _);
-_ -> _ <= this;
-this <= * -> *;
 _ -> _ <= (yyy -> *);
 (yyy -> *) <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 _ -> _ <= (* -> *);
@@ -20,10 +19,10 @@ _ -> _ <= w;
 w <= * -> *;
 
 %%
-(w) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;];@"ArgLabelSubst.jif:30,25-26"
-(w) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;];@"ArgLabelSubst.jif:30,28-29"
-(w) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;];@"ArgLabelSubst.jif:30,16-30"
-v_receiver == (w) ⊔ (caller_pc) [this <= caller_pc;];@"ArgLabelSubst.jif:30,16-30"
-v_arg1label == (w) ⊔ (caller_pc) [this <= caller_pc;];@"ArgLabelSubst.jif:30,16-30"
-v_arg2label == (w) ⊔ (caller_pc) [this <= caller_pc;];@"ArgLabelSubst.jif:30,16-30"
-(caller_pc) <= ((yyy -> *)) ⊔ (caller_pc) [this <= caller_pc;];@"ArgLabelSubst.jif:32,1-13"
+(w) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":30,25-26]
+(w) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":30,28-29]
+(w) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":30,16-30]
+v_receiver == (w) ⊔ (caller_pc) {this <= caller_pc;};["":30,16-30]
+v_arg1label == (w) ⊔ (caller_pc) {this <= caller_pc;};["":30,16-30]
+v_arg2label == (w) ⊔ (caller_pc) {this <= caller_pc;};["":30,16-30]
+(caller_pc) <= ((yyy -> *)) ⊔ (caller_pc) {this <= caller_pc;};["":32,1-13]

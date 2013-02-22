@@ -1,9 +1,8 @@
-// LabelSubst01.jif:17,0-9
 CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@LabelSubst01.jif:18,18-19
-CONSTRUCTOR Foo.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:17,0-9
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:17,0-9
+CONSTRUCTOR Foo.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR Foo.provider1 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:17,0-9
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:17,0-9
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
 CONSTRUCTOR * 0 //@Compiler Generated
@@ -13,22 +12,22 @@ Foo.provider == _ -> _;
 Foo.provider1 == _ -> _;
 _ -> _ <= L;
 L <= * -> *;
-_ -> _ <= Foo.provider;
-Foo.provider <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
+_ -> _ <= Foo.provider;
+Foo.provider <= * -> *;
 _ -> _ <= Foo.provider1;
 Foo.provider1 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Foo.provider <= (* -> *) [];@"LabelSubst01.jif:17,0-9"
-(* -> *) <= (* -> *) [];@"LabelSubst01.jif:18,11-28"
-(_ -> _) <= (_ -> _) [];@"LabelSubst01.jif:18,11-28"
-L <= L [];@"LabelSubst01.jif:18,11-28"
-Foo.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (Foo.provider1);];@"LabelSubst01.jif:17,0-0"
+Foo.provider <= (* -> *) {};["":17,0-9]
+(* -> *) <= (* -> *) {};["":18,11-28]
+(_ -> _) <= (_ -> _) {};["":18,11-28]
+L <= L {};["":18,11-28]
+Foo.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (Foo.provider1);};["":17,0-0]

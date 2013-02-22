@@ -1,10 +1,9 @@
-// Dyn6.jif:3,0-10
-CONSTRUCTOR Dyn6.provider 0 //class jif.types.label.ProviderLabel_c@Dyn6.jif:3,0-10
+CONSTRUCTOR *M 0 //class jif.types.label.DynamicLabel_c@Dyn6.jif:10,42-43
+CONSTRUCTOR Dyn6.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR *L 0 //class jif.types.label.DynamicLabel_c@Dyn6.jif:4,38-39
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn6.jif:3,0-10
-CONSTRUCTOR *M 0 //class jif.types.label.DynamicLabel_c@Dyn6.jif:10,42-43
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:3,0-10
-CONSTRUCTOR Dyn6.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR Dyn6.provider1 0 //class jif.types.label.ProviderLabel_c@Dyn6.jif:3,0-10
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@Dyn6.jif:4,24-30
 CONSTRUCTOR * 0 //@Compiler Generated
@@ -12,14 +11,14 @@ CONSTRUCTOR * 0 //@Compiler Generated
 %%
 Dyn6.provider == _ -> _;
 Dyn6.provider1 == _ -> _;
+_ -> _ <= *M;
+*M <= * -> *;
 _ -> _ <= Dyn6.provider;
 Dyn6.provider <= * -> *;
 _ -> _ <= *L;
 *L <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= *M;
-*M <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 _ -> _ <= Dyn6.provider1;
@@ -30,13 +29,13 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Dyn6.provider1 <= (* -> *) [];@"Dyn6.jif:3,0-10"
-*L <= *L [];@"Dyn6.jif:4,18-24"
-(_ -> _) <= (_ -> _) [];@"Dyn6.jif:4,18-24"
-(_ -> _) <= (_ -> _) [];@"Dyn6.jif:4,18-24"
-(* -> *) <= (* -> *) [];@"Dyn6.jif:10,18-27"
-*M <= *M [];@"Dyn6.jif:10,18-27"
-(* -> *) <= (* -> *) [];@"Dyn6.jif:10,18-27"
-(_ -> _) <= (_ -> _) [];@"Dyn6.jif:10,18-27"
-*M <= *M [];@"Dyn6.jif:10,18-27"
-Dyn6.provider <= (* -> *) [this <= caller_pc;caller_pc <= (Dyn6.provider);];@"Dyn6.jif:3,0-0"
+Dyn6.provider <= (* -> *) {};["":3,0-10]
+*L <= *L {};["":4,18-24]
+(_ -> _) <= (_ -> _) {};["":4,18-24]
+(_ -> _) <= (_ -> _) {};["":4,18-24]
+(* -> *) <= (* -> *) {};["":10,18-27]
+*M <= *M {};["":10,18-27]
+(* -> *) <= (* -> *) {};["":10,18-27]
+(_ -> _) <= (_ -> _) {};["":10,18-27]
+*M <= *M {};["":10,18-27]
+Dyn6.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (Dyn6.provider1);};["":3,0-0]

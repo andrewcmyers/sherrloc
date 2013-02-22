@@ -12,24 +12,24 @@ _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= leak;
-leak <= * -> *;
+_ -> _ <= v_leak;
+v_leak <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= secret;
-secret <= * -> *;
-_ -> _ <= do;
-do <= * -> *;
-_ -> _ <= done;
-done <= * -> *;
+_ -> _ <= v_secret;
+v_secret <= * -> *;
+_ -> _ <= v_do;
+v_do <= * -> *;
+_ -> _ <= v_done;
+v_done <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-secret == (Alice -> *) [this <= caller_pc;];@"Do2.jif:3,17-23"
-(caller_pc) <= secret [this <= caller_pc;];@"Do2.jif:3,26-30"
-leak == (_ -> _) [this <= caller_pc;];@"Do2.jif:4,11-15"
-(caller_pc) <= done [this <= caller_pc;];@"Do2.jif:5,16-21"
-(do) <= leak [this <= caller_pc;];@"Do2.jif:8,2-6"
-(do) <= done [this <= caller_pc;];@"Do2.jif:9,2-6"
-(done) ⊔ (do) ⊔ (secret) ⊔ (caller_pc) <= do [this <= caller_pc;];@"Do2.jif:7,5-10,21"
+v_secret == (Alice -> *) {this <= caller_pc;};["":3,17-23]
+(caller_pc) <= v_secret {this <= caller_pc;};["":3,26-30]
+v_leak == (_ -> _) {this <= caller_pc;};["":4,11-15]
+(caller_pc) <= v_done {this <= caller_pc;};["":5,16-21]
+(v_do) <= v_leak {this <= caller_pc;};["":8,2-6]
+(v_do) <= v_done {this <= caller_pc;};["":9,2-6]
+(v_done) ⊔ (v_do) ⊔ (v_secret) ⊔ (caller_pc) <= v_do {this <= caller_pc;};["":7,5-10,21]

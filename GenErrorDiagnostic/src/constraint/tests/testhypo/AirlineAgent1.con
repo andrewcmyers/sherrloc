@@ -1,0 +1,54 @@
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@AirlineAgent1.jif:23,53-54
+CONSTRUCTOR AirlineAgent.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@AirlineAgent1.jif:4,7-25
+CONSTRUCTOR AirlineServer.provider 0 //class jif.types.label.ProviderLabel_c@AirlineAgent1.jif:17,16-29
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@AirlineAgent1.jif:22,11-39
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@AirlineAgent1.jif:23,14-49
+CONSTRUCTOR * 0 //@Offer.jif:2,11-49
+CONSTRUCTOR Airlines 0 //@AirlineAgent1.jif:5,10-18
+CONSTRUCTOR TheAirline 0 //@AirlineAgent1.jif:5,27-37
+
+%%
+caller_pc <= (TheAirline -> TheAirline);
+AirlineAgent.provider == _ -> _;
+AirlineServer.provider == _ -> _;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= AirlineAgent.provider;
+AirlineAgent.provider <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= AirlineServer.provider;
+AirlineServer.provider <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= v_newOffer;
+v_newOffer <= * -> *;
+_ -> _ <= v_price;
+v_price <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (TheAirline -> TheAirline);
+(TheAirline -> TheAirline) <= * -> *;
+
+%%
+caller_pc <= (TheAirline -> TheAirline) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
+(TheAirline -> TheAirline) <= L {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
+AirlineAgent.provider <= (_ -> _) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
+AirlineServer.provider <= AirlineAgent.provider {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
+AirlineAgent.provider <= AirlineServer.provider {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
+Airlines >= TheAirline {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
+AirlineAgent.provider <= (* -> *) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
+v_receiver == this {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
+((TheAirline -> TheAirline)) ⊔ (this) <= v_price {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":27,20-34]
+this <= v_newOffer {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,15-38]
+(v_price) ⊔ (caller_pc) <= L {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,29-34]
+(caller_pc) <= L {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,36-37]
+caller_pc <= (* -> *) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,15-38]
+(caller_pc) ⊔ (v_newOffer) <= (L) ⊔ (caller_pc) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,8-39]
+L <= L {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,15-38]

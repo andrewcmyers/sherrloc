@@ -9,6 +9,7 @@ import java.util.Set;
 
 import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
+import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.graph.CompEdge;
@@ -34,6 +35,8 @@ abstract public class CFLPathFinder extends PathFinder {
 	
 	// Edges used in CFL-reachablity algorithm. Should not be observable for most graph operations
 	protected Map<Node, Map<Node, List<ReductionEdge>>>   reductionEdges = new HashMap<Node, Map<Node,List<ReductionEdge>>>();
+	protected Map<Node, List<Node>>   joinElements = new HashMap<Node, List<Node>>();
+	protected Map<Node, List<Node>>   meetElements = new HashMap<Node, List<Node>>();
 	boolean[][] hasRightEdge;
 
 	
@@ -42,6 +45,8 @@ abstract public class CFLPathFinder extends PathFinder {
 		// initialize reduction edges
 		for (Node n : graph.getAllNodes()) {
 			reductionEdges.put(n, new HashMap<Node, List<ReductionEdge>>());
+			joinElements.put(n, new ArrayList<Node>());
+			meetElements.put(n, new ArrayList<Node>());
 		}
 		hasRightEdge = new boolean[graph.getAllNodes().size()][graph.getAllNodes().size()];
 	}
@@ -177,6 +182,7 @@ abstract public class CFLPathFinder extends PathFinder {
 					boolean success = true;
 					String exp = "";
 
+					Edge edge = null;
 					for (int i=0; i<e1.getCons().getArity(); i++) {
 						Element comp1 = e1.getElements().get(i);
 						Element comp2 = e2.getElements().get(i);
@@ -184,7 +190,7 @@ abstract public class CFLPathFinder extends PathFinder {
 						if ( comp1.equals(comp2))
 							continue;
 						
-						Edge edge = getIdEdge(g.getNode(e1.getElements().get(i)), g.getNode(e2.getElements().get(i)));
+						edge = getIdEdge(g.getNode(e1.getElements().get(i)), g.getNode(e2.getElements().get(i)));
 						if (edge==null) {
 							success = false;
 							break;
@@ -194,27 +200,46 @@ abstract public class CFLPathFinder extends PathFinder {
 					
 					if (success) {
 						List<Edge> trace = new ArrayList<Edge>();
-						trace.add(new CompEdge(n1, n2, exp));
+						if (edge!=null)
+							trace.add(new CompEdge(n1, n2, edge.getAssumption(), exp));
+						else
+							trace.add(new CompEdge(n1, n2, new Environment(), exp));
 						addReductionEdge(n1, n2, new IdEdge(n1, n2, trace));
 					}
 				}
 			}
 		}
 		
-		// TODO: this is not general. We should add new ID edges repeatly 
+		// now handle the join on RHS and meet on LHS
+		for (Node n : g.getAllNodes()) {
+			if (((ElementNode)n).getElement() instanceof JoinElement) {
+				JoinElement je = (JoinElement) ((ElementNode)n).getElement();
+				for (Element ele : je.getElements()) {
+					joinElements.get(g.getNode(ele)).add(n);
+				}
+			}
+			
+			if (((ElementNode)n).getElement() instanceof MeetElement) {
+				MeetElement je = (MeetElement) ((ElementNode)n).getElement();
+				for (Element ele : je.getElements()) {
+					meetElements.get(g.getNode(ele)).add(n);
+				}
+			}
+		}
+
 		saturation();
 		
-		// now we handle meet and join labels
-		List<ElementNode> meetNodes = new ArrayList<ElementNode>();
-		List<ElementNode> joinNodes = new ArrayList<ElementNode>();
-		
-		for (Node n : g.getAllNodes()) {
-			ElementNode en = (ElementNode) n;
-			if (en.getElement() instanceof MeetElement)
-				meetNodes.add(en);
-			if (en.getElement() instanceof JoinElement)
-				joinNodes.add(en);
-		}
+//		// now we handle meet and join labels
+//		List<ElementNode> meetNodes = new ArrayList<ElementNode>();
+//		List<ElementNode> joinNodes = new ArrayList<ElementNode>();
+//		
+//		for (Node n : g.getAllNodes()) {
+//			ElementNode en = (ElementNode) n;
+//			if (en.getElement() instanceof MeetElement)
+//				meetNodes.add(en);
+//			if (en.getElement() instanceof JoinElement)
+//				joinNodes.add(en);
+//		}
 		
 		// handle meet nodes first
 //		for (ElementNode n : meetNodes) {

@@ -58,7 +58,10 @@ public class EquationEdge extends Edge {
     
     @Override
     public Environment getAssumption() {
-    	return equ.getAssumption();
+    	if (equ.getAssumption()==null)
+    		return new Environment();
+    	else
+    		return equ.getAssumption();
     }
     
     @Override

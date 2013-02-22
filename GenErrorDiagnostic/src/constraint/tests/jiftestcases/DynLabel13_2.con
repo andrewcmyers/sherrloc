@@ -1,7 +1,6 @@
-// DynLabel13.jif:4,0-7
-CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@DynLabel13.jif:4,0-7
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@DynLabel13.jif:4,0-7
-CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@DynLabel13.jif:4,0-7
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@DynLabel13.jif:4,0-7
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@DynLabel13.jif:5,10-16
@@ -24,7 +23,7 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider <= (* -> *) [];@"DynLabel13.jif:4,0-7"
-(_ -> _) <= (_ -> _) [];@"DynLabel13.jif:5,4-10"
-(_ -> _) <= (_ -> _) [];@"DynLabel13.jif:5,4-10"
-C.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider1);];@"DynLabel13.jif:4,0-0"
+C.provider1 <= (* -> *) {};["":4,0-7]
+(_ -> _) <= (_ -> _) {};["":5,4-10]
+(_ -> _) <= (_ -> _) {};["":5,4-10]
+C.provider <= (* -> *) {this <= caller_pc;caller_pc <= (C.provider);};["":4,0-0]

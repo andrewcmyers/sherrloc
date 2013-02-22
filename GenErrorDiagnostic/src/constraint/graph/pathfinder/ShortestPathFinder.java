@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+import constraint.ast.Element;
 import constraint.ast.Environment;
+import constraint.ast.JoinElement;
+import constraint.ast.MeetElement;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
 import constraint.graph.EdgeCondition;
@@ -108,6 +111,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 		while (!queue.isEmpty()) {
 			
 			ReductionEdge edge = queue.poll();
+			if (edge instanceof IdEdge)
+				tryAddingBackEdges ((IdEdge)edge, queue);
+
 			if (CORRECTNESS_CHECK && edge instanceof IdEdge) {
 				System.out.println(edge.getEdges().size());
 				List<Edge> edges = edge.getEdges();
@@ -349,6 +355,73 @@ public class ShortestPathFinder extends CFLPathFinder {
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	// given a newly discovered IdEdge, this function tries to identify back edges
+	void tryAddingBackEdges (IdEdge edge, PriorityQueue<ReductionEdge> queue) {
+		Node from = edge.getFrom();
+		Node to = edge.getTo();
+		
+		// if to is an element of a meet label, check if some node flows into all components
+		for (Node meetnode : meetElements.get(to)) {
+			MeetElement me = (MeetElement) ((ElementNode)meetnode).getElement();
+			Node candidate = from;
+			int candIndex = g.getIndex(candidate);
+			int meetIndex = g.getIndex(meetnode);
+			boolean success = true;
+			List<Edge> list = new ArrayList<Edge>();
+				
+			if (idPath[candIndex][meetIndex]!=null)
+				continue;
+			for (Element e : me.getElements()) {
+				int eleIndex = g.getIndex(g.getNode(e));
+				if (idPath[candIndex][eleIndex]!=null) {
+					list.addAll(idPath[candIndex][eleIndex].getEdges());
+					continue;
+				}
+				else {
+					success = false;
+					break;
+				}	
+			}
+			if (success) {
+				ReductionEdge newedge = new IdEdge(candidate, meetnode, list);
+				// this number is a little ad hoc
+				shortestID[candIndex][meetIndex] = edge.getEdges().size() + 1;
+				queue.offer(newedge);
+				idPath[candIndex][meetIndex] = newedge;
+			}
+		}
+		
+		// if from is an element of a join label, check if all components flows into some node
+		for (Node joinnode : joinElements.get(from)) {
+			JoinElement je = (JoinElement) ((ElementNode)joinnode).getElement();
+			Node candidate = to;
+			int candIndex = g.getIndex(candidate);
+			int joinIndex = g.getIndex(joinnode);
+			boolean success = true;
+			List<Edge> list = new ArrayList<Edge>();
+				
+			if (idPath[joinIndex][candIndex]!=null)
+					continue;
+			for (Element e : je.getElements()) {
+				if (idPath[g.getIndex(g.getNode(e))][candIndex]!=null) {
+					list.addAll(idPath[g.getIndex(g.getNode(e))][candIndex].getEdges());
+					continue;
+				}
+				else {
+					success = false;
+					break;
+				}	
+			}
+			if (success) {
+				ReductionEdge newedge = new IdEdge(joinnode, candidate, list);
+				// this number is a little ad hoc
+				shortestID[joinIndex][candIndex] = edge.getEdges().size() + 1;
+				queue.offer(newedge);
+				idPath[joinIndex][candIndex] = newedge;
 			}
 		}
 	}

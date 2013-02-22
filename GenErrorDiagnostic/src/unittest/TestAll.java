@@ -1,6 +1,7 @@
 package unittest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -27,10 +28,21 @@ public class TestAll {
 		}
 	}
 	
-	public void testAssumptions (String filename, int expected, boolean sym) {
+	public void testAssumptions (String filename, String expected, boolean sym) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance(filename, sym);;
-			assertEquals(filename, expected, ana.getAssumptionNumber());
+			Analysis ana = Analysis.getAnalysisInstance(filename, sym);
+			assertEquals(filename, expected, ana.getAssumptionString());
+		}
+		catch (Exception e) {
+			System.out.println(filename);
+			e.printStackTrace();
+		}
+	}
+	
+	public void testAssumptionsSub (String filename, String expected, boolean sym) {
+		try {
+			Analysis ana = Analysis.getAnalysisInstance(filename, sym);
+			assertTrue(filename, ana.getAssumptionString().contains(expected));
 		}
 		catch (Exception e) {
 			System.out.println(filename);
@@ -39,11 +51,66 @@ public class TestAll {
 	}
 	
 	@Test
+	public void testHypothesis () {
+		/* test for Jif constraint */
+		
+		/* auction */
+		testAssumptions("src/constraint/tests/testhypo/AirlineAgent1.con", "(TheAirline)->(TheAirline) <= L;\n", false);// same assumption
+		/* AirlineAgent2 secure */
+		/* User1 secure */
+		testAssumptions("src/constraint/tests/testhypo/AirlineExample1.con", "AirlineA <= airlines;\n", false);// same assumption
+		testAssumptions("src/constraint/tests/testhypo/AirlineExample2.con", "AirlineA <= airlines;AirlineB <= airlines;\n", false);// same assumption
+		/* jif compiler is too conservative in this case. it's secure */
+		testAssumptions("src/constraint/tests/testhypo/AirlineExample3.con", "", false); // secure
+		
+		/* battleship */
+		testAssumptions("src/constraint/tests/testhypo/Board1.con", "(p1)->(p1) <= L;L <= (p1)->(p1);\n", false); // same assumption
+
+		/* social */
+		testAssumptions("src/constraint/tests/testhypo/Agent1.con", "", false); // same assumption [why this test is here?]
+		/* SocialNetwork1 secure */
+		testAssumptions("src/constraint/tests/testhypo/SocialNetwork2.con", "bb <= SN;bg <= SN;user <= SN;\n", false); // same
+
+		/* friendmap */
+		testAssumptions("src/constraint/tests/testhypo/Location1.con", "L <= (A)join((_)->(_));\n", false);// same assumption
+		testAssumptions("src/constraint/tests/testhypo/Snapp1.con", "owner2 <= store1;\n", false); // same assumption
+		/* Snapp2 secure */
+		testAssumptions("src/constraint/tests/testhypo/FriendMap1.con", "*l <= (*)->(s1);\n", false); // same assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap2.con", "user.friends <= worker$;\n", false); // weaker assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap3.con", "*map_update <= *map_access;\n", false); // weaker assumption
+		/* FriendMap4 secure */
+		testAssumptions("src/constraint/tests/testhypo/FriendMap5.con", "*l <= (*)->(s1);\n", false); // weaker assumption
+		/* FriendMap6 secure */
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap7.con", "l <= (*)->(n1);n <= (*)->(n1);\n", false); // same assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap8.con", "s <= *l;\n", false); // weaker assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap9.con", "*iterLabel <= (*)->(fn);\n", false); //  weaker assumption, this is a good example
+		testAssumptions("src/constraint/tests/testhypo/FriendMap10.con", "*lbl <= (*)->(n1);\n", false); // weaker  assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap11.con", "user <= (*)->(n1);\n", false); // weaker  assumption
+		/* FriendMap12 secure */
+		/* FriendMap13 secure */
+		testAssumptions("src/constraint/tests/testhypo/FriendMap14.con", "*iterLabel <= (*)->(fn);\n", false); // weaker  assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap15.con", "*iterLabel <= (*)->(fn);\n", false); // same  assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap16.con", "*lbl <= (*)->(localStore);\n", false); // same  assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap17.con", "*l <= (*)->(s1);\n", false); // same  assumption
+		testAssumptions("src/constraint/tests/testhypo/Box1.con", "L <= (A)join((_)->(_));\n", false); // same assumption
+		/* Box2 secure */
+		/* Box3 secure */
+		testAssumptionsSub("src/constraint/tests/testhypo/Box4.con", "*l <= *a;\n", false); // same assumption
+		/* MapImage1 secure */
+		testAssumptions("src/constraint/tests/testhypo/MapImage2.con", "A <= (*)->(s5);\n", false); // same assumption
+		testAssumptions("src/constraint/tests/testhypo/MapImage3.con", "*a <= (*)->(s1);\n", false); // same assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/MapImage4.con", "*bdry_update <= *bdry_access;\n", false); // same assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/MapImage5.con", "boundary <= L;data <= L;\n", false); // weaker assumption
+		testAssumptions("src/constraint/tests/testhypo/MapImage6.con", "L <= *l;a <= *l;l <= *l;\n", false); // weaker assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/MapServer1.con", "*l <= (*)->(this.store);\n", false); // same assumption
+	}
+	
+	@Test
 	public void testOcaml () {
 		/* test for OCaml constraint */
-//		testErrorPaths("src/constraint/tests/ocaml/test1.con", 1, true);
-//		testErrorPaths("src/constraint/tests/ocaml/test2.con", 4, true);
-//		testErrorPaths("src/constraint/tests/ocaml/test3.con", 4, true);
+		testErrorPaths("src/constraint/tests/ocaml/test1.con", 1, true);
+		testErrorPaths("src/constraint/tests/ocaml/test2.con", 4, true);
+		testErrorPaths("src/constraint/tests/ocaml/test3.con", 3, true);
 		testErrorPaths("src/constraint/tests/ocaml/option.con", 4, true);
 	}
 	
@@ -70,15 +137,17 @@ public class TestAll {
 
 		testErrorPaths("src/constraint/tests/jif/constant.con", 2, false);
 
-		testErrorPaths("src/constraint/tests/jif/Do2.con", 1, false);
+//		testAssumptions("src/constraint/tests/jif/CMUcred.con", "Alice <= p;\n", false);
 
-		testErrorPaths("src/constraint/tests/jif/Do3.con", 1, false);
+		testErrorPaths("src/constraint/tests/jif/Do2.con", 2, false);
+
+		testErrorPaths("src/constraint/tests/jif/Do3.con", 2, false);
 
 		testErrorPaths("src/constraint/tests/jif/field.con", 6, false); 
 
-		testErrorPaths("src/constraint/tests/jif/For2.con", 1, false);
+		testErrorPaths("src/constraint/tests/jif/For2.con", 2, false);
 
-		testErrorPaths("src/constraint/tests/jif/For3.con", 1, false);
+		testErrorPaths("src/constraint/tests/jif/For3.con", 2, false);
 
 		testErrorPaths("src/constraint/tests/jif/p3.con", 0, false);
 
@@ -87,21 +156,21 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jif/duplicate.con", 0, false);
 								
 		/* currently, these contraints are generated from the snapshot of Mar. 6. 2012 */
-		testErrorPaths("src/constraint/tests/jif/r3122.con", 0, false);
-		testAssumptions("src/constraint/tests/jif/r3122.con", 0, false);
-		
-		testErrorPaths("src/constraint/tests/jif/r3141.con", 0, false);
-		testAssumptions("src/constraint/tests/jif/r3141.con", 0, false);
-		
-		testErrorPaths("src/constraint/tests/jif/r3142.con", 9, false);
-		testAssumptions("src/constraint/tests/jif/r3142.con", 2, false);
+//		testErrorPaths("src/constraint/tests/jif/r3122.con", 0, false);
+//		testAssumptions("src/constraint/tests/jif/r3122.con", "", false);
+//		
+//		testErrorPaths("src/constraint/tests/jif/r3141.con", 0, false);
+//		testAssumptions("src/constraint/tests/jif/r3141.con", 0, false);
+//		
+//		testErrorPaths("src/constraint/tests/jif/r3142.con", 9, false);
+//		testAssumptions("src/constraint/tests/jif/r3142.con", 2, false);
 		
 		/* the change from 3142 to 3143 is interesting, since another file is changed */
 //		testErrorPaths("src/constraint/tests/jif/r3143.con", 16, false);
-//		testAssumptions("src/constraint/tests/jif/r3143.con", 1, false);
+//		testAssumptions("src/constraint/tests/jif/r3143.con", "", false);
 //		
 //		testErrorPaths("src/constraint/tests/jif/r3144.con", 16, false); // or 21?
-//		testAssumptions("src/constraint/tests/jif/r3144.con", 1, false);
+//		testAssumptions("src/constraint/tests/jif/r3144.con", "", false);
 //		testOneFile("src/constraint/tests/jif/r3151.con", 41, false); // or 44?
 		
 //		testOneFile("src/constraint/tests/jif/r3167.con", 5, false); // or 4?
@@ -182,7 +251,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/Array7_2.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array8_1.con", 0, false);
-		testErrorPaths("src/constraint/tests/jiftestcases/Array8_2.con", 2, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array8_2.con", 3, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array9_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array9_2.con", 1, false);
@@ -193,13 +262,13 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/Array11_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array11_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/Array12_1.con", 1, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array12_1.con", 3, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array12_2.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array13_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array13_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/Array14_1.con", 1, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array14_1.con", 3, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array14_2.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array15_1.con", 0, false);
@@ -286,16 +355,16 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/For1_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/For1_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/For2_1.con", 1, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/For2_1.con", 2, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/For2_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/For3_1.con", 1, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/For3_1.con", 2, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/For3_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/For4_1.con", 1, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/For4_1.con", 2, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/For4_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/For5_1.con", 1, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/For5_1.con", 2, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/For5_2.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint01_1.con", 0, false);
@@ -314,7 +383,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint04_3.con", 0, false);
 	
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint05_1.con", 0, false);
-		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint05_2.con", 1, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint05_2.con", 2, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint05_3.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint06_1.con", 0, false);
@@ -341,7 +410,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_2.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_3.con", 0, false);
-		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_4.con", 3, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_4.con", 4, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_5.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint10_1.con", 0, false);

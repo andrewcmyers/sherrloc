@@ -1,0 +1,50 @@
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:23,15-16
+CONSTRUCTOR Location.provider 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR Location.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
+CONSTRUCTOR A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:22,19-20
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:26,2-33,3
+CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
+CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:32,17-20
+CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:32,7-10
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Compiler Generated
+CONSTRUCTOR * 0 //@Compiler Generated
+
+%%
+caller_pc <= (L) ⊓ (A);
+y <= L;
+x <= L;
+Location.provider == _ -> _;
+Location.provider1 == _ -> _;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= Location.provider;
+Location.provider <= * -> *;
+_ -> _ <= Location.provider1;
+Location.provider1 <= * -> *;
+_ -> _ <= A;
+A <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= y;
+y <= * -> *;
+_ -> _ <= x;
+x <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+(_ -> _) <= (A) ⊔ ((_ -> _)) {this <= (A) ⊔ ((_ -> _));};["":13,7-21]
+L <= (A) ⊔ ((_ -> _)) {this <= (A) ⊔ ((_ -> _));};["":13,7-21]
+Location.provider <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":13,7-21]
+L == L {this <= (A) ⊔ ((_ -> _));};["":22,9-24]
+L == L {this <= (A) ⊔ ((_ -> _));};["":23,9-24]
+Location.provider1 <= (* -> *) {this <= (A) ⊔ ((_ -> _));this <= caller_pc;caller_pc <= (Location.provider1);};["":34,2-3]
+(x) ⊔ (this) <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":35,4-10]
+Location.provider <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":35,4-10]
+(y) ⊔ (this) <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":36,4-10]
+Location.provider <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":36,4-10]

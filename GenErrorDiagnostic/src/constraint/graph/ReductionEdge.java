@@ -39,6 +39,8 @@ public class ReductionEdge extends Edge{
 	public Environment getAssumption() {
 		Environment env = new Environment();
 		for (Edge e : edges) {
+			if (e.getAssumption()==null)
+				System.out.println(e.getClass());
 			env.addEnv(e.getAssumption());
 		}
 		return env;

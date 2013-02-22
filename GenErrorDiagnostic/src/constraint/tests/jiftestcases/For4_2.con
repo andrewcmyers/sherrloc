@@ -1,4 +1,3 @@
-// For4.jif:1,0-7
 CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@For4.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@For4.jif:1,0-7
@@ -16,15 +15,15 @@ _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
+_ -> _ <= C.provider1;
+C.provider1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= C.provider1;
-C.provider1 <= * -> *;
 
 %%
-C.provider <= (* -> *) [];@"For4.jif:1,0-7"
-(_ -> _) <= (_ -> _) [];@"For4.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"For4.jif:2,4-10"
-C.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider1);];@"For4.jif:1,0-0"
+C.provider <= (* -> *) {};["":1,0-7]
+(_ -> _) <= (_ -> _) {};["":2,4-10]
+(_ -> _) <= (_ -> _) {};["":2,4-10]
+C.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (C.provider1);};["":1,0-0]

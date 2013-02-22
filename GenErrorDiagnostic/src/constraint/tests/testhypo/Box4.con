@@ -1,0 +1,61 @@
+CONSTRUCTOR l 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:133,4-9
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:14,1-2
+CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:12,7-16
+CONSTRUCTOR mapserv.Box.provider 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR *a 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,28-29
+CONSTRUCTOR A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:14,6-7
+CONSTRUCTOR a 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:134,4-9
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:125,2-126,6
+CONSTRUCTOR *l 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,4-5
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@null
+CONSTRUCTOR * 0 //@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,10-11
+CONSTRUCTOR s 0 //@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,12-13
+
+%%
+caller_pc <= (*l) ⊓ ((* -> s)) ⊓ (A);
+mapserv.Box.provider == _ -> _;
+_ -> _ <= l;
+l <= * -> *;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= mapserv.Box.provider;
+mapserv.Box.provider <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= v_newBox;
+v_newBox <= * -> *;
+_ -> _ <= *a;
+*a <= * -> *;
+_ -> _ <= A;
+A <= * -> *;
+_ -> _ <= a;
+a <= * -> *;
+_ -> _ <= (* -> s);
+(* -> s) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= *l;
+*l <= * -> *;
+
+%%
+(l) ⊔ (caller_pc) <= v_newBox {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+(a) ⊔ (caller_pc) <= v_newBox {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+(L) ⊔ (this) ⊔ (caller_pc) <= *l {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,26-35]
+(L) ⊔ (this) ⊔ (caller_pc) <= *l {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,37-46]
+(L) ⊔ (this) ⊔ (caller_pc) <= *l {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,48-57]
+(L) ⊔ (this) ⊔ (caller_pc) <= *l {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,59-68]
+caller_pc <= *l {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+mapserv.Box.provider <= *l {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+*l <= *a {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+(*a) ⊔ ((_ -> _)) <= (* -> s) {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+*l <= (* -> s) {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+(_ -> _) <= *l {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+caller_pc <= (* -> s) {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+(caller_pc) ⊔ (v_newBox) <= (L) ⊔ (l) ⊔ (a) ⊔ (caller_pc) {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,4-70]
+*l == *l {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
+*a == *a {L <= A;this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);L <= *l;l <= *l;a <= *l;this <= caller_pc;};["":146,11-69]
