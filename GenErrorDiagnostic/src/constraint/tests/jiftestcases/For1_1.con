@@ -1,4 +1,3 @@
-// For1.jif:3,11-17
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@For1.jif:3,11-17
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@For1.jif:1,7-17
 CONSTRUCTOR this 0
@@ -12,4 +11,4 @@ _ -> _ <= this;
 this <= * -> *;
 
 %%
-(v_for) ⊔ (caller_pc) <= v_for [this <= caller_pc;];@"For1.jif:4,5-12"
+(v_for) ⊔ (caller_pc) <= v_for {this <= caller_pc;};["":4,5-12]

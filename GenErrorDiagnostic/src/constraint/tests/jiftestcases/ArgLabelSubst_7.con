@@ -1,10 +1,9 @@
-// ArgLabelSubst.jif:28,7-26
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR *zzz 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst.jif:35,35-38
+CONSTRUCTOR ArgLabelSubst.provider 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR ArgLabelSubst.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:28,7-26
 CONSTRUCTOR zzz 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,50-52
-CONSTRUCTOR ArgLabelSubst.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR ArgLabelSubst.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR *zzz 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst.jif:35,35-38
 CONSTRUCTOR this 0
 CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,62-65
 CONSTRUCTOR _ 0 //@ArgLabelSubst.jif:29,38-40
@@ -12,38 +11,39 @@ CONSTRUCTOR * 0 //@ArgLabelSubst.jif:29,62-66
 
 %%
 zzz <= (_ -> _);
-ArgLabelSubst.provider == _ -> _;
 ArgLabelSubst.provider1 == _ -> _;
+ArgLabelSubst.provider == _ -> _;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= *zzz;
-*zzz <= * -> *;
+_ -> _ <= ArgLabelSubst.provider;
+ArgLabelSubst.provider <= * -> *;
+_ -> _ <= ArgLabelSubst.provider1;
+ArgLabelSubst.provider1 <= * -> *;
 _ -> _ <= (yyy -> *);
 (yyy -> *) <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 _ -> _ <= zzz;
 zzz <= * -> *;
-_ -> _ <= ArgLabelSubst.provider;
-ArgLabelSubst.provider <= * -> *;
-_ -> _ <= ArgLabelSubst.provider1;
-ArgLabelSubst.provider1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= *zzz;
+*zzz <= * -> *;
 
 %%
-ArgLabelSubst.provider <= (* -> *) [];@"ArgLabelSubst.jif:28,7-26"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:29,11-28"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:29,11-28"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:29,11-28"
-(yyy -> *) <= (yyy -> *) [];@"ArgLabelSubst.jif:29,11-28"
-(yyy -> *) <= (yyy -> *) [];@"ArgLabelSubst.jif:29,11-28"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:35,11-27"
-*zzz == *zzz [];@"ArgLabelSubst.jif:35,11-27"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:35,11-27"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:35,11-27"
-zzz <= zzz [];@"ArgLabelSubst.jif:35,11-27"
-zzz <= zzz [];@"ArgLabelSubst.jif:35,11-27"
-ArgLabelSubst.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (ArgLabelSubst.provider1);];@"ArgLabelSubst.jif:28,7-7"
+ArgLabelSubst.provider1 <= (* -> *) {};["":28,7-26]
+(_ -> _) <= (_ -> _) {};["":29,11-28]
+yyy == yyy {};["":29,11-28]
+(_ -> _) <= (_ -> _) {};["":29,11-28]
+(* -> *) <= (* -> *) {};["":29,11-28]
+(yyy -> *) <= (yyy -> *) {};["":29,11-28]
+(yyy -> *) <= (yyy -> *) {};["":29,11-28]
+(_ -> _) <= (_ -> _) {};["":35,11-27]
+*zzz == *zzz {};["":35,11-27]
+(_ -> _) <= (_ -> _) {};["":35,11-27]
+(* -> *) <= (* -> *) {};["":35,11-27]
+zzz <= zzz {};["":35,11-27]
+zzz <= zzz {};["":35,11-27]
+ArgLabelSubst.provider <= (* -> *) {this <= caller_pc;caller_pc <= (ArgLabelSubst.provider);};["":28,7-7]

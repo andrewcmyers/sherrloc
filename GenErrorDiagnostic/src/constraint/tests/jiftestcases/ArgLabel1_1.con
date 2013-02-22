@@ -1,6 +1,5 @@
-// ArgLabel1.jif:1,0-7
-CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabel1.jif:1,0-7
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@ArgLabel1.jif:1,0-7
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:1,0-7
 CONSTRUCTOR this 0
@@ -24,7 +23,7 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider <= (* -> *) [];@"ArgLabel1.jif:1,0-7"
-this <= this [];@"ArgLabel1.jif:2,4-12"
-(_ -> _) <= (_ -> _) [];@"ArgLabel1.jif:2,4-12"
-C.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider1);];@"ArgLabel1.jif:1,0-0"
+C.provider1 <= (* -> *) {};["":1,0-7]
+this <= this {};["":2,4-12]
+(_ -> _) <= (_ -> _) {};["":2,4-12]
+C.provider <= (* -> *) {this <= caller_pc;caller_pc <= (C.provider);};["":1,0-0]

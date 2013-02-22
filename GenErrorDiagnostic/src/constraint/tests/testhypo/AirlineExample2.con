@@ -1,0 +1,303 @@
+CONSTRUCTOR AirlineAgent.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@AirlineExample2.jif:16,11-18
+CONSTRUCTOR *lbl 0 //class jif.types.label.DynamicLabel_c@AirlineExample2.jif:28,14-17
+CONSTRUCTOR AirlineServer.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR AirlineAgent.provider1 0 //class jif.types.label.ProviderLabel_c@IAirlineServer.jif:3,158-170
+CONSTRUCTOR AirlineExample.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@AirlineExample2.jif:6,7-27
+CONSTRUCTOR output 0 //class jif.types.label.ArgLabel_c@AirlineExample2.jif:16,46-48
+CONSTRUCTOR AirlineServer.provider1 0 //class jif.types.label.ProviderLabel_c@AirlineAgent2.jif:24,16-29
+CONSTRUCTOR IAirlineServer.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR AirlineServer.provider2 0 //class jif.types.label.ProviderLabel_c@AirlineAgent2.jif:17,16-29
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@AirlineExample2.jif:16,95-102
+CONSTRUCTOR TheUser 0 //@AirlineExample2.jif:7,35-42
+CONSTRUCTOR Broker 0 //@AirlineExample2.jif:7,44-50
+CONSTRUCTOR * 0 //@AirlineExample2.jif:28,31-41
+CONSTRUCTOR AirlineB 0 //@AirlineExample2.jif:7,25-33
+CONSTRUCTOR AirlineA 0 //@AirlineExample2.jif:7,15-23
+CONSTRUCTOR airlines 0 //@AirlineExample2.jif:34,80-88
+
+%%
+caller_pc <= (_ -> _);
+output <= (_ -> _);
+IAirlineServer.provider == _ -> _;
+AirlineAgent.provider == _ -> _;
+AirlineAgent.provider1 == _ -> _;
+AirlineServer.provider == _ -> _;
+AirlineExample.provider == _ -> _;
+AirlineServer.provider2 == _ -> _;
+AirlineServer.provider1 == _ -> _;
+_ -> _ <= AirlineAgent.provider;
+AirlineAgent.provider <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= *lbl;
+*lbl <= * -> *;
+_ -> _ <= AirlineServer.provider;
+AirlineServer.provider <= * -> *;
+_ -> _ <= AirlineAgent.provider1;
+AirlineAgent.provider1 <= * -> *;
+_ -> _ <= v_airlines;
+v_airlines <= * -> *;
+_ -> _ <= v_a;
+v_a <= * -> *;
+_ -> _ <= v_lbl;
+v_lbl <= * -> *;
+_ -> _ <= v_user;
+v_user <= * -> *;
+_ -> _ <= v_b;
+v_b <= * -> *;
+_ -> _ <= v_agentB;
+v_agentB <= * -> *;
+_ -> _ <= v_agentA;
+v_agentA <= * -> *;
+_ -> _ <= (TheUser -> TheUser);
+(TheUser -> TheUser) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (airlines -> airlines);
+(airlines -> airlines) <= * -> *;
+_ -> _ <= AirlineExample.provider;
+AirlineExample.provider <= * -> *;
+_ -> _ <= v_newError;
+v_newError <= * -> *;
+_ -> _ <= (Broker -> Broker);
+(Broker -> Broker) <= * -> *;
+_ -> _ <= v_infered_downgrade_to;
+v_infered_downgrade_to <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= v_infered_downgrade_from;
+v_infered_downgrade_from <= * -> *;
+_ -> _ <= v_downgrade_from;
+v_downgrade_from <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= v_infered_downgrade_to1;
+v_infered_downgrade_to1 <= * -> *;
+_ -> _ <= v_infered_downgrade_from1;
+v_infered_downgrade_from1 <= * -> *;
+_ -> _ <= v_while;
+v_while <= * -> *;
+_ -> _ <= output;
+output <= * -> *;
+_ -> _ <= v_w0;
+v_w0 <= * -> *;
+_ -> _ <= v_w;
+v_w <= * -> *;
+_ -> _ <= v_offerA;
+v_offerA <= * -> *;
+_ -> _ <= v_offerB;
+v_offerB <= * -> *;
+_ -> _ <= v_choice;
+v_choice <= * -> *;
+_ -> _ <= v_winner;
+v_winner <= * -> *;
+_ -> _ <= v_L_inferred;
+v_L_inferred <= * -> *;
+_ -> _ <= AirlineServer.provider1;
+AirlineServer.provider1 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (AirlineB -> AirlineB);
+(AirlineB -> AirlineB) <= * -> *;
+_ -> _ <= (AirlineA -> AirlineA);
+(AirlineA -> AirlineA) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (TheUser -> TheUser);
+(TheUser -> TheUser) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= IAirlineServer.provider;
+IAirlineServer.provider <= * -> *;
+_ -> _ <= v_newAirlineServer;
+v_newAirlineServer <= * -> *;
+_ -> _ <= v_newAirlineServer1;
+v_newAirlineServer1 <= * -> *;
+_ -> _ <= AirlineServer.provider2;
+AirlineServer.provider2 <= * -> *;
+_ -> _ <= (AirlineA -> AirlineA);
+(AirlineA -> AirlineA) <= * -> *;
+_ -> _ <= v_newUser;
+v_newUser <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (AirlineB -> AirlineB);
+(AirlineB -> AirlineB) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= v_while1;
+v_while1 <= * -> *;
+_ -> _ <= (v_w0) ⊔ (v_airlines) ⊔ (this);
+(v_w0) ⊔ (v_airlines) ⊔ (this) <= * -> *;
+
+%%
+AirlineA⊔AirlineB⊔TheUser⊔Broker >= AirlineA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":16,11-18]
+AirlineA⊔AirlineB⊔TheUser⊔Broker >= AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":16,11-18]
+AirlineA⊔AirlineB⊔TheUser⊔Broker >= TheUser {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":16,11-18]
+AirlineA⊔AirlineB⊔TheUser⊔Broker >= Broker {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":16,11-18]
+(output) ⊔ (this) <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":24,1-12]
+AirlineExample.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":24,1-12]
+(_ -> _) == (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":24,1-21]
+(caller_pc) <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,10-36]
+caller_pc <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,1-37]
+AirlineExample.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,1-37]
+Broker >= AirlineA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,1-37]
+Broker >= AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,1-37]
+Broker >= TheUser {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,1-37]
+AirlineExample.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,1-37]
+v_receiver == this {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,1-37]
+v_arg1label == (caller_pc) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":25,1-37]
+(caller_pc) <= v_airlines {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":27,28-63]
+(this) ⊔ (v_airlines) <= v_lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":28,20-82]
+this <= v_newAirlineServer {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+(v_airlines) ⊔ (this) ⊔ (v_lbl) <= v_newAirlineServer {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+(v_lbl) ⊔ (this) <= v_newAirlineServer {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+(this) ⊔ (v_lbl) <= (AirlineA -> AirlineA) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,96-98]
+(this) ⊔ (v_lbl) <= (AirlineA -> AirlineA) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,100-102]
+(this) ⊔ (v_lbl) <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+AirlineServer.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+airlines >= AirlineA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+AirlineServer.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+AirlineA == AirlineA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+airlines == airlines {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+*lbl == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+(this) ⊔ (v_lbl) ⊔ (v_newAirlineServer) <= v_a {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":34,51-103]
+this <= v_newAirlineServer1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+(v_airlines) ⊔ (this) ⊔ (v_lbl) <= v_newAirlineServer1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+(v_lbl) ⊔ (this) <= v_newAirlineServer1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+(this) ⊔ (v_lbl) <= (AirlineB -> AirlineB) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,96-98]
+(this) ⊔ (v_lbl) <= (AirlineB -> AirlineB) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,100-102]
+(this) ⊔ (v_lbl) <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+AirlineServer.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+airlines >= AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+AirlineServer.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+AirlineB == AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+airlines == airlines {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+*lbl == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+(this) ⊔ (v_lbl) ⊔ (v_newAirlineServer1) <= v_b {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":35,51-103]
+(v_lbl) ⊔ (this) <= v_newUser {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":37,33-43]
+(v_lbl) ⊔ (this) <= v_newUser {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":37,33-43]
+(v_lbl) ⊔ (this) <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":37,33-43]
+TheUser == TheUser {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":37,33-43]
+v_L_inferred == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":37,33-43]
+(v_lbl) ⊔ (this) ⊔ (v_newUser) <= v_user {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":37,33-43]
+(v_a) ⊔ (v_lbl) ⊔ (this) <= (AirlineA -> AirlineA) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":39,56-68]
+IAirlineServer.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":39,56-68]
+IAirlineServer.provider <= AirlineAgent.provider1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":39,56-68]
+v_receiver1 == (v_a) ⊔ (v_lbl) ⊔ (this) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":39,56-68]
+AirlineA == AirlineA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":39,56-68]
+airlines == airlines {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":39,56-68]
+*lbl == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":39,56-68]
+(v_a) ⊔ (v_lbl) ⊔ (this) <= v_agentA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":39,56-68]
+(v_b) ⊔ (v_lbl) ⊔ (this) <= (AirlineB -> AirlineB) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":40,56-68]
+IAirlineServer.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":40,56-68]
+IAirlineServer.provider <= AirlineAgent.provider1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":40,56-68]
+v_receiver2 == (v_b) ⊔ (v_lbl) ⊔ (this) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":40,56-68]
+AirlineB == AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":40,56-68]
+airlines == airlines {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":40,56-68]
+*lbl == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":40,56-68]
+(v_b) ⊔ (v_lbl) ⊔ (this) <= v_agentB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":40,56-68]
+(v_user) ⊔ (v_lbl) ⊔ (this) <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":42,31-47]
+(TheUser -> TheUser) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":42,31-47]
+v_receiver3 == (v_user) ⊔ (v_lbl) ⊔ (this) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":42,31-47]
+*lbl == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":42,31-47]
+(*lbl) ⊔ (v_user) ⊔ (v_lbl) ⊔ (this) <= v_choice {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":42,31-47]
+(v_agentA) ⊔ (v_lbl) ⊔ (this) <= (AirlineA -> AirlineA) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":44,5-31]
+(_ -> _) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":44,5-31]
+AirlineAgent.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":44,5-31]
+AirlineAgent.provider <= AirlineServer.provider2 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":44,5-31]
+AirlineServer.provider2 <= AirlineAgent.provider {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":44,5-31]
+airlines >= AirlineA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":44,5-31]
+AirlineAgent.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":44,5-31]
+v_receiver4 == (v_agentA) ⊔ (v_lbl) ⊔ (this) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":44,5-31]
+(v_agentB) ⊔ (v_lbl) ⊔ (this) <= (AirlineB -> AirlineB) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":45,5-31]
+(_ -> _) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":45,5-31]
+AirlineAgent.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":45,5-31]
+AirlineAgent.provider <= AirlineServer.provider2 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":45,5-31]
+AirlineServer.provider2 <= AirlineAgent.provider {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":45,5-31]
+airlines >= AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":45,5-31]
+AirlineAgent.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":45,5-31]
+v_receiver5 == (v_agentB) ⊔ (v_lbl) ⊔ (this) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":45,5-31]
+(v_lbl) ⊔ (this) <= v_winner {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":48,18-19]
+(v_agentB) ⊔ (v_lbl) ⊔ (this) <= (AirlineB -> AirlineB) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+(AirlineB -> AirlineB) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+AirlineAgent.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+AirlineServer.provider1 <= AirlineAgent.provider {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+AirlineAgent.provider <= AirlineServer.provider1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+airlines >= AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+AirlineAgent.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+v_receiver6 == (v_agentB) ⊔ (v_lbl) ⊔ (this) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+*lbl <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+(*lbl) ⊔ (v_agentB) ⊔ (v_lbl) ⊔ (this) <= v_offerB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":53,26-49]
+(v_choice) ⊔ (v_agentA) ⊔ (v_while1) ⊔ (v_winner) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,29-35]
+*lbl == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,29-35]
+(v_offerB) ⊔ (v_agentA) ⊔ (v_while1) ⊔ (v_winner) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,37-43]
+*lbl <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,37-43]
+(v_agentA) ⊔ (v_while1) ⊔ (v_winner) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,11-44]
+(AirlineA -> AirlineA) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,11-44]
+AirlineAgent.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,11-44]
+airlines >= AirlineA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,11-44]
+AirlineAgent.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,11-44]
+v_receiver7 == (v_agentA) ⊔ (v_while1) ⊔ (v_winner) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,11-44]
+v_arg1label1 == (v_choice) ⊔ (v_agentA) ⊔ (v_while1) ⊔ (v_winner) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,11-44]
+v_arg2label == (v_offerB) ⊔ (v_agentA) ⊔ (v_while1) ⊔ (v_winner) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,11-44]
+(*lbl) ⊔ (v_agentA) ⊔ (v_while1) ⊔ (v_winner) <= v_offerA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,2-8]
+*lbl <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":58,2-44]
+(v_while1) ⊔ (v_winner) ⊔ (v_offerA) <= v_winner {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":60,6-12]
+(v_while1) ⊔ (v_winner) ⊔ (v_offerA) <= v_while {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":61,6-12]
+(v_choice) ⊔ (v_agentB) ⊔ (v_while1) ⊔ (v_winner) ⊔ (v_offerA) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,29-35]
+*lbl == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,29-35]
+(v_offerA) ⊔ (v_agentB) ⊔ (v_while1) ⊔ (v_winner) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,37-43]
+*lbl <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,37-43]
+(v_agentB) ⊔ (v_while1) ⊔ (v_winner) ⊔ (v_offerA) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,11-44]
+(AirlineB -> AirlineB) <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,11-44]
+AirlineAgent.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,11-44]
+airlines >= AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,11-44]
+AirlineAgent.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,11-44]
+v_receiver8 == (v_agentB) ⊔ (v_while1) ⊔ (v_winner) ⊔ (v_offerA) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,11-44]
+v_arg1label2 == (v_choice) ⊔ (v_agentB) ⊔ (v_while1) ⊔ (v_winner) ⊔ (v_offerA) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,11-44]
+v_arg2label1 == (v_offerA) ⊔ (v_agentB) ⊔ (v_while1) ⊔ (v_winner) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,11-44]
+(*lbl) ⊔ (v_agentB) ⊔ (v_while1) ⊔ (v_winner) ⊔ (v_offerA) <= v_offerB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,2-8]
+*lbl <= *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":63,2-44]
+(v_while1) ⊔ (v_winner) ⊔ (v_offerA) ⊔ (v_offerB) <= v_winner {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":65,6-12]
+(v_while1) ⊔ (v_winner) ⊔ (v_offerA) ⊔ (v_lbl) ⊔ (this) <= v_while1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":57,5-67,7]
+v_w0 == (v_lbl) ⊔ (this) ⊔ (((TheUser -> TheUser)) ⊔ ((airlines -> airlines))) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":73,46-48]
+v_infered_downgrade_from1 == *lbl {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":73,51-127]
+((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) == v_infered_downgrade_to1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":73,51-127]
+(v_winner) ⊔ (v_lbl) ⊔ (this) <= v_infered_downgrade_from1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":73,51-127]
+(v_infered_downgrade_from1) ⊓ ((* -> *)) <= v_infered_downgrade_to1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":73,51-127]
+(v_infered_downgrade_from1) ⊓ ((_ -> _)) ⊓ ((_ -> _)) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to1 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":73,51-127]
+(v_lbl) ⊔ (this) ⊔ (v_infered_downgrade_to1) <= v_w0 {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":73,51-127]
+v_w == (v_airlines) ⊔ (this) ⊔ ((_ -> _)) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,9-10]
+v_infered_downgrade_from <= v_downgrade_from {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,13-34]
+((v_w0) ⊔ (v_airlines) ⊔ (this)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to) ⊓ ((_ -> _)) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,13-34]
+(v_infered_downgrade_to) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,13-34]
+((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to) ⊓ ((* -> *)) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,13-34]
+(v_w0) ⊔ (v_airlines) ⊔ (this) == v_infered_downgrade_from {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,13-34]
+v_infered_downgrade_from <= (v_infered_downgrade_to) ⊔ ((* -> *)) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,13-34]
+v_infered_downgrade_from <= (((TheUser -> TheUser)) ⊔ ((AirlineA -> AirlineA)) ⊔ ((AirlineB -> AirlineB)) ⊔ ((Broker -> Broker))) ⊔ (v_infered_downgrade_to) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,13-34]
+(v_airlines) ⊔ (this) ⊔ (v_infered_downgrade_to) <= v_w {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":76,13-34]
+(v_w) ⊔ (v_airlines) ⊔ (this) <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,11-52]
+(v_airlines) ⊔ (this) <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,2-53]
+AirlineExample.provider <= (_ -> _) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,2-53]
+Broker >= AirlineA {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,2-53]
+Broker >= AirlineB {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,2-53]
+Broker >= TheUser {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,2-53]
+AirlineExample.provider <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,2-53]
+v_receiver9 == this {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,2-53]
+v_arg1label3 == (v_w) ⊔ (v_airlines) ⊔ (this) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;(AirlineA -> AirlineA) <= *lbl;(AirlineB -> AirlineB) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;Broker >= airlines;};["":77,2-53]
+(* -> *) == (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":]
+(_ -> _) <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":]
+(* -> *) <= v_newError {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":]
+(* -> *) <= (* -> *) {this <= caller_pc;*lbl <= ((TheUser -> TheUser)) ⊔ ((airlines -> airlines));((TheUser -> TheUser)) ⊔ ((airlines -> airlines)) <= *lbl;Broker >= AirlineA;Broker >= AirlineB;Broker >= TheUser;};["":]

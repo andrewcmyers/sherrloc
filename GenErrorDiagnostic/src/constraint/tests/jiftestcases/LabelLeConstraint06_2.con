@@ -1,16 +1,13 @@
-// LabelLeConstraint06.jif:7,4-12
-CONSTRUCTOR *lbl2 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,56-60
 CONSTRUCTOR *lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,45-49
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint06.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint06.jif:7,4-12
 CONSTRUCTOR lbl1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint06.jif:7,13-18
 CONSTRUCTOR lbl2 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint06.jif:7,25-30
+CONSTRUCTOR *lbl2 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,56-60
 CONSTRUCTOR this 0
 CONSTRUCTOR * 0 //@LabelLeConstraint06.jif:2,11-21
 
 %%
-_ -> _ <= *lbl2;
-*lbl2 <= * -> *;
 _ -> _ <= *lbl1;
 *lbl1 <= * -> *;
 _ -> _ <= this;
@@ -21,14 +18,16 @@ _ -> _ <= lbl1;
 lbl1 <= * -> *;
 _ -> _ <= lbl2;
 lbl2 <= * -> *;
+_ -> _ <= *lbl2;
+*lbl2 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-(lbl1) ⊔ (caller_pc) <= (* -> *) [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint06.jif:8,3-7"
-(lbl2) ⊔ (caller_pc) <= (* -> *) [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint06.jif:8,9-13"
-caller_pc <= (* -> *) [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint06.jif:8,1-14"
-*lbl1 <= *lbl2 [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint06.jif:8,1-14"
-v_receiver == this [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint06.jif:8,1-14"
-v_arg1label == (lbl1) ⊔ (caller_pc) [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint06.jif:8,1-14"
-v_arg2label == (lbl2) ⊔ (caller_pc) [*lbl1 <= *lbl2;this <= caller_pc;];@"LabelLeConstraint06.jif:8,1-14"
+(lbl1) ⊔ (caller_pc) <= (* -> *) {*lbl1 <= *lbl2;this <= caller_pc;};["":8,3-7]
+(lbl2) ⊔ (caller_pc) <= (* -> *) {*lbl1 <= *lbl2;this <= caller_pc;};["":8,9-13]
+caller_pc <= (* -> *) {*lbl1 <= *lbl2;this <= caller_pc;};["":8,1-14]
+*lbl1 <= *lbl2 {*lbl1 <= *lbl2;this <= caller_pc;};["":8,1-14]
+v_receiver == this {*lbl1 <= *lbl2;this <= caller_pc;};["":8,1-14]
+v_arg1label == (lbl1) ⊔ (caller_pc) {*lbl1 <= *lbl2;this <= caller_pc;};["":8,1-14]
+v_arg2label == (lbl2) ⊔ (caller_pc) {*lbl1 <= *lbl2;this <= caller_pc;};["":8,1-14]

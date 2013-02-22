@@ -1,4 +1,3 @@
-// Array9.jif
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
@@ -15,5 +14,5 @@ _ -> _ <= this;
 this <= * -> *;
 
 %%
-v_x == (Alice -> *) [];@"Array9.jif:3,4-30"
-v_ar == (this) ⊔ ((Alice -> *)) [];@"Array9.jif:4,10-78"
+v_x == (Alice -> *) {};["":3,4-30]
+v_ar == (this) ⊔ ((Alice -> *)) {};["":4,10-78]

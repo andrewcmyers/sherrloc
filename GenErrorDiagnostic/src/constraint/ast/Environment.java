@@ -42,7 +42,7 @@ public class Environment {
 	public Environment addLeq (Element e1, Element e2) {
 		Environment e = new Environment();
 		e.addEnv(this);
-		e.addAssertion(new Constraint(e1, e2, Relation.LEQ, null, null));
+		e.addAssertion(new Constraint(e1, e2, Relation.LEQ, null, Position.EmptyPosition()));
 		return e;
 	}
 	
@@ -60,6 +60,10 @@ public class Environment {
 		
 		// for the same constructor, we should break them into components. Just return true here
 		if (e1.equals(e2))
+			return true;
+		
+		// the assumption can be made on the join/meet
+		if (leqApplyAssertions(e1, e2))
 			return true;
 		
 		// the type to be inferred cannot have recursive types
@@ -86,10 +90,6 @@ public class Environment {
 			if (!((ConstructorElement)e1).getCons().sameas(((ConstructorElement)e2).getCons()))
 				return false;
 		}
-		
-		// the assumption can be made on the join/meet
-		if (leqApplyAssertions(e1, e2))
-			return true;
 
 		if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
 			List<Element> l1 = ((ConstructorElement) e1).elements;

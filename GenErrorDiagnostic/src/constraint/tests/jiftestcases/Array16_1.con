@@ -1,4 +1,3 @@
-// Array16.jif:2,4-10
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array16.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array16.jif:2,4-10
 CONSTRUCTOR this 0
@@ -28,10 +27,10 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-v_array_base <= (Alice -> *) [this <= caller_pc;];@"Array16.jif:3,34-47"
-v_array_base1 <= (Bob -> *) [this <= caller_pc;];@"Array16.jif:3,34-47"
-caller_pc <= v_x [this <= caller_pc;];@"Array16.jif:3,34-47"
-(v_x) ⊔ (caller_pc) <= (* -> *) [this <= caller_pc;];@"Array16.jif:4,40-49"
-v_receiver == (v_x) ⊔ (caller_pc) [this <= caller_pc;];@"Array16.jif:4,40-49"
-(Bob -> *) <= (Bob -> *) [this <= caller_pc;];@"Array16.jif:4,40-49"
-(v_x) ⊔ (caller_pc) <= v_y [this <= caller_pc;];@"Array16.jif:4,40-49"
+v_array_base <= (Alice -> *) {this <= caller_pc;};["":3,34-47]
+v_array_base1 <= (Bob -> *) {this <= caller_pc;};["":3,34-47]
+caller_pc <= v_x {this <= caller_pc;};["":3,34-47]
+(v_x) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":4,40-49]
+v_receiver == (v_x) ⊔ (caller_pc) {this <= caller_pc;};["":4,40-49]
+(Bob -> *) <= (Bob -> *) {this <= caller_pc;};["":4,40-49]
+(v_x) ⊔ (caller_pc) <= v_y {this <= caller_pc;};["":4,40-49]

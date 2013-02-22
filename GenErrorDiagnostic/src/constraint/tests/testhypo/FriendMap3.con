@@ -1,0 +1,131 @@
+CONSTRUCTOR util.Group.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:34,2-12
+CONSTRUCTOR friendmap.FriendMap.provider 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:705,10-15
+CONSTRUCTOR mapserv.MapImage.provider 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:704,10-15
+CONSTRUCTOR mapserv.MapServer.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:31,2-11
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:693,2-694,8
+CONSTRUCTOR mapserv.MapServer.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:32,64-73
+CONSTRUCTOR *map_update 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:719,54-64
+CONSTRUCTOR *map_access 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:719,68-78
+CONSTRUCTOR mapserv.MapImage.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:31,24-32
+CONSTRUCTOR friend 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:707,10-14
+CONSTRUCTOR mapserv.MapImage.provider2 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:31,43-51
+CONSTRUCTOR mapserv.Box.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/mapserv_1.0_codebase/mapserv/MapImage.fab:20,40-43
+CONSTRUCTOR mapserv.MapImage.provider3 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:711,15-23
+CONSTRUCTOR mapserv.MapServer.provider2 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:31,64-73
+CONSTRUCTOR mapserv.MapServer.provider3 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:32,2-11
+CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:29,7-22
+CONSTRUCTOR A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:39,33-34
+CONSTRUCTOR mapserv.Box.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:32,43-46
+CONSTRUCTOR map 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:700,10-18
+CONSTRUCTOR util.GroupIterator.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:35,2-20
+CONSTRUCTOR mapserv.Box.provider2 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/mapserv_1.0_codebase/mapserv/MapImage.fab:20,2-5
+CONSTRUCTOR mapserv.Box.provider3 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:32,24-27
+CONSTRUCTOR mapserv.MapImage.provider4 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:719,17-25
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:723,13-14
+CONSTRUCTOR * 0 //@/home/zhdf/demo/pldi13/friendmap/FriendMap3.fab:723,13-15
+
+%%
+caller_pc <= (*map_update) ⊓ (*map_access);
+mapserv.MapServer.provider1 == _ -> _;
+util.Group.provider == _ -> _;
+friendmap.FriendMap.provider == _ -> _;
+mapserv.MapImage.provider1 == _ -> _;
+mapserv.MapImage.provider == _ -> _;
+mapserv.MapImage.provider2 == _ -> _;
+mapserv.Box.provider == _ -> _;
+mapserv.MapImage.provider3 == _ -> _;
+mapserv.MapServer.provider2 == _ -> _;
+mapserv.MapServer.provider == _ -> _;
+mapserv.MapServer.provider3 == _ -> _;
+mapserv.Box.provider1 == _ -> _;
+util.GroupIterator.provider == _ -> _;
+mapserv.Box.provider3 == _ -> _;
+mapserv.Box.provider2 == _ -> _;
+mapserv.MapImage.provider4 == _ -> _;
+_ -> _ <= util.Group.provider;
+util.Group.provider <= * -> *;
+_ -> _ <= friendmap.FriendMap.provider;
+friendmap.FriendMap.provider <= * -> *;
+_ -> _ <= y;
+y <= * -> *;
+_ -> _ <= mapserv.MapImage.provider;
+mapserv.MapImage.provider <= * -> *;
+_ -> _ <= x;
+x <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= mapserv.MapServer.provider;
+mapserv.MapServer.provider <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= mapserv.MapServer.provider1;
+mapserv.MapServer.provider1 <= * -> *;
+_ -> _ <= *map_update;
+*map_update <= * -> *;
+_ -> _ <= *map_access;
+*map_access <= * -> *;
+_ -> _ <= mapserv.MapImage.provider1;
+mapserv.MapImage.provider1 <= * -> *;
+_ -> _ <= friend;
+friend <= * -> *;
+_ -> _ <= mapserv.MapImage.provider2;
+mapserv.MapImage.provider2 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= mapserv.Box.provider;
+mapserv.Box.provider <= * -> *;
+_ -> _ <= v_newNullPointerException;
+v_newNullPointerException <= * -> *;
+_ -> _ <= mapserv.MapImage.provider3;
+mapserv.MapImage.provider3 <= * -> *;
+_ -> _ <= mapserv.MapServer.provider2;
+mapserv.MapServer.provider2 <= * -> *;
+_ -> _ <= mapserv.MapServer.provider3;
+mapserv.MapServer.provider3 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= A;
+A <= * -> *;
+_ -> _ <= mapserv.Box.provider1;
+mapserv.Box.provider1 <= * -> *;
+_ -> _ <= map;
+map <= * -> *;
+_ -> _ <= util.GroupIterator.provider;
+util.GroupIterator.provider <= * -> *;
+_ -> _ <= mapserv.Box.provider2;
+mapserv.Box.provider2 <= * -> *;
+_ -> _ <= mapserv.Box.provider3;
+mapserv.Box.provider3 <= * -> *;
+_ -> _ <= mapserv.MapImage.provider4;
+mapserv.MapImage.provider4 <= * -> *;
+
+%%
+(caller_pc) ⊔ (map) ⊔ (friend) <= v_newNullPointerException {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":730,37-42]
+(caller_pc) ⊔ (map) ⊔ (friend) <= (* -> *) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":730,12-43]
+(x) ⊔ (map) ⊔ (caller_pc) ⊔ (friend) <= *map_update {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,14-15]
+(y) ⊔ (map) ⊔ (caller_pc) ⊔ (friend) <= *map_update {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,17-18]
+(map) ⊔ (caller_pc) ⊔ (friend) <= *map_update {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,22-23]
+(map) ⊔ (caller_pc) ⊔ (friend) <= (*map_update) ⊓ (*map_access) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+mapserv.MapImage.provider <= *map_update {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+(_ -> _) <= *map_access {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+*map_update <= *map_access {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+mapserv.Box.provider2 <= mapserv.MapImage.provider {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+mapserv.MapImage.provider <= mapserv.Box.provider {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+v_receiver == (map) ⊔ (caller_pc) ⊔ (friend) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+v_arg1label == (x) ⊔ (map) ⊔ (caller_pc) ⊔ (friend) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+v_arg2label == (y) ⊔ (map) ⊔ (caller_pc) ⊔ (friend) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+v_arg3label == (map) ⊔ (caller_pc) ⊔ (friend) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+(map) ⊔ (caller_pc) ⊔ (friend) <= (*map_access) ⊔ ((_ -> _)) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+(caller_pc) ⊔ (map) ⊔ (friend) <= (*map_access) ⊔ ((_ -> _)) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":732,4-24]
+(*map_update) ⊔ (map) ⊔ (friend) <= (mapserv.MapImage.provider3) ⊔ (map) ⊔ (*map_update) ⊔ (friend) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":693,2-694,8]
+(caller_pc) ⊔ (map) ⊔ (friend) ⊔ (v_newNullPointerException) <= (mapserv.MapImage.provider3) ⊔ (map) ⊔ (*map_update) ⊔ (friend) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":693,2-694,8]
+(*map_update) ⊔ (map) ⊔ (friend) <= (mapserv.MapImage.provider3) ⊔ (map) ⊔ (*map_update) ⊔ (friend) {mapserv.MapServer.provider <= mapserv.MapImage.provider1;mapserv.MapImage.provider2 <= mapserv.MapServer.provider2;mapserv.MapServer.provider3 <= mapserv.Box.provider3;mapserv.Box.provider1 <= mapserv.MapServer.provider1;util.Group.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);this <= (A) ⊔ ((_ -> _));mapserv.MapImage.provider4 <= *map_update;mapserv.MapImage.provider4 <= *map_access;map <= *map_update;map <= *map_access;friend <= *map_update;friend <= *map_access;x <= *map_update;y <= *map_update;friend <= *map_update;(_ -> _) <= *map_update;(_ -> _) <= *map_access;this <= caller_pc;};["":693,2-694,8]

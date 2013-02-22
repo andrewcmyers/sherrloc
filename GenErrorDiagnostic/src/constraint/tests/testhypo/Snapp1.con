@@ -1,0 +1,107 @@
+CONSTRUCTOR snapp.User.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:11,14-18
+CONSTRUCTOR name 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:59,10-16
+CONSTRUCTOR snapp.Snapp.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:9,7-18
+CONSTRUCTOR name1 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:35,10-16
+CONSTRUCTOR util.GroupIterator.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:15,2-20
+CONSTRUCTOR snapp.User.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:11,29-33
+CONSTRUCTOR util.Delegator.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:14,2-16
+CONSTRUCTOR util.Group.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:16,2-12
+CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:9,7-18
+CONSTRUCTOR util.Delegator.provider1 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR snapp.Snapp.provider1 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:28,2-38,3
+CONSTRUCTOR store 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:37,10-15
+CONSTRUCTOR owner 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:60,10-19
+CONSTRUCTOR owner1 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:36,10-19
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:65,37-46
+CONSTRUCTOR owner2 0 //@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/signatures/util/Delegator.fab:22,18-23
+CONSTRUCTOR * 0 //@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:65,27-28
+CONSTRUCTOR store1 0 //@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/signatures/util/Delegator.fab:22,4-9
+CONSTRUCTOR this1 0 //@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:22,31-35
+CONSTRUCTOR this.store 0 //@/home/zhdf/demo/pldi13/friendmap/Snapp1.fab:65,29-34
+
+%%
+caller_pc <= (this) ⊓ ((_ -> _));
+util.Delegator.provider1 == _ -> _;
+snapp.Snapp.provider == _ -> _;
+snapp.User.provider == _ -> _;
+snapp.Snapp.provider1 == _ -> _;
+util.GroupIterator.provider == _ -> _;
+snapp.User.provider1 == _ -> _;
+util.Delegator.provider == _ -> _;
+util.Group.provider == _ -> _;
+_ -> _ <= snapp.User.provider;
+snapp.User.provider <= * -> *;
+_ -> _ <= name;
+name <= * -> *;
+_ -> _ <= snapp.Snapp.provider;
+snapp.Snapp.provider <= * -> *;
+_ -> _ <= name1;
+name1 <= * -> *;
+_ -> _ <= util.GroupIterator.provider;
+util.GroupIterator.provider <= * -> *;
+_ -> _ <= snapp.User.provider1;
+snapp.User.provider1 <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> this.store);
+(* -> this.store) <= * -> *;
+_ -> _ <= (* -> this1);
+(* -> this1) <= * -> *;
+_ -> _ <= util.Delegator.provider;
+util.Delegator.provider <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (this) ⊓ ((* -> store1));
+(this) ⊓ ((* -> store1)) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= util.Group.provider;
+util.Group.provider <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= util.Delegator.provider1;
+util.Delegator.provider1 <= * -> *;
+_ -> _ <= snapp.Snapp.provider1;
+snapp.Snapp.provider1 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= store;
+store <= * -> *;
+_ -> _ <= owner;
+owner <= * -> *;
+_ -> _ <= owner1;
+owner1 <= * -> *;
+
+%%
+(_ -> _) <= (* -> this1) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);};["":9,7-18]
+this <= (* -> this1) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);};["":9,7-18]
+snapp.Snapp.provider1 <= (* -> *) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);};["":9,7-18]
+this == this {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);};["":22,15-43]
+(store) ⊔ (this) <= this {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);name1 <= this;owner1 <= this;store <= this;this <= caller_pc;caller_pc <= (snapp.Snapp.provider);store1 == this.store;};["":47,4-14]
+store <= this {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);name1 <= this;owner1 <= this;store <= this;this <= caller_pc;caller_pc <= (snapp.Snapp.provider);store1 == this.store;};["":48,10-15]
+name1 <= this {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);name1 <= this;owner1 <= this;store <= this;this <= caller_pc;caller_pc <= (snapp.Snapp.provider);store1 == this.store;};["":48,17-21]
+owner1 <= this {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);name1 <= this;owner1 <= this;store <= this;this <= caller_pc;caller_pc <= (snapp.Snapp.provider);store1 == this.store;};["":48,23-28]
+snapp.Snapp.provider <= ((this) ⊓ ((* -> store1))) ⊔ (util.Delegator.provider1) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);name1 <= this;owner1 <= this;store <= this;this <= caller_pc;caller_pc <= (snapp.Snapp.provider);store1 == this.store;};["":48,4-29]
+store1 >= owner2 {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);name1 <= this;owner1 <= this;store <= this;this <= caller_pc;caller_pc <= (snapp.Snapp.provider);store1 == this.store;};["":48,4-29]
+(_ -> _) <= (* -> this.store) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":65,4-35]
+(_ -> _) <= (_ -> _) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":65,37-68]
+(* -> this1) <= (* -> this.store) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":65,70-91]
+(snapp.Snapp.provider1) ⊔ (name) ⊔ (owner) <= (_ -> _) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":68,4-50]
+snapp.Snapp.provider1 <= snapp.User.provider {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":11,2-27]
+snapp.User.provider1 <= snapp.Snapp.provider1 {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":11,29-54]
+util.Delegator.provider <= (_ -> _) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":14,2-37]
+util.GroupIterator.provider <= (_ -> _) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":15,2-37]
+util.Group.provider <= (_ -> _) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":16,2-37]
+(* -> *) <= (* -> *) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":52,2-53,12]
+(* -> *) <= (* -> *) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":52,2-53,12]
+(_ -> _) <= (_ -> _) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":52,2-53,12]
+snapp.Snapp.provider1 <= snapp.Snapp.provider1 {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":52,2-53,12]
+(snapp.Snapp.provider1) ⊔ (owner) ⊔ (this) ⊔ ((_ -> _)) <= (snapp.Snapp.provider1) ⊔ (owner) ⊔ (this) ⊔ ((_ -> _)) {snapp.User.provider1 <= snapp.Snapp.provider1;util.Delegator.provider <= (_ -> _);util.GroupIterator.provider <= (_ -> _);util.Group.provider <= (_ -> _);this <= (* -> this1);(_ -> _) <= (_ -> _);(* -> this1) <= (* -> this.store);name <= (_ -> _);owner <= (_ -> _);};["":52,2-53,12]

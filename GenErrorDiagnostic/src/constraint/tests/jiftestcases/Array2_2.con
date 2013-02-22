@@ -1,4 +1,3 @@
-// Array2.jif:1,0-12
 CONSTRUCTOR arr 0 //class jif.types.label.ArgLabel_c@Array2.jif:10,23-33
 CONSTRUCTOR arr1 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,26-36
 CONSTRUCTOR Array2.provider 0 //class jif.types.label.ProviderLabel_c@Array2.jif:1,0-12
@@ -22,37 +21,37 @@ _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= Array2.provider1;
-Array2.provider1 <= * -> *;
 _ -> _ <= v_tmpy;
 v_tmpy <= * -> *;
 _ -> _ <= v_tmpx;
 v_tmpx <= * -> *;
+_ -> _ <= Array2.provider1;
+Array2.provider1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Array2.provider1 <= (* -> *) [];@"Array2.jif:1,0-12"
-(* -> *) <= (* -> *) [];@"Array2.jif:2,11-20"
-arr1 <= arr1 [];@"Array2.jif:2,11-20"
-arr1 <= arr1 [];@"Array2.jif:2,11-20"
-arr1 <= arr1 [];@"Array2.jif:2,11-20"
-arr1 <= arr1 [];@"Array2.jif:2,11-20"
-arr1 <= arr1 [];@"Array2.jif:2,11-20"
-arr1 <= arr1 [];@"Array2.jif:2,11-20"
-arr1 <= arr1 [];@"Array2.jif:2,11-20"
-arr1 <= arr1 [];@"Array2.jif:2,11-20"
-Array2.provider <= (* -> *) [this <= caller_pc;caller_pc <= (Array2.provider);];@"Array2.jif:12,4-5"
-arr <= v_tmpx [this <= caller_pc;caller_pc <= (Array2.provider);];@"Array2.jif:13,19-22"
-arr <= v_tmpy [this <= caller_pc;];@"Array2.jif:14,19-22"
-(v_tmpy) ⊔ (arr) <= arr [this <= caller_pc;];@"Array2.jif:15,8-11"
-(v_tmpx) ⊔ (arr) <= arr [this <= caller_pc;];@"Array2.jif:16,8-11"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
-arr <= arr [this <= caller_pc;];@"Array2.jif:10,11-64"
+Array2.provider1 <= (* -> *) {};["":1,0-12]
+(* -> *) <= (* -> *) {};["":2,11-20]
+arr1 <= arr1 {};["":2,11-20]
+arr1 <= arr1 {};["":2,11-20]
+arr1 <= arr1 {};["":2,11-20]
+arr1 <= arr1 {};["":2,11-20]
+arr1 <= arr1 {};["":2,11-20]
+arr1 <= arr1 {};["":2,11-20]
+arr1 <= arr1 {};["":2,11-20]
+arr1 <= arr1 {};["":2,11-20]
+Array2.provider <= (* -> *) {this <= caller_pc;caller_pc <= (Array2.provider);};["":12,4-5]
+arr <= v_tmpx {this <= caller_pc;caller_pc <= (Array2.provider);};["":13,19-22]
+arr <= v_tmpy {this <= caller_pc;};["":14,19-22]
+(v_tmpy) ⊔ (arr) <= arr {this <= caller_pc;};["":15,8-11]
+(v_tmpx) ⊔ (arr) <= arr {this <= caller_pc;};["":16,8-11]
+arr <= arr {this <= caller_pc;};["":10,11-64]
+arr <= arr {this <= caller_pc;};["":10,11-64]
+arr <= arr {this <= caller_pc;};["":10,11-64]
+arr <= arr {this <= caller_pc;};["":10,11-64]
+arr <= arr {this <= caller_pc;};["":10,11-64]
+arr <= arr {this <= caller_pc;};["":10,11-64]
+arr <= arr {this <= caller_pc;};["":10,11-64]
+arr <= arr {this <= caller_pc;};["":10,11-64]
+arr <= arr {this <= caller_pc;};["":10,11-64]

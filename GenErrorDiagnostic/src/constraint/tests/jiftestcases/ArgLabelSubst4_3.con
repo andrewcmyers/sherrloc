@@ -1,4 +1,3 @@
-// ArgLabelSubst4.jif:8,11-22
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst4.jif:7,0-8
 CONSTRUCTOR *y 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst4.jif:8,16-17
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst4.jif:8,11-22
@@ -14,4 +13,4 @@ _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 
 %%
-(caller_pc) <= *y [this <= caller_pc;];@"ArgLabelSubst4.jif:9,8-17"
+(caller_pc) <= *y {this <= caller_pc;};["":9,8-17]

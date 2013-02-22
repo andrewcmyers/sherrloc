@@ -1,9 +1,8 @@
-// DynLabel8.jif:5,9-16
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@DynLabel8.jif:5,9-16
-CONSTRUCTOR D.provider 0 //class jif.types.label.ProviderLabel_c@DynLabel8.jif:5,9-16
+CONSTRUCTOR D.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@DynLabel8.jif:5,9-16
 CONSTRUCTOR *x.l 0 //class jif.types.label.DynamicLabel_c@DynLabel8.jif:6,46-49
-CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@DynLabel8.jif:5,9-16
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
 CONSTRUCTOR * 0 //@Compiler Generated
@@ -19,17 +18,17 @@ _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 _ -> _ <= *x.l;
 *x.l <= * -> *;
-_ -> _ <= D.provider1;
-D.provider1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= D.provider1;
+D.provider1 <= * -> *;
 
 %%
-D.provider1 <= (* -> *) [];@"DynLabel8.jif:5,9-16"
-*x.l <= *x.l [];@"DynLabel8.jif:6,20-36"
-*x.l <= *x.l [];@"DynLabel8.jif:6,20-36"
-(_ -> _) <= (_ -> _) [];@"DynLabel8.jif:6,20-36"
-*x.l <= *x.l [];@"DynLabel8.jif:6,20-36"
-D.provider <= (* -> *) [this <= caller_pc;caller_pc <= (D.provider);];@"DynLabel8.jif:5,9-9"
+D.provider <= (* -> *) {};["":5,9-16]
+*x.l <= *x.l {};["":6,20-36]
+*x.l <= *x.l {};["":6,20-36]
+(_ -> _) <= (_ -> _) {};["":6,20-36]
+*x.l <= *x.l {};["":6,20-36]
+D.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (D.provider1);};["":5,9-9]

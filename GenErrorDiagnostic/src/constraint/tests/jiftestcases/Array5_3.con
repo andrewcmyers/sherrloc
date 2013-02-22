@@ -1,6 +1,5 @@
-// Array5.jif:1,0-12
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array5.jif:1,0-12
 CONSTRUCTOR Array5.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array5.jif:1,0-12
 CONSTRUCTOR Array5.provider1 0 //class jif.types.label.ProviderLabel_c@Array5.jif:1,0-12
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array5.jif:1,0-12
 CONSTRUCTOR this 0
@@ -10,14 +9,14 @@ CONSTRUCTOR Bob 0 //@null
 CONSTRUCTOR * 0 //@Array5.jif:8,50-56
 
 %%
-Array5.provider == _ -> _;
 Array5.provider1 == _ -> _;
+Array5.provider == _ -> _;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
 _ -> _ <= Array5.provider;
 Array5.provider <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
@@ -40,15 +39,15 @@ _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 
 %%
-Array5.provider <= (* -> *) [];@"Array5.jif:1,0-12"
-(_ -> _) == (_ -> _) [];@"Array5.jif:3,4-45"
-v_array_base1 <= (Alice -> *) [this <= (_ -> _);];@"Array5.jif:3,33-44"
-(_ -> _) == (_ -> _) [];@"Array5.jif:4,4-48"
-v_array_base2 <= (Alice -> Bob) [this <= (_ -> _);];@"Array5.jif:4,36-47"
-(_ -> _) == (_ -> _) [];@"Array5.jif:5,4-46"
-(_ -> _) == (_ -> _) [];@"Array5.jif:6,4-56"
-v_array_base <= (Alice -> Bob) [this <= (_ -> _);];@"Array5.jif:6,36-55"
-(Alice -> Bob) <= (Alice -> Bob) [];@"Array5.jif:8,4-10"
-(Alice -> *) <= (Alice -> *) [];@"Array5.jif:8,4-10"
-(Alice -> *) <= (Alice -> *) [];@"Array5.jif:8,4-10"
-Array5.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (Array5.provider1);];@"Array5.jif:1,0-0"
+Array5.provider <= (* -> *) {};["":1,0-12]
+(_ -> _) == (_ -> _) {};["":3,4-45]
+v_array_base1 <= (Alice -> *) {this <= (_ -> _);};["":3,33-44]
+(_ -> _) == (_ -> _) {};["":4,4-48]
+v_array_base2 <= (Alice -> Bob) {this <= (_ -> _);};["":4,36-47]
+(_ -> _) == (_ -> _) {};["":5,4-46]
+(_ -> _) == (_ -> _) {};["":6,4-56]
+v_array_base <= (Alice -> Bob) {this <= (_ -> _);};["":6,36-55]
+(Alice -> Bob) <= (Alice -> Bob) {};["":8,4-10]
+(Alice -> *) <= (Alice -> *) {};["":8,4-10]
+(Alice -> *) <= (Alice -> *) {};["":8,4-10]
+Array5.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (Array5.provider1);};["":1,0-0]

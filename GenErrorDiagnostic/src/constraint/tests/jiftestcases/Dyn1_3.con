@@ -1,7 +1,6 @@
-// Dyn1.jif:9,4-13
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
-CONSTRUCTOR *this.f 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:9,4-13
+CONSTRUCTOR *this.f 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@Dyn1.jif:5,20-22
@@ -13,21 +12,21 @@ _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
-_ -> _ <= *this.f;
-*this.f <= * -> *;
 _ -> _ <= v_a;
 v_a <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
+_ -> _ <= *this.f;
+*this.f <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-v_a == (Alice -> *) [*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,13-14"
-caller_pc <= (_ -> _) [*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,19-36"
-caller_pc <= (* -> *) [*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,17-37"
-v_receiver == this [*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,17-37"
-v_arg1label == caller_pc [*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,17-37"
-(Alice -> *) <= v_a [*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;];@"Dyn1.jif:10,17-37"
+v_a == (Alice -> *) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;};["":10,13-14]
+caller_pc <= (_ -> _) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;};["":10,19-36]
+caller_pc <= (* -> *) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;};["":10,17-37]
+v_receiver == this {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;};["":10,17-37]
+v_arg1label == caller_pc {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;};["":10,17-37]
+(Alice -> *) <= v_a {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;};["":10,17-37]

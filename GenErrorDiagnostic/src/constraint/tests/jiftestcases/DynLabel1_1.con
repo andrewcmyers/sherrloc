@@ -1,4 +1,3 @@
-// DynLabel1.jif
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@DynLabel1.jif:2,15-21
 
@@ -11,5 +10,5 @@ _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-v_f == (_ -> _) [];@"DynLabel1.jif:2,10-24"
-v_g == (_ -> _) [];@"DynLabel1.jif:3,10-28"
+v_f == (_ -> _) {};["":2,10-24]
+v_g == (_ -> _) {};["":3,10-28]

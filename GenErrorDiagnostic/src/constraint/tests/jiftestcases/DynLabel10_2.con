@@ -1,4 +1,3 @@
-// DynLabel10.jif
 CONSTRUCTOR *this.f 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:5,9-15
 CONSTRUCTOR this 0
 
@@ -11,5 +10,5 @@ _ -> _ <= *this.f;
 *this.f <= * -> *;
 
 %%
-v_foo == *this.f [];@"DynLabel10.jif:5,4-21"
-v_bar == *this.f [];@"DynLabel10.jif:6,4-16"
+v_foo == *this.f {};["":5,4-21]
+v_bar == *this.f {};["":6,4-16]

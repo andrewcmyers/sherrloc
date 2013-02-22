@@ -1,4 +1,3 @@
-// Array19.jif:7,4-9
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array19.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array19.jif:7,4-9
 CONSTRUCTOR this 0
@@ -10,4 +9,4 @@ _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 
 %%
-(caller_pc) <= caller_pc [this <= caller_pc;];@"Array19.jif:7,14-23"
+(caller_pc) <= caller_pc {this <= caller_pc;};["":7,14-23]

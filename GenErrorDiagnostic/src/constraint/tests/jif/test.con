@@ -9,23 +9,23 @@ CONSTRUCTOR py 0 //@test.jif:8,13-15
 %%
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= x;
-x <= * -> *;
+_ -> _ <= v_x;
+v_x <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= y;
-y <= * -> *;
-_ -> _ <= z;
-z <= * -> *;
+_ -> _ <= v_y;
+v_y <= * -> *;
+_ -> _ <= v_z;
+v_z <= * -> *;
 _ -> _ <= (px -> py);
 (px -> py) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-y == (caller_pc) ⊔ ((px -> py)) [this <= caller_pc;];@"test.jif:8,17-18"
-(caller_pc) <= y [this <= caller_pc;];@"test.jif:8,19-20"
-(y) ⊔ (caller_pc) <= x [this <= caller_pc;];@"test.jif:9,12-13"
-z == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"test.jif:10,11-12"
-(caller_pc) <= z [this <= caller_pc;];@"test.jif:10,15-16"
-(caller_pc) ⊔ (x) <= z [this <= caller_pc;];@"test.jif:12,8-9"
+v_y == (caller_pc) ⊔ ((px -> py)) {this <= caller_pc;};["":8,17-18]
+(caller_pc) <= v_y {this <= caller_pc;};["":8,19-20]
+(v_y) ⊔ (caller_pc) <= v_x {this <= caller_pc;};["":9,12-13]
+v_z == (caller_pc) ⊔ ((_ -> _)) {this <= caller_pc;};["":10,11-12]
+(caller_pc) <= v_z {this <= caller_pc;};["":10,15-16]
+(caller_pc) ⊔ (v_x) <= v_z {this <= caller_pc;};["":12,8-9]

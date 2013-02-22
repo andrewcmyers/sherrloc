@@ -1,4 +1,3 @@
-// LabelSubst01.jif
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR * 0 //@LabelSubst01.jif:6,16-17
@@ -12,5 +11,5 @@ _ -> _ <= v_lb;
 v_lb <= * -> *;
 
 %%
-v_lb == (* -> Alice) [];@"LabelSubst01.jif:6,10-49"
-v_foo == (* -> Alice) [];@"LabelSubst01.jif:7,11-36"
+v_lb == (* -> Alice) {};["":6,10-49]
+v_foo == (* -> Alice) {};["":7,11-36]

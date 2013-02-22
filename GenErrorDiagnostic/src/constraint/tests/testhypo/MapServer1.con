@@ -1,0 +1,134 @@
+CONSTRUCTOR l 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:75,4-9
+CONSTRUCTOR *a 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:86,9-10
+CONSTRUCTOR mapserv.Box.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage1.fab:20,40-43
+CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:15,7-22
+CONSTRUCTOR mapserv.MapServer.provider 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR *l 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:85,17-18
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:65,2-68,11
+CONSTRUCTOR boundary 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:77,4-7
+CONSTRUCTOR a 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:76,4-9
+CONSTRUCTOR mapserv.MapImage.provider 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR mapserv.Box.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage1.fab:20,2-5
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:85,4-13
+CONSTRUCTOR * 0 //@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:22,28-29
+CONSTRUCTOR this.store 0 //@/home/zhdf/demo/pldi13/friendmap/MapServer1.fab:22,30-40
+
+%%
+caller_pc <= (*l) ⊓ (*a) ⊓ ((* -> this.store));
+mapserv.MapServer.provider == _ -> _;
+mapserv.MapImage.provider == _ -> _;
+mapserv.Box.provider1 == _ -> _;
+mapserv.Box.provider == _ -> _;
+_ -> _ <= l;
+l <= * -> *;
+_ -> _ <= *a;
+*a <= * -> *;
+_ -> _ <= mapserv.Box.provider;
+mapserv.Box.provider <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= v_newAssertionFailedError;
+v_newAssertionFailedError <= * -> *;
+_ -> _ <= v_newAssertionFailedError1;
+v_newAssertionFailedError1 <= * -> *;
+_ -> _ <= mapserv.MapServer.provider;
+mapserv.MapServer.provider <= * -> *;
+_ -> _ <= v_newMapImage;
+v_newMapImage <= * -> *;
+_ -> _ <= v_newAssertionFailedError2;
+v_newAssertionFailedError2 <= * -> *;
+_ -> _ <= *l;
+*l <= * -> *;
+_ -> _ <= v_for;
+v_for <= * -> *;
+_ -> _ <= v_newNullPointerException;
+v_newNullPointerException <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (* -> this.store);
+(* -> this.store) <= * -> *;
+_ -> _ <= v_i;
+v_i <= * -> *;
+_ -> _ <= v_data;
+v_data <= * -> *;
+_ -> _ <= v_e;
+v_e <= * -> *;
+_ -> _ <= boundary;
+boundary <= * -> *;
+_ -> _ <= v_e1;
+v_e1 <= * -> *;
+_ -> _ <= v_array_base;
+v_array_base <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= a;
+a <= * -> *;
+_ -> _ <= mapserv.MapImage.provider;
+mapserv.MapImage.provider <= * -> *;
+_ -> _ <= mapserv.Box.provider1;
+mapserv.Box.provider1 <= * -> *;
+
+%%
+(caller_pc) ⊔ (boundary) <= v_newNullPointerException {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;};["":94,57-78]
+(caller_pc) ⊔ (boundary) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;};["":94,32-79]
+v_data == (this) ⊔ (boundary) ⊔ (*l) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":98,25-29]
+v_array_base <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":98,32-45]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= v_data {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":98,32-45]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= v_i {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":99,17-18]
+(v_data) ⊔ (v_for) <= (*l) ⊔ ((_ -> _)) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":99,24-35]
+v_for <= (*l) ⊔ ((_ -> _)) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":99,24-35]
+((_ -> _)) ⊔ (this) ⊔ (v_data) ⊔ (v_for) ⊔ (v_i) <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":100,6-10]
+mapserv.MapServer.provider <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":100,6-10]
+(v_data) ⊔ (v_for) ⊔ (v_i) <= v_i {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":99,37-38]
+(v_data) ⊔ (v_for) ⊔ (v_i) ⊔ (this) ⊔ (caller_pc) ⊔ (boundary) <= v_for {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":99,4-36]
+v_newMapImage == *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(l) ⊔ (this) ⊔ (caller_pc) ⊔ (boundary) <= v_newMapImage {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= v_newMapImage {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(boundary) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,54-62]
+*l == *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,54-62]
+*a == *a {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,54-62]
+(l) ⊔ (this) ⊔ (caller_pc) ⊔ (boundary) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,64-65]
+(a) ⊔ (this) ⊔ (caller_pc) ⊔ (boundary) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,67-68]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":105,54-56]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":105,58-60]
+(v_data) ⊔ (this) ⊔ (caller_pc) ⊔ (boundary) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":105,62-66]
+*l <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":105,62-66]
+*l <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":105,62-66]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":106,54-64]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= (*l) ⊓ (*a) ⊓ ((* -> this.store)) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(_ -> _) <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(* -> this.store) <= (* -> this.store) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+*l <= *a {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(boundary) ⊔ (this) ⊔ (caller_pc) ⊔ (v_data) <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+mapserv.MapImage.provider <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+*l <= *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(boundary) ⊔ (this) ⊔ (caller_pc) <= *a {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+mapserv.MapImage.provider <= *a {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(_ -> _) <= (* -> this.store) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+*l <= (* -> this.store) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+mapserv.Box.provider1 <= mapserv.MapImage.provider {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+mapserv.MapImage.provider <= mapserv.Box.provider {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(v_data) ⊔ (this) ⊔ (caller_pc) ⊔ (boundary) ⊔ (v_newMapImage) <= (*l) ⊔ (boundary) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,6-106,66]
+*l == *l {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(* -> this.store) == (* -> this.store) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":104,13-106,65]
+(v_data) ⊔ (this) ⊔ (caller_pc) ⊔ (boundary) <= v_e1 {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":108,13-51]
+(v_e1) <= v_newAssertionFailedError2 {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":109,37-56]
+v_e1 <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":109,12-57]
+(v_data) ⊔ (this) ⊔ (caller_pc) ⊔ (boundary) <= v_e {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":110,13-41]
+(v_e) <= v_newAssertionFailedError {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":111,37-73]
+v_e <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;this.store >= this1;};["":111,12-74]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= v_newAssertionFailedError1 {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;};["":114,42-84]
+(this) ⊔ (caller_pc) ⊔ (boundary) <= (* -> *) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;};["":114,17-85]
+(caller_pc) ⊔ (boundary) <= (boundary) ⊔ (caller_pc) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;};["":65,2-68,11]
+(caller_pc) ⊔ (boundary) ⊔ (v_newNullPointerException) <= (boundary) ⊔ (caller_pc) {this <= (* -> this.store);(_ -> _) <= *l;*l <= *a;boundary <= *l;l <= *l;(_ -> _) <= *l;boundary <= *a;this <= caller_pc;};["":65,2-68,11]

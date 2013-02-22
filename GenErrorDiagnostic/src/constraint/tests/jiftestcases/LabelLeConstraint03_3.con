@@ -1,4 +1,3 @@
-// LabelLeConstraint03.jif:6,4-16
 CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint03.jif:2,8-9
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint03.jif:1,0-7
 CONSTRUCTOR lbl1 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint03.jif:6,17-22
@@ -19,4 +18,4 @@ _ -> _ <= *lbl1;
 *lbl1 <= * -> *;
 
 %%
-(L) ⊔ (this) ⊔ (caller_pc) <= (*lbl1) ⊔ (caller_pc) [L <= *lbl1;lbl1 <= L;this <= caller_pc;];@"LabelLeConstraint03.jif:7,1-15"
+(L) ⊔ (this) ⊔ (caller_pc) <= (*lbl1) ⊔ (caller_pc) {L <= *lbl1;lbl1 <= L;this <= caller_pc;};["":7,1-15]

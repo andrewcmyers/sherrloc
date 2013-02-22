@@ -1,0 +1,179 @@
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@SocialNetwork2.jif:16,9-16
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@SocialNetwork2.jif:6,7-26
+CONSTRUCTOR Agent.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR SocialNetwork.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@User.jif:14,17-22
+CONSTRUCTOR bdayGirl.friends 0 //@Agent.jif:11,46-62
+CONSTRUCTOR bgf 0 //@SocialNetwork2.jif:27,60-63
+CONSTRUCTOR bdayBoy.friends 0 //@Agent.jif:11,46-62
+CONSTRUCTOR bb 0 //@SocialNetwork2.jif:26,17-19
+CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR bg 0 //@SocialNetwork2.jif:27,17-19
+CONSTRUCTOR user 0 //@SocialNetwork2.jif:30,12-16
+CONSTRUCTOR bbf 0 //@SocialNetwork2.jif:26,59-62
+CONSTRUCTOR SN 0 //@SocialNetwork2.jif:6,52-54
+
+%%
+caller_pc <= (_ -> _);
+Agent.provider == _ -> _;
+SocialNetwork.provider == _ -> _;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= v_bgFriends;
+v_bgFriends <= * -> *;
+_ -> _ <= v_agent;
+v_agent <= * -> *;
+_ -> _ <= v_bbFriends;
+v_bbFriends <= * -> *;
+_ -> _ <= (bb -> bb⊓bbf);
+(bb -> bb⊓bbf) <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_newUser;
+v_newUser <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= v_newUser1;
+v_newUser1 <= * -> *;
+_ -> _ <= (bg -> bg⊓bgf);
+(bg -> bg⊓bgf) <= * -> *;
+_ -> _ <= v_newAgent;
+v_newAgent <= * -> *;
+_ -> _ <= v_user;
+v_user <= * -> *;
+_ -> _ <= v_bg;
+v_bg <= * -> *;
+_ -> _ <= v_bb;
+v_bb <= * -> *;
+_ -> _ <= Agent.provider;
+Agent.provider <= * -> *;
+_ -> _ <= SocialNetwork.provider;
+SocialNetwork.provider <= * -> *;
+_ -> _ <= v_bgf;
+v_bgf <= * -> *;
+_ -> _ <= v_bbf;
+v_bbf <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= v_bdayGirl;
+v_bdayGirl <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= v_bdayBoy;
+v_bdayBoy <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+SN >= SN {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":16,9-16]
+(caller_pc) <= v_user {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":17,27-51]
+(caller_pc) <= v_bb {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":18,25-47]
+(caller_pc) <= v_bg {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":19,25-49]
+(caller_pc) <= v_bbf {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":21,26-50]
+(caller_pc) <= v_bgf {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":22,26-48]
+(caller_pc) <= v_newUser1 {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,35-79]
+(caller_pc) <= v_newUser1 {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,35-79]
+(caller_pc) ⊔ (v_bb) ⊔ (v_bbf) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,44-69]
+(caller_pc) <= (bb -> bb⊓bbf) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,71-73]
+(v_bbf) ⊔ (caller_pc) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,75-78]
+caller_pc <= (* -> *) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,35-79]
+SN_inferred >= U_inferred {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,35-79]
+bb == bb {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,35-79]
+SN == SN {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,35-79]
+(caller_pc) ⊔ (v_newUser1) <= v_bdayBoy {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":26,35-79]
+(caller_pc) <= v_newUser {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,36-94]
+(caller_pc) <= v_newUser {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,36-94]
+(caller_pc) ⊔ (v_bg) ⊔ (v_bgf) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,45-70]
+(caller_pc) <= (bg -> bg⊓bgf) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,72-74]
+(caller_pc) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,76-93]
+caller_pc <= (* -> *) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,36-94]
+SN_inferred1 >= U_inferred1 {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,36-94]
+bg == bg {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,36-94]
+SN == SN {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,36-94]
+(caller_pc) ⊔ (v_newUser) <= v_bdayGirl {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":27,36-94]
+(caller_pc) <= v_newAgent {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+(caller_pc) <= v_newAgent {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+caller_pc <= (* -> *) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+SN_inferred2 >= U_inferred2 {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+Agent.provider <= (* -> *) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+Agent.provider <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+user == user {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+SN == SN {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+(caller_pc) ⊔ (v_newAgent) <= v_agent {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":30,30-41]
+((_ -> _)) ⊔ (v_bdayBoy) ⊔ (caller_pc) <= v_bbFriends {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":31,34-49]
+((_ -> _)) ⊓ ((* -> *)) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":32,6-37,8]
+((_ -> _)) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":32,6-37,8]
+(v_bbFriends) ⊔ (caller_pc) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":32,6-37,8]
+(v_bb) ⊔ (v_agent) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) <= (_ -> _) {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,24-26]
+(v_bdayBoy) ⊔ (v_agent) ⊔ (v_bb) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) <= (_ -> _) {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,28-35]
+bb == bb {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,28-35]
+SN == SN {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,28-35]
+(v_agent) ⊔ (v_bb) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) <= (_ -> _) {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+SN >= bb {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+SN >= bdayBoy.friends {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+SN >= user {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+Agent.provider <= (* -> *) {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+Agent.provider <= (_ -> _) {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+v_receiver == (v_agent) ⊔ (v_bb) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+v_arg1label == (v_bb) ⊔ (v_agent) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+v_arg2label == (v_bdayBoy) ⊔ (v_agent) ⊔ (v_bb) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) {this <= caller_pc;bdayBoy.friends == bbFriends;SN >= bbFriends;};["":35,4-36]
+((_ -> _)) ⊔ (v_bdayGirl) ⊔ (caller_pc) <= v_bgFriends {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":39,35-51]
+((_ -> _)) ⊓ ((* -> *)) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":40,7-49,5]
+((_ -> _)) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":40,7-49,5]
+(v_bgFriends) ⊔ (caller_pc) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;};["":40,7-49,5]
+(v_bg) ⊔ (v_agent) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,24-26]
+(v_bdayGirl) ⊔ (v_agent) ⊔ (v_bg) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,28-36]
+bg == bg {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,28-36]
+SN == SN {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,28-36]
+(v_agent) ⊔ (v_bg) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+SN >= bg {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+SN >= bdayGirl.friends {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+SN >= user {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+Agent.provider <= (* -> *) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+Agent.provider <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+v_receiver1 == (v_agent) ⊔ (v_bg) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+v_arg1label1 == (v_bg) ⊔ (v_agent) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+v_arg2label1 == (v_bdayGirl) ⊔ (v_agent) ⊔ (v_bg) ⊔ (this) ⊔ (v_user) ⊔ ((_ -> _)) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":43,4-37]
+(v_bb) ⊔ ((_ -> _)) ⊔ (this) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,16-18]
+(v_bdayBoy) ⊔ ((_ -> _)) ⊔ (this) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,20-27]
+bb == bb {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,20-27]
+SN == SN {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,20-27]
+((_ -> _)) ⊔ (this) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,6-28]
+SN >= bb {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,6-28]
+SocialNetwork.provider <= (* -> *) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,6-28]
+SocialNetwork.provider <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,6-28]
+v_receiver2 == this {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,6-28]
+v_arg1label2 == (v_bb) ⊔ ((_ -> _)) ⊔ (this) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,6-28]
+v_arg2label2 == (v_bdayBoy) ⊔ ((_ -> _)) ⊔ (this) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":47,6-28]
+(v_bg) ⊔ ((_ -> _)) ⊔ (this) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,16-18]
+(v_bdayGirl) ⊔ ((_ -> _)) ⊔ (this) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,20-28]
+bg == bg {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,20-28]
+SN == SN {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,20-28]
+((_ -> _)) ⊔ (this) <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,6-29]
+SN >= bg {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,6-29]
+SocialNetwork.provider <= (* -> *) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,6-29]
+SocialNetwork.provider <= (_ -> _) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,6-29]
+v_receiver3 == this {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,6-29]
+v_arg1label3 == (v_bg) ⊔ ((_ -> _)) ⊔ (this) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,6-29]
+v_arg2label3 == (v_bdayGirl) ⊔ ((_ -> _)) ⊔ (this) {this <= caller_pc;bdayGirl.friends == bgFriends;bdayBoy.friends == bbFriends;SN >= bgFriends;};["":48,6-29]
