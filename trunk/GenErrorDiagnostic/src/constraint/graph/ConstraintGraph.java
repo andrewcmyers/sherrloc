@@ -58,14 +58,18 @@ public class ConstraintGraph extends Graph {
     }
     
     public ElementNode getNode (Element e, boolean inCons) {
-        if (! eleToNode.containsKey(e)) {
+    	if (! eleToNode.containsKey(e)) {
             String vid = "v"+varCounter;
-            ElementNode n = new ElementNode(vid, e, this, inCons); 
+            Element toadd = e;
+            if (e instanceof ConstructorElement) {
+        		ConstructorElement ce = (ConstructorElement) e;
+    		}
             varCounter++;
             // record the source files involved
 //            if (e.position()!=null) {
 //                files.add(e.position().path());
 //            }
+            ElementNode n = new ElementNode(vid, toadd, this, inCons); 
             eleToNode.put(e, n);
         }
         return eleToNode.get(e);
@@ -98,6 +102,21 @@ public class ConstraintGraph extends Graph {
 //    	else {
     		ElementNode source = getNode(first, true);
 			ElementNode to = getNode(second, true);
+						
+			// break join/meet elements early
+//			if (source.getElement() instanceof JoinElement) {
+//				JoinElement je = (JoinElement) source.getElement();
+//				for (Element ele : je.getElements()) {
+//					addOneConstraint(ele, second, e);
+//				}
+//			}
+//			
+//			else if (to.getElement() instanceof MeetElement) {
+//				MeetElement me = (MeetElement) to.getElement();
+//				for (Element ele : me.getElements()) {
+//					addOneConstraint(first, ele, e);
+//				}
+//			}
 
 			addEdge(source, to, new EquationEdge(e, source, to));
 

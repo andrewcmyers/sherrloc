@@ -15,8 +15,8 @@ _ -> _ <= (px -> py⊓pz);
 (px -> py⊓pz) <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= z;
-z <= * -> *;
+_ -> _ <= v_z;
+v_z <= * -> *;
 _ -> _ <= y;
 y <= * -> *;
 _ -> _ <= x;
@@ -25,6 +25,6 @@ _ -> _ <= this;
 this <= * -> *;
 
 %%
-z == (caller_pc) ⊔ ((px -> py⊓pz)) [this <= caller_pc;];@"para.jif:8,19-20"
-(y) ⊔ (caller_pc) <= z [this <= caller_pc;];@"para.jif:9,4-5"
-(x) ⊔ (caller_pc) <= z [this <= caller_pc;];@"para.jif:10,4-5"
+v_z == (caller_pc) ⊔ ((px -> py⊓pz)) {this <= caller_pc;};["":8,19-20]
+(y) ⊔ (caller_pc) <= v_z {this <= caller_pc;};["":9,4-5]
+(x) ⊔ (caller_pc) <= v_z {this <= caller_pc;};["":10,4-5]

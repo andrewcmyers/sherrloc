@@ -1,4 +1,3 @@
-// ArgLabel1.jif:6,9-17
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9-17
 CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22-25
@@ -15,5 +14,5 @@ _ -> _ <= x;
 x <= * -> *;
 
 %%
-x <= x [this <= caller_pc;];@"ArgLabel1.jif:7,21-28"
-v_receiver == x [this <= caller_pc;];@"ArgLabel1.jif:7,21-28"
+x <= x {this <= caller_pc;};["":7,21-28]
+v_receiver == x {this <= caller_pc;};["":7,21-28]

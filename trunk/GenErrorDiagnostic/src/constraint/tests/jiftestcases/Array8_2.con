@@ -1,7 +1,6 @@
-// Array8.jif:1,0-12
-CONSTRUCTOR Array8.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR Array8.provider 0 //class jif.types.label.ProviderLabel_c@Array8.jif:1,0-12
+CONSTRUCTOR Array8.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array8.jif:1,0-12
-CONSTRUCTOR Array8.provider1 0 //class jif.types.label.ProviderLabel_c@Array8.jif:1,0-12
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array8.jif:1,0-12
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
@@ -12,14 +11,14 @@ CONSTRUCTOR * 0 //@Array8.jif:3,8-14
 %%
 Array8.provider == _ -> _;
 Array8.provider1 == _ -> _;
-_ -> _ <= Array8.provider;
-Array8.provider <= * -> *;
 _ -> _ <= (Alice -> Bob);
 (Alice -> Bob) <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
+_ -> _ <= Array8.provider;
+Array8.provider <= * -> *;
 _ -> _ <= Array8.provider1;
 Array8.provider1 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (_ -> _);
@@ -32,10 +31,10 @@ _ -> _ <= this;
 this <= * -> *;
 
 %%
-Array8.provider <= (* -> *) [];@"Array8.jif:1,0-12"
-(Alice -> *) == (Alice -> *) [];@"Array8.jif:3,4-30"
-(_ -> _) == (_ -> _) [];@"Array8.jif:4,4-41"
-((Alice -> *)) ⊔ (this) <= (Alice -> Bob) [this <= (_ -> _);];@"Array8.jif:4,35-36"
-((Alice -> *)) ⊔ (this) <= (Alice -> Bob) [this <= (_ -> _);];@"Array8.jif:4,38-39"
-((Alice -> *)) ⊔ (this) <= (_ -> _) [this <= (_ -> _);];@"Array8.jif:4,34-40"
-Array8.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (Array8.provider1);];@"Array8.jif:1,0-0"
+Array8.provider1 <= (* -> *) {};["":1,0-12]
+(Alice -> *) == (Alice -> *) {};["":3,4-30]
+(_ -> _) == (_ -> _) {};["":4,4-41]
+((Alice -> *)) ⊔ (this) <= (Alice -> Bob) {this <= (_ -> _);};["":4,35-36]
+((Alice -> *)) ⊔ (this) <= (Alice -> Bob) {this <= (_ -> _);};["":4,38-39]
+((Alice -> *)) ⊔ (this) <= (_ -> _) {this <= (_ -> _);};["":4,34-40]
+Array8.provider <= (* -> *) {this <= caller_pc;caller_pc <= (Array8.provider);};["":1,0-0]

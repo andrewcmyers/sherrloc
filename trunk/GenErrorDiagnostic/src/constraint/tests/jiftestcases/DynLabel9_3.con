@@ -1,31 +1,30 @@
-// DynLabel9.jif:3,0-7
-CONSTRUCTOR S.provider 0 //class jif.types.label.ProviderLabel_c@DynLabel9.jif:3,0-7
-CONSTRUCTOR S.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@null
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@DynLabel9.jif:6,11-14
+CONSTRUCTOR S.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR S.provider1 0 //class jif.types.label.ProviderLabel_c@DynLabel9.jif:3,0-7
 CONSTRUCTOR this 0
 CONSTRUCTOR this.pr 0 //@DynLabel9.jif:5,18-25
 CONSTRUCTOR * 0 //@DynLabel9.jif:5,18-26
 
 %%
-S.provider1 == _ -> _;
 S.provider == _ -> _;
-_ -> _ <= S.provider;
-S.provider <= * -> *;
-_ -> _ <= S.provider1;
-S.provider1 <= * -> *;
+S.provider1 == _ -> _;
+_ -> _ <= (this.pr -> *);
+(this.pr -> *) <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= (this.pr -> *);
-(this.pr -> *) <= * -> *;
+_ -> _ <= S.provider;
+S.provider <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= S.provider1;
+S.provider1 <= * -> *;
 
 %%
-S.provider1 <= (* -> *) [];@"DynLabel9.jif:3,0-7"
-this == this [];@"DynLabel9.jif:4,17-36"
-(this.pr -> *) == (this.pr -> *) [];@"DynLabel9.jif:5,4-37"
-S.provider <= (* -> *) [this <= caller_pc;caller_pc <= (S.provider);];@"DynLabel9.jif:6,15-16"
-this <= this [this <= caller_pc;caller_pc <= (S.provider);];@"DynLabel9.jif:7,1-3"
+S.provider <= (* -> *) {};["":3,0-7]
+this == this {};["":4,17-36]
+(this.pr -> *) == (this.pr -> *) {};["":5,4-37]
+S.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (S.provider1);};["":6,15-16]
+this <= this {this <= caller_pc;caller_pc <= (S.provider1);};["":7,1-3]

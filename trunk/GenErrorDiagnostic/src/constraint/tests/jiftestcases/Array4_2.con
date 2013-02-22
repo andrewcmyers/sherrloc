@@ -1,8 +1,7 @@
-// Array4.jif:1,0-7
-CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@Array4.jif:1,0-7
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@Array4.jif:1,0-7
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array4.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array4.jif:1,0-7
-CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR * 0 //@Compiler Generated
 
@@ -11,15 +10,15 @@ C.provider == _ -> _;
 C.provider1 == _ -> _;
 _ -> _ <= C.provider;
 C.provider <= * -> *;
+_ -> _ <= C.provider1;
+C.provider1 <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= C.provider1;
-C.provider1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider1 <= (* -> *) [];@"Array4.jif:1,0-7"
-C.provider <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider);];@"Array4.jif:1,0-0"
+C.provider <= (* -> *) {};["":1,0-7]
+C.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (C.provider1);};["":1,0-0]

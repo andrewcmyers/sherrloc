@@ -1,22 +1,21 @@
-// Account.jif
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@Account.jif:2,8-27
-CONSTRUCTOR * 0 //@Account.jif:8,9-18
 CONSTRUCTOR this.customer 0 //@Account.jif:8,9-17
+CONSTRUCTOR * 0 //@Account.jif:8,9-18
 
 %%
+_ -> _ <= (this.customer -> *);
+(this.customer -> *) <= * -> *;
 _ -> _ <= v_name;
 v_name <= * -> *;
 _ -> _ <= v_customer;
 v_customer <= * -> *;
 _ -> _ <= v_balance;
 v_balance <= * -> *;
-_ -> _ <= (this.customer -> *);
-(this.customer -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-v_customer == (_ -> _) [];@"Account.jif:2,8-27"
-v_name == (this.customer -> *) [];@"Account.jif:8,2-25"
-v_balance == (this.customer -> *) [];@"Account.jif:9,2-27"
+v_customer == (_ -> _) {};["":2,8-27]
+v_name == (this.customer -> *) {};["":8,2-25]
+v_balance == (this.customer -> *) {};["":9,2-27]

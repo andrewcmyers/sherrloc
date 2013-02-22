@@ -1,0 +1,303 @@
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Board1.jif:17,0-11
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Board1.jif:78,11-79,38
+CONSTRUCTOR p 0 //class jif.types.label.ArgLabel_c@Board1.jif:80,25-41
+CONSTRUCTOR o 0 //class jif.types.label.ArgLabel_c@Board1.jif:80,54-70
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@Board1.jif:18,23-24
+CONSTRUCTOR Board.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR this 0
+CONSTRUCTOR o1 0 //@Board1.jif:81,47-48
+CONSTRUCTOR _ 0 //@Board1.jif:87,62-68
+CONSTRUCTOR p1 0 //@Board1.jif:81,45-46
+CONSTRUCTOR * 0 //@Board1.jif:81,45-46
+
+%%
+p <= (_ -> _);
+o <= (_ -> _);
+caller_pc <= (_ -> _);
+Board.provider == _ -> _;
+_ -> _ <= v_infered_downgrade_to;
+v_infered_downgrade_to <= * -> *;
+_ -> _ <= v_infered_downgrade_from;
+v_infered_downgrade_from <= * -> *;
+_ -> _ <= v_downgrade_from;
+v_downgrade_from <= * -> *;
+_ -> _ <= v_infered_downgrade_to1;
+v_infered_downgrade_to1 <= * -> *;
+_ -> _ <= v_infered_downgrade_to2;
+v_infered_downgrade_to2 <= * -> *;
+_ -> _ <= v_infered_downgrade_from1;
+v_infered_downgrade_from1 <= * -> *;
+_ -> _ <= v_downgrade_from1;
+v_downgrade_from1 <= * -> *;
+_ -> _ <= v_newCoordinate;
+v_newCoordinate <= * -> *;
+_ -> _ <= v_downgrade_from2;
+v_downgrade_from2 <= * -> *;
+_ -> _ <= v_infered_downgrade_to3;
+v_infered_downgrade_to3 <= * -> *;
+_ -> _ <= v_infered_downgrade_from2;
+v_infered_downgrade_from2 <= * -> *;
+_ -> _ <= v_downgrade_from3;
+v_downgrade_from3 <= * -> *;
+_ -> _ <= v_infered_downgrade_from3;
+v_infered_downgrade_from3 <= * -> *;
+_ -> _ <= v_downgrade_from4;
+v_downgrade_from4 <= * -> *;
+_ -> _ <= v_infered_downgrade_to4;
+v_infered_downgrade_to4 <= * -> *;
+_ -> _ <= v_infered_downgrade_from4;
+v_infered_downgrade_from4 <= * -> *;
+_ -> _ <= (p1 -> p1);
+(p1 -> p1) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= v_downgrade_from5;
+v_downgrade_from5 <= * -> *;
+_ -> _ <= v_infered_downgrade_to5;
+v_infered_downgrade_to5 <= * -> *;
+_ -> _ <= v_newShip;
+v_newShip <= * -> *;
+_ -> _ <= (v_s) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i);
+(v_s) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (o1 -> o1);
+(o1 -> o1) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= v_newBoard;
+v_newBoard <= * -> *;
+_ -> _ <= v_infered_downgrade_from5;
+v_infered_downgrade_from5 <= * -> *;
+_ -> _ <= v_downgrade_from6;
+v_downgrade_from6 <= * -> *;
+_ -> _ <= v_downgrade_from7;
+v_downgrade_from7 <= * -> *;
+_ -> _ <= v_infered_downgrade_to6;
+v_infered_downgrade_to6 <= * -> *;
+_ -> _ <= v_infered_downgrade_to7;
+v_infered_downgrade_to7 <= * -> *;
+_ -> _ <= v_infered_downgrade_from6;
+v_infered_downgrade_from6 <= * -> *;
+_ -> _ <= v_for;
+v_for <= * -> *;
+_ -> _ <= v_downgrade_from8;
+v_downgrade_from8 <= * -> *;
+_ -> _ <= v_infered_downgrade_from7;
+v_infered_downgrade_from7 <= * -> *;
+_ -> _ <= v_infered_downgrade_to8;
+v_infered_downgrade_to8 <= * -> *;
+_ -> _ <= v_downgrade_from9;
+v_downgrade_from9 <= * -> *;
+_ -> _ <= v_infered_downgrade_from8;
+v_infered_downgrade_from8 <= * -> *;
+_ -> _ <= v_infered_downgrade_to9;
+v_infered_downgrade_to9 <= * -> *;
+_ -> _ <= v_downgrade_from10;
+v_downgrade_from10 <= * -> *;
+_ -> _ <= v_infered_downgrade_from9;
+v_infered_downgrade_from9 <= * -> *;
+_ -> _ <= v_infered_downgrade_to10;
+v_infered_downgrade_to10 <= * -> *;
+_ -> _ <= v_downgrade_from11;
+v_downgrade_from11 <= * -> *;
+_ -> _ <= v_infered_downgrade_from10;
+v_infered_downgrade_from10 <= * -> *;
+_ -> _ <= v_infered_downgrade_to11;
+v_infered_downgrade_to11 <= * -> *;
+_ -> _ <= v_downgrade_from12;
+v_downgrade_from12 <= * -> *;
+_ -> _ <= v_infered_downgrade_from11;
+v_infered_downgrade_from11 <= * -> *;
+_ -> _ <= (p1 -> p1);
+(p1 -> p1) <= * -> *;
+_ -> _ <= v_impossible;
+v_impossible <= * -> *;
+_ -> _ <= v_t;
+v_t <= * -> *;
+_ -> _ <= p;
+p <= * -> *;
+_ -> _ <= v_isHoriz;
+v_isHoriz <= * -> *;
+_ -> _ <= o;
+o <= * -> *;
+_ -> _ <= v_length;
+v_length <= * -> *;
+_ -> _ <= v_sz;
+v_sz <= * -> *;
+_ -> _ <= v_i;
+v_i <= * -> *;
+_ -> _ <= v_newBoard1;
+v_newBoard1 <= * -> *;
+_ -> _ <= v_shps;
+v_shps <= * -> *;
+_ -> _ <= v_posY;
+v_posY <= * -> *;
+_ -> _ <= v_c;
+v_c <= * -> *;
+_ -> _ <= v_pos;
+v_pos <= * -> *;
+_ -> _ <= v_posX;
+v_posX <= * -> *;
+_ -> _ <= v_impossible1;
+v_impossible1 <= * -> *;
+_ -> _ <= v_ss;
+v_ss <= * -> *;
+_ -> _ <= v_s;
+v_s <= * -> *;
+_ -> _ <= v_impossible2;
+v_impossible2 <= * -> *;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= ((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss);
+((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) <= * -> *;
+_ -> _ <= Board.provider;
+Board.provider <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= ((p1 -> p1)) ⊔ (v_shps);
+((p1 -> p1)) ⊔ (v_shps) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (p1 -> p1);
+(p1 -> p1) <= * -> *;
+
+%%
+Board.provider <= (* -> *) {this <= caller_pc;};["":81,38-49]
+Board.provider <= (* -> *) {this <= caller_pc;};["":81,38-49]
+(caller_pc) ⊔ (o) ⊔ (p) <= v_newBoard {this <= caller_pc;};["":83,49-84]
+caller_pc <= (* -> *) {this <= caller_pc;};["":83,49-84]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":83,49-84]
+(caller_pc) ⊔ (v_newBoard) <= v_newBoard1 {this <= caller_pc;};["":83,49-84]
+L == (p1 -> p1) {this <= caller_pc;};["":85,33-43]
+(this) ⊔ (caller_pc) <= v_shps {this <= caller_pc;};["":85,33-43]
+(v_shps) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":87,49-60]
+v_receiver == (v_shps) ⊔ (caller_pc) {this <= caller_pc;};["":87,49-60]
+v_infered_downgrade_from5 <= v_downgrade_from6 {this <= caller_pc;};["":87,25-69]
+(((p1 -> p1)) ⊔ (v_shps)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to6) ⊓ ((_ -> _)) {this <= caller_pc;};["":87,25-69]
+(v_infered_downgrade_to6) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":87,25-69]
+((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to6) ⊓ ((* -> *)) {this <= caller_pc;};["":87,25-69]
+((p1 -> p1)) ⊔ (v_shps) == v_infered_downgrade_from5 {this <= caller_pc;};["":87,25-69]
+v_infered_downgrade_from5 <= (v_infered_downgrade_to6) ⊔ ((* -> *)) {this <= caller_pc;};["":87,25-69]
+v_infered_downgrade_from5 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to6) {this <= caller_pc;};["":87,25-69]
+v_infered_downgrade_from6 == v_downgrade_from7 {this <= caller_pc;};["":87,17-88]
+(_ -> _) == v_infered_downgrade_to7 {this <= caller_pc;};["":87,17-88]
+(v_shps) ⊔ (caller_pc) ⊔ (v_infered_downgrade_to6) == v_infered_downgrade_from6 {this <= caller_pc;};["":87,17-88]
+(v_infered_downgrade_from6) ⊓ ((* -> *)) <= v_infered_downgrade_to7 {this <= caller_pc;};["":87,17-88]
+(v_infered_downgrade_from6) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to7 {this <= caller_pc;};["":87,17-88]
+(v_shps) ⊔ (caller_pc) ⊔ (v_infered_downgrade_to7) <= v_sz {this <= caller_pc;};["":87,17-88]
+(caller_pc) <= v_i {this <= caller_pc;};["":88,21-22]
+(v_sz) ⊔ (v_for) ⊔ (v_i) <= v_s {this <= caller_pc;};["":89,34-38]
+(v_i) ⊔ (v_shps) ⊔ (v_sz) ⊔ (v_for) <= (* -> *) {this <= caller_pc;};["":91,65-66]
+(v_shps) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) <= (* -> *) {this <= caller_pc;};["":91,56-67]
+v_receiver1 == (v_shps) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) {this <= caller_pc;};["":91,56-67]
+v_arg1label == (v_i) ⊔ (v_shps) ⊔ (v_sz) ⊔ (v_for) {this <= caller_pc;};["":91,56-67]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ ((p1 -> p1)) ⊔ (v_shps) <= v_s {this <= caller_pc;};["":91,16-17]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":91,16-67]
+((p1 -> p1)) ⊔ (v_i) ⊔ (v_shps) ⊔ (v_sz) ⊔ (v_for) <= v_impossible2 {this <= caller_pc;};["":93,19-55]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ ((p1 -> p1)) ⊔ (v_shps) <= v_impossible1 {this <= caller_pc;};["":94,19-48]
+v_infered_downgrade_from7 <= v_downgrade_from8 {this <= caller_pc;};["":97,43-64]
+((v_s) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to8) ⊓ ((_ -> _)) {this <= caller_pc;};["":97,43-64]
+(v_infered_downgrade_to8) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":97,43-64]
+((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to8) ⊓ ((* -> *)) {this <= caller_pc;};["":97,43-64]
+(v_s) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) == v_infered_downgrade_from7 {this <= caller_pc;};["":97,43-64]
+v_infered_downgrade_from7 <= (v_infered_downgrade_to8) ⊔ ((* -> *)) {this <= caller_pc;};["":97,43-64]
+v_infered_downgrade_from7 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to8) {this <= caller_pc;};["":97,43-64]
+v_infered_downgrade_from8 == v_downgrade_from9 {this <= caller_pc;};["":97,35-83]
+(_ -> _) == v_infered_downgrade_to9 {this <= caller_pc;};["":97,35-83]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_infered_downgrade_to8) == v_infered_downgrade_from8 {this <= caller_pc;};["":97,35-83]
+(v_infered_downgrade_from8) ⊓ ((* -> *)) <= v_infered_downgrade_to9 {this <= caller_pc;};["":97,35-83]
+(v_infered_downgrade_from8) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to9 {this <= caller_pc;};["":97,35-83]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":97,35-83]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_infered_downgrade_to9) <= v_ss {this <= caller_pc;};["":97,35-83]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":99,47-53]
+(v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) <= v_pos {this <= caller_pc;};["":99,47-53]
+v_infered_downgrade_from9 <= v_downgrade_from10 {this <= caller_pc;};["":101,39-64]
+(((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to10) ⊓ ((_ -> _)) {this <= caller_pc;};["":101,39-64]
+(v_infered_downgrade_to10) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":101,39-64]
+((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to10) ⊓ ((* -> *)) {this <= caller_pc;};["":101,39-64]
+((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) == v_infered_downgrade_from9 {this <= caller_pc;};["":101,39-64]
+v_infered_downgrade_from9 <= (v_infered_downgrade_to10) ⊔ ((* -> *)) {this <= caller_pc;};["":101,39-64]
+v_infered_downgrade_from9 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to10) {this <= caller_pc;};["":101,39-64]
+v_infered_downgrade_from10 == v_downgrade_from11 {this <= caller_pc;};["":101,31-83]
+(_ -> _) == v_infered_downgrade_to11 {this <= caller_pc;};["":101,31-83]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to10) == v_infered_downgrade_from10 {this <= caller_pc;};["":101,31-83]
+(v_infered_downgrade_from10) ⊓ ((* -> *)) <= v_infered_downgrade_to11 {this <= caller_pc;};["":101,31-83]
+(v_infered_downgrade_from10) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to11 {this <= caller_pc;};["":101,31-83]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to11) <= v_posX {this <= caller_pc;};["":101,31-83]
+v_infered_downgrade_from11 <= v_downgrade_from12 {this <= caller_pc;};["":102,39-64]
+(((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to1) ⊓ ((_ -> _)) {this <= caller_pc;};["":102,39-64]
+(v_infered_downgrade_to1) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":102,39-64]
+((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to1) ⊓ ((* -> *)) {this <= caller_pc;};["":102,39-64]
+((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) == v_infered_downgrade_from11 {this <= caller_pc;};["":102,39-64]
+v_infered_downgrade_from11 <= (v_infered_downgrade_to1) ⊔ ((* -> *)) {this <= caller_pc;};["":102,39-64]
+v_infered_downgrade_from11 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to1) {this <= caller_pc;};["":102,39-64]
+v_infered_downgrade_from == v_downgrade_from {this <= caller_pc;};["":102,31-83]
+(_ -> _) == v_infered_downgrade_to {this <= caller_pc;};["":102,31-83]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to1) == v_infered_downgrade_from {this <= caller_pc;};["":102,31-83]
+(v_infered_downgrade_from) ⊓ ((* -> *)) <= v_infered_downgrade_to {this <= caller_pc;};["":102,31-83]
+(v_infered_downgrade_from) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to {this <= caller_pc;};["":102,31-83]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to) <= v_posY {this <= caller_pc;};["":102,31-83]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (o) ⊔ (p) <= v_newCoordinate {this <= caller_pc;};["":103,59-109]
+(v_posX) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= ((p1 -> p1)) ⊔ (v_newCoordinate) {this <= caller_pc;};["":103,98-102]
+(v_posY) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= ((p1 -> p1)) ⊔ (v_newCoordinate) {this <= caller_pc;};["":103,104-108]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= (* -> *) {this <= caller_pc;};["":103,59-109]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":103,59-109]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_newCoordinate) <= v_c {this <= caller_pc;};["":103,59-109]
+v_infered_downgrade_from1 <= v_downgrade_from1 {this <= caller_pc;};["":105,41-70]
+(((p1 -> p1)) ⊔ (v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_pos)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to2) ⊓ ((_ -> _)) {this <= caller_pc;};["":105,41-70]
+(v_infered_downgrade_to2) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":105,41-70]
+((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to2) ⊓ ((* -> *)) {this <= caller_pc;};["":105,41-70]
+((p1 -> p1)) ⊔ (v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_pos) == v_infered_downgrade_from1 {this <= caller_pc;};["":105,41-70]
+v_infered_downgrade_from1 <= (v_infered_downgrade_to2) ⊔ ((* -> *)) {this <= caller_pc;};["":105,41-70]
+v_infered_downgrade_from1 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to2) {this <= caller_pc;};["":105,41-70]
+v_infered_downgrade_from2 == v_downgrade_from3 {this <= caller_pc;};["":105,33-89]
+(_ -> _) == v_infered_downgrade_to3 {this <= caller_pc;};["":105,33-89]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to2) == v_infered_downgrade_from2 {this <= caller_pc;};["":105,33-89]
+(v_infered_downgrade_from2) ⊓ ((* -> *)) <= v_infered_downgrade_to3 {this <= caller_pc;};["":105,33-89]
+(v_infered_downgrade_from2) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to3 {this <= caller_pc;};["":105,33-89]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to3) <= v_length {this <= caller_pc;};["":105,33-89]
+v_infered_downgrade_from4 <= v_downgrade_from2 {this <= caller_pc;};["":106,46-81]
+(((p1 -> p1)) ⊔ (v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_pos)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to4) ⊓ ((_ -> _)) {this <= caller_pc;};["":106,46-81]
+(v_infered_downgrade_to4) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":106,46-81]
+((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to4) ⊓ ((* -> *)) {this <= caller_pc;};["":106,46-81]
+((p1 -> p1)) ⊔ (v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_pos) == v_infered_downgrade_from4 {this <= caller_pc;};["":106,46-81]
+v_infered_downgrade_from4 <= (v_infered_downgrade_to4) ⊔ ((* -> *)) {this <= caller_pc;};["":106,46-81]
+v_infered_downgrade_from4 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to4) {this <= caller_pc;};["":106,46-81]
+v_infered_downgrade_from3 == v_downgrade_from4 {this <= caller_pc;};["":106,38-100]
+(_ -> _) == v_infered_downgrade_to5 {this <= caller_pc;};["":106,38-100]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to4) == v_infered_downgrade_from3 {this <= caller_pc;};["":106,38-100]
+(v_infered_downgrade_from3) ⊓ ((* -> *)) <= v_infered_downgrade_to5 {this <= caller_pc;};["":106,38-100]
+(v_infered_downgrade_from3) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to5 {this <= caller_pc;};["":106,38-100]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to5) <= v_isHoriz {this <= caller_pc;};["":106,38-100]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (o) ⊔ (p) <= v_newShip {this <= caller_pc;};["":108,53-105]
+(v_c) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= v_newShip {this <= caller_pc;};["":108,86-87]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":108,86-87]
+(v_length) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= (p1 -> p1) {this <= caller_pc;};["":108,89-95]
+(v_isHoriz) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= (p1 -> p1) {this <= caller_pc;};["":108,97-104]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= (* -> *) {this <= caller_pc;};["":108,53-105]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":108,53-105]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_newShip) <= v_t {this <= caller_pc;};["":108,53-105]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) == v_downgrade_from5 {this <= caller_pc;};["":110,24-112,25]
+(v_downgrade_from5) ⊓ ((* -> *)) <= (_ -> _) {this <= caller_pc;};["":110,24-112,25]
+(v_downgrade_from5) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":110,24-112,25]
+(v_t) ⊔ (v_newBoard1) ⊔ ((_ -> _)) <= (p1 -> p1) {this <= caller_pc;};["":111,45-46]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":111,45-46]
+(v_newBoard1) ⊔ ((_ -> _)) <= (p1 -> p1) {this <= caller_pc;};["":111,28-47]
+v_receiver2 == (v_newBoard1) ⊔ ((_ -> _)) {this <= caller_pc;};["":111,28-47]
+v_arg1label1 == (v_t) ⊔ (v_newBoard1) ⊔ ((_ -> _)) {this <= caller_pc;};["":111,28-47]
+((p1 -> p1)) ⊔ (v_newBoard1) <= v_impossible {this <= caller_pc;};["":114,27-62]
+(v_sz) ⊔ (v_for) ⊔ (v_i) <= v_i {this <= caller_pc;};["":88,32-33]
+(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (caller_pc) <= v_for {this <= caller_pc;};["":88,8-31]
+(v_newBoard1) ⊔ (caller_pc) <= (_ -> _) {this <= caller_pc;};["":118,8-24]
+(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":118,15-23]

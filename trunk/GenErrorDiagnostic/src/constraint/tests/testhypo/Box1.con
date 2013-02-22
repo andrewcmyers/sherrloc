@@ -1,0 +1,148 @@
+CONSTRUCTOR xmax 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:35,10-13
+CONSTRUCTOR l 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:133,4-9
+CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:56,9-12
+CONSTRUCTOR y1 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:113,4-9
+CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:55,9-12
+CONSTRUCTOR x1 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:96,4-9
+CONSTRUCTOR xmin 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:34,10-13
+CONSTRUCTOR mapserv.Box.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:12,7-16
+CONSTRUCTOR ymax 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:35,26-29
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:32,2-36,3
+CONSTRUCTOR mapserv.Box.provider1 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR ymin 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:34,26-29
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:22,15-16
+CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:12,7-16
+CONSTRUCTOR *l 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:139,4-5
+CONSTRUCTOR A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:21,19-20
+CONSTRUCTOR a 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:134,4-9
+CONSTRUCTOR a1 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:153,28-33
+CONSTRUCTOR a2 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:160,28-33
+CONSTRUCTOR b 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:160,37-42
+CONSTRUCTOR b1 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:153,37-42
+CONSTRUCTOR *a 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/Box1.fab:139,28-29
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@/home/zhdf/demo/pldi13/friendmap/Box1.fab:139,16-21
+CONSTRUCTOR s 0 //@/home/zhdf/demo/pldi13/friendmap/Box1.fab:139,12-13
+CONSTRUCTOR * 0 //@/home/zhdf/demo/pldi13/friendmap/Box1.fab:139,10-11
+
+%%
+xmax <= L;
+y <= A;
+x <= A;
+xmin <= L;
+ymax <= L;
+caller_pc <= L;
+ymin <= L;
+mapserv.Box.provider == _ -> _;
+mapserv.Box.provider1 == _ -> _;
+_ -> _ <= xmax;
+xmax <= * -> *;
+_ -> _ <= l;
+l <= * -> *;
+_ -> _ <= y;
+y <= * -> *;
+_ -> _ <= y1;
+y1 <= * -> *;
+_ -> _ <= x;
+x <= * -> *;
+_ -> _ <= x1;
+x1 <= * -> *;
+_ -> _ <= xmin;
+xmin <= * -> *;
+_ -> _ <= (* -> s);
+(* -> s) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= mapserv.Box.provider;
+mapserv.Box.provider <= * -> *;
+_ -> _ <= ymax;
+ymax <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= mapserv.Box.provider1;
+mapserv.Box.provider1 <= * -> *;
+_ -> _ <= ymin;
+ymin <= * -> *;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= *l;
+*l <= * -> *;
+_ -> _ <= A;
+A <= * -> *;
+_ -> _ <= a;
+a <= * -> *;
+_ -> _ <= a1;
+a1 <= * -> *;
+_ -> _ <= a2;
+a2 <= * -> *;
+_ -> _ <= b;
+b <= * -> *;
+_ -> _ <= b1;
+b1 <= * -> *;
+_ -> _ <= *a;
+*a <= * -> *;
+
+%%
+(_ -> _) <= (A) ⊔ ((_ -> _)) {this <= (A) ⊔ ((_ -> _));};["":12,7-16]
+L <= (A) ⊔ ((_ -> _)) {this <= (A) ⊔ ((_ -> _));};["":12,7-16]
+mapserv.Box.provider1 <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":12,7-16]
+L == L {this <= (A) ⊔ ((_ -> _));};["":21,9-33]
+L == L {this <= (A) ⊔ ((_ -> _));};["":21,9-33]
+L == L {this <= (A) ⊔ ((_ -> _));};["":22,9-33]
+L == L {this <= (A) ⊔ ((_ -> _));};["":22,9-33]
+mapserv.Box.provider <= (* -> *) {this <= (A) ⊔ ((_ -> _));this <= caller_pc;caller_pc <= (mapserv.Box.provider);};["":40,2-3]
+(xmin) ⊔ (this) <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":41,4-13]
+mapserv.Box.provider1 <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":41,4-13]
+(ymin) ⊔ (this) <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":42,4-13]
+mapserv.Box.provider1 <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":42,4-13]
+(xmax) ⊔ (this) <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":44,4-13]
+mapserv.Box.provider1 <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":44,4-13]
+(ymax) ⊔ (this) <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":45,4-13]
+mapserv.Box.provider1 <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":45,4-13]
+A <= A {this <= (A) ⊔ ((_ -> _));};["":52,2-53,10]
+A <= A {this <= (A) ⊔ ((_ -> _));};["":52,2-53,10]
+A <= A {this <= (A) ⊔ ((_ -> _));};["":52,2-53,10]
+mapserv.Box.provider1 <= mapserv.Box.provider1 {this <= (A) ⊔ ((_ -> _));};["":52,2-53,10]
+(L) ⊔ (x) ⊔ (y) ⊔ (mapserv.Box.provider1) <= (L) ⊔ (x) ⊔ (y) ⊔ (mapserv.Box.provider1) {this <= (A) ⊔ ((_ -> _));};["":52,2-53,10]
+mapserv.Box.provider1 <= L {this <= (A) ⊔ ((_ -> _));};["":79,4-17]
+L <= L {this <= (A) ⊔ ((_ -> _));};["":68,2-69,8]
+L <= L {this <= (A) ⊔ ((_ -> _));};["":68,2-69,8]
+(L) ⊓ (A) <= (L) ⊓ (A) {this <= (A) ⊔ ((_ -> _));};["":68,2-69,8]
+mapserv.Box.provider1 <= mapserv.Box.provider1 {this <= (A) ⊔ ((_ -> _));};["":68,2-69,8]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":93,2-94,9]
+A <= A {this <= (A) ⊔ ((_ -> _));};["":93,2-94,9]
+mapserv.Box.provider1 <= mapserv.Box.provider1 {this <= (A) ⊔ ((_ -> _));};["":93,2-94,9]
+(L) ⊔ (x1) ⊔ (mapserv.Box.provider1) <= (L) ⊔ (x1) ⊔ (mapserv.Box.provider1) {this <= (A) ⊔ ((_ -> _));};["":93,2-94,9]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":110,2-111,9]
+A <= A {this <= (A) ⊔ ((_ -> _));};["":110,2-111,9]
+mapserv.Box.provider1 <= mapserv.Box.provider1 {this <= (A) ⊔ ((_ -> _));};["":110,2-111,9]
+(L) ⊔ (y1) ⊔ (mapserv.Box.provider1) <= (L) ⊔ (y1) ⊔ (mapserv.Box.provider1) {this <= (A) ⊔ ((_ -> _));};["":110,2-111,9]
+*l <= (* -> s) {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":139,4-14]
+(_ -> _) <= *l {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":139,16-26]
+*a <= (* -> s) {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":139,28-38]
+*l <= *a {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":140,4-10]
+L <= *l {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":142,4-17]
+mapserv.Box.provider1 <= *l {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":143,4-17]
+(l) ⊔ (a) <= *l {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":144,4-17]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":125,2-126,6]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":125,2-126,6]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":125,2-126,6]
+(*l) ⊓ ((* -> s)) ⊓ (A) <= (*l) ⊓ ((* -> s)) ⊓ (A) {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":125,2-126,6]
+mapserv.Box.provider1 <= mapserv.Box.provider1 {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":125,2-126,6]
+(L) ⊔ (l) ⊔ (a) ⊔ (mapserv.Box.provider1) <= (L) ⊔ (l) ⊔ (a) ⊔ (mapserv.Box.provider1) {this <= (A) ⊔ ((_ -> _));*l <= (* -> s);(_ -> _) <= *l;*a <= (* -> s);*l <= *a;L <= *l;l <= *l;a <= *l;};["":125,2-126,6]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":153,17-26]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":153,17-26]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":153,17-26]
+mapserv.Box.provider1 <= mapserv.Box.provider1 {this <= (A) ⊔ ((_ -> _));};["":153,17-26]
+(a1) ⊔ (b1) <= (a1) ⊔ (b1) {this <= (A) ⊔ ((_ -> _));};["":153,17-26]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":160,17-26]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":160,17-26]
+(* -> *) <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":160,17-26]
+mapserv.Box.provider1 <= mapserv.Box.provider1 {this <= (A) ⊔ ((_ -> _));};["":160,17-26]
+(a2) ⊔ (b) <= (a2) ⊔ (b) {this <= (A) ⊔ ((_ -> _));};["":160,17-26]

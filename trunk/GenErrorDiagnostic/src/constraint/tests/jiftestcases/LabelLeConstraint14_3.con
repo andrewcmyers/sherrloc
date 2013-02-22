@@ -1,8 +1,7 @@
-// LabelLeConstraint14.jif:1,0-7
-CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint14.jif:1,0-7
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint14.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:1,0-7
-CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint14.jif:1,0-7
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:2,26-32
 CONSTRUCTOR P 0 //@LabelLeConstraint14.jif:13,63-64
@@ -12,8 +11,6 @@ CONSTRUCTOR Q 0 //@LabelLeConstraint14.jif:13,66-67
 %%
 C.provider == _ -> _;
 C.provider1 == _ -> _;
-_ -> _ <= C.provider;
-C.provider <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= caller_pc;
@@ -22,6 +19,8 @@ _ -> _ <= (Q -> *);
 (Q -> *) <= * -> *;
 _ -> _ <= (Q -> *);
 (Q -> *) <= * -> *;
+_ -> _ <= C.provider;
+C.provider <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
@@ -32,15 +31,17 @@ _ -> _ <= (P -> *);
 (P -> *) <= * -> *;
 
 %%
-C.provider1 <= (* -> *) [];@"LabelLeConstraint14.jif:1,0-7"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4-10"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:2,4-10"
-((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) [];@"LabelLeConstraint14.jif:13,13-45"
-((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) [];@"LabelLeConstraint14.jif:13,13-45"
-((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) [];@"LabelLeConstraint14.jif:13,13-45"
-((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) [];@"LabelLeConstraint14.jif:13,13-45"
-(_ -> _) <= (_ -> _) [];@"LabelLeConstraint14.jif:13,13-45"
-(Q -> *) <= (Q -> *) [];@"LabelLeConstraint14.jif:13,13-45"
-C.provider <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider);];@"LabelLeConstraint14.jif:1,0-0"
+C.provider <= (* -> *) {};["":1,0-7]
+(_ -> _) <= (_ -> _) {};["":2,4-10]
+(_ -> _) <= (_ -> _) {};["":2,4-10]
+(_ -> _) <= (_ -> _) {};["":2,4-10]
+(_ -> _) <= (_ -> _) {};["":2,4-10]
+P⊔Q >= P {};["":16,20-31]
+P⊔Q >= Q {};["":16,20-31]
+((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) {};["":13,13-45]
+((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) {};["":13,13-45]
+((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) {};["":13,13-45]
+((P -> *)) ⊔ ((Q -> *)) <= ((P -> *)) ⊔ ((Q -> *)) {};["":13,13-45]
+(_ -> _) <= (_ -> _) {};["":13,13-45]
+(Q -> *) <= (Q -> *) {};["":13,13-45]
+C.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (C.provider1);};["":1,0-0]

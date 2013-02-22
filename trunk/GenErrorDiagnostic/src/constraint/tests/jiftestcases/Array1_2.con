@@ -1,8 +1,7 @@
-// Array1.jif:1,0-12
 CONSTRUCTOR Array1.provider 0 //class jif.types.label.ProviderLabel_c@Array1.jif:1,0-12
+CONSTRUCTOR Array1.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array1.jif:1,0-12
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array1.jif:1,0-12
-CONSTRUCTOR Array1.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR * 0 //@Array1.jif:3,11-17
@@ -12,20 +11,20 @@ Array1.provider == _ -> _;
 Array1.provider1 == _ -> _;
 _ -> _ <= Array1.provider;
 Array1.provider <= * -> *;
+_ -> _ <= Array1.provider1;
+Array1.provider1 <= * -> *;
 _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= Array1.provider1;
-Array1.provider1 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-Array1.provider1 <= (* -> *) [];@"Array1.jif:1,0-12"
-(Alice -> *) <= (Alice -> *) [];@"Array1.jif:3,4-10"
-(Alice -> *) <= (Alice -> *) [];@"Array1.jif:3,4-10"
-(Alice -> *) <= (Alice -> *) [];@"Array1.jif:3,4-10"
-Array1.provider <= (* -> *) [this <= caller_pc;caller_pc <= (Array1.provider);];@"Array1.jif:1,0-0"
+Array1.provider1 <= (* -> *) {};["":1,0-12]
+(Alice -> *) <= (Alice -> *) {};["":3,4-10]
+(Alice -> *) <= (Alice -> *) {};["":3,4-10]
+(Alice -> *) <= (Alice -> *) {};["":3,4-10]
+Array1.provider <= (* -> *) {this <= caller_pc;caller_pc <= (Array1.provider);};["":1,0-0]

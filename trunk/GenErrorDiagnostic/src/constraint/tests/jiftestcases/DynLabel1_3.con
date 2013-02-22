@@ -1,10 +1,9 @@
-// DynLabel1.jif:1,0-15
-CONSTRUCTOR DynLabel1.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR *this.f 0 //class jif.types.label.DynamicLabel_c@DynLabel1.jif:2,10-24
-CONSTRUCTOR DynLabel1.provider1 0 //class jif.types.label.ProviderLabel_c@DynLabel1.jif:1,0-15
-CONSTRUCTOR *l 0 //class jif.types.label.DynamicLabel_c@DynLabel1.jif:6,10-11
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@DynLabel1.jif:1,0-15
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@DynLabel1.jif:5,4-47
+CONSTRUCTOR DynLabel1.provider 0 //class jif.types.label.ProviderLabel_c@DynLabel1.jif:1,0-15
+CONSTRUCTOR DynLabel1.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR *l 0 //class jif.types.label.DynamicLabel_c@DynLabel1.jif:6,10-11
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@DynLabel1.jif:2,15-21
 CONSTRUCTOR * 0 //@Compiler Generated
@@ -12,32 +11,32 @@ CONSTRUCTOR * 0 //@Compiler Generated
 %%
 DynLabel1.provider == _ -> _;
 DynLabel1.provider1 == _ -> _;
-_ -> _ <= DynLabel1.provider;
-DynLabel1.provider <= * -> *;
 _ -> _ <= *this.f;
 *this.f <= * -> *;
-_ -> _ <= DynLabel1.provider1;
-DynLabel1.provider1 <= * -> *;
-_ -> _ <= *l;
-*l <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
+_ -> _ <= DynLabel1.provider;
+DynLabel1.provider <= * -> *;
+_ -> _ <= DynLabel1.provider1;
+DynLabel1.provider1 <= * -> *;
+_ -> _ <= *l;
+*l <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-DynLabel1.provider <= (* -> *) [];@"DynLabel1.jif:1,0-15"
-(_ -> _) == (_ -> _) [];@"DynLabel1.jif:2,10-24"
-(_ -> _) == (_ -> _) [];@"DynLabel1.jif:3,10-28"
-DynLabel1.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (DynLabel1.provider1);];@"DynLabel1.jif:5,48-49"
-this <= (_ -> _) [this <= caller_pc;caller_pc <= (DynLabel1.provider1);*this.f <= *l;*l <= *this.f;];@"DynLabel1.jif:6,1-7"
-this <= (_ -> _) [this <= caller_pc;*this.f <= *l;*l <= *this.f;caller_pc <= (DynLabel1.provider1);];@"DynLabel1.jif:7,1-7"
-(_ -> _) <= (_ -> _) [];@"DynLabel1.jif:10,4-10"
-(* -> *) <= (* -> *) [];@"DynLabel1.jif:10,4-10"
-(_ -> _) <= (_ -> _) [];@"DynLabel1.jif:10,4-10"
-(_ -> _) <= (_ -> _) [];@"DynLabel1.jif:10,4-10"
-(_ -> _) <= (_ -> _) [];@"DynLabel1.jif:10,4-10"
+DynLabel1.provider1 <= (* -> *) {};["":1,0-15]
+(_ -> _) == (_ -> _) {};["":2,10-24]
+(_ -> _) == (_ -> _) {};["":3,10-28]
+DynLabel1.provider <= (* -> *) {this <= caller_pc;caller_pc <= (DynLabel1.provider);};["":5,48-49]
+this <= (_ -> _) {this <= caller_pc;caller_pc <= (DynLabel1.provider);*this.f <= *l;*l <= *this.f;};["":6,1-7]
+this <= (_ -> _) {this <= caller_pc;*this.f <= *l;*l <= *this.f;caller_pc <= (DynLabel1.provider);};["":7,1-7]
+(_ -> _) <= (_ -> _) {};["":10,4-10]
+(* -> *) <= (* -> *) {};["":10,4-10]
+(_ -> _) <= (_ -> _) {};["":10,4-10]
+(_ -> _) <= (_ -> _) {};["":10,4-10]
+(_ -> _) <= (_ -> _) {};["":10,4-10]

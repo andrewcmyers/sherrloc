@@ -1,0 +1,126 @@
+CONSTRUCTOR *a 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:211,12-13
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:18,2-3
+CONSTRUCTOR l 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:204,10-15
+CONSTRUCTOR s 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:206,10-15
+CONSTRUCTOR *l 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:224,32-33
+CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:15,7-21
+CONSTRUCTOR mapserv.Box.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:20,40-43
+CONSTRUCTOR A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:17,10-11
+CONSTRUCTOR a 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:205,10-15
+CONSTRUCTOR mapserv.MapImage.provider 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:195,2-196,6
+CONSTRUCTOR mapserv.Box.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:20,2-5
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:215,16-21
+CONSTRUCTOR s1 0 //@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:215,12-13
+CONSTRUCTOR * 0 //@/home/zhdf/demo/pldi13/friendmap/MapImage6.fab:215,10-11
+
+%%
+caller_pc <= (*l) ⊓ ((* -> s1)) ⊓ ((A) ⊔ ((_ -> _))) ⊓ ((L) ⊔ ((_ -> _)));
+mapserv.Box.provider == _ -> _;
+mapserv.MapImage.provider == _ -> _;
+mapserv.Box.provider1 == _ -> _;
+_ -> _ <= *a;
+*a <= * -> *;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= l;
+l <= * -> *;
+_ -> _ <= (* -> s1);
+(* -> s1) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= v_newAssertionFailedError;
+v_newAssertionFailedError <= * -> *;
+_ -> _ <= v_newMapImage;
+v_newMapImage <= * -> *;
+_ -> _ <= s;
+s <= * -> *;
+_ -> _ <= v_newAssertionFailedError1;
+v_newAssertionFailedError1 <= * -> *;
+_ -> _ <= v_e;
+v_e <= * -> *;
+_ -> _ <= v_e1;
+v_e1 <= * -> *;
+_ -> _ <= *l;
+*l <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= mapserv.Box.provider;
+mapserv.Box.provider <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (L) ⊔ ((* -> *));
+(L) ⊔ ((* -> *)) <= * -> *;
+_ -> _ <= A;
+A <= * -> *;
+_ -> _ <= a;
+a <= * -> *;
+_ -> _ <= mapserv.MapImage.provider;
+mapserv.MapImage.provider <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= mapserv.Box.provider1;
+mapserv.Box.provider1 <= * -> *;
+
+%%
+v_newMapImage == *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(l) ⊔ (caller_pc) <= v_newMapImage {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(a) ⊔ (caller_pc) <= v_newMapImage {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,53-57]
+L <= L {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,53-57]
+L <= L {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,53-57]
+this <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,59-60]
+(l) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,62-63]
+(s) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,65-66]
+caller_pc <= (*l) ⊓ ((L) ⊔ ((* -> *))) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+*l <= (* -> s1) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+(_ -> _) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+*l <= (* -> s1) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+L <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+(L) ⊔ (this) ⊔ (caller_pc) <= (L) ⊔ ((* -> *)) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+(L) ⊔ (this) ⊔ (caller_pc) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+v_arg1label == (L) ⊔ (this) ⊔ (caller_pc) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+v_arg2label == this {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+v_arg3label == (l) ⊔ (caller_pc) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+v_arg4label == (s) ⊔ (caller_pc) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,38-46]
+L == L {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,38-46]
+A == A {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,38-46]
+this <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,48-49]
+this <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,51-52]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":225,38-43]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":225,45-51]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+*l <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+*l <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":226,38-67]
+(s) ⊔ (L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":227,38-39]
+(L) ⊔ (this) ⊔ (caller_pc) <= (*l) ⊓ (A) ⊓ ((* -> s1)) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+*l <= (* -> s1) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(_ -> _) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+*a <= (* -> s1) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+L <= A {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(L) ⊔ (this) ⊔ (caller_pc) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+mapserv.MapImage.provider <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+L <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(L) ⊔ (this) ⊔ (caller_pc) <= A {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+mapserv.MapImage.provider <= A {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(_ -> _) <= *a {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+*l <= *a {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+mapserv.Box.provider1 <= mapserv.MapImage.provider {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+mapserv.MapImage.provider <= mapserv.Box.provider {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(L) ⊔ (this) ⊔ (caller_pc) ⊔ (v_newMapImage) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,6-227,41]
+*l == *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+*a == *a {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":224,13-227,40]
+(L) ⊔ (this) ⊔ (caller_pc) <= v_e1 {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":229,13-41]
+(v_e1) <= v_newAssertionFailedError {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":230,37-77]
+v_e1 <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":230,12-78]
+(L) ⊔ (this) ⊔ (caller_pc) <= v_e {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":231,13-51]
+(v_e) <= v_newAssertionFailedError1 {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":232,37-106]
+v_e <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;*l <= (* -> s1);(_ -> _) <= *l;*a <= (* -> s1);this <= caller_pc;};["":232,12-107]

@@ -12,33 +12,33 @@ _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= leak;
-leak <= * -> *;
+_ -> _ <= v_leak;
+v_leak <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= secret;
-secret <= * -> *;
-_ -> _ <= e;
-e <= * -> *;
-_ -> _ <= count;
-count <= * -> *;
-_ -> _ <= do;
-do <= * -> *;
+_ -> _ <= v_secret;
+v_secret <= * -> *;
+_ -> _ <= v_e;
+v_e <= * -> *;
+_ -> _ <= v_count;
+v_count <= * -> *;
+_ -> _ <= v_do;
+v_do <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= newException;
-newException <= * -> *;
+_ -> _ <= v_newException;
+v_newException <= * -> *;
 
 %%
-secret == (Alice -> *) [this <= caller_pc;];@"Do3.jif:3,17-23"
-(caller_pc) <= secret [this <= caller_pc;];@"Do3.jif:3,26-30"
-leak == (_ -> _) [this <= caller_pc;];@"Do3.jif:4,18-22"
-(caller_pc) <= leak [this <= caller_pc;];@"Do3.jif:4,25-30"
-(caller_pc) <= count [this <= caller_pc;];@"Do3.jif:5,20-21"
-(do) ⊔ (count) <= leak [this <= caller_pc;];@"Do3.jif:8,16-20"
-(do) <= count [this <= caller_pc;];@"Do3.jif:9,16-21"
-(secret) ⊔ (do) <= (* -> *) [this <= caller_pc;];@"Do3.jif:10,35-50"
-(secret) ⊔ (do) ⊔ (count) ⊔ (caller_pc) <= do [this <= caller_pc;];@"Do3.jif:7,12-11,32"
-(secret) ⊔ (do) ⊔ (newException) <= e [this <= caller_pc;];@"Do3.jif:13,15-26"
+v_secret == (Alice -> *) {this <= caller_pc;};["":3,17-23]
+(caller_pc) <= v_secret {this <= caller_pc;};["":3,26-30]
+v_leak == (_ -> _) {this <= caller_pc;};["":4,18-22]
+(caller_pc) <= v_leak {this <= caller_pc;};["":4,25-30]
+(caller_pc) <= v_count {this <= caller_pc;};["":5,20-21]
+(v_do) ⊔ (v_count) <= v_leak {this <= caller_pc;};["":8,16-20]
+(v_do) <= v_count {this <= caller_pc;};["":9,16-21]
+(v_secret) ⊔ (v_do) <= (* -> *) {this <= caller_pc;};["":10,35-50]
+(v_secret) ⊔ (v_do) ⊔ (v_count) ⊔ (caller_pc) <= v_do {this <= caller_pc;};["":7,12-11,32]
+(v_secret) ⊔ (v_do) ⊔ (v_newException) <= v_e {this <= caller_pc;};["":13,15-26]

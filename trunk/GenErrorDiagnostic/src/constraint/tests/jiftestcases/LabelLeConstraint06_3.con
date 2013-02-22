@@ -1,12 +1,11 @@
-// LabelLeConstraint06.jif:1,0-7
 CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR *lbl2 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:2,54-58
+CONSTRUCTOR *lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,45-49
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint06.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint06.jif:1,0-7
-CONSTRUCTOR *lbl2 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,56-60
-CONSTRUCTOR *lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,45-49
-CONSTRUCTOR *lbl21 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:2,54-58
-CONSTRUCTOR *lbl11 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:2,43-47
 CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint06.jif:1,0-7
+CONSTRUCTOR *lbl11 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:2,43-47
+CONSTRUCTOR *lbl21 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint06.jif:7,56-60
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
 CONSTRUCTOR * 0 //@Compiler Generated
@@ -16,35 +15,35 @@ C.provider == _ -> _;
 C.provider1 == _ -> _;
 _ -> _ <= C.provider;
 C.provider <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
 _ -> _ <= *lbl2;
 *lbl2 <= * -> *;
 _ -> _ <= *lbl1;
 *lbl1 <= * -> *;
-_ -> _ <= *lbl21;
-*lbl21 <= * -> *;
-_ -> _ <= *lbl11;
-*lbl11 <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= C.provider1;
 C.provider1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+_ -> _ <= *lbl11;
+*lbl11 <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+_ -> _ <= *lbl21;
+*lbl21 <= * -> *;
 
 %%
-C.provider <= (* -> *) [];@"LabelLeConstraint06.jif:1,0-7"
-*lbl11 <= *lbl21 [*lbl11 <= *lbl21;];@"LabelLeConstraint06.jif:2,41-59"
-(* -> *) <= (* -> *) [*lbl11 <= *lbl21;];@"LabelLeConstraint06.jif:2,4-10"
-(* -> *) <= (* -> *) [*lbl11 <= *lbl21;];@"LabelLeConstraint06.jif:2,4-10"
-(* -> *) <= (* -> *) [*lbl11 <= *lbl21;];@"LabelLeConstraint06.jif:2,4-10"
-(_ -> _) <= (_ -> _) [*lbl11 <= *lbl21;];@"LabelLeConstraint06.jif:2,4-10"
-*lbl1 <= *lbl2 [*lbl1 <= *lbl2;];@"LabelLeConstraint06.jif:7,43-61"
-(* -> *) <= (* -> *) [*lbl1 <= *lbl2;];@"LabelLeConstraint06.jif:7,4-12"
-(* -> *) <= (* -> *) [*lbl1 <= *lbl2;];@"LabelLeConstraint06.jif:7,4-12"
-(* -> *) <= (* -> *) [*lbl1 <= *lbl2;];@"LabelLeConstraint06.jif:7,4-12"
-(_ -> _) <= (_ -> _) [*lbl1 <= *lbl2;];@"LabelLeConstraint06.jif:7,4-12"
-C.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider1);];@"LabelLeConstraint06.jif:1,0-0"
+C.provider <= (* -> *) {};["":1,0-7]
+*lbl11 <= *lbl2 {*lbl11 <= *lbl2;};["":2,41-59]
+(* -> *) <= (* -> *) {*lbl11 <= *lbl2;};["":2,4-10]
+(* -> *) <= (* -> *) {*lbl11 <= *lbl2;};["":2,4-10]
+(* -> *) <= (* -> *) {*lbl11 <= *lbl2;};["":2,4-10]
+(_ -> _) <= (_ -> _) {*lbl11 <= *lbl2;};["":2,4-10]
+*lbl1 <= *lbl21 {*lbl1 <= *lbl21;};["":7,43-61]
+(* -> *) <= (* -> *) {*lbl1 <= *lbl21;};["":7,4-12]
+(* -> *) <= (* -> *) {*lbl1 <= *lbl21;};["":7,4-12]
+(* -> *) <= (* -> *) {*lbl1 <= *lbl21;};["":7,4-12]
+(_ -> _) <= (_ -> _) {*lbl1 <= *lbl21;};["":7,4-12]
+C.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (C.provider1);};["":1,0-0]

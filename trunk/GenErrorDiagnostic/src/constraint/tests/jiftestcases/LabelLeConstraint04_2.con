@@ -1,4 +1,3 @@
-// LabelLeConstraint04.jif:7,4-12
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint04.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint04.jif:7,4-12
 CONSTRUCTOR this 0
@@ -19,10 +18,10 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-caller_pc <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint04.jif:8,3-14"
-caller_pc <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint04.jif:8,16-33"
-caller_pc <= (* -> *) [this <= caller_pc;];@"LabelLeConstraint04.jif:8,1-34"
-(_ -> _) <= (Alice -> *) [this <= caller_pc;];@"LabelLeConstraint04.jif:8,1-34"
-v_receiver == this [this <= caller_pc;];@"LabelLeConstraint04.jif:8,1-34"
-v_arg1label == caller_pc [this <= caller_pc;];@"LabelLeConstraint04.jif:8,1-34"
-v_arg2label == caller_pc [this <= caller_pc;];@"LabelLeConstraint04.jif:8,1-34"
+caller_pc <= (* -> *) {this <= caller_pc;};["":8,3-14]
+caller_pc <= (* -> *) {this <= caller_pc;};["":8,16-33]
+caller_pc <= (* -> *) {this <= caller_pc;};["":8,1-34]
+(_ -> _) <= (Alice -> *) {this <= caller_pc;};["":8,1-34]
+v_receiver == this {this <= caller_pc;};["":8,1-34]
+v_arg1label == caller_pc {this <= caller_pc;};["":8,1-34]
+v_arg2label == caller_pc {this <= caller_pc;};["":8,1-34]

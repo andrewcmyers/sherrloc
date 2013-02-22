@@ -2,9 +2,17 @@ package constraint.ast;
 
 
 public class Bottom extends Constructor {
-
-	public Bottom() {
+	static Bottom ins = null;
+	
+	private Bottom() {
 		super("_", 0, false);
+	}
+	
+	public static Bottom getBot () {
+		if (ins==null) {
+			ins = new Bottom();
+		}
+		return ins;
 	}
 	
 	@Override

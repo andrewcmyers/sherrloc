@@ -2,9 +2,16 @@ package constraint.ast;
 
 
 public class Top extends Constructor {
-
-	public Top() {
+	static Top ins=null;
+	
+	private Top() {
 		super("*", 0, false);
+	}
+	
+	public static Top getTop () {
+		if (ins==null)
+			ins =  new Top();
+		return ins;
 	}
 	
 	@Override

@@ -1,9 +1,8 @@
-// LabelLeConstraint02.jif:1,0-7
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint02.jif:1,0-7
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint02.jif:1,0-7
 CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint02.jif:1,0-7
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint02.jif:1,0-7
 CONSTRUCTOR *lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint02.jif:2,38-42
+CONSTRUCTOR C.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint02.jif:1,0-7
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@null
@@ -16,24 +15,24 @@ _ -> _ <= (Alice -> *);
 (Alice -> *) <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
 _ -> _ <= C.provider;
 C.provider <= * -> *;
-_ -> _ <= C.provider1;
-C.provider1 <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
 _ -> _ <= *lbl1;
 *lbl1 <= * -> *;
+_ -> _ <= C.provider1;
+C.provider1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-C.provider <= (* -> *) [];@"LabelLeConstraint02.jif:1,0-7"
-*lbl1 <= (Alice -> *) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,36-55"
-(* -> *) <= (* -> *) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4-17"
-(* -> *) <= (* -> *) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4-17"
-(_ -> _) <= (_ -> _) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4-17"
-(Alice -> *) <= (Alice -> *) [*lbl1 <= (Alice -> *);];@"LabelLeConstraint02.jif:2,4-17"
-C.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (C.provider1);];@"LabelLeConstraint02.jif:1,0-0"
+C.provider <= (* -> *) {};["":1,0-7]
+*lbl1 <= (Alice -> *) {*lbl1 <= (Alice -> *);};["":2,36-55]
+(* -> *) <= (* -> *) {*lbl1 <= (Alice -> *);};["":2,4-17]
+(* -> *) <= (* -> *) {*lbl1 <= (Alice -> *);};["":2,4-17]
+(_ -> _) <= (_ -> _) {*lbl1 <= (Alice -> *);};["":2,4-17]
+(Alice -> *) <= (Alice -> *) {*lbl1 <= (Alice -> *);};["":2,4-17]
+C.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (C.provider1);};["":1,0-0]

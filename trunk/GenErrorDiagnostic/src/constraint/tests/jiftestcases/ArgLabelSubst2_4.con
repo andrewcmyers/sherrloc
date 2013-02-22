@@ -1,10 +1,9 @@
-// ArgLabelSubst2.jif:21,0-8
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:21,0-8
-CONSTRUCTOR D.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR q 0 //class jif.types.label.ParamLabel_c@ArgLabelSubst2.jif:22,18-19
+CONSTRUCTOR D.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:21,0-8
-CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst2.jif:21,0-8
 CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:22,46-51
+CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst2.jif:21,0-8
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@ArgLabelSubst2.jif:22,36-42
 CONSTRUCTOR * 0 //@Compiler Generated
@@ -14,28 +13,28 @@ D.provider == _ -> _;
 D.provider1 == _ -> _;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= D.provider;
-D.provider <= * -> *;
 _ -> _ <= q;
 q <= * -> *;
+_ -> _ <= D.provider;
+D.provider <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= D.provider1;
-D.provider1 <= * -> *;
 _ -> _ <= y;
 y <= * -> *;
+_ -> _ <= D.provider1;
+D.provider1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-D.provider <= (* -> *) [];@"ArgLabelSubst2.jif:21,0-8"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:22,11-24"
-y == y [];@"ArgLabelSubst2.jif:22,11-24"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst2.jif:22,11-24"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst2.jif:22,11-24"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:22,11-24"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst2.jif:22,11-24"
-q <= q [];@"ArgLabelSubst2.jif:22,11-24"
-D.provider1 <= (* -> *) [this <= caller_pc;caller_pc <= (D.provider1);];@"ArgLabelSubst2.jif:21,0-0"
+D.provider <= (* -> *) {};["":21,0-8]
+(_ -> _) <= (_ -> _) {};["":22,11-24]
+y == y {};["":22,11-24]
+(* -> *) <= (* -> *) {};["":22,11-24]
+(* -> *) <= (* -> *) {};["":22,11-24]
+(_ -> _) <= (_ -> _) {};["":22,11-24]
+(_ -> _) <= (_ -> _) {};["":22,11-24]
+q <= q {};["":22,11-24]
+D.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (D.provider1);};["":21,0-0]

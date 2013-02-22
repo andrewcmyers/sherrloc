@@ -1,4 +1,3 @@
-// Dyn7.jif:7,11-19
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn7.jif:1,0-11
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn7.jif:7,11-19
 CONSTRUCTOR this 0
@@ -18,7 +17,7 @@ _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-v_x == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"Dyn7.jif:8,15-16"
-caller_pc <= (* -> *) [this <= caller_pc;];@"Dyn7.jif:8,19-29"
-v_receiver == this [this <= caller_pc;];@"Dyn7.jif:8,19-29"
-((_ -> _)) ⊔ (caller_pc) <= v_x [this <= caller_pc;];@"Dyn7.jif:8,19-29"
+v_x == (caller_pc) ⊔ ((_ -> _)) {this <= caller_pc;};["":8,15-16]
+caller_pc <= (* -> *) {this <= caller_pc;};["":8,19-29]
+v_receiver == this {this <= caller_pc;};["":8,19-29]
+((_ -> _)) ⊔ (caller_pc) <= v_x {this <= caller_pc;};["":8,19-29]

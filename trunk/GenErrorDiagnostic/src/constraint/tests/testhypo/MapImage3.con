@@ -1,0 +1,126 @@
+CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:20,2-3
+CONSTRUCTOR l 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:206,10-15
+CONSTRUCTOR mapserv.Box.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:22,2-5
+CONSTRUCTOR mapserv.MapImage.provider 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR s 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:208,10-15
+CONSTRUCTOR mapserv.Box.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:22,40-43
+CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:17,7-21
+CONSTRUCTOR *a 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:213,12-13
+CONSTRUCTOR A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:19,10-11
+CONSTRUCTOR a 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:207,10-15
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:197,2-198,6
+CONSTRUCTOR *l 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:226,32-33
+CONSTRUCTOR this 0
+CONSTRUCTOR s1 0 //@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/signatures/util/Util.fab:34,20-21
+CONSTRUCTOR _ 0 //@/home/zhdf/demo/pldi13/friendmap/MapImage3.fab:217,20-25
+CONSTRUCTOR * 0 //@/home/zhdf/APL/Fabric/examples/friendmap/src/fabric/signatures/util/Util.fab:34,18-19
+
+%%
+caller_pc <= (*l) ⊓ ((* -> s1)) ⊓ ((A) ⊔ ((_ -> _))) ⊓ ((L) ⊔ ((_ -> _)));
+mapserv.Box.provider == _ -> _;
+mapserv.MapImage.provider == _ -> _;
+mapserv.Box.provider1 == _ -> _;
+_ -> _ <= L;
+L <= * -> *;
+_ -> _ <= l;
+l <= * -> *;
+_ -> _ <= mapserv.Box.provider;
+mapserv.Box.provider <= * -> *;
+_ -> _ <= (* -> s1);
+(* -> s1) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= mapserv.MapImage.provider;
+mapserv.MapImage.provider <= * -> *;
+_ -> _ <= s;
+s <= * -> *;
+_ -> _ <= mapserv.Box.provider1;
+mapserv.Box.provider1 <= * -> *;
+_ -> _ <= v_e;
+v_e <= * -> *;
+_ -> _ <= v_e1;
+v_e1 <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= *a;
+*a <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+_ -> _ <= (L) ⊔ ((* -> *));
+(L) ⊔ ((* -> *)) <= * -> *;
+_ -> _ <= A;
+A <= * -> *;
+_ -> _ <= a;
+a <= * -> *;
+_ -> _ <= v_newAssertionFailedError;
+v_newAssertionFailedError <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= v_newMapImage;
+v_newMapImage <= * -> *;
+_ -> _ <= v_newAssertionFailedError1;
+v_newAssertionFailedError1 <= * -> *;
+_ -> _ <= *l;
+*l <= * -> *;
+
+%%
+v_newMapImage == *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(l) ⊔ (caller_pc) <= v_newMapImage {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(a) ⊔ (caller_pc) <= v_newMapImage {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,53-57]
+L <= L {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,53-57]
+L <= L {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,53-57]
+this <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,59-60]
+(l) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,62-63]
+(s) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,65-66]
+caller_pc <= (*l) ⊓ ((L) ⊔ ((* -> *))) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+*l <= (* -> s1) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+(_ -> _) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+*l <= (* -> s1) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+L <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+(L) ⊔ (this) ⊔ (caller_pc) <= (L) ⊔ ((* -> *)) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+(L) ⊔ (this) ⊔ (caller_pc) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+v_arg1label == (L) ⊔ (this) ⊔ (caller_pc) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+v_arg2label == this {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+v_arg3label == (l) ⊔ (caller_pc) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+v_arg4label == (s) ⊔ (caller_pc) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,38-46]
+L == L {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,38-46]
+A == A {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,38-46]
+this <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,48-49]
+this <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,51-52]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":227,38-43]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":227,45-51]
+(L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+*l <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+*l <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":228,38-67]
+(s) ⊔ (L) ⊔ (this) ⊔ (caller_pc) <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":229,38-39]
+(L) ⊔ (this) ⊔ (caller_pc) <= (*l) ⊓ (A) ⊓ ((* -> s1)) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+*l <= (* -> s1) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(_ -> _) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+*a <= (* -> s1) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+L <= A {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(L) ⊔ (this) ⊔ (caller_pc) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+mapserv.MapImage.provider <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+L <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(L) ⊔ (this) ⊔ (caller_pc) <= A {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+mapserv.MapImage.provider <= A {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(_ -> _) <= *a {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+*l <= *a {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+mapserv.Box.provider <= mapserv.MapImage.provider {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+mapserv.MapImage.provider <= mapserv.Box.provider1 {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(L) ⊔ (this) ⊔ (caller_pc) ⊔ (v_newMapImage) <= *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,6-229,41]
+*l == *l {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+*a == *a {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":226,13-229,40]
+(L) ⊔ (this) ⊔ (caller_pc) <= v_e1 {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":231,13-41]
+(v_e1) <= v_newAssertionFailedError1 {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":232,37-77]
+v_e1 <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":232,12-78]
+(L) ⊔ (this) ⊔ (caller_pc) <= v_e {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":233,13-51]
+(v_e) <= v_newAssertionFailedError {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":234,37-106]
+v_e <= (* -> *) {(_ -> _) <= A;L <= A;this <= (A) ⊔ ((_ -> _));(_ -> _) <= *a;*l <= *a;(_ -> _) <= *l;this <= *l;L <= *l;l <= *l;a <= *l;s <= *l;this <= caller_pc;};["":234,12-107]

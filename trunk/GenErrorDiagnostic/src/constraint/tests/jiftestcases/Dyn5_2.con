@@ -1,4 +1,3 @@
-// Dyn5.jif:10,18-27
 CONSTRUCTOR *M 0 //class jif.types.label.DynamicLabel_c@Dyn5.jif:10,23-24
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn5.jif:10,18-27
 CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@Dyn5.jif:10,40-44
@@ -14,4 +13,4 @@ _ -> _ <= y;
 y <= * -> *;
 
 %%
-(y) ⊔ (caller_pc) <= (*M) ⊔ (caller_pc) [];@"Dyn5.jif:10,50-59"
+(y) ⊔ (caller_pc) <= (*M) ⊔ (caller_pc) {};["":10,50-59]

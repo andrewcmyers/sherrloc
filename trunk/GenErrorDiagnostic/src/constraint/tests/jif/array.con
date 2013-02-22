@@ -15,43 +15,43 @@ _ -> _ <= (px -> *);
 (px -> *) <= * -> *;
 _ -> _ <= Array.provider;
 Array.provider <= * -> *;
-_ -> _ <= b;
-b <= * -> *;
+_ -> _ <= v_b;
+v_b <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
-_ -> _ <= a;
-a <= * -> *;
-_ -> _ <= p;
-p <= * -> *;
-_ -> _ <= s;
-s <= * -> *;
-_ -> _ <= array_base;
-array_base <= * -> *;
+_ -> _ <= v_a;
+v_a <= * -> *;
+_ -> _ <= v_p;
+v_p <= * -> *;
+_ -> _ <= v_s;
+v_s <= * -> *;
+_ -> _ <= v_array_base;
+v_array_base <= * -> *;
 _ -> _ <= (px -> py);
 (px -> py) <= * -> *;
-_ -> _ <= array_base1;
-array_base1 <= * -> *;
+_ -> _ <= v_array_base1;
+v_array_base1 <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-a == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"array.jif:4,14-15"
-array_base1 <= (px -> *) [this <= caller_pc;];@"array.jif:4,18-29"
-caller_pc <= a [this <= caller_pc;];@"array.jif:4,18-29"
-b == (caller_pc) ⊔ ((_ -> _)) [this <= caller_pc;];@"array.jif:5,16-17"
-array_base <= (px -> py) [this <= caller_pc;];@"array.jif:5,20-31"
-caller_pc <= b [this <= caller_pc;];@"array.jif:5,20-31"
-(b) ⊔ (caller_pc) <= a [this <= caller_pc;];@"array.jif:6,1-2"
-(px -> *) <= (px -> py) [this <= caller_pc;];@"array.jif:6,1-6"
-(px -> py) <= (px -> *) [this <= caller_pc;];@"array.jif:6,1-6"
-s == (px -> *) [this <= caller_pc;];@"array.jif:7,10-11"
-(caller_pc) <= s [this <= caller_pc;];@"array.jif:7,14-17"
-(caller_pc) ⊔ (s) ⊔ (a) <= (px -> *) [this <= caller_pc;];@"array.jif:9,5-6"
-Array.provider <= (px -> *) [this <= caller_pc;];@"array.jif:9,5-6"
-p == (caller_pc) ⊔ (s) ⊔ (a) ⊔ ((px -> py)) [this <= caller_pc;];@"array.jif:11,12-13"
-((px -> py)) ⊔ (b) ⊔ (caller_pc) ⊔ (s) ⊔ (a) <= p [this <= caller_pc;];@"array.jif:11,16-17"
-(b) ⊔ (caller_pc) ⊔ (s) ⊔ (a) <= (px -> *) [this <= caller_pc;];@"array.jif:3,4-10"
-(a) ⊔ (caller_pc) ⊔ (s) <= (px -> *) [this <= caller_pc;];@"array.jif:3,4-10"
-(b) ⊔ (caller_pc) ⊔ (s) ⊔ (a) <= (px -> *) [this <= caller_pc;];@"array.jif:3,4-10"
+v_a == (caller_pc) ⊔ ((_ -> _)) {this <= caller_pc;};["":4,14-15]
+v_array_base1 <= (px -> *) {this <= caller_pc;};["":4,18-29]
+caller_pc <= v_a {this <= caller_pc;};["":4,18-29]
+v_b == (caller_pc) ⊔ ((_ -> _)) {this <= caller_pc;};["":5,16-17]
+v_array_base <= (px -> py) {this <= caller_pc;};["":5,20-31]
+caller_pc <= v_b {this <= caller_pc;};["":5,20-31]
+(v_b) ⊔ (caller_pc) <= v_a {this <= caller_pc;};["":6,1-2]
+(px -> *) <= (px -> py) {this <= caller_pc;};["":6,1-6]
+(px -> py) <= (px -> *) {this <= caller_pc;};["":6,1-6]
+v_s == (px -> *) {this <= caller_pc;};["":7,10-11]
+(caller_pc) <= v_s {this <= caller_pc;};["":7,14-17]
+(caller_pc) ⊔ (v_s) ⊔ (v_a) <= (px -> *) {this <= caller_pc;};["":9,5-6]
+Array.provider <= (px -> *) {this <= caller_pc;};["":9,5-6]
+v_p == (caller_pc) ⊔ (v_s) ⊔ (v_a) ⊔ ((px -> py)) {this <= caller_pc;};["":11,12-13]
+((px -> py)) ⊔ (v_b) ⊔ (caller_pc) ⊔ (v_s) ⊔ (v_a) <= v_p {this <= caller_pc;};["":11,16-17]
+(v_b) ⊔ (caller_pc) ⊔ (v_s) ⊔ (v_a) <= (px -> *) {this <= caller_pc;};["":3,4-10]
+(v_a) ⊔ (caller_pc) ⊔ (v_s) <= (px -> *) {this <= caller_pc;};["":3,4-10]
+(v_b) ⊔ (caller_pc) ⊔ (v_s) ⊔ (v_a) <= (px -> *) {this <= caller_pc;};["":3,4-10]

@@ -3,7 +3,10 @@ package constraint.graph;
 import java.util.Map;
 import java.util.Set;
 
+import constraint.ast.Bottom;
+import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
+import constraint.ast.Top;
 
 //a node in label-flow graph has an unique id (to generate dot graph), and a Jif label
 public class ElementNode extends Node {

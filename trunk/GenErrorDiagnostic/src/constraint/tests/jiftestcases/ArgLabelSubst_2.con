@@ -1,4 +1,3 @@
-// ArgLabelSubst.jif:16,0-11
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:16,0-11
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:16,0-11
 CONSTRUCTOR What.provider 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:16,0-11
@@ -27,10 +26,10 @@ _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
 
 %%
-What.provider1 <= (* -> *) [];@"ArgLabelSubst.jif:16,0-11"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11-28"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11-28"
-(* -> *) <= (* -> *) [];@"ArgLabelSubst.jif:17,11-28"
-(_ -> _) <= (_ -> _) [];@"ArgLabelSubst.jif:17,11-28"
-(q -> *) <= (q -> *) [];@"ArgLabelSubst.jif:17,11-28"
-What.provider <= (* -> *) [this <= caller_pc;caller_pc <= (What.provider);];@"ArgLabelSubst.jif:16,0-0"
+What.provider1 <= (* -> *) {};["":16,0-11]
+(* -> *) <= (* -> *) {};["":17,11-28]
+(* -> *) <= (* -> *) {};["":17,11-28]
+(* -> *) <= (* -> *) {};["":17,11-28]
+(_ -> _) <= (_ -> _) {};["":17,11-28]
+(q -> *) <= (q -> *) {};["":17,11-28]
+What.provider <= (* -> *) {this <= caller_pc;caller_pc <= (What.provider);};["":16,0-0]

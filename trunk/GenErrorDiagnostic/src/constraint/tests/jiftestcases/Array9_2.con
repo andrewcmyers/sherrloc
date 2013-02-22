@@ -1,7 +1,6 @@
-// Array9.jif:1,0-12
 CONSTRUCTOR Array8.provider 0 //class jif.types.label.ProviderLabel_c@Array9.jif:1,0-12
-CONSTRUCTOR Array8.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array9.jif:1,0-12
+CONSTRUCTOR Array8.provider1 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
@@ -10,16 +9,16 @@ CONSTRUCTOR Bob 0 //@null
 CONSTRUCTOR * 0 //@Array9.jif:3,8-14
 
 %%
-Array8.provider1 == _ -> _;
 Array8.provider == _ -> _;
-_ -> _ <= (Alice -> Bob);
-(Alice -> Bob) <= * -> *;
+Array8.provider1 == _ -> _;
 _ -> _ <= Array8.provider;
 Array8.provider <= * -> *;
-_ -> _ <= Array8.provider1;
-Array8.provider1 <= * -> *;
+_ -> _ <= (Alice -> Bob);
+(Alice -> Bob) <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
+_ -> _ <= Array8.provider1;
+Array8.provider1 <= * -> *;
 _ -> _ <= v_array_base;
 v_array_base <= * -> *;
 _ -> _ <= (_ -> _);
@@ -32,11 +31,11 @@ _ -> _ <= this;
 this <= * -> *;
 
 %%
-Array8.provider1 <= (* -> *) [];@"Array9.jif:1,0-12"
-(Alice -> *) == (Alice -> *) [];@"Array9.jif:3,4-30"
-(this) ⊔ ((Alice -> *)) == (this) ⊔ ((Alice -> *)) [];@"Array9.jif:4,10-78"
-((Alice -> *)) ⊔ (this) <= v_array_base [this <= (_ -> _);];@"Array9.jif:4,72-73"
-((Alice -> *)) ⊔ (this) <= v_array_base [this <= (_ -> _);];@"Array9.jif:4,75-76"
-v_array_base <= (Alice -> Bob) [this <= (_ -> _);];@"Array9.jif:4,61-77"
-((Alice -> *)) ⊔ (this) <= (this) ⊔ ((Alice -> *)) [this <= (_ -> _);];@"Array9.jif:4,61-77"
-Array8.provider <= (* -> *) [this <= caller_pc;caller_pc <= (Array8.provider);];@"Array9.jif:1,0-0"
+Array8.provider1 <= (* -> *) {};["":1,0-12]
+(Alice -> *) == (Alice -> *) {};["":3,4-30]
+(this) ⊔ ((Alice -> *)) == (this) ⊔ ((Alice -> *)) {};["":4,10-78]
+((Alice -> *)) ⊔ (this) <= v_array_base {this <= (_ -> _);};["":4,72-73]
+((Alice -> *)) ⊔ (this) <= v_array_base {this <= (_ -> _);};["":4,75-76]
+v_array_base <= (Alice -> Bob) {this <= (_ -> _);};["":4,61-77]
+((Alice -> *)) ⊔ (this) <= (this) ⊔ ((Alice -> *)) {this <= (_ -> _);};["":4,61-77]
+Array8.provider <= (* -> *) {this <= caller_pc;caller_pc <= (Array8.provider);};["":1,0-0]

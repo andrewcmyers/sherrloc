@@ -1,8 +1,7 @@
-// LabelLeConstraint13.jif:2,4-10
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint13.jif:1,0-7
-CONSTRUCTOR *L 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint13.jif:3,13-14
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint13.jif:2,4-10
 CONSTRUCTOR *M 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint13.jif:2,52-53
+CONSTRUCTOR *L 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint13.jif:3,13-14
 CONSTRUCTOR this 0
 
 %%
@@ -10,18 +9,18 @@ _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= v_y;
 v_y <= * -> *;
-_ -> _ <= *L;
-*L <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 _ -> _ <= v_x;
 v_x <= * -> *;
 _ -> _ <= *M;
 *M <= * -> *;
+_ -> _ <= *L;
+*L <= * -> *;
 
 %%
-v_x == (caller_pc) ⊔ (*L) [*M <= *L;*L <= *M;this <= caller_pc;];@"LabelLeConstraint13.jif:3,16-17"
-(caller_pc) <= v_x [*M <= *L;*L <= *M;this <= caller_pc;];@"LabelLeConstraint13.jif:3,20-21"
-v_y == (caller_pc) ⊔ (*M) [*M <= *L;*L <= *M;this <= caller_pc;];@"LabelLeConstraint13.jif:4,16-17"
-(caller_pc) <= v_y [*M <= *L;*L <= *M;this <= caller_pc;];@"LabelLeConstraint13.jif:4,20-21"
-(v_x) ⊔ (caller_pc) <= v_y [*M <= *L;*L <= *M;this <= caller_pc;];@"LabelLeConstraint13.jif:6,8-9"
+v_x == (caller_pc) ⊔ (*L) {*L <= *M;*M <= *L;this <= caller_pc;};["":3,16-17]
+(caller_pc) <= v_x {*L <= *M;*M <= *L;this <= caller_pc;};["":3,20-21]
+v_y == (caller_pc) ⊔ (*M) {*L <= *M;*M <= *L;this <= caller_pc;};["":4,16-17]
+(caller_pc) <= v_y {*L <= *M;*M <= *L;this <= caller_pc;};["":4,20-21]
+(v_x) ⊔ (caller_pc) <= v_y {*L <= *M;*M <= *L;this <= caller_pc;};["":6,8-9]
