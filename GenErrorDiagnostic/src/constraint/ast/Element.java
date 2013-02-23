@@ -60,4 +60,7 @@ public abstract class Element {
 	
 	abstract public boolean isEnd();
 	
+	abstract public boolean isBottom();
+	
+	abstract public boolean isTop();
 }

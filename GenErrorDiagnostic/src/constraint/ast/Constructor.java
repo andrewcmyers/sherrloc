@@ -104,4 +104,13 @@ public class Constructor extends Element {
 			return this;
 	}
 	
+	@Override
+	public boolean isBottom() {
+		return false;
+	}
+	
+	@Override
+	public boolean isTop() {
+		return false;
+	}
 }

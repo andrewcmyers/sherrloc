@@ -25,8 +25,8 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
 import util.AttemptGoal;
+import constraint.ast.ComplexElement;
 import constraint.ast.Constraint;
-import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
 import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
@@ -53,13 +53,14 @@ public class Analysis {
     int REC_MAX = 3;
 	boolean done = false;
 	ConstraintGraph graph;
+	
 	HashMap<AttemptGoal, ConstraintPath> errPaths;
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	HashSet<AttemptGoal> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
 	String sourceName;
 	String htmlFileName;
 	Position pos=null;
-	Map<String, Node> map;
+	Map<String, Node> exprMap;
 	Map<String, Double> succCount;
 	
 	public Analysis(ConstraintGraph g) {
@@ -67,7 +68,7 @@ public class Analysis {
         errPaths = new HashMap<AttemptGoal, ConstraintPath>();
         cachedEnv = new HashMap<Environment, Environment>();
         unsatPath = new HashSet<AttemptGoal>();
-        map = new HashMap<String, Node>();
+        exprMap = new HashMap<String, Node>();
         succCount = new HashMap<String, Double>();
 	}
 	
@@ -115,8 +116,7 @@ public class Analysis {
 		for (Object arg : cmd.getArgList()) {
 			String diagfile = (String) arg;
 			try {
-				Analysis ana = Analysis.getAnalysisInstance(diagfile, symmentric);// "src/constraint/tests/jif/AirlineAgent.con",
-									// symmentric);
+				Analysis ana = Analysis.getAnalysisInstance(diagfile, symmentric);
 				ana.SHOW_WHOLE_GRAPH = whole_graph;
 				ana.GEN_ASSUMP = assumption;
 				ana.GEN_CUT = cut;
@@ -164,7 +164,7 @@ public class Analysis {
         
         // initialize the map
         for (Node n : graph.getAllNodes()) {
-        	map.put(n.toString(), n);
+        	exprMap.put(n.toString(), n);
         	succCount.put(n.toString(), 0.0);
         }
         
@@ -201,8 +201,8 @@ public class Analysis {
 //				System.out.println("comparing "+e1 + " and " + e2);
 				
 				// also ignore the path if its satisfiability depends on other paths
-				if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
-					if (((ConstructorElement)e1).getCons().sameas(((ConstructorElement)e2).getCons()))
+				if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
+					if (((ComplexElement)e1).getCons().sameas(((ComplexElement)e2).getCons()))
 							continue;
 				}
 				
@@ -485,7 +485,7 @@ public class Analysis {
     				if (!n1.equals(n2)) {
     					ElementNode en1 = (ElementNode) n1;
     					ElementNode en2 = (ElementNode) n2;
-    			    	if (en1.getElement() instanceof ConstructorElement && en2.getElement() instanceof ConstructorElement ) {
+    			    	if (en1.getElement() instanceof ComplexElement && en2.getElement() instanceof ComplexElement ) {
     						EnumerableElement ele1 = (EnumerableElement) en1.getElement();
     						EnumerableElement ele2 = (EnumerableElement) en2.getElement();
     			        	List<Element> compset1 = ele1.getElements();
@@ -863,7 +863,7 @@ public class Analysis {
 			StringBuffer locBuffer = new StringBuffer();
         	StringBuffer exprBuffer = new StringBuffer();
 			for (String c : exprs) {
-				Element en = ((ElementNode)map.get(c)).getElement();
+				Element en = ((ElementNode)exprMap.get(c)).getElement();
         		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
         		exprBuffer.append(en.toHTMLString()+"    ");
         	}

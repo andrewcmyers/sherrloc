@@ -18,4 +18,9 @@ public class Top extends Constructor {
 	public int hashCode() {
 		return 2547;
 	}
+	
+	@Override
+	public boolean isTop() {
+		return true;
+	}
 }

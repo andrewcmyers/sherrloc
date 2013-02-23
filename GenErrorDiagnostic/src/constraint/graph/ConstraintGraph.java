@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import constraint.ast.ComplexElement;
 import constraint.ast.Constraint;
-import constraint.ast.Constructor;
-import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
 import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
@@ -29,7 +28,6 @@ import constraint.ast.Relation;
 public class ConstraintGraph extends Graph {
 	Environment env;
     Set<Constraint> constraints;
-    Set<Constructor> allConstructors;
     boolean SYMMENTRIC;
     boolean DEBUG = false;
 
@@ -40,7 +38,6 @@ public class ConstraintGraph extends Graph {
     public ConstraintGraph (Environment env, Set<Constraint> equations, boolean symmentric) {
         this.env = env;
     	this.constraints = equations;
-    	this.allConstructors = new HashSet<Constructor>();
     	this.files = new HashSet<String>();
         this.generated = false;
         this.SYMMENTRIC = symmentric;
@@ -60,16 +57,8 @@ public class ConstraintGraph extends Graph {
     public ElementNode getNode (Element e, boolean inCons) {
     	if (! eleToNode.containsKey(e)) {
             String vid = "v"+varCounter;
-            Element toadd = e;
-            if (e instanceof ConstructorElement) {
-        		ConstructorElement ce = (ConstructorElement) e;
-    		}
             varCounter++;
-            // record the source files involved
-//            if (e.position()!=null) {
-//                files.add(e.position().path());
-//            }
-            ElementNode n = new ElementNode(vid, toadd, this, inCons); 
+            ElementNode n = new ElementNode(vid, e, this, inCons); 
             eleToNode.put(e, n);
         }
         return eleToNode.get(e);
@@ -80,7 +69,7 @@ public class ConstraintGraph extends Graph {
     }
     
     
-    // claim that first element is leq the second element because of constraint e
+    // claim that first element is leq than the second element because of constraint e
     public boolean addOneConstraint (Element first, Element second, Constraint e) {
     	// for constructors
 //    	if (first instanceof ConstructorElement && second instanceof ConstructorElement) {
@@ -102,25 +91,9 @@ public class ConstraintGraph extends Graph {
 //    	else {
     		ElementNode source = getNode(first, true);
 			ElementNode to = getNode(second, true);
-						
-			// break join/meet elements early
-//			if (source.getElement() instanceof JoinElement) {
-//				JoinElement je = (JoinElement) source.getElement();
-//				for (Element ele : je.getElements()) {
-//					addOneConstraint(ele, second, e);
-//				}
-//			}
-//			
-//			else if (to.getElement() instanceof MeetElement) {
-//				MeetElement me = (MeetElement) to.getElement();
-//				for (Element ele : me.getElements()) {
-//					addOneConstraint(first, ele, e);
-//				}
-//			}
-
+					
 			addEdge(source, to, new EquationEdge(e, source, to));
 
-			// TODO: refactor this code
 			if (e.getRelation() == Relation.EQ)
 				addEdge(to, source, new EquationEdge(e, to, source));
 			return true;
@@ -132,7 +105,7 @@ public class ConstraintGraph extends Graph {
         if (generated || constraints.size() == 0)
             return;
        
-        // generate the simple links from the constraints
+        // generate the simple links from the constraints. handle constructors, meet and join later
 		for (Constraint cons : constraints) {
 			addOneConstraint(cons.getFirstElement(), cons.getSecondElement(), cons);
 		}
@@ -142,17 +115,17 @@ public class ConstraintGraph extends Graph {
                 
         /* 
          * generate inferred links from constructors, join and meet elements
-         * 1. flow from components to a join label
-         * 2. flow from a meet label to components
-         * 3. special edges recording the position in constructor
+         * 1. flow from components to components of same constructor
+         * 2. flow from components to a join label
+         * 3. flow from a meet label to components
          * 
          */
+		
         // only need to handle nodes in the graph
         List<ElementNode> workingList = new ArrayList<ElementNode>(eleToNode.values());
         Set<ElementNode> processed = new HashSet<ElementNode>();
         
-        // we need to handle constructors
-        // and two special constructors, join and meet
+        // we need to handle constructors and two special constructors, join and meet
         while (workingList.size()!=0) {
         	ElementNode currentnode = workingList.get(0);
             workingList.remove(0);
@@ -163,26 +136,25 @@ public class ConstraintGraph extends Graph {
             Collection<Element> compset;
             
             if (e instanceof EnumerableElement){
-            	EnumerableElement ce = (EnumerableElement) e;
-            	compset = ce.getElements();
+            	EnumerableElement ee = (EnumerableElement) e;
+            	compset = ee.getElements();
             	
             	int index=0;
                 for (Element element : compset) {
-                    ElementNode srcnode = getNode(element);
+                    ElementNode compnode = getNode(element);
                     index++;
                     if (!processed.contains(element) && !workingList.contains(element))
                         workingList.add(getNode(element));
                     
                     if (e instanceof MeetElement) {
-                    	addEdge(currentnode, srcnode, new MeetEdge(currentnode, srcnode));
+                    	addEdge(currentnode, compnode, new MeetEdge(currentnode, compnode));
                     }
                     else if (e instanceof JoinElement) {
-                    	addEdge(srcnode, currentnode, new JoinEdge(srcnode, currentnode));
+                    	addEdge(compnode, currentnode, new JoinEdge(compnode, currentnode));
                     }
-                    else if (e instanceof ConstructorElement){
-                    	allConstructors.add(((ConstructorElement) e).getCons());
-                    	addEdge(srcnode, currentnode, new ConstructorEdge(new EdgeCondition(((ConstructorElement)e).getCons(), index, false), srcnode, currentnode));
-                    	addEdge(currentnode, srcnode, new ConstructorEdge(new EdgeCondition(((ConstructorElement)e).getCons(), index, true), currentnode, srcnode));
+                    else if (e instanceof ComplexElement){
+                    	addEdge(compnode, currentnode, new ConstructorEdge(new EdgeCondition(((ComplexElement)e).getCons(), index, false), compnode, currentnode));
+                    	addEdge(currentnode, compnode, new ConstructorEdge(new EdgeCondition(((ComplexElement)e).getCons(), index, true), currentnode, compnode));
                     }
                 }
             }
@@ -267,10 +239,6 @@ public class ConstraintGraph extends Graph {
     
     public Set<Constraint> getConstraints() {
 		return constraints;
-	}
-    
-    public Set<Constructor> getAllConstructors() {
-		return allConstructors;
 	}
     
     public void showAllConstraints() {

@@ -61,7 +61,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		shortestID = new int[size][size];
 		shortestLeft = new Map[size][size];
 		
-		// Step 1: initialize graph, fix 10000 later
+		// Step 1: initialize graph, fix MAX later
 		for (Node start : allNodes) {
 			for (Node end : allNodes) {
 				int sIndex = g.getIndex(start);
@@ -439,4 +439,12 @@ public class ShortestPathFinder extends CFLPathFinder {
 			return null;
 	}
 
+	// test if the leq relation can be derived from the graph
+//	public boolean _hasPath (Element e1, Element e2) {
+//		if (g.hasElement(e1) && g.hasElement(e2))
+//			return _getPath(g.getNode(e1), g.getNode(e1))!=null;
+//		// else, 
+//		ElementNode node = g.getNode(e);
+//		// update 
+//	}
 }
