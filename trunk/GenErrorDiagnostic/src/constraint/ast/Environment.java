@@ -86,15 +86,15 @@ public class Environment {
 				return true;
 		}
 		
-		if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
-			if (!((ConstructorElement)e1).getCons().sameas(((ConstructorElement)e2).getCons()))
+		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
+			if (!((ComplexElement)e1).getCons().sameas(((ComplexElement)e2).getCons()))
 				return false;
 		}
 
-		if (e1 instanceof ConstructorElement && e2 instanceof ConstructorElement) {
-			List<Element> l1 = ((ConstructorElement) e1).elements;
-			List<Element> l2 = ((ConstructorElement) e2).elements;
-			boolean contravariant = ((ConstructorElement)e1).getCons().isContraVariant();
+		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
+			List<Element> l1 = ((ComplexElement) e1).elements;
+			List<Element> l2 = ((ComplexElement) e2).elements;
+			boolean contravariant = ((ComplexElement)e1).getCons().isContraVariant();
 			for (int i=0; i<l1.size(); i++) {
 				if (!contravariant && !leq(l1.get(i), l2.get(i)))
 					return false;
@@ -104,7 +104,7 @@ public class Environment {
 			return true;
 		}
 		
-		if (e1 instanceof Bottom || e2 instanceof Top)
+		if (e1.isBottom() || e2.isTop())
 			return true;
 		
 		// e1 leq any element of e2
@@ -161,6 +161,9 @@ public class Environment {
 //        return leqApplyAssertions(e1, e2);
 //	}
 	
+	/* 
+	 * TODO: is there a way to eliminate the constraints _->_ <= labels? Otherwise, hard to tell the type of "labels"
+	 */
 	private boolean leqApplyAssertions(Element e1, Element e2) {
 			
 		if (finder == null) {

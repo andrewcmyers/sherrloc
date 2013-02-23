@@ -2,10 +2,10 @@ package constraint.ast;
 
 import java.util.List;
 
-public class ConstructorElement extends EnumerableElement {
+public class ComplexElement extends EnumerableElement {
 	Constructor cons;
 	
-	public ConstructorElement(String name, Constructor cons, List<Element> elements) {
+	public ComplexElement(String name, Constructor cons, List<Element> elements) {
 		super(name, elements);
 		this.cons = cons;
 	}
@@ -21,8 +21,8 @@ public class ConstructorElement extends EnumerableElement {
 	
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof ConstructorElement) {
-			ConstructorElement ce = (ConstructorElement)o;
+		if (o instanceof ComplexElement) {
+			ComplexElement ce = (ComplexElement)o;
 			if (cons.equals(ce.cons))
 				return super.equals(o);
 		}
@@ -31,8 +31,8 @@ public class ConstructorElement extends EnumerableElement {
 	
 	@Override
 	public boolean sameas(Object o) {
-		if (o instanceof ConstructorElement) {
-			ConstructorElement ce = (ConstructorElement)o;
+		if (o instanceof ComplexElement) {
+			ComplexElement ce = (ComplexElement)o;
 			if (cons.sameas(ce.cons))
 				return super.sameas(o);
 		}
@@ -47,12 +47,10 @@ public class ConstructorElement extends EnumerableElement {
 	@Override
 	public boolean isStart() {
 		return true;
-//		return !hasVars();
 	}
 	
 	@Override
 	public boolean isEnd() {
 		return true;
-//		return !hasVars();
 	}
 }

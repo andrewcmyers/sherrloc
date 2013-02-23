@@ -20,4 +20,8 @@ public class Bottom extends Constructor {
 		return 5741;
 	}
 	
+	@Override
+	public boolean isBottom() {
+		return true;
+	}
 }

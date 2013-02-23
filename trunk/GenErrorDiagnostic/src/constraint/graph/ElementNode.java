@@ -3,12 +3,9 @@ package constraint.graph;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.ast.Bottom;
-import constraint.ast.ConstructorElement;
 import constraint.ast.Element;
-import constraint.ast.Top;
 
-//a node in label-flow graph has an unique id (to generate dot graph), and a Jif label
+//a node in label-flow graph has an unique id (to generate dot graph), and a constraint element
 public class ElementNode extends Node {
     String uid;
     Element e;
@@ -22,11 +19,6 @@ public class ElementNode extends Node {
         this.g = g;
         this.isInCons = isIncons;
     }
-    
-    // TODO: shall we distinguish pc labels for better explanation?
-//    boolean ispc () {
-//        return ( (label instanceof JoinLabel) && label.description()!=null && label.description().equals("pc label"));
-//    }
             
     public String getName () {
     	return e.toString();
