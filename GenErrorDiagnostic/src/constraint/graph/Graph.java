@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.graph.visitor.DFSPathVisitor;
 import constraint.graph.visitor.NodeVisitor;
 
 public abstract class Graph {
@@ -56,20 +55,6 @@ public abstract class Graph {
     	return edges.get(from);
     }
         
-//    public Set<List<Node>> getAllPaths (Node start, Node end) {
-//        Set<List<Node>> ret = new HashSet<List<Node>>();
-//        List<Node> visited = new ArrayList<Node>();
-//        acceptForwardR(start, new AllPathFinder(ret, end, false), visited);
-//        return ret;
-//    }
-    
-    public List<Node> getPathDFS (Node start, Node end) {
-    	DFSPathVisitor finder = new DFSPathVisitor(end, false);
-        List<Node> visited = new ArrayList<Node>();
-        acceptForward (start, finder, visited);
-        return finder.getResults();
-    }
-    
     public void labelAll ( ) {
     	for (Node n : allNodes)
         		n.shouldprint = true;

@@ -11,7 +11,7 @@ import java.util.Set;
 import constraint.ast.Bottom;
 import constraint.ast.Constraint;
 import constraint.ast.Constructor;
-import constraint.ast.ConstructorElement;
+import constraint.ast.ComplexElement;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
@@ -167,21 +167,21 @@ term     	::=  term:t1 ARROW term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ConstructorElement ("", constructors.get("arrow"), l);
+				RESULT = new ComplexElement ("", constructors.get("arrow"), l);
 			:}
 			|
 				term:t1 LARROW term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ConstructorElement ("", constructors.get("larrow"), l);
+				RESULT = new ComplexElement ("", constructors.get("larrow"), l);
 			:}
 			| term:t1 COMMA term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ConstructorElement ("", constructors.get("pair"), l); 
+				RESULT = new ComplexElement ("", constructors.get("pair"), l); 
 			:}
 			| term:t1 JOIN term:t2
 			{: 	
@@ -201,7 +201,7 @@ term     	::=  term:t1 ARROW term:t2
 			{: 	Constructor c = (Constructor) cons;
 				if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
-			    RESULT = new ConstructorElement ("", c, l); 
+			    RESULT = new ComplexElement ("", c, l); 
 			:}
 			| element:e
 			{: RESULT = e; :}

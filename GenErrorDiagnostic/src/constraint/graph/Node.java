@@ -29,7 +29,6 @@ abstract public class Node implements Comparable<Node>{
     
     double getRank () {
     	return count;
-//        return ((double)count)/((double)totalcount);
     }
     
     public int compareTo(Node n) {
@@ -38,7 +37,6 @@ abstract public class Node implements Comparable<Node>{
         return Double.compare(rank2, rank1);
     }
         
-    abstract public boolean isend();
     abstract public void incSuccCounter ();
     abstract public void incNestedCounter (int i);
     abstract public double getSuccCounter ();

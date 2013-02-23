@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.ast.ConstructorElement;
+import constraint.ast.ComplexElement;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
@@ -166,7 +166,7 @@ abstract public class CFLPathFinder extends PathFinder {
 		// if all components flows into another constructor's components, add an additional edge
 		Set<Node> consSet = new HashSet<Node>();
 		for (Node n : g.getAllNodes()) {
-			if (n instanceof ElementNode && ((ElementNode)n).getElement() instanceof ConstructorElement) {
+			if (n instanceof ElementNode && ((ElementNode)n).getElement() instanceof ComplexElement) {
 				consSet.add(n);
 			}
 		}
@@ -175,8 +175,8 @@ abstract public class CFLPathFinder extends PathFinder {
 			for (Node n2 : consSet) {
 				if (n1.equals(n2) || getIdEdge(n1, n2)!=null) continue;
 
-				ConstructorElement e1 = (ConstructorElement) ((ElementNode)n1).getElement();
-				ConstructorElement e2 = (ConstructorElement) ((ElementNode)n2).getElement();
+				ComplexElement e1 = (ComplexElement) ((ElementNode)n1).getElement();
+				ComplexElement e2 = (ComplexElement) ((ElementNode)n2).getElement();
 				
 				if (e1.getCons().equals(e2.getCons())) {
 					boolean success = true;

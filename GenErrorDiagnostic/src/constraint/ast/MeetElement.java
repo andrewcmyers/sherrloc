@@ -38,8 +38,8 @@ public class MeetElement extends EnumerableElement {
 	
 	@Override
 	public boolean isStart() {
-		return false;
 //		return !hasVars();
+		return false;
 	}
 	
 	@Override
@@ -66,5 +66,13 @@ public class MeetElement extends EnumerableElement {
 		}
 		return false;
 	}
-		
+	
+	@Override
+	public boolean isBottom() {
+		for (Element e : elements) {
+			if (e.isBottom())
+				return true;
+		}
+		return false;
+	}	
 }

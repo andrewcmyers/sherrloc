@@ -65,5 +65,13 @@ public class JoinElement extends EnumerableElement {
 		}
 		return false;
 	}
-		
+	
+	@Override
+	public boolean isTop() {
+		for (Element e : elements) {
+			if (e.isTop())
+				return true;
+		}
+		return false;
+	}
 }

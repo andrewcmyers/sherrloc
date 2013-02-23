@@ -137,4 +137,22 @@ public abstract class EnumerableElement extends Element {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean isBottom() {
+		for (Element e : elements) {
+			if (!e.isBottom())
+				return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean isTop() {
+		for (Element e : elements) {
+			if (!e.isTop())
+				return false;
+		}
+		return true;
+	}
 }
