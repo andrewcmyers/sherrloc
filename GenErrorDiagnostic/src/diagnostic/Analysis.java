@@ -186,6 +186,7 @@ public class Analysis {
         }
 
     	PathFinder finder = getPathFinder( graph);
+    	System.out.println("graph_size: "+graph.getAllNodes().size());
 				
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
@@ -231,7 +232,7 @@ public class Analysis {
 					path.incSuccCounter();
 					continue;
 				}
-				System.out.println(path.toString());
+//				System.out.println(path.toString());
 				path.incFailCounter();
 				path.setCause();
 				AttemptGoal goal = new AttemptGoal(start, end, env);
@@ -886,7 +887,11 @@ public class Analysis {
     	
 		if (GEN_CUT) {
 			Set<Set<String>> results = null;
+			long startTime = System.currentTimeMillis();
 			results = genNodeCuts(errorPaths.keySet());
+			long endTime =  System.currentTimeMillis();
+			System.out.println("top_rank_size: "+results.size());
+			System.out.println("ranking_time: "+(endTime-startTime));
 			
 			sb.append("<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
