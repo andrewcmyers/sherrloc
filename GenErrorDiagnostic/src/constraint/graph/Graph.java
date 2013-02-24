@@ -26,11 +26,7 @@ public abstract class Graph {
 	public List<Node> getAllNodes () {
 		return allNodes;
 	}
-	
-	public int getIndex (Node node) {
-		return allNodes.indexOf(node);
-	}
-      
+	      
     public void addEdge (Node from, Node to, Edge edge) {
     	if (!hasEdge(from, to))
     		edges.get(from).put(to, new HashSet<Edge>());

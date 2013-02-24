@@ -63,8 +63,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// Step 1: initialize graph, fix MAX later
 		for (Node start : allNodes) {
 			for (Node end : allNodes) {
-				int sIndex = g.getIndex(start);
-				int eIndex = g.getIndex(end);
+				int sIndex = start.getIndex();
+				int eIndex = end.getIndex();
 				
 				idPath[sIndex][eIndex] = null;
 				leftPath[sIndex][eIndex] = new HashMap<EdgeCondition,ReductionEdge>();
@@ -81,13 +81,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 				});
 		
 		for (Node n : allNodes) {
-			shortestID[g.getIndex(n)][g.getIndex(n)] = 0;
-			idPath[g.getIndex(n)][g.getIndex(n)] = new LeqEdge(n, n, null, null);
+			shortestID[n.getIndex()][n.getIndex()] = 0;
+			idPath[n.getIndex()][n.getIndex()] = new LeqEdge(n, n, null, null);
 		}
 		
 		for (Edge e : alledges) {
-			int fIndex = g.getIndex(e.getFrom());
-			int tIndex = g.getIndex(e.getTo());
+			int fIndex = e.getFrom().getIndex();
+			int tIndex = e.getTo().getIndex();
 			
 			if (e instanceof LeqEdge) {
 				shortestID[fIndex][tIndex] = 1;
@@ -105,7 +105,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 		
 		// use the priority queue as a working list, and update the table
 		int current_length = 0;
+		int count=1;
 		while (!queue.isEmpty()) {
+//			System.out.println(count++);
 			
 			ReductionEdge edge = queue.poll();
 			if (edge instanceof LeqEdge)
@@ -121,7 +123,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					for (int k = 0; k < edges.size(); k++) {
 						Edge e = edges.get(k);
 //					ret += "--> (" + (edge.toString()) + ")\n";
-						if (shortestID[g.getIndex(leftmost)][g.getIndex(e.getTo())]<MAX)
+						if (shortestID[leftmost.getIndex()][e.getTo().getIndex()]<MAX)
 							System.out.println (((ElementNode)e.getTo()).getName()+"\n");
 				}
 				System.out.println( "----End of one path----\n");
@@ -133,14 +135,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 				System.exit(0);
 			}
 			if (CORRECTNESS_CHECK && edge instanceof LeqEdge) {
-				if (shortestID[g.getIndex(edge.getFrom())][g.getIndex(edge.getTo())] != edge.getEdges().size()) {
+				if (shortestID[edge.getFrom().getIndex()][edge.getTo().getIndex()] != edge.getEdges().size()) {
 					System.err.println("Oooooooops, the id edge"+edge.getFrom() + " "+edge.getTo()+"is not the shortest");
 					System.exit(0);
 				}
 			}
 			if (CORRECTNESS_CHECK && edge instanceof LeftEdge) {
 				EdgeCondition ec = ((LeftEdge)edge).getCondition();
-				if (shortestLeft[g.getIndex(edge.getFrom())][g.getIndex(edge.getTo())].get(ec) 
+				if (shortestLeft[edge.getFrom().getIndex()][edge.getTo().getIndex()].get(ec) 
 						!= edge.getEdges().size()) {
 					System.err.println("Oooooooops, the left edge" +edge.getFrom() + " "+edge.getTo()+ "is not the shortest");
 					System.exit(0);
@@ -150,9 +152,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 						
 			// when edge is the left part of reduction
 			for (Node to : allNodes) {
-				int sIndex = g.getIndex(edge.getFrom());
-				int fIndex = g.getIndex(edge.getTo());
-				int tIndex = g.getIndex(to);
+				int sIndex = edge.getFrom().getIndex();
+				int fIndex = edge.getTo().getIndex();
+				int tIndex = to.getIndex();
 				Node from = edge.getTo();
 				
 				if (sIndex==fIndex || sIndex==tIndex || fIndex==tIndex)
@@ -228,9 +230,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 			
 			// when edge is right part of reduction
 			for (Node from : allNodes) {
-				int sIndex = g.getIndex(from);
-				int fIndex = g.getIndex(edge.getFrom());
-				int tIndex = g.getIndex(edge.getTo());
+				int sIndex = from.getIndex();
+				int fIndex = edge.getFrom().getIndex();
+				int tIndex = edge.getTo().getIndex();
 				
 				if (sIndex==fIndex || sIndex==tIndex || fIndex==tIndex)
 					continue;
@@ -309,8 +311,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 			if (CORRECTNESS_CHECK) {
 				for (Node start : allNodes) {
 					for (Node end : allNodes) {
-						int startIndex = g.getIndex(start);
-						int endIndex = g.getIndex(end);
+						int startIndex = start.getIndex();
+						int endIndex = end.getIndex();
 						for (EdgeCondition ec : shortestLeft[startIndex][endIndex]
 								.keySet()) {
 							if (shortestLeft[startIndex][endIndex].get(ec) != leftPath[startIndex][endIndex]
@@ -340,15 +342,15 @@ public class ShortestPathFinder extends CFLPathFinder {
 		for (Node meetnode : meetElements.get(to)) {
 			MeetElement me = (MeetElement) ((ElementNode)meetnode).getElement();
 			Node candidate = from;
-			int candIndex = g.getIndex(candidate);
-			int meetIndex = g.getIndex(meetnode);
+			int candIndex = candidate.getIndex();
+			int meetIndex = meetnode.getIndex();
 			boolean success = true;
 			ReductionEdge redEdge=null;
 				
 			if (idPath[candIndex][meetIndex]!=null)
 				continue;
 			for (Element e : me.getElements()) {
-				int eleIndex = g.getIndex(g.getNode(e));
+				int eleIndex = g.getNode(e).getIndex();
 				if (idPath[candIndex][eleIndex]!=null) {
 					redEdge = new ReductionEdge(candidate, meetnode, idPath[candIndex][eleIndex], redEdge);
 					continue;
@@ -371,8 +373,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		for (Node joinnode : joinElements.get(from)) {
 			JoinElement je = (JoinElement) ((ElementNode)joinnode).getElement();
 			Node candidate = to;
-			int candIndex = g.getIndex(candidate);
-			int joinIndex = g.getIndex(joinnode);
+			int candIndex = candidate.getIndex();
+			int joinIndex = joinnode.getIndex();
 			boolean success = true;
 			ReductionEdge redEdge=null;
 //			List<Edge> list = new ArrayList<Edge>();
@@ -380,8 +382,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 			if (idPath[joinIndex][candIndex]!=null)
 					continue;
 			for (Element e : je.getElements()) {
-				int eleIndex = g.getIndex(g.getNode(e));
-				if (idPath[g.getIndex(g.getNode(e))][candIndex]!=null) {
+				int eleIndex = g.getNode(e).getIndex();
+				if (idPath[eleIndex][candIndex]!=null) {
 					redEdge = new ReductionEdge(candidate, joinnode, idPath[eleIndex][candIndex], redEdge);
 //					list.addAll(idPath[g.getIndex(g.getNode(e))][candIndex].getEdges());
 					continue;
@@ -404,8 +406,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 
 	@Override
 	protected List<Edge> _getPath(Node start, Node end) {
-		int sIndex = g.getIndex(start);
-		int eIndex = g.getIndex(end);
+		int sIndex = start.getIndex();
+		int eIndex = end.getIndex();
 		
 		if ( idPath[sIndex][eIndex]!=null) {
 			return idPath[sIndex][eIndex].getEdges();

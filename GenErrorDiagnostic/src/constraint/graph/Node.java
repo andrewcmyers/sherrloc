@@ -3,6 +3,7 @@ package constraint.graph;
 
 abstract public class Node implements Comparable<Node>{
     int count;
+    int index; // index in graph
     public boolean shouldprint;
     boolean iscause;
           
@@ -11,6 +12,7 @@ abstract public class Node implements Comparable<Node>{
         iscause = false;
         count = 0;
         g.addNode(this);
+        index = g.getAllNodes().indexOf(this);
     }
         
     void setCause () {
@@ -30,6 +32,10 @@ abstract public class Node implements Comparable<Node>{
     double getRank () {
     	return count;
     }
+    
+    public int getIndex() {
+		return index;
+	}
     
     public int compareTo(Node n) {
         double rank1 = getRank();
