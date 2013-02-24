@@ -30,8 +30,11 @@ public abstract class PathFinder {
 	
 	public List<Edge> getPath (Node start, Node end) {
 		if (!initialized) {
+			long startTime = System.currentTimeMillis();
 			initialize();
 			initialized = true;
+			long endTime = System.currentTimeMillis();
+			System.out.println("path_finding time: " + (endTime-startTime));
 		}
 		
 		return _getPath(start, end);
