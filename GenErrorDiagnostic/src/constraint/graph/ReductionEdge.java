@@ -1,18 +1,22 @@
 package constraint.graph;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import constraint.ast.Environment;
+
 
 /*
  * Special edges used in CFL-reachability algorithm
  */
 public class ReductionEdge extends Edge{
-	List<Edge> edges;
+	Edge first;
+	Edge second;
 	
-	public ReductionEdge(Node from, Node to, List<Edge> edges) {
+	public ReductionEdge(Node from, Node to, Edge first, Edge second) {
 		super(from, to);
-		this.edges = edges;
+		this.first = first;
+		this.second = second;
 	}
 	
 	public boolean isDirected() {
@@ -27,22 +31,40 @@ public class ReductionEdge extends Edge{
 		return "reduction";
 	}
 	
-	public List<Edge> getEdges() {
-		return edges;
+	public Edge getFirst() {
+		return first;
 	}
 	
-	public double getLength () {
-		return edges.size();
+	public Edge getSecond(){
+		return second;
 	}
+	
+	public int getLength () {
+		return (first==null?0:first.getLength())+(second==null?0:second.getLength());
+	}
+	
+	public List<Edge> getEdges() {
+		List<Edge> ret = new ArrayList<Edge>();
+		if (first instanceof ReductionEdge)
+			ret.addAll(((ReductionEdge)first).getEdges());
+		else if (first != null)
+			ret.add(first);
+		
+		if (second instanceof ReductionEdge)
+			ret.addAll(((ReductionEdge)second).getEdges());
+		else if (second != null)
+			ret.add(second);
+		return ret;
+	}
+	
 	
 	@Override
 	public Environment getAssumption() {
 		Environment env = new Environment();
-		for (Edge e : edges) {
-			if (e.getAssumption()==null)
-				System.out.println(e.getClass());
-			env.addEnv(e.getAssumption());
-		}
+		if (first!=null)
+			env.addEnv(first.getAssumption());
+		if (second!=null)
+			env.addEnv(second.getAssumption());
 		return env;
 	}
 }

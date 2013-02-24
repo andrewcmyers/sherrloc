@@ -1,20 +1,19 @@
 package constraint.graph;
 
-import java.util.List;
 
 /* 
  * a special edge corresponds to nonterminal id 
  * it keeps track of a path for error reporting
  */
-public class IdEdge extends ReductionEdge {
+public class LeqEdge extends ReductionEdge {
 	
-	public IdEdge(Node from, Node to, List<Edge> edges) {
-		super(from, to, edges);
+	public LeqEdge(Node from, Node to, Edge first, Edge second) {
+		super(from, to, first, second);
 	}	
 	
 	public boolean equals(Object obj) {
-		if (obj instanceof IdEdge) {
-			return from.equals(((IdEdge) obj).from) && to.equals(((IdEdge) obj).to);
+		if (obj instanceof LeqEdge) {
+			return from.equals(((LeqEdge) obj).from) && to.equals(((LeqEdge) obj).to);
 		}
 		return false;
 	}

@@ -18,7 +18,7 @@ import constraint.graph.ConstructorEdge;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
 import constraint.graph.EquationEdge;
-import constraint.graph.IdEdge;
+import constraint.graph.LeqEdge;
 import constraint.graph.JoinEdge;
 import constraint.graph.LeftEdge;
 import constraint.graph.MeetEdge;
@@ -28,7 +28,7 @@ import constraint.graph.RightEdge;
 
 /**
  * 
- * Constract a CFL graph based on the input
+ * Construct a CFL graph based on the input
  *
  */
 abstract public class CFLPathFinder extends PathFinder {
@@ -93,11 +93,11 @@ abstract public class CFLPathFinder extends PathFinder {
     		return new ArrayList<ReductionEdge>();
     }
     
-    protected IdEdge getIdEdge (Node from, Node to) {
+    protected LeqEdge getLeqEdge (Node from, Node to) {
     	List<ReductionEdge> edges = getReductionEdges(from, to);
     	for (Edge edge : edges) {
-    		if (edge instanceof IdEdge)
-    			return ((IdEdge)edge);
+    		if (edge instanceof LeqEdge)
+    			return ((LeqEdge)edge);
     	}
     	return null;
     }
@@ -141,48 +141,43 @@ abstract public class CFLPathFinder extends PathFinder {
 
 		// generate the initial CFG graph
 		for (Edge edge : edges) {
-			List<Edge> list = new ArrayList<Edge>();
 			Node from = edge.getFrom();
 			Node to   = edge.getTo();
 			
-			list.add(edge);
-			
 			// add equation edge as "id" edge, constructor edge as left or right edge
 			if (edge instanceof EquationEdge || edge instanceof MeetEdge || edge instanceof JoinEdge) {
-				addReductionEdge(from, to, new IdEdge(from, to, list));
+				addReductionEdge(from, to, new LeqEdge(from, to, edge, null));
 			}
 			else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
 				if (e.getCondition().isReverse()) {
-					addReductionEdge(from, to, new RightEdge(e.getCondition(), from, to, list));
+					addReductionEdge(from, to, new RightEdge(e.getCondition(), from, to, edge, null));
 					hasRightEdge[g.getIndex(from)][g.getIndex(to)] = true;
 				}
 				else {
-					addReductionEdge(from, to, new LeftEdge (e.getCondition(), from, to, list));
+					addReductionEdge(from, to, new LeftEdge (e.getCondition(), from, to, edge, null));
 				}
 			}
 		}
 		
 		// if all components flows into another constructor's components, add an additional edge
-		Set<Node> consSet = new HashSet<Node>();
+		Set<ComplexElement> consSet = new HashSet<ComplexElement>();
 		for (Node n : g.getAllNodes()) {
 			if (n instanceof ElementNode && ((ElementNode)n).getElement() instanceof ComplexElement) {
-				consSet.add(n);
+				consSet.add((ComplexElement)((ElementNode)n).getElement());
 			}
 		}
 		
-		for (Node n1 : consSet) {
-			for (Node n2 : consSet) {
-				if (n1.equals(n2) || getIdEdge(n1, n2)!=null) continue;
+		for (ComplexElement e1 : consSet) {
+			for (ComplexElement e2 : consSet) {
+				ElementNode n1 = g.getNode(e1);
+				ElementNode n2 = g.getNode(e2);
+				if (n1.equals(n2) || getLeqEdge(n1, n2)!=null) continue;
 
-				ComplexElement e1 = (ComplexElement) ((ElementNode)n1).getElement();
-				ComplexElement e2 = (ComplexElement) ((ElementNode)n2).getElement();
-				
 				if (e1.getCons().equals(e2.getCons())) {
 					boolean success = true;
-					String exp = "";
 
-					Edge edge = null;
+					Environment env = new Environment();
 					for (int i=0; i<e1.getCons().getArity(); i++) {
 						Element comp1 = e1.getElements().get(i);
 						Element comp2 = e2.getElements().get(i);
@@ -190,21 +185,18 @@ abstract public class CFLPathFinder extends PathFinder {
 						if ( comp1.equals(comp2))
 							continue;
 						
-						edge = getIdEdge(g.getNode(e1.getElements().get(i)), g.getNode(e2.getElements().get(i)));
+						Edge edge = getLeqEdge(g.getNode(e1.getElements().get(i)), g.getNode(e2.getElements().get(i)));
 						if (edge==null) {
 							success = false;
 							break;
 						}
-						exp += comp1.toString() + "<=" +comp2.toString();
+						else {
+							env.addEnv(edge.getAssumption());
+						}
 					}
 					
 					if (success) {
-						List<Edge> trace = new ArrayList<Edge>();
-						if (edge!=null)
-							trace.add(new CompEdge(n1, n2, edge.getAssumption(), exp));
-						else
-							trace.add(new CompEdge(n1, n2, new Environment(), exp));
-						addReductionEdge(n1, n2, new IdEdge(n1, n2, trace));
+						addReductionEdge(n1, n2, new LeqEdge(n1, n2, new CompEdge(n1, n2, env, "comp edge"), null));
 					}
 				}
 			}
@@ -228,63 +220,6 @@ abstract public class CFLPathFinder extends PathFinder {
 		}
 
 		saturation();
-		
-//		// now we handle meet and join labels
-//		List<ElementNode> meetNodes = new ArrayList<ElementNode>();
-//		List<ElementNode> joinNodes = new ArrayList<ElementNode>();
-//		
-//		for (Node n : g.getAllNodes()) {
-//			ElementNode en = (ElementNode) n;
-//			if (en.getElement() instanceof MeetElement)
-//				meetNodes.add(en);
-//			if (en.getElement() instanceof JoinElement)
-//				joinNodes.add(en);
-//		}
-		
-		// handle meet nodes first
-//		for (ElementNode n : meetNodes) {
-//			// if a node flows into all components, then we add an edge to n
-//			List<Element> comp = ((MeetElement)n.getElement()).getElements();
-//			boolean success = true;
-//			for (Node candidate : g.getAllNodes()) {
-//				if (candidate.equals(n)) continue;
-//				
-//				for (int i=0; i<comp.size(); i++) {
-//					if (getIdEdge(candidate, g.getNode(comp.get(i)))==null) {
-//						success = false;
-//						break;
-//					}
-//				}
-//				
-//				if (success) {
-//					System.out.println("@@@@@@@@@ "+((ElementNode)candidate).getElement() + "->" + n.getElement());
-//					addReductionEdge(candidate, n, new IdEdge(candidate, n, new ArrayList<Edge>()));
-//				}
-//			}
-//		}
-//		
-//		for (ElementNode n : joinNodes) {
-//			// if all components flows into node candidate, then we add an edge from n to candidate
-//			List<Element> comp = ((JoinElement)n.getElement()).getElements();
-//			boolean success = true;
-//			for (Node candidate : g.getAllNodes()) {
-//				if (candidate.equals(n)) continue;
-//				
-//				for (int i=0; i<comp.size(); i++) {
-//					if (getIdEdge(g.getNode(comp.get(i)), candidate)==null) {
-//						success = false;
-//						break;
-//					}
-//				}
-//				
-//				if (success) {
-//					System.out.println("@@@@@@@@@ "+ n.getElement() + "->" + ((ElementNode)candidate).getElement());
-//					addReductionEdge(n, candidate, new IdEdge(n, candidate, new ArrayList<Edge>()));
-//				}
-//			}
-//		}
-//		
-//		saturation();
 	}
 
 	// the method used to generate all CFG nonterminals in a graph
