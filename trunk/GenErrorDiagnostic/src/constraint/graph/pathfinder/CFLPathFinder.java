@@ -135,7 +135,7 @@ abstract public class CFLPathFinder extends PathFinder {
 		List<Edge> edges = g.getAllEdges();
 		for (Node start : g.getAllNodes()) {
 			for (Node end : g.getAllNodes()) {
-				hasRightEdge[g.getIndex(start)][g.getIndex(end)] = false;
+				hasRightEdge[start.getIndex()][end.getIndex()] = false;
 			}
 		}
 
@@ -152,7 +152,7 @@ abstract public class CFLPathFinder extends PathFinder {
 				ConstructorEdge e = (ConstructorEdge) edge;
 				if (e.getCondition().isReverse()) {
 					addReductionEdge(from, to, new RightEdge(e.getCondition(), from, to, edge, null));
-					hasRightEdge[g.getIndex(from)][g.getIndex(to)] = true;
+					hasRightEdge[from.getIndex()][to.getIndex()] = true;
 				}
 				else {
 					addReductionEdge(from, to, new LeftEdge (e.getCondition(), from, to, edge, null));
