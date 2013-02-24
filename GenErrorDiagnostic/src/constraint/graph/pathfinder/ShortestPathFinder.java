@@ -1,12 +1,12 @@
 package constraint.graph.pathfinder;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+import util.FibonacciHeap;
+import util.FibonacciHeapNode;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
@@ -15,16 +15,16 @@ import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
 import constraint.graph.EdgeCondition;
 import constraint.graph.ElementNode;
-import constraint.graph.LeqEdge;
 import constraint.graph.LeftEdge;
+import constraint.graph.LeqEdge;
 import constraint.graph.Node;
 import constraint.graph.ReductionEdge;
 import constraint.graph.RightEdge;
 
 public class ShortestPathFinder extends CFLPathFinder {
 	int MAX = 10000;
-	ReductionEdge[][] idPath;
-	Map<EdgeCondition, ReductionEdge>[][] leftPath;
+	FibonacciHeapNode<ReductionEdge>[][] idPath;
+	Map<EdgeCondition, FibonacciHeapNode<ReductionEdge>>[][] leftPath;
 	int[][] shortestID;
 	boolean CORRECTNESS_CHECK = false;
 	Map<EdgeCondition, Integer>[][] shortestLeft;
@@ -33,8 +33,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 	public ShortestPathFinder(ConstraintGraph graph) {
 		super(graph);
 		int size = g.getAllNodes().size();
-		idPath = new ReductionEdge[size][size];
-		leftPath = new Map[size][size];
+		idPath = new FibonacciHeapNode[size][size];
+		leftPath = new HashMap[size][size];
 		env = new Environment();
 	}
 
@@ -58,7 +58,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		List<ReductionEdge> alledges = getAllReductionEdges();
 		
 		shortestID = new int[size][size];
-		shortestLeft = new Map[size][size];
+		shortestLeft = new HashMap[size][size];
 		
 		// Step 1: initialize graph, fix MAX later
 		for (Node start : allNodes) {
@@ -67,22 +67,25 @@ public class ShortestPathFinder extends CFLPathFinder {
 				int eIndex = end.getIndex();
 				
 				idPath[sIndex][eIndex] = null;
-				leftPath[sIndex][eIndex] = new HashMap<EdgeCondition,ReductionEdge>();
+				leftPath[sIndex][eIndex] = new HashMap<EdgeCondition,FibonacciHeapNode<ReductionEdge>>();
 				shortestLeft[sIndex][eIndex] = new HashMap<EdgeCondition, Integer>();
 				shortestID[sIndex][eIndex] = MAX;
 			}
 		}
 		
-		PriorityQueue<ReductionEdge> queue = new PriorityQueue<ReductionEdge>(10,
-		        new Comparator<ReductionEdge>() {
-	          		public int compare(ReductionEdge o1, ReductionEdge o2) {
-	          			return o1.getLength() - o2.getLength();
-	          		}
-				});
+//		PriorityQueue<ReductionEdge> queue = new PriorityQueue<ReductionEdge>(10,
+//		        new Comparator<ReductionEdge>() {
+//	          		public int compare(ReductionEdge o1, ReductionEdge o2) {
+//	          			return o1.getLength() - o2.getLength();
+//	          		}
+//				});
+		FibonacciHeap<ReductionEdge> fh = new FibonacciHeap<ReductionEdge>();
 		
 		for (Node n : allNodes) {
 			shortestID[n.getIndex()][n.getIndex()] = 0;
-			idPath[n.getIndex()][n.getIndex()] = new LeqEdge(n, n, null, null);
+			ReductionEdge e = new LeqEdge(n, n, null, null);
+			FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(e, e.getLength());
+			idPath[n.getIndex()][n.getIndex()] = node;
 		}
 		
 		for (Edge e : alledges) {
@@ -91,27 +94,29 @@ public class ShortestPathFinder extends CFLPathFinder {
 			
 			if (e instanceof LeqEdge) {
 				shortestID[fIndex][tIndex] = 1;
-				idPath[fIndex][tIndex] = (ReductionEdge)e;
-				queue.offer((ReductionEdge)e);
+				FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>((LeqEdge)e, ((LeqEdge) e).getLength());
+				idPath[fIndex][tIndex] = node;
+				fh.insert(node, node.getKey());
 			}
 			
 			if (e instanceof LeftEdge) {
 				LeftEdge le = (LeftEdge) e;
 				shortestLeft[fIndex][tIndex].put(le.cons, 1);
-				leftPath[fIndex][tIndex].put(le.cons, le);
-				queue.offer((ReductionEdge)e);
+				FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(le, le.getLength());
+				leftPath[fIndex][tIndex].put(le.cons, node);
+				fh.insert(node, node.getKey());
 			}
 		}
 		
 		// use the priority queue as a working list, and update the table
 		int current_length = 0;
 		int count=1;
-		while (!queue.isEmpty()) {
-//			System.out.println(count++);
+		while (!fh.isEmpty()) {
+			System.out.println(count++);
 			
-			ReductionEdge edge = queue.poll();
-			if (edge instanceof LeqEdge)
-				tryAddingBackEdges ((LeqEdge)edge, queue);
+			ReductionEdge edge = fh.removeMin().getData();
+//			if (edge instanceof LeqEdge)
+//				tryAddingBackEdges ((LeqEdge)edge, queue);
 
 			if (CORRECTNESS_CHECK && edge instanceof LeqEdge) {
 				System.out.println(edge.getLength());
@@ -163,14 +168,15 @@ public class ShortestPathFinder extends CFLPathFinder {
 				// id = id id
 				if (edge instanceof LeqEdge) {
 					if (shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestID[sIndex][tIndex]) {
-						ReductionEdge newEdge = new LeqEdge(edge.getFrom(), to, edge, idPath[fIndex][tIndex]);
+						ReductionEdge newEdge = new LeqEdge(edge.getFrom(), to, edge, idPath[fIndex][tIndex].getData());
 						
 						shortestID[sIndex][tIndex] = shortestID[sIndex][fIndex]
 								+ shortestID[fIndex][tIndex];
-						if (idPath[sIndex][tIndex] != null)
-							queue.remove(idPath[sIndex][tIndex]);
-						idPath[sIndex][tIndex] = newEdge;
-						queue.offer(newEdge);
+						if (idPath[sIndex][tIndex]!=null)
+							fh.delete(idPath[sIndex][tIndex]);
+						FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newEdge, newEdge.getLength());
+						fh.insert(node, node.getKey());
+						idPath[sIndex][tIndex] = node;
 						
 						if (CORRECTNESS_CHECK && shortestID[sIndex][tIndex] < current_length)
 							System.err.println("[LEFT] " + edge.getFrom()
@@ -187,15 +193,17 @@ public class ShortestPathFinder extends CFLPathFinder {
 						if (!shortestLeft[sIndex][tIndex].containsKey(ec) || 
 								shortestLeft[sIndex][fIndex].get(ec) + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex].get(ec)) {
 							
-							ReductionEdge newedge = new LeftEdge(ec, edge.getFrom(), to, edge, idPath[fIndex][tIndex]);
+							ReductionEdge newedge = new LeftEdge(ec, edge.getFrom(), to, edge, idPath[fIndex][tIndex].getData());
 							
 							shortestLeft[sIndex][tIndex].put(ec,
 									shortestLeft[sIndex][fIndex].get(ec)
 											+ shortestID[fIndex][tIndex]);
 							if (leftPath[sIndex][tIndex].containsKey(ec))
-								queue.remove(leftPath[sIndex][tIndex].get(ec));
-							queue.offer(newedge);
-
+								fh.delete(leftPath[sIndex][tIndex].get(ec));
+							FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());
+							fh.insert(node, node.getKey());
+							leftPath[sIndex][tIndex].put(ec, node);
+							
 							if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
 								System.err.println("[LEFT] " + edge.getFrom()
 										+ "-left-" + from + "-id-" + to
@@ -213,9 +221,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 								
 								shortestID[sIndex][tIndex] = shortestLeft[sIndex][fIndex].get(ec) + 1;
 								if (idPath[sIndex][tIndex] != null)
-									queue.remove(idPath[sIndex][tIndex]);
-								queue.offer(newedge);
-								idPath[sIndex][tIndex] = newedge;
+									fh.delete(idPath[sIndex][tIndex]);
+								FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());
+								fh.insert(node, node.getKey());
+								idPath[sIndex][tIndex] = node;
 								
 								if (CORRECTNESS_CHECK && shortestID[sIndex][tIndex] < current_length)
 									System.err.println("[LEFT] "
@@ -240,14 +249,15 @@ public class ShortestPathFinder extends CFLPathFinder {
 				// id = id id
 				if (edge instanceof LeqEdge) {
 					if (shortestID[sIndex][fIndex] + shortestID[fIndex][tIndex] < shortestID[sIndex][tIndex]) {
-						ReductionEdge newedge = new LeqEdge(from, edge.getTo(),idPath[sIndex][fIndex], edge);
+						ReductionEdge newedge = new LeqEdge(from, edge.getTo(),idPath[sIndex][fIndex].getData(), edge);
 						
 						shortestID[sIndex][tIndex] = shortestID[sIndex][fIndex]
 								+ shortestID[fIndex][tIndex];
-						if (idPath[sIndex][tIndex] != null)
-							queue.remove(idPath[sIndex][tIndex]);
-						queue.offer(newedge);
-						idPath[sIndex][tIndex] = newedge;
+						if (idPath[sIndex][tIndex]!=null)
+							fh.delete(idPath[sIndex][tIndex]);
+						FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());
+						fh.insert(node, node.getKey());
+						idPath[sIndex][tIndex] = node;
 
 						if (CORRECTNESS_CHECK && shortestID[sIndex][tIndex]<current_length)
 							System.err.println("[RIGHT] " + from + "-id-"
@@ -261,15 +271,16 @@ public class ShortestPathFinder extends CFLPathFinder {
 						if (!shortestLeft[sIndex][tIndex].containsKey(ec) ||
 							shortestLeft[sIndex][fIndex].get(ec) + shortestID[fIndex][tIndex] < shortestLeft[sIndex][tIndex].get(ec)) {
 				
-							ReductionEdge newedge = new LeftEdge(ec, from, edge.getTo(), leftPath[sIndex][fIndex].get(ec), edge);
+							ReductionEdge newedge = new LeftEdge(ec, from, edge.getTo(), leftPath[sIndex][fIndex].get(ec).getData(), edge);
 
 							shortestLeft[sIndex][tIndex].put(ec,
 									shortestLeft[sIndex][fIndex].get(ec)
 											+ shortestID[fIndex][tIndex]);
 							if (leftPath[sIndex][tIndex].containsKey(ec))
-								queue.remove(leftPath[sIndex][tIndex].get(ec));
-							queue.offer(newedge);
-							leftPath[sIndex][tIndex].put(ec, newedge);
+								fh.delete(leftPath[sIndex][tIndex].get(ec));
+							FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());
+							fh.insert(node, node.getKey());
+							leftPath[sIndex][tIndex].put(ec, node);				
 							
 							if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec)<current_length)
 								System.err.println("[RIGHT] " + from + "-left-"
@@ -286,14 +297,15 @@ public class ShortestPathFinder extends CFLPathFinder {
 						// first check that left and right edges can be cancelled
 						if (ec.matches(((RightEdge)edge).cons)) {
 							if (shortestLeft[sIndex][fIndex].get(ec) + 1 < shortestID[sIndex][tIndex]) {
-								ReductionEdge newedge = new LeqEdge(from, edge.getTo(), leftPath[sIndex][fIndex].get(ec), edge);
+								ReductionEdge newedge = new LeqEdge(from, edge.getTo(), leftPath[sIndex][fIndex].get(ec).getData(), edge);
 
 								shortestID[sIndex][tIndex] = shortestLeft[sIndex][fIndex]
 										.get(ec) + 1;
-								if (idPath[sIndex][tIndex] != null)
-									queue.remove(idPath[sIndex][tIndex]);
-								queue.offer(newedge);
-								idPath[sIndex][tIndex] = newedge;
+								if (idPath[sIndex][tIndex]!=null)
+									fh.delete(idPath[sIndex][tIndex]);
+								FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());
+								fh.insert(node, node.getKey());
+								idPath[sIndex][tIndex] = node;
 
 								if (CORRECTNESS_CHECK && shortestID[sIndex][tIndex]<current_length)
 									System.err.println("[RIGHT] " + from
@@ -308,28 +320,28 @@ public class ShortestPathFinder extends CFLPathFinder {
 			}
 			
 			// consistancy check
-			if (CORRECTNESS_CHECK) {
-				for (Node start : allNodes) {
-					for (Node end : allNodes) {
-						int startIndex = start.getIndex();
-						int endIndex = end.getIndex();
-						for (EdgeCondition ec : shortestLeft[startIndex][endIndex]
-								.keySet()) {
-							if (shortestLeft[startIndex][endIndex].get(ec) != leftPath[startIndex][endIndex]
-									.get(ec).getEdges().size()) {
-								System.err.println("Ooooooops" + start + " to " + end);
-								System.exit(1);
-							}
-						}
-						if (idPath[startIndex][endIndex] != null
-								&& shortestID[startIndex][endIndex] != idPath[startIndex][endIndex]
-										.getEdges().size()) {
-							System.err.println("Ooooooops" + start + " to " + end);
-							System.exit(1);
-						}
-					}
-				}
-			}
+//			if (CORRECTNESS_CHECK) {
+//				for (Node start : allNodes) {
+//					for (Node end : allNodes) {
+//						int startIndex = start.getIndex();
+//						int endIndex = end.getIndex();
+//						for (EdgeCondition ec : shortestLeft[startIndex][endIndex]
+//								.keySet()) {
+//							if (shortestLeft[startIndex][endIndex].get(ec) != leftPath[startIndex][endIndex]
+//									.get(ec).getEdges().size()) {
+//								System.err.println("Ooooooops" + start + " to " + end);
+//								System.exit(1);
+//							}
+//						}
+//						if (idPath[startIndex][endIndex] != null
+//								&& shortestID[startIndex][endIndex] != idPath[startIndex][endIndex]
+//										.getEdges().size()) {
+//							System.err.println("Ooooooops" + start + " to " + end);
+//							System.exit(1);
+//						}
+//					}
+//				}
+//			}
 		}
 	}
 	
@@ -352,7 +364,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 			for (Element e : me.getElements()) {
 				int eleIndex = g.getNode(e).getIndex();
 				if (idPath[candIndex][eleIndex]!=null) {
-					redEdge = new ReductionEdge(candidate, meetnode, idPath[candIndex][eleIndex], redEdge);
+//					redEdge = new ReductionEdge(candidate, meetnode, idPath[candIndex][eleIndex], redEdge);
 					continue;
 				}
 				else {
@@ -365,7 +377,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				// this number is a little ad hoc
 				shortestID[candIndex][meetIndex] = edge.getLength() + 1;
 				queue.offer(newedge);
-				idPath[candIndex][meetIndex] = newedge;
+//				idPath[candIndex][meetIndex] = newedge;
 			}
 		}
 		
@@ -384,7 +396,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 			for (Element e : je.getElements()) {
 				int eleIndex = g.getNode(e).getIndex();
 				if (idPath[eleIndex][candIndex]!=null) {
-					redEdge = new ReductionEdge(candidate, joinnode, idPath[eleIndex][candIndex], redEdge);
+//					redEdge = new ReductionEdge(candidate, joinnode, idPath[eleIndex][candIndex], redEdge);
 //					list.addAll(idPath[g.getIndex(g.getNode(e))][candIndex].getEdges());
 					continue;
 				}
@@ -398,7 +410,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				// this number is a little ad hoc
 				shortestID[joinIndex][candIndex] = edge.getLength() + 1;
 				queue.offer(newedge);
-				idPath[joinIndex][candIndex] = newedge;
+//				idPath[joinIndex][candIndex] = newedge;
 			}
 		}
 	}
@@ -410,7 +422,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		int eIndex = end.getIndex();
 		
 		if ( idPath[sIndex][eIndex]!=null) {
-			return idPath[sIndex][eIndex].getEdges();
+			return idPath[sIndex][eIndex].getData().getEdges();
 		}
 		else 
 			return null;
