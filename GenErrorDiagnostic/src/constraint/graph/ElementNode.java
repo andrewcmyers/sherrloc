@@ -74,7 +74,7 @@ public class ElementNode extends Node {
 					if (edge.isDirected())
 						ret += this.uid + "->" + n.uid + " [label=\""
 								+ edge.toDotString() + "\"];\n";
-					else if (g.getIndex(this) < g.getIndex(n))
+					else if (this.getIndex() < n.getIndex())
 						ret += this.uid + "->" + n.uid + " [dir=both label=\""
 								+ edge.toDotString() + "\"];\n";
 				}

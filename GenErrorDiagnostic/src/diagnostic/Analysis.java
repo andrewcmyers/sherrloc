@@ -194,7 +194,7 @@ public class Analysis {
 				Element e2 = end.getElement();
 				List<Edge> l = finder.getPath(start, end);
 				
-				if (graph.isSymmentric() && (graph.getIndex(start) <= graph.getIndex(end)))
+				if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
 					continue;
 				
 				if (l==null) continue;
