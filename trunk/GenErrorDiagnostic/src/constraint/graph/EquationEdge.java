@@ -78,4 +78,9 @@ public class EquationEdge extends Edge {
     public void setCause() {
     	equ.setCause();
     }
+    
+    @Override
+    public int getLength() {
+    	return 1;
+    }
 }

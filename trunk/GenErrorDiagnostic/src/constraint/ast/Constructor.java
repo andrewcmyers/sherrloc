@@ -98,9 +98,9 @@ public class Constructor extends Element {
 	}
 	
 	public Constructor getInstance () {
-//		if (arity==0)
-//			return new Constructor(name, arity, contraVariant);
-//		else
+		if (arity==0)
+			return new Constructor(name, arity, contraVariant);
+		else
 			return this;
 	}
 	

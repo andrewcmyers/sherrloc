@@ -31,4 +31,9 @@ public class MeetEdge extends Edge {
 	public Environment getAssumption() {
 		return new Environment();
 	}
+	
+	@Override
+	public int getLength() {
+		return 1;
+	}
 }

@@ -3,6 +3,7 @@ package constraint.graph;
 import constraint.ast.Environment;
 
 
+
 abstract public class Edge {
     Node from;
     Node to;
@@ -37,6 +38,8 @@ abstract public class Edge {
     abstract public String toDotString ();
     
     abstract public boolean isDirected ();
+    
+    abstract public int getLength ();
     
     abstract public Environment getAssumption ();
 //    LabelEnv getEnv () {

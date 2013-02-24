@@ -1,14 +1,13 @@
 package constraint.graph;
 
-import java.util.List;
 
 
 /* a special edge corresponds to terminal CONS^-1 */
 public class RightEdge extends ReductionEdge {
 	public EdgeCondition cons;
 	
-	public RightEdge(EdgeCondition cons, Node from, Node to, List<Edge> edges) {
-		super(from, to, edges);
+	public RightEdge(EdgeCondition cons, Node from, Node to, Edge first, Edge second) {
+		super(from, to, first, second);
 		this.cons = cons;
 	}
 	

@@ -214,7 +214,7 @@ public class Analysis {
 						path.incSuccCounter();
 					continue;
 				}
-
+				
 				// if failed, try to use the assumptions on path
 				Environment env;
 				if (cachedEnv.containsKey(path.getAssumption()))

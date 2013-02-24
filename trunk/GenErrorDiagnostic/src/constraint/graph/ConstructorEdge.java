@@ -49,4 +49,9 @@ public class ConstructorEdge extends Edge {
 		return condition.hashCode();
 	}
 	
+	@Override
+	public int getLength() {
+		return 1;
+	}
+	
 }

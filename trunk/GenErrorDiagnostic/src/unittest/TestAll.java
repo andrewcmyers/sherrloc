@@ -55,25 +55,25 @@ public class TestAll {
 		/* test for Jif constraint */
 		
 		/* auction */
-//		testAssumptions("src/constraint/tests/testhypo/AirlineAgent1.con", "(TheAirline)->(TheAirline) <= L;\n", false);// same assumption
-//		/* AirlineAgent2 secure */
-//		/* User1 secure */
-//		testAssumptions("src/constraint/tests/testhypo/AirlineExample1.con", "AirlineA <= airlines;\n", false);// same assumption
-//		testAssumptions("src/constraint/tests/testhypo/AirlineExample2.con", "AirlineA <= airlines;AirlineB <= airlines;\n", false);// same assumption
-//		/* jif compiler is too conservative in this case. it's secure */
-//		testAssumptions("src/constraint/tests/testhypo/AirlineExample3.con", "", false); // secure
-//		
-//		/* battleship */
-//		testAssumptions("src/constraint/tests/testhypo/Board1.con", "(p1)->(p1) <= L;L <= (p1)->(p1);\n", false); // same assumption
-//
-//		/* social */
-//		testAssumptions("src/constraint/tests/testhypo/Agent1.con", "", false); // same assumption [why this test is here?]
-//		/* SocialNetwork1 secure */
-//		testAssumptions("src/constraint/tests/testhypo/SocialNetwork2.con", "bb <= SN;bg <= SN;user <= SN;\n", false); // same
-//
-//		/* friendmap */
-//		testAssumptions("src/constraint/tests/testhypo/Location1.con", "L <= (A)join((_)->(_));\n", false);// same assumption
-//		testAssumptions("src/constraint/tests/testhypo/Snapp1.con", "owner2 <= store1;\n", false); // same assumption
+		testAssumptions("src/constraint/tests/testhypo/AirlineAgent1.con", "(TheAirline)->(TheAirline) <= L;\n", false);// same assumption
+		/* AirlineAgent2 secure */
+		/* User1 secure */
+		testAssumptions("src/constraint/tests/testhypo/AirlineExample1.con", "AirlineA <= airlines;\n", false);// same assumption
+		testAssumptions("src/constraint/tests/testhypo/AirlineExample2.con", "AirlineA <= airlines;AirlineB <= airlines;\n", false);// same assumption
+		/* jif compiler is too conservative in this case. it's secure */
+		testAssumptions("src/constraint/tests/testhypo/AirlineExample3.con", "", false); // secure
+		
+		/* battleship */
+		testAssumptions("src/constraint/tests/testhypo/Board1.con", "(p1)->(p1) <= L;L <= (p1)->(p1);\n", false); // same assumption
+
+		/* social */
+		testAssumptions("src/constraint/tests/testhypo/Agent1.con", "", false); // same assumption [why this test is here?]
+		/* SocialNetwork1 secure */
+		testAssumptions("src/constraint/tests/testhypo/SocialNetwork2.con", "bb <= SN;bg <= SN;user <= SN;\n", false); // same
+
+		/* friendmap */
+		testAssumptions("src/constraint/tests/testhypo/Location1.con", "L <= (A)join((_)->(_));\n", false);// same assumption
+		testAssumptions("src/constraint/tests/testhypo/Snapp1.con", "owner2 <= store1;\n", false); // same assumption
 		/* Snapp2 secure */
 		testAssumptions("src/constraint/tests/testhypo/FriendMap1.con", "*l <= (*)->(s1);\n", false); // same assumption
 		testAssumptions("src/constraint/tests/testhypo/FriendMap2.con", "user.friends <= worker$;\n", false); // weaker assumption

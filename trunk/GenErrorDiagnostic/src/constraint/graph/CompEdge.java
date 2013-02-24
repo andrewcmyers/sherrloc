@@ -37,5 +37,10 @@ public class CompEdge extends Edge {
 		public Environment getAssumption() {
 			return env;
 		}
+		
+		@Override
+		public int getLength() {
+			return 1;
+		}
 
 }
