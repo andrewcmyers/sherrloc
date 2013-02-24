@@ -1,14 +1,13 @@
 package constraint.graph;
 
-import java.util.List;
 
 
 /* a special edge corresponds to nonterminal left */
 public class LeftEdge extends ReductionEdge {
 	public EdgeCondition cons;
 	
-	public LeftEdge(EdgeCondition cons, Node from, Node to, List<Edge> edges) {
-		super(from, to, edges);
+	public LeftEdge(EdgeCondition cons, Node from, Node to, Edge first, Edge second) {
+		super(from, to, first, second);
 		this.cons = cons;
 	}
 	

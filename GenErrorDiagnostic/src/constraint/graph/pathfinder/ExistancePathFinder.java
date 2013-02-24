@@ -5,7 +5,7 @@ import java.util.List;
 
 import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
-import constraint.graph.IdEdge;
+import constraint.graph.LeqEdge;
 import constraint.graph.LeftEdge;
 import constraint.graph.Node;
 import constraint.graph.ReductionEdge;
@@ -43,31 +43,25 @@ public class ExistancePathFinder extends CFLPathFinder {
 	//					System.out.println ("testing "+from+"->"+currentedge.from+"->"+currentedge.to);
 						
 						// id := id id
-						if (e instanceof IdEdge
-								&& currentedge instanceof IdEdge) {
-							List<Edge> list = new ArrayList<Edge>();
-							list.addAll(((IdEdge)e).getEdges());
-							list.addAll(((IdEdge)currentedge).getEdges());
-							newedge = new IdEdge(from, to, list);
+						if (e instanceof LeqEdge
+								&& currentedge instanceof LeqEdge) {
+							newedge = new LeqEdge(from, to, e, currentedge);
 						}
 						
 						// id := left right
 						else if (e instanceof LeftEdge && currentedge instanceof RightEdge 
 								&& ((LeftEdge)e).cons.matches(((RightEdge)currentedge).cons)) {
-							List<Edge> list = new ArrayList<Edge>();
-							list.addAll(((LeftEdge)e).getEdges());
-							list.addAll(((RightEdge)currentedge).getEdges());
-							newedge = new IdEdge(from, to, list);
+							newedge = new LeqEdge(from, to, e, currentedge);
 						}
 						
 						// left := left id
 						else if (e instanceof LeftEdge
-								&& currentedge instanceof IdEdge) {
+								&& currentedge instanceof LeqEdge) {
 							List<Edge> list = new ArrayList<Edge>();
 							list.addAll(((LeftEdge)e).getEdges());
-							list.addAll(((IdEdge)currentedge).getEdges());
+							list.addAll(((LeqEdge)currentedge).getEdges());
 							newedge = new LeftEdge(
-									((LeftEdge) e).cons, from, to, list);
+									((LeftEdge) e).cons, from, to, e, currentedge);
 						}
 	
 						if (newedge != null && !hasReductionEdge(newedge)) {
@@ -86,12 +80,12 @@ public class ExistancePathFinder extends CFLPathFinder {
 	//					System.out.println ("testing "+from+"->"+currentedge.from+"->"+currentedge.to);
 						
 						// id := id id
-						if (e instanceof IdEdge
-								&& currentedge instanceof IdEdge) {
+						if (e instanceof LeqEdge
+								&& currentedge instanceof LeqEdge) {
 							List<Edge> list = new ArrayList<Edge>();
-							list.addAll(((IdEdge)currentedge).getEdges());
-							list.addAll(((IdEdge)e).getEdges());
-							newedge = new IdEdge(from, to, list);
+							list.addAll(((LeqEdge)currentedge).getEdges());
+							list.addAll(((LeqEdge)e).getEdges());
+							newedge = new LeqEdge(from, to, currentedge, e);
 						}
 						
 						// id := left right
@@ -100,17 +94,17 @@ public class ExistancePathFinder extends CFLPathFinder {
 							List<Edge> list = new ArrayList<Edge>();
 							list.addAll(((LeftEdge)currentedge).getEdges());
 							list.addAll(((RightEdge)e).getEdges());
-							newedge = new IdEdge(from, to, list);
+							newedge = new LeqEdge(from, to, currentedge, e);
 						}
 						
 						// left := left id
 						else if (currentedge instanceof LeftEdge
-								&& e instanceof IdEdge) {
+								&& e instanceof LeqEdge) {
 							List<Edge> list = new ArrayList<Edge>();
 							list.addAll(((LeftEdge)currentedge).getEdges());
-							list.addAll(((IdEdge)e).getEdges());
+							list.addAll(((LeqEdge)e).getEdges());
 							newedge = new LeftEdge(
-									((LeftEdge) currentedge).cons, from, to, list);
+									((LeftEdge) currentedge).cons, from, to, currentedge, e);
 						}
 	
 						if (newedge != null && !hasReductionEdge(newedge)) {
@@ -130,9 +124,9 @@ public class ExistancePathFinder extends CFLPathFinder {
 
 	@Override
 	protected List<Edge> _getPath(Node start, Node end) {
-		if (getIdEdge(start, end)==null)
+		if (getLeqEdge(start, end)==null)
 			return null;
 		else
-			return getIdEdge(start,end).getEdges();
+			return getLeqEdge(start,end).getEdges();
 	}
 }
