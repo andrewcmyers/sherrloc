@@ -30,7 +30,7 @@ public class Environment {
 	}
 	
 	public void addAssertion (Constraint equ) {
-		assertions.add(equ);
+		assertions.add(equ.baseConstraint());
 	}
 	
 	public void addEnv (Environment e) {
@@ -42,7 +42,7 @@ public class Environment {
 	public Environment addLeq (Element e1, Element e2) {
 		Environment e = new Environment();
 		e.addEnv(this);
-		e.addAssertion(new Constraint(e1, e2, Relation.LEQ, null, Position.EmptyPosition()));
+		e.addAssertion(new Constraint(e1.getBaseElement(), e2.getBaseElement(), Relation.LEQ, null, Position.EmptyPosition()));
 		return e;
 	}
 	
@@ -56,7 +56,9 @@ public class Environment {
 	}
 	
 	/* unified version */
-	public boolean leq(Element e1, Element e2) {
+	public boolean leq(Element p1, Element p2) {
+		Element e1 = p1.getBaseElement();
+		Element e2 = p2.getBaseElement();
 		
 		// for the same constructor, we should break them into components. Just return true here
 		if (e1.equals(e2))

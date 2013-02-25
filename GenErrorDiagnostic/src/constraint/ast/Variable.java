@@ -66,4 +66,9 @@ public class Variable extends Element {
 	public boolean isTop() {
 		return false;
 	}
+	
+	@Override
+	public Element getBaseElement() {
+		return this;
+	}
 }

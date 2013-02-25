@@ -63,4 +63,7 @@ public abstract class Element {
 	abstract public boolean isBottom();
 	
 	abstract public boolean isTop();
+	
+	// all duplicated elements should return the base element, where version number is 0 by this function
+	abstract public Element getBaseElement();
 }
