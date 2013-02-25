@@ -12,11 +12,13 @@ import constraint.ast.Environment;
 public class ReductionEdge extends Edge{
 	Edge first;
 	Edge second;
+	int size;
 	
 	public ReductionEdge(Node from, Node to, Edge first, Edge second) {
 		super(from, to);
 		this.first = first;
 		this.second = second;
+		size = (first==null?0:first.getLength())+(second==null?0:second.getLength());
 	}
 	
 	public boolean isDirected() {
@@ -40,7 +42,7 @@ public class ReductionEdge extends Edge{
 	}
 	
 	public int getLength () {
-		return (first==null?0:first.getLength())+(second==null?0:second.getLength());
+		return size;
 	}
 	
 	public List<Edge> getEdges() {
