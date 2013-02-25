@@ -18,6 +18,11 @@ public class Constraint implements Comparable<Constraint> {
 		this.pos = pos;
 	}
 	
+	// return the constraint where all elements has id 0
+	public Constraint baseConstraint () {
+		return new Constraint(e1.getBaseElement(), e2.getBaseElement(), r, assumption, pos); 
+	}
+	
 	public Element getFirstElement () {
 		return e1;
 	}
@@ -82,8 +87,9 @@ public class Constraint implements Comparable<Constraint> {
     @Override
     public boolean equals(Object obj) {
     	if (obj instanceof Constraint) {
-    		return e1.equals(((Constraint) obj).e1) && e2.equals(((Constraint) obj).e2) 
-    		&& r.equals(((Constraint) obj).r) && pos.equals(((Constraint) obj).pos);
+    		Constraint c = (Constraint) obj;
+    		return e1.equals(c.e1) && e2.equals(c.e2) 
+    		&& r.equals(c.r) && pos.equals(c.pos);
     	}
     	return false;
     }

@@ -1,5 +1,6 @@
 package constraint.ast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComplexElement extends EnumerableElement {
@@ -52,5 +53,14 @@ public class ComplexElement extends EnumerableElement {
 	@Override
 	public boolean isEnd() {
 		return true;
+	}
+	
+	@Override
+	public Element getBaseElement() {
+		List<Element> baseElements =  new ArrayList<Element>();
+		for (Element e : elements) {
+			baseElements.add(e.getBaseElement());
+		}
+		return new ComplexElement(name, (Constructor)cons.getBaseElement(), baseElements) ;
 	}
 }

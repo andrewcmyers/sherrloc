@@ -30,6 +30,7 @@ import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
+import constraint.ast.Hypothesis;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Position;
@@ -133,17 +134,9 @@ public class Analysis {
 	static public Analysis getAnalysisInstance (String input, boolean symmentric) throws Exception {
 	    parser p = new parser(new GrmLexer(new FileReader(input)));
 	    DiagnosisInput result = (DiagnosisInput) p.parse().value;
-//	    for (Equation e: result) {
-//	    	System.out.println( e.toString());
-//	    }
+
 	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), symmentric);
 	    Analysis ret = new Analysis(graph);
-	    // read the position of method generating the constraints when available
-		BufferedReader br = new BufferedReader(new FileReader(input));
-		String firstline = br.readLine();
-//		if (firstline.contains("jif")) {
-//			ret.pos = new Position(firstline.substring(firstline.indexOf("jif")));
-//		}
 	    return ret;
 	}
 	
@@ -157,12 +150,11 @@ public class Analysis {
         if (!graph.generated) 
         	graph.generateGraph();
         
-        // only the labels without variables can serve as end nodes
         ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
         Set<Element> elements = graph.getAllElements();
         
-        // initialize the map
+        // initialize the maps, expr to node and succ path counter
         for (Node n : graph.getAllNodes()) {
         	exprMap.put(n.toString(), n);
         	succCount.put(n.toString(), 0.0);
@@ -192,11 +184,11 @@ public class Analysis {
 			for (ElementNode end : endNodes) {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
-				List<Edge> l = finder.getPath(start, end);
 				
 				if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
 					continue;
 				
+				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
 				
 //				System.out.println("comparing "+e1 + " and " + e2);
@@ -232,10 +224,10 @@ public class Analysis {
 					path.incSuccCounter();
 					continue;
 				}
-//				System.out.println(path.toString());
+				System.out.println(path.toString());
 				path.incFailCounter();
 				path.setCause();
-				AttemptGoal goal = new AttemptGoal(start, end, env);
+				AttemptGoal goal = new AttemptGoal(start.getElement(), end.getElement(), env);
 				unsatPath.add(goal);
 				errPaths.put(goal, path);
 			}
@@ -267,8 +259,8 @@ public class Analysis {
 			sb.append("<LI>\n<span class=\"path\" ");
 			setShowHideActions(true, sb, path_buff.toString(), 0);
 			sb.append(">");
-			sb.append("A value with type "+goal.getSource().getElement().toDetailString() + 
-				    " is being used at type " + goal.getSink().getElement().toDetailString());
+			sb.append("A value with type "+goal.getSource().toDetailString() + 
+				    " is being used at type " + goal.getSink().toDetailString());
 			sb.append("</span>\n");
         		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
 	        	sb.append(path_buff.toString());
@@ -280,13 +272,17 @@ public class Analysis {
 		return sb.toString();
     }
     
-    public Set<Set<AttemptGoal>> genAssumptions (Set<AttemptGoal> remaining) {    	    	
-    	HashMap<AttemptGoal, List<AttemptGoal>> dep = genAssumptionDep(remaining);
-    	Set<Set<AttemptGoal>> results = new HashSet<Set<AttemptGoal>>();
+    public Set<Set<Hypothesis>> genAssumptions (Set<AttemptGoal> remaining) {    	    	
+    	HashMap<AttemptGoal, Set<Hypothesis>> dep = genAssumptionDep(remaining);
+    	Set<Set<Hypothesis>> results = new HashSet<Set<Hypothesis>>();
+    	
+    	Set<Hypothesis> candidates = new HashSet<Hypothesis>();
+    	for (Set<Hypothesis> s : dep.values())
+    		candidates.addAll(s);
     	
     	// we do an interative deeping search until at least one cut is returned
     	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, remaining, dep, new HashSet<AttemptGoal>(), results);
+   			boundedDepthSearch (level, candidates, dep, new HashSet<Hypothesis>(), results);
    			if (results.size()!=0)
    				break;
     	}
@@ -300,20 +296,20 @@ public class Analysis {
     public Set<Set<EquationEdge>> genCuts (Set<AttemptGoal> remaining) {
     	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
     	Set<Set<EquationEdge>> results = new HashSet<Set<EquationEdge>>();
-    	HashMap<AttemptGoal, List<EquationEdge>> map = new HashMap<AttemptGoal, List<EquationEdge>>();
+    	HashMap<AttemptGoal, Set<EquationEdge>> map = new HashMap<AttemptGoal, Set<EquationEdge>>();
 
     	for (AttemptGoal goal : remaining) {
-    		List<EquationEdge> l = new ArrayList<EquationEdge>();
+    		Set<EquationEdge> set = new HashSet<EquationEdge>();
     		for (Edge e : errPaths.get(goal).getEdges()) {
     			if (e instanceof EquationEdge) {
     				EquationEdge ee = (EquationEdge) e;
     				if (!ee.getEquation().getFirstElement().toDetailString().equals(ee.getEquation().getSecondElement().toDetailString())) {
-    					l.add(ee);
+    					set.add(ee);
     					candidates.add(ee);
     				}
     			}
     		}
-    		map.put(goal, l);
+    		map.put(goal, set);
     	}
     	
     	// we do an interative deeping search until at least one cut is returned
@@ -329,17 +325,17 @@ public class Analysis {
     public Set<Set<String>> genNodeCuts (Set<AttemptGoal> remaining) {
     	HashSet<String> candidates = new HashSet<String>();
     	Set<Set<String>> results = new HashSet<Set<String>>();
-    	HashMap<AttemptGoal, List<String>> map = new HashMap<AttemptGoal, List<String>>();
+    	HashMap<AttemptGoal, Set<String>> map = new HashMap<AttemptGoal, Set<String>>();
 
     	for (AttemptGoal goal : remaining) {
-    		Set<String> l = new HashSet<String>();
+    		Set<String> set = new HashSet<String>();
     		for (Node n : errPaths.get(goal).getAllNodes()) {
     			if (((ElementNode)n).isInCons()) {
-    				l.add(n.toString());
+    				set.add(n.toString());
     				candidates.add(n.toString());
     			}
     		}
-    		map.put(goal, new ArrayList<String>(l));
+    		map.put(goal, new HashSet<String>(set));
     	}
     	
     	// we do an interative deeping search until at least one cut is returned
@@ -352,7 +348,7 @@ public class Analysis {
     	return results;
     }
     
-    public <K> void boundedDepthSearch (int level, Set<K> candidates, HashMap<AttemptGoal, List<K>> dependencies, Set<K> visited, Set<Set<K>> results) {
+    public <K> void boundedDepthSearch (int level, Set<K> candidates, HashMap<AttemptGoal, Set<K>> dependencies, Set<K> visited, Set<Set<K>> results) {
     	
     	/* first level */
    		for (K e : candidates) {
@@ -423,17 +419,17 @@ public class Analysis {
     }
     
     // this function returns hashmap, that for each goal, a list of "stronger" assumptions that either of them eliminates it
-    public HashMap<AttemptGoal, List<AttemptGoal>> genAssumptionDep (Set<AttemptGoal> paths) {
-    	HashMap<AttemptGoal, List<AttemptGoal>> ret = new HashMap<AttemptGoal, List<AttemptGoal>>( );
+    public HashMap<AttemptGoal, Set<Hypothesis>> genAssumptionDep (Set<AttemptGoal> paths) {
+    	HashMap<AttemptGoal, Set<Hypothesis>> ret = new HashMap<AttemptGoal, Set<Hypothesis>>( );
     	for (AttemptGoal goal : paths) {
-    		List<AttemptGoal> list = new ArrayList<AttemptGoal>();
-    		list.add(goal);
-    		ret.put(goal, list);	// the goal itself is the weakest assumption
+    		Set<Hypothesis> set = new HashSet<Hypothesis>();
+    		set.add(goal.getSufficientHypo());
+    		ret.put(goal, set);	// the goal itself is the weakest assumption
     		
     		for (AttemptGoal candidate : paths) {
     			if (candidate.equals(goal)) continue;
 
-    			Environment env = goal.getEnv().addLeq(candidate.getSource().getElement(), candidate.getSink().getElement());
+    			Environment env = goal.getEnv().addLeq(candidate.getSource(), candidate.getSink());
     			
 				if (cachedEnv.containsKey(env))
 					env = cachedEnv.get(env);
@@ -441,8 +437,9 @@ public class Analysis {
 					cachedEnv.put(env, env);
 				}
     			
-    			if (env.leq( goal.getSource().getElement(), goal.getSink().getElement()))
-    				list.add(candidate);
+    			if (env.leq( goal.getSource(), goal.getSink())) {
+    				set.add(candidate.getSufficientHypo());
+    			}
     		}
     	}
     	return ret;
@@ -510,7 +507,7 @@ public class Analysis {
     		genErrorPaths();
     	}
     	int ret = errPaths.size();
-    	printRank();
+//    	printRank();
     	return ret;
     }
     
@@ -518,7 +515,7 @@ public class Analysis {
     	if (!done) {
     		genErrorPaths();
     	}
-        Set<Set<AttemptGoal>> result = genAssumptions(errPaths.keySet());
+        Set<Set<Hypothesis>> result = genAssumptions(errPaths.keySet());
     	return result.size();
     }
     
@@ -526,12 +523,12 @@ public class Analysis {
     	if (!done) {
     		genErrorPaths();
     	}
-        Set<Set<AttemptGoal>> result = genAssumptions(errPaths.keySet());
+        Set<Set<Hypothesis>> result = genAssumptions(errPaths.keySet());
         StringBuffer sb = new StringBuffer();
         int counter = 0;
-        for (Set<AttemptGoal> s : result) {
+        for (Set<Hypothesis> s : result) {
             List<String> list = new ArrayList<String>();
-        	for (AttemptGoal g :s )
+        	for (Hypothesis g :s )
         		list.add(g.toString());
         	Collections.sort(list);
         	for (String str : list)
@@ -751,14 +748,14 @@ public class Analysis {
     public String genMissingAssumptions (Map<AttemptGoal, ConstraintPath> errorPaths) {
     	StringBuffer sb = new StringBuffer();
     	if (GEN_ASSUMP) {
-    		Set<AttemptGoal> result = genAssumptions(errorPaths.keySet()).iterator().next();
+    		Set<Hypothesis> result = genAssumptions(errorPaths.keySet()).iterator().next();
     		sb.append("<H3>Likely missing assumption(s): </H3>\n");
         	sb.append("<UL>\n");
         	sb.append("<LI>");
         	sb.append("<OL>\n");
         	
     		String missingCons = "";
-    		for (AttemptGoal g : result)
+    		for (Hypothesis g : result)
    				missingCons += g.toString()+";";
    			sb.append(missingCons+"\n");
         	sb.append("</OL>\n");
