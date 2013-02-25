@@ -111,7 +111,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/ocaml/test1.con", 1, true);
 		testErrorPaths("src/constraint/tests/ocaml/test2.con", 4, true);
 		testErrorPaths("src/constraint/tests/ocaml/test3.con", 3, true);
-		testErrorPaths("src/constraint/tests/ocaml/option.con", 4, true);
+		testErrorPaths("src/constraint/tests/ocaml/option.con", 1, true);
 	}
 	
 	@Test
@@ -133,9 +133,9 @@ public class TestAll {
 		/* test for Jif constraint */
 		testErrorPaths("src/constraint/tests/jif/test.con", 1, false);
 
-		testErrorPaths("src/constraint/tests/jif/array.con", 2, false);
+		testErrorPaths("src/constraint/tests/jif/array.con", 1, false);
 
-		testErrorPaths("src/constraint/tests/jif/constant.con", 2, false);
+		testErrorPaths("src/constraint/tests/jif/constant.con", 6, false);
 
 //		testAssumptions("src/constraint/tests/jif/CMUcred.con", "Alice <= p;\n", false);
 
@@ -143,7 +143,7 @@ public class TestAll {
 
 		testErrorPaths("src/constraint/tests/jif/Do3.con", 2, false);
 
-		testErrorPaths("src/constraint/tests/jif/field.con", 6, false); 
+		testErrorPaths("src/constraint/tests/jif/field.con", 7, false); 
 
 		testErrorPaths("src/constraint/tests/jif/For2.con", 2, false);
 
@@ -224,7 +224,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/Array_2.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array_3.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/Array1_1.con", 2, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array1_1.con", 8, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array1_2.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array2_1.con", 0, false);
@@ -244,17 +244,17 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/Array5_2.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array5_3.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/Array6_1.con", 2, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array6_1.con", 6, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array6_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/Array7_1.con", 2, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array7_1.con", 4, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array7_2.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array8_1.con", 0, false);
-		testErrorPaths("src/constraint/tests/jiftestcases/Array8_2.con", 3, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array8_2.con", 4, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array9_1.con", 0, false);
-		testErrorPaths("src/constraint/tests/jiftestcases/Array9_2.con", 1, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array9_2.con", 2, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array10_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array10_2.con", 0, false);
@@ -262,13 +262,13 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/Array11_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array11_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/Array12_1.con", 3, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array12_1.con", 2, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array12_2.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array13_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array13_2.con", 0, false);
 		
-		testErrorPaths("src/constraint/tests/jiftestcases/Array14_1.con", 3, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/Array14_1.con", 2, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/Array14_2.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/Array15_1.con", 0, false);
@@ -410,7 +410,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_2.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_3.con", 0, false);
-		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_4.con", 4, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_4.con", 5, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint09_5.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint10_1.con", 0, false);
@@ -422,7 +422,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_2.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_3.con", 0, false);
-		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_4.con", 3, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_4.con", 6, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_5.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint12_1.con", 0, false);

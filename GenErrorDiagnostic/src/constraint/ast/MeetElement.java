@@ -75,4 +75,13 @@ public class MeetElement extends EnumerableElement {
 		}
 		return false;
 	}	
+	
+	@Override
+	public Element getBaseElement() {
+		List<Element> baseElements =  new ArrayList<Element>();
+		for (Element e : elements) {
+			baseElements.add(e.getBaseElement());
+		}
+		return new MeetElement(name, baseElements);
+	}
 }
