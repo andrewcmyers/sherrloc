@@ -3,7 +3,7 @@ package constraint.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-/* a compond element is constructed by a Constructor */
+/* a compound element is constructed by a Constructor */
 public abstract class EnumerableElement extends Element {
 	List<Element> elements;
 	
@@ -125,20 +125,6 @@ public abstract class EnumerableElement extends Element {
 	}
 	
 	@Override
-	public boolean sameas(Object o) {
-		if (o instanceof EnumerableElement) {
-			EnumerableElement ce = (EnumerableElement)o;
-			if (ce.getElements().size()==elements.size()) {
-				for (int i=0; i<elements.size(); i++)
-					if (!elements.get(i).sameas(ce.getElements().get(i))) 
-						return false;
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	@Override
 	public boolean isBottom() {
 		for (Element e : elements) {
 			if (!e.isBottom())
@@ -155,4 +141,12 @@ public abstract class EnumerableElement extends Element {
 		}
 		return true;
 	}
+	
+	public Element getInstance() {
+		if (hasVars()) {
+			return getBaseElement();
+		}
+		else
+			return this;
+	};
 }

@@ -52,8 +52,6 @@ public abstract class Element {
 	
 	abstract public boolean equals (Object o);
 	
-	abstract public boolean sameas (Object o);
-	
 	abstract public String toDetailString();
 		
 	abstract public boolean isStart();
