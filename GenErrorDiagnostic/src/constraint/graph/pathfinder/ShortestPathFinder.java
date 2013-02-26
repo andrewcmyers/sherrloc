@@ -159,8 +159,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 				int tIndex = to.getIndex();
 				Node from = edge.getTo();
 				
-				if (sIndex==fIndex || sIndex==tIndex || fIndex==tIndex)
-					continue;
+//				if (sIndex==fIndex || sIndex==tIndex || fIndex==tIndex)
+//					continue;
 
 				// id = id id
 				if (edge instanceof LeqEdge) {

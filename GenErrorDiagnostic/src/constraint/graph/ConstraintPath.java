@@ -170,12 +170,12 @@ public class ConstraintPath {
 		ret += "\n----Start of one path----\n";
 		ElementNode leftmost = (ElementNode) getFirst();
 //		leftmost.setCause();
-		ret += leftmost.getName()+"\n";
+		ret += leftmost.getElement().toHTMLString()+"\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 //			ret += "--> (" + (edge.toString()) + ")\n";
 //			if (finder.getPath(leftmost, edge.to)!=null)
-				ret += ((ElementNode)edge.to).getName()+"\n";
+				ret += ((ElementNode)edge.to).getElement().toHTMLString()+"\n";
 		}
 		ret += "----End of one path----\n";
 		return ret;
