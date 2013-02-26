@@ -133,6 +133,9 @@ public class Constructor extends Element {
 	
 	@Override
 	public Element getBaseElement() {
-		return new Constructor(name, arity, contraVariant, 0);
+		if (arity==0)
+			return new Constructor(name, arity, contraVariant, 0);
+		else
+			return this;
 	}
 }

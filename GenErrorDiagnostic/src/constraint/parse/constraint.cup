@@ -167,41 +167,47 @@ term     	::=  term:t1 ARROW term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ComplexElement ("", constructors.get("arrow"), l);
+				ComplexElement e = new ComplexElement ("", constructors.get("arrow"), l);
+				RESULT = e.getInstance();
 			:}
 			|
 				term:t1 LARROW term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ComplexElement ("", constructors.get("larrow"), l);
+				ComplexElement e = new ComplexElement ("", constructors.get("larrow"), l);
+				RESULT = e.getInstance();
 			:}
 			| term:t1 COMMA term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ComplexElement ("", constructors.get("pair"), l); 
+				ComplexElement e = new ComplexElement ("", constructors.get("pair"), l); 
+				RESULT = e.getInstance();
 			:}
 			| term:t1 JOIN term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new JoinElement ("", l); 
+				JoinElement e = new JoinElement ("", l);
+				RESULT =  e.getInstance();
 			:}
 			| term:t1 MEET term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new MeetElement ("", l); 
+				MeetElement e = new MeetElement ("", l);
+				RESULT = e.getInstance(); 
 			:}
 			| cons:cons element_list:l
 			{: 	Constructor c = (Constructor) cons;
 				if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
-			    RESULT = new ComplexElement ("", c, l); 
+			    ComplexElement e = new ComplexElement ("", c, l);
+			    RESULT = e.getInstance(); 
 			:}
 			| element:e
 			{: RESULT = e; :}

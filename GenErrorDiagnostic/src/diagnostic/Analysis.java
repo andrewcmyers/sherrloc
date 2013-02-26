@@ -225,6 +225,7 @@ public class Analysis {
 					continue;
 				}
 				System.out.println(path.toString());
+				System.out.println(path.getEdges().size());
 				path.incFailCounter();
 				path.setCause();
 				AttemptGoal goal = new AttemptGoal(start.getElement(), end.getElement(), env);

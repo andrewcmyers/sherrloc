@@ -31,16 +31,6 @@ public class ComplexElement extends EnumerableElement {
 	}
 	
 	@Override
-	public boolean sameas(Object o) {
-		if (o instanceof ComplexElement) {
-			ComplexElement ce = (ComplexElement)o;
-			if (cons.sameas(ce.cons))
-				return super.sameas(o);
-		}
-		return false;
-	}
-	
-	@Override
 	public int hashCode() {
 		return cons.hashCode()^super.hashCode();
 	}

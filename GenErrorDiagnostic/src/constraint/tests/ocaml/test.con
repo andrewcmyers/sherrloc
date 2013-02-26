@@ -1,0 +1,6 @@
+CONSTRUCTOR char 0
+CONSTRUCTOR int 0
+CONSTRUCTOR Y 0
+
+(int , Y) == (x , Y);
+(x , Y) == (char , Y);
