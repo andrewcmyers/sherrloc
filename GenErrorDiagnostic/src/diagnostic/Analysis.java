@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -28,11 +27,8 @@ import util.AttemptGoal;
 import constraint.ast.ComplexElement;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
-import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
-import constraint.ast.JoinElement;
-import constraint.ast.MeetElement;
 import constraint.ast.Position;
 import constraint.ast.Variable;
 import constraint.graph.ConstraintGraph;
@@ -54,23 +50,20 @@ public class Analysis {
     int REC_MAX = 3;
 	boolean done = false;
 	ConstraintGraph graph;
-	
-	HashMap<AttemptGoal, ConstraintPath> errPaths;
 	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
-	HashSet<AttemptGoal> unsatPath;						// source and sink of the unsatisfiable paths. This set is filled by function genErrorPaths, and used by genAssumptions
 	String sourceName;
 	String htmlFileName;
 	Position pos=null;
 	Map<String, Node> exprMap;
 	Map<String, Double> succCount;
+	UnsatPaths unsatPaths;
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
-        errPaths = new HashMap<AttemptGoal, ConstraintPath>();
         cachedEnv = new HashMap<Environment, Environment>();
-        unsatPath = new HashSet<AttemptGoal>();
         exprMap = new HashMap<String, Node>();
         succCount = new HashMap<String, Double>();
+        unsatPaths = new UnsatPaths();
 	}
 	
 	public static void main(String[] args) {
@@ -123,7 +116,7 @@ public class Analysis {
 				ana.GEN_CUT = cut;
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
-				ana.writeToDotFile();
+//				ana.writeToDotFile();
 				ana.writeToHTML();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -188,6 +181,11 @@ public class Analysis {
 				if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
 					continue;
 				
+				// if one end is variable, the satisfiability is trivial
+				if (e1 instanceof Variable || e2 instanceof Variable) {
+					continue;
+				}
+				
 				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
 				
@@ -203,8 +201,7 @@ public class Analysis {
 
 				// successful path
 				if (graph.getEnv().leq(e1, e2)) {
-					if (!(e1 instanceof Variable) && !(e2 instanceof Variable))
-						path.incSuccCounter();
+					path.incSuccCounter();
 					continue;
 				}
 				
@@ -220,17 +217,16 @@ public class Analysis {
 				}
 
 				// successful path
-				if (env.leq(start.getElement(), end.getElement())) {
+				if (env.leq(e1, e2)) {
 					path.incSuccCounter();
 					continue;
 				}
-				System.out.println(path.toString());
-				System.out.println(path.getEdges().size());
+//				System.out.println(path.toString());
+//				System.out.println(path.getEdges().size());
 				path.incFailCounter();
 				path.setCause();
 				AttemptGoal goal = new AttemptGoal(start.getElement(), end.getElement(), env);
-				unsatPath.add(goal);
-				errPaths.put(goal, path);
+				unsatPaths.addUnsatPath(goal, path);
 			}
 		}
 		
@@ -241,6 +237,18 @@ public class Analysis {
 		done = true;
 
 	}
+    
+    public String getOneSuggestion (String sourcefile, HashMap<AttemptGoal, ConstraintPath> errorPaths, int count) {
+    	StringBuffer sb = new StringBuffer();
+   		sb.append(
+    		"<HR>\n" +
+    		"<H2>\n" +
+    		"Error "+ count + "</H2>\n" +
+   			unsatPathsToHTML(errorPaths) +
+    		genMissingAssumptions(errorPaths) +
+    		genCutItems(errorPaths));
+    	return sb.toString();
+    }
     
     public String unsatPathsToHTML (Map<AttemptGoal, ConstraintPath> errorPaths) {
     	StringBuffer sb = new StringBuffer();
@@ -273,241 +281,11 @@ public class Analysis {
 		return sb.toString();
     }
     
-    public Set<Set<Hypothesis>> genAssumptions (Set<AttemptGoal> remaining) {    	    	
-    	HashMap<AttemptGoal, Set<Hypothesis>> dep = genAssumptionDep(remaining);
-    	Set<Set<Hypothesis>> results = new HashSet<Set<Hypothesis>>();
-    	
-    	Set<Hypothesis> candidates = new HashSet<Hypothesis>();
-    	for (Set<Hypothesis> s : dep.values())
-    		candidates.addAll(s);
-    	
-    	// we do an interative deeping search until at least one cut is returned
-    	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, candidates, dep, new HashSet<Hypothesis>(), results);
-   			if (results.size()!=0)
-   				break;
-    	}
-
-//		System.out.println("Likely missing assumptions:");
-    	
-    	return results;
-    }
-    
-    /* Calculating a min cut is NP complete. Currently, we use iterative deeping search to quickly identify the goal */
-    public Set<Set<EquationEdge>> genCuts (Set<AttemptGoal> remaining) {
-    	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
-    	Set<Set<EquationEdge>> results = new HashSet<Set<EquationEdge>>();
-    	HashMap<AttemptGoal, Set<EquationEdge>> map = new HashMap<AttemptGoal, Set<EquationEdge>>();
-
-    	for (AttemptGoal goal : remaining) {
-    		Set<EquationEdge> set = new HashSet<EquationEdge>();
-    		for (Edge e : errPaths.get(goal).getEdges()) {
-    			if (e instanceof EquationEdge) {
-    				EquationEdge ee = (EquationEdge) e;
-    				if (!ee.getEquation().getFirstElement().toDetailString().equals(ee.getEquation().getSecondElement().toDetailString())) {
-    					set.add(ee);
-    					candidates.add(ee);
-    				}
-    			}
-    		}
-    		map.put(goal, set);
-    	}
-    	
-    	// we do an interative deeping search until at least one cut is returned
-    	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, candidates, map, new HashSet<EquationEdge>(), results);
-   			if (results.size()!=0)
-   				break;
-    	}
-
-    	return results;
-    }
-    
-    public Set<Set<String>> genNodeCuts (Set<AttemptGoal> remaining) {
-    	HashSet<String> candidates = new HashSet<String>();
-    	Set<Set<String>> results = new HashSet<Set<String>>();
-    	HashMap<AttemptGoal, Set<String>> map = new HashMap<AttemptGoal, Set<String>>();
-
-    	for (AttemptGoal goal : remaining) {
-    		Set<String> set = new HashSet<String>();
-    		for (Node n : errPaths.get(goal).getAllNodes()) {
-    			if (((ElementNode)n).isInCons()) {
-    				set.add(n.toString());
-    				candidates.add(n.toString());
-    			}
-    		}
-    		map.put(goal, new HashSet<String>(set));
-    	}
-    	
-    	// we do an interative deeping search until at least one cut is returned
-    	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, candidates, map, new HashSet<String>(), results);
-   			if (results.size()!=0)
-   				break;
-    	}
-
-    	return results;
-    }
-    
-    public <K> void boundedDepthSearch (int level, Set<K> candidates, HashMap<AttemptGoal, Set<K>> dependencies, Set<K> visited, Set<Set<K>> results) {
-    	
-    	/* first level */
-   		for (K e : candidates) {
-   			if (visited.contains(e))
-   				continue;
-   			else
-   				visited.add(e);
-   			
-   			if (level == 1) {
-   				boolean iscut = true;
-   				
-   				// for any path, at least one element in the visited list should appear
-   	   			for (AttemptGoal goal : dependencies.keySet()) {
-   	   				boolean flag = false;
-   	   				for (K edge : visited) {
-   	   					if (dependencies.get(goal).contains(edge)) {
-   	   						flag = true;
-   	   						break;
-   	   					}
-   	   				}
-   	   				if (!flag) {
-   	   					iscut = false;
-   	 	   	   			break;
-   	   				}
-   	    		}
-   	   			
-   	   			if (iscut) {
-   	   				HashSet<K> s = new HashSet<K>();
-   	   				for (K eedge : visited) 
-   	   					s.add(eedge);
-   	   				results.add(s);
-   	   			}
-   			}
-   			else
-   				boundedDepthSearch (level-1, candidates, dependencies, visited, results);
-   			
-   			visited.remove(e);
-   		}
-   		    	
-//    		ElementNode src = tri.getFirst();
-//			ElementNode snk = tri.getSecond();
-//			Environment env = tri.getThird();
-//			
-//			Set<Assumption> result = getAssumptions(src, snk, env);
-//
-//			System.out.println("**********************");
-//	    	System.out.println("To make "+src.getElement() +" <= "+snk.getElement()+", we need ANY of the following");
-//	    	for (Assumption p : result) {
-//	    		System.out.println(p);
-//	    	}
-//	    	System.out.println("**********************");
-//
-//			conjunctSets.add(result);
-//			break;
-//    	}
-//    	
-//    	Stack<Assumption> s = new Stack<Assumption>();
-//    	Set<AssumptionSet> result = new HashSet<AssumptionSet>();
-//    	regGenAssumptions(0, conjunctSets, s, result);
-//    	
-//        AssumptionSet[] all = result.toArray(new AssumptionSet[result.size()]);
-//        Arrays.sort(all);
-//        
-//        System.out.println("\n"+"Ranking of missing assumptions:");
-//        for (AssumptionSet a : all) {
-//            System.out.println(a.getSize() + ": "+a);
-//        }
-    }
-    
-    // this function returns hashmap, that for each goal, a list of "stronger" assumptions that either of them eliminates it
-    public HashMap<AttemptGoal, Set<Hypothesis>> genAssumptionDep (Set<AttemptGoal> paths) {
-    	HashMap<AttemptGoal, Set<Hypothesis>> ret = new HashMap<AttemptGoal, Set<Hypothesis>>( );
-    	for (AttemptGoal goal : paths) {
-    		Set<Hypothesis> set = new HashSet<Hypothesis>();
-    		set.add(goal.getSufficientHypo());
-    		ret.put(goal, set);	// the goal itself is the weakest assumption
-    		
-    		for (AttemptGoal candidate : paths) {
-    			if (candidate.equals(goal)) continue;
-
-    			Environment env = goal.getEnv().addLeq(candidate.getSource(), candidate.getSink());
-    			
-				if (cachedEnv.containsKey(env))
-					env = cachedEnv.get(env);
-				else {
-					cachedEnv.put(env, env);
-				}
-    			
-    			if (env.leq( goal.getSource(), goal.getSink())) {
-    				set.add(candidate.getSufficientHypo());
-    			}
-    		}
-    	}
-    	return ret;
-    }
-    
-    public void regGenAssumptions (int index, List<Set<Assumption>> l, Stack<Assumption> s, Set<AssumptionSet> result) {
-    	
-    	for (Assumption p : l.get(index)) {
-			s.add(p);
-			if (index!=(l.size()-1))
-				regGenAssumptions (index+1, l, s, result);
-			else {
-				AssumptionSet a = new AssumptionSet(s);
-				result.add(a);
-			}
-			s.pop();
-		}
-    }
-    
-    /*
-     * This function returns a set of pairs s.t. if ANY of them is satisfied, then e1<=e2
-     */
-    public Set<Assumption> getAssumptions(ElementNode e1, ElementNode e2, Environment env) {
-    	Set<Assumption> ret = new HashSet<Assumption>();
-    	
-    	if (e1.getElement() instanceof MeetElement) {
-    		for (Element e : ((MeetElement) e1.getElement()).getElements()) {
-				ret.addAll(getAssumptions(graph.getNode(e), e2, env));
-			}
-    	}
-    	else if (e2.getElement() instanceof JoinElement) {
-    		for (Element e : ((JoinElement) e2.getElement()).getElements()) {
-    			ret.addAll(getAssumptions(e1, graph.getNode(e), env));
-    		}
-    	}
-    	else {
-    		Set<Node> sourceSet = env.geqSet(e1);
-    		Set<Node> sinkSet = env.leqSet(e2);
-    		for (Node n1 : sourceSet) {
-    			for (Node n2 : sinkSet) {
-    				if (!n1.equals(n2)) {
-    					ElementNode en1 = (ElementNode) n1;
-    					ElementNode en2 = (ElementNode) n2;
-    			    	if (en1.getElement() instanceof ComplexElement && en2.getElement() instanceof ComplexElement ) {
-    						EnumerableElement ele1 = (EnumerableElement) en1.getElement();
-    						EnumerableElement ele2 = (EnumerableElement) en2.getElement();
-    			        	List<Element> compset1 = ele1.getElements();
-    			        	List<Element> compset2 = ele2.getElements();
-    			        	
-    			            for (int index=0; index<compset1.size(); index++) {
-    							ret.add( new Assumption(graph.getNode(compset1.get(index)), graph.getNode(compset2.get(index))));
-    			            }
-    					}
-    			    	else
-    			    		ret.add(new Assumption((ElementNode)n1, (ElementNode)n2));
-    				}
-    			}
-    		}
-    	}
-    	return ret;
-    }
-    
     public int getPathNumber () {
     	if (!done) {
     		genErrorPaths();
     	}
-    	int ret = errPaths.size();
+    	int ret = unsatPaths.size();
 //    	printRank();
     	return ret;
     }
@@ -516,27 +294,14 @@ public class Analysis {
     	if (!done) {
     		genErrorPaths();
     	}
-        Set<Set<Hypothesis>> result = genAssumptions(errPaths.keySet());
-    	return result.size();
+    	return unsatPaths.getAssumptionNumber();
     }
     
     public String getAssumptionString () {
     	if (!done) {
     		genErrorPaths();
     	}
-        Set<Set<Hypothesis>> result = genAssumptions(errPaths.keySet());
-        StringBuffer sb = new StringBuffer();
-        int counter = 0;
-        for (Set<Hypothesis> s : result) {
-            List<String> list = new ArrayList<String>();
-        	for (Hypothesis g :s )
-        		list.add(g.toString());
-        	Collections.sort(list);
-        	for (String str : list)
-        		sb.append(str+";");
-        	sb.append("\n");
-        }
-    	return sb.toString();
+    	return unsatPaths.getAssumptionString();
     }
     
     void printRank () {    	
@@ -546,11 +311,6 @@ public class Analysis {
             if (equ.getRank() >0) 
                 System.out.println(equ.getRank() + ": " + equ.toString());
         }
-    }
-    
-    public void showErrorPaths() {
-    	for (ConstraintPath path : errPaths.values())
-    		System.out.println(path.toString());
     }
     
     public void writeToDotFile () {
@@ -567,7 +327,7 @@ public class Analysis {
             if (SHOW_WHOLE_GRAPH) 
             	graph.labelAll();
             else
-            	graph.slicing();   
+            	graph.slicing();
             out.write(graph.toDotString());
             out.close();
         } catch (IOException e) {
@@ -579,9 +339,6 @@ public class Analysis {
         if (!done) 
         	genErrorPaths();
         
-        if (GEN_ASSUMP)
-        	genAssumptions(errPaths.keySet());
-        	
         try {
             FileWriter fstream = new FileWriter(htmlFileName);
             BufferedWriter out = new BufferedWriter(fstream);
@@ -594,14 +351,14 @@ public class Analysis {
         			"Error Diagnostic Report </H1>\n" +
         			"<HR>\n");
         	// type check succeeded
-        	if (unsatPath.size()==0) {
+        	if (unsatPaths.size()==0) {
         		out.append("<H2>");
     			out.append("The program passed type checking. No errors were found.</H2>");
                 out.append("<script type=\"text/javascript\">"+
                           "document.getElementById('feedback').style.display = 'none';</script>");
         	}
         	else {
-        		List<HashMap<AttemptGoal, ConstraintPath>> l = genIndependentPaths(errPaths);
+        		List<HashMap<AttemptGoal, ConstraintPath>> l = unsatPaths.genIndependentPaths();
         		if (l.size()==1) {
         			out.append("<H2>One typing error is identified<H2>");
         		}
@@ -620,38 +377,6 @@ public class Analysis {
         } catch (IOException e) {
             System.out.println("Unable to write the HTML file to: " + htmlFileName);
         }
-    }
-    
-    public List<HashMap<AttemptGoal, ConstraintPath>> genIndependentPaths (HashMap<AttemptGoal, ConstraintPath> errorPaths) {
-    	List<HashMap<AttemptGoal, ConstraintPath>> ret = new ArrayList<HashMap<AttemptGoal, ConstraintPath>>();
-    	for (AttemptGoal goal : errorPaths.keySet()) {
-    		List<HashMap<AttemptGoal, ConstraintPath>> matched = new ArrayList<HashMap<AttemptGoal,ConstraintPath>>();
-    		for (HashMap<AttemptGoal, ConstraintPath> group : ret) {
-    			for (AttemptGoal g1 : group.keySet()) {
-    				if (errorPaths.get(goal).intersects(group.get(g1)))
-    					matched.add(group);
-    			}
-    		}
-    		if (matched.size()==0) {
-    			HashMap<AttemptGoal, ConstraintPath> newmap = new HashMap<AttemptGoal, ConstraintPath>();
-    			newmap.put(goal, errorPaths.get(goal));    			
-    			ret.add(newmap);
-    		}
-    		else if(matched.size()==1) {
-    			matched.get(0).put(goal, errorPaths.get(goal));
-    		}
-    		// the most complicated case when the current path unions multiple previously separate paths
-    		else {
-    			HashMap<AttemptGoal, ConstraintPath> newmap = new HashMap<AttemptGoal, ConstraintPath>();
-    			newmap.put(goal, errorPaths.get(goal));    			
-    			for (HashMap<AttemptGoal, ConstraintPath> map : matched) {
-    				newmap.putAll(map);
-    				ret.remove(map);
-    			}
-    			ret.add(newmap);
-    		}
-    	}
-    	return ret;
     }
     
     public String getHeader () {
@@ -734,22 +459,10 @@ public class Analysis {
 		sb.append("\"");
 	}
     
-    public String getOneSuggestion (String sourcefile, HashMap<AttemptGoal, ConstraintPath> errorPaths, int count) {
-    	StringBuffer sb = new StringBuffer();
-   		sb.append(
-    		"<HR>\n" +
-    		"<H2>\n" +
-    		"Error "+ count + "</H2>\n" +
-   			unsatPathsToHTML(errorPaths) +
-    		genMissingAssumptions(errorPaths) +
-    		genCutItems(errorPaths));
-    	return sb.toString();
-    }
-    
     public String genMissingAssumptions (Map<AttemptGoal, ConstraintPath> errorPaths) {
     	StringBuffer sb = new StringBuffer();
     	if (GEN_ASSUMP) {
-    		Set<Hypothesis> result = genAssumptions(errorPaths.keySet()).iterator().next();
+    		Set<Hypothesis> result = MissingHypoInfer.genAssumptions(errorPaths.keySet(), cachedEnv).iterator().next();
     		sb.append("<H3>Likely missing assumption(s): </H3>\n");
         	sb.append("<UL>\n");
         	sb.append("<LI>");
@@ -886,7 +599,7 @@ public class Analysis {
 		if (GEN_CUT) {
 			Set<Set<String>> results = null;
 			long startTime = System.currentTimeMillis();
-			results = genNodeCuts(errorPaths.keySet());
+			results = unsatPaths.genNodeCuts(errorPaths.keySet());
 			long endTime =  System.currentTimeMillis();
 			System.out.println("top_rank_size: "+results.size());
 			System.out.println("ranking_time: "+(endTime-startTime));
@@ -919,7 +632,7 @@ public class Analysis {
 		
 		if (GEN_CUT) {
 			Set<Set<EquationEdge>> results = null;
-			results = genCuts(errorPaths.keySet());
+			results = unsatPaths.genEdgeCuts(errorPaths.keySet());
 			sb.append("<H4>Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
 			// sb.append("<OL>\n");
@@ -1001,7 +714,7 @@ public class Analysis {
     	List<LineColumnPair> endList = new ArrayList<LineColumnPair>();
     	List<LineColumnPair> emptyList = new ArrayList<LineColumnPair>(); // the set where start=end
     	Set<Position> posSet = new HashSet<Position>();
-    	for (ConstraintPath path : errPaths.values()) {
+    	for (ConstraintPath path : unsatPaths.getPaths()) {
     		List<Node> nodes = path.getAllNodes();
     		for (Node node : nodes) {
     			posSet.add(((ElementNode)node).getElement().getPosition());
