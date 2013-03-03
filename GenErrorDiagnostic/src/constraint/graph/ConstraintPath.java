@@ -5,13 +5,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import constraint.ast.Element;
 import constraint.ast.Environment;
+import constraint.ast.Hypothesis;
 import constraint.graph.pathfinder.PathFinder;
 
 public class ConstraintPath {
     List<Edge> edges;
     Environment assumption;
     PathFinder finder;
+    Hypothesis minHypo;
     
     public ConstraintPath(List<Edge> edges, PathFinder finder) {
         this.edges = edges;
@@ -20,6 +23,10 @@ public class ConstraintPath {
         	assumption.addEnv(edge.getAssumption());
         }
         this.finder =  finder;
+        if (edges.size()==0)
+        	this.minHypo = null;
+        else
+        	this.minHypo = new Hypothesis(getFirstElement(), getLastElement());
     }
 
     int size () {
@@ -28,6 +35,10 @@ public class ConstraintPath {
     
     public List<Edge> getEdges() {
 		return edges;
+	}
+    
+    public Hypothesis getMinHypo() {
+		return minHypo;
 	}
     
 	public List<Node> getIdNodes( ) {
@@ -69,6 +80,14 @@ public class ConstraintPath {
 		else
 			return null;
 	}
+	
+	public Element getFirstElement () {
+		return ((ElementNode)getFirst()).getElement();
+	}
+	
+	public Element getLastElement () {
+		return ((ElementNode)getLast()).getElement();
+	}
     
 	public Node getLast() {
 		if (edges.size() != 0)
@@ -79,6 +98,10 @@ public class ConstraintPath {
 	
 	public Environment getAssumption () {
 		return assumption;
+	}
+	
+	public void setAssumption(Environment assumption) {
+		this.assumption = assumption;
 	}
 	
 	public void incSuccCounter ( ) {
@@ -146,22 +169,22 @@ public class ConstraintPath {
 	public boolean intersects (ConstraintPath path) {
 		// check if there are common "expressions"
 	    List<Node> nodes1 = getAllNodes();
-	    List<Node> nodes2 = path.getAllNodes();
+	    Set<Node> nodes2 = new HashSet<Node>(path.getAllNodes());
 	    for (Node n1 : nodes1) {
-	    	for (Node n2 : nodes2) {
-    			if (((ElementNode)n1).isInCons() && ((ElementNode)n2).isInCons()) {
-    				if (n1.toString().equals(n2.toString())) {
-    					return true;
-    				}
-    			}
-	    	}
+	    	if (nodes2.contains(n1))
+	    		return true;
+//	    	for (Node n2 : nodes2) {
+//    			if (((ElementNode)n1).isInCons() && ((ElementNode)n2).isInCons()) {
+//    				if (n1.toString().equals(n2.toString())) {
+//    					return true;
+//    				}
+//    			}
+//	    	}
 	    }
 	    return false;
 	}
     
 	public String toString( ) {
-		// boolean detail = shouldReport(detailedMessage);
-		boolean detail = false;
 		String ret = "";
 		
 		if (edges.size()==0) return "";

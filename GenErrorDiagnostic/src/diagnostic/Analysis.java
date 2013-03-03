@@ -1,7 +1,6 @@
 
 package diagnostic;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,9 +8,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,19 +20,17 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
-import util.AttemptGoal;
+import util.HTTPUtil;
 import constraint.ast.ComplexElement;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.Environment;
-import constraint.ast.Hypothesis;
 import constraint.ast.Position;
 import constraint.ast.Variable;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
-import constraint.graph.EquationEdge;
 import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
@@ -47,23 +42,24 @@ public class Analysis {
     boolean SHOW_WHOLE_GRAPH=true;
     boolean GEN_CUT = true;
     boolean GEN_ASSUMP = true;
-    int REC_MAX = 3;
 	boolean done = false;
 	ConstraintGraph graph;
-	HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	String sourceName;
 	String htmlFileName;
 	Position pos=null;
 	Map<String, Node> exprMap;
 	Map<String, Double> succCount;
 	UnsatPaths unsatPaths;
+	HTTPUtil util;
+	public HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
-        cachedEnv = new HashMap<Environment, Environment>();
         exprMap = new HashMap<String, Node>();
         succCount = new HashMap<String, Double>();
         unsatPaths = new UnsatPaths();
+        util = new HTTPUtil();
+        cachedEnv = new HashMap<Environment, Environment>();
 	}
 	
 	public static void main(String[] args) {
@@ -116,6 +112,7 @@ public class Analysis {
 				ana.GEN_CUT = cut;
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
+				ana.initialize();
 //				ana.writeToDotFile();
 				ana.writeToHTML();
 			} catch (Exception e) {
@@ -124,12 +121,18 @@ public class Analysis {
 		}
 	}
 	
+	private void initialize () {
+		if (!graph.generated) 
+        	graph.generateGraph();
+	}
+	
 	static public Analysis getAnalysisInstance (String input, boolean symmentric) throws Exception {
 	    parser p = new parser(new GrmLexer(new FileReader(input)));
 	    DiagnosisInput result = (DiagnosisInput) p.parse().value;
 
 	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), symmentric);
 	    Analysis ret = new Analysis(graph);
+	    ret.initialize();
 	    return ret;
 	}
 	
@@ -140,8 +143,6 @@ public class Analysis {
 	}
 	
     public void genErrorPaths ( ) {
-        if (!graph.generated) 
-        	graph.generateGraph();
         
         ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
@@ -221,12 +222,10 @@ public class Analysis {
 					path.incSuccCounter();
 					continue;
 				}
-//				System.out.println(path.toString());
-//				System.out.println(path.getEdges().size());
 				path.incFailCounter();
 				path.setCause();
-				AttemptGoal goal = new AttemptGoal(start.getElement(), end.getElement(), env);
-				unsatPaths.addUnsatPath(goal, path);
+				path.setAssumption(env);
+				unsatPaths.addUnsatPath(path);
 			}
 		}
 		
@@ -237,49 +236,6 @@ public class Analysis {
 		done = true;
 
 	}
-    
-    public String getOneSuggestion (String sourcefile, HashMap<AttemptGoal, ConstraintPath> errorPaths, int count) {
-    	StringBuffer sb = new StringBuffer();
-   		sb.append(
-    		"<HR>\n" +
-    		"<H2>\n" +
-    		"Error "+ count + "</H2>\n" +
-   			unsatPathsToHTML(errorPaths) +
-    		genMissingAssumptions(errorPaths) +
-    		genCutItems(errorPaths));
-    	return sb.toString();
-    }
-    
-    public String unsatPathsToHTML (Map<AttemptGoal, ConstraintPath> errorPaths) {
-    	StringBuffer sb = new StringBuffer();
-    	sb.append("<H3>");
-    	sb.append(errorPaths.size() +" type mismatch" + (errorPaths.size() == 1 ? "" : "s") + " found: \n");
-		sb.append("</H3>\n");
-		sb.append("<UL>\n");
-		for (AttemptGoal goal : errorPaths.keySet()) {
-			//sb.append("<div class=\"moreinfo\"> " +
-			//		errorPaths.get(goal).toString() + " \n");
-			//sb.append("</div>);
-			StringBuffer path_buff = new StringBuffer();
-			List<Node> nodes = errorPaths.get(goal).getIdNodes();
-			for (Node n : nodes) {
-				path_buff.append("['pathelement', \'"+((ElementNode)n).getElement().getPosition()+"\'], ");
-			}
-			sb.append("<LI>\n<span class=\"path\" ");
-			setShowHideActions(true, sb, path_buff.toString(), 0);
-			sb.append(">");
-			sb.append("A value with type "+goal.getSource().toDetailString() + 
-				    " is being used at type " + goal.getSink().toDetailString());
-			sb.append("</span>\n");
-        		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
-	        	sb.append(path_buff.toString());
-        		sb.append("])\" ");
-			// setShowHideActions(true, sb, path_buff.toString(), 0);
-			sb.append(">show it</button><br>\n");
-		}
-		sb.append("</UL>\n");
-		return sb.toString();
-    }
     
     public int getPathNumber () {
     	if (!done) {
@@ -350,6 +306,7 @@ public class Analysis {
         			"<BR>\n" +
         			"Error Diagnostic Report </H1>\n" +
         			"<HR>\n");
+        	
         	// type check succeeded
         	if (unsatPaths.size()==0) {
         		out.append("<H2>");
@@ -358,7 +315,7 @@ public class Analysis {
                           "document.getElementById('feedback').style.display = 'none';</script>");
         	}
         	else {
-        		List<HashMap<AttemptGoal, ConstraintPath>> l = unsatPaths.genIndependentPaths();
+        		List<UnsatPaths> l = unsatPaths.genIndependentPaths();
         		if (l.size()==1) {
         			out.append("<H2>One typing error is identified<H2>");
         		}
@@ -366,10 +323,10 @@ public class Analysis {
         			out.append("<H2>"+l.size()+" separate typing errors are identified</H2>");
         		}
         		int count = 1;	
-        		for (HashMap<AttemptGoal, ConstraintPath> paths : l)
-        			out.append(getOneSuggestion(sourceName,paths, count++));
+        		for (UnsatPaths paths : l)
+        			out.append(getOneSuggestion(sourceName, paths, count++));
         		
-        		out.append(genAnnotatedCode() +
+        		out.append(util.genAnnotatedCode(unsatPaths, sourceName) +
         				(sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
         				:("<script>numberSuggestions();</script>\n")));
             }
@@ -444,376 +401,16 @@ public class Analysis {
     			"</BODY>\n" +
     			"</HTML>";
     }
-
-    public void setShowHideActions(boolean isPath, StringBuffer sb, String loc, int id) {
-		String num = isPath?"true":"false"; 
-		sb.append(" onmouseover=\"show_elements("+num+", [");
-		sb.append(loc+"]) ");
-		if (!isPath)
-			sb.append("; show_cut("+id+") ");
-		sb.append("\"");
-		sb.append(" onmouseout=\"hide_elements("+num+", [");
-		sb.append(loc+"]) ");
-		if (!isPath)
-			sb.append("; hide_cut("+id+") ");
-		sb.append("\"");
-	}
     
-    public String genMissingAssumptions (Map<AttemptGoal, ConstraintPath> errorPaths) {
+    public String getOneSuggestion (String sourcefile, UnsatPaths paths, int count) {
     	StringBuffer sb = new StringBuffer();
-    	if (GEN_ASSUMP) {
-    		Set<Hypothesis> result = MissingHypoInfer.genAssumptions(errorPaths.keySet(), cachedEnv).iterator().next();
-    		sb.append("<H3>Likely missing assumption(s): </H3>\n");
-        	sb.append("<UL>\n");
-        	sb.append("<LI>");
-        	sb.append("<OL>\n");
-        	
-    		String missingCons = "";
-    		for (Hypothesis g : result)
-   				missingCons += g.toString()+";";
-   			sb.append(missingCons+"\n");
-        	sb.append("</OL>\n");
-        	
-   			if (pos!=null) {
-   				sb.append("\n<pre class=\"code\">\n");
-       	        try {
-       	            FileReader fstream = new FileReader(sourceName);
-       	            BufferedReader in = new BufferedReader(fstream);
-       	            String current;
-       	            int currentline=0;
-       	            while ((current=in.readLine())!=null) {
-       	            	currentline ++;
-       	            	if (currentline < pos.getLineStart()) continue;
-       	            	
-       	            	if (pos.getLineStart()==currentline) {
-       	            			current = current + 
-       	            				" <span class=\"missingConstraint\"> " + missingCons + "</span>";
-       	            	}
-       	            	
-       	            	sb.append(currentline + ". "+ current+"\n");
-       	            }
-       	            in.close();
-       	        } catch (IOException e) {
-       	            sb.append("Failed to read file: " + sourceName);
-       	        }
-       	    	sb.append("</pre>\n");
-   			}
-   			sb.append("</UL>");
-    	}
+   		sb.append(
+    		"<HR>\n" +
+    		"<H2>\n" +
+    		"Error "+ count + "</H2>\n" +
+    		unsatPaths.toHTML() +
+    		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
+    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():""));
     	return sb.toString();
     }
-    
-    private class ConsSuggestion implements Comparable<ConsSuggestion> {
-		int rank = 0;
-		Set<EquationEdge> edges;
-		int id;
-
-		public ConsSuggestion(int id, Set<EquationEdge> edges) {
-			this.edges = edges;
-			this.id = id;
-			for (EquationEdge edge : edges) {
-				rank += edge.getEquation().getSuccPaths();
-			}
-		}
-    	
-    	@Override
-    	public int compareTo(ConsSuggestion o) {
-    		return new Integer(rank).compareTo(o.rank);
-    	}
-    	
-    	public String toHTML () {
-    		StringBuffer sb = new StringBuffer();
-//    		sb.append("<LI>\n");
-    		sb.append("<span class=rank>(rank "+rank+")</span> ");
-        	for (EquationEdge c : edges) {
-        		StringBuffer locBuffer = new StringBuffer();
-        		Element left = c.getEquation().getFirstElement();
-        		locBuffer.append("['left', \'"+left.getPosition().toString()+"\'],");
-        		Element right = c.getEquation().getSecondElement();
-        		locBuffer.append("['right', \'"+right.getPosition().toString()+"\']");
-        		String loc = locBuffer.toString();
-        		sb.append("<span class=\"mincut\" ");
-        		setShowHideActions(true, sb, loc, id);
-        		sb.append(">");
-        		sb.append("<code id=\"left"+id+"\">"+left.toDetailString()+"</code>");
-        		sb.append(" has the same type as ");
-        		sb.append("<code id=\"right"+id+"\">"+right.toDetailString()+"</code></span>");
-        		sb.append("<button onclick=\"hide_all();show_elements_perm(false, [");
-        		sb.append(loc);
-        		sb.append("]); ");
-        		sb.append("show_cut_perm("+id+")\" ");
-        		// setShowHideActions(false, sb, loc, id);
-        		sb.append(">show it</button><br>\n");
-        	}
-       		return sb.toString();
-    	}
-    }
-    
-    private class ExprSuggestion implements Comparable<ExprSuggestion> {
-		int rank = 0;
-		Set<String> exprs;
-		int id;
-
-		public ExprSuggestion(int id, Set<String> exprs) {
-			this.exprs = exprs;
-			this.id = id;
-			for (String expr : exprs) {
-				rank += succCount.get(expr);
-			}
-		}
-    	
-    	@Override
-    	public int compareTo(ExprSuggestion o) {
-    		return new Integer(rank).compareTo(o.rank);
-    	}
-    	
-    	public String toHTML () {
-    		StringBuffer sb = new StringBuffer();
-//    		sb.append("<LI>\n");
-    		sb.append("<span class=\"rank\">(rank "+rank+")</span> ");
-			
-			StringBuffer locBuffer = new StringBuffer();
-        	StringBuffer exprBuffer = new StringBuffer();
-			for (String c : exprs) {
-				Element en = ((ElementNode)exprMap.get(c)).getElement();
-        		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
-        		exprBuffer.append(en.toHTMLString()+"    ");
-        	}
-        	sb.append("<span class=\"path\" ");
-			setShowHideActions(false, sb, locBuffer.toString(), 0);
-			sb.append(">");
-			sb.append("<code>"+exprBuffer.toString()+"</code></span>");
-        	sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
-	        sb.append(locBuffer.toString());
-        	sb.append("])\" ");
-			// setShowHideActions(true, sb, path_buff.toString(), 0);
-			sb.append(">show it</button><br>\n");
-        	
-       		return sb.toString();
-    	}
-    }
-    
-    public String genCutItems (HashMap<AttemptGoal, ConstraintPath> errorPaths) {
-    	StringBuffer sb = new StringBuffer();
-    	
-		if (GEN_CUT) {
-			Set<Set<String>> results = null;
-			long startTime = System.currentTimeMillis();
-			results = unsatPaths.genNodeCuts(errorPaths.keySet());
-			long endTime =  System.currentTimeMillis();
-			System.out.println("top_rank_size: "+results.size());
-			System.out.println("ranking_time: "+(endTime-startTime));
-			
-			sb.append("<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
-
-			List<ExprSuggestion> cuts = new ArrayList<ExprSuggestion>();
-			int count = 1;
-			for (Set<String> set : results) {
-				cuts.add(new ExprSuggestion(count, set));
-				count++;
-			}
-			Collections.sort(cuts);
-
-			int best=Integer.MAX_VALUE;
-			int i=0;
-			for ( ; i<cuts.size(); i++) {
-				if (cuts.get(i).rank>best)
-					break;
-				best = cuts.get(i).rank;
-				sb.append(cuts.get(i).toHTML());
-			}
-			sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
-			sb.append("<div id=\"more_expr\">");
-			for ( ; i<cuts.size(); i++) {
-				sb.append(cuts.get(i).toHTML());
-			}
-			sb.append("</div>\n");
-		}
-		
-		if (GEN_CUT) {
-			Set<Set<EquationEdge>> results = null;
-			results = unsatPaths.genEdgeCuts(errorPaths.keySet());
-			sb.append("<H4>Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
-
-			// sb.append("<OL>\n");
-
-			// get all cuts and rank them
-			List<ConsSuggestion> cuts = new ArrayList<ConsSuggestion>();
-			int count = 1;
-			for (Set<EquationEdge> set : results) {
-				cuts.add(new ConsSuggestion(count, set));
-				count++;
-			}
-			Collections.sort(cuts);
-
-                        int best=Integer.MAX_VALUE;
-			int i=0;
-			for ( ; i<cuts.size(); i++) {
-				if (cuts.get(i).rank>best)
-					break;
-				best = cuts.get(i).rank;
-				sb.append(cuts.get(i).toHTML());
-			}
-			sb.append("<button onclick=\"show_more_cons()\">show/hide more</button><br>\n");
-			sb.append("<div id=\"more_cons\">");
-			for ( ; i<cuts.size(); i++) {
-				sb.append(cuts.get(i).toHTML());
-			}
-			sb.append("</div>\n");
-			// sb.append("</OL>\n");
-		}
-		
-    	return sb.toString();
-    }
-    
-    // this class is used to ease the ordering of <line, column> pair
-    private class LineColumnPair implements Comparable<LineColumnPair> {
-    	int line;
-    	int column;
-    	// the following two field are only used to break ties
-    	int endline;
-    	int endcol;
-    	String id; 
-    	
-    	public LineColumnPair(int line, int column, int endline, int endcol, String id) {
-    		this.line = line;
-    		this.column = column;
-    		this.endline = endline;
-    		this.endcol = endcol;
-    		this.id = id;
-		}
-    	
-    	public int compareTo(LineColumnPair p) {
-    		if (line!=p.line)
-    			return new Integer(line).compareTo(p.line);
-    		if (column!=p.column)
-    			return new Integer(column).compareTo(p.column);
-    		// order is reverse
-    		if (endline!=p.endline)
-    			return new Integer(p.endline).compareTo(endline);
-    		if (endcol!=p.endcol)
-    			return new Integer(p.endcol).compareTo(endcol);
-    		return 0;
-    	}
-    	    	
-    	@Override
-    	public int hashCode() {
-    		return id.hashCode();
-    	}
-    	
-    }
-    
-    // find all locations involved in the unsat paths, and then wrap the corresponding code with <span> </span> notations
-    public String genAnnotatedCode () {
-    	StringBuffer sb = new StringBuffer();
-        sb.append("<button onclick=\"hide_all()\">hide all highlights</button><br>\n");
-    	sb.append("\n<pre class=\"code\" id=\"code\">\n");
-    	
-    	// collect all position information, and sort them
-    	List<LineColumnPair> startList = new ArrayList<LineColumnPair>();
-    	List<LineColumnPair> endList = new ArrayList<LineColumnPair>();
-    	List<LineColumnPair> emptyList = new ArrayList<LineColumnPair>(); // the set where start=end
-    	Set<Position> posSet = new HashSet<Position>();
-    	for (ConstraintPath path : unsatPaths.getPaths()) {
-    		List<Node> nodes = path.getAllNodes();
-    		for (Node node : nodes) {
-    			posSet.add(((ElementNode)node).getElement().getPosition());
-    		}
-    		
-    		List<Edge> edges = path.getEdges();
-    		for (Edge edge : edges) {
-    			if(edge instanceof EquationEdge)
-    				posSet.add(((EquationEdge)edge).getEquation().getPos());
-    		}
-    	}
-    	
-    	for (Position pos : posSet) {
-			if (!pos.isEmpty()) {
-				if (pos.getLineStart()==pos.getLineEnd() && pos.getColStart() == pos.getColEnd())
-					emptyList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
-				else {
-					startList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
-					endList.add(new LineColumnPair(pos.getLineEnd(), pos.getColEnd(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
-				}
-			}
-    	}
-    	
-    	Collections.sort(startList);
-    	Collections.sort(endList);
-    	Collections.sort(emptyList);
-    	
-    	int startIndex = 0;
-    	int endIndex = 0;
-    	int emptyIndex = 0;
-		LineColumnPair start = startList.get(startIndex++);
-		LineColumnPair end = endList.get(endIndex++);
-		LineColumnPair empty;
-		if (emptyList.isEmpty())
-			empty = new LineColumnPair(-1, -1, -1, -1, "");
-		else
-			empty = emptyList.get(emptyIndex++);
-		
-    	// add annotations to the source
-    	try {
-			FileReader fstream = new FileReader(sourceName);
-			BufferedReader in = new BufferedReader(fstream);
-			String current;
-			int currentline = 0;
-			while ((current = in.readLine()) != null) {
-				currentline++;
-				sb.append("<span class=lineno>" + currentline);
-				sb.append(".</span>");
-
-				if (end.line != currentline && start.line != currentline && empty.line != currentline) {
-					sb.append(current);
-					sb.append("\n");
-					continue;
-				}
-				
-				int col = 0;
-				char[] chars = current.toCharArray();
-				for ( ; col<chars.length; col++) {
-					// handle end annotation first
-					while (end.line==currentline && end.column==col) {
-						sb.append("</span>");
-						if (endIndex<endList.size())
-							end = endList.get(endIndex++);
-						else
-							break;
-					}
-					// handle the annotations where start = end
-					while (empty.line==currentline && empty.column==col) {
-						sb.append("<span class=\"moreinfor\" id=\""+empty.id+"\">");
-						sb.append("</span>");
-						if (emptyIndex<emptyList.size())
-							empty = emptyList.get(emptyIndex++);
-						else
-							break;
-					}
-					while (start.line==currentline && start.column==col) {
-						sb.append("<span class=\"moreinfor\" id=\""+start.id+"\">");
-						if (startIndex<startList.size())
-							start = startList.get(startIndex++);
-						else
-							break;
-					}
-					sb.append(chars[col]);
-				}
-				// handle the possible end annotation after the last character
-				while (end.line==currentline && end.column>=col) {
-					sb.append("</span>");
-					if (endIndex<endList.size())
-						end = endList.get(endIndex++);
-					else
-						break;
-				}
-				sb.append("\n");
-			}
-			in.close();
-		} catch (IOException e) {
-			sb.append("Failed to read file: " + sourceName);
-		}
-		sb.append("</pre>\n");
-		return sb.toString();
-	}
 }
