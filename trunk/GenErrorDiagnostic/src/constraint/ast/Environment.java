@@ -1,7 +1,9 @@
 package constraint.ast;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import constraint.graph.ConstraintGraph;
@@ -23,6 +25,13 @@ public class Environment {
 	public Environment() {
 		assertions = new HashSet<Constraint>();
 		graph = new ConstraintGraph(null, assertions, false);
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		for (Constraint cons : assertions)
+			sb.append(cons.toString()+"; ");
+		return sb.toString();
 	}
 	
 	public Set<Constraint> getAssertions() {

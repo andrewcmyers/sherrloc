@@ -1,52 +1,58 @@
 package diagnostic;
 
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import util.AttemptGoal;
 import util.MinCutFinder;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
+import constraint.graph.ConstraintPath;
 
 public class MissingHypoInfer {
 	
-    public static Set<Set<Hypothesis>> genAssumptions (Set<AttemptGoal> remaining, HashMap<Environment, Environment> cachedEnv) {    	    	
-    	HashMap<AttemptGoal, Set<Hypothesis>> dep = genAssumptionDep(remaining, cachedEnv);
-    	
-    	Set<Hypothesis> candidates = new HashSet<Hypothesis>();
-    	for (Set<Hypothesis> s : dep.values())
-    		candidates.addAll(s);
+	
+    public static Set<Set<Hypothesis>> genAssumptions (UnsatPaths paths, Map<Environment, Environment> env) {    	    	
+    	final Set<Hypothesis> candidates = new HashSet<Hypothesis>();
+    	final Map<Environment, Environment> cachedEnv = env;
+    	for (ConstraintPath path : paths.getPaths())
+    		candidates.add(path.getMinHypo());
+    	    	
+    	MinCutFinder<Hypothesis> cutFinder = new MinCutFinder<Hypothesis>(paths) {
+			@Override
+			public Set<Hypothesis> mapsTo(ConstraintPath path) {
+				return genAssumptionDep(path, candidates, cachedEnv);
+			}
+		};
  
-   		return MinCutFinder.findMinCut(candidates, dep);
+   		return cutFinder.findMinCut();
    		
     }
     
     // this function returns a hashmap, that gives a set of "weaker" assumptions for each goal
     // Reuse cached env for better performance
-    public static HashMap<AttemptGoal, Set<Hypothesis>> genAssumptionDep (Set<AttemptGoal> goals, HashMap<Environment, Environment> cachedEnv) {
-    	HashMap<AttemptGoal, Set<Hypothesis>> ret = new HashMap<AttemptGoal, Set<Hypothesis>>( );
-    	for (AttemptGoal goal : goals) {
-    		Set<Hypothesis> set = new HashSet<Hypothesis>();
-    		set.add(goal.getSufficientHypo());
-    		ret.put(goal, set);	// the goal itself is a weaker assumption
-    		
-    		for (AttemptGoal candidate : goals) {
-    			if (candidate.equals(goal)) continue;
+    private static Set<Hypothesis> genAssumptionDep (ConstraintPath path, Set<Hypothesis> candidates, Map<Environment, Environment> cachedEnv) {
+		Set<Hypothesis> ret = new HashSet<Hypothesis>();
+		Hypothesis minHypo = path.getMinHypo();
+		ret.add(minHypo);
 
-    			Environment env = goal.getEnv().addLeq(candidate.getSource(), candidate.getSink());
-    			
-				if (cachedEnv.containsKey(env))
-					env = cachedEnv.get(env);
-				else {
-					cachedEnv.put(env, env);
-				}
-    			
-    			if (env.leq( goal.getSource(), goal.getSink())) {
-    				set.add(candidate.getSufficientHypo());
-    			}
-    		}
-    	}
+		for (Hypothesis candidate : candidates) {
+			if (candidate.equals(path.getMinHypo()))
+				continue;
+
+			Environment env = path.getAssumption().addLeq(candidate.getFirst(),
+					candidate.getSecond());
+
+			if (cachedEnv.containsKey(env))
+				env = cachedEnv.get(env);
+			else {
+				cachedEnv.put(env, env);
+			}
+
+			if (env.leq(minHypo.getFirst(), minHypo.getSecond())) {
+				ret.add(candidate);
+			}
+		}
     	return ret;
     }
 
