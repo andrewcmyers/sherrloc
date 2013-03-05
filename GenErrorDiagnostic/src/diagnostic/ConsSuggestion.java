@@ -26,7 +26,6 @@ public class ConsSuggestion implements Comparable<ConsSuggestion> {
 
 	public String toHTML() {
 		StringBuffer sb = new StringBuffer();
-		// sb.append("<LI>\n");
 		sb.append("<span class=rank>(rank " + rank + ")</span> ");
 		for (EquationEdge c : edges) {
 			StringBuffer locBuffer = new StringBuffer();

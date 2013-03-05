@@ -1,4 +1,3 @@
-// field.jif:8,8-14
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@field.jif:5,0-11
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@field.jif:8,8-14
 CONSTRUCTOR field.provider 0 //class jif.types.label.ProviderLabel_c@null
@@ -11,20 +10,20 @@ CONSTRUCTOR pz 0 //@field.jif:6,14-16
 field.provider == _ -> _;
 _ -> _ <= this;
 this <= * -> *;
-_ -> _ <= (px -> py⊓pz);
-(px -> py⊓pz) <= * -> *;
+_ -> _ <= (px -> px⊓py⊓pz);
+(px -> px⊓py⊓pz) <= * -> *;
 _ -> _ <= v_y;
 v_y <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 _ -> _ <= field.provider;
 field.provider <= * -> *;
-_ -> _ <= (px -> py);
-(px -> py) <= * -> *;
+_ -> _ <= (px -> px⊓py);
+(px -> px⊓py) <= * -> *;
 
 %%
-v_y == (caller_pc) ⊔ ((px -> py)) {this <= caller_pc;};["":9,17-18]
-(caller_pc) <= v_y {this <= caller_pc;};["":9,19-20]
-(v_y) ⊔ (caller_pc) ⊔ (this) <= (px -> py⊓pz) {this <= caller_pc;};["":10,4-5]
-field.provider <= (px -> py⊓pz) {this <= caller_pc;};["":10,4-5]
-((px -> py⊓pz)) ⊔ (this) ⊔ (caller_pc) <= v_y {this <= caller_pc;};["":11,4-5]
+v_y["{y}":9,17-18] == (caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":8,8-14] {this <= caller_pc;};[9,17-18]
+(caller_pc)["{caller_pc}":8,8-14] <= v_y["{y}":9,17-18] {this <= caller_pc;};[9,19-20]
+(v_y) ⊔ (caller_pc) ⊔ (this)["{y ⊔ caller_pc ⊔ this}":9,17-18] <= (px -> px⊓py⊓pz)["{(px -> py⊓pz)}":6,5-17] {this <= caller_pc;};[10,4-5]
+field.provider <= (px -> px⊓py⊓pz)["{(px -> py⊓pz)}":6,5-17] {this <= caller_pc;};[10,4-5]
+((px -> px⊓py⊓pz)) ⊔ (this) ⊔ (caller_pc)["{(px -> py⊓pz); _ <- _ ⊔ this ⊔ caller_pc}":6,5-17] <= v_y["{y}":9,17-18] {this <= caller_pc;};[11,4-5]
