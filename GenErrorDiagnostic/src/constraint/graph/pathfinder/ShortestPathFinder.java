@@ -6,6 +6,7 @@ import java.util.Map;
 
 import util.FibonacciHeap;
 import util.FibonacciHeapNode;
+import constraint.ast.ComplexElement;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
@@ -409,6 +410,40 @@ public class ShortestPathFinder extends CFLPathFinder {
 				FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());
 				fh.insert(node, node.getKey());
 				idPath[joinIndex][candIndex] = node;
+			}
+		}
+		
+		// if from and to belongs to some constructors, check if this new link enables a leq relation on the
+		// constructors
+		for (Node cnFrom : consElements.get(from)) {
+			ComplexElement ce1 = (ComplexElement) ((ElementNode)cnFrom).getElement();
+			for (Node cnTo : consElements.get(to)) {
+				if (idPath[cnFrom.getIndex()][cnTo.getIndex()]!=null)
+					continue;
+				ComplexElement ce2 = (ComplexElement) ((ElementNode)cnTo).getElement();
+				
+				if (ce1.getCons().equals(ce2.getCons())) {
+					// check if all elements flows into another constructor
+					boolean success = true;
+					for (int i=0; i<ce1.getCons().getArity(); i++) {
+						Element e1 = ce1.getElements().get(i);
+						Element e2 = ce2.getElements().get(i);
+						if (idPath[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()]==null) {
+							success = false;
+							break;
+						}
+					}
+					if (success) {
+						System.out.println("Adding edge from "+cnFrom + " to " + cnTo);
+						System.out.println("Because of edge "+edge.getFrom() + " to " + edge.getTo());
+						ReductionEdge newedge = new LeqEdge(cnFrom, cnTo, edge, null);
+						// this number is a little ad hoc
+						shortestID[cnFrom.getIndex()][cnTo.getIndex()] = newedge.getLength();
+						FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());
+						fh.insert(node, node.getKey());
+						idPath[cnFrom.getIndex()][cnTo.getIndex()] = node;
+					}
+				}
 			}
 		}
 	}

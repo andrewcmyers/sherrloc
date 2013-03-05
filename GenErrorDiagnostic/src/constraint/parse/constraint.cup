@@ -23,7 +23,7 @@ import constraint.ast.Position;
 import diagnostic.DiagnosisInput;
 
 action code {: 
-				Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
+				public Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
 				Map<String, Variable> variables = new HashMap<String, Variable>(); 
 				Environment env = new Environment();
 			:};

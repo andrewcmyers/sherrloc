@@ -39,7 +39,7 @@ import constraint.parse.parser;
 
 public class Analysis {
     boolean DEBUG = false;
-    boolean SHOW_WHOLE_GRAPH=true;
+    boolean SHOW_WHOLE_GRAPH=false;
     boolean GEN_CUT = true;
     boolean GEN_ASSUMP = true;
 	boolean done = false;
@@ -113,7 +113,7 @@ public class Analysis {
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
 				ana.initialize();
-//				ana.writeToDotFile();
+				ana.writeToDotFile();
 				ana.writeToHTML();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -187,16 +187,18 @@ public class Analysis {
 					continue;
 				}
 				
-				List<Edge> l = finder.getPath(start, end);
-				if (l==null) continue;
-				
-//				System.out.println("comparing "+e1 + " and " + e2);
-				
 				// also ignore the path if its satisfiability depends on other paths
+				// DZ: not sure if this is necessary. Seems for OCaml, a constructor matches another is also an interesting information. Though 
+				// this is less interesting for Jif labels, since they are the same constructors
 				if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
 					if (((ComplexElement)e1).getCons().sameas(((ComplexElement)e2).getCons()))
 							continue;
 				}
+				
+				List<Edge> l = finder.getPath(start, end);
+				if (l==null) continue;
+				
+//				System.out.println("comparing "+e1 + " and " + e2);
 				
 				ConstraintPath path = new ConstraintPath(l, finder);
 

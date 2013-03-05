@@ -108,10 +108,10 @@ public class TestAll {
 	@Test
 	public void testOcaml () {
 		/* test for OCaml constraint */
-		testErrorPaths("src/constraint/tests/ocaml/test.con", 1, true);
-		testErrorPaths("src/constraint/tests/ocaml/test1.con", 1, true);
-		testErrorPaths("src/constraint/tests/ocaml/test2.con", 4, true);
-		testErrorPaths("src/constraint/tests/ocaml/test3.con", 6, false);
+//		testErrorPaths("src/constraint/tests/ocaml/test.con", 1, true);
+		testErrorPaths("src/constraint/tests/ocaml/test1.con", 3, true);
+		testErrorPaths("src/constraint/tests/ocaml/test2.con", 8, true);
+		testErrorPaths("src/constraint/tests/ocaml/test3.con", 8, false);
 		testErrorPaths("src/constraint/tests/ocaml/option.con", 1, true);
 	}
 	
@@ -132,19 +132,19 @@ public class TestAll {
 	@Test
 	public void testJif () {
 		/* test for Jif constraint */
-		testErrorPaths("src/constraint/tests/jif/test.con", 1, false);
+		testErrorPaths("src/constraint/tests/jif/test.con", 2, false);
 
 		testErrorPaths("src/constraint/tests/jif/array.con", 1, false);
 
 		testErrorPaths("src/constraint/tests/jif/constant.con", 6, false);
 
-//		testAssumptions("src/constraint/tests/jif/CMUcred.con", "Alice <= p;\n", false);
+		testAssumptions("src/constraint/tests/jif/CMUcred.con", "Alice <= p1;\n", false);
 
 		testErrorPaths("src/constraint/tests/jif/Do2.con", 2, false);
 
 		testErrorPaths("src/constraint/tests/jif/Do3.con", 2, false);
 
-		testErrorPaths("src/constraint/tests/jif/field.con", 7, false); 
+		testErrorPaths("src/constraint/tests/jif/field.con", 6, false); 
 
 		testErrorPaths("src/constraint/tests/jif/For2.con", 2, false);
 

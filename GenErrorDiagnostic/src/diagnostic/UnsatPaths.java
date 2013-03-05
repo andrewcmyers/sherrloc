@@ -14,6 +14,7 @@ import java.util.Set;
 
 import util.HTTPUtil;
 import util.MinCutFinder;
+import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
 import constraint.ast.Position;
@@ -76,32 +77,69 @@ public class UnsatPaths {
     }
     
     public List<UnsatPaths> genIndependentPaths ( ) {
-    	List<UnsatPaths> groups = new ArrayList<UnsatPaths>();
-    	List<Set<Node>> groupnodes = new ArrayList<Set<Node>>();
-    	
-    	for (ConstraintPath cpath : errPaths) {
-        	// first, check if some group intersects with the current path
-    		boolean matched = false;
-    		for (int i=0; i<groups.size(); i++) {
-    			List<Node> ln = cpath.getAllNodes();
-    			for (Node n : ln) {
-    				if (groupnodes.get(i).contains(n)) {
-    					matched = true;
-    					groups.get(i).addUnsatPath(cpath);
-    					break;
-    				}
-    			}
-    			if (matched)
-    				break;
-    		}
-    		
-    		if (!matched) {
-    			UnsatPaths p = new UnsatPaths();
-    			p.addUnsatPath(cpath);
-    			groups.add(p);
-    		}
-    	}
-    	return groups;
+    	List<UnsatPaths> ret = new ArrayList<UnsatPaths>();
+//    	for (ConstraintPath cpath : errPaths) {
+//    		List<UnsatPaths> matched = new ArrayList<UnsatPaths>();
+//    		for (UnsatPaths path : ret) {
+//    			for (ConstraintPath onepath : path.errPaths) {
+//    				if (onepath.intersects(cpath))
+//    					matched.add(path);
+//    			}
+//    		}
+//    		
+//    		if (matched.size()==0) { 
+//    			UnsatPaths newpath = new UnsatPaths();
+//    			newpath.addUnsatPath(cpath);
+//    			ret.add(newpath);
+//    		}
+//    		else if(matched.size()==1) {
+//    			matched.get(0).addUnsatPath(cpath);
+//    		}
+//    		// the most complicated case when the current path unions multiple previously separate paths
+//    		else {
+//    			UnsatPaths newpath = new UnsatPaths();
+//    			newpath.addUnsatPath(cpath);
+//    			for (UnsatPaths mpath : matched) {
+//    				for (ConstraintPath mcpath : mpath.getPaths()) {
+//    					newpath.addUnsatPath(mcpath);
+//    					ret.remove(mpath);
+//    				}
+//    			}
+//    			ret.add(newpath);
+//    		}
+//    	}
+    	ret.add(this);
+    	return ret;
+//    	List<UnsatPaths> groups = new ArrayList<UnsatPaths>();
+//    	groups.add(this);
+//    	List<Set<Node>> groupnodes = new ArrayList<Set<Node>>();
+//    	
+//    	for (ConstraintPath cpath : errPaths) {
+//        	// first, check if some group intersects with the current path
+//    		boolean matched = false;
+//    		for (int i=0; i<groups.size(); i++) {
+//    			List<Node> ln = cpath.getAllNodes();
+//    			for (Node n : ln) {
+//    				if (groupnodes.get(i).contains(n)) {
+//    					matched = true;
+//    					groups.get(i).addUnsatPath(cpath);
+//    					groupnodes.get(i).addAll(ln);
+//    					break;
+//    				}
+//    			}
+//    			if (matched)
+//    				break;
+//    		}
+//    		
+//    		if (!matched) {
+//    			UnsatPaths p = new UnsatPaths();
+//    			p.addUnsatPath(cpath);
+//    			groups.add(p);
+//    			groupnodes.add(new HashSet<Node>(cpath.getAllNodes()));
+//    		}
+//    	}
+//    	return groups;
+
 //    		List<UnsatPaths> matched = new ArrayList<UnsatPaths>();
 //    		for (UnsatPaths group : ret) {
 //    			for (AttemptGoal g1 : group.keySet()) {
@@ -133,22 +171,22 @@ public class UnsatPaths {
 	
     /* Calculating a min cut is NP complete. Currently, we use iterative deeping search to quickly identify the goal */
     public Set<Set<EquationEdge>> genEdgeCuts ( ) {
-    	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
-//    	HashMap<AttemptGoal, Set<EquationEdge>> map = new HashMap<AttemptGoal, Set<EquationEdge>>();
-
-    	for (ConstraintPath path : errPaths) {
-//    		Set<EquationEdge> set = new HashSet<EquationEdge>();
-    		for (Edge e : path.getEdges()) {
-    			if (e instanceof EquationEdge) {
-    				EquationEdge ee = (EquationEdge) e;
-    				if (!ee.getEquation().getFirstElement().toDetailString().equals(ee.getEquation().getSecondElement().toDetailString())) {
-//    					set.add(ee);
-    					candidates.add(ee);
-    				}
-    			}
-    		}
-//    		map.put(goal, set);
-    	}
+//    	HashSet<EquationEdge> candidates = new HashSet<EquationEdge>();
+////    	HashMap<AttemptGoal, Set<EquationEdge>> map = new HashMap<AttemptGoal, Set<EquationEdge>>();
+//
+//    	for (ConstraintPath path : errPaths) {
+////    		Set<EquationEdge> set = new HashSet<EquationEdge>();
+//    		for (Edge e : path.getEdges()) {
+//    			if (e instanceof EquationEdge) {
+//    				EquationEdge ee = (EquationEdge) e;
+//    				if (!ee.getEquation().getFirstElement().toDetailString().equals(ee.getEquation().getSecondElement().toDetailString())) {
+////    					set.add(ee);
+//    					candidates.add(ee);
+//    				}
+//    			}
+//    		}
+////    		map.put(goal, set);
+//    	}
     	
     	MinCutFinder<EquationEdge> cutFinder = new MinCutFinder<EquationEdge>(this) {
 			@Override
@@ -165,20 +203,20 @@ public class UnsatPaths {
     	return cutFinder.findMinCut( );
     }
     
-    public Set<Set<String>> genNodeCuts ( ) {
-    	HashSet<String> candidates = new HashSet<String>();
-//    	HashMap<AttemptGoal, Set<String>> map = new HashMap<AttemptGoal, Set<String>>();
-
-    	for (ConstraintPath path : errPaths) {
-    		Set<String> set = new HashSet<String>();
-    		for (Node n : path.getAllNodes()) {
-    			if (((ElementNode)n).isInCons()) {
-//    				set.add(n.toString());
-    				candidates.add(n.toString());
-    			}
-    		}
-//    		map.put(goal, new HashSet<String>(set));
-    	}
+    public Set<Set<String>> genSnippetCut ( ) {
+//    	HashSet<String> candidates = new HashSet<String>();
+////    	HashMap<AttemptGoal, Set<String>> map = new HashMap<AttemptGoal, Set<String>>();
+//
+//    	for (ConstraintPath path : errPaths) {
+//    		Set<String> set = new HashSet<String>();
+//    		for (Node n : path.getAllNodes()) {
+//    			if (((ElementNode)n).isInCons()) {
+////    				set.add(n.toString());
+//    				candidates.add(n.toString());
+//    			}
+//    		}
+////    		map.put(goal, new HashSet<String>(set));
+//    	}
     	
     	MinCutFinder<String> cutFinder = new MinCutFinder<String>( this) {
 			@Override
@@ -187,7 +225,6 @@ public class UnsatPaths {
 				
 				for (Node n : path.getAllNodes()) {
 					ret.add(n.toString());
-					ret.add(n.toString());
 				}
 				return ret;
 			}
@@ -195,6 +232,22 @@ public class UnsatPaths {
     	
     	return cutFinder.findMinCut();
     }
+    
+    public Set<Set<Element>> genElementCut ( ) {
+    	MinCutFinder<Element> cutFinder = new MinCutFinder<Element>( this) {
+			@Override
+			public Set<Element> mapsTo(ConstraintPath path) {
+				Set<Element> ret = new HashSet<Element>();
+				
+				for (Node n : path.getAllNodes()) {
+					ret.add(((ElementNode)n).getElement().getBaseElement());
+				}
+				return ret;
+			}
+		};
+    	
+    	return cutFinder.findMinCut();
+	}
     
     public String toHTML ( ) {
     	StringBuffer sb = new StringBuffer();
@@ -274,7 +327,7 @@ public class UnsatPaths {
     
     public String genNodeCut (Map<String, Double> succCount, Map<String, Node> exprMap) {
     	StringBuffer sb = new StringBuffer();
-    	Set<Set<String>> results = genNodeCuts();
+    	Set<Set<String>> results = genSnippetCut();
 		long startTime = System.currentTimeMillis();
 		long endTime =  System.currentTimeMillis();
 		System.out.println("ranking_time: "+(endTime-startTime));

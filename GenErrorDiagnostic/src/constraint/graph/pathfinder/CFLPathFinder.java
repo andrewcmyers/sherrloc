@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import constraint.ast.ComplexElement;
+import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
@@ -18,13 +19,14 @@ import constraint.graph.ConstructorEdge;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
 import constraint.graph.EquationEdge;
-import constraint.graph.LeqEdge;
 import constraint.graph.JoinEdge;
 import constraint.graph.LeftEdge;
+import constraint.graph.LeqEdge;
 import constraint.graph.MeetEdge;
 import constraint.graph.Node;
 import constraint.graph.ReductionEdge;
 import constraint.graph.RightEdge;
+import constraint.parse.parser;
 
 /**
  * 
@@ -37,6 +39,7 @@ abstract public class CFLPathFinder extends PathFinder {
 	protected Map<Node, Map<Node, List<ReductionEdge>>>   reductionEdges = new HashMap<Node, Map<Node,List<ReductionEdge>>>();
 	protected Map<Node, List<Node>>   joinElements = new HashMap<Node, List<Node>>();
 	protected Map<Node, List<Node>>   meetElements = new HashMap<Node, List<Node>>();
+	protected Map<Node, List<Node>>   consElements = new HashMap<Node, List<Node>>();
 	boolean[][] hasRightEdge;
 
 	
@@ -47,6 +50,7 @@ abstract public class CFLPathFinder extends PathFinder {
 			reductionEdges.put(n, new HashMap<Node, List<ReductionEdge>>());
 			joinElements.put(n, new ArrayList<Node>());
 			meetElements.put(n, new ArrayList<Node>());
+			consElements.put(n, new ArrayList<Node>());
 		}
 		hasRightEdge = new boolean[graph.getAllNodes().size()][graph.getAllNodes().size()];
 	}
@@ -204,17 +208,25 @@ abstract public class CFLPathFinder extends PathFinder {
 		
 		// now handle the join on RHS and meet on LHS
 		for (Node n : g.getAllNodes()) {
-			if (((ElementNode)n).getElement() instanceof JoinElement) {
-				JoinElement je = (JoinElement) ((ElementNode)n).getElement();
+			Element element = ((ElementNode)n).getElement();
+			if (element instanceof JoinElement) {
+				JoinElement je = (JoinElement) element;
 				for (Element ele : je.getElements()) {
 					joinElements.get(g.getNode(ele)).add(n);
 				}
 			}
 			
-			if (((ElementNode)n).getElement() instanceof MeetElement) {
-				MeetElement je = (MeetElement) ((ElementNode)n).getElement();
+			if (element instanceof MeetElement) {
+				MeetElement je = (MeetElement) element;
 				for (Element ele : je.getElements()) {
 					meetElements.get(g.getNode(ele)).add(n);
+				}
+			}
+			
+			if (element instanceof ComplexElement) {
+				ComplexElement ce = (ComplexElement) element;
+				for (Element ele : ce.getElements()) {
+					consElements.get(g.getNode(ele)).add(n);
 				}
 			}
 		}
