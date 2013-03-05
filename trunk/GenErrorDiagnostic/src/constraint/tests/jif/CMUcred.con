@@ -1,0 +1,79 @@
+CONSTRUCTOR password 0 //class jif.types.label.ArgLabel_c@CMUcred.jif:8,76-87
+CONSTRUCTOR p 0 //class jif.types.label.ArgLabel_c@CMUcred.jif:8,48-50
+CONSTRUCTOR ID 0 //class jif.types.label.ArgLabel_c@CMUcred.jif:8,57-68
+CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@CMUcred.jif:5,0-19
+CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@CMUcred.jif:8,11-27
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@sig-src/jif/runtime/Runtime.jif:15,35-40
+CONSTRUCTOR CMU 0 //@null
+CONSTRUCTOR * 0 //@sig-src/jif/runtime/Runtime.jif:15,25-51
+CONSTRUCTOR p1 0 //@CMUcred.jif:15,17-18
+
+%%
+password <= (Alice -> Alice⊓CMU);
+ID <= (Alice -> Alice⊓CMU);
+p <= (_ -> _);
+caller_pc <= (Alice -> Alice⊓CMU);
+_ -> _ <= password;
+password <= * -> *;
+_ -> _ <= p;
+p <= * -> *;
+_ -> _ <= v_runtime;
+v_runtime <= * -> *;
+_ -> _ <= v_cred;
+v_cred <= * -> *;
+_ -> _ <= v_e1;
+v_e1 <= * -> *;
+_ -> _ <= v_out;
+v_out <= * -> *;
+_ -> _ <= v_e2;
+v_e2 <= * -> *;
+_ -> _ <= (Alice -> Alice⊓CMU);
+(Alice -> Alice⊓CMU) <= * -> *;
+_ -> _ <= (* -> *);
+(* -> *) <= * -> *;
+_ -> _ <= (p1 -> p1);
+(p1 -> p1) <= * -> *;
+_ -> _ <= ID;
+ID <= * -> *;
+_ -> _ <= this;
+this <= * -> *;
+_ -> _ <= caller_pc;
+caller_pc <= * -> *;
+_ -> _ <= (p1 -> p1);
+(p1 -> p1) <= * -> *;
+_ -> _ <= (_ -> _);
+(_ -> _) <= * -> *;
+
+%%
+Alice⊔CMU >= Alice {this <= caller_pc;};["":8,11-27]
+(caller_pc)["{caller_pc}":8,11-27] <= v_cred["{cred}":12,13-17] {this <= caller_pc;};[12,20-21]
+v_runtime["{runtime}":15,34-41] == ((p1 -> p1)) ⊔ ((Alice -> Alice⊓CMU))["{(p -> *) ⊔ (Alice -> CMU)}":15,19-33] {this <= caller_pc;};[15,34-41]
+caller_pc["{caller_pc}":8,11-27] <= (* -> *)["{(* -> *)}":15,25-51] {this <= caller_pc;};[15,44-67]
+v_param_p_label["{param_p_label}":15,44-51] == (p) ⊔ (caller_pc)["{p ⊔ caller_pc}":8,48-50] {this <= caller_pc;};[15,44-67]
+p1["p":15,17-18] == p1["p":15,17-18] {this <= caller_pc;};["":15,44-67]
+((_ -> _)) ⊔ (caller_pc)["{(_ -> _); p <- * ⊔ caller_pc}":15,35-40] <= v_runtime["{runtime}":15,34-41] {this <= caller_pc;};[15,44-67]
+v_out["{out}":16,47-50] == ((p1 -> p1)) ⊔ ((Alice -> Alice⊓CMU))["{(p -> *) ⊔ (Alice -> CMU)}":16,32-46] {this <= caller_pc;};[16,47-50]
+(v_runtime) ⊔ (caller_pc)["{runtime ⊔ caller_pc}":15,34-41] <= (* -> *)["{(* -> *)}":45,18-52] {this <= caller_pc;};[16,53-66]
+v_receiver["{receiver}":16,53-66] == (v_runtime) ⊔ (caller_pc)["{runtime ⊔ caller_pc}":15,34-41] {this <= caller_pc;};[16,53-66]
+(p1 -> p1)["{(p -> *)}":44,30-39] == (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[16,53-66]
+((p1 -> p1)) ⊔ (v_runtime) ⊔ (caller_pc)["{(p -> *); p <- * ⊔ runtime ⊔ caller_pc}":45,40-48] <= v_out["{out}":16,47-50] {this <= caller_pc;};[16,53-66]
+(v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] <= (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[17,21-57]
+(v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] <= (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[17,9-58]
+v_receiver1["{receiver}":17,9-58] == (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] {this <= caller_pc;};[17,9-58]
+v_arg1label["{arg1label}":17,21-57] == (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] {this <= caller_pc;};[17,9-58]
+(v_cred) ⊔ (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{cred ⊔ out ⊔ runtime ⊔ caller_pc}":12,13-17] <= (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[18,21-41]
+(v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] <= (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[18,9-42]
+v_receiver2["{receiver}":18,9-42] == (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] {this <= caller_pc;};[18,9-42]
+v_arg1label1["{arg1label}":18,21-41] == (v_cred) ⊔ (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{cred ⊔ out ⊔ runtime ⊔ caller_pc}":12,13-17] {this <= caller_pc;};[18,9-42]
+(ID) ⊔ (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{ID ⊔ out ⊔ runtime ⊔ caller_pc}":8,57-68] <= (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[19,21-33]
+(v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] <= (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[19,9-35]
+v_receiver3["{receiver}":19,9-35] == (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] {this <= caller_pc;};[19,9-35]
+v_arg1label2["{arg1label}":19,21-33] == (ID) ⊔ (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{ID ⊔ out ⊔ runtime ⊔ caller_pc}":8,57-68] {this <= caller_pc;};[19,9-35]
+(password) ⊔ (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{password ⊔ out ⊔ runtime ⊔ caller_pc}":8,76-87] <= (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[20,21-45]
+(v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] <= (p1 -> p1)["{(p -> *)}":16,21-31] {this <= caller_pc;};[20,9-46]
+v_receiver4["{receiver}":20,9-46] == (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{out ⊔ runtime ⊔ caller_pc}":16,47-50] {this <= caller_pc;};[20,9-46]
+v_arg1label3["{arg1label}":20,21-45] == (password) ⊔ (v_out) ⊔ (v_runtime) ⊔ (caller_pc)["{password ⊔ out ⊔ runtime ⊔ caller_pc}":8,76-87] {this <= caller_pc;};[20,9-46]
+caller_pc["{caller_pc}":8,11-27] <= v_e1["{e1}":22,14-34] {this <= caller_pc;};[22,14-34]
+(v_runtime) ⊔ (caller_pc) ⊔ (v_out)["{runtime ⊔ caller_pc ⊔ out}":15,34-41] <= v_e2["{e2}":23,14-37] {this <= caller_pc;};[23,14-37]

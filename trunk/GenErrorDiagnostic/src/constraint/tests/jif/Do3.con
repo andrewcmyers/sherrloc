@@ -1,4 +1,3 @@
-// Do3.jif:2,4-10
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Do3.jif:1,0-7
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Do3.jif:2,4-10
 CONSTRUCTOR this 0
@@ -8,8 +7,8 @@ CONSTRUCTOR * 0 //@Do3.jif:3,9-15
 
 %%
 caller_pc <= (_ -> _);
-_ -> _ <= (Alice -> *);
-(Alice -> *) <= * -> *;
+_ -> _ <= (Alice -> Alice);
+(Alice -> Alice) <= * -> *;
 _ -> _ <= this;
 this <= * -> *;
 _ -> _ <= v_leak;
@@ -32,13 +31,13 @@ _ -> _ <= v_newException;
 v_newException <= * -> *;
 
 %%
-v_secret == (Alice -> *) {this <= caller_pc;};["":3,17-23]
-(caller_pc) <= v_secret {this <= caller_pc;};["":3,26-30]
-v_leak == (_ -> _) {this <= caller_pc;};["":4,18-22]
-(caller_pc) <= v_leak {this <= caller_pc;};["":4,25-30]
-(caller_pc) <= v_count {this <= caller_pc;};["":5,20-21]
-(v_do) ⊔ (v_count) <= v_leak {this <= caller_pc;};["":8,16-20]
-(v_do) <= v_count {this <= caller_pc;};["":9,16-21]
-(v_secret) ⊔ (v_do) <= (* -> *) {this <= caller_pc;};["":10,35-50]
-(v_secret) ⊔ (v_do) ⊔ (v_count) ⊔ (caller_pc) <= v_do {this <= caller_pc;};["":7,12-11,32]
-(v_secret) ⊔ (v_do) ⊔ (v_newException) <= v_e {this <= caller_pc;};["":13,15-26]
+v_secret["{secret}":3,17-23] == (Alice -> Alice)["{(Alice -> *)}":3,8-16] {this <= caller_pc;};[3,17-23]
+(caller_pc)["{caller_pc}":2,4-10] <= v_secret["{secret}":3,17-23] {this <= caller_pc;};[3,26-30]
+v_leak["{leak}":4,18-22] == (_ -> _)["{}":4,15-17] {this <= caller_pc;};[4,18-22]
+(caller_pc)["{caller_pc}":2,4-10] <= v_leak["{leak}":4,18-22] {this <= caller_pc;};[4,25-30]
+(caller_pc)["{caller_pc}":2,4-10] <= v_count["{count}":5,12-17] {this <= caller_pc;};[5,20-21]
+(v_do) ⊔ (v_count)["{do ⊔ count}":7,12-11,32] <= v_leak["{leak}":4,18-22] {this <= caller_pc;};[8,16-20]
+(v_do)["{do}":7,12-11,32] <= v_count["{count}":5,12-17] {this <= caller_pc;};[9,16-21]
+(v_secret) ⊔ (v_do)["{secret ⊔ do}":3,17-23] <= (* -> *)["{(* -> *)}":12,11-22] {this <= caller_pc;};[10,35-50]
+(v_secret) ⊔ (v_do) ⊔ (v_count) ⊔ (caller_pc)["{secret ⊔ do ⊔ count ⊔ caller_pc}":3,17-23] <= v_do["{do}":7,12-11,32] {this <= caller_pc;};[7,12-11,32]
+(v_secret) ⊔ (v_do) ⊔ (v_newException)["{secret ⊔ do ⊔ newException}":3,17-23] <= v_e["{e}":13,15-26] {this <= caller_pc;};[13,15-26]

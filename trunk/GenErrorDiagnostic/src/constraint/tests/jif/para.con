@@ -1,4 +1,3 @@
-// para.jif:7,8-14
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@para.jif:7,8-14
 CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@para.jif:7,33-45
 CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@para.jif:7,18-26
@@ -9,10 +8,10 @@ CONSTRUCTOR py 0 //@para.jif:8,12-14
 CONSTRUCTOR pz 0 //@para.jif:8,15-17
 
 %%
-y <= (px -> py⊓pz);
-x <= (px -> py);
-_ -> _ <= (px -> py⊓pz);
-(px -> py⊓pz) <= * -> *;
+y <= (px -> px⊓py⊓pz);
+x <= (px -> px⊓py);
+_ -> _ <= (px -> px⊓py⊓pz);
+(px -> px⊓py⊓pz) <= * -> *;
 _ -> _ <= caller_pc;
 caller_pc <= * -> *;
 _ -> _ <= v_z;
@@ -25,6 +24,6 @@ _ -> _ <= this;
 this <= * -> *;
 
 %%
-v_z == (caller_pc) ⊔ ((px -> py⊓pz)) {this <= caller_pc;};["":8,19-20]
-(y) ⊔ (caller_pc) <= v_z {this <= caller_pc;};["":9,4-5]
-(x) ⊔ (caller_pc) <= v_z {this <= caller_pc;};["":10,4-5]
+v_z["{z}":8,19-20] == (caller_pc) ⊔ ((px -> px⊓py⊓pz))["{caller_pc ⊔ (px -> py⊓pz); _ <- _}":7,8-14] {this <= caller_pc;};[8,19-20]
+(y) ⊔ (caller_pc)["{y ⊔ caller_pc}":7,33-45] <= v_z["{z}":8,19-20] {this <= caller_pc;};[9,4-5]
+(x) ⊔ (caller_pc)["{x ⊔ caller_pc}":7,18-26] <= v_z["{z}":8,19-20] {this <= caller_pc;};[10,4-5]

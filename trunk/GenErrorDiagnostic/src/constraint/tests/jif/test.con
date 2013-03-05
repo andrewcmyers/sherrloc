@@ -1,4 +1,3 @@
-// test.jif:7,8-14
 CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@test.jif:5,0-14
 CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@test.jif:7,8-14
 CONSTRUCTOR this 0
@@ -17,15 +16,16 @@ _ -> _ <= v_y;
 v_y <= * -> *;
 _ -> _ <= v_z;
 v_z <= * -> *;
-_ -> _ <= (px -> py);
-(px -> py) <= * -> *;
+_ -> _ <= (px -> px⊓py);
+(px -> px⊓py) <= * -> *;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
 
 %%
-v_y == (caller_pc) ⊔ ((px -> py)) {this <= caller_pc;};["":8,17-18]
-(caller_pc) <= v_y {this <= caller_pc;};["":8,19-20]
-(v_y) ⊔ (caller_pc) <= v_x {this <= caller_pc;};["":9,12-13]
-v_z == (caller_pc) ⊔ ((_ -> _)) {this <= caller_pc;};["":10,11-12]
-(caller_pc) <= v_z {this <= caller_pc;};["":10,15-16]
-(caller_pc) ⊔ (v_x) <= v_z {this <= caller_pc;};["":12,8-9]
+v_y["{y}":8,17-18] == (caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":7,8-14] {this <= caller_pc;};[8,17-18]
+(caller_pc)["{caller_pc}":7,8-14] <= v_y["{y}":8,17-18] {this <= caller_pc;};[8,19-20]
+v_x["{x}":9,17-18] == (caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":7,8-14] {this <= caller_pc;};[9,17-18]
+(v_y) ⊔ (caller_pc)["{y ⊔ caller_pc}":8,17-18] <= v_x["{x}":9,17-18] {this <= caller_pc;};[9,21-22]
+v_z["{z}":10,11-12] == (caller_pc) ⊔ ((_ -> _))["{caller_pc ⊔ (_ -> _); _ <- _}":7,8-14] {this <= caller_pc;};[10,11-12]
+(caller_pc)["{caller_pc}":7,8-14] <= v_z["{z}":10,11-12] {this <= caller_pc;};[10,15-16]
+(caller_pc) ⊔ (v_x)["{caller_pc ⊔ x}":7,8-14] <= v_z["{z}":10,11-12] {this <= caller_pc;};[12,8-9]
