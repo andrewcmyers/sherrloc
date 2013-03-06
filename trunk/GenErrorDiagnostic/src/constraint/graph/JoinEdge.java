@@ -36,4 +36,9 @@ public class JoinEdge extends Edge {
 	public int getLength() {
 		return 1;
 	}
+	
+	@Override
+	public Edge getReverse() {
+		return new JoinEdge(to, from);
+	}
 }

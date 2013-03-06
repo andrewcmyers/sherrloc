@@ -153,8 +153,10 @@ public class ConstraintGraph extends Graph {
                     	addEdge(compnode, currentnode, new JoinEdge(compnode, currentnode));
                     }
                     else if (e instanceof ComplexElement){
-                    	addEdge(compnode, currentnode, new ConstructorEdge(new EdgeCondition(((ComplexElement)e).getCons(), index, false), compnode, currentnode));
-                    	addEdge(currentnode, compnode, new ConstructorEdge(new EdgeCondition(((ComplexElement)e).getCons(), index, true), currentnode, compnode));
+                    	ComplexElement ce = (ComplexElement)e;
+                    	Polarity pol = ce.getCons().isContraVariant()?Polarity.NEG:Polarity.POS;
+                    	addEdge(compnode, currentnode, new ConstructorEdge(new EdgeCondition(((ComplexElement)e).getCons(), index, false, pol), compnode, currentnode));
+                    	addEdge(currentnode, compnode, new ConstructorEdge(new EdgeCondition(((ComplexElement)e).getCons(), index, true, pol), currentnode, compnode));
                     }
                 }
             }
