@@ -30,4 +30,8 @@ public class LeqEdge extends ReductionEdge {
 		return "id";
 	}
 	
+	@Override
+	public Edge getReverse() {
+		return new LeqEdge(to, from, second.getReverse(), first.getReverse());
+	}	
 }

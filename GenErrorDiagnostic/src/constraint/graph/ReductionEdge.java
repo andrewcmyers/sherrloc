@@ -9,7 +9,7 @@ import constraint.ast.Environment;
 /*
  * Special edges used in CFL-reachability algorithm
  */
-public class ReductionEdge extends Edge{
+abstract public class ReductionEdge extends Edge{
 	Edge first;
 	Edge second;
 	int size;
@@ -18,7 +18,7 @@ public class ReductionEdge extends Edge{
 		super(from, to);
 		this.first = first;
 		this.second = second;
-		size = (first==null?0:first.getLength())+(second==null?0:second.getLength());
+		size = first.getLength()+second.getLength();
 	}
 	
 	public boolean isDirected() {
@@ -49,12 +49,12 @@ public class ReductionEdge extends Edge{
 		List<Edge> ret = new ArrayList<Edge>();
 		if (first instanceof ReductionEdge)
 			ret.addAll(((ReductionEdge)first).getEdges());
-		else if (first != null)
+		else if (!(first instanceof EmptyEdge))
 			ret.add(first);
 		
 		if (second instanceof ReductionEdge)
 			ret.addAll(((ReductionEdge)second).getEdges());
-		else if (second != null)
+		else if (!(second instanceof EmptyEdge))
 			ret.add(second);
 		return ret;
 	}
@@ -63,9 +63,9 @@ public class ReductionEdge extends Edge{
 	@Override
 	public Environment getAssumption() {
 		Environment env = new Environment();
-		if (first!=null)
+		if (!(first instanceof EmptyEdge))
 			env.addEnv(first.getAssumption());
-		if (second!=null)
+		if (!(second instanceof EmptyEdge))
 			env.addEnv(second.getAssumption());
 		return env;
 	}

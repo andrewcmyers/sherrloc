@@ -54,4 +54,9 @@ public class ConstructorEdge extends Edge {
 		return 1;
 	}
 	
+	@Override
+	public Edge getReverse() {
+		return new ConstructorEdge(condition, to, from);
+	}
+	
 }
