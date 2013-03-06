@@ -29,5 +29,10 @@ public class RightEdge extends ReductionEdge {
 	public String toDotString() {
 		return "right";
 	}
+	
+	@Override
+	public Edge getReverse() {
+		return new RightEdge(cons, to, from, second.getReverse(), first.getReverse());
+	}
 }
 

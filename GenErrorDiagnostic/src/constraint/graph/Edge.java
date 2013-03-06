@@ -42,9 +42,6 @@ abstract public class Edge {
     abstract public int getLength ();
     
     abstract public Environment getAssumption ();
-//    LabelEnv getEnv () {
-//        if (equ!=null)     
-//            return equ.env();
-//        else return null;
-//    }
+    
+    abstract public Edge getReverse ();
 }

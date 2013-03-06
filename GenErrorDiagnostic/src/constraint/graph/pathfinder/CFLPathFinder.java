@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 import constraint.ast.ComplexElement;
-import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
@@ -18,6 +17,7 @@ import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstructorEdge;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
+import constraint.graph.EmptyEdge;
 import constraint.graph.EquationEdge;
 import constraint.graph.JoinEdge;
 import constraint.graph.LeftEdge;
@@ -26,7 +26,6 @@ import constraint.graph.MeetEdge;
 import constraint.graph.Node;
 import constraint.graph.ReductionEdge;
 import constraint.graph.RightEdge;
-import constraint.parse.parser;
 
 /**
  * 
@@ -150,63 +149,21 @@ abstract public class CFLPathFinder extends PathFinder {
 			
 			// add equation edge as "id" edge, constructor edge as left or right edge
 			if (edge instanceof EquationEdge || edge instanceof MeetEdge || edge instanceof JoinEdge) {
-				addReductionEdge(from, to, new LeqEdge(from, to, edge, null));
+				addReductionEdge(from, to, new LeqEdge(from, to, edge, EmptyEdge.getInstance()));
 			}
 			else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
 				if (e.getCondition().isReverse()) {
-					addReductionEdge(from, to, new RightEdge(e.getCondition(), from, to, edge, null));
+					addReductionEdge(from, to, new RightEdge(e.getCondition(), from, to, edge, EmptyEdge.getInstance()));
 					hasRightEdge[from.getIndex()][to.getIndex()] = true;
 				}
 				else {
-					addReductionEdge(from, to, new LeftEdge (e.getCondition(), from, to, edge, null));
+					addReductionEdge(from, to, new LeftEdge (e.getCondition(), from, to, edge, EmptyEdge.getInstance()));
 				}
 			}
-		}
+		}		
 		
-		// if all components flows into another constructor's components, add an additional edge
-		Set<ComplexElement> consSet = new HashSet<ComplexElement>();
-		for (Node n : g.getAllNodes()) {
-			if (n instanceof ElementNode && ((ElementNode)n).getElement() instanceof ComplexElement) {
-				consSet.add((ComplexElement)((ElementNode)n).getElement());
-			}
-		}
-		
-		for (ComplexElement e1 : consSet) {
-			for (ComplexElement e2 : consSet) {
-				ElementNode n1 = g.getNode(e1);
-				ElementNode n2 = g.getNode(e2);
-				if (n1.equals(n2) || getLeqEdge(n1, n2)!=null) continue;
-
-				if (e1.getCons().equals(e2.getCons())) {
-					boolean success = true;
-
-					Environment env = new Environment();
-					for (int i=0; i<e1.getCons().getArity(); i++) {
-						Element comp1 = e1.getElements().get(i);
-						Element comp2 = e2.getElements().get(i);
-						
-						if ( comp1.equals(comp2))
-							continue;
-						
-						Edge edge = getLeqEdge(g.getNode(e1.getElements().get(i)), g.getNode(e2.getElements().get(i)));
-						if (edge==null) {
-							success = false;
-							break;
-						}
-						else {
-							env.addEnv(edge.getAssumption());
-						}
-					}
-					
-					if (success) {
-						addReductionEdge(n1, n2, new LeqEdge(n1, n2, new CompEdge(n1, n2, env, "comp edge"), null));
-					}
-				}
-			}
-		}
-		
-		// now handle the join on RHS and meet on LHS
+		// initialize the lookup tables
 		for (Node n : g.getAllNodes()) {
 			Element element = ((ElementNode)n).getElement();
 			if (element instanceof JoinElement) {

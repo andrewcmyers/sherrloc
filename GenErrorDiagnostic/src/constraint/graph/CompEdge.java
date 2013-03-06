@@ -43,4 +43,8 @@ public class CompEdge extends Edge {
 			return 1;
 		}
 
+		@Override
+		public Edge getReverse() {
+			return new CompEdge(to, from, env, info);
+		}
 }

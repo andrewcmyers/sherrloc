@@ -33,4 +33,9 @@ public class LeftEdge extends ReductionEdge {
 	public EdgeCondition getCondition () {
 		return cons;
 	}
+	
+	@Override
+	public Edge getReverse() {
+		return new LeftEdge(cons, to, from, second.getReverse(), first.getReverse());
+	}
 }

@@ -5,8 +5,8 @@ import java.util.List;
 
 import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
-import constraint.graph.LeqEdge;
 import constraint.graph.LeftEdge;
+import constraint.graph.LeqEdge;
 import constraint.graph.Node;
 import constraint.graph.ReductionEdge;
 import constraint.graph.RightEdge;

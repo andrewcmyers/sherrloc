@@ -36,4 +36,9 @@ public class MeetEdge extends Edge {
 	public int getLength() {
 		return 1;
 	}
+	
+	@Override
+	public Edge getReverse() {
+		return new MeetEdge(to, from);
+	}
 }

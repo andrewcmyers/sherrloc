@@ -132,6 +132,8 @@ public class TestAll {
 	@Test
 	public void testJif () {
 		/* test for Jif constraint */
+		testErrorPaths("src/constraint/tests/jif/inte.con", 1, false);
+		
 		testErrorPaths("src/constraint/tests/jif/test.con", 2, false);
 
 		testErrorPaths("src/constraint/tests/jif/array.con", 1, false);

@@ -83,4 +83,9 @@ public class EquationEdge extends Edge {
     public int getLength() {
     	return 1;
     }
+    
+    @Override
+    public Edge getReverse() {
+    	return new EquationEdge(equ, to, from);
+    }
 }
