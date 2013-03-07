@@ -152,7 +152,7 @@ public class TestAll {
 
 		testErrorPaths("src/constraint/tests/jif/For3.con", 2, false);
 
-		testErrorPaths("src/constraint/tests/jif/p3.con", 0, false);
+		testErrorPaths("src/constraint/tests/jif/p3.con", 5, false);
 
 		testErrorPaths("src/constraint/tests/jif/para.con", 1, false);
 
@@ -425,7 +425,7 @@ public class TestAll {
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_1.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_2.con", 0, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_3.con", 0, false);
-		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_4.con", 5, false);
+		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_4.con", 6, false);
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint11_5.con", 0, false);
 		
 		testErrorPaths("src/constraint/tests/jiftestcases/LabelLeConstraint12_1.con", 0, false);

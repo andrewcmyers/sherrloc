@@ -228,7 +228,7 @@ public class Analysis {
 				path.setCause();
 				path.setAssumption(env);
 				unsatPaths.addUnsatPath(path);
-//				System.out.println(path);
+				System.out.println(path);
 			}
 		}
 		

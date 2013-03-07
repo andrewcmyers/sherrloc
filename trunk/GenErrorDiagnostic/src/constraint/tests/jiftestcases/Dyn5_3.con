@@ -1,40 +1,84 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn5.jif:3,0-10
-CONSTRUCTOR Dyn5.provider 0 //class jif.types.label.ProviderLabel_c@Dyn5.jif:3,0-10
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn5.jif:3,0-10
-CONSTRUCTOR Dyn5.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR *M 0 //class jif.types.label.DynamicLabel_c@Dyn5.jif:10,42-43
+CONSTRUCTOR C_*M 0 //class jif.types.label.DynamicLabel_c@Dyn5.jif:10,42-43
+CONSTRUCTOR I_*M 0 //class jif.types.label.DynamicLabel_c@Dyn5.jif:10,42-43
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR C_Dyn5.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_Dyn5.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR C_Dyn5.provider1 0 //class jif.types.label.ProviderLabel_c@Dyn5.jif:3,0-10
+CONSTRUCTOR I_Dyn5.provider1 0 //class jif.types.label.ProviderLabel_c@Dyn5.jif:3,0-10
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@Dyn5.jif:4,24-30
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR * 0 //@Dyn5.jif:4,25-26
 
 %%
-Dyn5.provider == _ -> _;
-Dyn5.provider1 == _ -> _;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= Dyn5.provider;
-Dyn5.provider <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= Dyn5.provider1;
-Dyn5.provider1 <= * -> *;
-_ -> _ <= *M;
-*M <= * -> *;
+I_caller_pc <= (_ <- _);
+C_Dyn5.provider == _ -> _;
+I_Dyn5.provider == * <- *;
+C_Dyn5.provider1 == _ -> _;
+I_Dyn5.provider1 == * <- *;
+_ -> _ <= C_*M;
+C_*M <= * -> *;
+* <- * <= I_*M;
+I_*M <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_Dyn5.provider;
+C_Dyn5.provider <= * -> *;
+* <- * <= I_Dyn5.provider;
+I_Dyn5.provider <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_Dyn5.provider1;
+C_Dyn5.provider1 <= * -> *;
+* <- * <= I_Dyn5.provider1;
+I_Dyn5.provider1 <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (* <- *);
+(* <- *) <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 
 %%
-Dyn5.provider1 <= (* -> *) {};["":3,0-10]
-(_ -> _) <= (_ -> _) {};["":4,18-24]
-(_ -> _) <= (_ -> _) {};["":4,18-24]
-(_ -> _) <= (_ -> _) {};["":4,18-24]
-(* -> *) <= (* -> *) {};["":10,18-27]
-*M <= *M {};["":10,18-27]
-(* -> *) <= (* -> *) {};["":10,18-27]
-(_ -> _) <= (_ -> _) {};["":10,18-27]
-*M <= *M {};["":10,18-27]
-Dyn5.provider <= (* -> *) {this <= caller_pc;caller_pc <= (Dyn5.provider);};["":3,0-0]
+C_Dyn5.provider <= (* -> *)["{(* -> *)}":3,0-10] {};[3,0-10]
+I_Dyn5.provider <= (_ <- _)["{(* -> *)}":3,0-10] {};[3,0-10]
+
+(_ -> _)["{}":4,36-38] <= (_ -> _)["{}":4,36-38] {};[4,18-24]
+(_ <- _)["{}":4,36-38] <= (_ <- _)["{}":4,36-38] {};[4,18-24]
+
+(_ -> _)["{* <- *}":4,24-30] <= (_ -> _)["{* <- *}":4,24-30] {};[4,18-24]
+(* <- *)["{* <- *}":4,24-30] <= (* <- *)["{* <- *}":4,24-30] {};[4,18-24]
+
+(_ -> _) <= (_ -> _) {};[4,18-24]
+(* <- *) <= (* <- *) {};[4,18-24]
+
+(* -> *)["{(* -> *)}":10,28-35] <= (* -> *)["{(* -> *)}":10,28-35] {};[10,18-27]
+(_ <- _)["{(* -> *)}":10,28-35] <= (_ <- _)["{(* -> *)}":10,28-35] {};[10,18-27]
+
+C_*M["{*M}":10,42-43] <= C_*M["{*M}":10,42-43] {};[10,18-27]
+I_*M["{*M}":10,42-43] <= I_*M["{*M}":10,42-43] {};[10,18-27]
+
+(* -> *)["{(* -> *)}":10,18-27] <= (* -> *)["{(* -> *)}":10,18-27] {};[10,18-27]
+(_ <- _)["{(* -> *)}":10,18-27] <= (_ <- _)["{(* -> *)}":10,18-27] {};[10,18-27]
+
+(_ -> _) <= (_ -> _) {};[10,18-27]
+(* <- *) <= (* <- *) {};[10,18-27]
+
+C_*M["{*M}":10,23-24] <= C_*M["{*M}":10,23-24] {};[10,18-27]
+I_*M["{*M}":10,23-24] <= I_*M["{*M}":10,23-24] {};[10,18-27]
+
+C_Dyn5.provider1["Dyn5.provider":3,0-10] <= (* -> *)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Dyn5.provider1);I_caller_pc <= (I_Dyn5.provider1);};[3,0-0]
+I_Dyn5.provider1["Dyn5.provider":3,0-10] <= (_ <- _)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Dyn5.provider1);I_caller_pc <= (I_Dyn5.provider1);};[3,0-0]
+

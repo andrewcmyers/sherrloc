@@ -1,18 +1,33 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0-7
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9-17
-CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22-25
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0-7
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@ArgLabel1.jif:4,0-7
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9-17
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,9-17
+CONSTRUCTOR C_x 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22-25
+CONSTRUCTOR I_x 0 //class jif.types.label.ArgLabel_c@ArgLabel1.jif:6,22-25
 CONSTRUCTOR this 0
 
 %%
-caller_pc <= x;
-x <= x;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= x;
-x <= * -> *;
+C_caller_pc <= C_x;
+I_caller_pc <= I_x;
+C_x <= C_x;
+I_x <= I_x;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_x;
+C_x <= * -> *;
+* <- * <= I_x;
+I_x <= _ <- _;
 
 %%
-x <= x {this <= caller_pc;};["":7,21-28]
-v_receiver == x {this <= caller_pc;};["":7,21-28]
+C_x["{x}":6,22-25] <= C_x["{x}":6,22-25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,21-28]
+I_x["{x}":6,22-25] <= I_x["{x}":6,22-25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,21-28]
+
+C_receiver["{receiver}":7,21-28] == C_x["{x}":6,22-25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,21-28]
+I_receiver["{receiver}":7,21-28] == I_x["{x}":6,22-25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,21-28]
+

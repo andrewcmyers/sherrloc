@@ -1,37 +1,76 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR *guessApp.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:25,11-23
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0-7
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0-7
+CONSTRUCTOR C_*guessApp.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
+CONSTRUCTOR I_*guessApp.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:25,11-23
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:25,11-23
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@LabelSubst01.jif:28,19-28
 CONSTRUCTOR * 0 //@LabelSubst01.jif:28,20-21
 
 %%
-caller_pc <= (* -> Alice);
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= *guessApp.lb;
-*guessApp.lb <= * -> *;
+C_caller_pc <= (* -> Alice);
+I_caller_pc <= (_ <- _);
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_*guessApp.lb;
+C_*guessApp.lb <= * -> *;
+* <- * <= I_*guessApp.lb;
+I_*guessApp.lb <= _ <- _;
 _ -> _ <= (* -> Alice);
 (* -> Alice) <= * -> *;
-_ -> _ <= v_newC;
-v_newC <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= v_t;
-v_t <= * -> *;
-_ -> _ <= v_guessApp;
-v_guessApp <= * -> *;
-_ -> _ <= v_e;
-v_e <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_newC;
+C_newC <= * -> *;
+* <- * <= I_newC;
+I_newC <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_t;
+C_t <= * -> *;
+* <- * <= I_t;
+I_t <= _ <- _;
+_ -> _ <= C_guessApp;
+C_guessApp <= * -> *;
+* <- * <= I_guessApp;
+I_guessApp <= _ <- _;
+_ -> _ <= C_e;
+C_e <= * -> *;
+* <- * <= I_e;
+I_e <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 
 %%
-v_guessApp == (* -> Alice) {this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;};["":28,29-37]
-caller_pc <= (* -> Alice) {this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;};["":28,40-47]
-(caller_pc) ⊔ (v_newC) <= v_guessApp {this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;};["":28,40-47]
-v_t == ((* -> Alice)) ⊔ (v_guessApp) {this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;};["":30,32-33]
-((* -> Alice)) ⊔ (v_guessApp) <= (* -> *) {this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;};["":30,36-58]
-v_receiver == ((* -> Alice)) ⊔ (v_guessApp) {this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;};["":30,36-58]
-(*guessApp.lb) ⊔ ((* -> Alice)) ⊔ (v_guessApp) <= v_t {this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;};["":30,36-58]
-((* -> Alice)) ⊔ (v_guessApp) <= v_e {this <= caller_pc;*guessApp.lb <= (* -> Alice);(* -> Alice) <= *guessApp.lb;};["":34,15-37]
+C_guessApp["{guessApp}":28,29-37] == (* -> Alice)["{(* -> Alice)}":28,19-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[28,29-37]
+I_guessApp["{guessApp}":28,29-37] == (_ <- _)["{(* -> Alice)}":28,19-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[28,29-37]
+
+C_caller_pc["{caller_pc}":25,11-23] <= (* -> Alice)["{(* -> Alice)}":12,12-21] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[28,40-47]
+I_caller_pc["{caller_pc}":25,11-23] <= (_ <- _)["{(* -> Alice)}":12,12-21] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[28,40-47]
+
+(C_caller_pc) ⊔ (C_newC)["{caller_pc ⊔ newC}":25,11-23] <= C_guessApp["{guessApp}":28,29-37] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[28,40-47]
+(I_caller_pc) ⊔ (I_newC)["{caller_pc ⊔ newC}":25,11-23] <= I_guessApp["{guessApp}":28,29-37] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[28,40-47]
+
+C_t["{t}":30,32-33] == ((* -> Alice)) ⊔ (C_guessApp)["{(* -> Alice); _ <- _ ⊔ guessApp}":25,11-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[30,32-33]
+I_t["{t}":30,32-33] == ((_ <- _)) ⊔ (I_guessApp)["{(* -> Alice); _ <- _ ⊔ guessApp}":25,11-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[30,32-33]
+
+((* -> Alice)) ⊔ (C_guessApp)["{(* -> Alice); _ <- _ ⊔ guessApp}":7,22-31] <= (* -> *)["{(* -> *)}":18,11-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[30,36-58]
+((_ <- _)) ⊔ (I_guessApp)["{(* -> Alice); _ <- _ ⊔ guessApp}":7,22-31] <= (_ <- _)["{(* -> *)}":18,11-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[30,36-58]
+
+C_receiver["{receiver}":30,36-58] == ((* -> Alice)) ⊔ (C_guessApp)["{(* -> Alice); _ <- _ ⊔ guessApp}":7,22-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[30,36-58]
+I_receiver["{receiver}":30,36-58] == ((_ <- _)) ⊔ (I_guessApp)["{(* -> Alice); _ <- _ ⊔ guessApp}":7,22-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[30,36-58]
+
+(C_*guessApp.lb) ⊔ ((* -> Alice)) ⊔ (C_guessApp)["{*guessApp.lb ⊔ (* -> Alice); _ <- _ ⊔ guessApp}":7,15-17] <= C_t["{t}":30,32-33] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[30,36-58]
+(I_*guessApp.lb) ⊔ ((_ <- _)) ⊔ (I_guessApp)["{*guessApp.lb ⊔ (* -> Alice); _ <- _ ⊔ guessApp}":7,15-17] <= I_t["{t}":30,32-33] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[30,36-58]
+
+((* -> Alice)) ⊔ (C_guessApp)["{(* -> Alice); _ <- _ ⊔ guessApp}":7,22-31] <= C_e["{e}":34,15-37] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[34,15-37]
+((_ <- _)) ⊔ (I_guessApp)["{(* -> Alice); _ <- _ ⊔ guessApp}":7,22-31] <= I_e["{e}":34,15-37] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[34,15-37]
+

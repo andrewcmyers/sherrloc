@@ -507,8 +507,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// if from and to belongs to some constructors, check if this new link enables a leq relation on the
 		// constructors
 		for (Node cnFrom : consElements.get(from)) {
-			ComplexElement ce1 = (ComplexElement) ((ElementNode)cnFrom).getElement();
 			for (Node cnTo : consElements.get(to)) {
+				ComplexElement ce1 = (ComplexElement) ((ElementNode)cnFrom).getElement();  // make sure this is "ce1", not the swapped one when the constructor is contravariant
 				
 				if (idPath[cnFrom.getIndex()][cnTo.getIndex()]!=null)
 					continue;
@@ -531,9 +531,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 							break;
 						}
 					}
-					if (success) {
-						System.out.println("Adding edge from "+cnFrom + " to " + cnTo);
-						System.out.println("Because of edge "+edge.getFrom() + " to " + edge.getTo());
+					if (success) {						
+//						System.out.println("Adding edge from "+cnFrom + " to " + cnTo);
+//						System.out.println("Because of edge "+edge.getFrom() + " to " + edge.getTo());
 						ReductionEdge newedge = new LeqEdge(cnFrom, cnTo, edge, EmptyEdge.getInstance());
 						// this number is a little ad hoc
 						shortestLEQ[cnFrom.getIndex()][cnTo.getIndex()] = newedge.getLength();
