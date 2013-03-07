@@ -1,26 +1,48 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@A.jif:1,0-7
-CONSTRUCTOR a 0 //class jif.types.label.ArgLabel_c@A.jif:9,27-38
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@A.jif:9,11-20
-CONSTRUCTOR A.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_A.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_A.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@A.jif:1,0-7
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@A.jif:1,0-7
+CONSTRUCTOR C_a 0 //class jif.types.label.ArgLabel_c@A.jif:9,27-38
+CONSTRUCTOR I_a 0 //class jif.types.label.ArgLabel_c@A.jif:9,27-38
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@A.jif:9,11-20
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@A.jif:9,11-20
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@A.jif:2,14-25
 CONSTRUCTOR Bob 0 //@null
 
 %%
-a <= (Alice -> Bob);
-caller_pc <= a;
-A.provider == _ -> _;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= a;
-a <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= (Alice -> Bob);
-(Alice -> Bob) <= * -> *;
-_ -> _ <= A.provider;
-A.provider <= * -> *;
+C_a <= (Alice -> Alice⊓Bob);
+I_a <= (_ <- _);
+C_caller_pc <= C_a;
+I_caller_pc <= I_a;
+C_A.provider == _ -> _;
+I_A.provider == * <- *;
+_ -> _ <= C_A.provider;
+C_A.provider <= * -> *;
+* <- * <= I_A.provider;
+I_A.provider <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_a;
+C_a <= * -> *;
+* <- * <= I_a;
+I_a <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= (Alice -> Alice⊓Bob);
+(Alice -> Alice⊓Bob) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 
 %%
-(a) ⊔ (this) <= (Alice -> Bob) {this <= caller_pc;};["":10,8-9]
-A.provider <= (Alice -> Bob) {this <= caller_pc;};["":10,8-9]
+(C_a) ⊔ (C_this)["{a ⊔ this}":9,27-38] <= (Alice -> Alice⊓Bob)["{(Alice -> Bob)}":2,14-25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,8-9]
+(I_a) ⊔ (I_this)["{a ⊔ this}":9,27-38] <= (_ <- _)["{(Alice -> Bob)}":2,14-25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,8-9]
+
+C_A.provider <= (Alice -> Alice⊓Bob)["{(Alice -> Bob)}":2,14-25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,8-9]
+I_A.provider <= (_ <- _)["{(Alice -> Bob)}":2,14-25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,8-9]
+

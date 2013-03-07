@@ -32,7 +32,29 @@ public class ComplexElement extends EnumerableElement {
 	
 	@Override
 	public int hashCode() {
-		return cons.hashCode()^super.hashCode();
+		return cons.hashCode()*31+super.hashCode();
+	}
+	
+	@Override
+	public boolean isTop() {
+		for (Element e : elements) {
+			if (!cons.contraVariant && !e.isTop())
+				return false;
+			if (cons.contraVariant && !e.isBottom())
+				return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean isBottom() {
+		for (Element e : elements) {
+			if (!cons.contraVariant && !e.isBottom())
+				return false;
+			if (cons.contraVariant && !e.isTop())
+				return false;
+		}
+		return true;
 	}
 	
 	@Override

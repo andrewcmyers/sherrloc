@@ -1,14 +1,25 @@
-CONSTRUCTOR *this.f 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:5,9-15
+CONSTRUCTOR C_*this.f 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:5,9-15
+CONSTRUCTOR I_*this.f 0 //class jif.types.label.DynamicLabel_c@DynLabel10.jif:5,9-15
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= v_foo;
-v_foo <= * -> *;
-_ -> _ <= v_bar;
-v_bar <= * -> *;
-_ -> _ <= *this.f;
-*this.f <= * -> *;
+_ -> _ <= C_foo;
+C_foo <= * -> *;
+* <- * <= I_foo;
+I_foo <= _ <- _;
+_ -> _ <= C_bar;
+C_bar <= * -> *;
+* <- * <= I_bar;
+I_bar <= _ <- _;
+_ -> _ <= C_*this.f;
+C_*this.f <= * -> *;
+* <- * <= I_*this.f;
+I_*this.f <= _ <- _;
 
 %%
-v_foo == *this.f {};["":5,4-21]
-v_bar == *this.f {};["":6,4-16]
+C_foo["{foo}":5,4-21] == C_*this.f["{*this.f}":5,9-15] {};[5,4-21]
+I_foo["{foo}":5,4-21] == I_*this.f["{*this.f}":5,9-15] {};[5,4-21]
+
+C_bar["{bar}":6,4-16] == C_*this.f["{*this.f}":6,9-10] {};[6,4-16]
+I_bar["{bar}":6,4-16] == I_*this.f["{*this.f}":6,9-10] {};[6,4-16]
+

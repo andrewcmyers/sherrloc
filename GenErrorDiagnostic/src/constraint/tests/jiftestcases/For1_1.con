@@ -1,14 +1,25 @@
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@For1.jif:3,11-17
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@For1.jif:1,7-17
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@For1.jif:3,11-17
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@For1.jif:3,11-17
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@For1.jif:1,7-17
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@For1.jif:1,7-17
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= v_for;
-v_for <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
+I_caller_pc <= (_ <- _);
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_for;
+C_for <= * -> *;
+* <- * <= I_for;
+I_for <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
 
 %%
-(v_for) ⊔ (caller_pc) <= v_for {this <= caller_pc;};["":4,5-12]
+(C_for) ⊔ (C_caller_pc)["{for ⊔ caller_pc}":4,5-12] <= C_for["{for}":4,5-12] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,5-12]
+(I_for) ⊔ (I_caller_pc)["{for ⊔ caller_pc}":4,5-12] <= I_for["{for}":4,5-12] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,5-12]
+

@@ -73,6 +73,10 @@ public class Environment {
 		if (e1.equals(e2))
 			return true;
 		
+		if (e1.isBottom() || e2.isTop())
+			return true;
+
+		
 		// the assumption can be made on the join/meet
 		if (leqApplyAssertions(e1, e2))
 			return true;
@@ -114,10 +118,7 @@ public class Environment {
 			}
 			return true;
 		}
-		
-		if (e1.isBottom() || e2.isTop())
-			return true;
-		
+				
 		// e1 leq any element of e2
 		if (e2 instanceof JoinElement) {
 			for (Element e : ((JoinElement)e2).getElements())

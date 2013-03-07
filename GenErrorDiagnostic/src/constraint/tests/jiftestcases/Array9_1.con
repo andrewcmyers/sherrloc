@@ -1,18 +1,31 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@null
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@null
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR * 0 //@Array9.jif:3,8-14
 
 %%
-_ -> _ <= v_ar;
-v_ar <= * -> *;
-_ -> _ <= v_x;
-v_x <= * -> *;
-_ -> _ <= (Alice -> *);
-(Alice -> *) <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
+_ -> _ <= C_ar;
+C_ar <= * -> *;
+* <- * <= I_ar;
+I_ar <= _ <- _;
+_ -> _ <= C_x;
+C_x <= * -> *;
+* <- * <= I_x;
+I_x <= _ <- _;
+_ -> _ <= (Alice -> Alice);
+(Alice -> Alice) <= * -> *;
+* <- * <= (Alice <- Alice);
+(Alice <- Alice) <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
 
 %%
-v_x == (Alice -> *) {};["":3,4-30]
-v_ar == (this) ⊔ ((Alice -> *)) {};["":4,10-78]
+C_x["{x}":3,4-30] == (Alice -> Alice)["{(Alice -> *); Alice <- *}":3,7-23] {};[3,4-30]
+I_x["{x}":3,4-30] == (Alice <- Alice)["{(Alice -> *); Alice <- *}":3,7-23] {};[3,4-30]
+
+C_ar["{ar}":4,10-78] == (C_this) ⊔ ((Alice -> Alice))["{this ⊔ (Alice -> *); Alice <- *}":4,34-55] {};[4,10-78]
+I_ar["{ar}":4,10-78] == (I_this) ⊔ ((Alice <- Alice))["{this ⊔ (Alice -> *); Alice <- *}":4,34-55] {};[4,10-78]
+

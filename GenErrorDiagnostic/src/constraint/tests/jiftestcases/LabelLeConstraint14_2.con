@@ -1,79 +1,171 @@
-CONSTRUCTOR o 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:15,20-27
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:13,13-45
-CONSTRUCTOR C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_o 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:15,20-27
+CONSTRUCTOR I_o 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:15,20-27
+CONSTRUCTOR C_C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_C.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:13,13-45
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint14.jif:13,13-45
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:16,29-30
-CONSTRUCTOR * 0 //@LabelLeConstraint14.jif:19,79-81
-CONSTRUCTOR P 0 //@LabelLeConstraint14.jif:16,42-43
-CONSTRUCTOR Q 0 //@LabelLeConstraint14.jif:19,79-80
+CONSTRUCTOR P 0 //@LabelLeConstraint14.jif:17,23-24
+CONSTRUCTOR _ 0 //@LabelLeConstraint14.jif:17,22-36
+CONSTRUCTOR Q 0 //@LabelLeConstraint14.jif:17,32-33
+CONSTRUCTOR * 0 //@LabelLeConstraint14.jif:17,23-26
 
 %%
-o <= ((P -> *)) ⊔ ((Q -> *));
-caller_pc <= ((P -> *)) ⊔ ((Q -> *));
-C.provider == _ -> _;
-_ -> _ <= o;
-o <= * -> *;
-_ -> _ <= (Q -> *);
-(Q -> *) <= * -> *;
-_ -> _ <= (Q -> *);
-(Q -> *) <= * -> *;
+C_o <= ((P -> P)) ⊔ ((Q -> Q));
+I_o <= (_ <- _);
+C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));
+I_caller_pc <= (_ <- _);
+C_C.provider == _ -> _;
+I_C.provider == * <- *;
+_ -> _ <= C_o;
+C_o <= * -> *;
+* <- * <= I_o;
+I_o <= _ <- _;
+_ -> _ <= C_C.provider;
+C_C.provider <= * -> *;
+* <- * <= I_C.provider;
+I_C.provider <= _ <- _;
+_ -> _ <= C_o1;
+C_o1 <= * -> *;
+* <- * <= I_o1;
+I_o1 <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= (v_o1) ⊔ ((_ -> _));
-(v_o1) ⊔ ((_ -> _)) <= * -> *;
-_ -> _ <= v_o1;
-v_o1 <= * -> *;
-_ -> _ <= v_downgrade_from;
-v_downgrade_from <= * -> *;
-_ -> _ <= v_o2;
-v_o2 <= * -> *;
+* <- * <= ((P <- P)) ⊓ ((Q <- Q));
+((P <- P)) ⊓ ((Q <- Q)) <= _ <- _;
+_ -> _ <= C_downgrade_from;
+C_downgrade_from <= * -> *;
+* <- * <= I_downgrade_from;
+I_downgrade_from <= _ <- _;
+_ -> _ <= C_o2;
+C_o2 <= * -> *;
+* <- * <= I_o2;
+I_o2 <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+* <- * <= (P <- P⊓P);
+(P <- P⊓P) <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+* <- * <= (Q <- Q⊓Q);
+(Q <- Q⊓Q) <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+* <- * <= (* <- *);
+(* <- *) <= _ <- _;
+_ -> _ <= C_infered_downgrade_to;
+C_infered_downgrade_to <= * -> *;
+* <- * <= I_infered_downgrade_to;
+I_infered_downgrade_to <= _ <- _;
+_ -> _ <= C_infered_downgrade_from;
+C_infered_downgrade_from <= * -> *;
+* <- * <= I_infered_downgrade_from;
+I_infered_downgrade_from <= _ <- _;
+_ -> _ <= C_infered_downgrade_from1;
+C_infered_downgrade_from1 <= * -> *;
+* <- * <= I_infered_downgrade_from1;
+I_infered_downgrade_from1 <= _ <- _;
+_ -> _ <= C_infered_downgrade_to1;
+C_infered_downgrade_to1 <= * -> *;
+* <- * <= I_infered_downgrade_to1;
+I_infered_downgrade_to1 <= _ <- _;
+_ -> _ <= (P -> P);
+(P -> P) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= v_infered_downgrade_to;
-v_infered_downgrade_to <= * -> *;
-_ -> _ <= v_infered_downgrade_from;
-v_infered_downgrade_from <= * -> *;
-_ -> _ <= v_infered_downgrade_from1;
-v_infered_downgrade_from1 <= * -> *;
-_ -> _ <= v_infered_downgrade_to1;
-v_infered_downgrade_to1 <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= (P -> *);
-(P -> *) <= * -> *;
+* <- * <= (P <- P);
+(P <- P) <= _ <- _;
+_ -> _ <= (C_o1) ⊔ ((_ -> _));
+(C_o1) ⊔ ((_ -> _)) <= * -> *;
+* <- * <= (I_o1) ⊔ (((P <- P)) ⊓ ((Q <- Q)));
+(I_o1) ⊔ (((P <- P)) ⊓ ((Q <- Q))) <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= (Q -> Q);
+(Q -> Q) <= * -> *;
+* <- * <= ((Q <- Q)) ⊓ ((P <- P));
+((Q <- Q)) ⊓ ((P <- P)) <= _ <- _;
+_ -> _ <= (Q -> Q);
+(Q -> Q) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
-_ -> _ <= C.provider;
-C.provider <= * -> *;
+* <- * <= (Q <- Q);
+(Q <- Q) <= _ <- _;
 
 %%
-C.provider <= (* -> *) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));};["":16,20-31]
-C.provider <= (* -> *) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));};["":16,20-31]
-(((P -> *)) ⊔ ((Q -> *))) ⊓ ((* -> *)) <= ((P -> *)) ⊔ ((Q -> *)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));};["":13,13-45]
-((_ -> _)) ⊓ ((_ -> _)) <= ((P -> *)) ⊔ ((Q -> *)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));};["":13,13-45]
-caller_pc == v_downgrade_from {caller_pc <= ((P -> *)) ⊔ ((Q -> *));};["":17,10-21,11]
-v_downgrade_from <= (* -> *) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));};["":17,10-21,11]
-v_downgrade_from <= ((Q -> *)) ⊔ ((P -> *)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));};["":17,10-21,11]
-v_infered_downgrade_from == ((P -> *)) ⊔ ((Q -> *)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":18,26-69]
-((P -> *)) ⊔ ((Q -> *)) == v_infered_downgrade_to {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":18,26-69]
-(o) ⊔ ((_ -> _)) <= v_infered_downgrade_from {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":18,26-69]
-(v_infered_downgrade_from) ⊓ ((* -> *)) <= v_infered_downgrade_to {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":18,26-69]
-(v_infered_downgrade_from) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":18,26-69]
-((_ -> _)) ⊔ (v_infered_downgrade_to) <= v_o1 {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":18,26-69]
-v_infered_downgrade_from1 <= ((P -> *)) ⊔ ((Q -> *)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":19,26-83]
-((v_o1) ⊔ ((_ -> _))) ⊓ ((_ -> _)) <= (v_infered_downgrade_to1) ⊓ ((_ -> _)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":19,26-83]
-(v_infered_downgrade_to1) ⊓ ((_ -> _)) <= ((Q -> *)) ⊓ ((_ -> _)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":19,26-83]
-((Q -> *)) ⊓ ((* -> *)) == (v_infered_downgrade_to1) ⊓ ((* -> *)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":19,26-83]
-(v_o1) ⊔ ((_ -> _)) <= v_infered_downgrade_from1 {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":19,26-83]
-v_infered_downgrade_from1 <= (v_infered_downgrade_to1) ⊔ ((* -> *)) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":19,26-83]
-v_infered_downgrade_from1 <= (((Q -> *)) ⊔ ((P -> *))) ⊔ (v_infered_downgrade_to1) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":19,26-83]
-((_ -> _)) ⊔ (v_infered_downgrade_to1) <= v_o2 {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":19,26-83]
-(v_o2) ⊔ ((_ -> _)) <= ((Q -> *)) ⊔ (caller_pc) {caller_pc <= ((P -> *)) ⊔ ((Q -> *));caller_pc <= (_ -> _);};["":20,14-24]
+C_C.provider <= (* -> *)["{(* -> *); P <- P}":16,27-28] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[16,20-31]
+I_C.provider <= (P <- P⊓P)["{(* -> *); P <- P}":16,27-28] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[16,20-31]
+
+C_C.provider <= (* -> *)["{(* -> *); Q <- Q}":16,29-30] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[16,20-31]
+I_C.provider <= (Q <- Q⊓Q)["{(* -> *); Q <- Q}":16,29-30] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[16,20-31]
+
+(((P -> P)) ⊔ ((Q -> Q))) ⊓ ((* -> *))["{{(P -> *) ⊔ (Q -> *)} ⊓ {(* -> *); * <- *}}":13,45-52] <= ((P -> P)) ⊔ ((Q -> Q))["{(P -> *) ⊔ (Q -> *); P <- * ⊓ Q <- *}":16,41-61] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[13,13-45]
+((_ <- _)) ⊓ ((* <- *))["{{(P -> *) ⊔ (Q -> *)} ⊓ {(* -> *); * <- *}}":13,45-52] <= ((P <- P)) ⊓ ((Q <- Q))["{(P -> *) ⊔ (Q -> *); P <- * ⊓ Q <- *}":16,41-61] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[13,13-45]
+
+((_ -> _)) ⊓ ((_ -> _))["{{P <- *} ⊓ {Q <- *}}":13,45-52] <= ((P -> P)) ⊔ ((Q -> Q))["{(P -> *) ⊔ (Q -> *); P <- * ⊓ Q <- *}":16,41-61] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[13,13-45]
+((P <- P)) ⊓ ((Q <- Q))["{{P <- *} ⊓ {Q <- *}}":13,45-52] <= ((P <- P)) ⊓ ((Q <- Q))["{(P -> *) ⊔ (Q -> *); P <- * ⊓ Q <- *}":16,41-61] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[13,13-45]
+
+C_caller_pc["{caller_pc}":13,13-45] == C_downgrade_from["{downgrade_from}":17,10-21,11] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[17,10-21,11]
+I_caller_pc["{caller_pc}":13,13-45] == I_downgrade_from["{downgrade_from}":17,10-21,11] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[17,10-21,11]
+
+C_downgrade_from["{downgrade_from}":17,10-21,11] <= (* -> *)["{(* -> *); P <- * ⊓ Q <- *}":17,22-36] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[17,10-21,11]
+I_downgrade_from["{downgrade_from}":17,10-21,11] <= ((P <- P)) ⊓ ((Q <- Q))["{(* -> *); P <- * ⊓ Q <- *}":17,22-36] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[17,10-21,11]
+
+C_downgrade_from["{downgrade_from}":17,10-21,11] <= ((Q -> Q)) ⊔ ((P -> P))["{(Q -> *) ⊔ (P -> *)}":17,22-36] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[17,10-21,11]
+I_downgrade_from["{downgrade_from}":17,10-21,11] <= (_ <- _)["{(Q -> *) ⊔ (P -> *)}":17,22-36] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[17,10-21,11]
+
+C_infered_downgrade_from["{infered_downgrade_from}":18,26-69] == ((P -> P)) ⊔ ((Q -> Q))["{(P -> *) ⊔ (Q -> *)}":18,37-44] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+I_infered_downgrade_from["{infered_downgrade_from}":18,26-69] == (_ <- _)["{(P -> *) ⊔ (Q -> *)}":18,37-44] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+
+((P -> P)) ⊔ ((Q -> Q))["{(P -> *) ⊔ (Q -> *); Q <- * ⊓ P <- *}":18,48-68] == C_infered_downgrade_to["{infered_downgrade_to}":18,26-69] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+((Q <- Q)) ⊓ ((P <- P))["{(P -> *) ⊔ (Q -> *); Q <- * ⊓ P <- *}":18,48-68] == I_infered_downgrade_to["{infered_downgrade_to}":18,26-69] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+
+(C_o) ⊔ ((_ -> _))["{o ⊔ (_ -> _); P <- * ⊓ Q <- *}":15,20-27] <= C_infered_downgrade_from["{infered_downgrade_from}":18,26-69] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+(I_o) ⊔ (((P <- P)) ⊓ ((Q <- Q)))["{o ⊔ (_ -> _); P <- * ⊓ Q <- *}":15,20-27] <= I_infered_downgrade_from["{infered_downgrade_from}":18,26-69] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+
+(C_infered_downgrade_from) ⊓ ((* -> *))["{{infered_downgrade_from} ⊓ {(* -> *); * <- *}}":18,26-69] <= C_infered_downgrade_to["{infered_downgrade_to}":18,26-69] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+(I_infered_downgrade_from) ⊓ ((* <- *))["{{infered_downgrade_from} ⊓ {(* -> *); * <- *}}":18,26-69] <= I_infered_downgrade_to["{infered_downgrade_to}":18,26-69] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+
+(C_infered_downgrade_from) ⊓ ((_ -> _)) ⊓ ((_ -> _))["{{infered_downgrade_from} ⊓ {P <- *} ⊓ {Q <- *}}":18,26-69] <= C_infered_downgrade_to["{infered_downgrade_to}":18,26-69] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+(I_infered_downgrade_from) ⊓ ((P <- P)) ⊓ ((Q <- Q))["{{infered_downgrade_from} ⊓ {P <- *} ⊓ {Q <- *}}":18,26-69] <= I_infered_downgrade_to["{infered_downgrade_to}":18,26-69] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+
+((_ -> _)) ⊔ (C_infered_downgrade_to)["{(_ -> _); P <- * ⊓ Q <- * ⊔ infered_downgrade_to}":17,22-36] <= C_o1["{o1}":18,21-23] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+(((P <- P)) ⊓ ((Q <- Q))) ⊔ (I_infered_downgrade_to)["{(_ -> _); P <- * ⊓ Q <- * ⊔ infered_downgrade_to}":17,22-36] <= I_o1["{o1}":18,21-23] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[18,26-69]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":19,26-83] <= ((P -> P)) ⊔ ((Q -> Q))["{(P -> *) ⊔ (Q -> *); Q <- * ⊓ P <- *}":19,41-61] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+I_infered_downgrade_from1["{infered_downgrade_from}":19,26-83] <= ((Q <- Q)) ⊓ ((P <- P))["{(P -> *) ⊔ (Q -> *); Q <- * ⊓ P <- *}":19,41-61] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+
+((C_o1) ⊔ ((_ -> _))) ⊓ ((_ -> _))["{{o1 ⊔ (_ -> _); P <- * ⊓ Q <- *} ⊓ {}}":18,21-23] <= (C_infered_downgrade_to1) ⊓ ((_ -> _))["{{infered_downgrade_to} ⊓ {}}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+((I_o1) ⊔ (((P <- P)) ⊓ ((Q <- Q)))) ⊓ ((_ <- _))["{{o1 ⊔ (_ -> _); P <- * ⊓ Q <- *} ⊓ {}}":18,21-23] <= (I_infered_downgrade_to1) ⊓ ((_ <- _))["{{infered_downgrade_to} ⊓ {}}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+
+(C_infered_downgrade_to1) ⊓ ((_ -> _))["{{infered_downgrade_to} ⊓ {}}":19,26-83] <= ((Q -> Q)) ⊓ ((_ -> _))["{{(Q -> *); Q <- * ⊓ P <- *} ⊓ {}}":19,65-82] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+(I_infered_downgrade_to1) ⊓ ((_ <- _))["{{infered_downgrade_to} ⊓ {}}":19,26-83] <= (((Q <- Q)) ⊓ ((P <- P))) ⊓ ((_ <- _))["{{(Q -> *); Q <- * ⊓ P <- *} ⊓ {}}":19,65-82] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+
+((Q -> Q)) ⊓ ((* -> *))["{{(Q -> *); Q <- * ⊓ P <- *} ⊓ {(* -> *); * <- *}}":19,65-82] == (C_infered_downgrade_to1) ⊓ ((* -> *))["{{infered_downgrade_to} ⊓ {(* -> *); * <- *}}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+(((Q <- Q)) ⊓ ((P <- P))) ⊓ ((* <- *))["{{(Q -> *); Q <- * ⊓ P <- *} ⊓ {(* -> *); * <- *}}":19,65-82] == (I_infered_downgrade_to1) ⊓ ((* <- *))["{{infered_downgrade_to} ⊓ {(* -> *); * <- *}}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+
+(C_o1) ⊔ ((_ -> _))["{o1 ⊔ (_ -> _); P <- * ⊓ Q <- *}":18,21-23] <= C_infered_downgrade_from1["{infered_downgrade_from}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+(I_o1) ⊔ (((P <- P)) ⊓ ((Q <- Q)))["{o1 ⊔ (_ -> _); P <- * ⊓ Q <- *}":18,21-23] <= I_infered_downgrade_from1["{infered_downgrade_from}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":19,26-83] <= (C_infered_downgrade_to1) ⊔ ((* -> *))["{infered_downgrade_to ⊔ (* -> *); * <- *}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+I_infered_downgrade_from1["{infered_downgrade_from}":19,26-83] <= (I_infered_downgrade_to1) ⊔ ((* <- *))["{infered_downgrade_to ⊔ (* -> *); * <- *}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":19,26-83] <= (((Q -> Q)) ⊔ ((P -> P))) ⊔ (C_infered_downgrade_to1)["{(Q -> *) ⊔ (P -> *); _ <- _ ⊔ infered_downgrade_to}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+I_infered_downgrade_from1["{infered_downgrade_from}":19,26-83] <= ((_ <- _)) ⊔ (I_infered_downgrade_to1)["{(Q -> *) ⊔ (P -> *); _ <- _ ⊔ infered_downgrade_to}":19,26-83] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+
+((_ -> _)) ⊔ (C_infered_downgrade_to1)["{(_ -> _); P <- * ⊓ Q <- * ⊔ infered_downgrade_to}":17,22-36] <= C_o2["{o2}":19,21-23] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+(((P <- P)) ⊓ ((Q <- Q))) ⊔ (I_infered_downgrade_to1)["{(_ -> _); P <- * ⊓ Q <- * ⊔ infered_downgrade_to}":17,22-36] <= I_o2["{o2}":19,21-23] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[19,26-83]
+
+(C_o2) ⊔ ((_ -> _))["{o2 ⊔ (_ -> _); P <- * ⊓ Q <- *}":19,21-23] <= ((Q -> Q)) ⊔ (C_caller_pc)["{(Q -> *); Q <- * ⊓ P <- * ⊔ caller_pc}":13,19-36] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[20,14-24]
+(I_o2) ⊔ (((P <- P)) ⊓ ((Q <- Q)))["{o2 ⊔ (_ -> _); P <- * ⊓ Q <- *}":19,21-23] <= (((Q <- Q)) ⊓ ((P <- P))) ⊔ (I_caller_pc)["{(Q -> *); Q <- * ⊓ P <- * ⊔ caller_pc}":13,19-36] {C_caller_pc <= ((P -> P)) ⊔ ((Q -> Q));I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));C_caller_pc <= (_ -> _);I_caller_pc <= ((P <- P)) ⊓ ((Q <- Q));};[20,14-24]
+

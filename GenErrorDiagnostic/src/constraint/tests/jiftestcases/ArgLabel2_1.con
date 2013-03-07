@@ -1,46 +1,95 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabel2.jif:1,0-7
-CONSTRUCTOR D.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:1,0-7
-CONSTRUCTOR D.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabel2.jif:1,0-7
-CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,27-30
-CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:5,19-22
-CONSTRUCTOR x1 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,19-22
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@ArgLabel2.jif:1,0-7
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@ArgLabel2.jif:1,0-7
+CONSTRUCTOR C_D.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_D.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_D.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabel2.jif:1,0-7
+CONSTRUCTOR I_D.provider1 0 //class jif.types.label.ProviderLabel_c@ArgLabel2.jif:1,0-7
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:1,0-7
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:1,0-7
+CONSTRUCTOR C_y 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,27-30
+CONSTRUCTOR I_y 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,27-30
+CONSTRUCTOR C_x 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:5,19-22
+CONSTRUCTOR I_x 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:5,19-22
+CONSTRUCTOR C_x1 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,19-22
+CONSTRUCTOR I_x1 0 //class jif.types.label.ArgLabel_c@ArgLabel2.jif:3,19-22
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@Compiler Generated
+CONSTRUCTOR * 0 //@null
 
 %%
-y <= x1;
-x1 <= y;
-x <= x;
-D.provider == _ -> _;
-D.provider1 == _ -> _;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= D.provider;
-D.provider <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= D.provider1;
-D.provider1 <= * -> *;
-_ -> _ <= y;
-y <= * -> *;
-_ -> _ <= x;
-x <= * -> *;
-_ -> _ <= x1;
-x1 <= * -> *;
+I_caller_pc <= (_ <- _);
+C_y <= C_x1;
+I_y <= I_x1;
+C_x1 <= C_y;
+I_x1 <= I_y;
+C_x <= C_x;
+I_x <= I_x;
+C_D.provider == _ -> _;
+I_D.provider == * <- *;
+C_D.provider1 == _ -> _;
+I_D.provider1 == * <- *;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_D.provider;
+C_D.provider <= * -> *;
+* <- * <= I_D.provider;
+I_D.provider <= _ <- _;
+_ -> _ <= C_D.provider1;
+C_D.provider1 <= * -> *;
+* <- * <= I_D.provider1;
+I_D.provider1 <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_y;
+C_y <= * -> *;
+* <- * <= I_y;
+I_y <= _ <- _;
+_ -> _ <= C_x;
+C_x <= * -> *;
+* <- * <= I_x;
+I_x <= _ <- _;
+_ -> _ <= C_x1;
+C_x1 <= * -> *;
+* <- * <= I_x1;
+I_x1 <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (* <- *);
+(* <- *) <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 
 %%
-D.provider <= (* -> *) {};["":1,0-7]
-y <= y {};["":3,9-17]
-x1 <= x1 {};["":3,9-17]
-(* -> *) <= (* -> *) {};["":3,9-17]
-(_ -> _) <= (_ -> _) {};["":3,9-17]
-x <= x {};["":5,9-17]
-(* -> *) <= (* -> *) {};["":5,9-17]
-(_ -> _) <= (_ -> _) {};["":5,9-17]
-D.provider1 <= (* -> *) {this <= caller_pc;caller_pc <= (D.provider1);};["":1,0-0]
+C_D.provider <= (* -> *)["{(* -> *)}":1,0-7] {};[1,0-7]
+I_D.provider <= (_ <- _)["{(* -> *)}":1,0-7] {};[1,0-7]
+
+C_y["{y}":3,27-30] <= C_y["{y}":3,27-30] {};[3,9-17]
+I_y["{y}":3,27-30] <= I_y["{y}":3,27-30] {};[3,9-17]
+
+C_x1["{x}":3,19-22] <= C_x1["{x}":3,19-22] {};[3,9-17]
+I_x1["{x}":3,19-22] <= I_x1["{x}":3,19-22] {};[3,9-17]
+
+(* -> *)["{(* -> *)}":3,9-17] <= (* -> *)["{(* -> *)}":3,9-17] {};[3,9-17]
+(_ <- _)["{(* -> *)}":3,9-17] <= (_ <- _)["{(* -> *)}":3,9-17] {};[3,9-17]
+
+(_ -> _) <= (_ -> _) {};[3,9-17]
+(* <- *) <= (* <- *) {};[3,9-17]
+
+C_x["{x}":5,19-22] <= C_x["{x}":5,19-22] {};[5,9-17]
+I_x["{x}":5,19-22] <= I_x["{x}":5,19-22] {};[5,9-17]
+
+(* -> *)["{(* -> *)}":5,9-17] <= (* -> *)["{(* -> *)}":5,9-17] {};[5,9-17]
+(_ <- _)["{(* -> *)}":5,9-17] <= (_ <- _)["{(* -> *)}":5,9-17] {};[5,9-17]
+
+(_ -> _) <= (_ -> _) {};[5,9-17]
+(* <- *) <= (* <- *) {};[5,9-17]
+
+C_D.provider1["D.provider":1,0-7] <= (* -> *)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider1);I_caller_pc <= (I_D.provider1);};[1,0-0]
+I_D.provider1["D.provider":1,0-7] <= (_ <- _)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider1);I_caller_pc <= (I_D.provider1);};[1,0-0]
+

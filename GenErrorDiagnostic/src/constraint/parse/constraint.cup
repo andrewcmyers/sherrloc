@@ -58,8 +58,8 @@ cons_spec 	::= constructors
 					constructors.put("arrow", new Constructor("arrow", 2, false));
 					constructors.put("larrow", new Constructor("larrow", 2, true));
 					constructors.put("pair",  new Constructor("pair", 2, false));
-					constructors.put("_",  Bottom.getBot()); 
-					constructors.put("*",  Top.getTop()); 
+					constructors.put("_",  new Bottom()); 
+					constructors.put("*",  new Top()); 
 			:} 
 				SEPERATION assumptions SEPERATION equations:l
 			{: RESULT = new DiagnosisInput (env, l); :}			
@@ -68,8 +68,8 @@ cons_spec 	::= constructors
 					constructors.put("arrow", new Constructor("arrow", 2, false));
 					constructors.put("larrow", new Constructor("larrow", 2, true));
 					constructors.put("pair",  new Constructor("pair", 2, false)); 
-					constructors.put("_",  Bottom.getBot()); 
-					constructors.put("*",  Top.getTop()); 
+					constructors.put("_",  new Bottom()); 
+					constructors.put("*",  new Top()); 
 			:} 
 				equations:l
 			{: RESULT = new DiagnosisInput (env, l); :}

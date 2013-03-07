@@ -2,26 +2,24 @@ package constraint.ast;
 
 
 public class Bottom extends Constructor {
-	static Bottom ins = null;
 	
-	private Bottom() {
+	public Bottom() {
 		super("_", 0, false);
 	}
 	
-	public static Bottom getBot () {
-		if (ins==null) {
-			ins = new Bottom();
-		}
-		return ins;
+	public Bottom getInstance () {
+		return new Bottom();
 	}
-	
-	@Override
-	public int hashCode() {
-		return 5741;
-	}
-	
+		
 	@Override
 	public boolean isBottom() {
 		return true;
+	}
+	
+	@Override
+	public Element getBaseElement() {
+		Bottom ret = new Bottom();
+		ret.id = 0;
+		return ret;
 	}
 }

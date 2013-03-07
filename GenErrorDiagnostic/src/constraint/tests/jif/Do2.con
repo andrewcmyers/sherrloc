@@ -1,34 +1,67 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Do2.jif:1,0-7
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Do2.jif:2,4-10
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Do2.jif:1,0-7
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Do2.jif:1,0-7
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Do2.jif:2,4-10
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Do2.jif:2,4-10
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@Do2.jif:4,8-10
+CONSTRUCTOR _ 0 //@Do2.jif:3,8-16
 CONSTRUCTOR * 0 //@Do2.jif:3,9-15
 
 %%
-caller_pc <= (_ -> _);
+C_caller_pc <= (_ -> _);
+I_caller_pc <= (* <- *);
 _ -> _ <= (Alice -> Alice);
 (Alice -> Alice) <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= v_leak;
-v_leak <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= v_secret;
-v_secret <= * -> *;
-_ -> _ <= v_do;
-v_do <= * -> *;
-_ -> _ <= v_done;
-v_done <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_leak;
+C_leak <= * -> *;
+* <- * <= I_leak;
+I_leak <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_secret;
+C_secret <= * -> *;
+* <- * <= I_secret;
+I_secret <= _ <- _;
+_ -> _ <= C_do;
+C_do <= * -> *;
+* <- * <= I_do;
+I_do <= _ <- _;
+_ -> _ <= C_done;
+C_done <= * -> *;
+* <- * <= I_done;
+I_done <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 
 %%
-v_secret["{secret}":3,17-23] == (Alice -> Alice)["{(Alice -> *)}":3,8-16] {this <= caller_pc;};[3,17-23]
-(caller_pc)["{caller_pc}":2,4-10] <= v_secret["{secret}":3,17-23] {this <= caller_pc;};[3,26-30]
-v_leak["{leak}":4,11-15] == (_ -> _)["{}":4,8-10] {this <= caller_pc;};[4,11-15]
-(caller_pc)["{caller_pc}":2,4-10] <= v_done["{done}":5,9-13] {this <= caller_pc;};[5,16-21]
-(v_do)["{do}":7,5-10,21] <= v_leak["{leak}":4,11-15] {this <= caller_pc;};[8,2-6]
-(v_do)["{do}":7,5-10,21] <= v_done["{done}":5,9-13] {this <= caller_pc;};[9,2-6]
-(v_done) ⊔ (v_do) ⊔ (v_secret) ⊔ (caller_pc)["{done ⊔ do ⊔ secret ⊔ caller_pc}":5,9-13] <= v_do["{do}":7,5-10,21] {this <= caller_pc;};[7,5-10,21]
+C_secret["{secret}":3,17-23] == (Alice -> Alice)["{(Alice -> *)}":3,8-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,17-23]
+I_secret["{secret}":3,17-23] == (_ <- _)["{(Alice -> *)}":3,8-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,17-23]
+
+(C_caller_pc)["{caller_pc}":2,4-10] <= C_secret["{secret}":3,17-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,26-30]
+(I_caller_pc)["{caller_pc}":2,4-10] <= I_secret["{secret}":3,17-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,26-30]
+
+C_leak["{leak}":4,11-15] == (_ -> _)["{}":4,8-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,11-15]
+I_leak["{leak}":4,11-15] == (_ <- _)["{}":4,8-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,11-15]
+
+(C_caller_pc)["{caller_pc}":2,4-10] <= C_done["{done}":5,9-13] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,16-21]
+(I_caller_pc)["{caller_pc}":2,4-10] <= I_done["{done}":5,9-13] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,16-21]
+
+(C_do)["{do}":7,5-10,21] <= C_leak["{leak}":4,11-15] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,2-6]
+(I_do)["{do}":7,5-10,21] <= I_leak["{leak}":4,11-15] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,2-6]
+
+(C_do)["{do}":7,5-10,21] <= C_done["{done}":5,9-13] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,2-6]
+(I_do)["{do}":7,5-10,21] <= I_done["{done}":5,9-13] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,2-6]
+
+(C_done) ⊔ (C_do) ⊔ (C_secret) ⊔ (C_caller_pc)["{done ⊔ do ⊔ secret ⊔ caller_pc}":5,9-13] <= C_do["{do}":7,5-10,21] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,5-10,21]
+(I_done) ⊔ (I_do) ⊔ (I_secret) ⊔ (I_caller_pc)["{done ⊔ do ⊔ secret ⊔ caller_pc}":5,9-13] <= I_do["{do}":7,5-10,21] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,5-10,21]
+
