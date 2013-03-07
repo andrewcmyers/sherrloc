@@ -1,21 +1,40 @@
-CONSTRUCTOR *this.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:4,7-14
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:8,11-38
+CONSTRUCTOR C_*this.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
+CONSTRUCTOR I_*this.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:4,7-14
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:4,7-14
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:8,11-38
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:8,11-38
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@LabelSubst01.jif:7,22-31
 CONSTRUCTOR * 0 //@LabelSubst01.jif:7,23-24
 
 %%
-_ -> _ <= *this.lb;
-*this.lb <= * -> *;
+I_caller_pc <= (_ <- _);
+_ -> _ <= C_*this.lb;
+C_*this.lb <= * -> *;
+* <- * <= I_*this.lb;
+I_*this.lb <= _ <- _;
 _ -> _ <= (* -> Alice);
 (* -> Alice) <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
 
 %%
-((* -> Alice)) ⊔ (this) ⊔ (caller_pc) <= ((* -> Alice)) ⊔ (caller_pc) {*this.lb <= (* -> Alice);(* -> Alice) <= *this.lb;this <= caller_pc;};["":9,8-24]
-*this.lb == *this.lb {*this.lb <= (* -> Alice);(* -> Alice) <= *this.lb;this <= caller_pc;};["":9,15-23]
-*this.lb == *this.lb {*this.lb <= (* -> Alice);(* -> Alice) <= *this.lb;this <= caller_pc;};["":9,15-23]
+((* -> Alice)) ⊔ (C_this) ⊔ (C_caller_pc)["{(* -> Alice); _ <- _ ⊔ this ⊔ caller_pc}":7,22-31] <= ((* -> Alice)) ⊔ (C_caller_pc)["{(* -> Alice); _ <- _ ⊔ caller_pc}":8,22-31] {C_*this.lb <= (* -> Alice);I_*this.lb <= (_ <- _);(* -> Alice) <= C_*this.lb;(_ <- _) <= I_*this.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,8-24]
+((_ <- _)) ⊔ (I_this) ⊔ (I_caller_pc)["{(* -> Alice); _ <- _ ⊔ this ⊔ caller_pc}":7,22-31] <= ((_ <- _)) ⊔ (I_caller_pc)["{(* -> Alice); _ <- _ ⊔ caller_pc}":8,22-31] {C_*this.lb <= (* -> Alice);I_*this.lb <= (_ <- _);(* -> Alice) <= C_*this.lb;(_ <- _) <= I_*this.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,8-24]
+
+C_*this.lb["{*this.lb}":7,15-17] == C_*this.lb["{*this.lb}":8,15-17] {C_*this.lb <= (* -> Alice);I_*this.lb <= (_ <- _);(* -> Alice) <= C_*this.lb;(_ <- _) <= I_*this.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,15-23]
+I_*this.lb["{*this.lb}":7,15-17] == I_*this.lb["{*this.lb}":8,15-17] {C_*this.lb <= (* -> Alice);I_*this.lb <= (_ <- _);(* -> Alice) <= C_*this.lb;(_ <- _) <= I_*this.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,15-23]
+
+C_*this.lb["{*this.lb}":7,19-21] == C_*this.lb["{*this.lb}":8,19-21] {C_*this.lb <= (* -> Alice);I_*this.lb <= (_ <- _);(* -> Alice) <= C_*this.lb;(_ <- _) <= I_*this.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,15-23]
+I_*this.lb["{*this.lb}":7,19-21] == I_*this.lb["{*this.lb}":8,19-21] {C_*this.lb <= (* -> Alice);I_*this.lb <= (_ <- _);(* -> Alice) <= C_*this.lb;(_ <- _) <= I_*this.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,15-23]
+

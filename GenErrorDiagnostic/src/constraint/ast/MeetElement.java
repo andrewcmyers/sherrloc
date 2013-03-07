@@ -68,6 +68,15 @@ public class MeetElement extends EnumerableElement {
 	}
 	
 	@Override
+	public boolean isTop() {
+		for (Element e : elements) {
+			if (!e.isTop())
+				return false;
+		}
+		return true;
+	}
+	
+	@Override
 	public boolean isBottom() {
 		for (Element e : elements) {
 			if (e.isBottom())

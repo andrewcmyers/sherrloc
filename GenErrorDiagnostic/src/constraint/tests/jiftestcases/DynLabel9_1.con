@@ -1,18 +1,32 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@null
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@null
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@null
 CONSTRUCTOR this 0
 CONSTRUCTOR this.pr 0 //@DynLabel9.jif:5,18-25
+CONSTRUCTOR _ 0 //@DynLabel9.jif:5,17-27
 CONSTRUCTOR * 0 //@DynLabel9.jif:5,18-26
 
 %%
-_ -> _ <= (this.pr -> *);
-(this.pr -> *) <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= v_x;
-v_x <= * -> *;
-_ -> _ <= v_pr;
-v_pr <= * -> *;
+_ -> _ <= (this.pr -> this.pr);
+(this.pr -> this.pr) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_x;
+C_x <= * -> *;
+* <- * <= I_x;
+I_x <= _ <- _;
+_ -> _ <= C_pr;
+C_pr <= * -> *;
+* <- * <= I_pr;
+I_pr <= _ <- _;
 
 %%
-v_pr == this {};["":4,17-36]
-v_x == (this.pr -> *) {};["":5,4-37]
+C_pr["{pr}":4,17-36] == C_this {};[4,17-36]
+I_pr["{pr}":4,17-36] == I_this {};[4,17-36]
+
+C_x["{x}":5,4-37] == (this.pr -> this.pr)["{(this.pr -> *)}":5,17-27] {};[5,4-37]
+I_x["{x}":5,4-37] == (_ <- _)["{(this.pr -> *)}":5,17-27] {};[5,4-37]
+

@@ -1,21 +1,37 @@
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Account.jif:2,8-27
+CONSTRUCTOR _ 0 //@Account.jif:8,8-19
 CONSTRUCTOR this.customer 0 //@Account.jif:8,9-17
 CONSTRUCTOR * 0 //@Account.jif:8,9-18
 
 %%
-_ -> _ <= (this.customer -> *);
-(this.customer -> *) <= * -> *;
-_ -> _ <= v_name;
-v_name <= * -> *;
-_ -> _ <= v_customer;
-v_customer <= * -> *;
-_ -> _ <= v_balance;
-v_balance <= * -> *;
+_ -> _ <= (this.customer -> this.customer);
+(this.customer -> this.customer) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_name;
+C_name <= * -> *;
+* <- * <= I_name;
+I_name <= _ <- _;
+_ -> _ <= C_customer;
+C_customer <= * -> *;
+* <- * <= I_customer;
+I_customer <= _ <- _;
+_ -> _ <= C_balance;
+C_balance <= * -> *;
+* <- * <= I_balance;
+I_balance <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 
 %%
-v_customer == (_ -> _) {};["":2,8-27]
-v_name == (this.customer -> *) {};["":8,2-25]
-v_balance == (this.customer -> *) {};["":9,2-27]
+C_customer["{customer}":2,8-27] == (_ -> _)["{}":2,8-27] {};[2,8-27]
+I_customer["{customer}":2,8-27] == (_ <- _)["{}":2,8-27] {};[2,8-27]
+
+C_name["{name}":8,2-25] == (this.customer -> this.customer)["{(this.customer -> *)}":8,8-19] {};[8,2-25]
+I_name["{name}":8,2-25] == (_ <- _)["{(this.customer -> *)}":8,8-19] {};[8,2-25]
+
+C_balance["{balance}":9,2-27] == (this.customer -> this.customer)["{(this.customer -> *)}":9,7-18] {};[9,2-27]
+I_balance["{balance}":9,2-27] == (_ <- _)["{(this.customer -> *)}":9,7-18] {};[9,2-27]
+

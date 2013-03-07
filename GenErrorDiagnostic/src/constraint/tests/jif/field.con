@@ -1,29 +1,57 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@field.jif:5,0-11
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@field.jif:8,8-14
-CONSTRUCTOR field.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@field.jif:5,0-11
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@field.jif:5,0-11
+CONSTRUCTOR C_field.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_field.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@field.jif:8,8-14
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@field.jif:8,8-14
 CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@field.jif:6,5-17
 CONSTRUCTOR px 0 //@field.jif:6,6-8
 CONSTRUCTOR py 0 //@field.jif:6,10-12
 CONSTRUCTOR pz 0 //@field.jif:6,14-16
 
 %%
-field.provider == _ -> _;
-_ -> _ <= this;
-this <= * -> *;
+I_caller_pc <= (_ <- _);
+C_field.provider == _ -> _;
+I_field.provider == * <- *;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_field.provider;
+C_field.provider <= * -> *;
+* <- * <= I_field.provider;
+I_field.provider <= _ <- _;
 _ -> _ <= (px -> px⊓py⊓pz);
 (px -> px⊓py⊓pz) <= * -> *;
-_ -> _ <= v_y;
-v_y <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= field.provider;
-field.provider <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_y;
+C_y <= * -> *;
+* <- * <= I_y;
+I_y <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
 _ -> _ <= (px -> px⊓py);
 (px -> px⊓py) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 
 %%
-v_y["{y}":9,17-18] == (caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":8,8-14] {this <= caller_pc;};[9,17-18]
-(caller_pc)["{caller_pc}":8,8-14] <= v_y["{y}":9,17-18] {this <= caller_pc;};[9,19-20]
-(v_y) ⊔ (caller_pc) ⊔ (this)["{y ⊔ caller_pc ⊔ this}":9,17-18] <= (px -> px⊓py⊓pz)["{(px -> py⊓pz)}":6,5-17] {this <= caller_pc;};[10,4-5]
-field.provider <= (px -> px⊓py⊓pz)["{(px -> py⊓pz)}":6,5-17] {this <= caller_pc;};[10,4-5]
-((px -> px⊓py⊓pz)) ⊔ (this) ⊔ (caller_pc)["{(px -> py⊓pz); _ <- _ ⊔ this ⊔ caller_pc}":6,5-17] <= v_y["{y}":9,17-18] {this <= caller_pc;};[11,4-5]
+C_y["{y}":9,17-18] == (C_caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":8,8-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,17-18]
+I_y["{y}":9,17-18] == (I_caller_pc) ⊔ ((_ <- _))["{caller_pc ⊔ (px -> py); _ <- _}":8,8-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,17-18]
+
+(C_caller_pc)["{caller_pc}":8,8-14] <= C_y["{y}":9,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,19-20]
+(I_caller_pc)["{caller_pc}":8,8-14] <= I_y["{y}":9,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,19-20]
+
+(C_y) ⊔ (C_caller_pc) ⊔ (C_this)["{y ⊔ caller_pc ⊔ this}":9,17-18] <= (px -> px⊓py⊓pz)["{(px -> py⊓pz)}":6,5-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,4-5]
+(I_y) ⊔ (I_caller_pc) ⊔ (I_this)["{y ⊔ caller_pc ⊔ this}":9,17-18] <= (_ <- _)["{(px -> py⊓pz)}":6,5-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,4-5]
+
+C_field.provider <= (px -> px⊓py⊓pz)["{(px -> py⊓pz)}":6,5-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,4-5]
+I_field.provider <= (_ <- _)["{(px -> py⊓pz)}":6,5-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,4-5]
+
+((px -> px⊓py⊓pz)) ⊔ (C_this) ⊔ (C_caller_pc)["{(px -> py⊓pz); _ <- _ ⊔ this ⊔ caller_pc}":6,5-17] <= C_y["{y}":9,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[11,4-5]
+((_ <- _)) ⊔ (I_this) ⊔ (I_caller_pc)["{(px -> py⊓pz); _ <- _ ⊔ this ⊔ caller_pc}":6,5-17] <= I_y["{y}":9,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[11,4-5]
+

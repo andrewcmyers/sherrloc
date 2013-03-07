@@ -3,8 +3,11 @@ CONSTRUCTOR b 0
 CONSTRUCTOR c 0
 
 %%
-a <= *;
+_ -> _ <= x;
+x <= * -> *;
+* <- * <= x;
+x <= _ <- _;
 
 %%
-// a -> b <= a -> c;
-a <- b <= a <- c;
+a -> b <= x;
+x <= a -> b meet c;

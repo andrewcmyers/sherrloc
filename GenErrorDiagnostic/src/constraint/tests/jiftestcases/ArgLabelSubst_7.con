@@ -1,49 +1,103 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR ArgLabelSubst.provider 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR ArgLabelSubst.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR zzz 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,50-52
-CONSTRUCTOR *zzz 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst.jif:35,35-38
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR C_zzz 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,50-52
+CONSTRUCTOR I_zzz 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:35,50-52
+CONSTRUCTOR C_ArgLabelSubst.provider 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR I_ArgLabelSubst.provider 0 //class jif.types.label.ProviderLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR C_ArgLabelSubst.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_ArgLabelSubst.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_*zzz 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst.jif:35,35-38
+CONSTRUCTOR I_*zzz 0 //class jif.types.label.DynamicLabel_c@ArgLabelSubst.jif:35,35-38
 CONSTRUCTOR this 0
-CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,62-65
-CONSTRUCTOR _ 0 //@ArgLabelSubst.jif:29,38-40
+CONSTRUCTOR _ 0 //@ArgLabelSubst.jif:29,61-67
+CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,34-37
 CONSTRUCTOR * 0 //@ArgLabelSubst.jif:29,62-66
 
 %%
-zzz <= (_ -> _);
-ArgLabelSubst.provider1 == _ -> _;
-ArgLabelSubst.provider == _ -> _;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= ArgLabelSubst.provider;
-ArgLabelSubst.provider <= * -> *;
-_ -> _ <= ArgLabelSubst.provider1;
-ArgLabelSubst.provider1 <= * -> *;
-_ -> _ <= (yyy -> *);
-(yyy -> *) <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= zzz;
-zzz <= * -> *;
+C_zzz <= (_ -> _);
+I_zzz <= (_ <- _);
+I_caller_pc <= (_ <- _);
+C_ArgLabelSubst.provider1 == _ -> _;
+I_ArgLabelSubst.provider1 == * <- *;
+C_ArgLabelSubst.provider == _ -> _;
+I_ArgLabelSubst.provider == * <- *;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= (yyy -> yyy);
+(yyy -> yyy) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_zzz;
+C_zzz <= * -> *;
+* <- * <= I_zzz;
+I_zzz <= _ <- _;
+_ -> _ <= C_ArgLabelSubst.provider;
+C_ArgLabelSubst.provider <= * -> *;
+* <- * <= I_ArgLabelSubst.provider;
+I_ArgLabelSubst.provider <= _ <- _;
+_ -> _ <= C_ArgLabelSubst.provider1;
+C_ArgLabelSubst.provider1 <= * -> *;
+* <- * <= I_ArgLabelSubst.provider1;
+I_ArgLabelSubst.provider1 <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= *zzz;
-*zzz <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_*zzz;
+C_*zzz <= * -> *;
+* <- * <= I_*zzz;
+I_*zzz <= _ <- _;
 
 %%
-ArgLabelSubst.provider1 <= (* -> *) {};["":28,7-26]
-(_ -> _) <= (_ -> _) {};["":29,11-28]
-yyy == yyy {};["":29,11-28]
-(_ -> _) <= (_ -> _) {};["":29,11-28]
-(* -> *) <= (* -> *) {};["":29,11-28]
-(yyy -> *) <= (yyy -> *) {};["":29,11-28]
-(yyy -> *) <= (yyy -> *) {};["":29,11-28]
-(_ -> _) <= (_ -> _) {};["":35,11-27]
-*zzz == *zzz {};["":35,11-27]
-(_ -> _) <= (_ -> _) {};["":35,11-27]
-(* -> *) <= (* -> *) {};["":35,11-27]
-zzz <= zzz {};["":35,11-27]
-zzz <= zzz {};["":35,11-27]
-ArgLabelSubst.provider <= (* -> *) {this <= caller_pc;caller_pc <= (ArgLabelSubst.provider);};["":28,7-7]
+C_ArgLabelSubst.provider1 <= (* -> *)["{(* -> *)}":28,7-26] {};[28,7-26]
+I_ArgLabelSubst.provider1 <= (_ <- _)["{(* -> *)}":28,7-26] {};[28,7-26]
+
+(_ -> _)["{}":29,38-40] <= (_ -> _)["{}":29,38-40] {};[29,11-28]
+(_ <- _)["{}":29,38-40] <= (_ <- _)["{}":29,38-40] {};[29,11-28]
+
+yyy["yyy":29,34-37] == yyy["yyy":29,34-37] {};["":29,11-28]
+(_ -> _)["{}":29,53-55] <= (_ -> _)["{}":29,53-55] {};[29,11-28]
+(_ <- _)["{}":29,53-55] <= (_ <- _)["{}":29,53-55] {};[29,11-28]
+
+(* -> *)["{(* -> *)}":29,11-28] <= (* -> *)["{(* -> *)}":29,11-28] {};[29,11-28]
+(_ <- _)["{(* -> *)}":29,11-28] <= (_ <- _)["{(* -> *)}":29,11-28] {};[29,11-28]
+
+(yyy -> yyy)["{(yyy -> *)}":29,61-67] <= (yyy -> yyy)["{(yyy -> *)}":29,61-67] {};[29,11-28]
+(_ <- _)["{(yyy -> *)}":29,61-67] <= (_ <- _)["{(yyy -> *)}":29,61-67] {};[29,11-28]
+
+(yyy -> yyy)["{(yyy -> *)}":29,18-24] <= (yyy -> yyy)["{(yyy -> *)}":29,18-24] {};[29,11-28]
+(_ <- _)["{(yyy -> *)}":29,18-24] <= (_ <- _)["{(yyy -> *)}":29,18-24] {};[29,11-28]
+
+(_ -> _)["{}":35,39-41] <= (_ -> _)["{}":35,39-41] {};[35,11-27]
+(_ <- _)["{}":35,39-41] <= (_ <- _)["{}":35,39-41] {};[35,11-27]
+
+C_*zzz["{*zzz}":35,35-38] == C_*zzz["{*zzz}":35,35-38] {};[35,11-27]
+I_*zzz["{*zzz}":35,35-38] == I_*zzz["{*zzz}":35,35-38] {};[35,11-27]
+
+(_ -> _)["{}":35,50-52] <= (_ -> _)["{}":35,50-52] {};[35,11-27]
+(_ <- _)["{}":35,50-52] <= (_ <- _)["{}":35,50-52] {};[35,11-27]
+
+(* -> *)["{(* -> *)}":35,11-27] <= (* -> *)["{(* -> *)}":35,11-27] {};[35,11-27]
+(_ <- _)["{(* -> *)}":35,11-27] <= (_ <- _)["{(* -> *)}":35,11-27] {};[35,11-27]
+
+C_zzz["{zzz}":35,50-52] <= C_zzz["{zzz}":35,50-52] {};[35,11-27]
+I_zzz["{zzz}":35,50-52] <= I_zzz["{zzz}":35,50-52] {};[35,11-27]
+
+C_zzz["{zzz}":35,50-52] <= C_zzz["{zzz}":35,50-52] {};[35,11-27]
+I_zzz["{zzz}":35,50-52] <= I_zzz["{zzz}":35,50-52] {};[35,11-27]
+
+C_ArgLabelSubst.provider["ArgLabelSubst.provider":28,7-26] <= (* -> *)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_ArgLabelSubst.provider);I_caller_pc <= (I_ArgLabelSubst.provider);};[28,7-7]
+I_ArgLabelSubst.provider["ArgLabelSubst.provider":28,7-26] <= (_ <- _)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_ArgLabelSubst.provider);I_caller_pc <= (I_ArgLabelSubst.provider);};[28,7-7]
+

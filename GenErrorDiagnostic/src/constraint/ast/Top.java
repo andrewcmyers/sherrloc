@@ -2,25 +2,25 @@ package constraint.ast;
 
 
 public class Top extends Constructor {
-	static Top ins=null;
-	
-	private Top() {
+
+	public Top() {
 		super("*", 0, false);
 	}
 	
-	public static Top getTop () {
-		if (ins==null)
-			ins =  new Top();
-		return ins;
-	}
-	
 	@Override
-	public int hashCode() {
-		return 2547;
-	}
+	public Constructor getInstance() {
+		return new Top();
+	}	
 	
 	@Override
 	public boolean isTop() {
 		return true;
+	}
+	
+	@Override
+	public Element getBaseElement() {
+		Top ret = new Top();
+		ret.id = 0;
+		return ret;
 	}
 }

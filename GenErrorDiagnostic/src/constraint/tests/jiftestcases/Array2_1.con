@@ -1,38 +1,87 @@
-CONSTRUCTOR arr 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,26-36
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,11-20
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Array2.jif:1,0-12
-CONSTRUCTOR Array2.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_arr 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,26-36
+CONSTRUCTOR I_arr 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,26-36
+CONSTRUCTOR C_Array2.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_Array2.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,11-20
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Array2.jif:2,11-20
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Array2.jif:1,0-12
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Array2.jif:1,0-12
 CONSTRUCTOR this 0
 
 %%
-caller_pc <= arr;
-Array2.provider == _ -> _;
-_ -> _ <= arr;
-arr <= * -> *;
-_ -> _ <= v_tmpy;
-v_tmpy <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= v_tmpx;
-v_tmpx <= * -> *;
-_ -> _ <= Array2.provider;
-Array2.provider <= * -> *;
+I_arr <= (_ <- _);
+C_caller_pc <= C_arr;
+I_caller_pc <= I_arr;
+C_Array2.provider == _ -> _;
+I_Array2.provider == * <- *;
+_ -> _ <= C_arr;
+C_arr <= * -> *;
+* <- * <= I_arr;
+I_arr <= _ <- _;
+_ -> _ <= C_Array2.provider;
+C_Array2.provider <= * -> *;
+* <- * <= I_Array2.provider;
+I_Array2.provider <= _ <- _;
+_ -> _ <= C_tmpy;
+C_tmpy <= * -> *;
+* <- * <= I_tmpy;
+I_tmpy <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_tmpx;
+C_tmpx <= * -> *;
+* <- * <= I_tmpx;
+I_tmpx <= _ <- _;
 
 %%
-arr <= v_tmpx {this <= caller_pc;};["":5,19-22]
-arr <= v_tmpy {this <= caller_pc;};["":6,19-22]
-(v_tmpy) ⊔ (arr) <= arr {this <= caller_pc;};["":7,8-11]
-Array2.provider <= arr {this <= caller_pc;};["":7,8-11]
-(v_tmpx) ⊔ (arr) <= arr {this <= caller_pc;};["":8,8-11]
-Array2.provider <= arr {this <= caller_pc;};["":8,8-11]
-arr <= arr {this <= caller_pc;};["":2,11-20]
-arr <= arr {this <= caller_pc;};["":2,11-20]
-arr <= arr {this <= caller_pc;};["":2,11-20]
-arr <= arr {this <= caller_pc;};["":2,11-20]
-arr <= arr {this <= caller_pc;};["":2,11-20]
-arr <= arr {this <= caller_pc;};["":2,11-20]
-arr <= arr {this <= caller_pc;};["":2,11-20]
-arr <= arr {this <= caller_pc;};["":2,11-20]
-arr <= arr {this <= caller_pc;};["":2,11-20]
+C_arr["{arr}":2,26-36] <= C_tmpx["{tmpx}":5,12-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,19-22]
+I_arr["{arr}":2,26-36] <= I_tmpx["{tmpx}":5,12-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,19-22]
+
+C_arr["{arr}":2,26-36] <= C_tmpy["{tmpy}":6,12-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[6,19-22]
+I_arr["{arr}":2,26-36] <= I_tmpy["{tmpy}":6,12-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[6,19-22]
+
+(C_tmpy) ⊔ (C_arr)["{tmpy ⊔ arr}":6,12-16] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,8-11]
+(I_tmpy) ⊔ (I_arr)["{tmpy ⊔ arr}":6,12-16] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,8-11]
+
+C_Array2.provider <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,8-11]
+I_Array2.provider <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,8-11]
+
+(C_tmpx) ⊔ (C_arr)["{tmpx ⊔ arr}":5,12-16] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,8-11]
+(I_tmpx) ⊔ (I_arr)["{tmpx ⊔ arr}":5,12-16] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,8-11]
+
+C_Array2.provider <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,8-11]
+I_Array2.provider <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,8-11]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+
+C_arr["{arr}":2,26-36] <= C_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+I_arr["{arr}":2,26-36] <= I_arr["{arr}":2,26-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,11-20]
+

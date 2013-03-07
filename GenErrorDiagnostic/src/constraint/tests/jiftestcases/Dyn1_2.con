@@ -1,22 +1,40 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
-CONSTRUCTOR *lb 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:5,9-11
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:5,4-14
-CONSTRUCTOR *this.f 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR C_*this.f 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
+CONSTRUCTOR I_*this.f 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
+CONSTRUCTOR C_*lb 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:5,9-11
+CONSTRUCTOR I_*lb 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:5,9-11
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:5,4-14
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:5,4-14
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@Dyn1.jif:3,31-39
 CONSTRUCTOR * 0 //@Dyn1.jif:3,32-38
 
 %%
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= (Alice -> *);
-(Alice -> *) <= * -> *;
-_ -> _ <= *lb;
-*lb <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= *this.f;
-*this.f <= * -> *;
+I_caller_pc <= (_ <- _);
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= (Alice -> Alice);
+(Alice -> Alice) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_*this.f;
+C_*this.f <= * -> *;
+* <- * <= I_*this.f;
+I_*this.f <= _ <- _;
+_ -> _ <= C_*lb;
+C_*lb <= * -> *;
+* <- * <= I_*lb;
+I_*lb <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
 
 %%
-(caller_pc) <= (*lb) ⊔ (caller_pc) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;};["":6,1-11]
+(C_caller_pc)["{caller_pc}":5,4-14] <= (C_*lb) ⊔ (C_caller_pc)["{*lb ⊔ caller_pc}":5,9-11] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;C_this <= C_caller_pc;I_this <= I_caller_pc;};[6,1-11]
+(I_caller_pc)["{caller_pc}":5,4-14] <= (I_*lb) ⊔ (I_caller_pc)["{*lb ⊔ caller_pc}":5,9-11] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;C_this <= C_caller_pc;I_this <= I_caller_pc;};[6,1-11]
+

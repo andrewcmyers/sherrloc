@@ -76,6 +76,15 @@ public class JoinElement extends EnumerableElement {
 	}
 	
 	@Override
+	public boolean isBottom() {
+		for (Element e : elements) {
+			if (!e.isBottom())
+				return false;
+		}
+		return true;
+	}
+	
+	@Override
 	public Element getBaseElement() {
 		List<Element> baseElements =  new ArrayList<Element>();
 		for (Element e : elements) {

@@ -1,45 +1,92 @@
-CONSTRUCTOR *lb 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:5,9-11
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:1,0-10
-CONSTRUCTOR *this.f 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
-CONSTRUCTOR Dyn1.provider 0 //class jif.types.label.ProviderLabel_c@Dyn1.jif:1,0-10
-CONSTRUCTOR Dyn1.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_*lb 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:5,9-11
+CONSTRUCTOR I_*lb 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:5,9-11
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR C_*this.f 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
+CONSTRUCTOR I_*this.f 0 //class jif.types.label.DynamicLabel_c@Dyn1.jif:3,10-40
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR C_Dyn1.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_Dyn1.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_Dyn1.provider1 0 //class jif.types.label.ProviderLabel_c@Dyn1.jif:1,0-10
+CONSTRUCTOR I_Dyn1.provider1 0 //class jif.types.label.ProviderLabel_c@Dyn1.jif:1,0-10
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@null
+CONSTRUCTOR _ 0 //@Dyn1.jif:3,31-39
 CONSTRUCTOR * 0 //@Dyn1.jif:3,32-38
 
 %%
-Dyn1.provider == _ -> _;
-Dyn1.provider1 == _ -> _;
-_ -> _ <= *lb;
-*lb <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= (Alice -> *);
-(Alice -> *) <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= *this.f;
-*this.f <= * -> *;
-_ -> _ <= Dyn1.provider;
-Dyn1.provider <= * -> *;
+I_caller_pc <= (_ <- _);
+C_Dyn1.provider == _ -> _;
+I_Dyn1.provider == * <- *;
+C_Dyn1.provider1 == _ -> _;
+I_Dyn1.provider1 == * <- *;
+_ -> _ <= C_*lb;
+C_*lb <= * -> *;
+* <- * <= I_*lb;
+I_*lb <= _ <- _;
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= (Alice -> Alice);
+(Alice -> Alice) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_*this.f;
+C_*this.f <= * -> *;
+* <- * <= I_*this.f;
+I_*this.f <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (* <- *);
+(* <- *) <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= Dyn1.provider1;
-Dyn1.provider1 <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_Dyn1.provider;
+C_Dyn1.provider <= * -> *;
+* <- * <= I_Dyn1.provider;
+I_Dyn1.provider <= _ <- _;
+_ -> _ <= C_Dyn1.provider1;
+C_Dyn1.provider1 <= * -> *;
+* <- * <= I_Dyn1.provider1;
+I_Dyn1.provider1 <= _ <- _;
 
 %%
-Dyn1.provider1 <= (* -> *) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;};["":1,0-10]
-(_ -> _) == (_ -> _) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;};["":3,10-40]
-(_ -> _) <= (_ -> _) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;};["":5,4-14]
-(* -> *) <= (* -> *) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;};["":5,4-14]
-(_ -> _) <= (_ -> _) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;};["":5,4-14]
-*lb <= *lb {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;};["":5,4-14]
-(_ -> _) <= (_ -> _) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;};["":9,4-13]
-(_ -> _) <= (_ -> _) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;};["":9,4-13]
-Dyn1.provider <= (* -> *) {*this.f <= (Alice -> *);(Alice -> *) <= *this.f;this <= caller_pc;caller_pc <= (Dyn1.provider);};["":1,0-0]
+C_Dyn1.provider <= (* -> *)["{(* -> *)}":1,0-10] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[1,0-10]
+I_Dyn1.provider <= (_ <- _)["{(* -> *)}":1,0-10] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[1,0-10]
+
+(_ -> _)["{}":3,15-17] == (_ -> _)["{}":3,15-17] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[3,10-40]
+(_ <- _)["{}":3,15-17] == (_ <- _)["{}":3,15-17] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[3,10-40]
+
+(_ -> _)["{}":5,20-22] <= (_ -> _)["{}":5,20-22] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[5,4-14]
+(_ <- _)["{}":5,20-22] <= (_ <- _)["{}":5,20-22] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[5,4-14]
+
+(* -> *)["{(* -> *)}":5,4-14] <= (* -> *)["{(* -> *)}":5,4-14] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[5,4-14]
+(_ <- _)["{(* -> *)}":5,4-14] <= (_ <- _)["{(* -> *)}":5,4-14] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[5,4-14]
+
+(_ -> _) <= (_ -> _) {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[5,4-14]
+(* <- *) <= (* <- *) {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[5,4-14]
+
+C_*lb["{*lb}":5,9-11] <= C_*lb["{*lb}":5,9-11] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[5,4-14]
+I_*lb["{*lb}":5,9-11] <= I_*lb["{*lb}":5,9-11] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[5,4-14]
+
+(_ -> _)["{* <- *}":9,13-19] <= (_ -> _)["{* <- *}":9,13-19] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[9,4-13]
+(* <- *)["{* <- *}":9,13-19] <= (* <- *)["{* <- *}":9,13-19] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[9,4-13]
+
+(_ -> _) <= (_ -> _) {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[9,4-13]
+(* <- *) <= (* <- *) {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;};[9,4-13]
+
+C_Dyn1.provider1["Dyn1.provider":1,0-10] <= (* -> *)["{(* -> *)}":17,11-19] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Dyn1.provider1);I_caller_pc <= (I_Dyn1.provider1);};[1,0-0]
+I_Dyn1.provider1["Dyn1.provider":1,0-10] <= (_ <- _)["{(* -> *)}":17,11-19] {C_*this.f <= (Alice -> Alice);I_*this.f <= (_ <- _);(Alice -> Alice) <= C_*this.f;(_ <- _) <= I_*this.f;C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Dyn1.provider1);I_caller_pc <= (I_Dyn1.provider1);};[1,0-0]
+

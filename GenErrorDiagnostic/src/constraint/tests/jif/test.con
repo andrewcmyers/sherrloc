@@ -1,31 +1,62 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@test.jif:5,0-14
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@test.jif:7,8-14
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@test.jif:5,0-14
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@test.jif:5,0-14
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@test.jif:7,8-14
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@test.jif:7,8-14
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@test.jif:10,8-10
+CONSTRUCTOR _ 0 //@test.jif:8,8-16
 CONSTRUCTOR px 0 //@test.jif:8,9-11
 CONSTRUCTOR py 0 //@test.jif:8,13-15
 
 %%
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= v_x;
-v_x <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= v_y;
-v_y <= * -> *;
-_ -> _ <= v_z;
-v_z <= * -> *;
+I_caller_pc <= (_ <- _);
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= C_x;
+C_x <= * -> *;
+* <- * <= I_x;
+I_x <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
+_ -> _ <= C_y;
+C_y <= * -> *;
+* <- * <= I_y;
+I_y <= _ <- _;
+_ -> _ <= C_z;
+C_z <= * -> *;
+* <- * <= I_z;
+I_z <= _ <- _;
 _ -> _ <= (px -> px⊓py);
 (px -> px⊓py) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 _ -> _ <= (_ -> _);
 (_ -> _) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
 
 %%
-v_y["{y}":8,17-18] == (caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":7,8-14] {this <= caller_pc;};[8,17-18]
-(caller_pc)["{caller_pc}":7,8-14] <= v_y["{y}":8,17-18] {this <= caller_pc;};[8,19-20]
-v_x["{x}":9,17-18] == (caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":7,8-14] {this <= caller_pc;};[9,17-18]
-(v_y) ⊔ (caller_pc)["{y ⊔ caller_pc}":8,17-18] <= v_x["{x}":9,17-18] {this <= caller_pc;};[9,21-22]
-v_z["{z}":10,11-12] == (caller_pc) ⊔ ((_ -> _))["{caller_pc ⊔ (_ -> _); _ <- _}":7,8-14] {this <= caller_pc;};[10,11-12]
-(caller_pc)["{caller_pc}":7,8-14] <= v_z["{z}":10,11-12] {this <= caller_pc;};[10,15-16]
-(caller_pc) ⊔ (v_x)["{caller_pc ⊔ x}":7,8-14] <= v_z["{z}":10,11-12] {this <= caller_pc;};[12,8-9]
+C_y["{y}":8,17-18] == (C_caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":7,8-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,17-18]
+I_y["{y}":8,17-18] == (I_caller_pc) ⊔ ((_ <- _))["{caller_pc ⊔ (px -> py); _ <- _}":7,8-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,17-18]
+
+(C_caller_pc)["{caller_pc}":7,8-14] <= C_y["{y}":8,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,19-20]
+(I_caller_pc)["{caller_pc}":7,8-14] <= I_y["{y}":8,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,19-20]
+
+C_x["{x}":9,17-18] == (C_caller_pc) ⊔ ((px -> px⊓py))["{caller_pc ⊔ (px -> py); _ <- _}":7,8-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,17-18]
+I_x["{x}":9,17-18] == (I_caller_pc) ⊔ ((_ <- _))["{caller_pc ⊔ (px -> py); _ <- _}":7,8-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,17-18]
+
+(C_y) ⊔ (C_caller_pc)["{y ⊔ caller_pc}":8,17-18] <= C_x["{x}":9,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,21-22]
+(I_y) ⊔ (I_caller_pc)["{y ⊔ caller_pc}":8,17-18] <= I_x["{x}":9,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,21-22]
+
+C_z["{z}":10,11-12] == (C_caller_pc) ⊔ ((_ -> _))["{caller_pc ⊔ (_ -> _); _ <- _}":7,8-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,11-12]
+I_z["{z}":10,11-12] == (I_caller_pc) ⊔ ((_ <- _))["{caller_pc ⊔ (_ -> _); _ <- _}":7,8-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,11-12]
+
+(C_caller_pc)["{caller_pc}":7,8-14] <= C_z["{z}":10,11-12] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,15-16]
+(I_caller_pc)["{caller_pc}":7,8-14] <= I_z["{z}":10,11-12] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,15-16]
+
+(C_caller_pc) ⊔ (C_x)["{caller_pc ⊔ x}":7,8-14] <= C_z["{z}":10,11-12] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,8-9]
+(I_caller_pc) ⊔ (I_x)["{caller_pc ⊔ x}":7,8-14] <= I_z["{z}":10,11-12] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,8-9]
+

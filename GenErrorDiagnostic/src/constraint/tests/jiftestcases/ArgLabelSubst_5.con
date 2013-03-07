@@ -1,28 +1,58 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,11-28
-CONSTRUCTOR w 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,38-40
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst.jif:28,7-26
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,11-28
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,11-28
+CONSTRUCTOR C_w 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,38-40
+CONSTRUCTOR I_w 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst.jif:29,38-40
 CONSTRUCTOR this 0
-CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,19-22
+CONSTRUCTOR _ 0 //@ArgLabelSubst.jif:29,18-24
 CONSTRUCTOR * 0 //@ArgLabelSubst.jif:29,19-23
+CONSTRUCTOR yyy 0 //@ArgLabelSubst.jif:29,19-22
 
 %%
-w <= (_ -> _);
-_ -> _ <= (yyy -> *);
-(yyy -> *) <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
+I_caller_pc <= (_ <- _);
+C_w <= (_ -> _);
+I_w <= (_ <- _);
+_ -> _ <= C_this;
+C_this <= * -> *;
+* <- * <= I_this;
+I_this <= _ <- _;
+_ -> _ <= (yyy -> yyy);
+(yyy -> yyy) <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_caller_pc;
+C_caller_pc <= * -> *;
+* <- * <= I_caller_pc;
+I_caller_pc <= _ <- _;
 _ -> _ <= (* -> *);
 (* -> *) <= * -> *;
-_ -> _ <= w;
-w <= * -> *;
+* <- * <= (_ <- _);
+(_ <- _) <= _ <- _;
+_ -> _ <= C_w;
+C_w <= * -> *;
+* <- * <= I_w;
+I_w <= _ <- _;
 
 %%
-(w) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":30,25-26]
-(w) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":30,28-29]
-(w) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":30,16-30]
-v_receiver == (w) ⊔ (caller_pc) {this <= caller_pc;};["":30,16-30]
-v_arg1label == (w) ⊔ (caller_pc) {this <= caller_pc;};["":30,16-30]
-v_arg2label == (w) ⊔ (caller_pc) {this <= caller_pc;};["":30,16-30]
-(caller_pc) <= ((yyy -> *)) ⊔ (caller_pc) {this <= caller_pc;};["":32,1-13]
+(C_w) ⊔ (C_caller_pc)["{w ⊔ caller_pc}":29,38-40] <= (* -> *)["{(* -> *)}":17,29-34] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,25-26]
+(I_w) ⊔ (I_caller_pc)["{w ⊔ caller_pc}":29,38-40] <= (_ <- _)["{(* -> *)}":17,29-34] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,25-26]
+
+(C_w) ⊔ (C_caller_pc)["{w ⊔ caller_pc}":29,38-40] <= (* -> *)["{(* -> *)}":17,36-41] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,28-29]
+(I_w) ⊔ (I_caller_pc)["{w ⊔ caller_pc}":29,38-40] <= (_ <- _)["{(* -> *)}":17,36-41] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,28-29]
+
+(C_w) ⊔ (C_caller_pc)["{w ⊔ caller_pc}":29,38-40] <= (* -> *)["{(* -> *)}":17,11-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,16-30]
+(I_w) ⊔ (I_caller_pc)["{w ⊔ caller_pc}":29,38-40] <= (_ <- _)["{(* -> *)}":17,11-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,16-30]
+
+C_receiver["{receiver}":30,16-30] == (C_w) ⊔ (C_caller_pc)["{w ⊔ caller_pc}":29,38-40] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,16-30]
+I_receiver["{receiver}":30,16-30] == (I_w) ⊔ (I_caller_pc)["{w ⊔ caller_pc}":29,38-40] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,16-30]
+
+C_arg1label["{arg1label}":30,25-26] == (C_w) ⊔ (C_caller_pc)["{w ⊔ caller_pc}":29,38-40] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,16-30]
+I_arg1label["{arg1label}":30,25-26] == (I_w) ⊔ (I_caller_pc)["{w ⊔ caller_pc}":29,38-40] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,16-30]
+
+C_arg2label["{arg2label}":30,28-29] == (C_w) ⊔ (C_caller_pc)["{w ⊔ caller_pc}":29,38-40] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,16-30]
+I_arg2label["{arg2label}":30,28-29] == (I_w) ⊔ (I_caller_pc)["{w ⊔ caller_pc}":29,38-40] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[30,16-30]
+
+(C_caller_pc)["{caller_pc}":29,11-28] <= ((yyy -> yyy)) ⊔ (C_caller_pc)["{(yyy -> *); _ <- _ ⊔ caller_pc}":29,18-24] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[32,1-13]
+(I_caller_pc)["{caller_pc}":29,11-28] <= ((_ <- _)) ⊔ (I_caller_pc)["{(yyy -> *); _ <- _ ⊔ caller_pc}":29,18-24] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[32,1-13]
+
