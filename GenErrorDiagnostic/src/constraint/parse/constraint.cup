@@ -42,10 +42,10 @@ non terminal Environment 		env;
 non terminal 					constructors, constructor;
 non terminal				    assumptions;
 non terminal Constraint 		equation;
-non terminal Element			term, term_pos, element, cons;
+non terminal Element			term, element, cons;
 non terminal String           	id;
 non terminal Integer			arity;
-non terminal List<Element>		element_list;
+non terminal List<Element>		ele_list;
 non terminal Position           range, position;
 
 /* Precedences */
@@ -103,11 +103,11 @@ equations 	::= equations:s equation:e
             {: Set<Constraint> set = new HashSet<Constraint>(); set.add(e); RESULT = set; :}
             ;
             
-equation 	::= term_pos:e1 EQ term_pos:e2 env:e SEMICOLON position:p
+equation 	::= term:e1 EQ term:e2 env:e SEMICOLON position:p
 			{: RESULT = new Constraint (e1, e2, Relation.EQ, e, p); :}  
-            | term_pos:e1 LEQ term_pos:e2 env:e SEMICOLON position:p
+            | term:e1 LEQ term:e2 env:e SEMICOLON position:p
          	{: RESULT = new Constraint (e1, e2, Relation.LEQ, e, p); :}
-            | term_pos:e1 GEQ term_pos:e2 env:e SEMICOLON  position:p
+            | term:e1 GEQ  term:e2 env:e SEMICOLON position:p
             {: RESULT = new Constraint (e2, e1, Relation.LEQ, e, p); :}
             ;
             
@@ -156,77 +156,100 @@ range		::= INTEGER_LITERAL:d1 COMMA INTEGER_LITERAL:d2 DASH INTEGER_LITERAL:d3
 			{:  RESULT = Position.EmptyPosition(); :}
 			;
             
-term_pos    ::= term:t1 position:p 
+/* term_pos    ::= term:t1 position:p 
 			{:
 				t1.setPosition(p);
 				RESULT = t1;
 			:}
-			;
+			;*/
 
-term     	::=  term:t1 ARROW term:t2
+term     	::=  term:t1 ARROW position:p term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
 				ComplexElement e = new ComplexElement ("", constructors.get("arrow"), l);
+				e.setPosition(p);
 				RESULT = e.getInstance();
 			:}
 			|
-				term:t1 LARROW term:t2
+				term:t1 LARROW position:p term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
 				ComplexElement e = new ComplexElement ("", constructors.get("larrow"), l);
+				e.setPosition(p);
 				RESULT = e.getInstance();
 			:}
-			| term:t1 COMMA term:t2
+			| term:t1 COMMA position:p term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
 				ComplexElement e = new ComplexElement ("", constructors.get("pair"), l); 
+				e.setPosition(p);
 				RESULT = e.getInstance();
 			:}
-			| term:t1 JOIN term:t2
+			| term:t1 JOIN position:p term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
 				JoinElement e = new JoinElement ("", l);
+				e.setPosition(p);
 				RESULT =  e.getInstance();
 			:}
-			| term:t1 MEET term:t2
+			| term:t1 MEET position:p term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
 				MeetElement e = new MeetElement ("", l);
+				e.setPosition(p);
 				RESULT = e.getInstance(); 
 			:}
-			| cons:cons element_list:l
-			{: 	Constructor c = (Constructor) cons;
-				if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
+			| ele_list:l
+			{: 	
+			    Element e = l.remove(0);
+			    if (l.size()==0) {
+			        RESULT = e;
+			    }
+			    else {
+			        if (!(e instanceof Constructor))
+			            throw new Error("\""+e+"\"" + " is not a constructor");
+			        Constructor c = (Constructor) e;
+				    if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
-			    ComplexElement e = new ComplexElement ("", c, l);
-			    RESULT = e.getInstance(); 
+			        ComplexElement ret = new ComplexElement ("", c, l);
+			        RESULT = ret.getInstance();
+			    } 
 			:}
-			| element:e
-			{: RESULT = e; :}
+/*			| element:e position:p
+			{:  e.setPosition(p);
+			    RESULT = e; :}*/
 			;
 		
-element_list ::= element_list:l element:t
-			{: l.add(t); RESULT = l; :}
-			| element:e
-			{: List<Element> l = new ArrayList<Element>();  l.add(e); RESULT = l; :}
+ele_list ::= ele_list:l element:e position:p
+			{: 
+			    e.setPosition(p);
+			    l.add(e); 
+			    RESULT = l; 
+			:}
+			| element:e position:p
+			{: 
+			    List<Element> l = new ArrayList<Element>();  
+			    l.add(e); 
+			    RESULT = l; 
+			:}
 			;
 			
-cons		::= IDENTIFIER:s
+/* cons		::= IDENTIFIER:s
 			{:
 				if (constructors.containsKey(s)) {
 					RESULT = constructors.get(s).getInstance();
 				} 
 			   	else throw new Error("\""+s+"\"" + " is not a constructor");
 			:}
-			;
+			; */
 
 /* a single element is either a variable or a constructor with 0 arity */
 element		::= IDENTIFIER:s
