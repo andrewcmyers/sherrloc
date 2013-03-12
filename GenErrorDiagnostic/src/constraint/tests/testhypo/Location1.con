@@ -1,50 +1,103 @@
-CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:23,15-16
-CONSTRUCTOR Location.provider 0 //class fabric.types.FabricProviderLabel_c@null
-CONSTRUCTOR Location.provider1 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
-CONSTRUCTOR A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:22,19-20
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:26,2-33,3
-CONSTRUCTOR this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
-CONSTRUCTOR y 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:32,17-20
-CONSTRUCTOR x 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:32,7-10
+CONSTRUCTOR C_L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:23,15-16
+CONSTRUCTOR I_L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:23,15-16
+CONSTRUCTOR C_Location.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
+CONSTRUCTOR I_Location.provider 0 //class fabric.types.FabricProviderLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
+CONSTRUCTOR C_A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:22,19-20
+CONSTRUCTOR I_A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:22,19-20
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:26,2-33,3
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:26,2-33,3
+CONSTRUCTOR C_this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
+CONSTRUCTOR I_this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
+CONSTRUCTOR C_Location.provider1 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR I_Location.provider1 0 //class fabric.types.FabricProviderLabel_c@null
+CONSTRUCTOR C_y 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:32,17-20
+CONSTRUCTOR I_y 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:32,17-20
+CONSTRUCTOR C_x 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:32,7-10
+CONSTRUCTOR I_x 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Location1.fab:32,7-10
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@Compiler Generated
+CONSTRUCTOR _ 0 //@/home/zhdf/demo/pldi13/friendmap/Location1.fab:13,7-21
 CONSTRUCTOR * 0 //@Compiler Generated
 
 %%
-caller_pc <= (L) ⊓ (A);
-y <= L;
-x <= L;
-Location.provider == _ -> _;
-Location.provider1 == _ -> _;
-_ -> _ <= L;
-L <= * -> *;
-_ -> _ <= Location.provider;
-Location.provider <= * -> *;
-_ -> _ <= Location.provider1;
-Location.provider1 <= * -> *;
-_ -> _ <= A;
-A <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= y;
-y <= * -> *;
-_ -> _ <= x;
-x <= * -> *;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
+C_caller_pc <= (C_L ⊓ C_A);
+I_caller_pc <= (I_L ⊓ I_A);
+C_y <= C_L;
+I_y <= I_L;
+C_x <= C_L;
+I_x <= I_L;
+C_Location.provider == (_ -> _);
+I_Location.provider == (* <- *);
+C_Location.provider1 == (_ -> _);
+I_Location.provider1 == (* <- *);
+(_ -> _) <= C_L;
+C_L <= (* -> *);
+(* <- *) <= I_L;
+I_L <= (_ <- _);
+(_ -> _) <= C_Location.provider;
+C_Location.provider <= (* -> *);
+(* <- *) <= I_Location.provider;
+I_Location.provider <= (_ <- _);
+(_ -> _) <= C_A;
+C_A <= (* -> *);
+(* <- *) <= I_A;
+I_A <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_Location.provider1;
+C_Location.provider1 <= (* -> *);
+(* <- *) <= I_Location.provider1;
+I_Location.provider1 <= (_ <- _);
+(_ -> _) <= C_y;
+C_y <= (* -> *);
+(* <- *) <= I_y;
+I_y <= (_ <- _);
+(_ -> _) <= C_x;
+C_x <= (* -> *);
+(* <- *) <= I_x;
+I_x <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
 
 %%
-(_ -> _) <= (A) ⊔ ((_ -> _)) {this <= (A) ⊔ ((_ -> _));};["":13,7-21]
-L <= (A) ⊔ ((_ -> _)) {this <= (A) ⊔ ((_ -> _));};["":13,7-21]
-Location.provider <= (* -> *) {this <= (A) ⊔ ((_ -> _));};["":13,7-21]
-L == L {this <= (A) ⊔ ((_ -> _));};["":22,9-24]
-L == L {this <= (A) ⊔ ((_ -> _));};["":23,9-24]
-Location.provider1 <= (* -> *) {this <= (A) ⊔ ((_ -> _));this <= caller_pc;caller_pc <= (Location.provider1);};["":34,2-3]
-(x) ⊔ (this) <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":35,4-10]
-Location.provider <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":35,4-10]
-(y) ⊔ (this) <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":36,4-10]
-Location.provider <= L {this <= (A) ⊔ ((_ -> _));this <= caller_pc;};["":36,4-10]
+(_["_":] -> _["_":])["(_ -> _)":] <= (C_A["A":22,19-20] ⊔ (_["_":] -> _["_":])["(_ -> _)":])["{A ⊔ (_ -> _); (_ <- _)}":22,19-20] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[13,7-21]
+(_["_":] <- _["_":])["(_ <- _)":] <= (I_A["A":22,19-20] ⊔ (_["_":] <- _["_":])["(_ <- _)":])["{A ⊔ (_ -> _); (_ <- _)}":22,19-20] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[13,7-21]
+
+C_L["L":23,15-16] <= (C_A["A":22,19-20] ⊔ (_["_":] -> _["_":])["(_ -> _)":])["{A ⊔ (_ -> _); (_ <- _)}":22,19-20] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[13,7-21]
+I_L["L":23,15-16] <= (I_A["A":22,19-20] ⊔ (_["_":] <- _["_":])["(_ <- _)":])["{A ⊔ (_ -> _); (_ <- _)}":22,19-20] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[13,7-21]
+
+C_Location.provider1["Location.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[13,7-21]
+I_Location.provider1["Location.provider":] <= (_["_":13,7-21] <- _["_":13,7-21])["(_ <- _)":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[13,7-21]
+
+C_L["L":22,15-16] == C_L["L":22,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[22,9-24]
+I_L["L":22,15-16] == I_L["L":22,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[22,9-24]
+
+C_L["L":23,15-16] == C_L["L":23,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[23,9-24]
+I_L["L":23,15-16] == I_L["L":23,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[23,9-24]
+
+C_Location.provider["Location.provider":13,7-21] <= (*["*":3,20-20] -> *["*":3,20-20])["(* -> *)":3,20-20] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Location.provider);I_caller_pc <= (I_Location.provider);};[34,2-3]
+I_Location.provider["Location.provider":13,7-21] <= (_["_":3,20-20] <- _["_":3,20-20])["(_ <- _)":3,20-20] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Location.provider);I_caller_pc <= (I_Location.provider);};[34,2-3]
+
+(C_x["{x}":32,7-10] ⊔ C_this["{this}":13,7-21])["{x ⊔ this}":32,7-10] <= C_L["L":22,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[35,4-10]
+(I_x["{x}":32,7-10] ⊔ I_this["{this}":13,7-21])["{x ⊔ this}":32,7-10] <= I_L["L":22,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[35,4-10]
+
+C_Location.provider1["Location.provider":] <= C_L["L":22,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[35,4-10]
+I_Location.provider1["Location.provider":] <= I_L["L":22,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[35,4-10]
+
+(C_y["{y}":32,17-20] ⊔ C_this["{this}":13,7-21])["{y ⊔ this}":32,17-20] <= C_L["L":23,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[36,4-10]
+(I_y["{y}":32,17-20] ⊔ I_this["{this}":13,7-21])["{y ⊔ this}":32,17-20] <= I_L["L":23,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[36,4-10]
+
+C_Location.provider1["Location.provider":] <= C_L["L":23,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[36,4-10]
+I_Location.provider1["Location.provider":] <= I_L["L":23,15-16] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[36,4-10]
+

@@ -10,6 +10,10 @@ public class JoinElement extends EnumerableElement {
 		flat();
 	}
 	
+	public String toString( ) {
+		return infixToString()+pos;
+	}
+	
 	public String toHTMLString() {
 		return infixToHTMLString();
 	}

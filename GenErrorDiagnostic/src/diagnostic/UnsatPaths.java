@@ -31,7 +31,7 @@ public class UnsatPaths {
 	// Reuse graph.env join env if the current env is already seen before
 	Map<Environment, Environment> cachedEnv;	
 	
-	public UnsatPaths() {
+	public UnsatPaths( ) {
         errPaths = new HashSet<ConstraintPath>();
         cachedEnv = new HashMap<Environment, Environment>();
     }
@@ -362,8 +362,7 @@ public class UnsatPaths {
     
     public String genEdgeCut ( ) {
     	StringBuffer sb = new StringBuffer();
-    	Set<Set<EquationEdge>> results = null;
-		results = genEdgeCuts();
+    	Set<Set<EquationEdge>> results = genEdgeCuts();
 		sb.append("<H4>Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
 		// sb.append("<OL>\n");
@@ -377,7 +376,7 @@ public class UnsatPaths {
 		}
 		Collections.sort(cuts);
 
-                    int best=Integer.MAX_VALUE;
+        int best=Integer.MAX_VALUE;
 		int i=0;
 		for ( ; i<cuts.size(); i++) {
 			if (cuts.get(i).rank>best)

@@ -10,7 +10,7 @@ import diagnostic.UnsatPaths;
 // we do an iterative deeping search until at least one cut is returned
 public abstract class MinCutFinder<EntityType> {
 
-    static int REC_MAX = 3;
+    static int REC_MAX = 4;
     UnsatPaths paths;
 //    UnsatPaths unsatPaths;
     

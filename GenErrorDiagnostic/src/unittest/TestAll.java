@@ -55,7 +55,7 @@ public class TestAll {
 		/* test for Jif constraint */
 		
 		/* auction */
-		testAssumptions("src/constraint/tests/testhypo/AirlineAgent1.con", "(TheAirline)->(TheAirline) <= L;\n", false);// same assumption
+		testAssumptions("src/constraint/tests/testhypo/AirlineAgent1.con", "(TheAirline)->(TheAirline) <= C_L;\n", false);// same assumption
 		/* AirlineAgent2 secure */
 		/* User1 secure */
 		testAssumptions("src/constraint/tests/testhypo/AirlineExample1.con", "AirlineA <= airlines;\n", false);// same assumption
@@ -64,44 +64,44 @@ public class TestAll {
 		testAssumptions("src/constraint/tests/testhypo/AirlineExample3.con", "", false); // secure
 		
 		/* battleship */
-		testAssumptions("src/constraint/tests/testhypo/Board1.con", "(p1)->(p1) <= L;L <= (p1)->(p1);\n", false); // same assumption
+		testAssumptions("src/constraint/tests/testhypo/Board1.con", "(p1)->(p1) <= C_L;(p1)<-(p1) <= I_L;C_L <= (p1)->(p1);I_L <= (p1)<-(p1);\n", false); // same assumption
 
 		/* social */
-		testAssumptions("src/constraint/tests/testhypo/Agent1.con", "", false); // same assumption [why this test is here?]
+////		testAssumptions("src/constraint/tests/testhypo/Agent1.con", "", false); // same assumption [why this test is here?]
 		/* SocialNetwork1 secure */
 		testAssumptions("src/constraint/tests/testhypo/SocialNetwork2.con", "bb <= SN;bg <= SN;user <= SN;\n", false); // same
 
 		/* friendmap */
-		testAssumptions("src/constraint/tests/testhypo/Location1.con", "L <= (A)join((_)->(_));\n", false);// same assumption
+		testAssumptions("src/constraint/tests/testhypo/Location1.con", "C_L <= (C_A)join((_)->(_));\n", false);// same assumption
 		testAssumptions("src/constraint/tests/testhypo/Snapp1.con", "owner2 <= store1;\n", false); // same assumption
 		/* Snapp2 secure */
-		testAssumptions("src/constraint/tests/testhypo/FriendMap1.con", "*l <= (*)->(s1);\n", false); // same assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap1.con", "C_*l <= (*)->(s1);\n", false); // same assumption
 		testAssumptions("src/constraint/tests/testhypo/FriendMap2.con", "user.friends <= worker$;\n", false); // weaker assumption
-		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap3.con", "*map_update <= *map_access;\n", false); // weaker assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap3.con", "C_*map_update <= C_*map_access;\n", false); // weaker assumption
 		/* FriendMap4 secure */
-		testAssumptions("src/constraint/tests/testhypo/FriendMap5.con", "*l <= (*)->(s1);\n", false); // weaker assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap5.con", "C_*l <= (*)->(s1);\n", false); // weaker assumption
 		/* FriendMap6 secure */
-		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap7.con", "l <= (*)->(n1);n <= (*)->(n1);\n", false); // same assumption
-		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap8.con", "s <= *l;\n", false); // weaker assumption
-		testAssumptions("src/constraint/tests/testhypo/FriendMap9.con", "*iterLabel <= (*)->(fn);\n", false); //  weaker assumption, this is a good example
-		testAssumptions("src/constraint/tests/testhypo/FriendMap10.con", "*lbl <= (*)->(n1);\n", false); // weaker  assumption
-		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap11.con", "user <= (*)->(n1);\n", false); // weaker  assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap7.con", "C_l <= (*)->(n1);C_n <= (*)->(n1);\n", false); // same assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap8.con", "C_s <= C_*l;I_s <= I_*l;\n", false); // weaker assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap9.con", "C_*iterLabel <= (*)->(fn);\n", false); //  weaker assumption, this is a good example
+		testAssumptions("src/constraint/tests/testhypo/FriendMap10.con", "C_*lbl <= (*)->(n1);\n", false); // weaker  assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap11.con", "C_user <= (*)->(n1);\n", false); // weaker  assumption
 		/* FriendMap12 secure */
 		/* FriendMap13 secure */
-		testAssumptions("src/constraint/tests/testhypo/FriendMap14.con", "*iterLabel <= (*)->(fn);\n", false); // weaker  assumption
-		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap15.con", "*iterLabel <= (*)->(fn);\n", false); // same  assumption
-		testAssumptions("src/constraint/tests/testhypo/FriendMap16.con", "*lbl <= (*)->(localStore);\n", false); // same  assumption
-		testAssumptions("src/constraint/tests/testhypo/FriendMap17.con", "*l <= (*)->(s1);\n", false); // same  assumption
-		testAssumptions("src/constraint/tests/testhypo/Box1.con", "L <= (A)join((_)->(_));\n", false); // same assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap14.con", "C_*iterLabel <= (*)->(fn);\n", false); // weaker  assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap15.con", "C_*iterLabel <= (*)->(fn);\n", false); // same  assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap16.con", "(*)<-(localStore) <= I_*lbl;C_*lbl <= (*)->(localStore);\n", false); // same  assumption
+		testAssumptions("src/constraint/tests/testhypo/FriendMap17.con", "C_*l <= (*)->(s1);\n", false); // same  assumption
+		testAssumptions("src/constraint/tests/testhypo/Box1.con", "C_L <= (C_A)join((_)->(_));\n", false); // same assumption
 		/* Box2 secure */
 		/* Box3 secure */
-		testAssumptionsSub("src/constraint/tests/testhypo/Box4.con", "*l <= *a;\n", false); // same assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/Box4.con", "C_*l <= C_*a;I_*l <= I_*a;\n", false); // same assumption
 		/* MapImage1 secure */
-		testAssumptions("src/constraint/tests/testhypo/MapImage2.con", "A <= (*)->(s5);\n", false); // same assumption
-		testAssumptions("src/constraint/tests/testhypo/MapImage3.con", "*a <= (*)->(s1);\n", false); // same assumption
-		testAssumptionsSub("src/constraint/tests/testhypo/MapImage4.con", "*bdry_update <= *bdry_access;\n", false); // same assumption
-		testAssumptionsSub("src/constraint/tests/testhypo/MapImage5.con", "boundary <= L;data <= L;\n", false); // weaker assumption
-		testAssumptions("src/constraint/tests/testhypo/MapImage6.con", "L <= *l;a <= *l;l <= *l;\n", false); // weaker assumption
+		testAssumptions("src/constraint/tests/testhypo/MapImage2.con", "C_A <= (*)->(s4);\n", false); // same assumption
+		testAssumptions("src/constraint/tests/testhypo/MapImage3.con", "C_*a <= (*)->(s1);\n", false); // same assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/MapImage4.con", "C_*bdry_update <= C_*bdry_access;I_*bdry_update <= I_*bdry_access;\n", false); // same assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/MapImage5.con", "C_boundary <= C_L;C_data <= C_L;I_boundary <= I_L;I_data <= I_L;\n", false); // weaker assumption
+////		testAssumptions("src/constraint/tests/testhypo/MapImage6.con", "L <= *l;a <= *l;l <= *l;\n", false); // weaker assumption (6 assumptions with integrity)
 		testAssumptionsSub("src/constraint/tests/testhypo/MapServer1.con", "*l <= (*)->(this.store);\n", false); // same assumption
 	}
 	
@@ -132,13 +132,13 @@ public class TestAll {
 	@Test
 	public void testJif () {
 		/* test for Jif constraint */
-		testErrorPaths("src/constraint/tests/jif/inte.con", 1, false);
-		
-		testErrorPaths("src/constraint/tests/jif/test.con", 2, false);
+//		testErrorPaths("src/constraint/tests/jif/inte.con", 1, false);
+//		
+//		testErrorPaths("src/constraint/tests/jif/test.con", 2, false);
 
-		testErrorPaths("src/constraint/tests/jif/array.con", 1, false);
+		testErrorPaths("src/constraint/tests/jif/array.con", 3, false);
 
-		testErrorPaths("src/constraint/tests/jif/constant.con", 6, false);
+		testErrorPaths("src/constraint/tests/jif/constant.con", 4, false);
 
 		testAssumptions("src/constraint/tests/jif/CMUcred.con", "Alice <= p1;\n", false);
 
