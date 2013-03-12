@@ -8,6 +8,7 @@ import java.util.Set;
 
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ElementNode;
+import constraint.graph.EquationEdge;
 import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
@@ -69,6 +70,13 @@ public class Environment {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
 		
+//		if (e1.toString().contains("C_L") && e2.toString().contains("* -> s3")) {
+//			for (Constraint c : assertions) {
+//				System.out.println(c.getFirstElement().toString()+c.getFirstElement().hashCode()+ " "+c.getSecondElement()+c.getSecondElement().hashCode());
+//			}
+//			System.out.println(e1.toString()+e1.hashCode()+" "+e2.toString()+e2.hashCode());
+//		}
+		
 		// for the same constructor, we should break them into components. Just return true here
 		if (e1.equals(e2))
 			return true;
@@ -96,15 +104,18 @@ public class Environment {
 				return true;
 		}
 		
-		if (e1 instanceof Constructor && e2 instanceof Constructor) {
-			if (((Constructor)e1).sameas(e2))
-				return true;
-		}
-		
+//		if (e1 instanceof Constructor && e2 instanceof Constructor) {
+//			if (((Constructor)e1).sameas(e2))
+//				return true;
+//		}
+//		
 		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
-			if (!((ComplexElement)e1).getCons().sameas(((ComplexElement)e2).getCons()))
+			if (!((ComplexElement)e1).getCons().equals(((ComplexElement)e2).getCons()))
 				return false;
 		}
+		
+		if (e1.hasVars() || e2.hasVars())
+			return true;
 
 		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
 			List<Element> l1 = ((ComplexElement) e1).elements;

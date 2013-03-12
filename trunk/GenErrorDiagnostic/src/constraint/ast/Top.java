@@ -3,13 +3,13 @@ package constraint.ast;
 
 public class Top extends Constructor {
 
-	public Top() {
-		super("*", 0, false);
+	public Top(Position p) {
+		super("*", 0, false, p);
 	}
 	
 	@Override
 	public Constructor getInstance() {
-		return new Top();
+		return new Top(Position.EmptyPosition());
 	}	
 	
 	@Override
@@ -19,8 +19,6 @@ public class Top extends Constructor {
 	
 	@Override
 	public Element getBaseElement() {
-		Top ret = new Top();
-		ret.id = 0;
-		return ret;
+		return new Top(Position.EmptyPosition());
 	}
 }

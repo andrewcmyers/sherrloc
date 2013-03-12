@@ -3,12 +3,13 @@ package constraint.ast;
 
 public class Bottom extends Constructor {
 	
-	public Bottom() {
-		super("_", 0, false);
+	public Bottom(Position p) {
+		super("_", 0, false, p);
 	}
 	
+	@Override
 	public Bottom getInstance () {
-		return new Bottom();
+		return new Bottom(Position.EmptyPosition());
 	}
 		
 	@Override
@@ -18,8 +19,6 @@ public class Bottom extends Constructor {
 	
 	@Override
 	public Element getBaseElement() {
-		Bottom ret = new Bottom();
-		ret.id = 0;
-		return ret;
+		return new Bottom(Position.EmptyPosition());
 	}
 }

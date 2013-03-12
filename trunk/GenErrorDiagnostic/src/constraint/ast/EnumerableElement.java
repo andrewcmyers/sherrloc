@@ -68,6 +68,16 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 	
+	public String infixToString () {
+		String symbol = getSymbol();
+		String ret = "";
+		// infix
+		ret += "("+elements.get(0).toString() + ")";
+		for (int j=1; j<elements.size(); j++)
+			ret += symbol + "(" + elements.get(j).toString() + ")";
+		return ret;
+	}
+	
 	public String infixToHTMLString () {
 		String symbol = getSymbol();
 		String ret = "";

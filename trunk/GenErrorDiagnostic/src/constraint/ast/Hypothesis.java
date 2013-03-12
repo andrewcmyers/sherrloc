@@ -31,7 +31,7 @@ public class Hypothesis {
 	
 	@Override
 	public int hashCode() {
-		return e1.hashCode() + e2.hashCode();
+		return e1.hashCode() * 70691 + e2.hashCode();
 	}
 	
 	@Override
