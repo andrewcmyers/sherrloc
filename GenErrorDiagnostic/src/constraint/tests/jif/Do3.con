@@ -10,79 +10,79 @@ CONSTRUCTOR * 0 //@Do3.jif:3,9-15
 %%
 C_caller_pc <= (_ -> _);
 I_caller_pc <= (* <- *);
-_ -> _ <= (Alice -> Alice);
-(Alice -> Alice) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_leak;
-C_leak <= * -> *;
-* <- * <= I_leak;
-I_leak <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_secret;
-C_secret <= * -> *;
-* <- * <= I_secret;
-I_secret <= _ <- _;
-_ -> _ <= C_e;
-C_e <= * -> *;
-* <- * <= I_e;
-I_e <= _ <- _;
-_ -> _ <= C_count;
-C_count <= * -> *;
-* <- * <= I_count;
-I_count <= _ <- _;
-_ -> _ <= C_do;
-C_do <= * -> *;
-* <- * <= I_do;
-I_do <= _ <- _;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_newException;
-C_newException <= * -> *;
-* <- * <= I_newException;
-I_newException <= _ <- _;
+(_ -> _) <= (Alice -> Alice);
+(Alice -> Alice) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_leak;
+C_leak <= (* -> *);
+(* <- *) <= I_leak;
+I_leak <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_secret;
+C_secret <= (* -> *);
+(* <- *) <= I_secret;
+I_secret <= (_ <- _);
+(_ -> _) <= C_e;
+C_e <= (* -> *);
+(* <- *) <= I_e;
+I_e <= (_ <- _);
+(_ -> _) <= C_count;
+C_count <= (* -> *);
+(* <- *) <= I_count;
+I_count <= (_ <- _);
+(_ -> _) <= C_do;
+C_do <= (* -> *);
+(* <- *) <= I_do;
+I_do <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_newException;
+C_newException <= (* -> *);
+(* <- *) <= I_newException;
+I_newException <= (_ <- _);
 
 %%
-C_secret["{secret}":3,17-23] == (Alice -> Alice)["{(Alice -> *)}":3,8-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,17-23]
-I_secret["{secret}":3,17-23] == (_ <- _)["{(Alice -> *)}":3,8-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,17-23]
+C_secret["{secret}":3,17-23] == (Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":3,9-15] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,17-23]
+I_secret["{secret}":3,17-23] == (_["_":3,8-16] <- _["_":3,8-16])["(_ <- _)":3,8-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,17-23]
 
-(C_caller_pc)["{caller_pc}":2,4-10] <= C_secret["{secret}":3,17-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,26-30]
-(I_caller_pc)["{caller_pc}":2,4-10] <= I_secret["{secret}":3,17-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,26-30]
+(C_caller_pc["{caller_pc}":2,4-10])["{caller_pc}":2,4-10] <= C_secret["{secret}":3,17-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,26-30]
+(I_caller_pc["{caller_pc}":2,4-10])["{caller_pc}":2,4-10] <= I_secret["{secret}":3,17-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,26-30]
 
-C_leak["{leak}":4,18-22] == (_ -> _)["{}":4,15-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,18-22]
-I_leak["{leak}":4,18-22] == (_ <- _)["{}":4,15-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,18-22]
+C_leak["{leak}":4,18-22] == (_["_":4,15-17] -> _["_":4,15-17])["(_ -> _)":4,15-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,18-22]
+I_leak["{leak}":4,18-22] == (_["_":4,15-17] <- _["_":4,15-17])["(_ <- _)":4,15-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,18-22]
 
-(C_caller_pc)["{caller_pc}":2,4-10] <= C_leak["{leak}":4,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,25-30]
-(I_caller_pc)["{caller_pc}":2,4-10] <= I_leak["{leak}":4,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,25-30]
+(C_caller_pc["{caller_pc}":2,4-10])["{caller_pc}":2,4-10] <= C_leak["{leak}":4,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,25-30]
+(I_caller_pc["{caller_pc}":2,4-10])["{caller_pc}":2,4-10] <= I_leak["{leak}":4,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,25-30]
 
-(C_caller_pc)["{caller_pc}":2,4-10] <= C_count["{count}":5,12-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,20-21]
-(I_caller_pc)["{caller_pc}":2,4-10] <= I_count["{count}":5,12-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,20-21]
+(C_caller_pc["{caller_pc}":2,4-10])["{caller_pc}":2,4-10] <= C_count["{count}":5,12-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,20-21]
+(I_caller_pc["{caller_pc}":2,4-10])["{caller_pc}":2,4-10] <= I_count["{count}":5,12-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,20-21]
 
-(C_do) ⊔ (C_count)["{do ⊔ count}":7,12-11,32] <= C_leak["{leak}":4,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,16-20]
-(I_do) ⊔ (I_count)["{do ⊔ count}":7,12-11,32] <= I_leak["{leak}":4,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,16-20]
+(C_do["{do}":7,12-11,32] ⊔ C_count["{count}":5,12-17])["{do ⊔ count}":7,12-11,32] <= C_leak["{leak}":4,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,16-20]
+(I_do["{do}":7,12-11,32] ⊔ I_count["{count}":5,12-17])["{do ⊔ count}":7,12-11,32] <= I_leak["{leak}":4,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,16-20]
 
-(C_do)["{do}":7,12-11,32] <= C_count["{count}":5,12-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,16-21]
-(I_do)["{do}":7,12-11,32] <= I_count["{count}":5,12-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,16-21]
+(C_do["{do}":7,12-11,32])["{do}":7,12-11,32] <= C_count["{count}":5,12-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,16-21]
+(I_do["{do}":7,12-11,32])["{do}":7,12-11,32] <= I_count["{count}":5,12-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[9,16-21]
 
-(C_secret) ⊔ (C_do)["{secret ⊔ do}":3,17-23] <= (* -> *)["{(* -> *)}":12,11-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,35-50]
-(I_secret) ⊔ (I_do)["{secret ⊔ do}":3,17-23] <= (_ <- _)["{(* -> *)}":12,11-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,35-50]
+(C_secret["{secret}":3,17-23] ⊔ C_do["{do}":7,12-11,32])["{secret ⊔ do}":3,17-23] <= (*["*":12,11-22] -> *["*":12,11-22])["(* -> *)":12,11-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,35-50]
+(I_secret["{secret}":3,17-23] ⊔ I_do["{do}":7,12-11,32])["{secret ⊔ do}":3,17-23] <= (_["_":12,11-22] <- _["_":12,11-22])["(_ <- _)":12,11-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,35-50]
 
-(C_secret) ⊔ (C_do) ⊔ (C_count) ⊔ (C_caller_pc)["{secret ⊔ do ⊔ count ⊔ caller_pc}":3,17-23] <= C_do["{do}":7,12-11,32] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,12-11,32]
-(I_secret) ⊔ (I_do) ⊔ (I_count) ⊔ (I_caller_pc)["{secret ⊔ do ⊔ count ⊔ caller_pc}":3,17-23] <= I_do["{do}":7,12-11,32] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,12-11,32]
+(C_secret["{secret}":3,17-23] ⊔ C_do["{do}":7,12-11,32] ⊔ C_count["{count}":5,12-17] ⊔ C_caller_pc["{caller_pc}":2,4-10])["{secret ⊔ do ⊔ count ⊔ caller_pc}":3,17-23] <= C_do["{do}":7,12-11,32] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,12-11,32]
+(I_secret["{secret}":3,17-23] ⊔ I_do["{do}":7,12-11,32] ⊔ I_count["{count}":5,12-17] ⊔ I_caller_pc["{caller_pc}":2,4-10])["{secret ⊔ do ⊔ count ⊔ caller_pc}":3,17-23] <= I_do["{do}":7,12-11,32] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,12-11,32]
 
-(C_secret) ⊔ (C_do) ⊔ (C_newException)["{secret ⊔ do ⊔ newException}":3,17-23] <= C_e["{e}":13,15-26] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[13,15-26]
-(I_secret) ⊔ (I_do) ⊔ (I_newException)["{secret ⊔ do ⊔ newException}":3,17-23] <= I_e["{e}":13,15-26] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[13,15-26]
+(C_secret["{secret}":3,17-23] ⊔ C_do["{do}":7,12-11,32] ⊔ C_newException["{newException}":10,35-50])["{secret ⊔ do ⊔ newException}":3,17-23] <= C_e["{e}":13,15-26] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[13,15-26]
+(I_secret["{secret}":3,17-23] ⊔ I_do["{do}":7,12-11,32] ⊔ I_newException["{newException}":10,35-50])["{secret ⊔ do ⊔ newException}":3,17-23] <= I_e["{e}":13,15-26] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[13,15-26]
 

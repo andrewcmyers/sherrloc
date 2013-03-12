@@ -89,6 +89,7 @@ public class ConstraintGraph extends Graph {
 //			}
 //		}
 //    	else {
+//    	System.out.println(first+"<="+second);
     		ElementNode source = getNode(first, true);
 			ElementNode to = getNode(second, true);
 					
@@ -122,15 +123,15 @@ public class ConstraintGraph extends Graph {
          */
 		
         // only need to handle nodes in the graph
-        List<ElementNode> workingList = new ArrayList<ElementNode>(eleToNode.values());
-        Set<ElementNode> processed = new HashSet<ElementNode>();
+        List<Element> workingList = new ArrayList<Element>(eleToNode.keySet());
+        Set<Element> processed = new HashSet<Element>();
         
         // we need to handle constructors and two special constructors, join and meet
         while (workingList.size()!=0) {
-        	ElementNode currentnode = workingList.get(0);
+        	Element e = workingList.get(0);
+        	ElementNode currentnode = getNode(e);
             workingList.remove(0);
-            processed.add(currentnode);
-            Element e = currentnode.e;
+            processed.add(e);
             
             // generate the source node
             Collection<Element> compset;
@@ -144,7 +145,7 @@ public class ConstraintGraph extends Graph {
                     ElementNode compnode = getNode(element);
                     index++;
                     if (!processed.contains(element) && !workingList.contains(element))
-                        workingList.add(getNode(element));
+                        workingList.add(element);
                     
                     if (e instanceof MeetElement) {
                     	addEdge(currentnode, compnode, new MeetEdge(currentnode, compnode));

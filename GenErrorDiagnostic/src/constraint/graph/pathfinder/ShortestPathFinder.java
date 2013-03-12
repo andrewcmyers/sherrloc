@@ -11,11 +11,13 @@ import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
+import constraint.graph.CompEdge;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
 import constraint.graph.EdgeCondition;
 import constraint.graph.ElementNode;
 import constraint.graph.EmptyEdge;
+import constraint.graph.EquationEdge;
 import constraint.graph.LeftEdge;
 import constraint.graph.LeqEdge;
 import constraint.graph.Node;
@@ -507,22 +509,21 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// if from and to belongs to some constructors, check if this new link enables a leq relation on the
 		// constructors
 		for (Node cnFrom : consElements.get(from)) {
-			for (Node cnTo : consElements.get(to)) {
+			for (Node cnTo : consElements.get(to)) {				
 				ComplexElement ce1 = (ComplexElement) ((ElementNode)cnFrom).getElement();  // make sure this is "ce1", not the swapped one when the constructor is contravariant
-				
-				if (idPath[cnFrom.getIndex()][cnTo.getIndex()]!=null)
-					continue;
 				ComplexElement ce2 = (ComplexElement) ((ElementNode)cnTo).getElement();
 				
+				if (!ce1.getCons().isContraVariant() && idPath[cnFrom.getIndex()][cnTo.getIndex()]!=null)
+					continue;
+				if (ce1.getCons().isContraVariant() && idPath[cnTo.getIndex()][cnFrom.getIndex()]!=null)
+					continue;
+				
 				if (ce1.getCons().equals(ce2.getCons())) {
-					if (ce1.getCons().isContraVariant()) {
-						ComplexElement temp = ce1;
-						ce1 = ce2;
-						ce2 = temp;
-					}
 					
 					// check if all elements flows into another constructor
 					boolean success = true;
+					Edge redEdge = EmptyEdge.getInstance();
+
 					for (int i=0; i<ce1.getCons().getArity(); i++) {
 						Element e1 = ce1.getElements().get(i);
 						Element e2 = ce2.getElements().get(i);
@@ -530,16 +531,25 @@ public class ShortestPathFinder extends CFLPathFinder {
 							success = false;
 							break;
 						}
+						else {
+							redEdge = new LeqEdge(g.getNode(e1), g.getNode(e2), idPath[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()].getData(), redEdge);
+						}
 					}
 					if (success) {						
-//						System.out.println("Adding edge from "+cnFrom + " to " + cnTo);
-//						System.out.println("Because of edge "+edge.getFrom() + " to " + edge.getTo());
-						ReductionEdge newedge = new LeqEdge(cnFrom, cnTo, edge, EmptyEdge.getInstance());
+						Node f = cnFrom;
+						Node t = cnTo;
+						if (ce1.getCons().isContraVariant()) {
+							t = cnFrom;
+							f = cnTo;
+						}
+						ReductionEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, env, ""), redEdge);
+						newedge = new LeqEdge(f, t, newedge, new CompEdge(f, t, env, ""));
+//						ReductionEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, env, ""), EmptyEdge.getInstance());
 						// this number is a little ad hoc
-						shortestLEQ[cnFrom.getIndex()][cnTo.getIndex()] = newedge.getLength();
+						shortestLEQ[f.getIndex()][t.getIndex()] = newedge.getLength();
 						FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());
 						fh.insert(node, node.getKey());
-						idPath[cnFrom.getIndex()][cnTo.getIndex()] = node;
+						idPath[f.getIndex()][t.getIndex()] = node;
 					}
 				}
 			}

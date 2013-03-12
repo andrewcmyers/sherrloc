@@ -24,7 +24,7 @@ public class ComplexElement extends EnumerableElement {
 	public boolean equals(Object o) {
 		if (o instanceof ComplexElement) {
 			ComplexElement ce = (ComplexElement)o;
-			if (cons.equals(ce.cons))
+			if (pos.equals(ce.pos) && cons.equals(ce.cons))
 				return super.equals(o);
 		}
 		return false;
@@ -32,7 +32,11 @@ public class ComplexElement extends EnumerableElement {
 	
 	@Override
 	public int hashCode() {
-		return cons.hashCode()*31+super.hashCode();
+		int ret = cons.hashCode()*941;
+		for (Element e : elements) {
+			ret += e.hashCode()*13;
+		}
+		return ret+pos.hashCode();
 	}
 	
 	@Override

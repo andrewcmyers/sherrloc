@@ -16,9 +16,10 @@ public class ConstraintPath {
     PathFinder finder;
     Hypothesis minHypo;
     
-    public ConstraintPath(List<Edge> edges, PathFinder finder) {
+    public ConstraintPath(List<Edge> edges, PathFinder finder, Environment globalEnv) {
         this.edges = edges;
-        this.assumption = new Environment();
+        assumption = new Environment();
+        assumption.addEnv(globalEnv);
         for (Edge edge : edges) {
         	assumption.addEnv(edge.getAssumption());
         }
@@ -106,18 +107,24 @@ public class ConstraintPath {
 	
 	public void incSuccCounter ( ) {
 		if (edges.size()==0) return;
+		
+//		System.out.println("Successful path "+toString());
 		// avoid duplicate expressions
-		Set<String> processed = new HashSet<String>();
+		Set<String> processedNodes = new HashSet<String>();
+		Set<String> processedEdges = new HashSet<String>();
 
 		ElementNode leftmost = (ElementNode) getFirst();
 		leftmost.incSuccCounter();
-		processed.add(leftmost.toString());
+		processedNodes.add(leftmost.toString());
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
-			edge.incSuccCounter();
-			if (!processed.contains(edge.getTo().toString())) {
+			if (!processedEdges.contains(edge)) {
+				edge.incSuccCounter();
+				processedEdges.add(edge.toString());
+			}
+			if (!processedNodes.contains(edge.getTo().toString())) {
 				edge.getTo().incSuccCounter();
-				processed.add(edge.getTo().toString());
+				processedNodes.add(edge.getTo().toString());
 			}
 		}
 	}
@@ -193,12 +200,12 @@ public class ConstraintPath {
 		ret += "\n----Start of one path----\n";
 		ElementNode leftmost = (ElementNode) getFirst();
 //		leftmost.setCause();
-		ret += leftmost.getElement().toHTMLString()+"\n";
+		ret += leftmost.getElement().toDotString()+"\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
-//			ret += "--> (" + (edge.toString()) + ")\n";
+			ret += "--> (" + (edge.toString()) + ")\n";
 //			if (finder.getPath(leftmost, edge.to)!=null)
-				ret += ((ElementNode)edge.to).getElement().toHTMLString()+"\n";
+				ret += ((ElementNode)edge.to).getElement().toDotString()+"\n";
 		}
 		ret += "----End of one path----\n";
 		return ret;

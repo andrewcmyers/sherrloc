@@ -191,7 +191,7 @@ public class Analysis {
 				// DZ: not sure if this is necessary. Seems for OCaml, a constructor matches another is also an interesting information. Though 
 				// this is less interesting for Jif labels, since they are the same constructors
 				if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
-					if (((ComplexElement)e1).getCons().sameas(((ComplexElement)e2).getCons()))
+					if (((ComplexElement)e1).getCons().getBaseElement().equals(((ComplexElement)e2).getCons().getBaseElement()))
 							continue;
 				}
 				
@@ -200,7 +200,7 @@ public class Analysis {
 				
 //				System.out.println("comparing "+e1 + " and " + e2);
 				
-				ConstraintPath path = new ConstraintPath(l, finder);
+				ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
 
 				// successful path
 				if (graph.getEnv().leq(e1, e2)) {
@@ -213,11 +213,16 @@ public class Analysis {
 				if (cachedEnv.containsKey(path.getAssumption()))
 					env = cachedEnv.get(path.getAssumption());
 				else {
-					env = new Environment();
-					env.addEnv(graph.getEnv());
-					env.addEnv(path.getAssumption());
+					env = path.getAssumption();
 					cachedEnv.put(path.getAssumption(), env);
 				}
+				
+//				System.out.println("***********");
+//				for (Constraint c : env.getAssertions()) {
+//					System.out.println(c);
+//				}
+//				System.out.println("***********");
+//				System.exit(0);
 
 				// successful path
 				if (env.leq(e1, e2)) {
@@ -226,7 +231,6 @@ public class Analysis {
 				}
 				path.incFailCounter();
 				path.setCause();
-				path.setAssumption(env);
 				unsatPaths.addUnsatPath(path);
 				System.out.println(path);
 			}
@@ -413,6 +417,7 @@ public class Analysis {
     		"Error "+ count + "</H2>\n" +
     		unsatPaths.toHTML() +
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
+//    		(GEN_CUT?paths.genElementCut():""));
     		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():""));
     	return sb.toString();
     }

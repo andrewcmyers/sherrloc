@@ -1,303 +1,725 @@
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@Board1.jif:17,0-11
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@Board1.jif:78,11-79,38
-CONSTRUCTOR p 0 //class jif.types.label.ArgLabel_c@Board1.jif:80,25-41
-CONSTRUCTOR o 0 //class jif.types.label.ArgLabel_c@Board1.jif:80,54-70
-CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@Board1.jif:18,23-24
-CONSTRUCTOR Board.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Board1.jif:17,0-11
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Board1.jif:17,0-11
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Board1.jif:78,11-79,38
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Board1.jif:78,11-79,38
+CONSTRUCTOR C_p 0 //class jif.types.label.ArgLabel_c@Board1.jif:80,25-41
+CONSTRUCTOR I_p 0 //class jif.types.label.ArgLabel_c@Board1.jif:80,25-41
+CONSTRUCTOR C_o 0 //class jif.types.label.ArgLabel_c@Board1.jif:80,54-70
+CONSTRUCTOR I_o 0 //class jif.types.label.ArgLabel_c@Board1.jif:80,54-70
+CONSTRUCTOR C_L 0 //class jif.types.label.ParamLabel_c@Board1.jif:18,23-24
+CONSTRUCTOR I_L 0 //class jif.types.label.ParamLabel_c@Board1.jif:18,23-24
+CONSTRUCTOR C_Board.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_Board.provider 0 //class jif.types.label.ProviderLabel_c@null
 CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Board1.jif:81,47-48
+CONSTRUCTOR * 0 //@Board1.jif:81,47-48
+CONSTRUCTOR p1 0 //@Board1.jif:87,72-73
 CONSTRUCTOR o1 0 //@Board1.jif:81,47-48
-CONSTRUCTOR _ 0 //@Board1.jif:87,62-68
-CONSTRUCTOR p1 0 //@Board1.jif:81,45-46
-CONSTRUCTOR * 0 //@Board1.jif:81,45-46
 
 %%
-p <= (_ -> _);
-o <= (_ -> _);
-caller_pc <= (_ -> _);
-Board.provider == _ -> _;
-_ -> _ <= v_infered_downgrade_to;
-v_infered_downgrade_to <= * -> *;
-_ -> _ <= v_infered_downgrade_from;
-v_infered_downgrade_from <= * -> *;
-_ -> _ <= v_downgrade_from;
-v_downgrade_from <= * -> *;
-_ -> _ <= v_infered_downgrade_to1;
-v_infered_downgrade_to1 <= * -> *;
-_ -> _ <= v_infered_downgrade_to2;
-v_infered_downgrade_to2 <= * -> *;
-_ -> _ <= v_infered_downgrade_from1;
-v_infered_downgrade_from1 <= * -> *;
-_ -> _ <= v_downgrade_from1;
-v_downgrade_from1 <= * -> *;
-_ -> _ <= v_newCoordinate;
-v_newCoordinate <= * -> *;
-_ -> _ <= v_downgrade_from2;
-v_downgrade_from2 <= * -> *;
-_ -> _ <= v_infered_downgrade_to3;
-v_infered_downgrade_to3 <= * -> *;
-_ -> _ <= v_infered_downgrade_from2;
-v_infered_downgrade_from2 <= * -> *;
-_ -> _ <= v_downgrade_from3;
-v_downgrade_from3 <= * -> *;
-_ -> _ <= v_infered_downgrade_from3;
-v_infered_downgrade_from3 <= * -> *;
-_ -> _ <= v_downgrade_from4;
-v_downgrade_from4 <= * -> *;
-_ -> _ <= v_infered_downgrade_to4;
-v_infered_downgrade_to4 <= * -> *;
-_ -> _ <= v_infered_downgrade_from4;
-v_infered_downgrade_from4 <= * -> *;
-_ -> _ <= (p1 -> p1);
-(p1 -> p1) <= * -> *;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-_ -> _ <= v_downgrade_from5;
-v_downgrade_from5 <= * -> *;
-_ -> _ <= v_infered_downgrade_to5;
-v_infered_downgrade_to5 <= * -> *;
-_ -> _ <= v_newShip;
-v_newShip <= * -> *;
-_ -> _ <= (v_s) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i);
-(v_s) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-_ -> _ <= (o1 -> o1);
-(o1 -> o1) <= * -> *;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-_ -> _ <= v_newBoard;
-v_newBoard <= * -> *;
-_ -> _ <= v_infered_downgrade_from5;
-v_infered_downgrade_from5 <= * -> *;
-_ -> _ <= v_downgrade_from6;
-v_downgrade_from6 <= * -> *;
-_ -> _ <= v_downgrade_from7;
-v_downgrade_from7 <= * -> *;
-_ -> _ <= v_infered_downgrade_to6;
-v_infered_downgrade_to6 <= * -> *;
-_ -> _ <= v_infered_downgrade_to7;
-v_infered_downgrade_to7 <= * -> *;
-_ -> _ <= v_infered_downgrade_from6;
-v_infered_downgrade_from6 <= * -> *;
-_ -> _ <= v_for;
-v_for <= * -> *;
-_ -> _ <= v_downgrade_from8;
-v_downgrade_from8 <= * -> *;
-_ -> _ <= v_infered_downgrade_from7;
-v_infered_downgrade_from7 <= * -> *;
-_ -> _ <= v_infered_downgrade_to8;
-v_infered_downgrade_to8 <= * -> *;
-_ -> _ <= v_downgrade_from9;
-v_downgrade_from9 <= * -> *;
-_ -> _ <= v_infered_downgrade_from8;
-v_infered_downgrade_from8 <= * -> *;
-_ -> _ <= v_infered_downgrade_to9;
-v_infered_downgrade_to9 <= * -> *;
-_ -> _ <= v_downgrade_from10;
-v_downgrade_from10 <= * -> *;
-_ -> _ <= v_infered_downgrade_from9;
-v_infered_downgrade_from9 <= * -> *;
-_ -> _ <= v_infered_downgrade_to10;
-v_infered_downgrade_to10 <= * -> *;
-_ -> _ <= v_downgrade_from11;
-v_downgrade_from11 <= * -> *;
-_ -> _ <= v_infered_downgrade_from10;
-v_infered_downgrade_from10 <= * -> *;
-_ -> _ <= v_infered_downgrade_to11;
-v_infered_downgrade_to11 <= * -> *;
-_ -> _ <= v_downgrade_from12;
-v_downgrade_from12 <= * -> *;
-_ -> _ <= v_infered_downgrade_from11;
-v_infered_downgrade_from11 <= * -> *;
-_ -> _ <= (p1 -> p1);
-(p1 -> p1) <= * -> *;
-_ -> _ <= v_impossible;
-v_impossible <= * -> *;
-_ -> _ <= v_t;
-v_t <= * -> *;
-_ -> _ <= p;
-p <= * -> *;
-_ -> _ <= v_isHoriz;
-v_isHoriz <= * -> *;
-_ -> _ <= o;
-o <= * -> *;
-_ -> _ <= v_length;
-v_length <= * -> *;
-_ -> _ <= v_sz;
-v_sz <= * -> *;
-_ -> _ <= v_i;
-v_i <= * -> *;
-_ -> _ <= v_newBoard1;
-v_newBoard1 <= * -> *;
-_ -> _ <= v_shps;
-v_shps <= * -> *;
-_ -> _ <= v_posY;
-v_posY <= * -> *;
-_ -> _ <= v_c;
-v_c <= * -> *;
-_ -> _ <= v_pos;
-v_pos <= * -> *;
-_ -> _ <= v_posX;
-v_posX <= * -> *;
-_ -> _ <= v_impossible1;
-v_impossible1 <= * -> *;
-_ -> _ <= v_ss;
-v_ss <= * -> *;
-_ -> _ <= v_s;
-v_s <= * -> *;
-_ -> _ <= v_impossible2;
-v_impossible2 <= * -> *;
-_ -> _ <= L;
-L <= * -> *;
-_ -> _ <= ((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss);
-((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) <= * -> *;
-_ -> _ <= Board.provider;
-Board.provider <= * -> *;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-_ -> _ <= ((p1 -> p1)) ⊔ (v_shps);
-((p1 -> p1)) ⊔ (v_shps) <= * -> *;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-_ -> _ <= (p1 -> p1);
-(p1 -> p1) <= * -> *;
+C_p <= (_ -> _);
+I_p <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+C_o <= (_ -> _);
+I_o <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+C_caller_pc <= (_ -> _);
+I_caller_pc <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+C_Board.provider == (_ -> _);
+I_Board.provider == (* <- *);
+(_ -> _) <= C_infered_downgrade_to;
+C_infered_downgrade_to <= (* -> *);
+(* <- *) <= I_infered_downgrade_to;
+I_infered_downgrade_to <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from;
+C_infered_downgrade_from <= (* -> *);
+(* <- *) <= I_infered_downgrade_from;
+I_infered_downgrade_from <= (_ <- _);
+(_ -> _) <= C_downgrade_from;
+C_downgrade_from <= (* -> *);
+(* <- *) <= I_downgrade_from;
+I_downgrade_from <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to1;
+C_infered_downgrade_to1 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to1;
+I_infered_downgrade_to1 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to2;
+C_infered_downgrade_to2 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to2;
+I_infered_downgrade_to2 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from1;
+C_infered_downgrade_from1 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from1;
+I_infered_downgrade_from1 <= (_ <- _);
+(_ -> _) <= C_downgrade_from1;
+C_downgrade_from1 <= (* -> *);
+(* <- *) <= I_downgrade_from1;
+I_downgrade_from1 <= (_ <- _);
+(_ -> _) <= C_newCoordinate;
+C_newCoordinate <= (* -> *);
+(* <- *) <= I_newCoordinate;
+I_newCoordinate <= (_ <- _);
+(_ -> _) <= C_downgrade_from2;
+C_downgrade_from2 <= (* -> *);
+(* <- *) <= I_downgrade_from2;
+I_downgrade_from2 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to3;
+C_infered_downgrade_to3 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to3;
+I_infered_downgrade_to3 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from2;
+C_infered_downgrade_from2 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from2;
+I_infered_downgrade_from2 <= (_ <- _);
+(_ -> _) <= C_downgrade_from3;
+C_downgrade_from3 <= (* -> *);
+(* <- *) <= I_downgrade_from3;
+I_downgrade_from3 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from3;
+C_infered_downgrade_from3 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from3;
+I_infered_downgrade_from3 <= (_ <- _);
+(_ -> _) <= (o1 -> o1);
+(o1 -> o1) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (o1 <- o1);
+(o1 <- o1) <= (_ <- _);
+(_ -> _) <= C_downgrade_from4;
+C_downgrade_from4 <= (* -> *);
+(* <- *) <= I_downgrade_from4;
+I_downgrade_from4 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to4;
+C_infered_downgrade_to4 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to4;
+I_infered_downgrade_to4 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from4;
+C_infered_downgrade_from4 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from4;
+I_infered_downgrade_from4 <= (_ <- _);
+(_ -> _) <= C_downgrade_from5;
+C_downgrade_from5 <= (* -> *);
+(* <- *) <= I_downgrade_from5;
+I_downgrade_from5 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to5;
+C_infered_downgrade_to5 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to5;
+I_infered_downgrade_to5 <= (_ <- _);
+(_ -> _) <= C_newShip;
+C_newShip <= (* -> *);
+(* <- *) <= I_newShip;
+I_newShip <= (_ <- _);
+(_ -> _) <= (C_s ⊔ C_sz ⊔ C_for ⊔ C_i);
+(C_s ⊔ C_sz ⊔ C_for ⊔ C_i) <= (* -> *);
+(* <- *) <= (I_s ⊔ I_sz ⊔ I_for ⊔ I_i);
+(I_s ⊔ I_sz ⊔ I_for ⊔ I_i) <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_newBoard;
+C_newBoard <= (* -> *);
+(* <- *) <= I_newBoard;
+I_newBoard <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from5;
+C_infered_downgrade_from5 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from5;
+I_infered_downgrade_from5 <= (_ <- _);
+(_ -> _) <= C_downgrade_from6;
+C_downgrade_from6 <= (* -> *);
+(* <- *) <= I_downgrade_from6;
+I_downgrade_from6 <= (_ <- _);
+(_ -> _) <= C_downgrade_from7;
+C_downgrade_from7 <= (* -> *);
+(* <- *) <= I_downgrade_from7;
+I_downgrade_from7 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to6;
+C_infered_downgrade_to6 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to6;
+I_infered_downgrade_to6 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to7;
+C_infered_downgrade_to7 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to7;
+I_infered_downgrade_to7 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from6;
+C_infered_downgrade_from6 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from6;
+I_infered_downgrade_from6 <= (_ <- _);
+(_ -> _) <= C_for;
+C_for <= (* -> *);
+(* <- *) <= I_for;
+I_for <= (_ <- _);
+(_ -> _) <= C_downgrade_from8;
+C_downgrade_from8 <= (* -> *);
+(* <- *) <= I_downgrade_from8;
+I_downgrade_from8 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from7;
+C_infered_downgrade_from7 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from7;
+I_infered_downgrade_from7 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to8;
+C_infered_downgrade_to8 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to8;
+I_infered_downgrade_to8 <= (_ <- _);
+(_ -> _) <= C_downgrade_from9;
+C_downgrade_from9 <= (* -> *);
+(* <- *) <= I_downgrade_from9;
+I_downgrade_from9 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from8;
+C_infered_downgrade_from8 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from8;
+I_infered_downgrade_from8 <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+(((p1 <- p1)) ⊓ ((o1 <- o1))) <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to9;
+C_infered_downgrade_to9 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to9;
+I_infered_downgrade_to9 <= (_ <- _);
+(_ -> _) <= C_downgrade_from10;
+C_downgrade_from10 <= (* -> *);
+(* <- *) <= I_downgrade_from10;
+I_downgrade_from10 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from9;
+C_infered_downgrade_from9 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from9;
+I_infered_downgrade_from9 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to10;
+C_infered_downgrade_to10 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to10;
+I_infered_downgrade_to10 <= (_ <- _);
+(_ -> _) <= C_downgrade_from11;
+C_downgrade_from11 <= (* -> *);
+(* <- *) <= I_downgrade_from11;
+I_downgrade_from11 <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from10;
+C_infered_downgrade_from10 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from10;
+I_infered_downgrade_from10 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to11;
+C_infered_downgrade_to11 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to11;
+I_infered_downgrade_to11 <= (_ <- _);
+(_ -> _) <= C_downgrade_from12;
+C_downgrade_from12 <= (* -> *);
+(* <- *) <= I_downgrade_from12;
+I_downgrade_from12 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from11;
+C_infered_downgrade_from11 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from11;
+I_infered_downgrade_from11 <= (_ <- _);
+(_ -> _) <= C_impossible;
+C_impossible <= (* -> *);
+(* <- *) <= I_impossible;
+I_impossible <= (_ <- _);
+(_ -> _) <= C_t;
+C_t <= (* -> *);
+(* <- *) <= I_t;
+I_t <= (_ <- _);
+(_ -> _) <= C_p;
+C_p <= (* -> *);
+(* <- *) <= I_p;
+I_p <= (_ <- _);
+(_ -> _) <= C_isHoriz;
+C_isHoriz <= (* -> *);
+(* <- *) <= I_isHoriz;
+I_isHoriz <= (_ <- _);
+(_ -> _) <= C_o;
+C_o <= (* -> *);
+(* <- *) <= I_o;
+I_o <= (_ <- _);
+(_ -> _) <= C_length;
+C_length <= (* -> *);
+(* <- *) <= I_length;
+I_length <= (_ <- _);
+(_ -> _) <= C_sz;
+C_sz <= (* -> *);
+(* <- *) <= I_sz;
+I_sz <= (_ <- _);
+(_ -> _) <= C_i;
+C_i <= (* -> *);
+(* <- *) <= I_i;
+I_i <= (_ <- _);
+(_ -> _) <= C_newBoard1;
+C_newBoard1 <= (* -> *);
+(* <- *) <= I_newBoard1;
+I_newBoard1 <= (_ <- _);
+(_ -> _) <= C_shps;
+C_shps <= (* -> *);
+(* <- *) <= I_shps;
+I_shps <= (_ <- _);
+(_ -> _) <= C_posY;
+C_posY <= (* -> *);
+(* <- *) <= I_posY;
+I_posY <= (_ <- _);
+(_ -> _) <= C_c;
+C_c <= (* -> *);
+(* <- *) <= I_c;
+I_c <= (_ <- _);
+(_ -> _) <= C_pos;
+C_pos <= (* -> *);
+(* <- *) <= I_pos;
+I_pos <= (_ <- _);
+(_ -> _) <= C_posX;
+C_posX <= (* -> *);
+(* <- *) <= I_posX;
+I_posX <= (_ <- _);
+(_ -> _) <= C_impossible1;
+C_impossible1 <= (* -> *);
+(* <- *) <= I_impossible1;
+I_impossible1 <= (_ <- _);
+(_ -> _) <= C_ss;
+C_ss <= (* -> *);
+(* <- *) <= I_ss;
+I_ss <= (_ <- _);
+(_ -> _) <= C_s;
+C_s <= (* -> *);
+(* <- *) <= I_s;
+I_s <= (_ <- _);
+(_ -> _) <= C_impossible2;
+C_impossible2 <= (* -> *);
+(* <- *) <= I_impossible2;
+I_impossible2 <= (_ <- _);
+(_ -> _) <= C_L;
+C_L <= (* -> *);
+(* <- *) <= I_L;
+I_L <= (_ <- _);
+(_ -> _) <= ((p1 -> p1) ⊔ C_pos ⊔ C_sz ⊔ C_for ⊔ C_i ⊔ C_ss);
+((p1 -> p1) ⊔ C_pos ⊔ C_sz ⊔ C_for ⊔ C_i ⊔ C_ss) <= (* -> *);
+(* <- *) <= ((p1 <- p1) ⊔ I_pos ⊔ I_sz ⊔ I_for ⊔ I_i ⊔ I_ss);
+((p1 <- p1) ⊔ I_pos ⊔ I_sz ⊔ I_for ⊔ I_i ⊔ I_ss) <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+(((p1 <- p1)) ⊓ ((o1 <- o1))) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (* <- *);
+(* <- *) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= ((p1 -> p1) ⊔ C_shps);
+((p1 -> p1) ⊔ C_shps) <= (* -> *);
+(* <- *) <= ((p1 <- p1) ⊔ I_shps);
+((p1 <- p1) ⊔ I_shps) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (o1 <- o1);
+(o1 <- o1) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= C_Board.provider;
+C_Board.provider <= (* -> *);
+(* <- *) <= I_Board.provider;
+I_Board.provider <= (_ <- _);
 
 %%
-Board.provider <= (* -> *) {this <= caller_pc;};["":81,38-49]
-Board.provider <= (* -> *) {this <= caller_pc;};["":81,38-49]
-(caller_pc) ⊔ (o) ⊔ (p) <= v_newBoard {this <= caller_pc;};["":83,49-84]
-caller_pc <= (* -> *) {this <= caller_pc;};["":83,49-84]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":83,49-84]
-(caller_pc) ⊔ (v_newBoard) <= v_newBoard1 {this <= caller_pc;};["":83,49-84]
-L == (p1 -> p1) {this <= caller_pc;};["":85,33-43]
-(this) ⊔ (caller_pc) <= v_shps {this <= caller_pc;};["":85,33-43]
-(v_shps) ⊔ (caller_pc) <= (* -> *) {this <= caller_pc;};["":87,49-60]
-v_receiver == (v_shps) ⊔ (caller_pc) {this <= caller_pc;};["":87,49-60]
-v_infered_downgrade_from5 <= v_downgrade_from6 {this <= caller_pc;};["":87,25-69]
-(((p1 -> p1)) ⊔ (v_shps)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to6) ⊓ ((_ -> _)) {this <= caller_pc;};["":87,25-69]
-(v_infered_downgrade_to6) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":87,25-69]
-((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to6) ⊓ ((* -> *)) {this <= caller_pc;};["":87,25-69]
-((p1 -> p1)) ⊔ (v_shps) == v_infered_downgrade_from5 {this <= caller_pc;};["":87,25-69]
-v_infered_downgrade_from5 <= (v_infered_downgrade_to6) ⊔ ((* -> *)) {this <= caller_pc;};["":87,25-69]
-v_infered_downgrade_from5 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to6) {this <= caller_pc;};["":87,25-69]
-v_infered_downgrade_from6 == v_downgrade_from7 {this <= caller_pc;};["":87,17-88]
-(_ -> _) == v_infered_downgrade_to7 {this <= caller_pc;};["":87,17-88]
-(v_shps) ⊔ (caller_pc) ⊔ (v_infered_downgrade_to6) == v_infered_downgrade_from6 {this <= caller_pc;};["":87,17-88]
-(v_infered_downgrade_from6) ⊓ ((* -> *)) <= v_infered_downgrade_to7 {this <= caller_pc;};["":87,17-88]
-(v_infered_downgrade_from6) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to7 {this <= caller_pc;};["":87,17-88]
-(v_shps) ⊔ (caller_pc) ⊔ (v_infered_downgrade_to7) <= v_sz {this <= caller_pc;};["":87,17-88]
-(caller_pc) <= v_i {this <= caller_pc;};["":88,21-22]
-(v_sz) ⊔ (v_for) ⊔ (v_i) <= v_s {this <= caller_pc;};["":89,34-38]
-(v_i) ⊔ (v_shps) ⊔ (v_sz) ⊔ (v_for) <= (* -> *) {this <= caller_pc;};["":91,65-66]
-(v_shps) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) <= (* -> *) {this <= caller_pc;};["":91,56-67]
-v_receiver1 == (v_shps) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) {this <= caller_pc;};["":91,56-67]
-v_arg1label == (v_i) ⊔ (v_shps) ⊔ (v_sz) ⊔ (v_for) {this <= caller_pc;};["":91,56-67]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ ((p1 -> p1)) ⊔ (v_shps) <= v_s {this <= caller_pc;};["":91,16-17]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":91,16-67]
-((p1 -> p1)) ⊔ (v_i) ⊔ (v_shps) ⊔ (v_sz) ⊔ (v_for) <= v_impossible2 {this <= caller_pc;};["":93,19-55]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ ((p1 -> p1)) ⊔ (v_shps) <= v_impossible1 {this <= caller_pc;};["":94,19-48]
-v_infered_downgrade_from7 <= v_downgrade_from8 {this <= caller_pc;};["":97,43-64]
-((v_s) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to8) ⊓ ((_ -> _)) {this <= caller_pc;};["":97,43-64]
-(v_infered_downgrade_to8) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":97,43-64]
-((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to8) ⊓ ((* -> *)) {this <= caller_pc;};["":97,43-64]
-(v_s) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) == v_infered_downgrade_from7 {this <= caller_pc;};["":97,43-64]
-v_infered_downgrade_from7 <= (v_infered_downgrade_to8) ⊔ ((* -> *)) {this <= caller_pc;};["":97,43-64]
-v_infered_downgrade_from7 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to8) {this <= caller_pc;};["":97,43-64]
-v_infered_downgrade_from8 == v_downgrade_from9 {this <= caller_pc;};["":97,35-83]
-(_ -> _) == v_infered_downgrade_to9 {this <= caller_pc;};["":97,35-83]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_infered_downgrade_to8) == v_infered_downgrade_from8 {this <= caller_pc;};["":97,35-83]
-(v_infered_downgrade_from8) ⊓ ((* -> *)) <= v_infered_downgrade_to9 {this <= caller_pc;};["":97,35-83]
-(v_infered_downgrade_from8) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to9 {this <= caller_pc;};["":97,35-83]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":97,35-83]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_infered_downgrade_to9) <= v_ss {this <= caller_pc;};["":97,35-83]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":99,47-53]
-(v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) <= v_pos {this <= caller_pc;};["":99,47-53]
-v_infered_downgrade_from9 <= v_downgrade_from10 {this <= caller_pc;};["":101,39-64]
-(((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to10) ⊓ ((_ -> _)) {this <= caller_pc;};["":101,39-64]
-(v_infered_downgrade_to10) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":101,39-64]
-((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to10) ⊓ ((* -> *)) {this <= caller_pc;};["":101,39-64]
-((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) == v_infered_downgrade_from9 {this <= caller_pc;};["":101,39-64]
-v_infered_downgrade_from9 <= (v_infered_downgrade_to10) ⊔ ((* -> *)) {this <= caller_pc;};["":101,39-64]
-v_infered_downgrade_from9 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to10) {this <= caller_pc;};["":101,39-64]
-v_infered_downgrade_from10 == v_downgrade_from11 {this <= caller_pc;};["":101,31-83]
-(_ -> _) == v_infered_downgrade_to11 {this <= caller_pc;};["":101,31-83]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to10) == v_infered_downgrade_from10 {this <= caller_pc;};["":101,31-83]
-(v_infered_downgrade_from10) ⊓ ((* -> *)) <= v_infered_downgrade_to11 {this <= caller_pc;};["":101,31-83]
-(v_infered_downgrade_from10) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to11 {this <= caller_pc;};["":101,31-83]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to11) <= v_posX {this <= caller_pc;};["":101,31-83]
-v_infered_downgrade_from11 <= v_downgrade_from12 {this <= caller_pc;};["":102,39-64]
-(((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to1) ⊓ ((_ -> _)) {this <= caller_pc;};["":102,39-64]
-(v_infered_downgrade_to1) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":102,39-64]
-((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to1) ⊓ ((* -> *)) {this <= caller_pc;};["":102,39-64]
-((p1 -> p1)) ⊔ (v_pos) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) == v_infered_downgrade_from11 {this <= caller_pc;};["":102,39-64]
-v_infered_downgrade_from11 <= (v_infered_downgrade_to1) ⊔ ((* -> *)) {this <= caller_pc;};["":102,39-64]
-v_infered_downgrade_from11 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to1) {this <= caller_pc;};["":102,39-64]
-v_infered_downgrade_from == v_downgrade_from {this <= caller_pc;};["":102,31-83]
-(_ -> _) == v_infered_downgrade_to {this <= caller_pc;};["":102,31-83]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to1) == v_infered_downgrade_from {this <= caller_pc;};["":102,31-83]
-(v_infered_downgrade_from) ⊓ ((* -> *)) <= v_infered_downgrade_to {this <= caller_pc;};["":102,31-83]
-(v_infered_downgrade_from) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to {this <= caller_pc;};["":102,31-83]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to) <= v_posY {this <= caller_pc;};["":102,31-83]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (o) ⊔ (p) <= v_newCoordinate {this <= caller_pc;};["":103,59-109]
-(v_posX) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= ((p1 -> p1)) ⊔ (v_newCoordinate) {this <= caller_pc;};["":103,98-102]
-(v_posY) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= ((p1 -> p1)) ⊔ (v_newCoordinate) {this <= caller_pc;};["":103,104-108]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= (* -> *) {this <= caller_pc;};["":103,59-109]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":103,59-109]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_newCoordinate) <= v_c {this <= caller_pc;};["":103,59-109]
-v_infered_downgrade_from1 <= v_downgrade_from1 {this <= caller_pc;};["":105,41-70]
-(((p1 -> p1)) ⊔ (v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_pos)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to2) ⊓ ((_ -> _)) {this <= caller_pc;};["":105,41-70]
-(v_infered_downgrade_to2) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":105,41-70]
-((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to2) ⊓ ((* -> *)) {this <= caller_pc;};["":105,41-70]
-((p1 -> p1)) ⊔ (v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_pos) == v_infered_downgrade_from1 {this <= caller_pc;};["":105,41-70]
-v_infered_downgrade_from1 <= (v_infered_downgrade_to2) ⊔ ((* -> *)) {this <= caller_pc;};["":105,41-70]
-v_infered_downgrade_from1 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to2) {this <= caller_pc;};["":105,41-70]
-v_infered_downgrade_from2 == v_downgrade_from3 {this <= caller_pc;};["":105,33-89]
-(_ -> _) == v_infered_downgrade_to3 {this <= caller_pc;};["":105,33-89]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to2) == v_infered_downgrade_from2 {this <= caller_pc;};["":105,33-89]
-(v_infered_downgrade_from2) ⊓ ((* -> *)) <= v_infered_downgrade_to3 {this <= caller_pc;};["":105,33-89]
-(v_infered_downgrade_from2) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to3 {this <= caller_pc;};["":105,33-89]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to3) <= v_length {this <= caller_pc;};["":105,33-89]
-v_infered_downgrade_from4 <= v_downgrade_from2 {this <= caller_pc;};["":106,46-81]
-(((p1 -> p1)) ⊔ (v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_pos)) ⊓ ((_ -> _)) <= (v_infered_downgrade_to4) ⊓ ((_ -> _)) {this <= caller_pc;};["":106,46-81]
-(v_infered_downgrade_to4) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":106,46-81]
-((_ -> _)) ⊓ ((* -> *)) == (v_infered_downgrade_to4) ⊓ ((* -> *)) {this <= caller_pc;};["":106,46-81]
-((p1 -> p1)) ⊔ (v_ss) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_pos) == v_infered_downgrade_from4 {this <= caller_pc;};["":106,46-81]
-v_infered_downgrade_from4 <= (v_infered_downgrade_to4) ⊔ ((* -> *)) {this <= caller_pc;};["":106,46-81]
-v_infered_downgrade_from4 <= (((p1 -> p1)) ⊔ ((o1 -> o1))) ⊔ (v_infered_downgrade_to4) {this <= caller_pc;};["":106,46-81]
-v_infered_downgrade_from3 == v_downgrade_from4 {this <= caller_pc;};["":106,38-100]
-(_ -> _) == v_infered_downgrade_to5 {this <= caller_pc;};["":106,38-100]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to4) == v_infered_downgrade_from3 {this <= caller_pc;};["":106,38-100]
-(v_infered_downgrade_from3) ⊓ ((* -> *)) <= v_infered_downgrade_to5 {this <= caller_pc;};["":106,38-100]
-(v_infered_downgrade_from3) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= v_infered_downgrade_to5 {this <= caller_pc;};["":106,38-100]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_infered_downgrade_to5) <= v_isHoriz {this <= caller_pc;};["":106,38-100]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (o) ⊔ (p) <= v_newShip {this <= caller_pc;};["":108,53-105]
-(v_c) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= v_newShip {this <= caller_pc;};["":108,86-87]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":108,86-87]
-(v_length) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= (p1 -> p1) {this <= caller_pc;};["":108,89-95]
-(v_isHoriz) ⊔ (v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= (p1 -> p1) {this <= caller_pc;};["":108,97-104]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) <= (* -> *) {this <= caller_pc;};["":108,53-105]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":108,53-105]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) ⊔ (v_newShip) <= v_t {this <= caller_pc;};["":108,53-105]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (v_ss) ⊔ (v_pos) == v_downgrade_from5 {this <= caller_pc;};["":110,24-112,25]
-(v_downgrade_from5) ⊓ ((* -> *)) <= (_ -> _) {this <= caller_pc;};["":110,24-112,25]
-(v_downgrade_from5) ⊓ ((_ -> _)) ⊓ ((_ -> _)) <= (_ -> _) {this <= caller_pc;};["":110,24-112,25]
-(v_t) ⊔ (v_newBoard1) ⊔ ((_ -> _)) <= (p1 -> p1) {this <= caller_pc;};["":111,45-46]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":111,45-46]
-(v_newBoard1) ⊔ ((_ -> _)) <= (p1 -> p1) {this <= caller_pc;};["":111,28-47]
-v_receiver2 == (v_newBoard1) ⊔ ((_ -> _)) {this <= caller_pc;};["":111,28-47]
-v_arg1label1 == (v_t) ⊔ (v_newBoard1) ⊔ ((_ -> _)) {this <= caller_pc;};["":111,28-47]
-((p1 -> p1)) ⊔ (v_newBoard1) <= v_impossible {this <= caller_pc;};["":114,27-62]
-(v_sz) ⊔ (v_for) ⊔ (v_i) <= v_i {this <= caller_pc;};["":88,32-33]
-(v_sz) ⊔ (v_for) ⊔ (v_i) ⊔ (caller_pc) <= v_for {this <= caller_pc;};["":88,8-31]
-(v_newBoard1) ⊔ (caller_pc) <= (_ -> _) {this <= caller_pc;};["":118,8-24]
-(p1 -> p1) == (p1 -> p1) {this <= caller_pc;};["":118,15-23]
+C_Board.provider["Board.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[81,38-49]
+I_Board.provider["Board.provider":] <= (p1["p":81,45-46] <- p1["p":81,45-46])["(p <- p)":] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[81,38-49]
+
+C_Board.provider["Board.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[81,38-49]
+I_Board.provider["Board.provider":] <= (o1["o":81,47-48] <- o1["o":81,47-48])["(o <- o)":] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[81,38-49]
+
+(C_caller_pc["{caller_pc}":78,11-79,38] ⊔ C_o["{o}":80,54-70] ⊔ C_p["{p}":80,25-41])["{caller_pc ⊔ o ⊔ p}":78,11-79,38] <= C_newBoard["{newBoard}":83,49-84] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[83,49-84]
+(I_caller_pc["{caller_pc}":78,11-79,38] ⊔ I_o["{o}":80,54-70] ⊔ I_p["{p}":80,25-41])["{caller_pc ⊔ o ⊔ p}":78,11-79,38] <= I_newBoard["{newBoard}":83,49-84] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[83,49-84]
+
+C_caller_pc["{caller_pc}":78,11-79,38] <= (*["*":20,11-18] -> *["*":20,11-18])["(* -> *)":20,11-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[83,49-84]
+I_caller_pc["{caller_pc}":78,11-79,38] <= (_["_":20,11-18] <- _["_":20,11-18])["(_ <- _)":20,11-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[83,49-84]
+
+(p1["p":83,60-61] -> p1["p":83,60-61])["(p -> *)":83,60-64] == (p1["p":83,15-16] -> p1["p":83,15-16])["(p -> *)":83,15-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[83,49-84]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":83,66-80] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":83,21-35] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[83,49-84]
+
+(C_caller_pc["{caller_pc}":78,11-79,38] ⊔ C_newBoard["{newBoard}":83,49-84])["{caller_pc ⊔ newBoard}":78,11-79,38] <= C_newBoard1["{newBoard}":83,38-46] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[83,49-84]
+(I_caller_pc["{caller_pc}":78,11-79,38] ⊔ I_newBoard["{newBoard}":83,49-84])["{caller_pc ⊔ newBoard}":78,11-79,38] <= I_newBoard1["{newBoard}":83,38-46] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[83,49-84]
+
+C_L["L":18,23-24] == (p1["p":85,14-15] -> p1["p":85,14-15])["(p -> *)":85,14-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[85,33-43]
+I_L["L":18,23-24] == (p1["p":85,19-20] <- p1["p":85,19-20])["(p <- *)":85,19-23] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[85,33-43]
+
+(C_this["{this}":17,0-11] ⊔ C_caller_pc["{caller_pc}":78,11-79,38])["{this ⊔ caller_pc}":17,0-11] <= C_shps["{shps}":85,26-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[85,33-43]
+(I_this["{this}":17,0-11] ⊔ I_caller_pc["{caller_pc}":78,11-79,38])["{this ⊔ caller_pc}":17,0-11] <= I_shps["{shps}":85,26-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[85,33-43]
+
+(C_shps["{shps}":85,26-30] ⊔ C_caller_pc["{caller_pc}":78,11-79,38])["{shps ⊔ caller_pc}":85,26-30] <= (*["*":13,4-15] -> *["*":13,4-15])["(* -> *)":13,4-15] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,49-60]
+(I_shps["{shps}":85,26-30] ⊔ I_caller_pc["{caller_pc}":78,11-79,38])["{shps ⊔ caller_pc}":85,26-30] <= (_["_":13,4-15] <- _["_":13,4-15])["(_ <- _)":13,4-15] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,49-60]
+
+C_receiver["{receiver}":87,49-60] == (C_shps["{shps}":85,26-30] ⊔ C_caller_pc["{caller_pc}":78,11-79,38])["{shps ⊔ caller_pc}":85,26-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,49-60]
+I_receiver["{receiver}":87,49-60] == (I_shps["{shps}":85,26-30] ⊔ I_caller_pc["{caller_pc}":78,11-79,38])["{shps ⊔ caller_pc}":85,26-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,49-60]
+
+C_infered_downgrade_from5["{infered_downgrade_from}":87,25-69] <= C_downgrade_from6["{downgrade_from}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+I_infered_downgrade_from5["{infered_downgrade_from}":87,25-69] <= I_downgrade_from6["{downgrade_from}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+
+(((p1["p":85,14-15] -> p1["p":85,14-15])["(p -> *)":85,14-18] ⊔ C_shps["{shps}":85,26-30])["{(p -> *); (p <- *) ⊔ shps}":85,13-24] ⊓ (_["_":87,25-69] -> _["_":87,25-69])["(_ -> _)":87,25-69])["{{(p -> *); (p <- *) ⊔ shps} ⊓ {}}":85,13-24] <= (C_infered_downgrade_to6["{infered_downgrade_to}":87,25-69] ⊓ (_["_":87,25-69] -> _["_":87,25-69])["(_ -> _)":87,25-69])["{{infered_downgrade_to} ⊓ {}}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+(((p1["p":85,19-20] <- p1["p":85,19-20])["(p <- *)":85,19-23] ⊔ I_shps["{shps}":85,26-30])["{(p -> *); (p <- *) ⊔ shps}":85,13-24] ⊓ (_["_":87,25-69] <- _["_":87,25-69])["(_ <- _)":87,25-69])["{{(p -> *); (p <- *) ⊔ shps} ⊓ {}}":85,13-24] <= (I_infered_downgrade_to6["{infered_downgrade_to}":87,25-69] ⊓ (_["_":87,25-69] <- _["_":87,25-69])["(_ <- _)":87,25-69])["{{infered_downgrade_to} ⊓ {}}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+
+(C_infered_downgrade_to6["{infered_downgrade_to}":87,25-69] ⊓ (_["_":87,25-69] -> _["_":87,25-69])["(_ -> _)":87,25-69])["{{infered_downgrade_to} ⊓ {}}":87,25-69] <= (_["_":87,62-68] -> _["_":87,62-68])["(_ -> _)":87,62-68] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+(I_infered_downgrade_to6["{infered_downgrade_to}":87,25-69] ⊓ (_["_":87,25-69] <- _["_":87,25-69])["(_ <- _)":87,25-69])["{{infered_downgrade_to} ⊓ {}}":87,25-69] <= (p1["p":87,63-64] <- p1["p":87,63-64])["(p <- *)":87,63-67] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+
+((_["_":87,62-68] -> _["_":87,62-68])["(_ -> _)":87,62-68] ⊓ (*["*":87,25-69] -> *["*":87,25-69])["(* -> *)":87,25-69])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":87,62-68] == (C_infered_downgrade_to6["{infered_downgrade_to}":87,25-69] ⊓ (*["*":87,25-69] -> *["*":87,25-69])["(* -> *)":87,25-69])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+((p1["p":87,63-64] <- p1["p":87,63-64])["(p <- *)":87,63-67] ⊓ (*["*":87,25-69] <- *["*":87,25-69])["(* <- *)":87,25-69])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":87,62-68] == (I_infered_downgrade_to6["{infered_downgrade_to}":87,25-69] ⊓ (*["*":87,25-69] <- *["*":87,25-69])["(* <- *)":87,25-69])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+
+((p1["p":85,14-15] -> p1["p":85,14-15])["(p -> *)":85,14-18] ⊔ C_shps["{shps}":85,26-30])["{(p -> *); (p <- *) ⊔ shps}":85,13-24] == C_infered_downgrade_from5["{infered_downgrade_from}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+((p1["p":85,19-20] <- p1["p":85,19-20])["(p <- *)":85,19-23] ⊔ I_shps["{shps}":85,26-30])["{(p -> *); (p <- *) ⊔ shps}":85,13-24] == I_infered_downgrade_from5["{infered_downgrade_from}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+
+C_infered_downgrade_from5["{infered_downgrade_from}":87,25-69] <= (C_infered_downgrade_to6["{infered_downgrade_to}":87,25-69] ⊔ (*["*":87,25-69] -> *["*":87,25-69])["(* -> *)":87,25-69])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+I_infered_downgrade_from5["{infered_downgrade_from}":87,25-69] <= (I_infered_downgrade_to6["{infered_downgrade_to}":87,25-69] ⊔ (*["*":87,25-69] <- *["*":87,25-69])["(* <- *)":87,25-69])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+
+C_infered_downgrade_from5["{infered_downgrade_from}":87,25-69] <= ((((o1 -> o1)) ⊔ ((p1 -> p1)))["(o -> *) ⊔ (p -> *)":81,45-46] ⊔ C_infered_downgrade_to6["{infered_downgrade_to}":87,25-69])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+I_infered_downgrade_from5["{infered_downgrade_from}":87,25-69] <= ((_["_":81,45-46] <- _["_":81,45-46])["(_ <- _)":81,45-46] ⊔ I_infered_downgrade_to6["{infered_downgrade_to}":87,25-69])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":87,25-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,25-69]
+
+C_infered_downgrade_from6["{infered_downgrade_from}":87,17-88] == C_downgrade_from7["{downgrade_from}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+I_infered_downgrade_from6["{infered_downgrade_from}":87,17-88] == I_downgrade_from7["{downgrade_from}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+
+(_["_":87,71-87] -> _["_":87,71-87])["(_ -> _)":87,71-87] == C_infered_downgrade_to7["{infered_downgrade_to}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":87,72-86] == I_infered_downgrade_to7["{infered_downgrade_to}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+
+(C_shps["{shps}":85,26-30] ⊔ C_caller_pc["{caller_pc}":78,11-79,38] ⊔ C_infered_downgrade_to6["{infered_downgrade_to}":87,25-69])["{shps ⊔ caller_pc ⊔ infered_downgrade_to}":85,26-30] == C_infered_downgrade_from6["{infered_downgrade_from}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+(I_shps["{shps}":85,26-30] ⊔ I_caller_pc["{caller_pc}":78,11-79,38] ⊔ I_infered_downgrade_to6["{infered_downgrade_to}":87,25-69])["{shps ⊔ caller_pc ⊔ infered_downgrade_to}":85,26-30] == I_infered_downgrade_from6["{infered_downgrade_from}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+
+(C_infered_downgrade_from6["{infered_downgrade_from}":87,17-88] ⊓ (*["*":87,17-88] -> *["*":87,17-88])["(* -> *)":87,17-88])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":87,17-88] <= C_infered_downgrade_to7["{infered_downgrade_to}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+(I_infered_downgrade_from6["{infered_downgrade_from}":87,17-88] ⊓ (*["*":87,17-88] <- *["*":87,17-88])["(* <- *)":87,17-88])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":87,17-88] <= I_infered_downgrade_to7["{infered_downgrade_to}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+
+(C_infered_downgrade_from6["{infered_downgrade_from}":87,17-88] ⊓ (_["_":81,45-46] -> _["_":81,45-46])["(_ -> _)":81,45-46] ⊓ (_["_":81,47-48] -> _["_":81,47-48])["(_ -> _)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":87,17-88] <= C_infered_downgrade_to7["{infered_downgrade_to}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+(I_infered_downgrade_from6["{infered_downgrade_from}":87,17-88] ⊓ (p1["p":81,45-46] <- p1["p":81,45-46])["(p <- *)":81,45-46] ⊓ (o1["o":81,47-48] <- o1["o":81,47-48])["(o <- *)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":87,17-88] <= I_infered_downgrade_to7["{infered_downgrade_to}":87,17-88] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+
+(C_shps["{shps}":85,26-30] ⊔ C_caller_pc["{caller_pc}":78,11-79,38] ⊔ C_infered_downgrade_to7["{infered_downgrade_to}":87,17-88])["{shps ⊔ caller_pc ⊔ infered_downgrade_to}":85,26-30] <= C_sz["{sz}":87,12-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+(I_shps["{shps}":85,26-30] ⊔ I_caller_pc["{caller_pc}":78,11-79,38] ⊔ I_infered_downgrade_to7["{infered_downgrade_to}":87,17-88])["{shps ⊔ caller_pc ⊔ infered_downgrade_to}":85,26-30] <= I_sz["{sz}":87,12-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[87,17-88]
+
+(C_caller_pc["{caller_pc}":78,11-79,38])["{caller_pc}":78,11-79,38] <= C_i["{i}":88,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[88,21-22]
+(I_caller_pc["{caller_pc}":78,11-79,38])["{caller_pc}":78,11-79,38] <= I_i["{i}":88,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[88,21-22]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18])["{sz ⊔ for ⊔ i}":87,12-14] <= C_s["{s}":89,30-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[89,34-38]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18])["{sz ⊔ for ⊔ i}":87,12-14] <= I_s["{s}":89,30-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[89,34-38]
+
+(C_i["{i}":88,17-18] ⊔ C_shps["{shps}":85,26-30] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31])["{i ⊔ shps ⊔ sz ⊔ for}":88,17-18] <= (*["*":9,30-39] -> *["*":9,30-39])["(* -> *)":9,30-39] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,65-66]
+(I_i["{i}":88,17-18] ⊔ I_shps["{shps}":85,26-30] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31])["{i ⊔ shps ⊔ sz ⊔ for}":88,17-18] <= (_["_":9,30-39] <- _["_":9,30-39])["(_ <- _)":9,30-39] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,65-66]
+
+(C_shps["{shps}":85,26-30] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18])["{shps ⊔ sz ⊔ for ⊔ i}":85,26-30] <= (*["*":9,4-29] -> *["*":9,4-29])["(* -> *)":9,4-29] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,56-67]
+(I_shps["{shps}":85,26-30] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18])["{shps ⊔ sz ⊔ for ⊔ i}":85,26-30] <= (_["_":9,4-29] <- _["_":9,4-29])["(_ <- _)":9,4-29] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,56-67]
+
+C_receiver1["{receiver}":91,56-67] == (C_shps["{shps}":85,26-30] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18])["{shps ⊔ sz ⊔ for ⊔ i}":85,26-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,56-67]
+I_receiver1["{receiver}":91,56-67] == (I_shps["{shps}":85,26-30] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18])["{shps ⊔ sz ⊔ for ⊔ i}":85,26-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,56-67]
+
+C_arg1label["{arg1label}":91,65-66] == (C_i["{i}":88,17-18] ⊔ C_shps["{shps}":85,26-30] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31])["{i ⊔ shps ⊔ sz ⊔ for}":88,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,56-67]
+I_arg1label["{arg1label}":91,65-66] == (I_i["{i}":88,17-18] ⊔ I_shps["{shps}":85,26-30] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31])["{i ⊔ shps ⊔ sz ⊔ for}":88,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,56-67]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ (p1["p":85,14-15] -> p1["p":85,14-15])["(p -> *)":85,14-18] ⊔ C_shps["{shps}":85,26-30])["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps}":87,12-14] <= C_s["{s}":89,30-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,16-17]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ (p1["p":85,19-20] <- p1["p":85,19-20])["(p <- *)":85,19-23] ⊔ I_shps["{shps}":85,26-30])["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps}":87,12-14] <= I_s["{s}":89,30-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,16-17]
+
+(p1["p":91,27-28] -> p1["p":91,27-28])["(p -> *)":91,27-31] == (p1["p":89,18-19] -> p1["p":89,18-19])["(p -> *)":89,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,16-67]
+(p1["p":91,32-33] <- p1["p":91,32-33])["(p <- *)":91,32-36] == (p1["p":89,23-24] <- p1["p":89,23-24])["(p <- *)":89,23-27] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[91,16-67]
+
+((p1["p":85,14-15] -> p1["p":85,14-15])["(p -> *)":85,14-18] ⊔ C_i["{i}":88,17-18] ⊔ C_shps["{shps}":85,26-30] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31])["{(p -> *); (p <- *) ⊔ i ⊔ shps ⊔ sz ⊔ for}":10,34-43] <= C_impossible2["{impossible}":93,19-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[93,19-55]
+((p1["p":85,19-20] <- p1["p":85,19-20])["(p <- *)":85,19-23] ⊔ I_i["{i}":88,17-18] ⊔ I_shps["{shps}":85,26-30] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31])["{(p -> *); (p <- *) ⊔ i ⊔ shps ⊔ sz ⊔ for}":10,34-43] <= I_impossible2["{impossible}":93,19-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[93,19-55]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ (p1["p":85,14-15] -> p1["p":85,14-15])["(p -> *)":85,14-18] ⊔ C_shps["{shps}":85,26-30])["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps}":87,12-14] <= C_impossible1["{impossible}":94,19-48] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[94,19-48]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ (p1["p":85,19-20] <- p1["p":85,19-20])["(p <- *)":85,19-23] ⊔ I_shps["{shps}":85,26-30])["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps}":87,12-14] <= I_impossible1["{impossible}":94,19-48] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[94,19-48]
+
+C_infered_downgrade_from7["{infered_downgrade_from}":97,43-64] <= C_downgrade_from8["{downgrade_from}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+I_infered_downgrade_from7["{infered_downgrade_from}":97,43-64] <= I_downgrade_from8["{downgrade_from}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+
+((C_s["{s}":89,30-31] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18])["{s ⊔ sz ⊔ for ⊔ i}":89,30-31] ⊓ (_["_":97,43-64] -> _["_":97,43-64])["(_ -> _)":97,43-64])["{{s ⊔ sz ⊔ for ⊔ i} ⊓ {}}":89,30-31] <= (C_infered_downgrade_to8["{infered_downgrade_to}":97,43-64] ⊓ (_["_":97,43-64] -> _["_":97,43-64])["(_ -> _)":97,43-64])["{{infered_downgrade_to} ⊓ {}}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+((I_s["{s}":89,30-31] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18])["{s ⊔ sz ⊔ for ⊔ i}":89,30-31] ⊓ (_["_":97,43-64] <- _["_":97,43-64])["(_ <- _)":97,43-64])["{{s ⊔ sz ⊔ for ⊔ i} ⊓ {}}":89,30-31] <= (I_infered_downgrade_to8["{infered_downgrade_to}":97,43-64] ⊓ (_["_":97,43-64] <- _["_":97,43-64])["(_ <- _)":97,43-64])["{{infered_downgrade_to} ⊓ {}}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+
+(C_infered_downgrade_to8["{infered_downgrade_to}":97,43-64] ⊓ (_["_":97,43-64] -> _["_":97,43-64])["(_ -> _)":97,43-64])["{{infered_downgrade_to} ⊓ {}}":97,43-64] <= (_["_":97,57-63] -> _["_":97,57-63])["(_ -> _)":97,57-63] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+(I_infered_downgrade_to8["{infered_downgrade_to}":97,43-64] ⊓ (_["_":97,43-64] <- _["_":97,43-64])["(_ <- _)":97,43-64])["{{infered_downgrade_to} ⊓ {}}":97,43-64] <= (p1["p":97,58-59] <- p1["p":97,58-59])["(p <- *)":97,58-62] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+
+((_["_":97,57-63] -> _["_":97,57-63])["(_ -> _)":97,57-63] ⊓ (*["*":97,43-64] -> *["*":97,43-64])["(* -> *)":97,43-64])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":97,57-63] == (C_infered_downgrade_to8["{infered_downgrade_to}":97,43-64] ⊓ (*["*":97,43-64] -> *["*":97,43-64])["(* -> *)":97,43-64])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+((p1["p":97,58-59] <- p1["p":97,58-59])["(p <- *)":97,58-62] ⊓ (*["*":97,43-64] <- *["*":97,43-64])["(* <- *)":97,43-64])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":97,57-63] == (I_infered_downgrade_to8["{infered_downgrade_to}":97,43-64] ⊓ (*["*":97,43-64] <- *["*":97,43-64])["(* <- *)":97,43-64])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+
+(C_s["{s}":89,30-31] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18])["{s ⊔ sz ⊔ for ⊔ i}":89,30-31] == C_infered_downgrade_from7["{infered_downgrade_from}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+(I_s["{s}":89,30-31] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18])["{s ⊔ sz ⊔ for ⊔ i}":89,30-31] == I_infered_downgrade_from7["{infered_downgrade_from}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+
+C_infered_downgrade_from7["{infered_downgrade_from}":97,43-64] <= (C_infered_downgrade_to8["{infered_downgrade_to}":97,43-64] ⊔ (*["*":97,43-64] -> *["*":97,43-64])["(* -> *)":97,43-64])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+I_infered_downgrade_from7["{infered_downgrade_from}":97,43-64] <= (I_infered_downgrade_to8["{infered_downgrade_to}":97,43-64] ⊔ (*["*":97,43-64] <- *["*":97,43-64])["(* <- *)":97,43-64])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+
+C_infered_downgrade_from7["{infered_downgrade_from}":97,43-64] <= ((((o1 -> o1)) ⊔ ((p1 -> p1)))["(o -> *) ⊔ (p -> *)":81,45-46] ⊔ C_infered_downgrade_to8["{infered_downgrade_to}":97,43-64])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+I_infered_downgrade_from7["{infered_downgrade_from}":97,43-64] <= ((_["_":81,45-46] <- _["_":81,45-46])["(_ <- _)":81,45-46] ⊔ I_infered_downgrade_to8["{infered_downgrade_to}":97,43-64])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":97,43-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,43-64]
+
+C_infered_downgrade_from8["{infered_downgrade_from}":97,35-83] == C_downgrade_from9["{downgrade_from}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+I_infered_downgrade_from8["{infered_downgrade_from}":97,35-83] == I_downgrade_from9["{downgrade_from}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+
+(_["_":97,66-82] -> _["_":97,66-82])["(_ -> _)":97,66-82] == C_infered_downgrade_to9["{infered_downgrade_to}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":97,67-81] == I_infered_downgrade_to9["{infered_downgrade_to}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_infered_downgrade_to8["{infered_downgrade_to}":97,43-64])["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to}":87,12-14] == C_infered_downgrade_from8["{infered_downgrade_from}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_infered_downgrade_to8["{infered_downgrade_to}":97,43-64])["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to}":87,12-14] == I_infered_downgrade_from8["{infered_downgrade_from}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+
+(C_infered_downgrade_from8["{infered_downgrade_from}":97,35-83] ⊓ (*["*":97,35-83] -> *["*":97,35-83])["(* -> *)":97,35-83])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":97,35-83] <= C_infered_downgrade_to9["{infered_downgrade_to}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+(I_infered_downgrade_from8["{infered_downgrade_from}":97,35-83] ⊓ (*["*":97,35-83] <- *["*":97,35-83])["(* <- *)":97,35-83])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":97,35-83] <= I_infered_downgrade_to9["{infered_downgrade_to}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+
+(C_infered_downgrade_from8["{infered_downgrade_from}":97,35-83] ⊓ (_["_":81,45-46] -> _["_":81,45-46])["(_ -> _)":81,45-46] ⊓ (_["_":81,47-48] -> _["_":81,47-48])["(_ -> _)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":97,35-83] <= C_infered_downgrade_to9["{infered_downgrade_to}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+(I_infered_downgrade_from8["{infered_downgrade_from}":97,35-83] ⊓ (p1["p":81,45-46] <- p1["p":81,45-46])["(p <- *)":81,45-46] ⊓ (o1["o":81,47-48] <- o1["o":81,47-48])["(o <- *)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":97,35-83] <= I_infered_downgrade_to9["{infered_downgrade_to}":97,35-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+
+(p1["p":89,18-19] -> p1["p":89,18-19])["(p -> *)":89,18-22] == (p1["p":97,18-19] -> p1["p":97,18-19])["(p -> *)":97,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+(p1["p":89,23-24] <- p1["p":89,23-24])["(p <- *)":89,23-27] == (p1["p":97,23-24] <- p1["p":97,23-24])["(p <- *)":97,23-27] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_infered_downgrade_to9["{infered_downgrade_to}":97,35-83])["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to}":87,12-14] <= C_ss["{ss}":97,30-32] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_infered_downgrade_to9["{infered_downgrade_to}":97,35-83])["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to}":87,12-14] <= I_ss["{ss}":97,30-32] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[97,35-83]
+
+(p1["p":97,18-19] -> p1["p":97,18-19])["(p -> *)":97,18-22] == (p1["p":99,28-29] -> p1["p":99,28-29])["(p -> *)":99,28-32] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[99,47-53]
+(p1["p":97,23-24] <- p1["p":97,23-24])["(p <- *)":97,23-27] == (p1["p":99,34-35] <- p1["p":99,34-35])["(p <- *)":99,34-38] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[99,47-53]
+
+(C_ss["{ss}":97,30-32] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18])["{ss ⊔ sz ⊔ for ⊔ i}":97,30-32] <= C_pos["{pos}":99,41-44] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[99,47-53]
+(I_ss["{ss}":97,30-32] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18])["{ss ⊔ sz ⊔ for ⊔ i}":97,30-32] <= I_pos["{pos}":99,41-44] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[99,47-53]
+
+C_infered_downgrade_from9["{infered_downgrade_from}":101,39-64] <= C_downgrade_from10["{downgrade_from}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+I_infered_downgrade_from9["{infered_downgrade_from}":101,39-64] <= I_downgrade_from10["{downgrade_from}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+
+(((p1["p":99,28-29] -> p1["p":99,28-29])["(p -> *)":99,28-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":99,27-39] ⊓ (_["_":101,39-64] -> _["_":101,39-64])["(_ -> _)":101,39-64])["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}}":99,27-39] <= (C_infered_downgrade_to10["{infered_downgrade_to}":101,39-64] ⊓ (_["_":101,39-64] -> _["_":101,39-64])["(_ -> _)":101,39-64])["{{infered_downgrade_to} ⊓ {}}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+(((p1["p":99,34-35] <- p1["p":99,34-35])["(p <- *)":99,34-38] ⊔ I_pos["{pos}":99,41-44] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":99,27-39] ⊓ (_["_":101,39-64] <- _["_":101,39-64])["(_ <- _)":101,39-64])["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}}":99,27-39] <= (I_infered_downgrade_to10["{infered_downgrade_to}":101,39-64] ⊓ (_["_":101,39-64] <- _["_":101,39-64])["(_ <- _)":101,39-64])["{{infered_downgrade_to} ⊓ {}}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+
+(C_infered_downgrade_to10["{infered_downgrade_to}":101,39-64] ⊓ (_["_":101,39-64] -> _["_":101,39-64])["(_ -> _)":101,39-64])["{{infered_downgrade_to} ⊓ {}}":101,39-64] <= (_["_":101,57-63] -> _["_":101,57-63])["(_ -> _)":101,57-63] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+(I_infered_downgrade_to10["{infered_downgrade_to}":101,39-64] ⊓ (_["_":101,39-64] <- _["_":101,39-64])["(_ <- _)":101,39-64])["{{infered_downgrade_to} ⊓ {}}":101,39-64] <= (p1["p":101,58-59] <- p1["p":101,58-59])["(p <- *)":101,58-62] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+
+((_["_":101,57-63] -> _["_":101,57-63])["(_ -> _)":101,57-63] ⊓ (*["*":101,39-64] -> *["*":101,39-64])["(* -> *)":101,39-64])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":101,57-63] == (C_infered_downgrade_to10["{infered_downgrade_to}":101,39-64] ⊓ (*["*":101,39-64] -> *["*":101,39-64])["(* -> *)":101,39-64])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+((p1["p":101,58-59] <- p1["p":101,58-59])["(p <- *)":101,58-62] ⊓ (*["*":101,39-64] <- *["*":101,39-64])["(* <- *)":101,39-64])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":101,57-63] == (I_infered_downgrade_to10["{infered_downgrade_to}":101,39-64] ⊓ (*["*":101,39-64] <- *["*":101,39-64])["(* <- *)":101,39-64])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+
+((p1["p":99,28-29] -> p1["p":99,28-29])["(p -> *)":99,28-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":99,27-39] == C_infered_downgrade_from9["{infered_downgrade_from}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+((p1["p":99,34-35] <- p1["p":99,34-35])["(p <- *)":99,34-38] ⊔ I_pos["{pos}":99,41-44] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":99,27-39] == I_infered_downgrade_from9["{infered_downgrade_from}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+
+C_infered_downgrade_from9["{infered_downgrade_from}":101,39-64] <= (C_infered_downgrade_to10["{infered_downgrade_to}":101,39-64] ⊔ (*["*":101,39-64] -> *["*":101,39-64])["(* -> *)":101,39-64])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+I_infered_downgrade_from9["{infered_downgrade_from}":101,39-64] <= (I_infered_downgrade_to10["{infered_downgrade_to}":101,39-64] ⊔ (*["*":101,39-64] <- *["*":101,39-64])["(* <- *)":101,39-64])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+
+C_infered_downgrade_from9["{infered_downgrade_from}":101,39-64] <= ((((o1 -> o1)) ⊔ ((p1 -> p1)))["(o -> *) ⊔ (p -> *)":81,45-46] ⊔ C_infered_downgrade_to10["{infered_downgrade_to}":101,39-64])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+I_infered_downgrade_from9["{infered_downgrade_from}":101,39-64] <= ((_["_":81,45-46] <- _["_":81,45-46])["(_ <- _)":81,45-46] ⊔ I_infered_downgrade_to10["{infered_downgrade_to}":101,39-64])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":101,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,39-64]
+
+C_infered_downgrade_from10["{infered_downgrade_from}":101,31-83] == C_downgrade_from11["{downgrade_from}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+I_infered_downgrade_from10["{infered_downgrade_from}":101,31-83] == I_downgrade_from11["{downgrade_from}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+
+(_["_":101,66-82] -> _["_":101,66-82])["(_ -> _)":101,66-82] == C_infered_downgrade_to11["{infered_downgrade_to}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":101,67-81] == I_infered_downgrade_to11["{infered_downgrade_to}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_infered_downgrade_to10["{infered_downgrade_to}":101,39-64])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] == C_infered_downgrade_from10["{infered_downgrade_from}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_infered_downgrade_to10["{infered_downgrade_to}":101,39-64])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] == I_infered_downgrade_from10["{infered_downgrade_from}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+
+(C_infered_downgrade_from10["{infered_downgrade_from}":101,31-83] ⊓ (*["*":101,31-83] -> *["*":101,31-83])["(* -> *)":101,31-83])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":101,31-83] <= C_infered_downgrade_to11["{infered_downgrade_to}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+(I_infered_downgrade_from10["{infered_downgrade_from}":101,31-83] ⊓ (*["*":101,31-83] <- *["*":101,31-83])["(* <- *)":101,31-83])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":101,31-83] <= I_infered_downgrade_to11["{infered_downgrade_to}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+
+(C_infered_downgrade_from10["{infered_downgrade_from}":101,31-83] ⊓ (_["_":81,45-46] -> _["_":81,45-46])["(_ -> _)":81,45-46] ⊓ (_["_":81,47-48] -> _["_":81,47-48])["(_ -> _)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":101,31-83] <= C_infered_downgrade_to11["{infered_downgrade_to}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+(I_infered_downgrade_from10["{infered_downgrade_from}":101,31-83] ⊓ (p1["p":81,45-46] <- p1["p":81,45-46])["(p <- *)":81,45-46] ⊓ (o1["o":81,47-48] <- o1["o":81,47-48])["(o <- *)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":101,31-83] <= I_infered_downgrade_to11["{infered_downgrade_to}":101,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_infered_downgrade_to11["{infered_downgrade_to}":101,31-83])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] <= C_posX["{posX}":101,24-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_infered_downgrade_to11["{infered_downgrade_to}":101,31-83])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] <= I_posX["{posX}":101,24-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[101,31-83]
+
+C_infered_downgrade_from11["{infered_downgrade_from}":102,39-64] <= C_downgrade_from12["{downgrade_from}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+I_infered_downgrade_from11["{infered_downgrade_from}":102,39-64] <= I_downgrade_from12["{downgrade_from}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+
+(((p1["p":99,28-29] -> p1["p":99,28-29])["(p -> *)":99,28-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":99,27-39] ⊓ (_["_":102,39-64] -> _["_":102,39-64])["(_ -> _)":102,39-64])["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}}":99,27-39] <= (C_infered_downgrade_to1["{infered_downgrade_to}":102,39-64] ⊓ (_["_":102,39-64] -> _["_":102,39-64])["(_ -> _)":102,39-64])["{{infered_downgrade_to} ⊓ {}}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+(((p1["p":99,34-35] <- p1["p":99,34-35])["(p <- *)":99,34-38] ⊔ I_pos["{pos}":99,41-44] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":99,27-39] ⊓ (_["_":102,39-64] <- _["_":102,39-64])["(_ <- _)":102,39-64])["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}}":99,27-39] <= (I_infered_downgrade_to1["{infered_downgrade_to}":102,39-64] ⊓ (_["_":102,39-64] <- _["_":102,39-64])["(_ <- _)":102,39-64])["{{infered_downgrade_to} ⊓ {}}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+
+(C_infered_downgrade_to1["{infered_downgrade_to}":102,39-64] ⊓ (_["_":102,39-64] -> _["_":102,39-64])["(_ -> _)":102,39-64])["{{infered_downgrade_to} ⊓ {}}":102,39-64] <= (_["_":102,57-63] -> _["_":102,57-63])["(_ -> _)":102,57-63] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+(I_infered_downgrade_to1["{infered_downgrade_to}":102,39-64] ⊓ (_["_":102,39-64] <- _["_":102,39-64])["(_ <- _)":102,39-64])["{{infered_downgrade_to} ⊓ {}}":102,39-64] <= (p1["p":102,58-59] <- p1["p":102,58-59])["(p <- *)":102,58-62] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+
+((_["_":102,57-63] -> _["_":102,57-63])["(_ -> _)":102,57-63] ⊓ (*["*":102,39-64] -> *["*":102,39-64])["(* -> *)":102,39-64])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":102,57-63] == (C_infered_downgrade_to1["{infered_downgrade_to}":102,39-64] ⊓ (*["*":102,39-64] -> *["*":102,39-64])["(* -> *)":102,39-64])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+((p1["p":102,58-59] <- p1["p":102,58-59])["(p <- *)":102,58-62] ⊓ (*["*":102,39-64] <- *["*":102,39-64])["(* <- *)":102,39-64])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":102,57-63] == (I_infered_downgrade_to1["{infered_downgrade_to}":102,39-64] ⊓ (*["*":102,39-64] <- *["*":102,39-64])["(* <- *)":102,39-64])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+
+((p1["p":99,28-29] -> p1["p":99,28-29])["(p -> *)":99,28-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":99,27-39] == C_infered_downgrade_from11["{infered_downgrade_from}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+((p1["p":99,34-35] <- p1["p":99,34-35])["(p <- *)":99,34-38] ⊔ I_pos["{pos}":99,41-44] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":99,27-39] == I_infered_downgrade_from11["{infered_downgrade_from}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+
+C_infered_downgrade_from11["{infered_downgrade_from}":102,39-64] <= (C_infered_downgrade_to1["{infered_downgrade_to}":102,39-64] ⊔ (*["*":102,39-64] -> *["*":102,39-64])["(* -> *)":102,39-64])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+I_infered_downgrade_from11["{infered_downgrade_from}":102,39-64] <= (I_infered_downgrade_to1["{infered_downgrade_to}":102,39-64] ⊔ (*["*":102,39-64] <- *["*":102,39-64])["(* <- *)":102,39-64])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+
+C_infered_downgrade_from11["{infered_downgrade_from}":102,39-64] <= ((((o1 -> o1)) ⊔ ((p1 -> p1)))["(o -> *) ⊔ (p -> *)":81,45-46] ⊔ C_infered_downgrade_to1["{infered_downgrade_to}":102,39-64])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+I_infered_downgrade_from11["{infered_downgrade_from}":102,39-64] <= ((_["_":81,45-46] <- _["_":81,45-46])["(_ <- _)":81,45-46] ⊔ I_infered_downgrade_to1["{infered_downgrade_to}":102,39-64])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":102,39-64] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,39-64]
+
+C_infered_downgrade_from["{infered_downgrade_from}":102,31-83] == C_downgrade_from["{downgrade_from}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+I_infered_downgrade_from["{infered_downgrade_from}":102,31-83] == I_downgrade_from["{downgrade_from}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+
+(_["_":102,66-82] -> _["_":102,66-82])["(_ -> _)":102,66-82] == C_infered_downgrade_to["{infered_downgrade_to}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":102,67-81] == I_infered_downgrade_to["{infered_downgrade_to}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_infered_downgrade_to1["{infered_downgrade_to}":102,39-64])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] == C_infered_downgrade_from["{infered_downgrade_from}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_infered_downgrade_to1["{infered_downgrade_to}":102,39-64])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] == I_infered_downgrade_from["{infered_downgrade_from}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+
+(C_infered_downgrade_from["{infered_downgrade_from}":102,31-83] ⊓ (*["*":102,31-83] -> *["*":102,31-83])["(* -> *)":102,31-83])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":102,31-83] <= C_infered_downgrade_to["{infered_downgrade_to}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+(I_infered_downgrade_from["{infered_downgrade_from}":102,31-83] ⊓ (*["*":102,31-83] <- *["*":102,31-83])["(* <- *)":102,31-83])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":102,31-83] <= I_infered_downgrade_to["{infered_downgrade_to}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+
+(C_infered_downgrade_from["{infered_downgrade_from}":102,31-83] ⊓ (_["_":81,45-46] -> _["_":81,45-46])["(_ -> _)":81,45-46] ⊓ (_["_":81,47-48] -> _["_":81,47-48])["(_ -> _)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":102,31-83] <= C_infered_downgrade_to["{infered_downgrade_to}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+(I_infered_downgrade_from["{infered_downgrade_from}":102,31-83] ⊓ (p1["p":81,45-46] <- p1["p":81,45-46])["(p <- *)":81,45-46] ⊓ (o1["o":81,47-48] <- o1["o":81,47-48])["(o <- *)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":102,31-83] <= I_infered_downgrade_to["{infered_downgrade_to}":102,31-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_infered_downgrade_to["{infered_downgrade_to}":102,31-83])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] <= C_posY["{posY}":102,24-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_infered_downgrade_to["{infered_downgrade_to}":102,31-83])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] <= I_posY["{posY}":102,24-28] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[102,31-83]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_o["{o}":80,54-70] ⊔ C_p["{p}":80,25-41])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p}":87,12-14] <= C_newCoordinate["{newCoordinate}":103,59-109] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,59-109]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_o["{o}":80,54-70] ⊔ I_p["{p}":80,25-41])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p}":87,12-14] <= I_newCoordinate["{newCoordinate}":103,59-109] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,59-109]
+
+(C_posX["{posX}":101,24-28] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44])["{posX ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":101,24-28] <= ((p1["p":103,75-76] -> p1["p":103,75-76])["(p -> *)":103,75-79] ⊔ C_newCoordinate["{newCoordinate}":103,59-109])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":18,25-33] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,98-102]
+(I_posX["{posX}":101,24-28] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44])["{posX ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":101,24-28] <= ((((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":103,81-95] ⊔ I_newCoordinate["{newCoordinate}":103,59-109])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":18,25-33] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,98-102]
+
+(C_posY["{posY}":102,24-28] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44])["{posY ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":102,24-28] <= ((p1["p":103,75-76] -> p1["p":103,75-76])["(p -> *)":103,75-79] ⊔ C_newCoordinate["{newCoordinate}":103,59-109])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":18,40-48] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,104-108]
+(I_posY["{posY}":102,24-28] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44])["{posY ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":102,24-28] <= ((((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":103,81-95] ⊔ I_newCoordinate["{newCoordinate}":103,59-109])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":18,40-48] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,104-108]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":87,12-14] <= (*["*":18,11-51] -> *["*":18,11-51])["(* -> *)":18,11-51] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,59-109]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":87,12-14] <= (_["_":18,11-51] <- _["_":18,11-51])["(_ <- _)":18,11-51] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,59-109]
+
+(p1["p":103,75-76] -> p1["p":103,75-76])["(p -> *)":103,75-79] == (p1["p":103,32-33] -> p1["p":103,32-33])["(p -> *)":103,32-36] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,59-109]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":103,81-95] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":103,38-52] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,59-109]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_newCoordinate["{newCoordinate}":103,59-109])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newCoordinate}":87,12-14] <= C_c["{c}":103,55-56] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,59-109]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_newCoordinate["{newCoordinate}":103,59-109])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newCoordinate}":87,12-14] <= I_c["{c}":103,55-56] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[103,59-109]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":105,41-70] <= C_downgrade_from1["{downgrade_from}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+I_infered_downgrade_from1["{infered_downgrade_from}":105,41-70] <= I_downgrade_from1["{downgrade_from}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+
+(((p1["p":97,18-19] -> p1["p":97,18-19])["(p -> *)":97,18-22] ⊔ C_ss["{ss}":97,30-32] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_pos["{pos}":99,41-44])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":97,17-28] ⊓ (_["_":105,41-70] -> _["_":105,41-70])["(_ -> _)":105,41-70])["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}}":97,17-28] <= (C_infered_downgrade_to2["{infered_downgrade_to}":105,41-70] ⊓ (_["_":105,41-70] -> _["_":105,41-70])["(_ -> _)":105,41-70])["{{infered_downgrade_to} ⊓ {}}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+(((p1["p":97,23-24] <- p1["p":97,23-24])["(p <- *)":97,23-27] ⊔ I_ss["{ss}":97,30-32] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_pos["{pos}":99,41-44])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":97,17-28] ⊓ (_["_":105,41-70] <- _["_":105,41-70])["(_ <- _)":105,41-70])["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}}":97,17-28] <= (I_infered_downgrade_to2["{infered_downgrade_to}":105,41-70] ⊓ (_["_":105,41-70] <- _["_":105,41-70])["(_ <- _)":105,41-70])["{{infered_downgrade_to} ⊓ {}}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+
+(C_infered_downgrade_to2["{infered_downgrade_to}":105,41-70] ⊓ (_["_":105,41-70] -> _["_":105,41-70])["(_ -> _)":105,41-70])["{{infered_downgrade_to} ⊓ {}}":105,41-70] <= (_["_":105,63-69] -> _["_":105,63-69])["(_ -> _)":105,63-69] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+(I_infered_downgrade_to2["{infered_downgrade_to}":105,41-70] ⊓ (_["_":105,41-70] <- _["_":105,41-70])["(_ <- _)":105,41-70])["{{infered_downgrade_to} ⊓ {}}":105,41-70] <= (p1["p":105,64-65] <- p1["p":105,64-65])["(p <- *)":105,64-68] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+
+((_["_":105,63-69] -> _["_":105,63-69])["(_ -> _)":105,63-69] ⊓ (*["*":105,41-70] -> *["*":105,41-70])["(* -> *)":105,41-70])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":105,63-69] == (C_infered_downgrade_to2["{infered_downgrade_to}":105,41-70] ⊓ (*["*":105,41-70] -> *["*":105,41-70])["(* -> *)":105,41-70])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+((p1["p":105,64-65] <- p1["p":105,64-65])["(p <- *)":105,64-68] ⊓ (*["*":105,41-70] <- *["*":105,41-70])["(* <- *)":105,41-70])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":105,63-69] == (I_infered_downgrade_to2["{infered_downgrade_to}":105,41-70] ⊓ (*["*":105,41-70] <- *["*":105,41-70])["(* <- *)":105,41-70])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+
+((p1["p":97,18-19] -> p1["p":97,18-19])["(p -> *)":97,18-22] ⊔ C_ss["{ss}":97,30-32] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_pos["{pos}":99,41-44])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":97,17-28] == C_infered_downgrade_from1["{infered_downgrade_from}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+((p1["p":97,23-24] <- p1["p":97,23-24])["(p <- *)":97,23-27] ⊔ I_ss["{ss}":97,30-32] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_pos["{pos}":99,41-44])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":97,17-28] == I_infered_downgrade_from1["{infered_downgrade_from}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":105,41-70] <= (C_infered_downgrade_to2["{infered_downgrade_to}":105,41-70] ⊔ (*["*":105,41-70] -> *["*":105,41-70])["(* -> *)":105,41-70])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+I_infered_downgrade_from1["{infered_downgrade_from}":105,41-70] <= (I_infered_downgrade_to2["{infered_downgrade_to}":105,41-70] ⊔ (*["*":105,41-70] <- *["*":105,41-70])["(* <- *)":105,41-70])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":105,41-70] <= ((((o1 -> o1)) ⊔ ((p1 -> p1)))["(o -> *) ⊔ (p -> *)":81,45-46] ⊔ C_infered_downgrade_to2["{infered_downgrade_to}":105,41-70])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+I_infered_downgrade_from1["{infered_downgrade_from}":105,41-70] <= ((_["_":81,45-46] <- _["_":81,45-46])["(_ <- _)":81,45-46] ⊔ I_infered_downgrade_to2["{infered_downgrade_to}":105,41-70])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":105,41-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,41-70]
+
+C_infered_downgrade_from2["{infered_downgrade_from}":105,33-89] == C_downgrade_from3["{downgrade_from}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+I_infered_downgrade_from2["{infered_downgrade_from}":105,33-89] == I_downgrade_from3["{downgrade_from}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+
+(_["_":105,72-88] -> _["_":105,72-88])["(_ -> _)":105,72-88] == C_infered_downgrade_to3["{infered_downgrade_to}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":105,73-87] == I_infered_downgrade_to3["{infered_downgrade_to}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_infered_downgrade_to2["{infered_downgrade_to}":105,41-70])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] == C_infered_downgrade_from2["{infered_downgrade_from}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_infered_downgrade_to2["{infered_downgrade_to}":105,41-70])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] == I_infered_downgrade_from2["{infered_downgrade_from}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+
+(C_infered_downgrade_from2["{infered_downgrade_from}":105,33-89] ⊓ (*["*":105,33-89] -> *["*":105,33-89])["(* -> *)":105,33-89])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":105,33-89] <= C_infered_downgrade_to3["{infered_downgrade_to}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+(I_infered_downgrade_from2["{infered_downgrade_from}":105,33-89] ⊓ (*["*":105,33-89] <- *["*":105,33-89])["(* <- *)":105,33-89])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":105,33-89] <= I_infered_downgrade_to3["{infered_downgrade_to}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+
+(C_infered_downgrade_from2["{infered_downgrade_from}":105,33-89] ⊓ (_["_":81,45-46] -> _["_":81,45-46])["(_ -> _)":81,45-46] ⊓ (_["_":81,47-48] -> _["_":81,47-48])["(_ -> _)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":105,33-89] <= C_infered_downgrade_to3["{infered_downgrade_to}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+(I_infered_downgrade_from2["{infered_downgrade_from}":105,33-89] ⊓ (p1["p":81,45-46] <- p1["p":81,45-46])["(p <- *)":81,45-46] ⊓ (o1["o":81,47-48] <- o1["o":81,47-48])["(o <- *)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":105,33-89] <= I_infered_downgrade_to3["{infered_downgrade_to}":105,33-89] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_infered_downgrade_to3["{infered_downgrade_to}":105,33-89])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] <= C_length["{length}":105,24-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_infered_downgrade_to3["{infered_downgrade_to}":105,33-89])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] <= I_length["{length}":105,24-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[105,33-89]
+
+C_infered_downgrade_from4["{infered_downgrade_from}":106,46-81] <= C_downgrade_from2["{downgrade_from}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+I_infered_downgrade_from4["{infered_downgrade_from}":106,46-81] <= I_downgrade_from2["{downgrade_from}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+
+(((p1["p":97,18-19] -> p1["p":97,18-19])["(p -> *)":97,18-22] ⊔ C_ss["{ss}":97,30-32] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_pos["{pos}":99,41-44])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":97,17-28] ⊓ (_["_":106,46-81] -> _["_":106,46-81])["(_ -> _)":106,46-81])["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}}":97,17-28] <= (C_infered_downgrade_to4["{infered_downgrade_to}":106,46-81] ⊓ (_["_":106,46-81] -> _["_":106,46-81])["(_ -> _)":106,46-81])["{{infered_downgrade_to} ⊓ {}}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+(((p1["p":97,23-24] <- p1["p":97,23-24])["(p <- *)":97,23-27] ⊔ I_ss["{ss}":97,30-32] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_pos["{pos}":99,41-44])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":97,17-28] ⊓ (_["_":106,46-81] <- _["_":106,46-81])["(_ <- _)":106,46-81])["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}}":97,17-28] <= (I_infered_downgrade_to4["{infered_downgrade_to}":106,46-81] ⊓ (_["_":106,46-81] <- _["_":106,46-81])["(_ <- _)":106,46-81])["{{infered_downgrade_to} ⊓ {}}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+
+(C_infered_downgrade_to4["{infered_downgrade_to}":106,46-81] ⊓ (_["_":106,46-81] -> _["_":106,46-81])["(_ -> _)":106,46-81])["{{infered_downgrade_to} ⊓ {}}":106,46-81] <= (_["_":106,74-80] -> _["_":106,74-80])["(_ -> _)":106,74-80] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+(I_infered_downgrade_to4["{infered_downgrade_to}":106,46-81] ⊓ (_["_":106,46-81] <- _["_":106,46-81])["(_ <- _)":106,46-81])["{{infered_downgrade_to} ⊓ {}}":106,46-81] <= (p1["p":106,75-76] <- p1["p":106,75-76])["(p <- *)":106,75-79] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+
+((_["_":106,74-80] -> _["_":106,74-80])["(_ -> _)":106,74-80] ⊓ (*["*":106,46-81] -> *["*":106,46-81])["(* -> *)":106,46-81])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":106,74-80] == (C_infered_downgrade_to4["{infered_downgrade_to}":106,46-81] ⊓ (*["*":106,46-81] -> *["*":106,46-81])["(* -> *)":106,46-81])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+((p1["p":106,75-76] <- p1["p":106,75-76])["(p <- *)":106,75-79] ⊓ (*["*":106,46-81] <- *["*":106,46-81])["(* <- *)":106,46-81])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":106,74-80] == (I_infered_downgrade_to4["{infered_downgrade_to}":106,46-81] ⊓ (*["*":106,46-81] <- *["*":106,46-81])["(* <- *)":106,46-81])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+
+((p1["p":97,18-19] -> p1["p":97,18-19])["(p -> *)":97,18-22] ⊔ C_ss["{ss}":97,30-32] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_pos["{pos}":99,41-44])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":97,17-28] == C_infered_downgrade_from4["{infered_downgrade_from}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+((p1["p":97,23-24] <- p1["p":97,23-24])["(p <- *)":97,23-27] ⊔ I_ss["{ss}":97,30-32] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_pos["{pos}":99,41-44])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":97,17-28] == I_infered_downgrade_from4["{infered_downgrade_from}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+
+C_infered_downgrade_from4["{infered_downgrade_from}":106,46-81] <= (C_infered_downgrade_to4["{infered_downgrade_to}":106,46-81] ⊔ (*["*":106,46-81] -> *["*":106,46-81])["(* -> *)":106,46-81])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+I_infered_downgrade_from4["{infered_downgrade_from}":106,46-81] <= (I_infered_downgrade_to4["{infered_downgrade_to}":106,46-81] ⊔ (*["*":106,46-81] <- *["*":106,46-81])["(* <- *)":106,46-81])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+
+C_infered_downgrade_from4["{infered_downgrade_from}":106,46-81] <= ((((o1 -> o1)) ⊔ ((p1 -> p1)))["(o -> *) ⊔ (p -> *)":81,45-46] ⊔ C_infered_downgrade_to4["{infered_downgrade_to}":106,46-81])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+I_infered_downgrade_from4["{infered_downgrade_from}":106,46-81] <= ((_["_":81,45-46] <- _["_":81,45-46])["(_ <- _)":81,45-46] ⊔ I_infered_downgrade_to4["{infered_downgrade_to}":106,46-81])["{(o -> *) ⊔ (p -> *); (_ <- _) ⊔ infered_downgrade_to}":106,46-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,46-81]
+
+C_infered_downgrade_from3["{infered_downgrade_from}":106,38-100] == C_downgrade_from4["{downgrade_from}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+I_infered_downgrade_from3["{infered_downgrade_from}":106,38-100] == I_downgrade_from4["{downgrade_from}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+
+(_["_":106,83-99] -> _["_":106,83-99])["(_ -> _)":106,83-99] == C_infered_downgrade_to5["{infered_downgrade_to}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":106,84-98] == I_infered_downgrade_to5["{infered_downgrade_to}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_infered_downgrade_to4["{infered_downgrade_to}":106,46-81])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] == C_infered_downgrade_from3["{infered_downgrade_from}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_infered_downgrade_to4["{infered_downgrade_to}":106,46-81])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] == I_infered_downgrade_from3["{infered_downgrade_from}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+
+(C_infered_downgrade_from3["{infered_downgrade_from}":106,38-100] ⊓ (*["*":106,38-100] -> *["*":106,38-100])["(* -> *)":106,38-100])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":106,38-100] <= C_infered_downgrade_to5["{infered_downgrade_to}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+(I_infered_downgrade_from3["{infered_downgrade_from}":106,38-100] ⊓ (*["*":106,38-100] <- *["*":106,38-100])["(* <- *)":106,38-100])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":106,38-100] <= I_infered_downgrade_to5["{infered_downgrade_to}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+
+(C_infered_downgrade_from3["{infered_downgrade_from}":106,38-100] ⊓ (_["_":81,45-46] -> _["_":81,45-46])["(_ -> _)":81,45-46] ⊓ (_["_":81,47-48] -> _["_":81,47-48])["(_ -> _)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":106,38-100] <= C_infered_downgrade_to5["{infered_downgrade_to}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+(I_infered_downgrade_from3["{infered_downgrade_from}":106,38-100] ⊓ (p1["p":81,45-46] <- p1["p":81,45-46])["(p <- *)":81,45-46] ⊓ (o1["o":81,47-48] <- o1["o":81,47-48])["(o <- *)":81,47-48])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":106,38-100] <= I_infered_downgrade_to5["{infered_downgrade_to}":106,38-100] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_infered_downgrade_to5["{infered_downgrade_to}":106,38-100])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] <= C_isHoriz["{isHoriz}":106,28-35] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_infered_downgrade_to5["{infered_downgrade_to}":106,38-100])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":87,12-14] <= I_isHoriz["{isHoriz}":106,28-35] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[106,38-100]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_o["{o}":80,54-70] ⊔ C_p["{p}":80,25-41])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p}":87,12-14] <= C_newShip["{newShip}":108,53-105] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,53-105]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_o["{o}":80,54-70] ⊔ I_p["{p}":80,25-41])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p}":87,12-14] <= I_newShip["{newShip}":108,53-105] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,53-105]
+
+(C_c["{c}":103,55-56] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44])["{c ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":103,55-56] <= C_newShip["{newShip}":108,53-105] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,86-87]
+(I_c["{c}":103,55-56] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44])["{c ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":103,55-56] <= I_newShip["{newShip}":108,53-105] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,86-87]
+
+(p1["p":103,32-33] -> p1["p":103,32-33])["(p -> *)":103,32-36] == (p1["p":108,63-64] -> p1["p":108,63-64])["(p -> *)":108,63-67] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,86-87]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":103,38-52] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,69-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,86-87]
+
+(C_length["{length}":105,24-30] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44])["{length ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":105,24-30] <= (p1["p":108,63-64] -> p1["p":108,63-64])["(p -> *)":108,63-67] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,89-95]
+(I_length["{length}":105,24-30] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44])["{length ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":105,24-30] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,69-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,89-95]
+
+(C_isHoriz["{isHoriz}":106,28-35] ⊔ C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44])["{isHoriz ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":106,28-35] <= (p1["p":108,63-64] -> p1["p":108,63-64])["(p -> *)":108,63-67] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,97-104]
+(I_isHoriz["{isHoriz}":106,28-35] ⊔ I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44])["{isHoriz ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":106,28-35] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,69-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,97-104]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":87,12-14] <= (*["*":29,11-72] -> *["*":29,11-72])["(* -> *)":29,11-72] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,53-105]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":87,12-14] <= (_["_":29,11-72] <- _["_":29,11-72])["(_ <- _)":29,11-72] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,53-105]
+
+(p1["p":108,63-64] -> p1["p":108,63-64])["(p -> *)":108,63-67] == (p1["p":108,26-27] -> p1["p":108,26-27])["(p -> *)":108,26-30] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,53-105]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,69-83] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,32-46] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,53-105]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44] ⊔ C_newShip["{newShip}":108,53-105])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newShip}":87,12-14] <= C_t["{t}":108,49-50] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,53-105]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44] ⊔ I_newShip["{newShip}":108,53-105])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newShip}":87,12-14] <= I_t["{t}":108,49-50] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[108,53-105]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_ss["{ss}":97,30-32] ⊔ C_pos["{pos}":99,41-44])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":87,12-14] == C_downgrade_from5["{downgrade_from}":110,24-112,25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[110,24-112,25]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_ss["{ss}":97,30-32] ⊔ I_pos["{pos}":99,41-44])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":87,12-14] == I_downgrade_from5["{downgrade_from}":110,24-112,25] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[110,24-112,25]
+
+(C_downgrade_from5["{downgrade_from}":110,24-112,25] ⊓ (*["*":110,24-112,25] -> *["*":110,24-112,25])["(* -> *)":110,24-112,25])["{{downgrade_from} ⊓ {(* -> *); (* <- *)}}":110,24-112,25] <= (_["_":110,33-49] -> _["_":110,33-49])["(_ -> _)":110,33-49] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[110,24-112,25]
+(I_downgrade_from5["{downgrade_from}":110,24-112,25] ⊓ (*["*":110,24-112,25] <- *["*":110,24-112,25])["(* <- *)":110,24-112,25])["{{downgrade_from} ⊓ {(* -> *); (* <- *)}}":110,24-112,25] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":110,34-48] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[110,24-112,25]
+
+(C_downgrade_from5["{downgrade_from}":110,24-112,25] ⊓ (_["_":81,45-46] -> _["_":81,45-46])["(_ -> _)":81,45-46] ⊓ (_["_":81,47-48] -> _["_":81,47-48])["(_ -> _)":81,47-48])["{{downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":110,24-112,25] <= (_["_":110,33-49] -> _["_":110,33-49])["(_ -> _)":110,33-49] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[110,24-112,25]
+(I_downgrade_from5["{downgrade_from}":110,24-112,25] ⊓ (p1["p":81,45-46] <- p1["p":81,45-46])["(p <- *)":81,45-46] ⊓ (o1["o":81,47-48] <- o1["o":81,47-48])["(o <- *)":81,47-48])["{{downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":110,24-112,25] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":110,34-48] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[110,24-112,25]
+
+(C_t["{t}":108,49-50] ⊔ C_newBoard1["{newBoard}":83,38-46] ⊔ (_["_":110,33-49] -> _["_":110,33-49])["(_ -> _)":110,33-49])["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":108,49-50] <= (p1["p":83,15-16] -> p1["p":83,15-16])["(p -> *)":83,15-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,45-46]
+(I_t["{t}":108,49-50] ⊔ I_newBoard1["{newBoard}":83,38-46] ⊔ (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":110,34-48])["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":108,49-50] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":83,21-35] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,45-46]
+
+(p1["p":108,26-27] -> p1["p":108,26-27])["(p -> *)":108,26-30] == (p1["p":83,15-16] -> p1["p":83,15-16])["(p -> *)":83,15-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,45-46]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,32-46] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":83,21-35] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,45-46]
+
+(C_newBoard1["{newBoard}":83,38-46] ⊔ (_["_":110,33-49] -> _["_":110,33-49])["(_ -> _)":110,33-49])["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":83,38-46] <= (p1["p":83,15-16] -> p1["p":83,15-16])["(p -> *)":83,15-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,28-47]
+(I_newBoard1["{newBoard}":83,38-46] ⊔ (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":110,34-48])["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":83,38-46] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":83,21-35] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,28-47]
+
+C_receiver2["{receiver}":111,28-47] == (C_newBoard1["{newBoard}":83,38-46] ⊔ (_["_":110,33-49] -> _["_":110,33-49])["(_ -> _)":110,33-49])["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":83,38-46] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,28-47]
+I_receiver2["{receiver}":111,28-47] == (I_newBoard1["{newBoard}":83,38-46] ⊔ (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":110,34-48])["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":83,38-46] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,28-47]
+
+C_arg1label1["{arg1label}":111,45-46] == (C_t["{t}":108,49-50] ⊔ C_newBoard1["{newBoard}":83,38-46] ⊔ (_["_":110,33-49] -> _["_":110,33-49])["(_ -> _)":110,33-49])["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":108,49-50] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,28-47]
+I_arg1label1["{arg1label}":111,45-46] == (I_t["{t}":108,49-50] ⊔ I_newBoard1["{newBoard}":83,38-46] ⊔ (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":110,34-48])["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":108,49-50] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[111,28-47]
+
+((p1["p":83,15-16] -> p1["p":83,15-16])["(p -> *)":83,15-19] ⊔ C_newBoard1["{newBoard}":83,38-46])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newBoard}":83,14-36] <= C_impossible["{impossible}":114,27-62] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[114,27-62]
+((((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":83,21-35] ⊔ I_newBoard1["{newBoard}":83,38-46])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newBoard}":83,14-36] <= I_impossible["{impossible}":114,27-62] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[114,27-62]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18])["{sz ⊔ for ⊔ i}":87,12-14] <= C_i["{i}":88,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[88,32-33]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18])["{sz ⊔ for ⊔ i}":87,12-14] <= I_i["{i}":88,17-18] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[88,32-33]
+
+(C_sz["{sz}":87,12-14] ⊔ C_for["{for}":88,8-31] ⊔ C_i["{i}":88,17-18] ⊔ C_caller_pc["{caller_pc}":78,11-79,38])["{sz ⊔ for ⊔ i ⊔ caller_pc}":87,12-14] <= C_for["{for}":88,8-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[88,8-31]
+(I_sz["{sz}":87,12-14] ⊔ I_for["{for}":88,8-31] ⊔ I_i["{i}":88,17-18] ⊔ I_caller_pc["{caller_pc}":78,11-79,38])["{sz ⊔ for ⊔ i ⊔ caller_pc}":87,12-14] <= I_for["{for}":88,8-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[88,8-31]
+
+(C_newBoard1["{newBoard}":83,38-46] ⊔ C_caller_pc["{caller_pc}":78,11-79,38])["{newBoard ⊔ caller_pc}":83,38-46] <= (_["_":78,40-56] -> _["_":78,40-56])["(_ -> _)":78,40-56] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[118,8-24]
+(I_newBoard1["{newBoard}":83,38-46] ⊔ I_caller_pc["{caller_pc}":78,11-79,38])["{newBoard ⊔ caller_pc}":83,38-46] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":78,41-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[118,8-24]
+
+(p1["p":83,15-16] -> p1["p":83,15-16])["(p -> *)":83,15-19] == (p1["p":78,18-19] -> p1["p":78,18-19])["(p -> *)":78,18-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[118,15-23]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":83,21-35] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":78,24-38] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[118,15-23]
+

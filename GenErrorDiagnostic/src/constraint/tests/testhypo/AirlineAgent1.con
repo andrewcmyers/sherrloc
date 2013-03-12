@@ -1,54 +1,112 @@
-CONSTRUCTOR L 0 //class jif.types.label.ParamLabel_c@AirlineAgent1.jif:23,53-54
-CONSTRUCTOR AirlineAgent.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR this 0 //class jif.types.label.ThisLabel_c@AirlineAgent1.jif:4,7-25
-CONSTRUCTOR AirlineServer.provider 0 //class jif.types.label.ProviderLabel_c@AirlineAgent1.jif:17,16-29
-CONSTRUCTOR caller_pc 0 //class jif.types.label.ArgLabel_c@AirlineAgent1.jif:22,11-39
+CONSTRUCTOR C_AirlineServer.provider 0 //class jif.types.label.ProviderLabel_c@AirlineAgent1.jif:17,16-29
+CONSTRUCTOR I_AirlineServer.provider 0 //class jif.types.label.ProviderLabel_c@AirlineAgent1.jif:17,16-29
+CONSTRUCTOR C_L 0 //class jif.types.label.ParamLabel_c@AirlineAgent1.jif:23,53-54
+CONSTRUCTOR I_L 0 //class jif.types.label.ParamLabel_c@AirlineAgent1.jif:23,53-54
+CONSTRUCTOR C_AirlineAgent.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR I_AirlineAgent.provider 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@AirlineAgent1.jif:4,7-25
+CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@AirlineAgent1.jif:4,7-25
+CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@AirlineAgent1.jif:22,11-39
+CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@AirlineAgent1.jif:22,11-39
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@AirlineAgent1.jif:23,14-49
-CONSTRUCTOR * 0 //@Offer.jif:2,11-49
+CONSTRUCTOR * 0 //@AirlineAgent1.jif:23,15-28
 CONSTRUCTOR Airlines 0 //@AirlineAgent1.jif:5,10-18
 CONSTRUCTOR TheAirline 0 //@AirlineAgent1.jif:5,27-37
 
 %%
-caller_pc <= (TheAirline -> TheAirline);
-AirlineAgent.provider == _ -> _;
-AirlineServer.provider == _ -> _;
-_ -> _ <= L;
-L <= * -> *;
-_ -> _ <= AirlineAgent.provider;
-AirlineAgent.provider <= * -> *;
-_ -> _ <= this;
-this <= * -> *;
-_ -> _ <= AirlineServer.provider;
-AirlineServer.provider <= * -> *;
-_ -> _ <= caller_pc;
-caller_pc <= * -> *;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-_ -> _ <= v_newOffer;
-v_newOffer <= * -> *;
-_ -> _ <= v_price;
-v_price <= * -> *;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-_ -> _ <= (TheAirline -> TheAirline);
-(TheAirline -> TheAirline) <= * -> *;
+C_caller_pc <= (TheAirline -> TheAirline);
+I_caller_pc <= (TheAirline <- TheAirline);
+C_AirlineServer.provider == (_ -> _);
+I_AirlineServer.provider == (* <- *);
+C_AirlineAgent.provider == (_ -> _);
+I_AirlineAgent.provider == (* <- *);
+(_ -> _) <= C_AirlineServer.provider;
+C_AirlineServer.provider <= (* -> *);
+(* <- *) <= I_AirlineServer.provider;
+I_AirlineServer.provider <= (_ <- _);
+(_ -> _) <= C_L;
+C_L <= (* -> *);
+(* <- *) <= I_L;
+I_L <= (_ <- _);
+(_ -> _) <= C_AirlineAgent.provider;
+C_AirlineAgent.provider <= (* -> *);
+(* <- *) <= I_AirlineAgent.provider;
+I_AirlineAgent.provider <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_newOffer;
+C_newOffer <= (* -> *);
+(* <- *) <= I_newOffer;
+I_newOffer <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (TheAirline <- TheAirline);
+(TheAirline <- TheAirline) <= (_ <- _);
+(_ -> _) <= C_price;
+C_price <= (* -> *);
+(* <- *) <= I_price;
+I_price <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (TheAirline <- TheAirline);
+(TheAirline <- TheAirline) <= (_ <- _);
+(_ -> _) <= (TheAirline -> TheAirline);
+(TheAirline -> TheAirline) <= (* -> *);
+(* <- *) <= (TheAirline <- TheAirline);
+(TheAirline <- TheAirline) <= (_ <- _);
 
 %%
-caller_pc <= (TheAirline -> TheAirline) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
-(TheAirline -> TheAirline) <= L {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
-AirlineAgent.provider <= (_ -> _) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
-AirlineServer.provider <= AirlineAgent.provider {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
-AirlineAgent.provider <= AirlineServer.provider {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
-Airlines >= TheAirline {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
-AirlineAgent.provider <= (* -> *) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
-v_receiver == this {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":26,8-27]
-((TheAirline -> TheAirline)) ⊔ (this) <= v_price {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":27,20-34]
-this <= v_newOffer {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,15-38]
-(v_price) ⊔ (caller_pc) <= L {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,29-34]
-(caller_pc) <= L {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,36-37]
-caller_pc <= (* -> *) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,15-38]
-(caller_pc) ⊔ (v_newOffer) <= (L) ⊔ (caller_pc) {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,8-39]
-L <= L {(_ -> _) <= L;this <= caller_pc;Airlines >= TheAirline;};["":28,15-38]
+C_caller_pc["{caller_pc}":22,11-39] <= (TheAirline["TheAirline":15,51-61] -> TheAirline["TheAirline":15,51-61])["(TheAirline -> *)":15,51-64] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+I_caller_pc["{caller_pc}":22,11-39] <= (TheAirline["TheAirline":15,36-46] <- TheAirline["TheAirline":15,36-46])["(TheAirline <- *)":15,36-49] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+
+(TheAirline["TheAirline":16,30-40] -> TheAirline["TheAirline":16,30-40])["(TheAirline -> *)":16,30-43] <= C_L["L":16,49-50] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+(TheAirline["TheAirline":16,15-25] <- TheAirline["TheAirline":16,15-25])["(TheAirline <- *)":16,15-28] <= I_L["L":16,49-50] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+
+C_AirlineAgent.provider["AirlineAgent.provider":] <= (_["_":16,64-80] -> _["_":16,64-80])["(_ -> _)":16,64-80] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+I_AirlineAgent.provider["AirlineAgent.provider":] <= (TheAirline["TheAirline":16,65-75] <- TheAirline["TheAirline":16,65-75])["(TheAirline <- *)":16,65-78] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+
+C_AirlineAgent.provider["AirlineAgent.provider":] <= C_AirlineServer.provider["AirlineServer.provider":17,16-29] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+I_AirlineAgent.provider["AirlineAgent.provider":] <= I_AirlineServer.provider["AirlineServer.provider":17,16-29] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+
+C_AirlineServer.provider["AirlineServer.provider":17,16-29] <= C_AirlineAgent.provider["AirlineAgent.provider":] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+I_AirlineServer.provider["AirlineServer.provider":17,16-29] <= I_AirlineAgent.provider["AirlineAgent.provider":] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+
+Airlines["Airlines":5,10-18] >= TheAirline["TheAirline":5,27-37] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};["":26,8-27]
+C_AirlineAgent.provider["AirlineAgent.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+I_AirlineAgent.provider["AirlineAgent.provider":] <= (TheAirline["TheAirline":5,56-66] <- TheAirline["TheAirline":5,56-66])["(TheAirline <- TheAirline)":] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+
+C_receiver["{receiver}":26,8-27] == C_this["{this}":4,7-25] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+I_receiver["{receiver}":26,8-27] == I_this["{this}":4,7-25] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27]
+
+((TheAirline["TheAirline":13,25-35] -> TheAirline["TheAirline":13,25-35])["(TheAirline -> *)":13,25-38] ⊔ C_this["{this}":4,7-25])["{(TheAirline -> *); (TheAirline <- *) ⊔ this}":13,8-40] <= C_price["{price}":27,12-17] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[27,20-34]
+((TheAirline["TheAirline":13,10-20] <- TheAirline["TheAirline":13,10-20])["(TheAirline <- *)":13,10-23] ⊔ I_this["{this}":4,7-25])["{(TheAirline -> *); (TheAirline <- *) ⊔ this}":13,8-40] <= I_price["{price}":27,12-17] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[27,20-34]
+
+C_this["{this}":28,25-26] <= C_newOffer["{newOffer}":28,15-38] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38]
+I_this["{this}":28,25-26] <= I_newOffer["{newOffer}":28,15-38] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38]
+
+(C_price["{price}":27,12-17] ⊔ C_caller_pc["{caller_pc}":22,11-39])["{price ⊔ caller_pc}":27,12-17] <= C_L["L":28,25-26] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,29-34]
+(I_price["{price}":27,12-17] ⊔ I_caller_pc["{caller_pc}":22,11-39])["{price ⊔ caller_pc}":27,12-17] <= I_L["L":28,25-26] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,29-34]
+
+(C_caller_pc["{caller_pc}":22,11-39])["{caller_pc}":22,11-39] <= C_L["L":28,25-26] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,36-37]
+(I_caller_pc["{caller_pc}":22,11-39])["{caller_pc}":22,11-39] <= I_L["L":28,25-26] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,36-37]
+
+C_caller_pc["{caller_pc}":22,11-39] <= (*["*":2,11-49] -> *["*":2,11-49])["(* -> *)":2,11-49] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38]
+I_caller_pc["{caller_pc}":22,11-39] <= (_["_":2,11-49] <- _["_":2,11-49])["(_ <- _)":2,11-49] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38]
+
+(C_caller_pc["{caller_pc}":22,11-39] ⊔ C_newOffer["{newOffer}":28,15-38])["{caller_pc ⊔ newOffer}":22,11-39] <= (C_L["L":22,21-22] ⊔ C_caller_pc["{caller_pc}":22,11-39])["{L ⊔ caller_pc}":22,21-22] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,8-39]
+(I_caller_pc["{caller_pc}":22,11-39] ⊔ I_newOffer["{newOffer}":28,15-38])["{caller_pc ⊔ newOffer}":22,11-39] <= (I_L["L":22,21-22] ⊔ I_caller_pc["{caller_pc}":22,11-39])["{L ⊔ caller_pc}":22,21-22] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,8-39]
+
+C_L["L":28,25-26] <= C_L["L":22,17-18] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38]
+I_L["L":28,25-26] <= I_L["L":22,17-18] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38]
+
