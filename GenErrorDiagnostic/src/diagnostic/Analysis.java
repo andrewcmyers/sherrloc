@@ -2,9 +2,12 @@
 package diagnostic;
 
 import java.io.BufferedWriter;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -127,7 +130,7 @@ public class Analysis {
 	}
 	
 	static public Analysis getAnalysisInstance (String input, boolean symmentric) throws Exception {
-	    parser p = new parser(new GrmLexer(new FileReader(input)));
+	    parser p = new parser(new GrmLexer(new InputStreamReader(new FileInputStream(input), "UTF-8")));
 	    DiagnosisInput result = (DiagnosisInput) p.parse().value;
 
 	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), symmentric);
@@ -285,8 +288,8 @@ public class Analysis {
         	genErrorPaths();
         
         try {
-            FileWriter fstream = new FileWriter(filename);
-            BufferedWriter out = new BufferedWriter(fstream);
+            FileOutputStream fstream = new FileOutputStream(filename);
+            OutputStreamWriter out = new OutputStreamWriter(fstream,"UTF-8");
             if (SHOW_WHOLE_GRAPH) 
             	graph.labelAll();
             else
