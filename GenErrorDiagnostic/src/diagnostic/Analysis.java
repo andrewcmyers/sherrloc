@@ -306,8 +306,8 @@ public class Analysis {
         	genErrorPaths();
         
         try {
-            FileWriter fstream = new FileWriter(htmlFileName);
-            BufferedWriter out = new BufferedWriter(fstream);
+            FileOutputStream fstream = new FileOutputStream(htmlFileName);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fstream, "UTF-8"));
             // out.write(getHeader());
             writeFeedback(out);
         	
