@@ -1,8 +1,9 @@
 package util;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -122,8 +123,8 @@ public class HTTPUtil {
 		
     	// add annotations to the source
     	try {
-			FileReader fstream = new FileReader(sourceName);
-			BufferedReader in = new BufferedReader(fstream);
+			FileInputStream fstream = new FileInputStream(sourceName);
+			BufferedReader in = new BufferedReader(new InputStreamReader(fstream, "UTF-8"));
 			String current;
 			int currentline = 0;
 			while ((current = in.readLine()) != null) {
