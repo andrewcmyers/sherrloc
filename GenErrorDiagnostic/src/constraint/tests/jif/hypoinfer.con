@@ -1,0 +1,14 @@
+CONSTRUCTOR a 0
+CONSTRUCTOR b 0
+CONSTRUCTOR c 0
+CONSTRUCTOR d 0
+CONSTRUCTOR e 0
+CONSTRUCTOR c 0
+
+%%
+_ <= *;
+
+%%
+a <= ((b join c) join d);
+a <= (((b join c) join d) join e);
+a <= (c join b);

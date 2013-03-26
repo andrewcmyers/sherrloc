@@ -4,7 +4,6 @@ package diagnostic;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -12,6 +11,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -150,6 +150,7 @@ public class Analysis {
         ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
         ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
         Set<Element> elements = graph.getAllElements();
+        Set<Element> testElements = new HashSet<Element>();
         
         // initialize the maps, expr to node and succ path counter
         for (Node n : graph.getAllNodes()) {
@@ -198,28 +199,27 @@ public class Analysis {
 							continue;
 				}
 				
+				// less interesting paths
+				if (e1.isBottom() || e2.isTop())
+					continue;
+				
 				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
 				
 //				System.out.println("comparing "+e1 + " and " + e2);
 				
 				ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
-
-				// successful path
-				if (graph.getEnv().leq(e1, e2)) {
+		
+//				// successful path
+//				if (graph.getEnv().leq(e1, e2)) {
+//					path.incSuccCounter();
+//					continue;
+//				}
+				if (path.isSuccPath(cachedEnv)) {
 					path.incSuccCounter();
 					continue;
 				}
-				
-				// if failed, try to use the assumptions on path
-				Environment env;
-				if (cachedEnv.containsKey(path.getAssumption()))
-					env = cachedEnv.get(path.getAssumption());
-				else {
-					env = path.getAssumption();
-					cachedEnv.put(path.getAssumption(), env);
-				}
-				
+								
 //				System.out.println("***********");
 //				for (Constraint c : env.getAssertions()) {
 //					System.out.println(c);
@@ -228,15 +228,26 @@ public class Analysis {
 //				System.exit(0);
 
 				// successful path
-				if (env.leq(e1, e2)) {
-					path.incSuccCounter();
-					continue;
+//				if (env.leq(e1, e2)) {
+//					path.incSuccCounter();
+//					continue;
+//				}
+				else if (path.isUnsatPath(cachedEnv)) {
+					testElements.add(e1);
+					testElements.add(e2);
+					path.incFailCounter();
+					path.setCause();
+					unsatPaths.addUnsatPath(path);
+					System.out.println(path);
 				}
-				path.incFailCounter();
-				path.setCause();
-				unsatPaths.addUnsatPath(path);
-				System.out.println(path);
 			}
+		}
+		
+		for (ConstraintPath path : unsatPaths.getPaths()) {
+			Environment env = new Environment();
+			env.addEnv(path.getAssumption());
+			env.addElements(testElements);
+			path.setAssumption(env);
 		}
 		
 		for (Node n : graph.getAllNodes()) {
@@ -333,8 +344,10 @@ public class Analysis {
         			out.append("<H2>"+l.size()+" separate typing errors are identified</H2>");
         		}
         		int count = 1;	
-        		for (UnsatPaths paths : l)
+        		for (UnsatPaths paths : l) {
+        			System.out.println("***********"+paths.size());
         			out.append(getOneSuggestion(sourceName, paths, count++));
+        		}
         		
         		out.append(util.genAnnotatedCode(unsatPaths, sourceName) +
         				(sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
@@ -418,10 +431,10 @@ public class Analysis {
     		"<HR>\n" +
     		"<H2>\n" +
     		"Error "+ count + "</H2>\n" +
-    		unsatPaths.toHTML() +
-    		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
+    		paths.toHTML() +
+    		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):""));
 //    		(GEN_CUT?paths.genElementCut():""));
-    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():""));
+//    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():""));
     	return sb.toString();
     }
 }

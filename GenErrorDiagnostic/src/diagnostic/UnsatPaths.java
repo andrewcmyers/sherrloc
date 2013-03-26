@@ -1,8 +1,10 @@
 package diagnostic;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -78,6 +80,33 @@ public class UnsatPaths {
     
     public List<UnsatPaths> genIndependentPaths ( ) {
     	List<UnsatPaths> ret = new ArrayList<UnsatPaths>();
+//    	List<ConstraintPath> group = new ArrayList<ConstraintPath>();
+//    	ArrayList<ConstraintPath> remaining = new ArrayList<ConstraintPath>(errPaths);
+//    	
+//    	while (remaining.size()>0) {
+//    		UnsatPaths path = new UnsatPaths();
+//    		group.add(remaining.remove(0));
+//    		while (group.size()>0) {
+//    			ConstraintPath currentpath = group.remove(0);
+//    			path.addUnsatPath(currentpath);
+//    			for (Node n : currentpath.getAllNodes()) {
+//    				List<ConstraintPath> toadd = new ArrayList<ConstraintPath>();
+//    				for (ConstraintPath p : remaining) {
+//    					if (p.getAllNodes().contains(n)) {
+//    						group.add(p);
+//    						toadd.add(p);
+//    					}
+//    				}
+//    				for (ConstraintPath p : toadd) {
+//    					remaining.remove(p);
+//    				}
+//    			}
+//    		}
+//    		ret.add(path);
+//    	}
+    	ret.add(this);
+    	return ret;
+
 //    	for (ConstraintPath cpath : errPaths) {
 //    		List<UnsatPaths> matched = new ArrayList<UnsatPaths>();
 //    		for (UnsatPaths path : ret) {
@@ -108,8 +137,6 @@ public class UnsatPaths {
 //    			ret.add(newpath);
 //    		}
 //    	}
-    	ret.add(this);
-    	return ret;
 //    	List<UnsatPaths> groups = new ArrayList<UnsatPaths>();
 //    	groups.add(this);
 //    	List<Set<Node>> groupnodes = new ArrayList<Set<Node>>();
@@ -252,7 +279,7 @@ public class UnsatPaths {
     public String toHTML ( ) {
     	StringBuffer sb = new StringBuffer();
     	sb.append("<H3>");
-    	sb.append(size() +" type mismatch" + (size() == 1 ? "" : "s") + " found: \n");
+    	sb.append(size() +" type mismatch" + (size() == 1 ? "" : "es") + " found: \n");
 		sb.append("</H3>\n");
 		sb.append("<UL>\n");
 		for (ConstraintPath path : errPaths) {
@@ -282,45 +309,44 @@ public class UnsatPaths {
     
     public String genMissingAssumptions (Position pos, String sourceName ) {
     	StringBuffer sb = new StringBuffer();
-		Set<Hypothesis> result = MissingHypoInfer.genAssumptions(
-				this, cachedEnv).iterator().next();
+		Set<Set<Hypothesis>> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
 		sb.append("<H3>Likely missing assumption(s): </H3>\n");
 		sb.append("<UL>\n");
-		sb.append("<LI>");
-		sb.append("<OL>\n");
-
-		String missingCons = "";
-		for (Hypothesis g : result)
-			missingCons += g.toString() + ";";
-		sb.append(missingCons + "\n");
-		sb.append("</OL>\n");
-
-		if (pos != null) {
-			sb.append("\n<pre class=\"code\">\n");
-			try {
-				FileReader fstream = new FileReader(sourceName);
-				BufferedReader in = new BufferedReader(fstream);
-				String current;
-				int currentline = 0;
-				while ((current = in.readLine()) != null) {
-					currentline++;
-					if (currentline < pos.getLineStart())
-						continue;
-
-					if (pos.getLineStart() == currentline) {
-						current = current
-								+ " <span class=\"missingConstraint\"> "
-								+ missingCons + "</span>";
-					}
-
-					sb.append(currentline + ". " + current + "\n");
-				}
-				in.close();
-			} catch (IOException e) {
-				sb.append("Failed to read file: " + sourceName);
+		
+		for (Set<Hypothesis> g : result) {
+			sb.append("<LI>");
+			for (Hypothesis h : g) {
+				sb.append( h.toString() + ";");
 			}
-			sb.append("</pre>\n");
+			sb.append("\n");
 		}
+
+//		if (pos != null) {
+//			sb.append("\n<pre class=\"code\">\n");
+//			try {
+//				FileInputStream fstream = new FileInputStream(sourceName);
+//				BufferedReader in = new BufferedReader(new InputStreamReader(fstream, "UTF-8"));
+//				String current;
+//				int currentline = 0;
+//				while ((current = in.readLine()) != null) {
+//					currentline++;
+//					if (currentline < pos.getLineStart())
+//						continue;
+//
+//					if (pos.getLineStart() == currentline) {
+//						current = current
+//								+ " <span class=\"missingConstraint\"> "
+//								+ missingCons + "</span>";
+//					}
+//
+//					sb.append(currentline + ". " + current + "\n");
+//				}
+//				in.close();
+//			} catch (IOException e) {
+//				sb.append("Failed to read file: " + sourceName);
+//			}
+//			sb.append("</pre>\n");
+//		}
 		sb.append("</UL>");
 		return sb.toString();
 	}

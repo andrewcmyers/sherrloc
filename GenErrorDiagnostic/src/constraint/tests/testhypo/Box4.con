@@ -1,24 +1,22 @@
-CONSTRUCTOR C_l 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:133,4-9
-CONSTRUCTOR I_l 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:133,4-9
-CONSTRUCTOR C_L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:14,1-2
-CONSTRUCTOR I_L 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:14,1-2
-CONSTRUCTOR C_*a 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,28-29
-CONSTRUCTOR I_*a 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,28-29
-CONSTRUCTOR C_mapserv.Box.provider 0 //class fabric.types.FabricProviderLabel_c@null
-CONSTRUCTOR I_mapserv.Box.provider 0 //class fabric.types.FabricProviderLabel_c@null
-CONSTRUCTOR C_this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:12,7-16
-CONSTRUCTOR I_this 0 //class fabric.types.FabricThisLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:12,7-16
-CONSTRUCTOR C_*l 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,4-5
-CONSTRUCTOR I_*l 0 //class jif.types.label.DynamicLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,4-5
-CONSTRUCTOR C_A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:14,6-7
-CONSTRUCTOR I_A 0 //class jif.types.label.ParamLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:14,6-7
-CONSTRUCTOR C_a 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:134,4-9
-CONSTRUCTOR I_a 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:134,4-9
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:125,2-126,6
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@/home/zhdf/demo/pldi13/friendmap/Box4.fab:125,2-126,6
+CONSTRUCTOR C_l 0 //C_l["{l}":133,4-9@Box4.fab]
+CONSTRUCTOR I_l 0 //I_l["{l}":133,4-9@Box4.fab]
+CONSTRUCTOR C_L 0 //C_L["L":14,1-2@Box4.fab]
+CONSTRUCTOR I_L 0 //I_L["L":14,1-2@Box4.fab]
+CONSTRUCTOR C_this 0 //C_this["{this}":12,7-16@Box4.fab]
+CONSTRUCTOR I_this 0 //I_this["{this}":12,7-16@Box4.fab]
+CONSTRUCTOR C_*l 0 //C_*l["{*l}":139,4-5@Box4.fab]
+CONSTRUCTOR I_*l 0 //I_*l["{*l}":139,4-5@Box4.fab]
+CONSTRUCTOR C_A 0 //C_A["A":14,6-7@Box4.fab]
+CONSTRUCTOR I_A 0 //I_A["A":14,6-7@Box4.fab]
+CONSTRUCTOR C_a 0 //C_a["{a}":134,4-9@Box4.fab]
+CONSTRUCTOR I_a 0 //I_a["{a}":134,4-9@Box4.fab]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab]
+CONSTRUCTOR C_*a 0 //C_*a["{*a}":139,28-29@Box4.fab]
+CONSTRUCTOR I_*a 0 //I_*a["{*a}":139,28-29@Box4.fab]
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@null
 CONSTRUCTOR s 0 //@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,12-13
+CONSTRUCTOR _ 0 //@null
 CONSTRUCTOR * 0 //@/home/zhdf/demo/pldi13/friendmap/Box4.fab:139,10-11
 
 %%
@@ -26,8 +24,10 @@ I_l <= (_ <- _);
 I_a <= (_ <- _);
 C_caller_pc <= (C_*l ⊓ (* -> s) ⊓ C_A);
 I_caller_pc <= (I_*l ⊓ (_ <- _) ⊓ I_A);
-C_mapserv.Box.provider == (_ -> _);
-I_mapserv.Box.provider == (* <- *);
+(_ -> _) <= C_mapserv.Box.provider;
+C_mapserv.Box.provider <= (* -> *);
+(* <- *) <= I_mapserv.Box.provider;
+I_mapserv.Box.provider <= (_ <- _);
 (_ -> _) <= C_l;
 C_l <= (* -> *);
 (* <- *) <= I_l;
@@ -36,14 +36,6 @@ I_l <= (_ <- _);
 C_L <= (* -> *);
 (* <- *) <= I_L;
 I_L <= (_ <- _);
-(_ -> _) <= C_*a;
-C_*a <= (* -> *);
-(* <- *) <= I_*a;
-I_*a <= (_ <- _);
-(_ -> _) <= C_mapserv.Box.provider;
-C_mapserv.Box.provider <= (* -> *);
-(* <- *) <= I_mapserv.Box.provider;
-I_mapserv.Box.provider <= (_ <- _);
 (_ -> _) <= C_this;
 C_this <= (* -> *);
 (* <- *) <= I_this;
@@ -64,14 +56,6 @@ I_*l <= (_ <- _);
 C_A <= (* -> *);
 (* <- *) <= I_A;
 I_A <= (_ <- _);
-(_ -> _) <= C_a;
-C_a <= (* -> *);
-(* <- *) <= I_a;
-I_a <= (_ <- _);
-(_ -> _) <= C_caller_pc;
-C_caller_pc <= (* -> *);
-(* <- *) <= I_caller_pc;
-I_caller_pc <= (_ <- _);
 (_ -> _) <= (* -> s);
 (* -> s) <= (* -> *);
 (* <- *) <= (_ <- _);
@@ -80,53 +64,65 @@ I_caller_pc <= (_ <- _);
 (_ -> _) <= (* -> *);
 (* <- *) <= (* <- s);
 (* <- s) <= (_ <- _);
+(_ -> _) <= C_a;
+C_a <= (* -> *);
+(* <- *) <= I_a;
+I_a <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_*a;
+C_*a <= (* -> *);
+(* <- *) <= I_*a;
+I_*a <= (_ <- _);
 
 %%
-(C_l["{l}":133,4-9] ⊔ C_caller_pc["{caller_pc}":125,2-126,6])["{l ⊔ caller_pc}":133,4-9] <= C_newBox["{newBox}":146,11-69] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-(I_l["{l}":133,4-9] ⊔ I_caller_pc["{caller_pc}":125,2-126,6])["{l ⊔ caller_pc}":133,4-9] <= I_newBox["{newBox}":146,11-69] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+(C_l["{l}":133,4-9@Box4.fab] ⊔ C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{l ⊔ caller_pc}":133,4-9@Box4.fab] <= C_newBox["{newBox}":146,11-69@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+(I_l["{l}":133,4-9@Box4.fab] ⊔ I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{l ⊔ caller_pc}":133,4-9@Box4.fab] <= I_newBox["{newBox}":146,11-69@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-(C_a["{a}":134,4-9] ⊔ C_caller_pc["{caller_pc}":125,2-126,6])["{a ⊔ caller_pc}":134,4-9] <= C_newBox["{newBox}":146,11-69] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-(I_a["{a}":134,4-9] ⊔ I_caller_pc["{caller_pc}":125,2-126,6])["{a ⊔ caller_pc}":134,4-9] <= I_newBox["{newBox}":146,11-69] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+(C_a["{a}":134,4-9@Box4.fab] ⊔ C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{a ⊔ caller_pc}":134,4-9@Box4.fab] <= C_newBox["{newBox}":146,11-69@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+(I_a["{a}":134,4-9@Box4.fab] ⊔ I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{a ⊔ caller_pc}":134,4-9@Box4.fab] <= I_newBox["{newBox}":146,11-69@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-(C_L["L":21,15-16] ⊔ C_this["{this}":12,7-16] ⊔ C_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ this ⊔ caller_pc}":21,15-16] <= C_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,26-35]
-(I_L["L":21,15-16] ⊔ I_this["{this}":12,7-16] ⊔ I_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ this ⊔ caller_pc}":21,15-16] <= I_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,26-35]
+(C_L["L":21,15-16@Box4.fab] ⊔ C_this["{this}":12,7-16@Box4.fab] ⊔ C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ this ⊔ caller_pc}":21,15-16@Box4.fab] <= C_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,26-35@Box4.fab]
+(I_L["L":21,15-16@Box4.fab] ⊔ I_this["{this}":12,7-16@Box4.fab] ⊔ I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ this ⊔ caller_pc}":21,15-16@Box4.fab] <= I_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,26-35@Box4.fab]
 
-(C_L["L":21,15-16] ⊔ C_this["{this}":12,7-16] ⊔ C_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ this ⊔ caller_pc}":21,15-16] <= C_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,37-46]
-(I_L["L":21,15-16] ⊔ I_this["{this}":12,7-16] ⊔ I_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ this ⊔ caller_pc}":21,15-16] <= I_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,37-46]
+(C_L["L":21,15-16@Box4.fab] ⊔ C_this["{this}":12,7-16@Box4.fab] ⊔ C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ this ⊔ caller_pc}":21,15-16@Box4.fab] <= C_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,37-46@Box4.fab]
+(I_L["L":21,15-16@Box4.fab] ⊔ I_this["{this}":12,7-16@Box4.fab] ⊔ I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ this ⊔ caller_pc}":21,15-16@Box4.fab] <= I_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,37-46@Box4.fab]
 
-(C_L["L":22,15-16] ⊔ C_this["{this}":12,7-16] ⊔ C_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ this ⊔ caller_pc}":22,15-16] <= C_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,48-57]
-(I_L["L":22,15-16] ⊔ I_this["{this}":12,7-16] ⊔ I_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ this ⊔ caller_pc}":22,15-16] <= I_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,48-57]
+(C_L["L":22,15-16@Box4.fab] ⊔ C_this["{this}":12,7-16@Box4.fab] ⊔ C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ this ⊔ caller_pc}":22,15-16@Box4.fab] <= C_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,48-57@Box4.fab]
+(I_L["L":22,15-16@Box4.fab] ⊔ I_this["{this}":12,7-16@Box4.fab] ⊔ I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ this ⊔ caller_pc}":22,15-16@Box4.fab] <= I_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,48-57@Box4.fab]
 
-(C_L["L":22,15-16] ⊔ C_this["{this}":12,7-16] ⊔ C_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ this ⊔ caller_pc}":22,15-16] <= C_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,59-68]
-(I_L["L":22,15-16] ⊔ I_this["{this}":12,7-16] ⊔ I_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ this ⊔ caller_pc}":22,15-16] <= I_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,59-68]
+(C_L["L":22,15-16@Box4.fab] ⊔ C_this["{this}":12,7-16@Box4.fab] ⊔ C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ this ⊔ caller_pc}":22,15-16@Box4.fab] <= C_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,59-68@Box4.fab]
+(I_L["L":22,15-16@Box4.fab] ⊔ I_this["{this}":12,7-16@Box4.fab] ⊔ I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ this ⊔ caller_pc}":22,15-16@Box4.fab] <= I_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,59-68@Box4.fab]
 
-C_caller_pc["{caller_pc}":125,2-126,6] <= C_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-I_caller_pc["{caller_pc}":125,2-126,6] <= I_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab] <= C_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab] <= I_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-C_mapserv.Box.provider["mapserv.Box.provider":] <= C_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-I_mapserv.Box.provider["mapserv.Box.provider":] <= I_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+C_mapserv.Box.provider["mapserv.Box.provider":] <= C_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+I_mapserv.Box.provider["mapserv.Box.provider":] <= I_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-C_*l["{*l}":146,19-20] <= C_*a["{*a}":146,21-22] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-I_*l["{*l}":146,19-20] <= I_*a["{*a}":146,21-22] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+C_*l["{*l}":146,19-20@Box4.fab] <= C_*a["{*a}":146,21-22@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+I_*l["{*l}":146,19-20@Box4.fab] <= I_*a["{*a}":146,21-22@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-(C_*a["{*a}":146,21-22] ⊔ (_["_":] -> _["_":])["(_ -> _)":])["{*a ⊔ (_ -> _); (_ <- _)}":146,21-22] <= (*["*":] -> s["s":146,24-25])["(* -> s)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-(I_*a["{*a}":146,21-22] ⊔ (_["_":] <- _["_":])["(_ <- _)":])["{*a ⊔ (_ -> _); (_ <- _)}":146,21-22] <= (_["_":] <- _["_":])["(_ <- _)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+(C_*a["{*a}":146,21-22@Box4.fab] ⊔ (_["_":] -> _["_":])["(_ -> _)":])["{*a ⊔ (_ -> _); (_ <- _)}":146,21-22@Box4.fab] <= (*["*":] -> s["s":146,24-25@Box4.fab])["(* -> s)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+(I_*a["{*a}":146,21-22@Box4.fab] ⊔ (_["_":] <- _["_":])["(_ <- _)":])["{*a ⊔ (_ -> _); (_ <- _)}":146,21-22@Box4.fab] <= (_["_":] <- _["_":])["(_ <- _)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-C_*l["{*l}":146,19-20] <= (*["*":] -> s["s":146,24-25])["(* -> s)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-I_*l["{*l}":146,19-20] <= (_["_":] <- _["_":])["(_ <- _)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+C_*l["{*l}":146,19-20@Box4.fab] <= (*["*":] -> s["s":146,24-25@Box4.fab])["(* -> s)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+I_*l["{*l}":146,19-20@Box4.fab] <= (_["_":] <- _["_":])["(_ <- _)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-(_["_":] -> _["_":])["(_ -> _)":] <= C_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-(*["*":] <- s["s":146,24-25])["(* <- s)":] <= I_*l["{*l}":146,19-20] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+(_["_":] -> _["_":])["(_ -> _)":] <= C_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+(*["*":] <- s["s":146,24-25@Box4.fab])["(* <- s)":] <= I_*l["{*l}":146,19-20@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-C_caller_pc["{caller_pc}":125,2-126,6] <= (*["*":] -> s["s":146,24-25])["(* -> s)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-I_caller_pc["{caller_pc}":125,2-126,6] <= (_["_":] <- _["_":])["(_ <- _)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab] <= (*["*":] -> s["s":146,24-25@Box4.fab])["(* -> s)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab] <= (_["_":] <- _["_":])["(_ <- _)":] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-(C_caller_pc["{caller_pc}":125,2-126,6] ⊔ C_newBox["{newBox}":146,11-69])["{caller_pc ⊔ newBox}":125,2-126,6] <= (C_L["L":125,12-13] ⊔ C_l["{l}":133,4-9] ⊔ C_a["{a}":134,4-9] ⊔ C_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ l ⊔ a ⊔ caller_pc}":125,11-28] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,4-70]
-(I_caller_pc["{caller_pc}":125,2-126,6] ⊔ I_newBox["{newBox}":146,11-69])["{caller_pc ⊔ newBox}":125,2-126,6] <= (I_L["L":125,12-13] ⊔ I_l["{l}":133,4-9] ⊔ I_a["{a}":134,4-9] ⊔ I_caller_pc["{caller_pc}":125,2-126,6])["{L ⊔ l ⊔ a ⊔ caller_pc}":125,11-28] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,4-70]
+(C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab] ⊔ C_newBox["{newBox}":146,11-69@Box4.fab])["{caller_pc ⊔ newBox}":125,2-126,6@Box4.fab] <= (C_L["L":125,12-13@Box4.fab] ⊔ C_l["{l}":133,4-9@Box4.fab] ⊔ C_a["{a}":134,4-9@Box4.fab] ⊔ C_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ l ⊔ a ⊔ caller_pc}":125,11-28@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,4-70@Box4.fab]
+(I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab] ⊔ I_newBox["{newBox}":146,11-69@Box4.fab])["{caller_pc ⊔ newBox}":125,2-126,6@Box4.fab] <= (I_L["L":125,12-13@Box4.fab] ⊔ I_l["{l}":133,4-9@Box4.fab] ⊔ I_a["{a}":134,4-9@Box4.fab] ⊔ I_caller_pc["{caller_pc}":125,2-126,6@Box4.fab])["{L ⊔ l ⊔ a ⊔ caller_pc}":125,11-28@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,4-70@Box4.fab]
 
-C_*l["{*l}":146,19-20] == C_*l["{*l}":125,6-7] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-I_*l["{*l}":146,19-20] == I_*l["{*l}":125,6-7] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+C_*l["{*l}":146,19-20@Box4.fab] == C_*l["{*l}":125,6-7@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+I_*l["{*l}":146,19-20@Box4.fab] == I_*l["{*l}":125,6-7@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 
-C_*a["{*a}":146,21-22] == C_*a["{*a}":125,8-9] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
-I_*a["{*a}":146,21-22] == I_*a["{*a}":125,8-9] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69]
+C_*a["{*a}":146,21-22@Box4.fab] == C_*a["{*a}":125,8-9@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
+I_*a["{*a}":146,21-22@Box4.fab] == I_*a["{*a}":125,8-9@Box4.fab] {C_L <= C_A;I_L <= I_A;C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;C_this <= C_caller_pc;I_this <= I_caller_pc;};[146,11-69@Box4.fab]
 

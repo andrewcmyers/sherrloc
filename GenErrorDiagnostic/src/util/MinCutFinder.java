@@ -1,7 +1,9 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import constraint.graph.ConstraintPath;
@@ -10,7 +12,7 @@ import diagnostic.UnsatPaths;
 // we do an iterative deeping search until at least one cut is returned
 public abstract class MinCutFinder<EntityType> {
 
-    static int REC_MAX = 4;
+    static int REC_MAX = 3;
     UnsatPaths paths;
 //    UnsatPaths unsatPaths;
     
@@ -51,7 +53,7 @@ public abstract class MinCutFinder<EntityType> {
     	
     	// we do an iterative deeping search until at least one cut is returned
     	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, (EntityType[])candidates.toArray(), 0, dependencies, new HashSet<EntityType>(), ret);
+   			boundedDepthSearch (level, (EntityType[])candidates.toArray(), 0, dependencies, new ArrayList<EntityType>(), ret);
    			if (ret.size()!=0)
    				break;
     	}
@@ -59,7 +61,7 @@ public abstract class MinCutFinder<EntityType> {
     	return ret;
     }
     
-    private void boundedDepthSearch (int level, EntityType[] candidates, int index, HashMap<ConstraintPath, Set<EntityType>> dependencies, Set<EntityType> visited, Set<Set<EntityType>> results) {
+    private void boundedDepthSearch (int level, EntityType[] candidates, int index, HashMap<ConstraintPath, Set<EntityType>> dependencies, List<EntityType> visited, Set<Set<EntityType>> results) {
     	
     	/* first level */
    		for (int i=index; i<candidates.length; i++) {

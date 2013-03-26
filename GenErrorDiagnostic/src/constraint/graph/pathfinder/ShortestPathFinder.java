@@ -41,7 +41,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		leftPath = new HashMap[size][size];
 		env = new Environment();
 	}
-
+	
 	/**
      * This algorithm follows the CFL-Reachablity algorithm described in paper
      * interconvertibility of set constraints and context-free language reachability
@@ -117,6 +117,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		int count=1;
 		while (!fh.isEmpty()) {	
 			ReductionEdge edge = fh.removeMin().getData();
+
 			if (edge instanceof LeqEdge)
 				tryAddingBackEdges ((LeqEdge)edge, fh);
 
@@ -244,9 +245,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 								if (CORRECTNESS_CHECK
 										/*&& shortestLeft[sIndex][tIndex].get(ec) < current_length*/)
 									System.err.println("[LEFT] "
-											+ edge.getFrom() + "-left-" + from
-											+ "-id-" + to + " implies "
-											+ edge.getFrom() + "-left-" + to);
+											+ edge.getFrom() + "-left(neg)-" + from
+											+ "-id(neg)-" + to + " implies "
+											+ edge.getFrom() + "-left(neg)-" + to);
 							}
 						}
 					}
@@ -347,7 +348,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				// id = left right
 				if (edge instanceof RightEdge) {
 					for (EdgeCondition ec : shortestLeft[sIndex][fIndex].keySet()) {
-						// first check that left and right edges can be cancelled
+						// first check that left and right edges can be canceled
 						if (ec.matches(((RightEdge)edge).cons)) {
 							if (shortestLeft[sIndex][fIndex].get(ec) + 1 < shortestLEQ[sIndex][tIndex]) {
 								ReductionEdge newedge = new LeqEdge(from, edge.getTo(), leftPath[sIndex][fIndex].get(ec).getData(), edge);
@@ -400,8 +401,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 								if (CORRECTNESS_CHECK
 										/*&& shortestLeft[sIndex][tIndex].get(ec) < current_length*/)
 									System.err.println("[RIGHT] " + from
-											+ "-left-" + edge.getTo()
-											+ "-id-" + edge.getFrom()
+											+ "-left(neg)-" + edge.getTo()
+											+ "-id(neg)-" + edge.getFrom()
 											+ " implies " + from + "-left-"
 											+ edge.getFrom());
 							}
