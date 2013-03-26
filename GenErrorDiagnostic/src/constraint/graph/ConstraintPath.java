@@ -170,12 +170,6 @@ public class ConstraintPath {
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			if (!processedEdges.contains(edge)) {
-				if (edge instanceof EquationEdge) {
-					EquationEdge ee = (EquationEdge)edge;
-					if (ee.getEquation().getFirstElement().toString().equals("(C_mapserv.MapImage.provider4)join({map}287,40-43)join({this}29,7-22)join({caller_pc}195,2-196,11)join({user}208,10-14)join({fetchStore}275,16-26)287,40-43")
-						&& ee.getEquation().getSecondElement().toString().equals("({user}208,10-14)join({caller_pc}195,2-196,11)208,10-14"))
-					System.out.println(toString());
-				}
 				edge.incSuccCounter();
 				processedEdges.add(edge.toString());
 			}
