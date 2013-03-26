@@ -1,15 +1,16 @@
 package constraint.ast;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import constraint.graph.ConstraintGraph;
+import constraint.graph.ConstraintPath;
+import constraint.graph.ConstructorEdge;
+import constraint.graph.Edge;
 import constraint.graph.ElementNode;
-import constraint.graph.EquationEdge;
 import constraint.graph.Node;
+import constraint.graph.Polarity;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 
@@ -32,6 +33,10 @@ public class Environment {
 		StringBuffer sb = new StringBuffer();
 		for (Constraint cons : assertions)
 			sb.append(cons.toString()+"; ");
+		sb.append("\n");
+		for (Element ele :graph.getAllElements()) {
+			sb.append(ele.toString()+"; ");
+		}
 		return sb.toString();
 	}
 	
@@ -46,6 +51,13 @@ public class Environment {
 	public void addEnv (Environment e) {
 		for (Constraint c : e.assertions) {
 			assertions.add(c);
+		}
+		addElements(e.graph.getAllElements());
+	}
+	
+	public void addElements (Set<Element> eles) {
+		for (Element e : eles) {
+			graph.getNode(e.getBaseElement());
 		}
 	}
 	
@@ -103,12 +115,7 @@ public class Environment {
 			else
 				return true;
 		}
-		
-//		if (e1 instanceof Constructor && e2 instanceof Constructor) {
-//			if (((Constructor)e1).sameas(e2))
-//				return true;
-//		}
-//		
+			
 		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
 			if (!((ComplexElement)e1).getCons().equals(((ComplexElement)e2).getCons()))
 				return false;
@@ -190,6 +197,9 @@ public class Environment {
 	private boolean leqApplyAssertions(Element e1, Element e2) {
 			
 		if (finder == null) {
+			for (Constraint c : assertions) {
+				graph.addOneConstraint(c.e1, c.e2, c);
+			}
 			graph.generateGraph();
 			
 			if (SHOW_HYPOTHESIS) {
@@ -199,14 +209,39 @@ public class Environment {
 			finder = new ShortestPathFinder(graph);
 		}
 
-		if (graph.hasElement(e1) && graph.hasElement(e2))
+		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 //			for (Element e : graph.getAllElements()) {
 //				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && e.leq_(e2, this))
 //					return true;
 //			}
 //		}
 //		return false;
+//			List<Edge> edges =  finder.getPath(graph.getNode(e1), graph.getNode(e2));
+//			boolean forward = true;
+//			if (edges==null)
+//				return false;
+//			// check if this edge uses wrong assumption from top to bottom
+//			boolean hasTop = false;
+//			for (Edge e : edges) {
+//				Element ele = ((ElementNode)e.getFrom()).getElement();
+//				if (e instanceof ConstructorEdge && ((ConstructorEdge)e).getCondition().getPolarity()==Polarity.NEG)
+//					forward=!forward; // flip direction
+//				boolean isTop = forward?ele.isTop():ele.isBottom();
+//				boolean isBottom = forward?ele.isBottom():ele.isTop();
+//				if (isTop)
+//					hasTop=true;
+//				else if (isBottom && hasTop)
+//					return false;
+//			}
+//			// test the last node
+//			if (edges.size()>0) {
+//				Element ele = ((ElementNode)edges.get(edges.size()-1).getTo()).getElement();
+//				if (ele.isBottom() && hasTop)
+//					return false;
+//			}
+//			return true;
 			return finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null;
+		}
 		else
 			return false;
     }

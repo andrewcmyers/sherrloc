@@ -1,6 +1,7 @@
 package constraint.graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,8 +60,59 @@ public class ConstraintPath {
 		return ret;
 	}
 	
-	public List<Node> getAllNodes( ) {
-		ArrayList<Node> ret = new ArrayList<Node>();
+	// a succ path is one where all LEQ are provable and all LEQ nodes are variable free
+	public boolean isSuccPath(HashMap<Environment, Environment> cachedEnv) {
+		if (edges.size()==0) return false;
+		
+		// at least one of the edges should be equation edge
+		boolean hasEqu = false;
+		int varfree = 0;
+		for (Edge e : edges) {
+			if (e instanceof EquationEdge) {
+				hasEqu = true;
+				break;
+			}
+		}
+		if (!hasEqu)
+			return false;
+		
+		Environment env = getEnv_(cachedEnv);
+		// System.out.println("Checking one equation in env: "+path.env);
+		ElementNode first = (ElementNode) getFirst();
+		if (!first.getElement().hasVars())
+			varfree++;
+		for (int k = 0; k < size(); k++) {
+			Edge edge = edges.get(k);
+			if (finder.getPath(first, edge.to)!=null) {
+				if (!env.leq(first.getElement(), ((ElementNode)edge.to).getElement()))
+					return false;
+				if (!((ElementNode)edge.to).getElement().hasVars())
+					varfree++;
+				if (varfree>2)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean isUnsatPath(HashMap<Environment, Environment> cachedEnv) {
+		if (edges.size()==0) return false;
+		Environment env = getEnv_(cachedEnv);
+		
+		return !env.leq(((ElementNode)getFirst()).getElement(), ((ElementNode)getLast()).getElement());
+	}
+	
+	private Environment getEnv_ (HashMap<Environment, Environment> cachedEnv) {
+		if (cachedEnv.containsKey(assumption))
+			return cachedEnv.get(assumption);
+		else {
+			cachedEnv.put(assumption, assumption);
+			return assumption;
+		}
+	}
+	
+	public Set<Node> getAllNodes( ) {
+		HashSet<Node> ret = new HashSet<Node>();
 		
 		if (edges.size()==0) return ret;
 
@@ -104,11 +156,10 @@ public class ConstraintPath {
 	public void setAssumption(Environment assumption) {
 		this.assumption = assumption;
 	}
-	
+		
 	public void incSuccCounter ( ) {
 		if (edges.size()==0) return;
 		
-//		System.out.println("Successful path "+toString());
 		// avoid duplicate expressions
 		Set<String> processedNodes = new HashSet<String>();
 		Set<String> processedEdges = new HashSet<String>();
@@ -119,6 +170,12 @@ public class ConstraintPath {
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			if (!processedEdges.contains(edge)) {
+				if (edge instanceof EquationEdge) {
+					EquationEdge ee = (EquationEdge)edge;
+					if (ee.getEquation().getFirstElement().toString().equals("(C_mapserv.MapImage.provider4)join({map}287,40-43)join({this}29,7-22)join({caller_pc}195,2-196,11)join({user}208,10-14)join({fetchStore}275,16-26)287,40-43")
+						&& ee.getEquation().getSecondElement().toString().equals("({user}208,10-14)join({caller_pc}195,2-196,11)208,10-14"))
+					System.out.println(toString());
+				}
 				edge.incSuccCounter();
 				processedEdges.add(edge.toString());
 			}
@@ -175,7 +232,7 @@ public class ConstraintPath {
 	
 	public boolean intersects (ConstraintPath path) {
 		// check if there are common "expressions"
-	    List<Node> nodes1 = getAllNodes();
+	    Set<Node> nodes1 = getAllNodes();
 	    Set<Node> nodes2 = new HashSet<Node>(path.getAllNodes());
 	    for (Node n1 : nodes1) {
 	    	if (nodes2.contains(n1))
@@ -200,12 +257,12 @@ public class ConstraintPath {
 		ret += "\n----Start of one path----\n";
 		ElementNode leftmost = (ElementNode) getFirst();
 //		leftmost.setCause();
-		ret += leftmost.getElement().toString()+"\n";
+		ret += leftmost.getElement().toDotString()+"\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			ret += "--> (" + (edge.toString()) + ")\n";
 //			if (finder.getPath(leftmost, edge.to)!=null)
-				ret += ((ElementNode)edge.to).getElement().toString()+"\n";
+				ret += ((ElementNode)edge.to).getElement().toDotString()+"\n";
 		}
 		ret += "----End of one path----\n";
 		return ret;

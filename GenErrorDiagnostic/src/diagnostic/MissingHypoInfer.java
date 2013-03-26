@@ -40,9 +40,8 @@ public class MissingHypoInfer {
 			if (candidate.equals(path.getMinHypo()))
 				continue;
 
-			Environment env = path.getAssumption().addLeq(candidate.getFirst(),
-					candidate.getSecond());
-
+			Environment env = path.getAssumption().addLeq(candidate.getFirst(),candidate.getSecond());
+			
 			if (cachedEnv.containsKey(env))
 				env = cachedEnv.get(env);
 			else {

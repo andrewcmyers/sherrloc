@@ -65,6 +65,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	";"    						   { return symbol(sym.SEMICOLON); }
   	","							   { return symbol(sym.COMMA); }
   	":"							   { return symbol(sym.COLON); }
+  	"@"							   { return symbol(sym.AT); }
   	
   	/* parentheses */
   	"("    						   { return symbol(sym.LPAREN); }

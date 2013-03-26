@@ -39,10 +39,10 @@ public class ConsSuggestion implements Comparable<ConsSuggestion> {
 			sb.append("<span class=\"mincut\" ");
 			HTTPUtil.setShowHideActions(true, sb, loc, id);
 			sb.append(">");
-			sb.append("<code id=\"left" + id + "\">" + left.toDetailString()
+			sb.append("<code id=\"left" + id + "\">" + left.toString()
 					+ "</code>");
 			sb.append(" has the same type as ");
-			sb.append("<code id=\"right" + id + "\">" + right.toDetailString()
+			sb.append("<code id=\"right" + id + "\">" + right.toString()
 					+ "</code></span>");
 			sb
 					.append("<button onclick=\"hide_all();show_elements_perm(false, [");

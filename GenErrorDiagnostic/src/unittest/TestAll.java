@@ -136,27 +136,27 @@ public class TestAll {
 //		
 //		testErrorPaths("src/constraint/tests/jif/test.con", 2, false);
 
-		testErrorPaths("src/constraint/tests/jif/array.con", 3, false);
-
-		testErrorPaths("src/constraint/tests/jif/constant.con", 4, false);
-
-		testAssumptions("src/constraint/tests/jif/CMUcred.con", "Alice <= p1;\n", false);
-
-		testErrorPaths("src/constraint/tests/jif/Do2.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/Do3.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/field.con", 6, false); 
-
-		testErrorPaths("src/constraint/tests/jif/For2.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/For3.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/p3.con", 5, false);
-
-		testErrorPaths("src/constraint/tests/jif/para.con", 1, false);
-
-		testErrorPaths("src/constraint/tests/jif/duplicate.con", 0, false);
+//		testErrorPaths("src/constraint/tests/jif/array.con", 3, false);
+//
+//		testErrorPaths("src/constraint/tests/jif/constant.con", 4, false);
+//
+//		testAssumptions("src/constraint/tests/jif/CMUcred.con", "Alice <= p1;\n", false);
+//
+//		testErrorPaths("src/constraint/tests/jif/Do2.con", 2, false);
+//
+//		testErrorPaths("src/constraint/tests/jif/Do3.con", 2, false);
+//
+//		testErrorPaths("src/constraint/tests/jif/field.con", 6, false); 
+//
+//		testErrorPaths("src/constraint/tests/jif/For2.con", 2, false);
+//
+//		testErrorPaths("src/constraint/tests/jif/For3.con", 2, false);
+//
+//		testErrorPaths("src/constraint/tests/jif/p3.con", 5, false);
+//
+//		testErrorPaths("src/constraint/tests/jif/para.con", 1, false);
+//
+//		testErrorPaths("src/constraint/tests/jif/duplicate.con", 0, false);
 								
 		/* currently, these contraints are generated from the snapshot of Mar. 6. 2012 */
 //		testErrorPaths("src/constraint/tests/jif/r3122.con", 0, false);
@@ -180,7 +180,8 @@ public class TestAll {
 //		
 //		testOneFile("src/constraint/tests/jif/r3176.con", 23, false); // or 15?
 //		
-//		testOneFile("src/constraint/tests/jif/r3192.con", 33, false); // or 26
+		testAssumptions("src/constraint/tests/jif/FriendMap3192.con", "{s} <= {*->n}", false);
+//		testAssumptions("src/constraint/tests/jif/hypoinfer.con", "a <= (c)join(b);\n", false); // or 26
 		
 //		testOneFile("src/constraint/tests/jif/23.con", 41, false);
 	}
