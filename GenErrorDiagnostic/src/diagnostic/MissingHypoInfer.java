@@ -29,9 +29,9 @@ public class MissingHypoInfer {
    		
     }
     
-    // this function returns a hashmap, that gives a set of "weaker" assumptions for each goal
+    // this function returns a hashmap, that gives a set of "weaker" assumptions for each path
     // Reuse cached env for better performance
-    private static Set<Hypothesis> genAssumptionDep (ConstraintPath path, Set<Hypothesis> candidates, Map<Environment, Environment> cachedEnv) {
+    public static Set<Hypothesis> genAssumptionDep (ConstraintPath path, Set<Hypothesis> candidates, Map<Environment, Environment> cachedEnv) {
 		Set<Hypothesis> ret = new HashSet<Hypothesis>();
 		Hypothesis minHypo = path.getMinHypo();
 		ret.add(minHypo);

@@ -45,6 +45,7 @@ public class Analysis {
     boolean SHOW_WHOLE_GRAPH=false;
     boolean GEN_CUT = true;
     boolean GEN_ASSUMP = true;
+    boolean GEN_UNIFIED = false;
 	boolean done = false;
 	ConstraintGraph graph;
 	String sourceName;
@@ -72,6 +73,7 @@ public class Analysis {
 		options.addOption("s", false, "symmetric");
 		options.addOption("c", false, "generate cut");
 		options.addOption("a", false, "generate assumptions");
+		options.addOption("u", false, "unified hypothesis and cut");
 		options.addOption("o", true, "output file");
 		options.addOption("i", true, "original source file generating the constraints");
 		
@@ -90,6 +92,7 @@ public class Analysis {
 		boolean symmentric = false;
 		boolean cut = false;
 		boolean assumption = false;
+		boolean unified = false;
 		String outfile = "error.html";
 		String infile = "";
 		
@@ -99,6 +102,8 @@ public class Analysis {
 			symmentric = true;
 		if (cmd.hasOption("c"))
 			cut = true;
+		if (cmd.hasOption("u"))
+			unified = true;
 		if (cmd.hasOption("a"))
 			assumption = true;
 		if (cmd.hasOption("o"))
@@ -113,6 +118,7 @@ public class Analysis {
 				ana.SHOW_WHOLE_GRAPH = whole_graph;
 				ana.GEN_ASSUMP = assumption;
 				ana.GEN_CUT = cut;
+				ana.GEN_UNIFIED = unified;
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
 				ana.initialize();
@@ -434,7 +440,8 @@ public class Analysis {
     		paths.toHTML() +
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
 //    		(GEN_CUT?paths.genElementCut():""));
-    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():""));
+    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():"")+
+    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
     	return sb.toString();
     }
 }

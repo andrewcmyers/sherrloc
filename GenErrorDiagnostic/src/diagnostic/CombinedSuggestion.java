@@ -8,38 +8,37 @@ import constraint.ast.Element;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
 
-public class ExprSuggestion implements Comparable<ExprSuggestion> {
+public class CombinedSuggestion<K> implements Comparable<CombinedSuggestion<K>> {
 	int rank = 0;
+	Set<K> hypos;
 	Set<String> exprs;
-	int id;
 	Map<String, Double> succCount;
 
-	public ExprSuggestion(int id, Set<String> exprs, Map<String, Double> succCount) {
+	public CombinedSuggestion(Set<K> hypos, Set<String> exprs, Map<String, Double> succCount) {
 		this.exprs = exprs;
-		this.id = id;
-		for (String expr : exprs) {
-			rank += succCount.get(expr);
-		}
+		this.hypos = hypos;
+		rank = hypos.size()+exprs.size();
 		this.succCount = succCount;
 	}
 	
-	public int getRank() {
-		return rank;
-	}
-	
 	@Override
-	public int compareTo(ExprSuggestion o) {
+	public int compareTo(CombinedSuggestion<K> o) {
 		return new Integer(rank).compareTo(o.rank);
 	}
 	
 	public String toHTML (Map<String, Node> exprMap) {
 		StringBuffer sb = new StringBuffer();
 //		sb.append("<LI>\n");
-		sb.append("<span class=\"rank\">(rank "+rank+")</span> ");
+		sb.append("<span class=\"rank\">(rank "+rank+"("+hypos.size()+"+"+exprs.size()+"))</span> ");
 		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
-		for (String c : exprs) {
+		for (K hypo : hypos) {
+			exprBuffer.append("# ");
+			exprBuffer.append(hypo.toString());
+			exprBuffer.append(" #");
+    	}
+    	for (String c : exprs) {
 			Element en = ((ElementNode)exprMap.get(c)).getElement();
     		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
     		exprBuffer.append(en.toHTMLString()+succCount.get(en.toString())+"    ");
@@ -55,14 +54,5 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		sb.append(">show it</button><br>\n");
     	
    		return sb.toString();
-	}
-	
-	@Override
-	public String toString() {
-    	StringBuffer exprBuffer = new StringBuffer();
-    	for (String c : exprs) {
-    		exprBuffer.append(c+succCount.get(c)+"    ");
-    	}
-    	return exprBuffer.toString();
 	}
 }
