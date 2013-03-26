@@ -83,7 +83,7 @@ public class HTTPUtil {
     	List<LineColumnPair> emptyList = new ArrayList<LineColumnPair>(); // the set where start=end
     	Set<Position> posSet = new HashSet<Position>();
     	for (ConstraintPath path : unsatPaths.getPaths()) {
-    		List<Node> nodes = path.getAllNodes();
+    		Set<Node> nodes = path.getAllNodes();
     		for (Node node : nodes) {
     			posSet.add(((ElementNode)node).getElement().getPosition());
     		}

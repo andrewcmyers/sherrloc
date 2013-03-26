@@ -31,7 +31,7 @@ action code {:
 /* Terminals (tokens returned by the scanner). */
 terminal 			SEPERATION;
 terminal            CONSTRUCTOR;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, JOIN, MEET, DASH, COLON, LBRACE, RBRACE;
+terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, JOIN, MEET, DASH, COLON, AT, LBRACE, RBRACE;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 
@@ -127,9 +127,20 @@ env         ::= LBRACE equations:l RBRACE
 			:}
 			;
 						
-position	::= LBRACK STRING_LITERAL:snippet COLON range:p RBRACK
+position	::= LBRACK STRING_LITERAL:snippet COLON range:p AT IDENTIFIER:s RBRACK
+			{: 
+			   p.setFile(s);
+			   p.setSnippet(snippet); 
+			   RESULT = p; 
+			:}
+			| LBRACK STRING_LITERAL:snippet COLON range:p RBRACK
 			{: 
 			   p.setSnippet(snippet); 
+			   RESULT = p; 
+			:}
+			| LBRACK range:p AT IDENTIFIER:s RBRACK
+			{: 
+			   p.setFile(s);
 			   RESULT = p; 
 			:}
 			| LBRACK range:p RBRACK
@@ -144,11 +155,11 @@ position	::= LBRACK STRING_LITERAL:snippet COLON range:p RBRACK
 			
 range		::= INTEGER_LITERAL:d1 COMMA INTEGER_LITERAL:d2 DASH INTEGER_LITERAL:d3
 			{:
-			    RESULT = new Position ("", d1, d2, d1, d3);
+			    RESULT = new Position ("", "", d1, d2, d1, d3);
 			:}
 			|   INTEGER_LITERAL:d1 COMMA INTEGER_LITERAL:d2 DASH INTEGER_LITERAL:d3 COMMA INTEGER_LITERAL:d4
 			{:
-			    RESULT = new Position ("", d1, d2, d3, d4);
+			    RESULT = new Position ("", "", d1, d2, d3, d4);
 			:}
 			|   IDENTIFIER:s /* identifiers are currently ignored */
 			{:  RESULT = Position.EmptyPosition(); :}

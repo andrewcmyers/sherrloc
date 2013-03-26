@@ -7,11 +7,13 @@ public class Position {
 	int colStart;
 	int lineEnd;
 	int colEnd;
-	String snippet="";
+	String snippet;
+	String file;
 	private static Position emptyPosition=null;
 	
-	public Position(String snippet, int lStart, int colStart, int lEnd, int colEnd) {
+	public Position(String snippet, String file, int lStart, int colStart, int lEnd, int colEnd) {
 		this.snippet = snippet;
+		this.file = file;
 		this.lineStart = lStart;
 		this.lineEnd = lEnd;
 		if (colStart<colEnd) {
@@ -26,7 +28,7 @@ public class Position {
 	
 	public static Position EmptyPosition () {
 		if (emptyPosition==null)
-			emptyPosition = new Position("", -1, -1, -1, -1);
+			emptyPosition = new Position("", "", -1, -1, -1, -1);
 		return emptyPosition;
 	}
 	
@@ -54,6 +56,14 @@ public class Position {
 		this.snippet = snippet;
 	}
 	
+	public String getFile() {
+		return file;
+	}
+	
+	public void setFile(String file) {
+		this.file = file;
+	}
+	
 	public boolean sameline () {
 		return lineStart==lineEnd;
 	}
@@ -67,10 +77,14 @@ public class Position {
 		if (isEmpty())
 			return "";
 		
+		String ret="";
+		if (!file.equals(""))
+			ret += file+":";
+		
 		if (sameline())
-			return lineStart+","+colStart+"-"+colEnd;
+			return ret + lineStart+","+colStart+"-"+colEnd;
 		else
-			return lineStart+","+colStart+"-"+lineEnd+","+colEnd;
+			return ret + lineStart+","+colStart+"-"+lineEnd+","+colEnd;
 	}
 	
 	

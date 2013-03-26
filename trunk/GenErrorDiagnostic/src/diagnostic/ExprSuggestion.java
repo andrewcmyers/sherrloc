@@ -12,6 +12,7 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 	int rank = 0;
 	Set<String> exprs;
 	int id;
+	Map<String, Double> succCount;
 
 	public ExprSuggestion(int id, Set<String> exprs, Map<String, Double> succCount) {
 		this.exprs = exprs;
@@ -19,6 +20,7 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		for (String expr : exprs) {
 			rank += succCount.get(expr);
 		}
+		this.succCount = succCount;
 	}
 	
 	@Override
@@ -36,7 +38,7 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		for (String c : exprs) {
 			Element en = ((ElementNode)exprMap.get(c)).getElement();
     		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
-    		exprBuffer.append(en.toHTMLString()+"    ");
+    		exprBuffer.append(en.toHTMLString()+succCount.get(en.toString())+"    ");
     	}
     	sb.append("<span class=\"path\" ");
 		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
