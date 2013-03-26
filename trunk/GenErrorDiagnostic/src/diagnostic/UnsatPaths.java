@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import util.CombinedExplainationFinder;
 import util.HTTPUtil;
 import util.MinCutFinder;
 import constraint.ast.Element;
@@ -383,6 +384,42 @@ public class UnsatPaths {
 			sb.append(cuts.get(i).toHTML(exprMap));
 		}
 		sb.append("</div>\n");
+		return sb.toString();
+    }
+    
+    public String genCombinedResult (Map<Environment, Environment> envs, Map<String, Node> exprMap, Map<String, Double> succCount) {
+    	final Set<Hypothesis> candidates = new HashSet<Hypothesis>();
+    	final Map<Environment, Environment> cachedEnv = envs;
+    	StringBuffer sb = new StringBuffer();
+    	for (ConstraintPath path : getPaths())
+    		candidates.add(path.getMinHypo());
+    	    	    	
+    	CombinedExplainationFinder<Hypothesis> cutFinder = new CombinedExplainationFinder<Hypothesis>(this, exprMap, succCount) {
+			@Override
+			public Set<Hypothesis> mapsTo(ConstraintPath path) {
+				return MissingHypoInfer.genAssumptionDep(path, candidates, cachedEnv);
+			}
+		};
+ 
+		List<CombinedSuggestion<Hypothesis>> result = cutFinder.findMinCut();
+ 		Collections.sort(result);
+
+		int best = Integer.MAX_VALUE;
+		int i = 0;
+		for (; i < result.size(); i++) {
+//			if (result.get(i).rank > best)
+//				break;
+			best = result.get(i).rank;
+			sb.append(result.get(i).toHTML(exprMap));
+			System.out.println("top_rank_size: " + i);
+			sb
+					.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
+			sb.append("<div id=\"more_expr\">");
+			for (; i < result.size(); i++) {
+				sb.append(result.get(i).toHTML(exprMap));
+			}
+			sb.append("</div>\n");
+		}
 		return sb.toString();
     }
     

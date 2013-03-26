@@ -12,7 +12,7 @@ import diagnostic.UnsatPaths;
 // we do an iterative deeping search until at least one cut is returned
 public abstract class MinCutFinder<EntityType> {
 
-    static int REC_MAX = 3;
+    static int REC_MAX = 6;
     UnsatPaths paths;
 //    UnsatPaths unsatPaths;
     
@@ -50,7 +50,6 @@ public abstract class MinCutFinder<EntityType> {
     	Set<Set<EntityType>> ret = new HashSet<Set<EntityType>>();
     	HashMap<ConstraintPath, Set<EntityType>> dependencies = getDependency();
     	Set<EntityType> candidates = genCandidates( );
-    	
     	// we do an iterative deeping search until at least one cut is returned
     	for (int level=1; level <= REC_MAX; level++) {
    			boundedDepthSearch (level, (EntityType[])candidates.toArray(), 0, dependencies, new ArrayList<EntityType>(), ret);
@@ -88,15 +87,15 @@ public abstract class MinCutFinder<EntityType> {
    	   			
    	   			if (iscut) {
    	   				HashSet<EntityType> s = new HashSet<EntityType>();
-   	   				for (EntityType v : visited) 
+   	   				for (EntityType v : visited) {
    	   					s.add(v);
+   	   				}
    	   				results.add(s);
    	   			}
    			}
    			else
-   				boundedDepthSearch (level-1, candidates, index+1, dependencies, visited, results);
-   			
-   			visited.remove(e);
+   				boundedDepthSearch (level-1, candidates, i+1, dependencies, visited, results);
+   				visited.remove(e);
    		}
     }
 
