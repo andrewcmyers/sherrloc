@@ -56,18 +56,14 @@ public class JoinElement extends EnumerableElement {
 			return true;
 		
 		if (o instanceof JoinElement) {
-			List<Element> list2 = ((JoinElement)o).elements;
-			for (Element e : elements) {
-				if (!list2.contains(e))
-					return false;
-			}
-			for (Element e : list2) {
-				if (!elements.contains(e))
-					return false;
-			}
-			return true;
+			return super.equals(o);
 		}
 		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode()+9010;
 	}
 	
 	@Override
