@@ -112,6 +112,22 @@ public abstract class EnumerableElement extends Element {
 		return false;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof EnumerableElement) {
+			List<Element> list2 = ((EnumerableElement) o).elements;
+			for (Element e : elements) {
+				if (!list2.contains(e))
+					return false;
+			}
+			for (Element e : list2) {
+				if (!elements.contains(e))
+					return false;
+			}
+		}
+		return true;
+	}
+	
 	public int hashCode() {
 		int ret = 1;
 		for (Element e : elements) {
@@ -120,19 +136,6 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 	
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof EnumerableElement) {
-			EnumerableElement ce = (EnumerableElement)o;
-			if (ce.getElements().size()==elements.size()) {
-				for (int i=0; i<elements.size(); i++)
-					if (!elements.get(i).equals(ce.getElements().get(i))) 
-						return false;
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	public Element getInstance() {
 		if (hasVars()) {

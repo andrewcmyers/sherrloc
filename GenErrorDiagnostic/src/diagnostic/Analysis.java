@@ -432,9 +432,9 @@ public class Analysis {
     		"<H2>\n" +
     		"Error "+ count + "</H2>\n" +
     		paths.toHTML() +
-    		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):""));
+    		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
 //    		(GEN_CUT?paths.genElementCut():""));
-//    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():""));
+    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():""));
     	return sb.toString();
     }
 }

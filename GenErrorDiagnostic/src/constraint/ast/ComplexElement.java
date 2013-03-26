@@ -23,9 +23,16 @@ public class ComplexElement extends EnumerableElement {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof ComplexElement) {
-			ComplexElement ce = (ComplexElement)o;
-			if (pos.equals(ce.pos) && cons.equals(ce.cons))
-				return super.equals(o);
+			ComplexElement ce = (ComplexElement) o;
+			if (pos.equals(ce.pos) && cons.equals(ce.cons)) {
+				if (ce.getElements().size() == elements.size()) {
+					for (int i = 0; i < elements.size(); i++) {
+						if (!elements.get(i).equals(ce.getElements().get(i)))
+							return false;
+					}
+					return true;
+				}
+			}
 		}
 		return false;
 	}

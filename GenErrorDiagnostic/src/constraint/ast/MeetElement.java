@@ -57,18 +57,14 @@ public class MeetElement extends EnumerableElement {
 			return true;
 		
 		if (o instanceof MeetElement) {
-			List<Element> list2 = ((MeetElement)o).elements;
-			for (Element e : elements) {
-				if (!list2.contains(e))
-					return false;
-			}
-			for (Element e : list2) {
-				if (!elements.contains(e))
-					return false;
-			}
-			return true;
+			return super.equals(o);
 		}
 		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode()+2434;
 	}
 	
 	@Override
