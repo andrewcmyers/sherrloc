@@ -69,7 +69,7 @@ module rec Ty: sig
   val print: Format.formatter -> t -> unit
   val print_loc: Format.formatter -> t -> unit
   val print_loc_slice: Format.formatter -> t * EzyAst.imported_structure -> unit
-  val print_detail: Format.formatter -> t * EzyAst.imported_structure -> unit
+  val print_detail: Format.formatter -> t -> unit
   val print_without_quote: Format.formatter -> string -> unit
 
   val fresh_var: ?loc:(ExtLocation.t option) -> ?detail:string option -> unit -> t
@@ -251,32 +251,6 @@ end = struct
       | Arrow (l, tx, ty) ->
           Arrow (l, type_substitute tx s, type_substitute ty s)
 
-  let rec print ppf = function
-    | Var (_, _, tyv) ->
-        TyVar.print ppf tyv
-    |  Constr (_, lid, tys) -> (
-        match tys with
-          | [] -> Format.fprintf ppf "%s" (Path.name lid)
-          | _ -> Format.fprintf ppf "(%s %a)" (Path.name lid) (List.print print " ") tys
-      )
-    | Tuple (_, tys) ->
-        Format.fprintf ppf "(%a)" (List.print print " , ") tys
-    | Arrow _ as ty ->
-        print_arrow ppf ty
-
-  and print_arrow ppf = function
-    | Arrow (loc, x, y) ->
-        Format.fprintf ppf "(%a -> %a)" print_arrow x print_arrow y
-    | ty -> print ppf ty
-
-  let print_loc ppf = function
-    | Var (loc, _, tyv) -> (
-        match loc with 
-        | None -> Format.fprintf ppf ""
-        | Some l -> Format.fprintf ppf "%a" ExtLocation.print l
-      )
-    | Constr (loc, _, _ ) | Tuple (loc, _) | Arrow (loc, _, _) -> Format.fprintf ppf "%a" ExtLocation.print loc
-
   let print_wrap f p ppf x =
     let ppf' =
       let out str ofs len =
@@ -299,13 +273,38 @@ end = struct
     | Var (Some loc, _,  _) | Constr (loc, _, _ ) | Tuple (loc, _) | Arrow (loc, _, _) -> 
         Format.fprintf ppf "%a" print_slice (ExtLocationSet.add loc ExtLocationSet.empty)
 
-  let print_detail ppf (ty, ast) =
-    match ty with
-    | Var (_, Some detail, _) -> (escape_char '"' pp_print_string) ppf detail
-    | _ -> print_loc_slice ppf (ty, ast)
-
   let print_without_quote ppf str =
     (escape_char '"' pp_print_string) ppf str
+
+  let rec print ppf = function
+    | Var (_, _, tyv) ->
+        TyVar.print ppf tyv
+    |  Constr (_, lid, tys) -> (
+        match tys with
+          | [] -> Format.fprintf ppf "%s" (Path.name lid)
+          | _ -> Format.fprintf ppf "(%s %a)" (Path.name lid) (List.print print " ") tys
+      )
+    | Tuple (_, tys) ->
+        Format.fprintf ppf "(%a)" (List.print print " , ") tys
+    | Arrow _ as ty ->
+        print_arrow ppf ty
+
+  and print_arrow ppf = function
+    | Arrow (loc, x, y) ->
+        Format.fprintf ppf "(%a %a -> %a %a)" print_arrow x print_detail x print_arrow y print_detail y
+    | ty -> print ppf ty
+
+  and print_loc ppf = function
+    | Var (loc, _, tyv) -> (
+        match loc with 
+        | None -> Format.fprintf ppf ""
+        | Some l -> Format.fprintf ppf "%a" ExtLocation.print l
+      )
+    | Constr (loc, _, _ ) | Tuple (loc, _) | Arrow (loc, _, _) -> Format.fprintf ppf "%a" ExtLocation.print loc
+
+  and print_detail ppf = function
+    | Var (loc, Some detail, _) as ty -> Format.fprintf ppf "[\"%a\":%a]" print_without_quote detail print_loc ty
+    | _ -> Format.fprintf ppf ""
 
   let rec import ?(tyvarmap=TyImportVarmap.empty) creative loc oty =
     match oty with
