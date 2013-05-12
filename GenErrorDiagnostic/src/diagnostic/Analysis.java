@@ -200,10 +200,10 @@ public class Analysis {
 				// also ignore the path if its satisfiability depends on other paths
 				// DZ: not sure if this is necessary. Seems for OCaml, a constructor matches another is also an interesting information. Though 
 				// this is less interesting for Jif labels, since they are the same constructors
-				if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
-					if (((ComplexElement)e1).getCons().getBaseElement().equals(((ComplexElement)e2).getCons().getBaseElement()))
-							continue;
-				}
+//				if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
+//					if (((ComplexElement)e1).getCons().getBaseElement().equals(((ComplexElement)e2).getCons().getBaseElement()))
+//							continue;
+//				}
 				
 				// less interesting paths
 				if (e1.isBottom() || e2.isTop())

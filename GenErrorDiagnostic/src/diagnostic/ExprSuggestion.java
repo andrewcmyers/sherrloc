@@ -17,6 +17,7 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 	public ExprSuggestion(int id, Set<String> exprs, Map<String, Double> succCount) {
 		this.exprs = exprs;
 		this.id = id;
+		rank += 3*exprs.size();
 		for (String expr : exprs) {
 			rank += succCount.get(expr);
 		}
