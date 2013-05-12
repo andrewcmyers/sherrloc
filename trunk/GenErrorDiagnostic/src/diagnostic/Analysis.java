@@ -440,8 +440,8 @@ public class Analysis {
     		paths.toHTML() +
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
 //    		(GEN_CUT?paths.genElementCut():""));
-    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)+paths.genEdgeCut():"")+
-    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
+    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)/*+paths.genEdgeCut()*/:""));
+//    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
     	return sb.toString();
     }
 }

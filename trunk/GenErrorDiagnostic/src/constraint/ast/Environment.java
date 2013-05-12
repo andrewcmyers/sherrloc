@@ -79,6 +79,10 @@ public class Environment {
 	
 	/* unified version */
 	public boolean leq(Element p1, Element p2) {
+		return leq(p1, p2, true);
+	}
+	
+	public boolean leq(Element p1, Element p2, boolean rec) {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
 		
@@ -98,7 +102,7 @@ public class Environment {
 
 		
 		// the assumption can be made on the join/meet
-		if (leqApplyAssertions(e1, e2))
+		if (rec && leqApplyAssertions(e1, e2))
 			return true;
 		
 		// the type to be inferred cannot have recursive types
@@ -121,9 +125,6 @@ public class Environment {
 				return false;
 		}
 		
-		if (e1.hasVars() || e2.hasVars())
-			return true;
-
 		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
 			List<Element> l1 = ((ComplexElement) e1).elements;
 			List<Element> l2 = ((ComplexElement) e2).elements;
@@ -151,8 +152,8 @@ public class Environment {
 					return false;
 			return true;
 		}
-
-		return leqApplyAssertions(e1, e2);
+		
+		return (rec && leqApplyAssertions(e1, e2));
 	}
 	
 	/* earlier version */
@@ -210,37 +211,13 @@ public class Environment {
 		}
 
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
-//			for (Element e : graph.getAllElements()) {
-//				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && e.leq_(e2, this))
-//					return true;
-//			}
-//		}
-//		return false;
-//			List<Edge> edges =  finder.getPath(graph.getNode(e1), graph.getNode(e2));
-//			boolean forward = true;
-//			if (edges==null)
-//				return false;
-//			// check if this edge uses wrong assumption from top to bottom
-//			boolean hasTop = false;
-//			for (Edge e : edges) {
-//				Element ele = ((ElementNode)e.getFrom()).getElement();
-//				if (e instanceof ConstructorEdge && ((ConstructorEdge)e).getCondition().getPolarity()==Polarity.NEG)
-//					forward=!forward; // flip direction
-//				boolean isTop = forward?ele.isTop():ele.isBottom();
-//				boolean isBottom = forward?ele.isBottom():ele.isTop();
-//				if (isTop)
-//					hasTop=true;
-//				else if (isBottom && hasTop)
-//					return false;
-//			}
-//			// test the last node
-//			if (edges.size()>0) {
-//				Element ele = ((ElementNode)edges.get(edges.size()-1).getTo()).getElement();
-//				if (ele.isBottom() && hasTop)
-//					return false;
-//			}
-//			return true;
-			return finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null;
+			if (finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null)
+				return true;
+			for (Element e : graph.getAllElements()) {
+				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && leq(e, e2,false))
+					return true;
+			}
+			return false;
 		}
 		else
 			return false;

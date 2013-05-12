@@ -17,13 +17,12 @@ import constraint.graph.Edge;
 import constraint.graph.EdgeCondition;
 import constraint.graph.ElementNode;
 import constraint.graph.EmptyEdge;
-import constraint.graph.EquationEdge;
 import constraint.graph.LeftEdge;
 import constraint.graph.LeqEdge;
 import constraint.graph.Node;
+import constraint.graph.Polarity;
 import constraint.graph.ReductionEdge;
 import constraint.graph.RightEdge;
-import constraint.graph.Polarity;;
 
 public class ShortestPathFinder extends CFLPathFinder {
 	int MAX = 10000;
