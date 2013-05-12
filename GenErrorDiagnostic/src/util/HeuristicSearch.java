@@ -20,6 +20,7 @@ public abstract class HeuristicSearch<EntityType> {
 	HashMap<EntityType, Set<ConstraintPath>> dep;
     double C1 = 1;
     double C2 = 0;
+	double best=Double.MAX_VALUE;
     int MAX_SUG = 5;
 //    UnsatPaths unsatPaths;
     
@@ -28,10 +29,11 @@ public abstract class HeuristicSearch<EntityType> {
     	this.candidates = (EntityType[])candidates.toArray();
     	this.succCount = succCount;
     	dep = getDependency();
+    	System.out.println(candidates.size());
     }
 
     // estimate the "cost" of satisfying remaining paths
-    public int Estimate(Collection<ConstraintPath> paths, int index, List<EntityType> visited) {
+    public int Estimate(Collection<ConstraintPath> paths, int index) {
     	counter++;
     	
 /*    	
@@ -45,9 +47,11 @@ public abstract class HeuristicSearch<EntityType> {
         
         for (int i=index; i<candidates.length; i++) {
 			EntityType cand = candidates[i];
-			if (visited.contains(cand))
+			
+			// a quick test
+			if (dep.get(cand).size()<paths.size())
 				continue;
-
+			
 			boolean iscut=true;
 			for (ConstraintPath p : paths) {
 				if (!dep.get(cand).contains(p)) {
@@ -86,11 +90,11 @@ public abstract class HeuristicSearch<EntityType> {
     }
     
     protected class SearchNode {
-    	Set<EntityType> set;
+    	Set<Integer> set;
 		List<ConstraintPath> remaining;
 		int index;
     	
-    	public SearchNode(Set<EntityType> set, List<ConstraintPath> remaining, int index) {
+    	public SearchNode(Set<Integer> set, List<ConstraintPath> remaining, int index) {
     		this.set = set;
     		this.remaining = remaining;
     		this.index = index;
@@ -101,13 +105,12 @@ public abstract class HeuristicSearch<EntityType> {
     	Collection<ConstraintPath> allpaths = paths.getPaths();
     	Set<Set<EntityType>> ret = new HashSet<Set<EntityType>>();
     	FibonacciHeap<SearchNode> heap = new FibonacciHeap<SearchNode>();
-    	double N = Harmonic.H(allpaths.size());
     	
     	// explore the first level
     	for (int i=0; i<candidates.length; i++) {
     		EntityType cand = candidates[i];
-    		Set<EntityType> set = new HashSet<EntityType>();
-			set.add(cand);
+    		Set<Integer> set = new HashSet<Integer>();
+			set.add(i);
 			
     		List<ConstraintPath> remaining = new ArrayList<ConstraintPath>();
     		for (ConstraintPath path : allpaths) {
@@ -117,39 +120,24 @@ public abstract class HeuristicSearch<EntityType> {
       		}
     		
     		double real = C1+succCount.get(cand.toString())*C2;
-    		double est = C1*Estimate(remaining, i+1, new ArrayList<EntityType>());
-    		if (est==-1)
-    			continue;
-    		FibonacciHeapNode<SearchNode> node = new FibonacciHeapNode<SearchNode>(new SearchNode(set, remaining, i+1), real+est);
-    		heap.insert(node, node.getKey());
+    		double est = C1*Estimate(remaining, i+1);
+    		boolean stop = addSerchNode(ret, heap, set, remaining, real+est, i+1);
+    		if (stop)
+    			return ret;
     	}
     	
-    	double best=Double.MAX_VALUE;
     	while (!heap.isEmpty()) {
     		FibonacciHeapNode<SearchNode> minnode = heap.removeMin();
     		SearchNode data = minnode.getData();
-    		Set<EntityType> set = data.set;
+    		Set<Integer> set = data.set;
     		List<ConstraintPath> toSat = data.remaining;
-    		// a solution?
-    		if (toSat.size()==0) {
-    			if (best==Double.MAX_VALUE)
-    				best = minnode.key;
-    			if (minnode.key<=best || ret.size()<MAX_SUG) {
-    				ret.add(set);
-    				continue;
-    			}
-    			else {
-    				System.out.println("Est function is called # of times: "+counter);
-    				return ret;
-    			}
-    		}
     		
     		// explore the next level
         	for (int i=data.index; i<candidates.length; i++) {
         		EntityType cand = candidates[i];
         		
-        		HashSet<EntityType> toadd = new HashSet<EntityType>(set);
-    			toadd.add(cand);
+        		HashSet<Integer> toadd = new HashSet<Integer>(set);
+    			toadd.add(i);
     			
         		List<ConstraintPath> remaining = new ArrayList<ConstraintPath>();
         		for (ConstraintPath path : toSat) {
@@ -157,21 +145,44 @@ public abstract class HeuristicSearch<EntityType> {
           				remaining.add(path);
           			}
           		}
-        		
+        		        		
         		double succSum=0;
-        		for (EntityType type : toadd) {
-        			succSum+=succCount.get(type.toString());
+        		for (Integer j : toadd) {
+        			succSum+=succCount.get(candidates[j].toString());
         		}
         		double real = C1*toadd.size()+succSum*C2;
-        		double est = C1*Estimate(remaining, i+1, new ArrayList<EntityType>());
-        		if (est==-1)
-        			continue;
-        		FibonacciHeapNode<SearchNode> newnode = new FibonacciHeapNode<SearchNode>(new SearchNode(toadd, remaining, i+1), real+est);
-        		heap.insert(newnode, newnode.getKey());
+        		double est = C1*Estimate(remaining, i+1);
+        		boolean stop = addSerchNode(ret, heap, toadd, remaining, real+est, i+1);
+        		if (stop)
+        			return ret;
         	}
     	}
     	
     	return ret;
+    }
+    
+    // return true if the search is done
+    public boolean addSerchNode (Set<Set<EntityType>> ret, FibonacciHeap<SearchNode> heap, Set<Integer> set, List<ConstraintPath> remaining, double key, int index) {
+    	// test if this is a end node before searching deeper
+		if (remaining.size()==0) {
+			if (best==Double.MAX_VALUE)
+				best = key;
+			if (key<=best || ret.size()<MAX_SUG) {
+				Set<EntityType> eset = new HashSet<EntityType>();
+				for (Integer j:set) {
+					eset.add(candidates[j]);
+				}
+				ret.add(eset);
+				return false;
+			}
+			else {
+				System.out.println("Est function is called # of times: "+counter);
+				return true;
+			}
+		}
+		FibonacciHeapNode<SearchNode> newnode = new FibonacciHeapNode<SearchNode>(new SearchNode(set, remaining, index), key);
+		heap.insert(newnode, newnode.getKey());
+		return false;
     }
     
     public abstract Set<ConstraintPath> mapsTo (EntityType element);
