@@ -285,7 +285,8 @@ end = struct
           | _ -> Format.fprintf ppf "(%s %a)" (Path.name lid) (List.print print " ") tys
       )
     | Tuple (_, tys) ->
-        Format.fprintf ppf "(%a)" (List.print print " , ") tys
+        (List.iter (fun x -> pp_print_string ppf "(")) tys;
+        Format.fprintf ppf "%a)" (List.print print "), ") tys
     | Arrow _ as ty ->
         print_arrow ppf ty
 
