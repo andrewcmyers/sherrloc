@@ -13,13 +13,13 @@ import diagnostic.UnsatPaths;
 
 // we do an iterative deeping search until at least one cut is returned
 public abstract class HeuristicSearch<EntityType> {
-	private static int counter =0;
+	private int nodes =0;
     UnsatPaths paths;
     EntityType[] candidates;
 	Map<String, Double> succCount;
 	HashMap<EntityType, Set<ConstraintPath>> dep;
-    double C1 = 1;
-    double C2 = 0;
+    double C1 = 3;
+    double C2 = 1;
 	double best=Double.MAX_VALUE;
     int MAX_SUG = 5;
 //    UnsatPaths unsatPaths;
@@ -34,36 +34,32 @@ public abstract class HeuristicSearch<EntityType> {
 
     // estimate the "cost" of satisfying remaining paths
     public int Estimate(Collection<ConstraintPath> paths, int index) {
-    	counter++;
     	
-/*    	
-  		return 0; // version 1: no guidance at all
- */
-
-
+    	return 0; // version 1: no guidance at all
+ 
 	// version 2: little guidance
-    	if (paths.size()==0)
-    		return 0;
-        
-        for (int i=index; i<candidates.length; i++) {
-			EntityType cand = candidates[i];
-			
-			// a quick test
-			if (dep.get(cand).size()<paths.size())
-				continue;
-			
-			boolean iscut=true;
-			for (ConstraintPath p : paths) {
-				if (!dep.get(cand).contains(p)) {
-					iscut=false;
-					break;
-				}	
-			}
-			if (iscut) {
-				return 1;
-			}
-		}
-		return 2;
+//    	if (paths.size()==0)
+//    		return 0;
+//        
+//        for (int i=index; i<candidates.length; i++) {
+//			EntityType cand = candidates[i];
+//			
+//			// a quick test
+//			if (dep.get(cand).size()<paths.size())
+//				continue;
+//			
+//			boolean iscut=true;
+//			for (ConstraintPath p : paths) {
+//				if (!dep.get(cand).contains(p)) {
+//					iscut=false;
+//					break;
+//				}	
+//			}
+//			if (iscut) {
+//				return 1;
+//			}
+//		}
+//		return 2;
 		
 //		// there is no way to make a cut
 //		if (maxEle==null) {
@@ -119,11 +115,7 @@ public abstract class HeuristicSearch<EntityType> {
       			}
       		}
     		
-    		double real = C1+succCount.get(cand.toString())*C2;
-    		double est = C1*Estimate(remaining, i+1);
-    		boolean stop = addSerchNode(ret, heap, set, remaining, real+est, i+1);
-    		if (stop)
-    			return ret;
+    		addSerchNode(heap, set, remaining, i+1);
     	}
     	
     	while (!heap.isEmpty()) {
@@ -131,6 +123,9 @@ public abstract class HeuristicSearch<EntityType> {
     		SearchNode data = minnode.getData();
     		Set<Integer> set = data.set;
     		List<ConstraintPath> toSat = data.remaining;
+    		boolean stop = goalTest(ret, data);
+    		if (stop)
+    			return ret;
     		
     		// explore the next level
         	for (int i=data.index; i<candidates.length; i++) {
@@ -146,43 +141,50 @@ public abstract class HeuristicSearch<EntityType> {
           			}
           		}
         		        		
-        		double succSum=0;
-        		for (Integer j : toadd) {
-        			succSum+=succCount.get(candidates[j].toString());
-        		}
-        		double real = C1*toadd.size()+succSum*C2;
-        		double est = C1*Estimate(remaining, i+1);
-        		boolean stop = addSerchNode(ret, heap, toadd, remaining, real+est, i+1);
-        		if (stop)
-        			return ret;
+        		addSerchNode(heap, toadd, remaining, i+1);
         	}
     	}
     	
+    	System.out.println("Nodes_expanded: "+nodes);
     	return ret;
     }
     
     // return true if the search is done
-    public boolean addSerchNode (Set<Set<EntityType>> ret, FibonacciHeap<SearchNode> heap, Set<Integer> set, List<ConstraintPath> remaining, double key, int index) {
-    	// test if this is a end node before searching deeper
-		if (remaining.size()==0) {
-			if (best==Double.MAX_VALUE)
-				best = key;
-			if (key<=best || ret.size()<MAX_SUG) {
+    public boolean goalTest (Set<Set<EntityType>> ret, SearchNode node) {
+    	if (node.remaining.size()!=0)
+    		return false;
+    	else {
+		// test if this is a end node before searching deeper
+//			if (best==Double.MAX_VALUE)
+//				best = key;
+//			if (key<=best && ret.size()<MAX_SUG) {
 				Set<EntityType> eset = new HashSet<EntityType>();
-				for (Integer j:set) {
+				for (Integer j:node.set) {
 					eset.add(candidates[j]);
 				}
 				ret.add(eset);
-				return false;
-			}
-			else {
-				System.out.println("Est function is called # of times: "+counter);
-				return true;
-			}
+//				return false;
+//			}
+//			else {
+		    	System.out.println("Nodes expanded: "+nodes);
+		    	return true;
+//			}
 		}
+    }
+    
+    // return true if the search is done
+    public void addSerchNode (FibonacciHeap<SearchNode> heap, Set<Integer> set, List<ConstraintPath> remaining, int index) {
+    	double succSum=0;
+		for (Integer j : set) {
+			succSum+=succCount.get(candidates[j].toString());
+		}
+		double real = C1*set.size()+succSum*C2;
+		double est = C1*Estimate(remaining, index);
+		double key = real + est;
+		
 		FibonacciHeapNode<SearchNode> newnode = new FibonacciHeapNode<SearchNode>(new SearchNode(set, remaining, index), key);
+		nodes ++;
 		heap.insert(newnode, newnode.getKey());
-		return false;
     }
     
     public abstract Set<ConstraintPath> mapsTo (EntityType element);
