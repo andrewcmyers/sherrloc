@@ -18,8 +18,8 @@ public abstract class HeuristicSearch<EntityType> {
     EntityType[] candidates;
 	Map<String, Double> succCount;
 	HashMap<EntityType, Set<ConstraintPath>> dep;
-    double C1 = 3;
-    double C2 = 1;
+    double C1 = 1;
+    double C2 = 0;
     int MAX_SUG = 5;
 //    UnsatPaths unsatPaths;
     
