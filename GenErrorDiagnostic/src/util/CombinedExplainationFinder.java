@@ -17,7 +17,7 @@ import diagnostic.UnsatPaths;
 public abstract class CombinedExplainationFinder<EntityType> {
 
     int REC_MAX = 6;
-    int SAT_MAX = 4;
+//    int SAT_MAX = 4;
     UnsatPaths paths;
 	Map<String, Node> exprMap;
 	Map<String, Double> succCount;
@@ -55,16 +55,27 @@ public abstract class CombinedExplainationFinder<EntityType> {
     	Set<EntityType> candidates = genCandidates( );
     	EntityType[] candArray = (EntityType[])candidates.toArray();
     	// we do an iterative deeping search until at least one cut is returned
+    	
+    	UnsatPaths toTest = new UnsatPaths();
+    	for (ConstraintPath path : dependencies.keySet()) {
+			toTest.addUnsatPath(path);
+		}
+		Set<Set<String>> r = toTest.genSnippetCut(1);
+		for (Set<String> set : r) {
+			ret.add(new CombinedSuggestion<EntityType>(new HashSet<EntityType>(), set, succCount));
+		}
+    	int size = ret.size();
+				
     	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, candArray, 0, dependencies, new ArrayList<EntityType>(), ret);
-   			if (ret.size()!=0)
+   			boundedDepthSearch (level, level, candArray, 0, dependencies, new ArrayList<EntityType>(), ret);
+   			if (ret.size()!=size)
    				break;
     	}
     	
     	return ret;
     }
     
-    private void boundedDepthSearch (int level, EntityType[] candidates, int index, HashMap<ConstraintPath, Set<EntityType>> dependencies, List<EntityType> visited, List<CombinedSuggestion<EntityType>> results) {
+    private void boundedDepthSearch (int level, int maxsize, EntityType[] candidates, int index, HashMap<ConstraintPath, Set<EntityType>> dependencies, List<EntityType> visited, List<CombinedSuggestion<EntityType>> results) {
     	
     	/* first level */
    		for (int i=index; i<candidates.length; i++) {
@@ -105,17 +116,17 @@ public abstract class CombinedExplainationFinder<EntityType> {
    	   				UnsatPaths toTest = new UnsatPaths();
    	   				for (ConstraintPath path : remaining)
    	   					toTest.addUnsatPath(path);
-   	   				Set<Set<String>> r = toTest.genSnippetCut();
+   	   				Set<Set<String>> r = toTest.genSnippetCut(maxsize-s.size()+1);
    	   				for (Set<String> set : r) {
-   	   					ExprSuggestion sugg = new ExprSuggestion(0, set, succCount);
-   	   					if (sugg.getRank()<SAT_MAX) {
+//   	   					ExprSuggestion sugg = new ExprSuggestion(0, set, succCount);
+//   	   					if (sugg.getRank()<SAT_MAX) {
    	   						results.add(new CombinedSuggestion<EntityType>(s, set, succCount));
-   	   					}
+//   	   					}
    	   				}
    	   			}
    	 		}
    			else
-   				boundedDepthSearch (level-1, candidates, i+1, dependencies, visited, results);
+   				boundedDepthSearch (level-1, maxsize, candidates, i+1, dependencies, visited, results);
    			
    			visited.remove(e);
    		}

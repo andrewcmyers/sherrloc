@@ -16,6 +16,8 @@ import java.util.Set;
 
 import util.CombinedExplainationFinder;
 import util.HTTPUtil;
+import util.Harmonic;
+import util.HeuristicSearch;
 import util.MinCutFinder;
 import constraint.ast.Element;
 import constraint.ast.Environment;
@@ -230,8 +232,39 @@ public class UnsatPaths {
     	
     	return cutFinder.findMinCut( );
     }
+    public Set<Set<String>> genSnippetCut () {
+    	return genSnippetCut (6);
+    }
     
-    public Set<Set<String>> genSnippetCut ( ) {
+    public Set<Set<String>> genHeuristicSnippetCut (Map<String, Double> succCount) {
+    	Set<String> cand = new HashSet<String>();
+		
+    	for (ConstraintPath path : errPaths) {
+    		for (Node n : path.getAllNodes()) {
+    			if (!((ElementNode)n).getElement().getPosition().isEmpty())
+    				cand.add(n.toString());
+    		}
+    	}
+    	
+    	HeuristicSearch<String> finder = new HeuristicSearch<String>(this, cand, succCount) {
+    		@Override
+    		public Set<ConstraintPath> mapsTo(String element) {
+    			Set<ConstraintPath> ret = new HashSet<ConstraintPath>();
+    			
+    	    	for (ConstraintPath path : errPaths) {
+    	    		for (Node n : path.getAllNodes()) {
+    	    			if (n.toString().equals(element))
+    	    				ret.add(path);
+    	    		}
+    	    	}
+    			return ret;
+    		}
+		};
+		
+		return finder.AStarSearch();
+    }
+    
+    public Set<Set<String>> genSnippetCut (int max) {
 //    	HashSet<String> candidates = new HashSet<String>();
 ////    	HashMap<AttemptGoal, Set<String>> map = new HashMap<AttemptGoal, Set<String>>();
 //
@@ -246,7 +279,7 @@ public class UnsatPaths {
 ////    		map.put(goal, new HashSet<String>(set));
 //    	}
     	
-    	MinCutFinder<String> cutFinder = new MinCutFinder<String>( this) {
+    	MinCutFinder<String> cutFinder = new MinCutFinder<String>( this, max) {
 			@Override
 			public Set<String> mapsTo(ConstraintPath path) {
 				Set<String> ret = new HashSet<String>();
@@ -295,8 +328,8 @@ public class UnsatPaths {
 			sb.append("<LI>\n<span class=\"path\" ");
 			HTTPUtil.setShowHideActions(true, sb, path_buff.toString(), 0);
 			sb.append(">");
-			sb.append("A value with type "+path.getFirstElement().toDetailString() + 
-				    " is being used at type " + path.getLastElement().toDetailString());
+			sb.append("A value with type "+path.getFirstElement().toString() + 
+				    " is being used at type " + path.getLastElement().toString());
 			sb.append("</span>\n");
         		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
 	        	sb.append(path_buff.toString());
@@ -354,8 +387,9 @@ public class UnsatPaths {
     
     public String genNodeCut (Map<String, Double> succCount, Map<String, Node> exprMap) {
     	StringBuffer sb = new StringBuffer();
-    	Set<Set<String>> results = genSnippetCut();
 		long startTime = System.currentTimeMillis();
+//    	Set<Set<String>> results = genSnippetCut();
+		Set<Set<String>> results = genHeuristicSnippetCut(succCount);
 		long endTime =  System.currentTimeMillis();
 		System.out.println("ranking_time: "+(endTime-startTime));
 		

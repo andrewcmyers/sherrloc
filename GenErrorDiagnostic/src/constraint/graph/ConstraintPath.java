@@ -81,9 +81,9 @@ public class ConstraintPath {
 		ElementNode first = (ElementNode) getFirst();
 		if (!first.getElement().hasVars())
 			varfree++;
-		for (int k = 0; k < size(); k++) {
+		for (int k = 0; k < edges.size(); k++) {
 			Edge edge = edges.get(k);
-			if (finder.getPath(first, edge.to)!=null) {
+			if (finder.getPath(first, edge.to)!=null) { // there is an LEQ edge
 				if (!env.leq(first.getElement(), ((ElementNode)edge.to).getElement()))
 					return false;
 				if (!((ElementNode)edge.to).getElement().hasVars())
@@ -251,12 +251,12 @@ public class ConstraintPath {
 		ret += "\n----Start of one path----\n";
 		ElementNode leftmost = (ElementNode) getFirst();
 //		leftmost.setCause();
-		ret += leftmost.getElement().toDotString()+"\n";
+		ret += leftmost.getElement().toString()+"\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			ret += "--> (" + (edge.toString()) + ")\n";
 //			if (finder.getPath(leftmost, edge.to)!=null)
-				ret += ((ElementNode)edge.to).getElement().toDotString()+"\n";
+				ret += ((ElementNode)edge.to).getElement().toString()+"\n";
 		}
 		ret += "----End of one path----\n";
 		return ret;
