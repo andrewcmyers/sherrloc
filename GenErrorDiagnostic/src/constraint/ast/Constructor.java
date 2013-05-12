@@ -88,15 +88,14 @@ public class Constructor extends Element {
 	
 	/* to make the diagnostic more precise, different instances of constants
 	 * should be treated as separate nodes in the constraint flow graph
-	 * However, when identifying unsat paths, the function sameas should be
-	 * used 
+	 * However, when identifying unsat paths, these constructors are the same. 
 	 * 
-	 * The trick here is to generate an id number for each constructor. Constructors
-	 * with different id numbers correspond to different nodes in graph.
-	 * But any operation on partial orders should treat them as same element
+	 * The trick here is to generate new instances of same constructor, but
+	 * But any operation on partial orders should call getBaseElement() in order
+	 * to treat the duplicated nodes in the same way
 	 */
 	public Constructor getInstance ( ) {
-		return new Constructor(name, arity, contraVariant, Position.EmptyPosition());
+		return new Constructor(name, arity, contraVariant, pos);
 	}
 	
 	@Override
