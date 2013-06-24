@@ -76,6 +76,7 @@ public class Analysis {
 		options.addOption("u", false, "unified hypothesis and cut");
 		options.addOption("o", true, "output file");
 		options.addOption("i", true, "original source file generating the constraints");
+		options.addOption("l", false, "location only, used for testing");
 		
 		CommandLineParser parser = new PosixParser();
 		CommandLine cmd=null;
@@ -93,6 +94,7 @@ public class Analysis {
 		boolean cut = false;
 		boolean assumption = false;
 		boolean unified = false;
+		boolean locationonly = false;
 		String outfile = "error.html";
 		String infile = "";
 		
@@ -106,6 +108,8 @@ public class Analysis {
 			unified = true;
 		if (cmd.hasOption("a"))
 			assumption = true;
+		if (cmd.hasOption("l"))
+			locationonly = true;
 		if (cmd.hasOption("o"))
 			outfile = cmd.getOptionValue("o");
 		if (cmd.hasOption("i"))
@@ -122,8 +126,11 @@ public class Analysis {
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
 				ana.initialize();
-				ana.writeToDotFile();
-				ana.writeToHTML();
+//				ana.writeToDotFile();
+				if (locationonly)
+					ana.toConsole();
+				else
+					ana.writeToHTML();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -244,7 +251,7 @@ public class Analysis {
 					path.incFailCounter();
 					path.setCause();
 					unsatPaths.addUnsatPath(path);
-					System.out.println(path);
+//					System.out.println(path);
 				}
 			}
 		}
@@ -352,7 +359,7 @@ public class Analysis {
         		int count = 1;	
         		for (UnsatPaths paths : l) {
         			System.out.println("***********"+paths.size());
-        			out.append(getOneSuggestion(sourceName, paths, count++));
+        			out.append(getOneSuggestion(sourceName, paths, count++, false));
         		}
         		
         		out.append(util.genAnnotatedCode(unsatPaths, sourceName) +
@@ -431,17 +438,36 @@ public class Analysis {
     			"</HTML>";
     }
     
-    public String getOneSuggestion (String sourcefile, UnsatPaths paths, int count) {
+    public String getOneSuggestion (String sourcefile, UnsatPaths paths, int count, boolean console) {
     	StringBuffer sb = new StringBuffer();
-   		sb.append(
-    		"<HR>\n" +
-    		"<H2>\n" +
-    		"Error "+ count + "</H2>\n" +
-    		paths.toHTML() +
+    	if (!console)
+    		sb.append("<HR>\n" + "<H2>\n" + "Error "+ count + "</H2>\n" + paths.toHTML());
+    	sb.append(
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
 //    		(GEN_CUT?paths.genElementCut():""));
-    		(GEN_CUT?paths.genNodeCut(succCount, exprMap)/*+paths.genEdgeCut()*/:""));
+    		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console)/*+paths.genEdgeCut()*/:""));
 //    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
     	return sb.toString();
+    }
+    
+    public void toConsole () {
+        if (!done) 
+        	genErrorPaths();
+        
+        // type check succeeded
+        if (unsatPaths.size()==0) {
+			System.out.println("The program passed type checking. No errors were found.");
+		} else {
+			List<UnsatPaths> l = unsatPaths.genIndependentPaths();
+			if (l.size() == 1) {
+				System.out.println("One typing error is identified");
+			} else {
+				System.out.println(l.size() + " separate typing errors are identified.");
+			}
+			int count = 1;
+			for (UnsatPaths paths : l) {
+				System.out.println(getOneSuggestion(sourceName, paths, count++, true));
+			}
+		}
     }
 }

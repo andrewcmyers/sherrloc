@@ -4,12 +4,13 @@ import java.util.Map;
 import java.util.Set;
 
 import util.HTTPUtil;
+import util.HeuristicSearch;
 import constraint.ast.Element;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
 
 public class ExprSuggestion implements Comparable<ExprSuggestion> {
-	int rank = 0;
+	double rank = 0;
 	Set<String> exprs;
 	int id;
 	Map<String, Double> succCount;
@@ -20,16 +21,17 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		for (String expr : exprs) {
 			rank += succCount.get(expr);
 		}
+		rank = HeuristicSearch.getScore(exprs.size(), rank);
 		this.succCount = succCount;
 	}
 	
-	public int getRank() {
+	public double getRank() {
 		return rank;
 	}
 	
 	@Override
 	public int compareTo(ExprSuggestion o) {
-		return new Integer(rank).compareTo(o.rank);
+		return new Double(rank).compareTo(o.rank);
 	}
 	
 	public String toHTML (Map<String, Node> exprMap) {
@@ -42,7 +44,7 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		for (String c : exprs) {
 			Element en = ((ElementNode)exprMap.get(c)).getElement();
     		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
-    		exprBuffer.append(en.toHTMLString()+succCount.get(en.toString())+"    ");
+    		exprBuffer.append(en.toHTMLString()+succCount.get(en.toString())+"["+en.getPosition()+"]    ");
     	}
     	sb.append("<span class=\"path\" ");
 		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
@@ -53,6 +55,22 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
     	sb.append("])\" ");
 		// setShowHideActions(true, sb, path_buff.toString(), 0);
 		sb.append(">show it</button><br>\n");
+    	
+   		return sb.toString();
+	}
+	
+	public String toConsole (Map<String, Node> exprMap) {
+		StringBuffer sb = new StringBuffer();
+		
+		StringBuffer locBuffer = new StringBuffer();
+    	StringBuffer exprBuffer = new StringBuffer();
+		for (String c : exprs) {
+			Element en = ((ElementNode)exprMap.get(c)).getElement();
+    		locBuffer.append(en.getPosition() + ", ");
+    		exprBuffer.append(en.toHTMLString() + ", ");
+    	}
+		sb.append(exprBuffer.toString()+": ");
+        sb.append(locBuffer.toString());
     	
    		return sb.toString();
 	}
