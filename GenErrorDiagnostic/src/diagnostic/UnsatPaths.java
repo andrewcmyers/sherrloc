@@ -385,7 +385,7 @@ public class UnsatPaths {
 		return sb.toString();
 	}
     
-    public String genNodeCut (Map<String, Double> succCount, Map<String, Node> exprMap) {
+    public String genNodeCut (Map<String, Double> succCount, Map<String, Node> exprMap, boolean console) {
     	StringBuffer sb = new StringBuffer();
 		long startTime = System.currentTimeMillis();
 //    	Set<Set<String>> results = genSnippetCut();
@@ -393,7 +393,8 @@ public class UnsatPaths {
 		long endTime =  System.currentTimeMillis();
 		System.out.println("ranking_time: "+(endTime-startTime));
 		
-		sb.append("<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
+		if (!console)
+			sb.append("<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
 		List<ExprSuggestion> cuts = new ArrayList<ExprSuggestion>();
 		int count = 1;
@@ -403,21 +404,26 @@ public class UnsatPaths {
 		}
 		Collections.sort(cuts);
 
-		int best=Integer.MAX_VALUE;
+		double best=Double.MAX_VALUE;
 		int i=0;
 		for ( ; i<cuts.size(); i++) {
 			if (cuts.get(i).rank>best)
 				break;
 			best = cuts.get(i).rank;
-			sb.append(cuts.get(i).toHTML(exprMap));
+			if (console)
+				sb.append(cuts.get(i).toConsole(exprMap)+"\n");
+			else
+				sb.append(cuts.get(i).toHTML(exprMap));
 		}
 		System.out.println("top_rank_size: "+i);
-		sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
-		sb.append("<div id=\"more_expr\">");
-		for ( ; i<cuts.size(); i++) {
-			sb.append(cuts.get(i).toHTML(exprMap));
+		if (!console) {
+			sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
+			sb.append("<div id=\"more_expr\">");
+			for (; i < cuts.size(); i++) {
+				sb.append(cuts.get(i).toHTML(exprMap));
+			}
+			sb.append("</div>\n");
 		}
-		sb.append("</div>\n");
 		return sb.toString();
     }
     
@@ -446,8 +452,7 @@ public class UnsatPaths {
 			best = result.get(i).rank;
 			sb.append(result.get(i).toHTML(exprMap));
 			System.out.println("top_rank_size: " + i);
-			sb
-					.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
+			sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
 			sb.append("<div id=\"more_expr\">");
 			for (; i < result.size(); i++) {
 				sb.append(result.get(i).toHTML(exprMap));

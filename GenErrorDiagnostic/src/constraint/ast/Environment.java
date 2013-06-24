@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import constraint.graph.ConstraintGraph;
-import constraint.graph.ConstraintPath;
-import constraint.graph.ConstructorEdge;
-import constraint.graph.Edge;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
-import constraint.graph.Polarity;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 
