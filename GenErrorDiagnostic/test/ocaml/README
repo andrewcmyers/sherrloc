@@ -1,0 +1,8 @@
+This is the OCaml test case for error diagnostic tool.
+
+To run the test, change the configuration of $ezyocaml and $diagnostic to the
+home directory of EasyOcaml and diagnostic tool respectively. Then simply run
+the script.
+
+The script skips tests that already succeeds before. Use argument "clean" to
+clean up all cmo files and test all files from scratch.
