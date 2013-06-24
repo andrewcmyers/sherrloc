@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
+import constraint.ast.ComplexElement;
+import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
@@ -78,20 +81,45 @@ public class ConstraintPath {
 		
 		Environment env = getEnv_(cachedEnv);
 		// System.out.println("Checking one equation in env: "+path.env);
+		Stack<ElementNode> leqNodes = new Stack<ElementNode>();
+		Stack<EdgeCondition> conditions = new Stack<EdgeCondition>();
 		ElementNode first = (ElementNode) getFirst();
-		if (!first.getElement().hasVars())
-			varfree++;
+		leqNodes.push(first);
+		
 		for (int k = 0; k < edges.size(); k++) {
 			Edge edge = edges.get(k);
-			if (finder.getPath(first, edge.to)!=null) { // there is an LEQ edge
-				if (!env.leq(first.getElement(), ((ElementNode)edge.to).getElement()))
-					return false;
-				if (!((ElementNode)edge.to).getElement().hasVars())
-					varfree++;
-				if (varfree>2)
-					return false;
+			ElementNode eto = (ElementNode)edge.to;
+			if (edge instanceof EquationEdge) {
+				if (eto.getElement() instanceof Constructor || eto.getElement() instanceof ComplexElement) {
+					if (!env.leq(leqNodes.peek().getElement(), eto.getElement()))
+						return false;
+					else {
+						leqNodes.pop();
+						leqNodes.push(eto);
+					}
+				}
+			}
+			else if (edge instanceof ConstructorEdge) {
+				ConstructorEdge cedge = (ConstructorEdge)edge;
+				if (conditions.empty() || !conditions.peek().matches(cedge.condition)) {
+					conditions.push(cedge.condition);
+					leqNodes.push(eto);
+				}
+				else {
+					conditions.pop();
+					leqNodes.pop();
+				}
+				if (eto.getElement() instanceof Constructor || eto.getElement() instanceof ComplexElement) {
+					if (!leqNodes.empty() && !env.leq(leqNodes.peek().getElement(), eto.getElement()))
+						return false;
+					else {
+						leqNodes.pop();
+						leqNodes.push(eto);
+					}
+				}
 			}
 		}
+
 		return true;
 	}
 	
