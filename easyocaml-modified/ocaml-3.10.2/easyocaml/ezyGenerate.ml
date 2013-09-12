@@ -700,7 +700,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           build_exp a desc, cs, PostProcess.empty
 
       | Pexp_function rules ->
-          let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
+          let a = Ty.fresh_var (*~loc:(Some eloc)*) ~detail:(Some detail) () in
           let enr_rules, ty_p, _, ty_e, _, cs0, pp = for_rules ~binding:binding eloc rules env in
           let cs1 = AtConstrSet.singleton a detail eloc (Ty.Arrow (eloc, ty_p, ty_e)) detail in
           let cs = AtConstrSet.union cs0 cs1 in
@@ -721,14 +721,14 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           ] in
           build_exp a (Pexp_apply (enr_exp1, enr_exp2)), AtConstrSet.big_union [cs0; cs1; cs2], PostProcess.union pp1 pp2
       | Pexp_let (bindings, body) ->
-          let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
+          let a = Ty.fresh_var (*~loc:(Some eloc) ~detail:(Some detail)*) () in
           let (cs, pp, env'), enr_bindings = collect_bindings env loc bindings in
           let enr_body, csm, ppm = for_expr body env' in
           let csx = AtConstrSet.singleton a detail eloc (ty_of_expr enr_body) (expr_string body) in
           build_exp a (Pexp_let (enr_bindings, enr_body)), List.reduce AtConstrSet.union [cs; csx; csm], PostProcess.union pp ppm
 
       | Pexp_letrec (bindings, body) ->
-          let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
+          let a = Ty.fresh_var (*~loc:(Some eloc) ~detail:(Some detail)*) () in
           let (cs, pp, env'), enr_bindings = collect_rec_bindings env loc bindings in
           let enr_body, csm, ppm = for_expr body env' in
           let csx = AtConstrSet.singleton a detail eloc (ty_of_expr enr_body) (expr_string body) in
@@ -919,7 +919,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
       | Pexp_for (var, exp1, exp2, dir_flag, exp3) ->
           let exp1_loc = ExtLocation.Source exp1.pexp_loc in
           let ax = Ty.fresh_var ~loc:(Some exp1_loc) ~detail:(Some (expr_string exp1)) () in
-          let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
+          let a = Ty.fresh_var (*~loc:(Some eloc) ~detail:(Some detail)*) () in
           let enr_exp1, cs1, pp1 = for_expr exp1 env in
           let enr_exp2, cs2, pp2 = for_expr exp2 env in
           let exp1_loc = ExtLocation.Source exp1.pexp_loc in
@@ -946,7 +946,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           build_exp a desc, cs, pp
 
       | Pexp_while (exp1, exp2) ->
-          let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
+          let a = Ty.fresh_var (*~loc:(Some eloc) ~detail:(Some detail)*) () in
           let enr_exp1, cs1, pp1 = for_expr exp1 env in
           let enr_exp2, cs2, pp2 = for_expr exp2 env in
           let exp1_loc = ExtLocation.Source exp1.pexp_loc in
