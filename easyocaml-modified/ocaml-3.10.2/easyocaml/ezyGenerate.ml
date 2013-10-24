@@ -1390,17 +1390,18 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
   fun str parse_tree env oenv ->
 
   let aux (str_its, cs, pp, ecaml_env, ocaml_env, type_accu) str_it tree_it =
-    let import_env = (* ecaml_env *) EzyEnv.import ocaml_env in
-    (* EzyEnv.print true Format.str_formatter import_env;
-    let detail = Format.flush_str_formatter () in
-    print_string detail; *)
+    let import_env = EzyEnv.import ocaml_env in
+    (* let import_env = ecaml_env in *) (* for interprocedure analysis*)
+
     let enr_strit, env0, cs0, pp0, type_accu = for_structure_item import_env type_accu str_it in
     logger#debug "Generated for strit, resulting env:\n%a" (EzyEnv.print false) env0 ;
     begin try
       Typecore.reset_delayed_checks ();
       let (o_str, o_sg, o_newenv) = Typemod.type_structure ocaml_env (tree_it::[]) in
       Typecore.force_delayed_checks ();
-      (enr_strit :: str_its, cs0, PostProcess.union pp pp0, env0, o_newenv, type_accu)
+      let cumulated_cs = cs0 in
+      (* let cumulated_cs = AtConstrSet.union cs cs0 in *) (* for interprocedure analysis *)
+      (enr_strit :: str_its, cumulated_cs, PostProcess.union pp pp0, env0, o_newenv, type_accu)
     with
       | Typemod.Error (loc, err) ->
           exit 101
@@ -1410,17 +1411,12 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
           logger#debug "@[<2>generated constraints:@ %a@]" AtConstrSet.print cs0 ;
           let out = open_out "error.con" in
           let formater = (Format.formatter_of_out_channel out) in  
-          (* let predefined = "CONSTRUCTOR int 0\nCONSTRUCTOR bool 0\nCONSTRUCTOR char
-           * 0\nCONSTRUCTOR unit 0\nCONSTRUCTOR float 0\nCONSTRUCTOR array
-           * 1\nCONSTRUCTOR string 0\nCONSTRUCTOR option 1\nCONSTRUCTOR Pervasives.ref
-           * 1\n\n" in 
-          Format.fprintf formater "%s" predefined; *)
           Format.pp_set_margin formater 10000;
           Format.pp_set_max_indent formater 5000;
           EzyEnv.print_constructor formater true env0;
-          (* EzyEnv.print_cons_in_kind formater env0; *)
           Format.fprintf formater "@\n";
           EzyEnv.print_cons formater true env0;
+          (* AtConstrSet.cons_print formater cs ([]);*) (* for interprocedure analysis*)
           AtConstrSet.cons_print formater cs0 (tree_it::[]);
           Format.pp_print_flush formater ();
           close_out out;
