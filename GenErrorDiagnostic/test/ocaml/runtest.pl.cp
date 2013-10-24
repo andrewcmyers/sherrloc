@@ -56,7 +56,11 @@ sub parse {
     my $loc = new Location($1, $2, $1, $3);
     push(@locs, $loc);
   }
-  if ((scalar @locs) == 0) {
+  if ( $str =~ /java.lang.OutOfMemoryError/ ) {
+    cleanup();
+    return @locs;
+  }
+  elsif ((scalar @locs) == 0) {
     print "parse error";
     cleanup();
     exit 0;
@@ -65,17 +69,19 @@ sub parse {
 }
 
 my $top_rank_size;
+my $total_size = 0;
 
 # read the diagnostic location results
 sub diagnoseLocations {
   $mlfile = shift;
   `$ezyocaml/ecamlc $mlfile >/dev/null 2>&1`;
-  my $str = `$diagnostic -c -s -l error.con`;
+  my $str = `$diagnostic -c -s -l error.con 2>&1`;
   my $ret = "";
   unlink ("error.con");
   for(split /^/, $str) {
     if (/^top_rank_size:/) {
       ($top_rank_size) = $_ =~ m/^top_rank_size: (.+)/;
+      $total_size += $top_rank_size;
     }
     if (/(\d+),(\d+)-(\d+)/) {
       $ret = $ret.$_;
@@ -190,6 +196,7 @@ L1:       for my $loc1 (@loc1) {
 #}
 
 print (($succ_counter+$fail_counter) . " programs evaluated. " . ($fail_counter) . " of them fails.\n");
+print "Average top rank size is: " . ($total_size/($succ_counter+$fail_counter)) . "\n";
 
 =comment
 my @loc1 = parse ("(* 9,1-12 5,14-18 *)");
