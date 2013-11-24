@@ -44,12 +44,12 @@ public class Variable extends Element {
 		
 	@Override
 	public boolean isStart() {
-		return false;
+		return true;
 	}
 	
 	@Override
 	public boolean isEnd() {
-		return false;
+		return true;
 	}
 	
 	@Override

@@ -35,6 +35,7 @@ import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
+import constraint.graph.ReductionEdge;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.parse.GrmLexer;
@@ -46,6 +47,7 @@ public class Analysis {
     boolean GEN_CUT = true;
     boolean GEN_ASSUMP = true;
     boolean GEN_UNIFIED = false;
+    boolean NO_REC = false;
 	boolean done = false;
 	ConstraintGraph graph;
 	String sourceName;
@@ -77,6 +79,7 @@ public class Analysis {
 		options.addOption("o", true, "output file");
 		options.addOption("i", true, "original source file generating the constraints");
 		options.addOption("l", false, "location only, used for testing");
+		options.addOption("r", false, "disallow recursion");
 		
 		CommandLineParser parser = new PosixParser();
 		CommandLine cmd=null;
@@ -95,6 +98,7 @@ public class Analysis {
 		boolean assumption = false;
 		boolean unified = false;
 		boolean locationonly = false;
+		boolean norecursion = false;
 		String outfile = "error.html";
 		String infile = "";
 		
@@ -110,6 +114,8 @@ public class Analysis {
 			assumption = true;
 		if (cmd.hasOption("l"))
 			locationonly = true;
+		if (cmd.hasOption("r"))
+			norecursion = true;
 		if (cmd.hasOption("o"))
 			outfile = cmd.getOptionValue("o");
 		if (cmd.hasOption("i"))
@@ -123,6 +129,7 @@ public class Analysis {
 				ana.GEN_ASSUMP = assumption;
 				ana.GEN_CUT = cut;
 				ana.GEN_UNIFIED = unified;
+				ana.NO_REC = norecursion;
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
 				ana.initialize();
@@ -196,8 +203,27 @@ public class Analysis {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
 				
-				if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
+				if (NO_REC) {
+					if (graph.isSymmentric() && (start.getIndex() < end.getIndex()))
+						continue;
+				}
+				else {
+					if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
+						continue;
+				}
+				
+				if (NO_REC && start.getIndex() == end.getIndex()) {
+					List<ReductionEdge> leftedges = finder.getLeqPath(start, end);
+					for (ReductionEdge redge : leftedges) {
+						ConstraintPath path = new ConstraintPath(redge.getEdges(), finder, graph.getEnv());
+						testElements.add(e1);
+						testElements.add(e2);
+						path.incFailCounter();
+						path.setCause();
+						unsatPaths.addUnsatPath(path);
+					}
 					continue;
+				}
 				
 				// if one end is variable, the satisfiability is trivial
 				if (e1 instanceof Variable || e2 instanceof Variable) {

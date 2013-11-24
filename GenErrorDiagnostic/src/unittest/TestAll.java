@@ -69,7 +69,7 @@ public class TestAll {
 		/* social */
 ////		testAssumptions("src/constraint/tests/testhypo/Agent1.con", "", false); // same assumption [why this test is here?]
 		/* SocialNetwork1 secure */
-		testAssumptions("src/constraint/tests/testhypo/SocialNetwork2.con", "bb <= SN;bg <= SN;user <= SN;\n", false); // same
+		testAssumptionsSub("src/constraint/tests/testhypo/SocialNetwork2.con", "bb <= SN;bg <= SN;user <= SN;\n", false); // same
 
 		/* friendmap */
 		testAssumptions("src/constraint/tests/testhypo/Location1.con", "C_L <= (C_A)join((_)->(_));\n", false);// same assumption
