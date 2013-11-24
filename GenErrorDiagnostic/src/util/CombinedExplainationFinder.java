@@ -10,7 +10,6 @@ import java.util.Set;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Node;
 import diagnostic.CombinedSuggestion;
-import diagnostic.ExprSuggestion;
 import diagnostic.UnsatPaths;
 
 // we do an iterative deeping search until at least one cut is returned
