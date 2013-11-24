@@ -129,4 +129,9 @@ public class ExistancePathFinder extends CFLPathFinder {
 		else
 			return getLeqEdge(start,end).getEdges();
 	}
+	
+	@Override
+	protected List<ReductionEdge> _getLeftPath(Node start, Node end) {
+		return null; // do nothing
+	}
 }

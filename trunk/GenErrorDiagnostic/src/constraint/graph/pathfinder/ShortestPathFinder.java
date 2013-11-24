@@ -1,5 +1,6 @@
 package constraint.graph.pathfinder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -567,6 +568,20 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 		else 
 			return null;
+	}
+	
+	@Override
+	protected List<ReductionEdge> _getLeftPath(Node start, Node end) {
+		int sIndex = start.getIndex();
+		int eIndex = end.getIndex();
+		List<ReductionEdge> ret = new ArrayList<ReductionEdge>();
+		
+		if ( leftPath[sIndex][eIndex]!=null) {
+			for (FibonacciHeapNode<ReductionEdge> node : leftPath[sIndex][eIndex].values()) {
+				ret.add(node.getData());
+			}
+		}
+		return ret;
 	}
 
 	// test if the leq relation can be derived from the graph

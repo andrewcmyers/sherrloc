@@ -8,6 +8,7 @@ import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
+import constraint.graph.ReductionEdge;
 
 /** 
  * 
@@ -27,6 +28,7 @@ public abstract class PathFinder {
 	abstract void initialize ( );
 	
 	abstract protected List<Edge> _getPath (Node start, Node end);
+	abstract protected List<ReductionEdge> _getLeftPath (Node start, Node end);
 	
 	public List<Edge> getPath (Node start, Node end) {
 		if (!initialized) {
@@ -38,6 +40,18 @@ public abstract class PathFinder {
 		}
 		
 		return _getPath(start, end);
+	}
+	
+	public List<ReductionEdge> getLeqPath (Node start, Node end) {
+		if (!initialized) {
+			long startTime = System.currentTimeMillis();
+			initialize();
+			initialized = true;
+			long endTime = System.currentTimeMillis();
+			System.out.println("path_finding time: " + (endTime-startTime));
+		}
+		
+		return _getLeftPath(start, end);
 	}
 	
 	public Set<Node> geqSet(ElementNode start) {
