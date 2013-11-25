@@ -118,8 +118,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		while (!fh.isEmpty()) {	
 			ReductionEdge edge = fh.removeMin().getData();
 
-//			if (edge instanceof LeqEdge)
-//				tryAddingBackEdges ((LeqEdge)edge, fh);
+			if (edge instanceof LeqEdge)
+				tryAddingBackEdges ((LeqEdge)edge, fh);
 
 			if (CORRECTNESS_CHECK && edge instanceof LeqEdge) {
 				System.out.println(edge.getLength());
