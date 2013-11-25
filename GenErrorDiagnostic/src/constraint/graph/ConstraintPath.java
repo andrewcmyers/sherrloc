@@ -12,6 +12,8 @@ import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
+import constraint.ast.JoinElement;
+import constraint.ast.MeetElement;
 import constraint.graph.pathfinder.PathFinder;
 
 public class ConstraintPath {
@@ -89,8 +91,10 @@ public class ConstraintPath {
 		for (int k = 0; k < edges.size(); k++) {
 			Edge edge = edges.get(k);
 			ElementNode eto = (ElementNode)edge.to;
+			boolean needCmp = eto.getElement() instanceof Constructor || eto.getElement() instanceof ComplexElement
+					|| eto.getElement() instanceof JoinElement || eto.getElement() instanceof MeetElement;
 			if (edge instanceof EquationEdge) {
-				if (eto.getElement() instanceof Constructor || eto.getElement() instanceof ComplexElement) {
+				if (needCmp) {
 					if (!env.leq(leqNodes.peek().getElement(), eto.getElement()))
 						return false;
 					else {
@@ -109,7 +113,7 @@ public class ConstraintPath {
 					conditions.pop();
 					leqNodes.pop();
 				}
-				if (eto.getElement() instanceof Constructor || eto.getElement() instanceof ComplexElement) {
+				if (needCmp) {
 					if (!leqNodes.empty() && !env.leq(leqNodes.peek().getElement(), eto.getElement()))
 						return false;
 					else {
