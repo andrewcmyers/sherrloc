@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 
 use Cwd;
-my $path = Cwd::abs_path();
 my $dirname = getcwd;
 my $diagnostic = "$dirname/../../diagnostic";
 my $cp = "../tests/:.";
