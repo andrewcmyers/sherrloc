@@ -112,7 +112,7 @@ sub print_ok {
 
 sub print_fail {
   $fail_counter ++;
-  print colored("fail", 'red'), "\n";
+  print colored("fail ($fail_counter)", 'red'), "\n";
   cleanup();
 }
 

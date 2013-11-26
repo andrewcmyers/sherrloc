@@ -67,7 +67,6 @@ public class TestAll {
 		testAssumptions("src/constraint/tests/testhypo/Board1.con", "(p1)->(p1) <= C_L;(p1)<-(p1) <= I_L;C_L <= (p1)->(p1);I_L <= (p1)<-(p1);\n", false); // same assumption
 
 		/* social */
-		testAssumptions("src/constraint/tests/testhypo/Agent1.con", "", false); // same assumption [why this test is here?]
 		/* SocialNetwork1 secure */
 		testAssumptionsSub("src/constraint/tests/testhypo/SocialNetwork2.con", "bb <= SN;bg <= SN;user <= SN;\n", false); // same
 
