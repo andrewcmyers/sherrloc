@@ -1,0 +1,65 @@
+h1, h2, h3 { font-family: Tahoma }
+body {padding: 0 2em}
+.left { background-color: #c9f; font-weight: bold; border: solid #70b 1px }
+.right { background-color: #aff; font-weight: bold; border: solid #0aa 1px }
+.pathelement { background-color: #ff9; font-weight: bold; border: solid #c90 1px }
+.cut { background-color: #fb9; font-weight: bold }
+pre.code {
+    font-size: 110%;
+    background-color: #ffe;
+    padding: 1ex;
+    border: solid gray 1px;
+    overflow: auto;
+    width: 120ex;
+    height: 30em;
+    resize: both;
+}
+span.comment {color: #008; font-style: italic}
+pre.code .keyword {font-weight: bold}
+span.suggestion {
+    background-color: #68f;
+    opacity: 0.6;
+    position: absolute;
+    top: -2em; right: 0ex;
+    font-size: 70%; font-weight: bold; font-family: Baskerville, serif;
+    border: 2px solid #44c;
+    padding: 0.5ex;
+    -moz-box-shadow: 1px 1px 3px #aaa;
+    -webkit-box-shadow: 1px 1px 3px #aaa;
+    box-shadow: 1px 1px 3px #aaa;
+    border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+}
+span.outerSuggestion { background-color: transparent; width: 0px; position: relative }
+div.feedback { position: fixed; right: 10px; bottom: 10px;
+    max-width: 80ex;
+    background-color: rgba(200, 220, 255, 1.0);
+    padding: 1em;
+    border: #aaa solid 1px;
+    font-size: 80%;
+}
+div.feedback form input { font-size: 80%; font-family: sans-serif }
+#hide_button { position: fixed;
+    font-family: sans-serif;
+    font-size: 90%;
+    cursor: pointer;
+    padding: 2px;
+    bottom: 1px;
+    right: 1px;
+    background-color: white;
+    border: 1px solid #aaa;
+}
+
+#more_expr {
+    height: 0px;
+    overflow: hidden;
+}
+
+#more_cons {
+    height: 0px;
+    overflow: hidden;
+}
+
+span.rank { font-family: serif; font-size: 80%; color: #666 }
+span.lineno { font-family: Baskerville, serif; font-style: italic; font-size: 90%; display: inline-block; width: 4ex; padding: 0 0.5ex }
+
+ol li {font-family: Baskerville, serif}
