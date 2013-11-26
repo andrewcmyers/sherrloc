@@ -85,6 +85,7 @@ public class ConstraintPath {
 		// System.out.println("Checking one equation in env: "+path.env);
 		Stack<ElementNode> leqNodes = new Stack<ElementNode>();
 		Stack<EdgeCondition> conditions = new Stack<EdgeCondition>();
+		int length = 0;
 		ElementNode first = (ElementNode) getFirst();
 		leqNodes.push(first);
 		
@@ -93,8 +94,16 @@ public class ConstraintPath {
 			ElementNode eto = (ElementNode)edge.to;
 			boolean needCmp = eto.getElement() instanceof Constructor || eto.getElement() instanceof ComplexElement
 					|| eto.getElement() instanceof JoinElement || eto.getElement() instanceof MeetElement;
-			if (edge instanceof EquationEdge) {
+			if (edge instanceof EquationEdge || edge instanceof JoinEdge ||
+					edge instanceof MeetEdge) {
 				if (needCmp) {
+					if (conditions.size()==0) {
+						if (length>0)
+							return false;
+						else
+							length ++;
+					}
+					
 					if (!env.leq(leqNodes.peek().getElement(), eto.getElement()))
 						return false;
 					else {
@@ -112,13 +121,20 @@ public class ConstraintPath {
 				else {
 					conditions.pop();
 					leqNodes.pop();
-				}
-				if (needCmp) {
-					if (!leqNodes.empty() && !env.leq(leqNodes.peek().getElement(), eto.getElement()))
-						return false;
-					else {
-						leqNodes.pop();
-						leqNodes.push(eto);
+					if (needCmp) {
+						if (conditions.size()==0) {
+							if (length>0)
+								return false;
+							else
+								length ++;
+						}
+						
+						if (!leqNodes.empty() && !env.leq(leqNodes.peek().getElement(), eto.getElement()))
+							return false;
+						else {
+							leqNodes.pop();
+							leqNodes.push(eto);
+						}
 					}
 				}
 			}
