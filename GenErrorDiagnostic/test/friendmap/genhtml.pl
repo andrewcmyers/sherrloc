@@ -1,8 +1,9 @@
 #!/usr/bin/perl
 
-use Cwd qw();
+use Cwd;
 my $path = Cwd::abs_path();
-my $diagnostic = "/home/zhdf/workspace/GenErrorDiagnostic/diagnostic";
+my $dirname = getcwd;
+my $diagnostic = "$dirname/../../diagnostic";
 my $cp = "../tests/:.";
 my $html = "temp.html";
 my $consfile;
