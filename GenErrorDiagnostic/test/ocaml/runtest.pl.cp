@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
-use Cwd qw();
-my $path = Cwd::abs_path();
-my $ezyocaml = "/home/zhdf/workspace/easyocaml/easyocaml-modified/ocaml-3.10.2/bin/";
-my $diagnostic = "/home/zhdf/workspace/GenErrorDiagnostic/diagnostic";
+use Cwd;
+my $dirname = getcwd;
+my $ezyocaml = "$dirname/../../../easyocaml-modified/ocaml-3.10.2/bin/";
+my $diagnostic = "$dirname/../../diagnostic";
 my $mlfile;
 
 use strict;
