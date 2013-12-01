@@ -2,8 +2,8 @@
 
 use Cwd qw();
 my $path = Cwd::abs_path();
-my $bin = "/home/zhdf/workspace/easyocaml/easyocaml-modified/ocaml-3.10.2/bin/";
-my $diagnostic = "/home/zhdf/workspace/GenErrorDiagnostic/diagnostic";
+my $bin = "$path/../../../easyocaml-modified/ocaml-3.10.2/bin";
+my $diagnostic = "$path/../../diagnostic";
 my $html = "temp.html";
 my $mlfile;
 

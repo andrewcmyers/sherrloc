@@ -92,4 +92,4 @@ let _ =
   print_string "large: \n"; pr ansL; print_newline (); 
   print_string "small: \n"; pr ansS; print_newline (); 
 (* ########################## *)
-(* 38,10-29 *)
+(* 39,16-19 *)
