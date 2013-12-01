@@ -12,6 +12,7 @@ import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
+import constraint.ast.Variable;
 import constraint.graph.CompEdge;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.Edge;
@@ -118,8 +119,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		while (!fh.isEmpty()) {	
 			ReductionEdge edge = fh.removeMin().getData();
 
-//			if (edge instanceof LeqEdge)
-//				tryAddingBackEdges ((LeqEdge)edge, fh);
+			if (edge instanceof LeqEdge)
+				tryAddingBackEdges ((LeqEdge)edge, fh);
 
 			if (CORRECTNESS_CHECK && edge instanceof LeqEdge) {
 				System.out.println(edge.getLength());
@@ -528,7 +529,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 					for (int i=0; i<ce1.getCons().getArity(); i++) {
 						Element e1 = ce1.getElements().get(i);
 						Element e2 = ce2.getElements().get(i);
-						if (idPath[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()]==null) {
+						if (idPath[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()]==null
+								|| e1 instanceof Variable || e2 instanceof Variable) {
 							success = false;
 							break;
 						}
