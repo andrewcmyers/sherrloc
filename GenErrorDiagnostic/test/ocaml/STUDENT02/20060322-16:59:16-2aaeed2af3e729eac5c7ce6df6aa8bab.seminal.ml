@@ -114,4 +114,4 @@ let _ =
   pr ansL; print_newline (); 
   pr ansS; print_newline ();
   pr ansI; print_newline (); 
-(* 73,28-48 *)
+(* 73,26-48 *)

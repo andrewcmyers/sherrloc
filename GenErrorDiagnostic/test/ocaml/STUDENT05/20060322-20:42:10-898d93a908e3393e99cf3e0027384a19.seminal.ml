@@ -89,4 +89,4 @@ let _ =
   pr ansS; print_newline ();
   pr ansI; print_newline (); 
 
-(* 30,18-38 *)
+(* 30,18-42 *)
