@@ -5,6 +5,7 @@ my $dirname = getcwd;
 my $ezyocaml = "$dirname/../../../easyocaml-modified/ocaml-3.10.2/bin/";
 my $diagnostic = "$dirname/../../diagnostic";
 my $mlfile;
+my $outfile = "data";
 
 use strict;
 use warnings;
@@ -76,15 +77,11 @@ sub diagnoseLocations {
   $mlfile = shift;
   `$ezyocaml/ecamlc $mlfile >/dev/null 2>&1`;
   my $str = `$diagnostic -c -s -l error.con 2>&1`;
-  my $ret = "";
   unlink ("error.con");
   for(split /^/, $str) {
     if (/^top_rank_size:/) {
       ($top_rank_size) = $_ =~ m/^top_rank_size: (.+)/;
       $total_size += $top_rank_size;
-    }
-    if (/(\d+),(\d+)-(\d+)/) {
-      $ret = $ret.$_;
     }
   }
   return $str; 
@@ -148,6 +145,9 @@ if (($#ARGV == 0) && ($ARGV[0] eq "clean")) {
   exit 0;
 }
 
+open OUT, ">$outfile" or die "oped failed : $outfile\n";
+OUT->autoflush(1);
+
 foreach my $dir (@files) {
   if (-d $dir) {
     opendir my $dh, $dir or die "$0: opendir: $!";
@@ -181,6 +181,9 @@ L1:       for my $loc1 (@loc1) {
             # remove cmo files
             print_fail();
           }
+          else {
+                print OUT $toolret;
+          }
         }
       }
     }
@@ -195,8 +198,9 @@ L1:       for my $loc1 (@loc1) {
 #    }
 #}
 
-print (($succ_counter+$fail_counter) . " programs evaluated. " . ($fail_counter) . " of them fails.\n");
-print "Average top rank size is: " . ($total_size/($succ_counter+$fail_counter)) . "\n";
+print OUT (($succ_counter+$fail_counter) . " programs evaluated. " . ($fail_counter) . " of them fails.\n");
+print OUT "Average top rank size is: " . ($total_size/($succ_counter+$fail_counter)) . "\n";
+close OUT;
 
 =comment
 my @loc1 = parse ("(* 9,1-12 5,14-18 *)");
