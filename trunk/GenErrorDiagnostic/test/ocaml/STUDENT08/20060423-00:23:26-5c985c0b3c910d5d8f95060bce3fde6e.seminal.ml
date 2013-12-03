@@ -49,4 +49,5 @@ let withholdDecr (impl : 'a t1) =
 (* ################### *)
 let useTypes (impl : 'a t1) =
   raise Unimplemented
-(* 36,22-27 *)
+(* isDecrAllowed is intended to be a bool reference *)
+(* 36,22-27  41,18-31*)
