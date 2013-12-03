@@ -29,7 +29,6 @@ public abstract class HeuristicSearch<EntityType> {
     	this.candidates = (EntityType[])candidates.toArray();
     	this.succCount = succCount;
     	dep = getDependency();
-    	System.out.println(candidates.size());
     }
 
     // estimate the "cost" of satisfying remaining paths
@@ -38,9 +37,9 @@ public abstract class HeuristicSearch<EntityType> {
 //    	return 0; // version 1: no guidance at all
  
 	// version 2: little guidance
-//    	if (paths.size()==0)
-//    		return 0;
-//        
+    	if (paths.size()==0)
+    		return 0;
+        
         for (int i=index; i<candidates.length; i++) {
 			EntityType cand = candidates[i];
 			
@@ -158,7 +157,8 @@ public abstract class HeuristicSearch<EntityType> {
     		// test if this is a end node before searching deeper
 			if (best==Double.MAX_VALUE)
 				best = key;
-			if (key<=best || ret.size()<MAX_SUG) {
+			if (key<=best /*|| ret.size()<MAX_SUG*/) {
+				System.out.println("key is "+key+" best is "+best);
 				Set<EntityType> eset = new HashSet<EntityType>();
 				for (Integer j:node.set) {
 					eset.add(candidates[j]);
