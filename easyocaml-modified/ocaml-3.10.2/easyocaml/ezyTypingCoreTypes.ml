@@ -301,7 +301,8 @@ end = struct
         | None -> Format.fprintf ppf ""
         | Some l -> Format.fprintf ppf "%a" ExtLocation.print l
       )
-    | Constr (loc, _, _ ) | Tuple (loc, _) | Arrow (loc, _, _) -> Format.fprintf ppf "%a" ExtLocation.print loc
+    | Constr (loc, _, _ ) | Tuple (loc, _) -> Format.fprintf ppf "%a" ExtLocation.print loc
+    | Arrow _ -> Format.fprintf ppf ""
 
   and print_detail ppf = function
     | Var (loc, Some detail, _) as ty -> Format.fprintf ppf "[\"%a\":%a]" print_without_quote detail print_loc ty
