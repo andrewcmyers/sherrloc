@@ -40,7 +40,10 @@ sub print {
 
 sub contains {
   my ($self, $other) = @_;
-  return ($self->{ln_st} <= $other->{ln_st} && $other->{ln_ed} <= $self->{ln_ed} && $self->{col_st} <= $other->{col_st} && $other->{col_ed} <= $self->{col_ed});
+  return (($self->{ln_st} < $other->{ln_st} || 
+		  ($self->{ln_st} == $other->{ln_st} && $self->{col_st} <= $other->{col_st})) 
+       && ($other->{ln_ed} < $self->{ln_ed} || 
+	          ($other->{ln_ed} == $self->{ln_ed} && $other->{col_ed} <= $self->{col_ed})));
 }
 
 #and here is the test
