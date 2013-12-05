@@ -69,12 +69,12 @@ public class Position {
 	}
 	
 	public boolean isEmpty () {
-		return lineStart==-1;
+		return lineStart==-1 || snippet.equals("");
 	}
 	
 	@Override
 	public String toString() {
-		if (isEmpty())
+		if (lineStart==-1)
 			return "";
 		
 		String ret="";
