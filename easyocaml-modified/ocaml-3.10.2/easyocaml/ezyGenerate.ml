@@ -351,7 +351,7 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
               begin try
                 let tyvarmap, ty'_r = T2.map2 ~f:(Ty.set_label // eloc) (Ty.fresh_variant cd.EzyEnv.ctor_result) in
                 let tyvarmap, tys' = Ty.fresh_variants ~tyvarmap cd.EzyEnv.ctor_args in
-                let tys' = List.map (Ty.set_label // eloc) tys' in
+                (* let tys' = List.map (Ty.set_label // eloc) tys' in *)
                 let rec map3 f l1 l2 l3 =
                   match (l1, l2, l3) with
                   ([], [], []) -> []
@@ -359,7 +359,8 @@ let rec m_for_pattern: imported_pattern -> EzyEnv.t -> (generated_pattern * AtCo
                   | (_, _, _) -> [] in
                 let cs0 =
                   let aux ty' enr_pat pat =
-                    AtConstr.create ty' (pat_string pat) eloc (ty_of_pat enr_pat) (pat_string pat) in
+                    let pat_loc = ExtLocation.Source pat.ppat_loc in
+                      AtConstr.create (Ty.set_label ty' pat_loc) (pat_string pat) eloc (ty_of_pat enr_pat) (pat_string pat) in
                       AtConstrSet.from_list (
                         AtConstr.create a detail eloc ty'_r detail::
                         map3 aux tys' enr_pats pats
@@ -666,15 +667,15 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                     vd.EzyEnv.val_ty
                 | ExtLocation.Interface _ -> 
                     Ty.set_label vd.EzyEnv.val_ty eloc in
+            logger#debug "val_ty is %a" Ty.print val_ty;
             let x' = { lid_name = x.lid_name; lid_data = path } in
             match vd.EzyEnv.val_binding with
               | EzyEnv.Poly ->
                   let a = Ty.fresh_var ~loc:(Some eloc) ~detail:(Some detail) () in
-                  let tyvarmap, ty' = Ty.fresh_variant val_ty in
-                  let ty' = Ty.set_label ty' eloc in
-                  let tyvarmap, cs' = AtConstrSet.fresh_variant ~tyvarmap vd.EzyEnv.val_constraints in
+                  let tyvarmap, ty' = Ty.fresh_variant ~loc:(Some eloc) val_ty in
+                  let tyvarmap, cs' = AtConstrSet.fresh_variant ~tyvarmap loc vd.EzyEnv.val_constraints in
                   let cs'' = AtConstrSet.from_list [
-                    AtConstr.create ty' detail eloc a detail;
+                    AtConstr.create ty' "" eloc a detail;
                   ] in
                   let cs = AtConstrSet.union cs' cs'' in
                   build_exp a (Pexp_ident x'), cs, PostProcess.empty
@@ -684,7 +685,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
               let cs = AtConstrSet.from_list [
                 (* AtConstr.create a eloc ax ;
                 AtConstr.create ax vd.EzyEnv.val_loc val_ty ; *)
-                AtConstr.create a detail eloc val_ty detail;
+                AtConstr.create a detail eloc val_ty "";
               ] in
               build_exp a (Pexp_ident x'), cs, PostProcess.empty
           with Not_found ->
@@ -718,7 +719,7 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let cs0 = AtConstrSet.from_list [
             AtConstr.create (ty_of_expr enr_exp2) (expr_string exp2) eloc a1 (expr_string exp2) ; 
             (* AtConstr.create a eloc a2 ; *) 
-            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (Ty.Arrow (exp1_loc, a1, a)) (expr_string exp1);
+            AtConstr.create (ty_of_expr enr_exp1) (expr_string exp1) eloc (Ty.Arrow (exp1_loc, a1, a)) "";
           ] in
           build_exp a (Pexp_apply (enr_exp1, enr_exp2)), AtConstrSet.big_union [cs0; cs1; cs2], PostProcess.union pp1 pp2
       | Pexp_let (bindings, body) ->
@@ -878,8 +879,8 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
           let exp2_loc = ExtLocation.Source lexp2.pexp_loc in
           let cs0 = AtConstrSet.from_list [
             AtConstr.create (ty_of_expr enr_exp1) (expr_string lexp1) eloc (EzyPredef.bool_type exp1_loc) (expr_string lexp1) ;
-            AtConstr.create (ty_of_expr enr_exp2) (expr_string lexp2) eloc (EzyPredef.unit_type exp2_loc) (expr_string lexp2) ;
-            AtConstr.create a detail eloc (ty_of_expr enr_exp2) (expr_string lexp2);
+            AtConstr.create (ty_of_expr enr_exp2) "" eloc (EzyPredef.unit_type exp2_loc) "" ;
+            AtConstr.create a detail eloc (ty_of_expr enr_exp2) "";
           ] in
           let cs = List.reduce AtConstrSet.union [cs0; cs1; cs2] in
           let us = PostProcess.union us1 us2 in
