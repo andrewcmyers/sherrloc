@@ -91,4 +91,5 @@ let _ =
   print_string "large: \n"; pr ansL; print_newline (); 
   print_string "small: \n"; pr ansS; print_newline (); 
 (* ########################## *)
-(* 57,8-11 *)
+(* loop movelist x y dir acc should return a list *)
+(* 57,5-53*)
