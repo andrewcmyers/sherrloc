@@ -343,8 +343,13 @@ and import_expression ef x =
      | Parsetree.Pexp_ifthenelse (exp1, exp2, opt_exp3) ->
          begin match opt_exp3 with
            | Some exp3 ->
+               let imp_exp3 = 
+               (match exp3.Parsetree.pexp_desc with
+                  | Parsetree.Pexp_construct (Longident.Lident id, _, _) ->
+                    if (id = "()") then None else Some (import_expression ef exp3)
+                  | _ -> Some (import_expression ef exp3)) in
                if ef.F.e_if_then_else then
-                 build_expr (Pexp_ifthenelse (import_expression ef exp1, import_expression ef exp2, Some (import_expression ef exp3)))
+                 build_expr (Pexp_ifthenelse (import_expression ef exp1, import_expression ef exp2, imp_exp3))
                else
                  expr_import_error "e_if_then_else"
            | None ->
