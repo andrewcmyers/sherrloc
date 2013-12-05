@@ -30,9 +30,9 @@ module AtConstr = struct
   let tyvars { tys = (x, y) } =
     TyVarSet.union (Ty.tyvars x) (Ty.tyvars y)
 
-  let fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) c =
-    let tyvarmap, ty1 = Ty.fresh_variant ~create ~tyvarmap (fst c.tys) in
-    let tyvarmap, ty2 = Ty.fresh_variant ~create ~tyvarmap (snd c.tys) in
+  let fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) loc c =
+    let tyvarmap, ty1 = Ty.fresh_variant ~create ~tyvarmap ~loc:(Some loc) (fst c.tys) in
+    let tyvarmap, ty2 = Ty.fresh_variant ~create ~tyvarmap ~loc:(Some loc) (snd c.tys) in
     tyvarmap, { loc = c.loc; tys = ty1, ty2; exps = (fst c.exps), (snd c.exps); leq = c.leq; }
 
   let print ppf { loc = loc; tys = (x, y) } =
@@ -59,9 +59,9 @@ module AtConstrSet = struct
 
   module SimpleAtConstrSet = struct (* scs *)
     include Set.Make(AtConstr)
-    let fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) scs =
+    let fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) loc scs =
       let f c (tyvarmap, sofar) =
-        let tyvarmap, ty' = AtConstr.fresh_variant ~create ~tyvarmap c in
+        let tyvarmap, ty' = AtConstr.fresh_variant ~create ~tyvarmap loc c in
         tyvarmap, add ty' sofar in
       fold f scs (tyvarmap, empty) 
     let type_substitute scs s =
@@ -145,9 +145,9 @@ module AtConstrSet = struct
   let type_substitute cs s =
     ExtLocationMap.map (SimpleAtConstrSet.type_substitute // s) cs
 
-  let fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) cs =
+  let fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) loc cs =
     let f loc scs (tyvarmap, sofar) =
-      let tyvarmap, scs' = SimpleAtConstrSet.fresh_variant ~create ~tyvarmap scs in
+      let tyvarmap, scs' = SimpleAtConstrSet.fresh_variant ~create ~tyvarmap loc scs in
       tyvarmap, ExtLocationMap.add loc scs' sofar in
     ExtLocationMap.fold f cs (tyvarmap, empty)
 

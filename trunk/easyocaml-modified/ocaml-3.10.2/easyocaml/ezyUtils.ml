@@ -208,6 +208,11 @@ module List = struct
       sofar, y :: ls in
     List.fold_right f ls (init, [])
 
+  let foldmapi f init ls =
+    let f x (sofar, ls, i) =
+      let sofar, y = f i sofar x in
+      sofar, y :: ls, i+1 in
+    List.fold_right f ls (init, [], 0)
 
   (** [rev_filter_map ~f l] applies [f] to [l], filtering out elements
       for which [f] returns [None], and unwrapping those that return [Some].

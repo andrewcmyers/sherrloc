@@ -9,6 +9,7 @@ open EzyUtils
 open EzyUtils.Infix
 open EzyOcamlmodules
 open Format
+open Lexing
 
 let logger = new Logger.logger "coretys"
 
@@ -76,9 +77,11 @@ module rec Ty: sig
 
   val set_label : t -> ExtLocation.t -> t
   val get_label : t -> ExtLocation.t
-
-  val fresh_variant: ?create:bool -> ?tyvarmap:TyVar.t TyVarMap.t -> Ty.t -> TyVar.t TyVarMap.t * Ty.t
-  val fresh_variants: ?create:bool -> ?tyvarmap:TyVar.t TyVarMap.t -> Ty.t list -> TyVar.t TyVarMap.t * Ty.t list
+  val inc_location: (ExtLocation.t option) -> int -> (ExtLocation.t option)
+  val fresh_variant: ?create:bool -> ?tyvarmap:TyVar.t TyVarMap.t ->
+          ?loc:(ExtLocation.t option) -> Ty.t -> TyVar.t TyVarMap.t * Ty.t
+  val fresh_variants: ?create:bool -> ?tyvarmap:TyVar.t TyVarMap.t ->
+          ?loc:(ExtLocation.t option) -> Ty.t list -> TyVar.t TyVarMap.t * Ty.t list
 
   val free_vars: t -> TyVarSet.t
 
@@ -115,7 +118,18 @@ end = struct
     | Tuple (label, _) | Constr (label, _, _) | Arrow (label, _, _) -> label
     | _ -> invalid_arg "get_label"
 
-  let rec fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) = function
+  let inc_location loc i = 
+    match loc with
+      None -> None    
+    | Some (ExtLocation.Source l) -> 
+      let pos = l.Location.loc_end in
+      let incpos = {pos_fname = pos.pos_fname; pos_lnum = pos.pos_lnum; 
+                    pos_bol = pos.pos_bol; pos_cnum = pos.pos_cnum+i} in
+      Some (ExtLocation.Source {Location.loc_start=l.Location.loc_start;
+              Location.loc_end=incpos; Location.loc_ghost=l.Location.loc_ghost})
+    | _ -> loc
+
+  let rec fresh_variant ?(create=true) ?(tyvarmap=TyVarMap.empty) ?(loc=None) = function
     | Var (label, detail, tyvar) ->
         begin try
           tyvarmap, Ty.Var (label, detail, TyVarMap.find tyvar tyvarmap)
@@ -127,19 +141,22 @@ end = struct
             raise exc
         end
     | Tuple (label, tys) ->
-        let tyvarmap, tys' = fresh_variants ~create ~tyvarmap tys in
+        let tyvarmap, tys' = fresh_variants ~create ~tyvarmap ~loc tys in
         tyvarmap, Tuple (label, tys')
     | Constr (label, k, tys) ->
-        let tyvarmap, tys' = fresh_variants ~create ~tyvarmap tys in
-        tyvarmap, Constr (label, k, tys')
+        let tyvarmap, tys' = fresh_variants ~create ~tyvarmap ~loc tys in
+        (match loc with
+          None -> tyvarmap, Constr (label, k, tys')
+        | Some l -> tyvarmap, Constr (l, k, tys'))
     | Arrow (label, tx1, tx2) ->
-        let tyvarmap, tx1' = fresh_variant ~create ~tyvarmap tx1 in
-        let tyvarmap, tx2' = fresh_variant ~create ~tyvarmap tx2 in
+        let tyvarmap, tx1' = fresh_variant ~create ~tyvarmap ~loc tx1 in
+        let tyvarmap, tx2' = fresh_variant ~create ~tyvarmap ~loc:(inc_location loc 1) tx2 in
         tyvarmap, Arrow (label, tx1', tx2')
 
-  and fresh_variants ?(create=true) ?(tyvarmap=TyVarMap.empty) tys =
-    let aux tyvarmap ty = fresh_variant ~create ~tyvarmap ty in
-    List.foldmap aux tyvarmap tys
+  and fresh_variants ?(create=true) ?(tyvarmap=TyVarMap.empty) ?(loc=None) tys =
+    let aux i tyvarmap ty = fresh_variant ~create ~tyvarmap ~loc:(inc_location loc i) ty in
+    let (x, y, _) = List.foldmapi aux tyvarmap tys in
+    (x, y)
 
   let valid_instantiation tx ty =
     logger#debug "Check %a <= %a" Ty.print tx Ty.print ty ;
@@ -306,6 +323,7 @@ end = struct
 
   and print_detail ppf = function
     | Var (loc, Some detail, _) as ty -> Format.fprintf ppf "[\"%a\":%a]" print_without_quote detail print_loc ty
+    | Constr (loc, lid, _) as ty -> Format.fprintf ppf "[\"\":%a]" print_loc ty
     | _ -> Format.fprintf ppf ""
 
   let rec import ?(tyvarmap=TyImportVarmap.empty) creative loc oty =
