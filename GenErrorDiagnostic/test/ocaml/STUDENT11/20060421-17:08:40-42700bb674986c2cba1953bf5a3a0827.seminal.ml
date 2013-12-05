@@ -59,4 +59,5 @@ let dynamicCheck (impl : 'a t1) =
 #####################
  *)
 
+(* the user changed the type of allowDecr to bool ref later *)
 (* 37,19-21  37,33-34  40,27-28  *)
