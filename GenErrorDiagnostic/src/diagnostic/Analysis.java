@@ -466,13 +466,16 @@ public class Analysis {
     
     public String getOneSuggestion (String sourcefile, UnsatPaths paths, int count, boolean console) {
     	StringBuffer sb = new StringBuffer();
-    	if (!console)
-    		sb.append("<HR>\n" + "<H2>\n" + "Error "+ count + "</H2>\n" + paths.toHTML());
     	sb.append(
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
 //    		(GEN_CUT?paths.genElementCut():""));
     		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console)/*+paths.genEdgeCut()*/:""));
 //    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
+    	if (!console) {
+//    		sb.append("<HR>\n" + "<H2>\n" + "Error "+ count + "</H2>\n" + paths.toHTML());
+                sb.append("<HR>\n" + paths.toHTML());
+        }
+
     	return sb.toString();
     }
     
