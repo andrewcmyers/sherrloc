@@ -313,8 +313,12 @@ public class UnsatPaths {
     public String toHTML ( ) {
     	StringBuffer sb = new StringBuffer();
     	sb.append("<H3>");
-    	sb.append(size() +" type mismatch" + (size() == 1 ? "" : "es") + " found: \n");
-		sb.append("</H3>\n");
+    	sb.append(size() +" type mismatch" + (size() == 1 ? "" : "es") + " found ");
+        sb.append("<button onclick=\"show_all_errors()\">show more details</button><br>\n");
+        sb.append("</H3>");
+        sb.append("<div id=\"all_error\">");
+
+
 		sb.append("<UL>\n");
 		for (ConstraintPath path : errPaths) {
 			//sb.append("<div class=\"moreinfo\"> " +
@@ -328,8 +332,8 @@ public class UnsatPaths {
 			sb.append("<LI>\n<span class=\"path\" ");
 			HTTPUtil.setShowHideActions(true, sb, path_buff.toString(), 0);
 			sb.append(">");
-			sb.append("A value with type "+path.getFirstElement().toString() + 
-				    " is being used at type " + path.getLastElement().toString());
+			sb.append("A value with type "+path.getFirstElement().getName() + 
+				    " is being used at type " + path.getLastElement().getName());
 			sb.append("</span>\n");
         		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
 	        	sb.append(path_buff.toString());
@@ -338,6 +342,7 @@ public class UnsatPaths {
 			sb.append(">show it</button><br>\n");
 		}
 		sb.append("</UL>\n");
+        sb.append("</div>\n");
 		return sb.toString();
     }
     

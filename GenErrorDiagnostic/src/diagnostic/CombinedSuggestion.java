@@ -29,7 +29,7 @@ public class CombinedSuggestion<K> implements Comparable<CombinedSuggestion<K>> 
 	public String toHTML (Map<String, Node> exprMap) {
 		StringBuffer sb = new StringBuffer();
 //		sb.append("<LI>\n");
-		sb.append("<span class=\"rank\">(rank "+rank+"("+hypos.size()+"+"+exprs.size()+"))</span> ");
+		sb.append("<span class=\"rank\">(score "+rank+"("+hypos.size()+"+"+exprs.size()+"))</span> ");
 		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
@@ -41,7 +41,7 @@ public class CombinedSuggestion<K> implements Comparable<CombinedSuggestion<K>> 
     	for (String c : exprs) {
 			Element en = ((ElementNode)exprMap.get(c)).getElement();
     		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
-    		exprBuffer.append(en.toHTMLString()+succCount.get(en.toString())+"    ");
+    		exprBuffer.append(en.toHTMLString()+"    ");
     	}
     	sb.append("<span class=\"path\" ");
 		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
