@@ -47,7 +47,7 @@ public class Analysis {
     boolean GEN_CUT = true;
     boolean GEN_ASSUMP = true;
     boolean GEN_UNIFIED = false;
-    boolean NO_REC = false;
+    boolean NO_REC = true;
 	boolean done = false;
 	ConstraintGraph graph;
 	String sourceName;
@@ -79,7 +79,7 @@ public class Analysis {
 		options.addOption("o", true, "output file");
 		options.addOption("i", true, "original source file generating the constraints");
 		options.addOption("l", false, "location only, used for testing");
-		options.addOption("r", false, "disallow recursion");
+		options.addOption("r", false, "allow recursion");
 		
 		CommandLineParser parser = new PosixParser();
 		CommandLine cmd=null;
