@@ -79,3 +79,5 @@ val easyerrorprinter : string option ref
 val easy_dot_type_graph: bool ref
 val easylevel : string option ref
 val easyteachpacks : string list ref
+
+val inter_proc : bool ref

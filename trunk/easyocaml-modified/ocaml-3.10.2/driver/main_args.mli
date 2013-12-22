@@ -66,6 +66,7 @@ module Make_options (F :
       val _drawlambda : unit -> unit
       val _dlambda : unit -> unit
       val _dinstr : unit -> unit
+      val _inter_proc : unit -> unit
       val anonymous : string -> unit
     end) :
   sig
