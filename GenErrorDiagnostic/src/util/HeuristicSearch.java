@@ -157,7 +157,7 @@ public abstract class HeuristicSearch<EntityType> {
     		// test if this is a end node before searching deeper
 			if (best==Double.MAX_VALUE)
 				best = key;
-			if (key<=best || ret.size()<MAX_SUG) {
+			if (key<=best /*|| ret.size()<MAX_SUG*/) {
 				System.out.println("key is "+key+" best is "+best);
 				Set<EntityType> eset = new HashSet<EntityType>();
 				for (Integer j:node.set) {
