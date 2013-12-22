@@ -25,7 +25,7 @@ else
   exit;
 }
 
-system ("$bin/ecamlc", "-inter", $mlfile);
+system ("$bin/ecamlc", $mlfile);
 system ($diagnostic, "-c", "-s", "-i", $mlfile, "error.con");
 
 print TEMP start_html(
