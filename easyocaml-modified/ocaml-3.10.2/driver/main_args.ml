@@ -65,6 +65,7 @@ module Make_options (F :
      val _drawlambda : unit -> unit
      val _dlambda : unit -> unit
      val _dinstr : unit -> unit
+     val _inter_proc: unit -> unit
      val anonymous : string -> unit
    end) =
 struct
@@ -172,6 +173,7 @@ struct
     "-drawlambda", Arg.Unit F._drawlambda, " (undocumented)";
     "-dlambda", Arg.Unit F._dlambda, " (undocumented)";
     "-dinstr", Arg.Unit F._dinstr, " (undocumented)";
+    "-inter", Arg.Unit F._inter_proc, " Enable interprocedural type inferrence";
     "-use-prims", Arg.String F._use_prims, "<file>  (undocumented)";
 
     "-", Arg.String F.anonymous,

@@ -80,6 +80,7 @@ let main () =
 
      "-init", Arg.String (fun s -> init_file := Some s),
            "<file>  Load <file> instead of default init file";
+     "-inter",  Arg.Set inter_proc, " Enable interprocedural type inferrence";
      "-labels", Arg.Clear classic, " Labels commute (default)";
      "-noassert", Arg.Set noassert, " Do not compile assertion checks";
      "-nolabels", Arg.Set classic, " Ignore labels and do not commute";
