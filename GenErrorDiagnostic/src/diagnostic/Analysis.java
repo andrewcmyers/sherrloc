@@ -47,7 +47,7 @@ public class Analysis {
     boolean GEN_CUT = true;
     boolean GEN_ASSUMP = true;
     boolean GEN_UNIFIED = false;
-    boolean NO_REC = true;
+    boolean REC = false;
 	boolean done = false;
 	ConstraintGraph graph;
 	String sourceName;
@@ -98,7 +98,7 @@ public class Analysis {
 		boolean assumption = false;
 		boolean unified = false;
 		boolean locationonly = false;
-		boolean norecursion = false;
+		boolean recursion = false;
 		String outfile = "error.html";
 		String infile = "";
 		
@@ -115,7 +115,7 @@ public class Analysis {
 		if (cmd.hasOption("l"))
 			locationonly = true;
 		if (cmd.hasOption("r"))
-			norecursion = true;
+			recursion = true;
 		if (cmd.hasOption("o"))
 			outfile = cmd.getOptionValue("o");
 		if (cmd.hasOption("i"))
@@ -129,7 +129,7 @@ public class Analysis {
 				ana.GEN_ASSUMP = assumption;
 				ana.GEN_CUT = cut;
 				ana.GEN_UNIFIED = unified;
-				ana.NO_REC = norecursion;
+				ana.REC = recursion;
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
 				ana.initialize();
@@ -203,7 +203,7 @@ public class Analysis {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
 				
-				if (NO_REC) {
+				if (!REC) {
 					if (graph.isSymmentric() && (start.getIndex() < end.getIndex()))
 						continue;
 				}
@@ -212,7 +212,7 @@ public class Analysis {
 						continue;
 				}
 				
-				if (NO_REC && start.getIndex() == end.getIndex()) {
+				if (!REC && start.getIndex() == end.getIndex()) {
 					List<ReductionEdge> leftedges = finder.getLeqPath(start, end);
 					for (ReductionEdge redge : leftedges) {
 						ConstraintPath path = new ConstraintPath(redge.getEdges(), finder, graph.getEnv());
