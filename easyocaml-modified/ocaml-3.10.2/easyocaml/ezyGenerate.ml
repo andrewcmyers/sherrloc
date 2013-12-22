@@ -10,6 +10,7 @@ open EzyEnrichedAst
 open EzyTypingCoreTypes
 open EzyConstraints
 open Location
+open Clflags
 
 module EzyPredef = EzyEnv.EzyPredef
 
@@ -1427,8 +1428,11 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
   fun str parse_tree env oenv ->
 
   let aux (str_its, cs, pp, ecaml_env, ocaml_env, type_accu) str_it tree_it =
-    let import_env = EzyEnv.import ocaml_env in
-    (* let import_env = ecaml_env in *) (* for interprocedure analysis*)
+    let import_env = 
+    if !Clflags.inter_proc then
+        ecaml_env
+    else
+        EzyEnv.import ocaml_env in
 
     let enr_strit, env0, cs0, pp0, type_accu = for_structure_item import_env type_accu str_it in
     logger#debug "Generated for strit, resulting env:\n%a" (EzyEnv.print false) env0 ;
@@ -1436,8 +1440,12 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
       Typecore.reset_delayed_checks ();
       let (o_str, o_sg, o_newenv) = Typemod.type_structure ocaml_env (tree_it::[]) in
       Typecore.force_delayed_checks ();
-      let cumulated_cs = cs0 in
-      (* let cumulated_cs = AtConstrSet.union cs cs0 in *) (* for interprocedure analysis *)
+      let cumulated_cs = 
+      if !Clflags.inter_proc then
+          AtConstrSet.union cs cs0
+      else
+          cs0 in
+
       (enr_strit :: str_its, cumulated_cs, PostProcess.union pp pp0, env0, o_newenv, type_accu)
     with
       | Typemod.Error (loc, err) ->
@@ -1453,7 +1461,8 @@ let for_structure: imported_structure -> Parsetree.structure -> EzyEnv.t -> Env.
           EzyEnv.print_constructor formater true env0;
           Format.fprintf formater "@\n";
           EzyEnv.print_cons formater true env0;
-          (* AtConstrSet.cons_print formater cs ([]);*) (* for interprocedure analysis*)
+          if !Clflags.inter_proc then
+                AtConstrSet.cons_print formater cs ([]);
           AtConstrSet.cons_print formater cs0 (tree_it::[]);
           Format.pp_print_flush formater ();
           close_out out;

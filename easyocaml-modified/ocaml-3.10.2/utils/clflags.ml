@@ -86,6 +86,8 @@ let easy_dot_type_graph = ref false     (* -easy_dot *)
 let easylevel = ref None                (* -easylevel <name> *)
 let easyteachpacks = ref []             (* -easyteachpack <name> *)
 
+let inter_proc = ref false              (* -inter *)
+
 let std_include_flag prefix =
   if !no_std_include then ""
   else (prefix ^ (Filename.quote Config.standard_library))
