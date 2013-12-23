@@ -14,8 +14,11 @@ public class MeetElement extends EnumerableElement {
 		return infixToString();
 	}
 	
-	public String toHTMLString() {
-		return infixToHTMLString();
+	public String toSnippetString() {
+		if (!pos.isEmpty()) {
+			return pos.snippet.toString();
+		}
+		return infixToSnippetString();
 	}
 	
 	@Override

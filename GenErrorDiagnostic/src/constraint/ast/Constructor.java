@@ -22,13 +22,6 @@ public class Constructor extends Element {
 	}
 	
 	public String toString () {
-		return toHTMLString()+pos.toString();
-	}
-		
-	public String toHTMLString () {
-		if (!pos.isEmpty())
-			return pos.snippet;
-		
 		if (name.equals("arrow"))
 			return "->";
 		if (name.equals("larrow"))
@@ -38,8 +31,11 @@ public class Constructor extends Element {
 		else
 			return name;
 	}
-	
-	public String toDetailString () {
+			
+	public String toSnippetString () {
+		if (!pos.isEmpty())
+			return pos.snippet;
+		
 		if (name.equals("arrow"))
 			return "->";
 		if (name.equals("larrow"))

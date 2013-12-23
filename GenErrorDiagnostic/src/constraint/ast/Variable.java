@@ -28,8 +28,8 @@ public class Variable extends Element {
 	}
 		
 	@Override
-	public String toDetailString() {
-		return toHTMLString();
+	public String toString() {
+		return toSnippetString();
 	}
 	
 	@Override

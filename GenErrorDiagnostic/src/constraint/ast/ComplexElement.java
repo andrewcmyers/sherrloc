@@ -17,7 +17,7 @@ public class ComplexElement extends EnumerableElement {
 	
 	@Override
 	String getSymbol() {
-		return cons.toHTMLString();
+		return cons.toString();
 	}
 	
 	@Override

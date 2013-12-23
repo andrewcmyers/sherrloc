@@ -14,8 +14,11 @@ public class JoinElement extends EnumerableElement {
 		return infixToString()+pos;
 	}
 	
-	public String toHTMLString() {
-		return infixToHTMLString();
+	public String toSnippetString() {
+		if (!pos.isEmpty()) {
+			return pos.snippet.toString();
+		}
+		return infixToSnippetString();
 	}
 	
 	@Override
