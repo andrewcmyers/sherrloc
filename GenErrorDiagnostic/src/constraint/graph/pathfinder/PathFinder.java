@@ -64,9 +64,8 @@ public abstract class PathFinder {
 		// this is the node representing same element in assumption graph
 		Node s = g.getNode(start.getElement());
 		for (Node node : g.getAllNodes()) {
-			ElementNode en = (ElementNode)node;
-			if ( !en.getElement().hasVars() && !(en.getElement().toString().equals("(*)->(*)")) && _getPath(s, node)!=null) {
-				System.out.println(en.getElement());
+			if ( !node.getElement().hasVars() && !(node.getElement().toString().equals("(*)->(*)")) && _getPath(s, node)!=null) {
+				System.out.println(node.getElement());
 				ret.add(node);
 			}
 		}
@@ -83,9 +82,8 @@ public abstract class PathFinder {
 		// this is the node representing same element in assumption graph
 		Node e = g.getNode(end.getElement());
 		for (Node node : g.getAllNodes()) {
-			ElementNode en = (ElementNode)node;
-			if (!en.getElement().hasVars() && !(en.getElement().toString().equals("(_)->(_)")) && _getPath(node, e)!=null) {
-				System.out.println(en.getElement());
+			if (!node.getElement().hasVars() && !(node.getElement().toString().equals("(_)->(_)")) && _getPath(node, e)!=null) {
+				System.out.println(node.getElement());
 				ret.add(node);
 			}
 		}

@@ -81,14 +81,7 @@ public class Environment {
 	public boolean leq(Element p1, Element p2, boolean rec) {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
-		
-//		if (e1.toString().contains("C_L") && e2.toString().contains("* -> s3")) {
-//			for (Constraint c : assertions) {
-//				System.out.println(c.getFirstElement().toString()+c.getFirstElement().hashCode()+ " "+c.getSecondElement()+c.getSecondElement().hashCode());
-//			}
-//			System.out.println(e1.toString()+e1.hashCode()+" "+e2.toString()+e2.hashCode());
-//		}
-		
+				
 		// for the same constructor, we should break them into components. Just return true here
 		if (e1.equals(e2))
 			return true;
@@ -151,43 +144,7 @@ public class Environment {
 		
 		return (rec && leqApplyAssertions(e1, e2));
 	}
-	
-	/* earlier version */
-//	public boolean leq(Element e1, Element e2) {
-//		if (e1.leq_(e2, this))
-//			return true;
-//			
-//		if (e2 instanceof LabelElement) {
-//			if (((LabelElement) e2).isTop())
-//				return true;
-//		}
-//		
-//		if (leqApplyAssertions(e1, e2))
-//			return true;
-//		
-//		// e1 leq any element of e2
-//		if (e2 instanceof JoinElement) {
-//			for (Element e : ((JoinElement)e2).getElements())
-//				if (this.leq(e1, e)) 
-//					return true;
-//			return false;
-//		}
-//		// e1 leq all elements of e2
-//		else if (e2 instanceof MeetElement) {
-//			for (Element e : ((MeetElement)e2).getElements())
-//				if (!this.leq(e1, e)) 
-//					return false;
-//			return true;
-//		}
-//		
-//        if (e1.leq_(e2, this)) {
-//            return true;
-//        }
-//        
-//        // try to use assertions
-//        return leqApplyAssertions(e1, e2);
-//	}
-	
+		
 	/* 
 	 * TODO: is there a way to eliminate the constraints _->_ <= labels? Otherwise, hard to tell the type of "labels"
 	 */

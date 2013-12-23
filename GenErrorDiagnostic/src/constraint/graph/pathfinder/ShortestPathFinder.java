@@ -127,13 +127,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 				List<Edge> edges = edge.getEdges();
 				if (edges.size()!=0) {
 					System.out.println( "\n----Start of one path----\n");
-					ElementNode leftmost = (ElementNode) edges.get(0).getFrom();
+					Node leftmost = edges.get(0).getFrom();
 					System.out.println(leftmost.getName()+"\n");
 					for (int k = 0; k < edges.size(); k++) {
 						Edge e = edges.get(k);
 //					ret += "--> (" + (edge.toString()) + ")\n";
 						if (shortestLEQ[leftmost.getIndex()][e.getTo().getIndex()]<MAX)
-							System.out.println (((ElementNode)e.getTo()).getName()+"\n");
+							System.out.println (e.getTo().getName()+"\n");
 				}
 				System.out.println( "----End of one path----\n");
 				}
@@ -445,7 +445,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		
 		// if to is an element of a meet label, check if some node flows into all components
 		for (Node meetnode : meetElements.get(to)) {
-			MeetElement me = (MeetElement) ((ElementNode)meetnode).getElement();
+			MeetElement me = (MeetElement) meetnode.getElement();
 			Node candidate = from;
 			int candIndex = candidate.getIndex();
 			int meetIndex = meetnode.getIndex();
@@ -478,7 +478,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		
 		// if from is an element of a join label, check if all components flows into some node
 		for (Node joinnode : joinElements.get(from)) {
-			JoinElement je = (JoinElement) ((ElementNode)joinnode).getElement();
+			JoinElement je = (JoinElement) joinnode.getElement();
 			Node candidate = to;
 			int candIndex = candidate.getIndex();
 			int joinIndex = joinnode.getIndex();
@@ -512,8 +512,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// constructors
 		for (Node cnFrom : consElements.get(from)) {
 			for (Node cnTo : consElements.get(to)) {				
-				ComplexElement ce1 = (ComplexElement) ((ElementNode)cnFrom).getElement();  // make sure this is "ce1", not the swapped one when the constructor is contravariant
-				ComplexElement ce2 = (ComplexElement) ((ElementNode)cnTo).getElement();
+				ComplexElement ce1 = (ComplexElement) cnFrom.getElement();  // make sure this is "ce1", not the swapped one when the constructor is contravariant
+				ComplexElement ce2 = (ComplexElement) cnTo.getElement();
 				
 				if (!ce1.getCons().isContraVariant() && idPath[cnFrom.getIndex()][cnTo.getIndex()]!=null)
 					continue;
@@ -585,13 +585,4 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 		return ret;
 	}
-
-	// test if the leq relation can be derived from the graph
-//	public boolean _hasPath (Element e1, Element e2) {
-//		if (g.hasElement(e1) && g.hasElement(e2))
-//			return _getPath(g.getNode(e1), g.getNode(e1))!=null;
-//		// else, 
-//		ElementNode node = g.getNode(e);
-//		// update 
-//	}
 }

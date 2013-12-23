@@ -3,8 +3,8 @@ package constraint.graph;
 import constraint.ast.Environment;
 
 /**
- * A special edge used for the sepcial constructor JOIN (ala. INTERSECTION)
- * The singlton design patten is used to save memory consumption
+ * A special edge used for the special constructor JOIN (aka. INTERSECTION)
+ * The singleton design pattern is used to save memory consumption
  */
 public class JoinEdge extends Edge {
 	
