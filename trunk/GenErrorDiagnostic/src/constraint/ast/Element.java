@@ -13,17 +13,6 @@ public abstract class Element {
         succCount = 0;
 	}
 	
-	public String toString () {
-		return toHTMLString()+pos.toString();
-	}
-	
-	public String toHTMLString () {
-		if (pos.isEmpty())
-			return name;
-		else
-			return pos.snippet;
-	}
-		
 	public String getName () {
 		return name;
 	}
@@ -44,6 +33,26 @@ public abstract class Element {
 		return succCount;
 	}
 	
+    /* a few print functions
+     * an element in general has: element, snippet, location
+     * toString prints code snippet + location
+     * toSnippetString prints the code snippet corresponding to the element when available
+     * toDetailString prints the element itself
+     * toDotString prints Dot-friendly strings
+     */
+	abstract public String toString ();
+	
+	public String toSnippetString () {
+		if (pos.isEmpty())
+			return name;
+		else
+			return pos.snippet;
+	}		
+	
+	public String toDetailString()  {
+		return toSnippetString()+pos.toString();
+	}
+
 	abstract public String toDotString ();
 	
 	abstract public List<Variable> getVars ();
@@ -51,8 +60,6 @@ public abstract class Element {
 	abstract public boolean hasVars ();
 	
 	abstract public boolean equals (Object o);
-	
-	abstract public String toDetailString();
 		
 	abstract public boolean isStart();
 	

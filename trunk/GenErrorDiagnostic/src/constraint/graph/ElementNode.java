@@ -21,7 +21,7 @@ public class ElementNode extends Node {
     }
             
     public String getName () {
-    	return e.toString();
+    	return e.toDetailString();
     }
     
     public Element getElement() {

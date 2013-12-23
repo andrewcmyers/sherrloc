@@ -41,7 +41,7 @@ public class CombinedSuggestion<K> implements Comparable<CombinedSuggestion<K>> 
     	for (String c : exprs) {
 			Element en = ((ElementNode)exprMap.get(c)).getElement();
     		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
-    		exprBuffer.append(en.toHTMLString()+"    ");
+    		exprBuffer.append(en.toSnippetString()+"    ");
     	}
     	sb.append("<span class=\"path\" ");
 		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
