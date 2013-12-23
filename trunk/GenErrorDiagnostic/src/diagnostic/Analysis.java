@@ -320,9 +320,9 @@ public class Analysis {
             writeFeedback(out);
         	
         	out.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
-        			"<H1>\n" +
+        			"<H2>\n" +
         			"<BR>\n" +
-        			"Error Diagnostic Report </H1>\n" +
+        			"Error Diagnostic Report </H2>\n" +
         			"<HR>\n");
         	
         	// type check succeeded
