@@ -4,7 +4,7 @@ package constraint.ast;
 public class Bottom extends Constructor {
 	
 	public Bottom(Position p) {
-		super("_", 0, false, p);
+		super("⊥", 0, false, p);
 	}
 	
 	@Override
