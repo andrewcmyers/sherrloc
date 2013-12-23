@@ -27,6 +27,7 @@ import util.HTTPUtil;
 import constraint.ast.ComplexElement;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
+import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
 import constraint.ast.Position;
 import constraint.ast.Variable;
@@ -203,26 +204,35 @@ public class Analysis {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
 				
-				if (!REC) {
-					if (graph.isSymmentric() && (start.getIndex() < end.getIndex()))
-						continue;
-				}
-				else {
+//				if (!REC) {
+//					if (graph.isSymmentric() && (start.getIndex() < end.getIndex()))
+//						continue;
+//				}
+//				else {
 					if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
 						continue;
-				}
+//				}
+				List<Edge> l = finder.getPath(start, end);
+				if (l==null) continue;
 				
-				if (!REC && start.getIndex() == end.getIndex()) {
-					List<ReductionEdge> leftedges = finder.getLeqPath(start, end);
-					for (ReductionEdge redge : leftedges) {
-						ConstraintPath path = new ConstraintPath(redge.getEdges(), finder, graph.getEnv());
-						testElements.add(e1);
-						testElements.add(e2);
+				if (!REC /*&& start.getIndex() == end.getIndex()*/) {
+					if (e1.getVars().contains(e2) || e2.getVars().contains(e1)) {
+						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
 						path.incFailCounter();
 						path.setCause();
 						unsatPaths.addUnsatPath(path);
+						continue;
 					}
-					continue;
+//					List<ReductionEdge> leftedges = finder.getLeqPath(start, end);
+//					for (ReductionEdge redge : leftedges) {
+//						ConstraintPath path = new ConstraintPath(redge.getEdges(), finder, graph.getEnv());
+//						testElements.add(e1);
+//						testElements.add(e2);
+//						path.incFailCounter();
+//						path.setCause();
+//						unsatPaths.addUnsatPath(path);
+//					}
+//					continue;
 				}
 				
 				// if one end is variable, the satisfiability is trivial
@@ -242,8 +252,6 @@ public class Analysis {
 				if (e1.isBottom() || e2.isTop())
 					continue;
 				
-				List<Edge> l = finder.getPath(start, end);
-				if (l==null) continue;
 				
 //				System.out.println("comparing "+e1 + " and " + e2);
 				
