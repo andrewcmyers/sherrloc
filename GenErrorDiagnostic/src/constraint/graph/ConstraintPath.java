@@ -72,7 +72,6 @@ public class ConstraintPath {
 		
 		// at least one of the edges should be equation edge
 		boolean hasEqu = false;
-		int varfree = 0;
 		for (Edge e : edges) {
 			if (e instanceof EquationEdge) {
 				hasEqu = true;
@@ -84,15 +83,15 @@ public class ConstraintPath {
 		
 		Environment env = getEnv_(cachedEnv);
 		// System.out.println("Checking one equation in env: "+path.env);
-		Stack<ElementNode> leqNodes = new Stack<ElementNode>();
+		Stack<Node> leqNodes = new Stack<Node>();
 		Stack<EdgeCondition> conditions = new Stack<EdgeCondition>();
 		int length = 0;
-		ElementNode first = (ElementNode) getFirst();
+		Node first = getFirst();
 		leqNodes.push(first);
 		
 		for (int k = 0; k < edges.size(); k++) {
 			Edge edge = edges.get(k);
-			ElementNode eto = (ElementNode)edge.to;
+			Node eto = edge.to;
 			boolean needCmp = eto.getElement() instanceof Constructor || eto.getElement() instanceof ComplexElement
 					|| eto.getElement() instanceof JoinElement || eto.getElement() instanceof MeetElement;
 			if (edge instanceof EquationEdge || edge instanceof JoinEdge ||
@@ -148,7 +147,7 @@ public class ConstraintPath {
 		if (edges.size()==0) return false;
 		Environment env = getEnv_(cachedEnv);
 		
-		return !env.leq(((ElementNode)getFirst()).getElement(), ((ElementNode)getLast()).getElement());
+		return !env.leq(getFirst().getElement(), getLast().getElement());
 	}
 	
 	private Environment getEnv_ (HashMap<Environment, Environment> cachedEnv) {
@@ -184,11 +183,11 @@ public class ConstraintPath {
 	}
 	
 	public Element getFirstElement () {
-		return ((ElementNode)getFirst()).getElement();
+		return getFirst().getElement();
 	}
 	
 	public Element getLastElement () {
-		return ((ElementNode)getLast()).getElement();
+		return getLast().getElement();
 	}
     
 	public Node getLast() {
@@ -213,7 +212,7 @@ public class ConstraintPath {
 		Set<String> processedNodes = new HashSet<String>();
 		Set<String> processedEdges = new HashSet<String>();
 
-		ElementNode leftmost = (ElementNode) getFirst();
+		Node leftmost = getFirst();
 		leftmost.incSuccCounter();
 		processedNodes.add(leftmost.toString());
 		for (int k = 0; k < size(); k++) {
@@ -228,42 +227,11 @@ public class ConstraintPath {
 			}
 		}
 	}
-	
-	// increase the unlikelihood for constructor nodes
-	public void incFailCounter ( ) {
-//		if (edges.size()==0) return;
-//		// avoid duplicate expressions
-//		Set<String> processed = new HashSet<String>();
-//
-//		ElementNode leftmost = (ElementNode) getFirst();
-//		processed.add(leftmost.toString());
-//		int curriedLevel = 0;
-//		boolean ltor = true;
-//		for (int k = 0; k < size(); k++) {
-//			Edge edge = edges.get(k);
-//			edge.incSuccCounter();
-//			if (!processed.contains(edge.getTo().toString())) {
-//				if (edge instanceof ConstructorEdge) {
-//					ConstructorEdge ce = (ConstructorEdge) edge;
-//					if (!ce.getCondition().isReverse() && ltor)
-//						curriedLevel++;
-//					else if (curriedLevel!=0)
-//						curriedLevel--;
-//					else {
-//						ltor = !ltor;
-//						curriedLevel ++;
-//					}
-//				}
-//				edge.getTo().incNestedCounter(curriedLevel);
-//				processed.add(edge.getTo().toString());
-//			}
-//		}
-	}
-	
+		
 	public void setCause ( ) {
 		if (edges.size()==0) return;
 
-		ElementNode leftmost = (ElementNode) getFirst();
+		Node leftmost = getFirst();
 		leftmost.setCause();
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
@@ -272,25 +240,7 @@ public class ConstraintPath {
 			edge.to.setCause();
 		}
 	}
-	
-	public boolean intersects (ConstraintPath path) {
-		// check if there are common "expressions"
-	    Set<Node> nodes1 = getAllNodes();
-	    Set<Node> nodes2 = new HashSet<Node>(path.getAllNodes());
-	    for (Node n1 : nodes1) {
-	    	if (nodes2.contains(n1))
-	    		return true;
-//	    	for (Node n2 : nodes2) {
-//    			if (((ElementNode)n1).isInCons() && ((ElementNode)n2).isInCons()) {
-//    				if (n1.toString().equals(n2.toString())) {
-//    					return true;
-//    				}
-//    			}
-//	    	}
-	    }
-	    return false;
-	}
-    
+	    
 	public String toString( ) {
 		String ret = "";
 		
@@ -298,14 +248,14 @@ public class ConstraintPath {
 
 		// System.out.println("Checking one equation in env: "+path.env);
 		ret += "\n----Start of one path----\n";
-		ElementNode leftmost = (ElementNode) getFirst();
+		Node leftmost = getFirst();
 //		leftmost.setCause();
 		ret += leftmost.getElement().toString()+"\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			ret += "--> (" + (edge.toString()) + ")\n";
 //			if (finder.getPath(leftmost, edge.to)!=null)
-				ret += ((ElementNode)edge.to).getElement().toString()+"\n";
+				ret += edge.to.getElement().toString()+"\n";
 		}
 		ret += "----End of one path----\n";
 		return ret;

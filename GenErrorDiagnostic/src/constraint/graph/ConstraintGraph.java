@@ -169,18 +169,18 @@ public class ConstraintGraph extends Graph {
     
     // this function is used to filter out letters that can not pretty print in the dot format
     // such as " and \n
-    private String sanitaze (String s) {
-        if (s!=null)
-            return s.replace('"', '\'').replace("\\", "\\\\");
-        else
-            return s;
-    }
+//    private String sanitaze (String s) {
+//        if (s!=null)
+//            return s.replace('"', '\'').replace("\\", "\\\\");
+//        else
+//            return s;
+//    }
     
     
     public String toDotString ( ) {
         String ret = "";
         
-        Set<Integer> sourcePosition = new HashSet<Integer>();
+//        Set<Integer> sourcePosition = new HashSet<Integer>();
         String nodes = "";
         String links = "";
         

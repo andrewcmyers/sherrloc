@@ -1,5 +1,7 @@
 package constraint.graph;
 
+import constraint.ast.Element;
+
 
 abstract public class Node implements Comparable<Node>{
     int count;
@@ -46,4 +48,6 @@ abstract public class Node implements Comparable<Node>{
     abstract public void incSuccCounter ();
     abstract public void incNestedCounter (int i);
     abstract public double getSuccCounter ();
+    abstract public Element getElement ();
+    abstract public String getName();
 }

@@ -9,14 +9,11 @@ import java.util.Set;
 
 import constraint.ast.ComplexElement;
 import constraint.ast.Element;
-import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
-import constraint.graph.CompEdge;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstructorEdge;
 import constraint.graph.Edge;
-import constraint.graph.ElementNode;
 import constraint.graph.EmptyEdge;
 import constraint.graph.EquationEdge;
 import constraint.graph.JoinEdge;
@@ -115,23 +112,6 @@ abstract public class CFLPathFinder extends PathFinder {
     	return ret;
     }
     
-//	public void acceptForwardReductionGraph (Node node, NodeVisitor v, List<Node> visited) {
-//		if (visited.contains(node))
-//			return;
-//		v.discoverVertex(node);
-//		v.visit(node);
-//		visited.add(node);
-//		Map<Node, List<ReductionEdge>> neighbors = reductionEdges.get(node);
-//		for (Node next : neighbors.keySet()) {
-//			acceptForward(next, v, visited);
-//		}
-//		v.leaveVertex(node);
-//	}
-//	
-//	public void acceptForwardReductionGraph (NodeVisitor v, List<Node> visited) {
-//        acceptForwardReductionGraph(allNodes.get(0), v, visited);
-//    }
-
 	@Override
 	void initialize() {
 		
@@ -165,7 +145,7 @@ abstract public class CFLPathFinder extends PathFinder {
 		
 		// initialize the lookup tables
 		for (Node n : g.getAllNodes()) {
-			Element element = ((ElementNode)n).getElement();
+			Element element = n.getElement();
 			if (element instanceof JoinElement) {
 				JoinElement je = (JoinElement) element;
 				for (Element ele : je.getElements()) {
