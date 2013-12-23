@@ -1,7 +1,5 @@
 package constraint.ast;
 
-
-
 public class Position {
 	int lineStart;
 	int colStart;

@@ -3,8 +3,8 @@ package constraint.graph;
 import constraint.ast.Environment;
 
 /**
- * A special edge used for the sepcial constructor MEET (ala. UNION)
- * The singlton design patten is used to save memory consumption
+ * A special edge used for the special constructor MEET (aka. UNION)
+ * The singleton design pattern is used to save memory consumption
  */
 public class MeetEdge extends Edge {
 	

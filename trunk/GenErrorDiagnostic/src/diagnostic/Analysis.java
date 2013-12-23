@@ -218,7 +218,6 @@ public class Analysis {
 				if (!REC && start.getIndex() != end.getIndex()) {
 					if (e1.getVars().contains(e2) || e2.getVars().contains(e1)) {
 						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
-						path.incFailCounter();
 						path.setCause();
 						unsatPaths.addUnsatPath(path);
 						continue;
@@ -282,7 +281,6 @@ public class Analysis {
 				else if (path.isUnsatPath(cachedEnv)) {
 					testElements.add(e1);
 					testElements.add(e2);
-					path.incFailCounter();
 					path.setCause();
 					unsatPaths.addUnsatPath(path);
 //					System.out.println(path);

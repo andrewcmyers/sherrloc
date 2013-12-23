@@ -83,34 +83,4 @@ public class ElementNode extends Node {
         return ret;
     }
 
-//	public String printReductionLinkToDotString() {
-//		String ret = "";
-//		Map<Node, List<ReductionEdge>> neighbors = g.getReductionNeighbors(this);
-//		for (Node node : neighbors.keySet()) {
-//			ElementNode n = (ElementNode) node;
-//			for (Edge edge : neighbors.get(n)) {
-//				if (n.shouldprint) {
-//					if (edge.isDirected())
-//						ret += this.uid + "->" + n.uid + " [label=\""
-//								+ edge.toDotString() + "\"];\n";
-//					else if (g.getIndex(this) < g.getIndex(n))
-//						ret += this.uid + "->" + n.uid + " [dir=both label=\""
-//								+ edge.toDotString() + "\"];\n";
-//				}
-//			}
-//		}
-//		return ret;
-//	}
-    
-    // get the position of current node and out links that links to printable nodes
-//    public Set<Integer> getPositions () {
-//        Set<Integer> ret = new HashSet<Integer>();
-//        if (this.position()!=null)
-//            ret.add(this.position().line());
-//        for (Node n: outs.keySet()) {
-//            if (n.shouldprint)
-//                ret.add(((FlowEdge)outs.get(n)).getLineno());
-//        }
-//        return ret;
-//     }
 }
