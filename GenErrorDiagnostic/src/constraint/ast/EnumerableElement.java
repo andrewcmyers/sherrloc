@@ -19,7 +19,23 @@ public abstract class EnumerableElement extends Element {
 	// return the symbol of the current element, such as ->, *, meet, join
 	abstract String getSymbol();
 	
-	public String toHTMLString() {
+	public String toString() {
+		String symbol = getSymbol();
+		String ret = "";
+		// infix
+		if (symbol.equals("->") || symbol.equals("*") || symbol.equals("<-")) {
+			return infixToString();
+		}
+		else {
+			ret += symbol;
+			for (Element e : elements)
+				ret += " ("+e.toString() + ")";
+		}
+		return ret;
+	}
+
+	
+	public String toSnippetString() {
 		if (!pos.isEmpty()) {
 			return pos.snippet.toString();
 		}
@@ -27,31 +43,16 @@ public abstract class EnumerableElement extends Element {
 		String ret = "";
 		// infix
 		if (symbol.equals("->") || symbol.equals("*") || symbol.equals("<-")) {
-			return infixToHTMLString();
+			return infixToSnippetString();
 		}
 		else {
 			ret += symbol;
 			for (Element e : elements)
-				ret += " ("+e.toHTMLString() + ")";
+				ret += " ("+e.toSnippetString() + ")";
 		}
 		return ret;
 	}
-	
-	public String toDetailString() {
-		String symbol = getSymbol();
-		String ret = "";
-		// infix
-		if (symbol.equals("->") || symbol.equals("*") || symbol.equals("<-")) {
-			return infixToHTMLString();
-		}
-		else {
-			ret += symbol;
-			for (Element e : elements)
-				ret += " ("+e.toHTMLString() + ")";
-		}
-		return ret;
-	}
-	
+		
 	@Override
 	public String toDotString() {
 		String symbol = getSymbol();
@@ -78,13 +79,13 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 	
-	public String infixToHTMLString () {
+	public String infixToSnippetString () {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
-		ret += "("+elements.get(0).toHTMLString() + ")";
+		ret += "("+elements.get(0).toSnippetString() + ")";
 		for (int j=1; j<elements.size(); j++)
-			ret += symbol + "(" + elements.get(j).toHTMLString() + ")";
+			ret += symbol + "(" + elements.get(j).toSnippetString() + ")";
 		return ret;
 	}
 	

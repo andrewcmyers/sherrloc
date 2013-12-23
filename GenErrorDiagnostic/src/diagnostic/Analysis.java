@@ -215,7 +215,7 @@ public class Analysis {
 				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
 				
-				if (!REC /*&& start.getIndex() == end.getIndex()*/) {
+				if (!REC && start.getIndex() != end.getIndex()) {
 					if (e1.getVars().contains(e2) || e2.getVars().contains(e1)) {
 						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
 						path.incFailCounter();
@@ -383,19 +383,8 @@ public class Analysis {
                           "document.getElementById('feedback').style.display = 'none';</script>");
         	}
         	else {
-        		List<UnsatPaths> l = unsatPaths.genIndependentPaths();
-        		if (l.size()==1) {
-        			out.append("<H2>One typing error is identified<H2>");
-        		}
-        		else {
-        			out.append("<H2>"+l.size()+" separate typing errors are identified</H2>");
-        		}
-        		int count = 1;	
-        		for (UnsatPaths paths : l) {
-        			System.out.println("***********"+paths.size());
-        			out.append(getOneSuggestion(sourceName, paths, count++, false));
-        		}
-        		
+       			out.append("<H2>One typing error is identified<H2>");
+        		out.append(getOneSuggestion(sourceName, unsatPaths, false));
         		out.append(util.genAnnotatedCode(unsatPaths, sourceName) +
         				(sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
         				:("<script>numberSuggestions();</script>\n")));
@@ -472,7 +461,7 @@ public class Analysis {
     			"</HTML>";
     }
     
-    public String getOneSuggestion (String sourcefile, UnsatPaths paths, int count, boolean console) {
+    public String getOneSuggestion (String sourcefile, UnsatPaths paths, boolean console) {
     	StringBuffer sb = new StringBuffer();
     	sb.append(
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
@@ -495,16 +484,8 @@ public class Analysis {
         if (unsatPaths.size()==0) {
 			System.out.println("The program passed type checking. No errors were found.");
 		} else {
-			List<UnsatPaths> l = unsatPaths.genIndependentPaths();
-			if (l.size() == 1) {
-				System.out.println("One typing error is identified");
-			} else {
-				System.out.println(l.size() + " separate typing errors are identified.");
-			}
-			int count = 1;
-			for (UnsatPaths paths : l) {
-				System.out.println(getOneSuggestion(sourceName, paths, count++, true));
-			}
+			System.out.println("One typing error is identified");
+			System.out.println(getOneSuggestion(sourceName, unsatPaths, true));
 		}
     }
 }

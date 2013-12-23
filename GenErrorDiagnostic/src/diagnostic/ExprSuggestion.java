@@ -44,7 +44,7 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		for (String c : exprs) {
 			Element en = ((ElementNode)exprMap.get(c)).getElement();
     		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
-    		exprBuffer.append(en.toHTMLString()+" [loc: "+en.getPosition()+"]    ");
+    		exprBuffer.append(en.toSnippetString()+" [loc: "+en.getPosition()+"]    ");
     	}
     	sb.append("<span class=\"path\" ");
 		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
@@ -67,7 +67,7 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		for (String c : exprs) {
 			Element en = ((ElementNode)exprMap.get(c)).getElement();
     		locBuffer.append(en.getPosition() + ", ");
-    		exprBuffer.append(en.toHTMLString() + ", ");
+    		exprBuffer.append(en.toSnippetString() + ", ");
     	}
 		sb.append(exprBuffer.toString()+": ");
         sb.append(locBuffer.toString());

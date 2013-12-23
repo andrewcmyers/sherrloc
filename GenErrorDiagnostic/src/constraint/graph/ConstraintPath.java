@@ -30,8 +30,9 @@ public class ConstraintPath {
         	assumption.addEnv(edge.getAssumption());
         }
         this.finder =  finder;
-        if (edges.size()==0)
+        if (edges.size()==0) {
         	this.minHypo = null;
+        }
         else
         	this.minHypo = new Hypothesis(getFirstElement(), getLastElement());
     }
