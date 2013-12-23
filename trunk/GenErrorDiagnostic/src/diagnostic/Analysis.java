@@ -24,10 +24,8 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
 import util.HTTPUtil;
-import constraint.ast.ComplexElement;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
-import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
 import constraint.ast.Position;
 import constraint.ast.Variable;
@@ -36,7 +34,6 @@ import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
-import constraint.graph.ReductionEdge;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.parse.GrmLexer;
@@ -162,7 +159,6 @@ public class Analysis {
 	
 	// this method is used to configure the path finder
 	public PathFinder getPathFinder ( ConstraintGraph g) {
-//		return new ExistancePathFinder(this);
 		return new ShortestPathFinder(g);
 	}
 	
@@ -204,14 +200,9 @@ public class Analysis {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
 				
-//				if (!REC) {
-//					if (graph.isSymmentric() && (start.getIndex() < end.getIndex()))
-//						continue;
-//				}
-//				else {
-					if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
+				if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
 						continue;
-//				}
+				
 				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
 				
@@ -222,62 +213,23 @@ public class Analysis {
 						unsatPaths.addUnsatPath(path);
 						continue;
 					}
-//					List<ReductionEdge> leftedges = finder.getLeqPath(start, end);
-//					for (ReductionEdge redge : leftedges) {
-//						ConstraintPath path = new ConstraintPath(redge.getEdges(), finder, graph.getEnv());
-//						testElements.add(e1);
-//						testElements.add(e2);
-//						path.incFailCounter();
-//						path.setCause();
-//						unsatPaths.addUnsatPath(path);
-//					}
-//					continue;
 				}
 				
 				// if one end is variable, the satisfiability is trivial
 				if (e1 instanceof Variable || e2 instanceof Variable) {
 					continue;
 				}
-				
-				// also ignore the path if its satisfiability depends on other paths
-				// DZ: not sure if this is necessary. Seems for OCaml, a constructor matches another is also an interesting information. Though 
-				// this is less interesting for Jif labels, since they are the same constructors
-//				if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
-//					if (((ComplexElement)e1).getCons().getBaseElement().equals(((ComplexElement)e2).getCons().getBaseElement()))
-//							continue;
-//				}
-				
+								
 				// less interesting paths
 				if (e1.isBottom() || e2.isTop())
 					continue;
-				
-				
-//				System.out.println("comparing "+e1 + " and " + e2);
-				
+								
 				ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
 		
-//				// successful path
-//				if (graph.getEnv().leq(e1, e2)) {
-//					path.incSuccCounter();
-//					continue;
-//				}
 				if (path.isSuccPath(cachedEnv)) {
 					path.incSuccCounter();
 					continue;
-				}
-								
-//				System.out.println("***********");
-//				for (Constraint c : env.getAssertions()) {
-//					System.out.println(c);
-//				}
-//				System.out.println("***********");
-//				System.exit(0);
-
-				// successful path
-//				if (env.leq(e1, e2)) {
-//					path.incSuccCounter();
-//					continue;
-//				}
+				}								
 				else if (path.isUnsatPath(cachedEnv)) {
 					testElements.add(e1);
 					testElements.add(e2);

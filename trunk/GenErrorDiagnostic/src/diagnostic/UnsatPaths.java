@@ -13,7 +13,6 @@ import util.CombinedExplainationFinder;
 import util.HTTPUtil;
 import util.HeuristicSearch;
 import util.MinCutFinder;
-import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
 import constraint.ast.Position;
@@ -154,8 +153,8 @@ public class UnsatPaths {
 			sb.append("<LI>\n<span class=\"path\" ");
 			HTTPUtil.setShowHideActions(true, sb, path_buff.toString(), 0);
 			sb.append(">");
-			sb.append("A value with type "+path.getFirstElement().toDetailString() + 
-				    " is being used at type " + path.getLastElement().toDetailString());
+			sb.append("A value with type "+path.getFirstElement() + 
+				    " is being used at type " + path.getLastElement());
 			sb.append("</span>\n");
         		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
 	        	sb.append(path_buff.toString());
