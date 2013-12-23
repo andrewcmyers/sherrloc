@@ -69,10 +69,25 @@ can see what part of the program is determined to be the likely cause of the err
 <p>
 Enter or paste the OCaml program you want to type-check:<br>
 </p>
-<textarea name="prog" rows="20" cols="60"></textarea>
+<textarea name="prog" rows="20" cols="60">
+let f(lst: int list ): ( float * float ) list =
+let rec loop lst x y dir acc =
+if lst = [] then
+  acc
+else
+  print_string "foo"
+in
+List.rev (loop lst 0.0 0.0 0.0 [(0.0,0.0)] )
+</textarea>
 
 <p>Or, upload your program from a file:
 <input type=file name="prog_file" />
+</p>
+
+<p>
+Enable interprocedual type inferrence?
+<input type="radio" name="inter" value="no" checked>No
+<input type="radio" name="inter" value="yes">Yes
 </p>
 
 <p>
@@ -92,7 +107,9 @@ By using this service, you are granting permission for us to use your submitted
 code for research purposes.  This research is being conducted by Prof. Andrew
 Myers of the Cornell CS department.  Your code will be used only for the
 purpose of evaluating methods for program error diagnosis method and for
-improving them. It will not be released to other parties.
+improving them. It will not be released to other parties. Other than the source
+code and any comments you enter, we do not record personally identifying
+information such as IP addresses.
 </p>
 
 </div>

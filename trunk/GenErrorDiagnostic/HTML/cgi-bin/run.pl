@@ -12,10 +12,10 @@ $CGI::POST_MAX = 1024 * 2000;
 my $root = '/home/zhangdf/public_html';
 my $ocamlbin = '/home/zhangdf/diagnostic/easyocaml-modified/ocaml-3.10.2/bin';
 my $diagbin = '/home/zhangdf/diagnostic/GenErrorDiagnostic';
-my $ecaml= $ocamlbin."/ecaml";
-my $ocaml= $ocamlbin."/ocaml";
+my $ecaml= $ocamlbin."/ecamlc";
+my $ocaml= $ocamlbin."/ocamlc";
 my $diagnostic= $diagbin."/diagnostic";
-my $source = "program";
+my $source = "program.ml";
 my $cons_file = "error.con";
 
 chdir "$root/temp";
@@ -56,19 +56,33 @@ my $md5 = md5_hex (param('prog'));
 system ("cp", "$source", "archive/"."$source"."$md5"); 
 
 system ("rm", "$cons_file");
-my $result =  `$ocaml $source 2>&1`;
-if ($result) {
-    print "<H2><BR>OCaml Compiler report</H2>";
+
+my $result =  `$ocaml -c $source 2>&1`;
+
+if(!$result) {
+    print "<H2><BR>OCaml Compiler Report</H2>";
+    print "<H3>The program passed type checking. No errors were found.</H3>";
+    print end_html();
+    exit 0;
+}
+
+my $inter_proc = param("inter");
+
+if ($inter_proc eq 'no') {
+    system ("$ecaml", "$source");
+}
+else {
+    system ("$ecaml", "-inter", "$source");
+}
+
+if (-e $cons_file) {
+    system ("$diagnostic", "-c", "-s", "-f", "-i", "$source", "-o", "error.html", "$cons_file", ">/dev/null");
+    print "<H2><BR>OCaml Compiler Report</H2>";
+    print "<HR>\n";
     print "<pre>\n";
     print $result;
     print "</pre>\n";
-    print "<HR>\n";
-}
 
-system ("$ecaml", "$source");
-
-if (-e $cons_file) {
-    system ("$diagnostic", "-c", "-s", "-i", "$source", "-o", "error.html", "$cons_file", ">/dev/null");
     open (DIAG_RESULT, "error.html");
     while (<DIAG_RESULT>) {
         print;
@@ -76,9 +90,12 @@ if (-e $cons_file) {
     close (DIAG_RESULT);
 }
 else {
-    if(!$result) {
-        print "<H3>The program passed type checking. No errors were found.</H3>";
-    }
+    print "<H2><BR>OCaml Compiler Report</H2>";
+    print "<HR>\n";
+    print "<pre>\n";
+    print $result;
+    print "</pre>\n";
+
     print "<pre class=\"code\">\n";
     open (PROGRAM, "$source");
     while (<PROGRAM>) {
