@@ -1,6 +1,5 @@
 package constraint.graph.pathfinder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,19 +42,18 @@ public class ShortestPathFinder extends CFLPathFinder {
 	}
 	
 	/**
-     * This algorithm follows the CFL-Reachablity algorithm described in paper
-     * interconvertibility of set constraints and context-free language reachability
-     * by David Melski and Thomas Reps
-     * The complexity is O (|\Sigma|^3 n^3), where \Sigma is grammar size, n is # of nodes
-     * 
-     * Here is the grammar we use:
-     * id := left right | id id
-     * left := left id
-     * In order to find the (shortest) reduction path for error diagnostic, we use the
-     * dynamic programming algorithm proposed by CHRIS BARRETT, RIKO JACOB, AND MADHAV MARATHE
-     * The idea is that we are interested in the shortest path from two nodes, that can be
-     * derived from the nonterminal "id" in grammar
-     */
+	 * Finding the (shortest) reduction path for error diagnosis is an instance
+	 * of the context-free-language-reachability problem with the following grammar:
+	 * 
+	 * id := left right | id id 
+	 * left := left id
+	 * 
+	 * We use the dynamic programming algorithm proposed by Chris Barrett, Riko
+	 * Jacob and Madhav Marathe. More details can be found in their paper 
+	 * "Formal-language-constrained path problems". One difference is that we also
+	 * handle "meet" and "join" when id edges are inferred
+	 * 
+	 */
 	public void saturation() {
 		List<Node> allNodes = g.getAllNodes();
 		int size = allNodes.size();
@@ -106,7 +104,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 			}
 		}
 		
-		// use the priority queue as a working list, and update the table
+		// use a priority queue as a working list, and update the table
 		int current_length = 0;
 		while (!fh.isEmpty()) {	
 			ReductionEdge edge = fh.removeMin().getData();
@@ -114,30 +112,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 			if (edge instanceof LeqEdge)
 				tryAddingBackEdges ((LeqEdge)edge, fh);
 
-			if (CORRECTNESS_CHECK && edge instanceof LeqEdge) {
-				System.out.println(edge.getLength());
-				List<Edge> edges = edge.getEdges();
-				if (edges.size()!=0) {
-					System.out.println( "\n----Start of one path----\n");
-					Node leftmost = edges.get(0).getFrom();
-					System.out.println(leftmost.getName()+"\n");
-					for (int k = 0; k < edges.size(); k++) {
-						Edge e = edges.get(k);
-//					ret += "--> (" + (edge.toString()) + ")\n";
-						if (shortestLEQ[leftmost.getIndex()][e.getTo().getIndex()]<MAX)
-							System.out.println (e.getTo().getName()+"\n");
-				}
-				System.out.println( "----End of one path----\n");
-				}
-			}
-
+			// the following code is activated for debugging only
 			if (CORRECTNESS_CHECK && current_length>edge.getEdges().size()) {
-				System.err.println("Oooooooops, got a smaller edge");
+				System.err.println("Error: got a smaller edge");
 				System.exit(0);
 			}
 			if (CORRECTNESS_CHECK && edge instanceof LeqEdge) {
 				if (shortestLEQ[edge.getFrom().getIndex()][edge.getTo().getIndex()] != edge.getEdges().size()) {
-					System.err.println("Oooooooops, the id edge"+edge.getFrom() + " "+edge.getTo()+"is not the shortest");
+					System.err.println("Error: the id edge"+edge.getFrom() + " "+edge.getTo()+"is not the shortest");
 					System.exit(0);
 				}
 			}
@@ -145,7 +127,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				EdgeCondition ec = ((LeftEdge)edge).getCondition();
 				if (shortestLeft[edge.getFrom().getIndex()][edge.getTo().getIndex()].get(ec) 
 						!= edge.getEdges().size()) {
-					System.err.println("Oooooooops, the left edge" +edge.getFrom() + " "+edge.getTo()+ "is not the shortest");
+					System.err.println("Error: the left edge" +edge.getFrom() + " "+edge.getTo()+ "is not the shortest");
 					System.exit(0);
 				}
 			}
@@ -171,7 +153,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						fh.insert(node, node.getKey());
 						idPath[sIndex][tIndex] = node;
 						
-						if (CORRECTNESS_CHECK /*&& shortestLEQ[sIndex][tIndex] < current_length*/)
+						if (CORRECTNESS_CHECK && shortestLEQ[sIndex][tIndex] < current_length)
 							System.err.println("[LEFT] " + edge.getFrom()
 									+ "-id-" + from + "-id-" + to + " implies "
 									+ edge.getFrom() + "-id-" + to);
@@ -203,8 +185,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 								fh.insert(node, node.getKey());
 								leftPath[sIndex][tIndex].put(ec, node);
 
-								if (CORRECTNESS_CHECK
-										/*&& shortestLeft[sIndex][tIndex].get(ec) < current_length*/)
+								if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
 									System.err.println("[LEFT] "
 											+ edge.getFrom() + "-left-" + from
 											+ "-id-" + to + " implies "
@@ -232,8 +213,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 								fh.insert(node, node.getKey());
 								leftPath[sIndex][tIndex].put(ec, node);
 
-								if (CORRECTNESS_CHECK
-										/*&& shortestLeft[sIndex][tIndex].get(ec) < current_length*/)
+								if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
 									System.err.println("[LEFT] "
 											+ edge.getFrom() + "-left(neg)-" + from
 											+ "-id(neg)-" + to + " implies "
@@ -244,8 +224,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 
 					// id = left right
 					if (shortestLeft[sIndex][fIndex].get(ec) + 1 < shortestLEQ[sIndex][tIndex]) {
-						// first check that left and right edges can
-						// canceled
+						// first check if left and right edges can be canceled
 						for (RightEdge e : getRightEdges(from, to)) {
 							if (e != null && ec.matches(e.cons)) {
 								ReductionEdge newedge = new LeqEdge(edge.getFrom(), to, edge, e);
@@ -259,8 +238,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 								fh.insert(node, node.getKey());
 								idPath[sIndex][tIndex] = node;
 
-								if (CORRECTNESS_CHECK
-										/*&& shortestLEQ[sIndex][tIndex] < current_length*/)
+								if (CORRECTNESS_CHECK && shortestLEQ[sIndex][tIndex] < current_length)
 									System.err.println("[LEFT] "
 											+ edge.getFrom() + "-left-" + from
 											+ "-right-" + to + " implies "
@@ -277,9 +255,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 				int fIndex = edge.getFrom().getIndex();
 				int tIndex = edge.getTo().getIndex();
 				
-//				if (sIndex==fIndex || sIndex==tIndex || fIndex==tIndex)
-//					continue;
-
 				// id = id id
 				if (edge instanceof LeqEdge) {
 					if (shortestLEQ[sIndex][fIndex] + shortestLEQ[fIndex][tIndex] < shortestLEQ[sIndex][tIndex]) {
@@ -293,7 +268,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						fh.insert(node, node.getKey());
 						idPath[sIndex][tIndex] = node;
 
-						if (CORRECTNESS_CHECK /*&& shortestLEQ[sIndex][tIndex]<current_length*/)
+						if (CORRECTNESS_CHECK && shortestLEQ[sIndex][tIndex]<current_length)
 							System.err.println("[RIGHT] " + from + "-id-"
 									+ edge.getFrom() + "-id-" + edge.getTo()
 									+ " implies " + from + "-id-"
@@ -323,8 +298,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 								fh.insert(node, node.getKey());
 								leftPath[sIndex][tIndex].put(ec, node);
 
-								if (CORRECTNESS_CHECK
-										/*&& shortestLeft[sIndex][tIndex].get(ec) < current_length*/)
+								if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
 									System.err.println("[RIGHT] " + from
 											+ "-left-" + edge.getFrom()
 											+ "-id-" + edge.getTo()
@@ -351,7 +325,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 								fh.insert(node, node.getKey());
 								idPath[sIndex][tIndex] = node;
 
-								if (CORRECTNESS_CHECK /*&& shortestLEQ[sIndex][tIndex]<current_length*/)
+								if (CORRECTNESS_CHECK && shortestLEQ[sIndex][tIndex]<current_length)
 									System.err.println("[RIGHT] " + from
 											+ "-left-" + edge.getFrom()
 											+ "-right-" + edge.getTo()
@@ -388,8 +362,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 								fh.insert(node, node.getKey());
 								leftPath[sIndex][tIndex].put(ec, node);
 
-								if (CORRECTNESS_CHECK
-										/*&& shortestLeft[sIndex][tIndex].get(ec) < current_length*/)
+								if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
 									System.err.println("[RIGHT] " + from
 											+ "-left(neg)-" + edge.getTo()
 											+ "-id(neg)-" + edge.getFrom()
@@ -411,14 +384,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 								.keySet()) {
 							if (shortestLeft[startIndex][endIndex].get(ec) != leftPath[startIndex][endIndex]
 									.get(ec).getData().getEdges().size()) {
-								System.err.println("Ooooooops" + start + " to " + end);
+								System.err.println("Error: shortest left-path length is inconsistent from " + start + " to " + end);
 								System.exit(1);
 							}
 						}
 						if (idPath[startIndex][endIndex] != null
 								&& shortestLEQ[startIndex][endIndex] != idPath[startIndex][endIndex]
 										.getData().getEdges().size()) {
-							System.err.println("Ooooooops" + start + " to " + end);
+							System.err.println("Error: shortest id-path length is inconsistent from " + start + " to " + end);
 							System.exit(1);
 						}
 					}
@@ -536,7 +509,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 						}
 						ReductionEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, env, ""), redEdge);
 						newedge = new LeqEdge(f, t, newedge, new CompEdge(f, t, env, ""));
-//						ReductionEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, env, ""), EmptyEdge.getInstance());
 						// this number is a little ad hoc
 						shortestLEQ[f.getIndex()][t.getIndex()] = newedge.getLength();
 						FibonacciHeapNode<ReductionEdge> node = new FibonacciHeapNode<ReductionEdge>(newedge, newedge.getLength());

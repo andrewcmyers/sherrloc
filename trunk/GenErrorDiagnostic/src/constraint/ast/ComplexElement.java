@@ -67,17 +67,7 @@ public class ComplexElement extends EnumerableElement {
 		}
 		return true;
 	}
-	
-	@Override
-	public boolean isStart() {
-		return true;
-	}
-	
-	@Override
-	public boolean isEnd() {
-		return true;
-	}
-	
+		
 	@Override
 	public Element getBaseElement() {
 		List<Element> baseElements =  new ArrayList<Element>();

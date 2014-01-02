@@ -1,7 +1,5 @@
 package constraint.graph;
 
-
-
 /* a special edge corresponds to terminal CONS^-1 */
 public class RightEdge extends ReductionEdge {
 	public EdgeCondition cons;

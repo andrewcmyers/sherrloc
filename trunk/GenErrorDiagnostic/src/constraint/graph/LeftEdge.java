@@ -1,7 +1,5 @@
 package constraint.graph;
 
-
-
 /* a special edge corresponds to nonterminal left */
 public class LeftEdge extends ReductionEdge {
 	public EdgeCondition cons;
