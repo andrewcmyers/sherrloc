@@ -66,7 +66,7 @@ public class UnsatPaths {
     	return sb.toString();
     }
   	
-    /* Calculating a min cut is NP complete. Currently, we use iterative deeping search to quickly identify the goal */
+    /* Calculating a min cut is NP complete. Currently, we use iterative deepening search to quickly identify the goal */
     public Set<Set<EquationEdge>> genEdgeCuts ( ) {
     	
     	MinCutFinder<EquationEdge> cutFinder = new MinCutFinder<EquationEdge>(this) {
