@@ -70,15 +70,16 @@ public class Analysis {
 	public static void main(String[] args) {
 		
 		Options options = new Options();
-		options.addOption("f", false, "show full dependency graph");
-		options.addOption("s", false, "symmetric");
-		options.addOption("c", false, "generate cut");
 		options.addOption("a", false, "generate assumptions");
-		options.addOption("u", false, "unified hypothesis and cut");
-		options.addOption("o", true, "output file");
+		options.addOption("c", false, "generate cut");
+		options.addOption("d", false, "output constraint graph as a dot file");
+		options.addOption("f", false, "show full dependency graph");
 		options.addOption("i", true, "original source file generating the constraints");
-		options.addOption("l", false, "location only, used for testing");
+		options.addOption("l", false, "console report");
+		options.addOption("o", true, "output file");
 		options.addOption("r", false, "allow recursion");
+		options.addOption("s", false, "symmetric");
+		options.addOption("u", false, "combined report with cut and assumptions");
 		
 		CommandLineParser parser = new PosixParser();
 		CommandLine cmd=null;
@@ -91,34 +92,37 @@ public class Analysis {
 			System.exit(-1);
 		}
 		
-		boolean whole_graph = false;
-		boolean symmentric = false;
-		boolean cut = false;
 		boolean assumption = false;
-		boolean unified = false;
-		boolean locationonly = false;
-		boolean recursion = false;
-		String outfile = "error.html";
+		boolean cut = false;
+		boolean dotfile = false;
+		boolean whole_graph = false;
 		String infile = "";
+		boolean locationonly = false;
+		String outfile = "error.html";
+		boolean recursion = false;
+		boolean symmentric = false;
+		boolean unified = false;
 		
-		if (cmd.hasOption("f"))		
-			whole_graph = true;
-		if (cmd.hasOption("s"))
-			symmentric = true;
-		if (cmd.hasOption("c"))
-			cut = true;
-		if (cmd.hasOption("u"))
-			unified = true;
 		if (cmd.hasOption("a"))
 			assumption = true;
-		if (cmd.hasOption("l"))
-			locationonly = true;
-		if (cmd.hasOption("r"))
-			recursion = true;
-		if (cmd.hasOption("o"))
-			outfile = cmd.getOptionValue("o");
+		if (cmd.hasOption("c"))
+			cut = true;
+		if (cmd.hasOption("d"))
+			dotfile = true;
+		if (cmd.hasOption("f"))		
+			whole_graph = true;
 		if (cmd.hasOption("i"))
 			infile = cmd.getOptionValue("i");
+		if (cmd.hasOption("l"))
+			locationonly = true;
+		if (cmd.hasOption("o"))
+			outfile = cmd.getOptionValue("o");
+		if (cmd.hasOption("r"))
+			recursion = true;
+		if (cmd.hasOption("s"))
+			symmentric = true;
+		if (cmd.hasOption("u"))
+			unified = true;
 		
 		for (Object arg : cmd.getArgList()) {
 			String diagfile = (String) arg;
@@ -132,7 +136,9 @@ public class Analysis {
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
 				ana.initialize();
-//				ana.writeToDotFile();
+				if (dotfile) {
+					ana.writeToDotFile();
+				}
 				if (locationonly)
 					ana.toConsole();
 				else
@@ -261,7 +267,6 @@ public class Analysis {
     		genErrorPaths();
     	}
     	int ret = unsatPaths.size();
-//    	printRank();
     	return ret;
     }
     
@@ -413,21 +418,6 @@ public class Analysis {
     			"</HTML>";
     }
     
-    public String getOneSuggestion (String sourcefile, UnsatPaths paths, boolean console) {
-    	StringBuffer sb = new StringBuffer();
-    	sb.append(
-    		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
-//    		(GEN_CUT?paths.genElementCut():""));
-    		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console)/*+paths.genEdgeCut()*/:""));
-//    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
-    	if (!console) {
-//    		sb.append("<HR>\n" + "<H2>\n" + "Error "+ count + "</H2>\n" + paths.toHTML());
-                sb.append("<HR>\n" + paths.toHTML());
-        }
-
-    	return sb.toString();
-    }
-    
     public void toConsole () {
         if (!done) 
         	genErrorPaths();
@@ -439,5 +429,18 @@ public class Analysis {
 			System.out.println("One typing error is identified");
 			System.out.println(getOneSuggestion(sourceName, unsatPaths, true));
 		}
+    }
+    
+    public String getOneSuggestion (String sourcefile, UnsatPaths paths, boolean console) {
+    	StringBuffer sb = new StringBuffer();
+    	sb.append(
+    		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
+    		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console)/*+paths.genEdgeCut()*/:"")+
+    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
+    	if (!console) {             
+    		sb.append("<HR>\n" + paths.toHTML());
+        }
+
+    	return sb.toString();
     }
 }

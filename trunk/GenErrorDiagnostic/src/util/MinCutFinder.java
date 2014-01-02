@@ -9,16 +9,14 @@ import java.util.Set;
 import constraint.graph.ConstraintPath;
 import diagnostic.UnsatPaths;
 
-// we do an iterative deeping search until at least one cut is returned
+// we do an iterative deepening search until at least one cut is returned
 public abstract class MinCutFinder<EntityType> {
 
     int REC_MAX = 6;
     UnsatPaths paths;
-//    UnsatPaths unsatPaths;
     
     public MinCutFinder(UnsatPaths paths) {
     	this.paths = paths;
-    	this.REC_MAX = 6;
     }
     
     public MinCutFinder(UnsatPaths paths, int max) {
@@ -26,6 +24,7 @@ public abstract class MinCutFinder<EntityType> {
 		this.REC_MAX = max;
     }
     
+    /* returns a set of entities that explains the failure of "path" */
     public abstract Set<EntityType>  mapsTo (ConstraintPath path);
     
     public Set<EntityType> genCandidates ( ) {
@@ -40,12 +39,6 @@ public abstract class MinCutFinder<EntityType> {
     	HashMap<ConstraintPath, Set<EntityType>> map = new HashMap<ConstraintPath, Set<EntityType>>();
     	
     	for (ConstraintPath path : paths.getPaths()) {
-//    		Set<EntityType> set = new HashSet<EntityType>();
-//    		for (Edge e : unsatPaths.getPath(goal).getEdges()) {
-//    			if (((ElementNode)n).isInCons()) {
-//    				set.addAll(mapsTo(e));
-//    			}
-//    		}
     		map.put(path, mapsTo(path));
     	}
     	return map;
@@ -56,7 +49,7 @@ public abstract class MinCutFinder<EntityType> {
     	Set<Set<EntityType>> ret = new HashSet<Set<EntityType>>();
     	HashMap<ConstraintPath, Set<EntityType>> dependencies = getDependency();
     	Set<EntityType> candidates = genCandidates( );
-    	// we do an iterative deeping search until at least one cut is returned
+    	// we do an iterative deepening search until at least one cut is returned
     	for (int level=1; level <= REC_MAX; level++) {
    			boundedDepthSearch (level, (EntityType[])candidates.toArray(), 0, dependencies, new ArrayList<EntityType>(), ret);
    			if (ret.size()!=0)
