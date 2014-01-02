@@ -56,10 +56,8 @@ public class ElementNode extends Node {
     public String printNodeToDotString () {
         if (isCause())
             return  uid + " [style=filled, fillcolor=yellow, label=\"" + e.toDotString()+ "\"];\n";
-//            return  uid + " [style=filled, fillcolor=yellow, label=\"" + getName()+"\\n"+label.position() + "\"];\n";
         else
             return  uid + " [label=\"" + e.toDotString()+ "\"];\n";
-//            return  uid + " [label=\"" + getName()+"\\n"+label.position() + "\"];\n";
     }
     
     public String printLinkToDotString () {
@@ -68,8 +66,6 @@ public class ElementNode extends Node {
         for (Node node : neighbors.keySet()) {
             ElementNode n = (ElementNode) node;
 			for (Edge edge : g.getEdges(this, n)) {
-				// if (edge instanceof IdEdge)
-				// continue;
 				if (n.shouldprint) {
 					if (edge.isDirected())
 						ret += this.uid + "->" + n.uid + " [label=\""

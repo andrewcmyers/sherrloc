@@ -1,5 +1,8 @@
 package constraint.graph;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,11 +21,10 @@ import constraint.ast.MeetElement;
 import constraint.ast.Relation;
 
 /*
- * A constraint graph takes a set of constructors (user may define there own constructors in order to define the partial order),
- * assumptions, as well as constraints as inputs
+ * A constraint graph takes a set of constructors (include user-defined ones), assumptions, as well as constraints as inputs
  * 
- * This class builds a basic graph from the constraints, without any path finding mechanism
- * Different PathFinders are used to find unsatisfiable paths, which is later used as inputs to the diagnostic analysis
+ * This class builds a basic graph from the constraints, without any path finding algorithm
+ * Different PathFinders are used to find unsatisfiable paths, which is later used as inputs to the analysis
  * 
  */
 public class ConstraintGraph extends Graph {
@@ -32,8 +34,8 @@ public class ConstraintGraph extends Graph {
     boolean DEBUG = false;
 
     Set<String> files;                                          // source codes involved
-    public boolean generated;                                          // if the graph has been generated already, just reuse it
-    static final boolean PRINT_SRC = false;                     // print corresponding source code
+    public boolean generated;                                   // if the graph has been generated already, just reuse it
+    static final boolean PRINT_SRC = false;                     // print corresponding source code in DOT files
 
     public ConstraintGraph (Environment env, Set<Constraint> equations, boolean symmentric) {
         this.env = env;
@@ -43,9 +45,6 @@ public class ConstraintGraph extends Graph {
         this.SYMMENTRIC = symmentric;
     }
             
-    /*
-     *  map AST elements to graph nodes
-     */
     Map<Element, ElementNode> eleToNode = new HashMap<Element, ElementNode>(); // map from AST elements to graph nodes
     int varCounter = 1;
     
@@ -71,35 +70,14 @@ public class ConstraintGraph extends Graph {
     
     // claim that first element is leq than the second element because of constraint e
     public boolean addOneConstraint (Element first, Element second, Constraint e) {
-    	// for constructors
-//    	if (first instanceof ConstructorElement && second instanceof ConstructorElement) {
-//    		ConstructorElement fst = (ConstructorElement) first;
-//    		ConstructorElement snd = (ConstructorElement) second;
-//			if (!fst.getCons().equals(snd.getCons())) {
-//				System.out.println("unsatisfiable constraint: "+e.toDotString());
-//				return false;
-//			}
-//			else {
-//				// TODO: this code assumes that leq relation of the constructor is pairwise, but this should be extensible
-//				for (int i=0; i<fst.getElements().size(); i++) {
-//					if (!addOneConstraint(fst.getElements().get(i), snd.getElements().get(i), e))
-//						return false;
-//				}
-//				return true;
-//			}
-//		}
-//    	else {
-//    	System.out.println(first+"<="+second);
-    		ElementNode source = getNode(first, true);
-			ElementNode to = getNode(second, true);
-					
-			addEdge(source, to, new EquationEdge(e, source, to));
+		ElementNode source = getNode(first, true);
+		ElementNode to = getNode(second, true);
 
-			if (e.getRelation() == Relation.EQ)
-				addEdge(to, source, new EquationEdge(e, to, source));
-			return true;
-//    	}
-    		
+		addEdge(source, to, new EquationEdge(e, source, to));
+
+		if (e.getRelation() == Relation.EQ)
+			addEdge(to, source, new EquationEdge(e, to, source));
+		return true;    		
     }
     
     public void generateGraph ( ) {
@@ -126,7 +104,7 @@ public class ConstraintGraph extends Graph {
         List<Element> workingList = new ArrayList<Element>(eleToNode.keySet());
         Set<Element> processed = new HashSet<Element>();
         
-        // we need to handle constructors and two special constructors, join and meet
+        // we need to handle constructors, including two special constructors, join and meet
         while (workingList.size()!=0) {
         	Element e = workingList.get(0);
         	ElementNode currentnode = getNode(e);
@@ -167,20 +145,19 @@ public class ConstraintGraph extends Graph {
         	System.out.println("Total nodes after static: " + eleToNode.size());
     }
     
-    // this function is used to filter out letters that can not pretty print in the dot format
+    // this function is used to filter out letters that can not be prettily printed in the dot format
     // such as " and \n
-//    private String sanitaze (String s) {
-//        if (s!=null)
-//            return s.replace('"', '\'').replace("\\", "\\\\");
-//        else
-//            return s;
-//    }
+    private String sanitaze (String s) {
+        if (s!=null)
+            return s.replace('"', '\'').replace("\\", "\\\\");
+        else
+            return s;
+    }
     
     
     public String toDotString ( ) {
         String ret = "";
         
-//        Set<Integer> sourcePosition = new HashSet<Integer>();
         String nodes = "";
         String links = "";
         
@@ -189,7 +166,6 @@ public class ConstraintGraph extends Graph {
                 ElementNode n = (ElementNode) node;
                 if (!n.shouldprint)
                     continue;
-//                sourcePosition.addAll(n.getPositions());
                 nodes += n.printNodeToDotString();
                 links += n.printLinkToDotString();
             }
@@ -197,27 +173,24 @@ public class ConstraintGraph extends Graph {
         
         ret += "digraph G1 {\n";
         // print source code
-//        if (PRINT_SRC) {
-//            for (String s : files) {
-//                try {
-//                    BufferedReader reader =
-//                            new BufferedReader(new FileReader(s));
-//                    String line = reader.readLine();
-//                    int linenum = 1;
-//                    ret += "source [shape=box, label=\"";
-//                    while (line != null) {
-//                        if (v.getSourcePosition().contains(linenum)) {
-//                            ret += linenum + ":\t" + sanitaze(line) + "\\l";
-//                        }
-//                        line = reader.readLine();
-//                        linenum++;
-//                    }
-//                    ret += "\"];\n";
-//                } catch (IOException e) {
-//                    continue;
-//                }
-//            }
-//        }
+        if (PRINT_SRC) {
+            for (String s : files) {
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(s));
+                    String line = reader.readLine();
+                    int linenum = 1;
+                    ret += "source [shape=box, label=\"";
+                    while (line != null) {                           
+                    	ret += linenum + ":\t" + sanitaze(line) + "\\l";
+                        line = reader.readLine();
+                        linenum++;
+                    }
+                    ret += "\"];\n";
+                } catch (IOException e) {
+                    continue;
+                }
+            }
+        }
         
         ret += "node [color = grey, style = filled];\n";
         ret += nodes;

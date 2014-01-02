@@ -164,7 +164,6 @@ public class ConstraintPath {
 		
 		if (edges.size()==0) return ret;
 
-		// System.out.println("Checking one equation in env: "+path.env);
 		Node first = getFirst();
 		ret.add(first);
 
@@ -246,15 +245,12 @@ public class ConstraintPath {
 		
 		if (edges.size()==0) return "";
 
-		// System.out.println("Checking one equation in env: "+path.env);
 		ret += "\n----Start of one path----\n";
 		Node leftmost = getFirst();
-//		leftmost.setCause();
 		ret += leftmost.getElement().toString()+"\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			ret += "--> (" + (edge.toString()) + ")\n";
-//			if (finder.getPath(leftmost, edge.to)!=null)
 				ret += edge.to.getElement().toString()+"\n";
 		}
 		ret += "----End of one path----\n";

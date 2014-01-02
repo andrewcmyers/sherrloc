@@ -1,6 +1,5 @@
 package constraint.graph;
 
-
 /* 
  * a special edge corresponds to nonterminal id 
  * it keeps track of a path for error reporting

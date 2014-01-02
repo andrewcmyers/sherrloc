@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import constraint.graph.ConstraintGraph;
-import constraint.graph.ElementNode;
-import constraint.graph.Node;
 import constraint.graph.pathfinder.PathFinder;
 import constraint.graph.pathfinder.ShortestPathFinder;
 
@@ -73,7 +71,6 @@ public class Environment {
 		return sb.toString();
 	}
 	
-	/* unified version */
 	public boolean leq(Element p1, Element p2) {
 		return leq(p1, p2, true);
 	}
@@ -88,27 +85,19 @@ public class Environment {
 		
 		if (e1.isBottom() || e2.isTop())
 			return true;
+		
+//		if (e1.toString().equals("{lbl}"))
+//			System.out.print(e1.getClass());
 
+		// the type to be inferred cannot have recursive types
+		if (e1 instanceof Variable || e2 instanceof Variable) {
+			return true;
+		}
 		
 		// the assumption can be made on the join/meet
 		if (rec && leqApplyAssertions(e1, e2))
 			return true;
-		
-		// the type to be inferred cannot have recursive types
-		if ( e1 instanceof Variable) {
-			if (e2.getVars().contains(e1))
-				return false;
-			else
-				return true;
-		}
-		
-		if (e2 instanceof Variable) {
-			if (e1.getVars().contains(e2))
-				return false;
-			else
-				return true;
-		}
-			
+					
 		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
 			if (!((ComplexElement)e1).getCons().equals(((ComplexElement)e2).getCons()))
 				return false;
@@ -123,26 +112,39 @@ public class Environment {
 					return false;
 				if (contravariant && !leq(l2.get(i), l1.get(i)))
 					return false;
-			}
+			}		
 			return true;
 		}
-				
-		// e1 leq any element of e2
-		if (e2 instanceof JoinElement) {
-			for (Element e : ((JoinElement)e2).getElements())
-				if (leq(e1, e)) 
+		
+		if (e1 instanceof JoinElement) {
+			for (Element e : ((JoinElement)e1).getElements())
+				if (!leq(e, e2, rec)) 
+					return false;
+			return true;
+		}
+		else if (e1 instanceof MeetElement) {
+			for (Element e : ((MeetElement)e1).getElements())
+				if (leq(e, e2, rec)) 
 					return true;
 			return false;
 		}
-		// e1 leq all elements of e2
+				
+		if (e2 instanceof JoinElement) {
+			for (Element e : ((JoinElement)e2).getElements())
+				if (leq(e1, e, rec)) 
+					return true;
+			return false;
+		}
 		else if (e2 instanceof MeetElement) {
 			for (Element e : ((MeetElement)e2).getElements())
-				if (!leq(e1, e)) 
+				if (!leq(e1, e, rec)) 
 					return false;
 			return true;
 		}
 		
-		return (rec && leqApplyAssertions(e1, e2));
+		return false;
+		
+//		return (rec && leqApplyAssertions(e1, e2));
 	}
 		
 	/* 
@@ -167,7 +169,7 @@ public class Environment {
 			if (finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null)
 				return true;
 			for (Element e : graph.getAllElements()) {
-				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && leq(e, e2,false))
+				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && leq(e, e2, false))
 					return true;
 			}
 			return false;
@@ -175,15 +177,7 @@ public class Environment {
 		else
 			return false;
     }
-	
-	public Set<Node> geqSet(ElementNode start) {
-		return finder.geqSet(start);
-	}
-	
-	public Set<Node> leqSet(ElementNode end) {
-		return finder.leqSet(end);
-	}
-		
+			
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Environment) {

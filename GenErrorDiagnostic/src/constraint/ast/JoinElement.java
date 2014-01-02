@@ -50,7 +50,7 @@ public class JoinElement extends EnumerableElement {
 	
 	@Override
 	public boolean isEnd() {
-		return !this.hasVars();
+		return true;
 	}
 
 	@Override

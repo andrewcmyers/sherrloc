@@ -72,23 +72,13 @@ public class Constructor extends Element {
 		return arity * 85751 + name.hashCode()*1913 + pos.hashCode()*3 + (this.contraVariant?1:0);
 	}
 		
-	@Override
-	public boolean isStart() {
-		return true;
-	}
-	
-	@Override
-	public boolean isEnd() {
-		return true;
-	}
-	
-	/* to make the diagnostic more precise, different instances of constants
-	 * should be treated as separate nodes in the constraint flow graph
-	 * However, when identifying unsat paths, these constructors are the same. 
+	/* To make error diagnosis more precise, different instances of constants
+	 * should be treated as separate nodes in the constraint flow graph.
+	 * However, these constructors are the same when solving the constraints. 
 	 * 
-	 * The trick here is to generate new instances of same constructor, but
-	 * But any operation on partial orders should call getBaseElement() in order
-	 * to treat the duplicated nodes in the same way
+	 * The trick here is constants with different positions in the source code are
+	 * duplicated in the constraint graph, but operations on constraint solving 
+	 * call getBaseElement() to treat these duplicated nodes in the same way
 	 */
 	public Constructor getInstance ( ) {
 		return new Constructor(name, arity, contraVariant, pos);
