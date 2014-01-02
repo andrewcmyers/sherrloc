@@ -17,13 +17,6 @@ public class EquationEdge extends Edge {
         this.equ = e;
     }
     
-    public int getLineno() { 
-//        if (cons != null && cons.position()!= null)
-//            return cons.position().line();
-//        else return 0;
-        return 0;
-    }       
-
     public Constraint getEquation() {
 		return equ;
 	}
@@ -33,12 +26,6 @@ public class EquationEdge extends Edge {
         return equ.toString(); 
     }
     
-//    public String toStringDetail() {
-//        if (equ != null) {
-//            return toString() + "\n(Why this constraint?) " + equ.detailMsg();
-//        }
-//        else return toString();
-//    }
     @Override
     public boolean equals(Object obj) {
     	if (obj instanceof EquationEdge)
@@ -53,7 +40,7 @@ public class EquationEdge extends Edge {
     
     @Override
     public String toDotString() {
-        return  equ.toDotString(); // +"\n"+ cons.detailMsg(); 
+        return  equ.toDotString();
     }
     
     @Override

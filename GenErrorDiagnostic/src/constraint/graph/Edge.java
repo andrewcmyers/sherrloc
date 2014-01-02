@@ -2,8 +2,6 @@ package constraint.graph;
 
 import constraint.ast.Environment;
 
-
-
 abstract public class Edge {
     Node from;
     Node to;
@@ -13,7 +11,6 @@ abstract public class Edge {
     	this.from = from;
     	this.to = to;
 	}
-        
     
     public Node getFrom() {
 		return from;
@@ -23,12 +20,10 @@ abstract public class Edge {
 		return to;
 	}
 
-    // only equation edges needs the increasement
 	public void incSuccCounter() {
 		// do nothing
 	}
 	
-	// only equation edges needs the increasement
 	public void setCause() {
 		// do nothing
 	}

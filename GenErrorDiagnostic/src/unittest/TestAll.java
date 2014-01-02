@@ -81,12 +81,12 @@ public class TestAll {
 		/* FriendMap6 secure */
 		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap7.con", "C_l <= (⊤)->(n1);C_n <= (⊤)->(n1);\n", false); // same assumption
 		testAssumptions("src/constraint/tests/testhypo/FriendMap8.con", "C_s <= C_*l;I_s <= I_*l;\n", false); // weaker assumption
-		testAssumptions("src/constraint/tests/testhypo/FriendMap9.con", "C_*iterLabel <= (⊤)->(fn);\n", false); //  weaker assumption, this is a good example
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap9.con", "C_*iterLabel <= (⊤)->(fn);\n", false); //  weaker assumption, this is a good example
 		testAssumptions("src/constraint/tests/testhypo/FriendMap10.con", "C_*lbl <= (⊤)->(n1);\n", false); // weaker  assumption
 		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap11.con", "C_user <= (⊤)->(n1);\n", false); // weaker  assumption
 		/* FriendMap12 secure */
 		/* FriendMap13 secure */
-		testAssumptions("src/constraint/tests/testhypo/FriendMap14.con", "C_*iterLabel <= (⊤)->(fn);\n", false); // weaker  assumption
+		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap14.con", "C_*iterLabel <= (⊤)->(fn);\n", false); // weaker  assumption
 		testAssumptionsSub("src/constraint/tests/testhypo/FriendMap15.con", "C_*iterLabel <= (⊤)->(fn);\n", false); // same  assumption
 		testAssumptions("src/constraint/tests/testhypo/FriendMap16.con", "(⊤)<-(localStore) <= I_*lbl;C_*lbl <= (⊤)->(localStore);\n", false); // same  assumption
 		testAssumptions("src/constraint/tests/testhypo/FriendMap17.con", "C_*l <= (⊤)->(s1);\n", false); // same  assumption

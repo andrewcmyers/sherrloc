@@ -45,8 +45,7 @@ public class MeetElement extends EnumerableElement {
 	
 	@Override
 	public boolean isStart() {
-//		return !hasVars();
-		return false;
+		return true;
 	}
 	
 	@Override

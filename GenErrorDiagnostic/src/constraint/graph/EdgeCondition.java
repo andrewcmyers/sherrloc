@@ -50,8 +50,6 @@ public class EdgeCondition {
 	 * 1. They have the same constructor
 	 * 2. They have the same index
 	 * 3. Only one of them is reverse
-	 * @param c: the condition to be match
-	 * @return
 	 */
 	public boolean matches (EdgeCondition c) {
 		return (con.equals(c.con) && index==c.index && logicXOR(reverse,c.reverse) && polarity==c.polarity);

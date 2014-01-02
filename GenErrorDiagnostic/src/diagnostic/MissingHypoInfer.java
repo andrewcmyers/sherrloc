@@ -47,7 +47,7 @@ public class MissingHypoInfer {
 			else {
 				cachedEnv.put(env, env);
 			}
-
+			
 			if (env.leq(minHypo.getFirst(), minHypo.getSecond())) {
 				ret.add(candidate);
 			}

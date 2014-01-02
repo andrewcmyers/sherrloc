@@ -52,6 +52,14 @@ public abstract class Element {
 	public String toDetailString()  {
 		return toSnippetString()+pos.toString();
 	}
+	
+	public boolean isStart() {
+		return true;
+	}
+	
+	public boolean isEnd() {
+		return true;
+	}
 
 	abstract public String toDotString ();
 	
@@ -60,11 +68,7 @@ public abstract class Element {
 	abstract public boolean hasVars ();
 	
 	abstract public boolean equals (Object o);
-		
-	abstract public boolean isStart();
-	
-	abstract public boolean isEnd();
-	
+			
 	abstract public boolean isBottom();
 	
 	abstract public boolean isTop();
