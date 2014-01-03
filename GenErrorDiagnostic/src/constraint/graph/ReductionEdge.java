@@ -12,7 +12,7 @@ import constraint.ast.Environment;
 abstract public class ReductionEdge extends Edge{
 	Edge first;
 	Edge second;
-	int size;
+	public int size;
 	
 	public ReductionEdge(Node from, Node to, Edge first, Edge second) {
 		super(from, to);

@@ -2,10 +2,12 @@ package util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 import constraint.graph.ConstraintPath;
@@ -69,18 +71,25 @@ public abstract class HeuristicSearch<EntityType> {
     	Set<Integer> set;
 		List<ConstraintPath> remaining;
 		int index;
+		double est;
     	
-    	public SearchNode(Set<Integer> set, List<ConstraintPath> remaining, int index) {
+    	public SearchNode(Set<Integer> set, List<ConstraintPath> remaining, int index, double est) {
     		this.set = set;
     		this.remaining = remaining;
     		this.index = index;
+    		this.est = est;
 		}
     }
     
     public Set<Set<EntityType>> AStarSearch ( ) {
     	Collection<ConstraintPath> allpaths = paths.getPaths();
     	Set<Set<EntityType>> ret = new HashSet<Set<EntityType>>();
-    	FibonacciHeap<SearchNode> heap = new FibonacciHeap<SearchNode>();
+    	PriorityQueue<SearchNode> queue = new PriorityQueue<SearchNode>(
+    			100, new Comparator<SearchNode>() {
+					public int compare(SearchNode n1, SearchNode n2) {
+						return (int)(n1.est - n2.est);
+					}
+				});
     	
     	// explore the first level
     	for (int i=0; i<candidates.length; i++) {
@@ -95,16 +104,14 @@ public abstract class HeuristicSearch<EntityType> {
       			}
       		}
     		
-    		addSerchNode(heap, set, remaining, i+1);
+    		addSerchNode(queue, set, remaining, i+1);
     	}
     	
-    	while (!heap.isEmpty()) {
-    		FibonacciHeapNode<SearchNode> minnode = heap.removeMin();
-    		SearchNode data = minnode.getData();
-    		double key = minnode.getKey();
+    	while (!queue.isEmpty()) {
+    		SearchNode data = queue.poll();
     		Set<Integer> set = data.set;
     		List<ConstraintPath> toSat = data.remaining;
-    		boolean stop = goalTest(ret, data, key);
+    		boolean stop = goalTest(ret, data, data.est);
     		if (stop)
     			return ret;
     		
@@ -122,7 +129,7 @@ public abstract class HeuristicSearch<EntityType> {
           			}
           		}
         		        		
-        		addSerchNode(heap, toadd, remaining, i+1);
+        		addSerchNode(queue, toadd, remaining, i+1);
         	}
     	}
     	
@@ -151,7 +158,7 @@ public abstract class HeuristicSearch<EntityType> {
 		}
     }
     
-    public void addSerchNode (FibonacciHeap<SearchNode> heap, Set<Integer> set, List<ConstraintPath> remaining, int index) {
+    public void addSerchNode (PriorityQueue<SearchNode> queue, Set<Integer> set, List<ConstraintPath> remaining, int index) {
     	double succSum=0;
 		for (Integer j : set) {
 			succSum+=succCount.get(candidates[j].toString());
@@ -160,9 +167,9 @@ public abstract class HeuristicSearch<EntityType> {
 		double est = C1*Estimate(remaining, index);
 		double key = real + est;
 		
-		FibonacciHeapNode<SearchNode> newnode = new FibonacciHeapNode<SearchNode>(new SearchNode(set, remaining, index), key);
+		SearchNode newnode = new SearchNode(set, remaining, index, key);
 		nodes ++;
-		heap.insert(newnode, newnode.getKey());
+		queue.offer(newnode);
     }
     
     public abstract Set<ConstraintPath> mapsTo (EntityType element);
