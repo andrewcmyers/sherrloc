@@ -1,0 +1,104 @@
+CONSTRUCTOR C_L 0 //C_L["L":23,53-54@AirlineAgent1.jif]
+CONSTRUCTOR I_L 0 //I_L["L":23,53-54@AirlineAgent1.jif]
+CONSTRUCTOR C_this 0 //C_this["{this}":4,7-25@AirlineAgent1.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":4,7-25@AirlineAgent1.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@AirlineAgent1.jif:23,14-49
+CONSTRUCTOR * 0 //@AirlineAgent1.jif:23,15-28
+CONSTRUCTOR Airlines 0 //@AirlineAgent1.jif:5,10-18
+CONSTRUCTOR TheAirline 0 //@AirlineAgent1.jif:5,27-37
+
+%%
+C_caller_pc <= (TheAirline -> TheAirline);
+I_caller_pc <= (TheAirline <- TheAirline);
+(_ -> _) <= C_L;
+C_L <= (* -> *);
+(* <- *) <= I_L;
+I_L <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_newOffer;
+C_newOffer <= (* -> *);
+(* <- *) <= I_newOffer;
+I_newOffer <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (TheAirline <- TheAirline);
+(TheAirline <- TheAirline) <= (_ <- _);
+(_ -> _) <= C_price;
+C_price <= (* -> *);
+(* <- *) <= I_price;
+I_price <= (_ <- _);
+(_ -> _) <= C_AirlineServer.provider;
+C_AirlineServer.provider <= (* -> *);
+(* <- *) <= I_AirlineServer.provider;
+I_AirlineServer.provider <= (_ <- _);
+(_ -> _) <= C_AirlineAgent.provider;
+C_AirlineAgent.provider <= (* -> *);
+(* <- *) <= I_AirlineAgent.provider;
+I_AirlineAgent.provider <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (TheAirline <- TheAirline);
+(TheAirline <- TheAirline) <= (_ <- _);
+(_ -> _) <= (TheAirline -> TheAirline);
+(TheAirline -> TheAirline) <= (* -> *);
+(* <- *) <= (TheAirline <- TheAirline);
+(TheAirline <- TheAirline) <= (_ <- _);
+
+%%
+C_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif] <= (TheAirline["TheAirline":15,51-61@AirlineAgent1.jif] -> TheAirline["TheAirline":15,51-61@AirlineAgent1.jif])["(TheAirline -> *)":15,51-64@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+I_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif] <= (TheAirline["TheAirline":15,36-46@AirlineAgent1.jif] <- TheAirline["TheAirline":15,36-46@AirlineAgent1.jif])["(TheAirline <- *)":15,36-49@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+
+(TheAirline["TheAirline":16,30-40@AirlineAgent1.jif] -> TheAirline["TheAirline":16,30-40@AirlineAgent1.jif])["(TheAirline -> *)":16,30-43@AirlineAgent1.jif] <= C_L["L":16,49-50@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+(TheAirline["TheAirline":16,15-25@AirlineAgent1.jif] <- TheAirline["TheAirline":16,15-25@AirlineAgent1.jif])["(TheAirline <- *)":16,15-28@AirlineAgent1.jif] <= I_L["L":16,49-50@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+
+C_AirlineAgent.provider["AirlineAgent.provider":] <= (_["_":16,64-80@AirlineAgent1.jif] -> _["_":16,64-80@AirlineAgent1.jif])["(_ -> _)":16,64-80@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+I_AirlineAgent.provider["AirlineAgent.provider":] <= (TheAirline["TheAirline":16,65-75@AirlineAgent1.jif] <- TheAirline["TheAirline":16,65-75@AirlineAgent1.jif])["(TheAirline <- *)":16,65-78@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+
+C_AirlineAgent.provider["AirlineAgent.provider":] <= C_AirlineServer.provider["AirlineServer.provider":17,16-29@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+I_AirlineAgent.provider["AirlineAgent.provider":] <= I_AirlineServer.provider["AirlineServer.provider":17,16-29@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+
+C_AirlineServer.provider["AirlineServer.provider":17,16-29@AirlineAgent1.jif] <= C_AirlineAgent.provider["AirlineAgent.provider":] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+I_AirlineServer.provider["AirlineServer.provider":17,16-29@AirlineAgent1.jif] <= I_AirlineAgent.provider["AirlineAgent.provider":] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+
+Airlines["Airlines":5,10-18@AirlineAgent1.jif] >= TheAirline["TheAirline":5,27-37@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};["":26,8-27]
+C_AirlineAgent.provider["AirlineAgent.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+I_AirlineAgent.provider["AirlineAgent.provider":] <= (TheAirline["TheAirline":5,56-66@AirlineAgent1.jif] <- TheAirline["TheAirline":5,56-66@AirlineAgent1.jif])["(TheAirline <- TheAirline)":] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+
+C_receiver["{receiver}":26,8-27@AirlineAgent1.jif] == C_this["{this}":4,7-25@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+I_receiver["{receiver}":26,8-27@AirlineAgent1.jif] == I_this["{this}":4,7-25@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[26,8-27@AirlineAgent1.jif]
+
+((TheAirline["TheAirline":13,25-35@AirlineAgent1.jif] -> TheAirline["TheAirline":13,25-35@AirlineAgent1.jif])["(TheAirline -> *)":13,25-38@AirlineAgent1.jif] ⊔ C_this["{this}":4,7-25@AirlineAgent1.jif])["{(TheAirline -> *); (TheAirline <- *) ⊔ this}":13,8-40@AirlineAgent1.jif] <= C_price["{price}":27,12-17@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[27,20-34@AirlineAgent1.jif]
+((TheAirline["TheAirline":13,10-20@AirlineAgent1.jif] <- TheAirline["TheAirline":13,10-20@AirlineAgent1.jif])["(TheAirline <- *)":13,10-23@AirlineAgent1.jif] ⊔ I_this["{this}":4,7-25@AirlineAgent1.jif])["{(TheAirline -> *); (TheAirline <- *) ⊔ this}":13,8-40@AirlineAgent1.jif] <= I_price["{price}":27,12-17@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[27,20-34@AirlineAgent1.jif]
+
+C_this["{this}":28,25-26@AirlineAgent1.jif] <= C_newOffer["{newOffer}":28,15-38@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38@AirlineAgent1.jif]
+I_this["{this}":28,25-26@AirlineAgent1.jif] <= I_newOffer["{newOffer}":28,15-38@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38@AirlineAgent1.jif]
+
+(C_price["{price}":27,12-17@AirlineAgent1.jif] ⊔ C_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif])["{price ⊔ caller_pc}":27,12-17@AirlineAgent1.jif] <= C_L["L":28,25-26@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,29-34@AirlineAgent1.jif]
+(I_price["{price}":27,12-17@AirlineAgent1.jif] ⊔ I_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif])["{price ⊔ caller_pc}":27,12-17@AirlineAgent1.jif] <= I_L["L":28,25-26@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,29-34@AirlineAgent1.jif]
+
+(C_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif])["{caller_pc}":22,11-39@AirlineAgent1.jif] <= C_L["L":28,25-26@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,36-37@AirlineAgent1.jif]
+(I_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif])["{caller_pc}":22,11-39@AirlineAgent1.jif] <= I_L["L":28,25-26@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,36-37@AirlineAgent1.jif]
+
+C_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif] <= (*["*":2,11-49@Offer.jif] -> *["*":2,11-49@Offer.jif])["(* -> *)":2,11-49@Offer.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38@AirlineAgent1.jif]
+I_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif] <= (_["_":2,11-49@Offer.jif] <- _["_":2,11-49@Offer.jif])["(_ <- _)":2,11-49@Offer.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38@AirlineAgent1.jif]
+
+(C_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif] ⊔ C_newOffer["{newOffer}":28,15-38@AirlineAgent1.jif])["{caller_pc ⊔ newOffer}":22,11-39@AirlineAgent1.jif] <= (C_L["L":22,21-22@AirlineAgent1.jif] ⊔ C_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif])["{L ⊔ caller_pc}":22,21-22@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,8-39@AirlineAgent1.jif]
+(I_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif] ⊔ I_newOffer["{newOffer}":28,15-38@AirlineAgent1.jif])["{caller_pc ⊔ newOffer}":22,11-39@AirlineAgent1.jif] <= (I_L["L":22,21-22@AirlineAgent1.jif] ⊔ I_caller_pc["{caller_pc}":22,11-39@AirlineAgent1.jif])["{L ⊔ caller_pc}":22,21-22@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,8-39@AirlineAgent1.jif]
+
+C_L["L":28,25-26@AirlineAgent1.jif] <= C_L["L":22,17-18@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38@AirlineAgent1.jif]
+I_L["L":28,25-26@AirlineAgent1.jif] <= I_L["L":22,17-18@AirlineAgent1.jif] {(_ -> _) <= C_L;(TheAirline <- TheAirline) <= I_L;C_this <= C_caller_pc;I_this <= I_caller_pc;Airlines >= TheAirline;};[28,15-38@AirlineAgent1.jif]
+

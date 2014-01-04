@@ -1,0 +1,345 @@
+CONSTRUCTOR C_xmax 0 //C_xmax["{xmax}":35,10-13@Box1.fab]
+CONSTRUCTOR I_xmax 0 //I_xmax["{xmax}":35,10-13@Box1.fab]
+CONSTRUCTOR C_l 0 //C_l["{l}":133,4-9@Box1.fab]
+CONSTRUCTOR I_l 0 //I_l["{l}":133,4-9@Box1.fab]
+CONSTRUCTOR C_*l 0 //C_*l["{*l}":139,4-5@Box1.fab]
+CONSTRUCTOR I_*l 0 //I_*l["{*l}":139,4-5@Box1.fab]
+CONSTRUCTOR C_y 0 //C_y["{y}":56,9-12@Box1.fab]
+CONSTRUCTOR I_y 0 //I_y["{y}":56,9-12@Box1.fab]
+CONSTRUCTOR C_y1 0 //C_y1["{y}":113,4-9@Box1.fab]
+CONSTRUCTOR I_y1 0 //I_y1["{y}":113,4-9@Box1.fab]
+CONSTRUCTOR C_x 0 //C_x["{x}":55,9-12@Box1.fab]
+CONSTRUCTOR I_x 0 //I_x["{x}":55,9-12@Box1.fab]
+CONSTRUCTOR C_x1 0 //C_x1["{x}":96,4-9@Box1.fab]
+CONSTRUCTOR I_x1 0 //I_x1["{x}":96,4-9@Box1.fab]
+CONSTRUCTOR C_xmin 0 //C_xmin["{xmin}":34,10-13@Box1.fab]
+CONSTRUCTOR I_xmin 0 //I_xmin["{xmin}":34,10-13@Box1.fab]
+CONSTRUCTOR C_*a 0 //C_*a["{*a}":139,28-29@Box1.fab]
+CONSTRUCTOR I_*a 0 //I_*a["{*a}":139,28-29@Box1.fab]
+CONSTRUCTOR C_ymax 0 //C_ymax["{ymax}":35,26-29@Box1.fab]
+CONSTRUCTOR I_ymax 0 //I_ymax["{ymax}":35,26-29@Box1.fab]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":32,2-36,3@Box1.fab]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":32,2-36,3@Box1.fab]
+CONSTRUCTOR C_ymin 0 //C_ymin["{ymin}":34,26-29@Box1.fab]
+CONSTRUCTOR I_ymin 0 //I_ymin["{ymin}":34,26-29@Box1.fab]
+CONSTRUCTOR C_L 0 //C_L["L":22,15-16@Box1.fab]
+CONSTRUCTOR I_L 0 //I_L["L":22,15-16@Box1.fab]
+CONSTRUCTOR C_this 0 //C_this["{this}":12,7-16@Box1.fab]
+CONSTRUCTOR I_this 0 //I_this["{this}":12,7-16@Box1.fab]
+CONSTRUCTOR C_A 0 //C_A["A":21,19-20@Box1.fab]
+CONSTRUCTOR I_A 0 //I_A["A":21,19-20@Box1.fab]
+CONSTRUCTOR C_a 0 //C_a["{a}":134,4-9@Box1.fab]
+CONSTRUCTOR I_a 0 //I_a["{a}":134,4-9@Box1.fab]
+CONSTRUCTOR C_a1 0 //C_a1["{a}":153,28-33@Box1.fab]
+CONSTRUCTOR I_a1 0 //I_a1["{a}":153,28-33@Box1.fab]
+CONSTRUCTOR C_a2 0 //C_a2["{a}":160,28-33@Box1.fab]
+CONSTRUCTOR I_a2 0 //I_a2["{a}":160,28-33@Box1.fab]
+CONSTRUCTOR C_b 0 //C_b["{b}":160,37-42@Box1.fab]
+CONSTRUCTOR I_b 0 //I_b["{b}":160,37-42@Box1.fab]
+CONSTRUCTOR C_b1 0 //C_b1["{b}":153,37-42@Box1.fab]
+CONSTRUCTOR I_b1 0 //I_b1["{b}":153,37-42@Box1.fab]
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@/home/zhdf/demo/pldi13/friendmap/Box1.fab:139,9-14
+CONSTRUCTOR s 0 //@/home/zhdf/demo/pldi13/friendmap/Box1.fab:139,12-13
+CONSTRUCTOR * 0 //@/home/zhdf/demo/pldi13/friendmap/Box1.fab:139,10-11
+
+%%
+C_xmax <= C_L;
+I_xmax <= I_L;
+I_l <= (_ <- _);
+C_y <= C_A;
+I_y <= I_A;
+I_y1 <= (_ <- _);
+C_x <= C_A;
+I_x <= I_A;
+I_x1 <= (_ <- _);
+C_xmin <= C_L;
+I_xmin <= I_L;
+I_a <= (_ <- _);
+I_a1 <= (_ <- _);
+I_a2 <= (_ <- _);
+I_b1 <= (_ <- _);
+I_b <= (_ <- _);
+C_ymax <= C_L;
+I_ymax <= I_L;
+C_caller_pc <= C_L;
+I_caller_pc <= I_L;
+C_ymin <= C_L;
+I_ymin <= I_L;
+(_ -> _) <= C_xmax;
+C_xmax <= (* -> *);
+(* <- *) <= I_xmax;
+I_xmax <= (_ <- _);
+(_ -> _) <= (* -> s);
+(* -> s) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (* <- s);
+(* <- s) <= (_ <- _);
+(_ -> _) <= C_l;
+C_l <= (* -> *);
+(* <- *) <= I_l;
+I_l <= (_ <- _);
+(_ -> _) <= C_*l;
+C_*l <= (* -> *);
+(* <- *) <= I_*l;
+I_*l <= (_ <- _);
+(_ -> _) <= C_y;
+C_y <= (* -> *);
+(* <- *) <= I_y;
+I_y <= (_ <- _);
+(_ -> _) <= C_y1;
+C_y1 <= (* -> *);
+(* <- *) <= I_y1;
+I_y1 <= (_ <- _);
+(_ -> _) <= C_x;
+C_x <= (* -> *);
+(* <- *) <= I_x;
+I_x <= (_ <- _);
+(_ -> _) <= C_x1;
+C_x1 <= (* -> *);
+(* <- *) <= I_x1;
+I_x1 <= (_ <- _);
+(_ -> _) <= C_xmin;
+C_xmin <= (* -> *);
+(* <- *) <= I_xmin;
+I_xmin <= (_ <- _);
+(_ -> _) <= C_*a;
+C_*a <= (* -> *);
+(* <- *) <= I_*a;
+I_*a <= (_ <- _);
+(_ -> _) <= C_ymax;
+C_ymax <= (* -> *);
+(* <- *) <= I_ymax;
+I_ymax <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_mapserv.Box.provider;
+C_mapserv.Box.provider <= (* -> *);
+(* <- *) <= I_mapserv.Box.provider;
+I_mapserv.Box.provider <= (_ <- _);
+(_ -> _) <= C_ymin;
+C_ymin <= (* -> *);
+(* <- *) <= I_ymin;
+I_ymin <= (_ <- _);
+(_ -> _) <= C_L;
+C_L <= (* -> *);
+(* <- *) <= I_L;
+I_L <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_mapserv.Box.provider1;
+C_mapserv.Box.provider1 <= (* -> *);
+(* <- *) <= I_mapserv.Box.provider1;
+I_mapserv.Box.provider1 <= (_ <- _);
+(_ -> _) <= C_A;
+C_A <= (* -> *);
+(* <- *) <= I_A;
+I_A <= (_ <- _);
+(_ -> _) <= C_a;
+C_a <= (* -> *);
+(* <- *) <= I_a;
+I_a <= (_ <- _);
+(_ -> _) <= C_a1;
+C_a1 <= (* -> *);
+(* <- *) <= I_a1;
+I_a1 <= (_ <- _);
+(_ -> _) <= C_a2;
+C_a2 <= (* -> *);
+(* <- *) <= I_a2;
+I_a2 <= (_ <- _);
+(_ -> _) <= C_b;
+C_b <= (* -> *);
+(* <- *) <= I_b;
+I_b <= (_ <- _);
+(_ -> _) <= C_b1;
+C_b1 <= (* -> *);
+(* <- *) <= I_b1;
+I_b1 <= (_ <- _);
+
+%%
+(_["_":] -> _["_":])["(_ -> _)":] <= (C_A["A":21,19-20@Box1.fab] ⊔ (_["_":] -> _["_":])["(_ -> _)":])["{A ⊔ (_ -> _); (_ <- _)}":21,19-20@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[12,7-16@Box1.fab]
+(_["_":] <- _["_":])["(_ <- _)":] <= (I_A["A":21,19-20@Box1.fab] ⊔ (_["_":] <- _["_":])["(_ <- _)":])["{A ⊔ (_ -> _); (_ <- _)}":21,19-20@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[12,7-16@Box1.fab]
+
+C_L["L":22,15-16@Box1.fab] <= (C_A["A":21,19-20@Box1.fab] ⊔ (_["_":] -> _["_":])["(_ -> _)":])["{A ⊔ (_ -> _); (_ <- _)}":21,19-20@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[12,7-16@Box1.fab]
+I_L["L":22,15-16@Box1.fab] <= (I_A["A":21,19-20@Box1.fab] ⊔ (_["_":] <- _["_":])["(_ <- _)":])["{A ⊔ (_ -> _); (_ <- _)}":21,19-20@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[12,7-16@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[12,7-16@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= (_["_":12,7-16@Box1.fab] <- _["_":12,7-16@Box1.fab])["(_ <- _)":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[12,7-16@Box1.fab]
+
+C_L["L":21,15-16@Box1.fab] == C_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[21,9-33@Box1.fab]
+I_L["L":21,15-16@Box1.fab] == I_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[21,9-33@Box1.fab]
+
+C_L["L":21,15-16@Box1.fab] == C_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[21,9-33@Box1.fab]
+I_L["L":21,15-16@Box1.fab] == I_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[21,9-33@Box1.fab]
+
+C_L["L":22,15-16@Box1.fab] == C_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[22,9-33@Box1.fab]
+I_L["L":22,15-16@Box1.fab] == I_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[22,9-33@Box1.fab]
+
+C_L["L":22,15-16@Box1.fab] == C_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[22,9-33@Box1.fab]
+I_L["L":22,15-16@Box1.fab] == I_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[22,9-33@Box1.fab]
+
+C_mapserv.Box.provider["mapserv.Box.provider":12,7-16@Box1.fab] <= (*["*":3,20-20@Object.fab] -> *["*":3,20-20@Object.fab])["(* -> *)":3,20-20@Object.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_mapserv.Box.provider);I_caller_pc <= (I_mapserv.Box.provider);};[40,2-3@Box1.fab]
+I_mapserv.Box.provider["mapserv.Box.provider":12,7-16@Box1.fab] <= (_["_":3,20-20@Object.fab] <- _["_":3,20-20@Object.fab])["(_ <- _)":3,20-20@Object.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_mapserv.Box.provider);I_caller_pc <= (I_mapserv.Box.provider);};[40,2-3@Box1.fab]
+
+(C_xmin["{xmin}":34,10-13@Box1.fab] ⊔ C_this["{this}":12,7-16@Box1.fab])["{xmin ⊔ this}":34,10-13@Box1.fab] <= C_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[41,4-13@Box1.fab]
+(I_xmin["{xmin}":34,10-13@Box1.fab] ⊔ I_this["{this}":12,7-16@Box1.fab])["{xmin ⊔ this}":34,10-13@Box1.fab] <= I_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[41,4-13@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[41,4-13@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[41,4-13@Box1.fab]
+
+(C_ymin["{ymin}":34,26-29@Box1.fab] ⊔ C_this["{this}":12,7-16@Box1.fab])["{ymin ⊔ this}":34,26-29@Box1.fab] <= C_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[42,4-13@Box1.fab]
+(I_ymin["{ymin}":34,26-29@Box1.fab] ⊔ I_this["{this}":12,7-16@Box1.fab])["{ymin ⊔ this}":34,26-29@Box1.fab] <= I_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[42,4-13@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[42,4-13@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_L["L":21,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[42,4-13@Box1.fab]
+
+(C_xmax["{xmax}":35,10-13@Box1.fab] ⊔ C_this["{this}":12,7-16@Box1.fab])["{xmax ⊔ this}":35,10-13@Box1.fab] <= C_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[44,4-13@Box1.fab]
+(I_xmax["{xmax}":35,10-13@Box1.fab] ⊔ I_this["{this}":12,7-16@Box1.fab])["{xmax ⊔ this}":35,10-13@Box1.fab] <= I_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[44,4-13@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[44,4-13@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[44,4-13@Box1.fab]
+
+(C_ymax["{ymax}":35,26-29@Box1.fab] ⊔ C_this["{this}":12,7-16@Box1.fab])["{ymax ⊔ this}":35,26-29@Box1.fab] <= C_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[45,4-13@Box1.fab]
+(I_ymax["{ymax}":35,26-29@Box1.fab] ⊔ I_this["{this}":12,7-16@Box1.fab])["{ymax ⊔ this}":35,26-29@Box1.fab] <= I_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[45,4-13@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[45,4-13@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_L["L":22,15-16@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_this <= C_caller_pc;I_this <= I_caller_pc;};[45,4-13@Box1.fab]
+
+C_A["A":55,10-11@Box1.fab] <= C_A["A":55,10-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+I_A["A":55,10-11@Box1.fab] <= I_A["A":55,10-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+
+C_A["A":56,10-11@Box1.fab] <= C_A["A":56,10-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+I_A["A":56,10-11@Box1.fab] <= I_A["A":56,10-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+
+C_A["A":53,12-13@Box1.fab] <= C_A["A":53,12-13@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+I_A["A":53,12-13@Box1.fab] <= I_A["A":53,12-13@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+
+(C_L["L":52,12-13@Box1.fab] ⊔ C_x["{x}":55,9-12@Box1.fab] ⊔ C_y["{y}":56,9-12@Box1.fab] ⊔ C_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ x ⊔ y ⊔ mapserv.Box.provider}":52,11-28@Box1.fab] <= (C_L["L":52,12-13@Box1.fab] ⊔ C_x["{x}":55,9-12@Box1.fab] ⊔ C_y["{y}":56,9-12@Box1.fab] ⊔ C_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ x ⊔ y ⊔ mapserv.Box.provider}":52,11-28@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+(I_L["L":52,12-13@Box1.fab] ⊔ I_x["{x}":55,9-12@Box1.fab] ⊔ I_y["{y}":56,9-12@Box1.fab] ⊔ I_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ x ⊔ y ⊔ mapserv.Box.provider}":52,11-28@Box1.fab] <= (I_L["L":52,12-13@Box1.fab] ⊔ I_x["{x}":55,9-12@Box1.fab] ⊔ I_y["{y}":56,9-12@Box1.fab] ⊔ I_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ x ⊔ y ⊔ mapserv.Box.provider}":52,11-28@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[52,2-53,10@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_L["L":79,16-17@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[79,4-17@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_L["L":79,16-17@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[79,4-17@Box1.fab]
+
+C_L["L":75,11-12@Box1.fab] <= C_L["L":75,11-12@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[68,2-69,8@Box1.fab]
+I_L["L":75,11-12@Box1.fab] <= I_L["L":75,11-12@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[68,2-69,8@Box1.fab]
+
+C_L["L":75,24-25@Box1.fab] <= C_L["L":75,24-25@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[68,2-69,8@Box1.fab]
+I_L["L":75,24-25@Box1.fab] <= I_L["L":75,24-25@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[68,2-69,8@Box1.fab]
+
+(C_L["L":71,5-6@Box1.fab] ⊓ C_A["A":72,5-6@Box1.fab])["{L ⊓ A}":71,4-72,7@Box1.fab] <= (C_L["L":71,5-6@Box1.fab] ⊓ C_A["A":72,5-6@Box1.fab])["{L ⊓ A}":71,4-72,7@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[68,2-69,8@Box1.fab]
+(I_L["L":71,5-6@Box1.fab] ⊓ I_A["A":72,5-6@Box1.fab])["{L ⊓ A}":71,4-72,7@Box1.fab] <= (I_L["L":71,5-6@Box1.fab] ⊓ I_A["A":72,5-6@Box1.fab])["{L ⊓ A}":71,4-72,7@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[68,2-69,8@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[68,2-69,8@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[68,2-69,8@Box1.fab]
+
+(*["*":96,4-11@Box1.fab] -> *["*":96,4-11@Box1.fab])["(* -> *)":96,4-11@Box1.fab] <= (*["*":96,4-11@Box1.fab] -> *["*":96,4-11@Box1.fab])["(* -> *)":96,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[93,2-94,9@Box1.fab]
+(_["_":96,4-11@Box1.fab] <- _["_":96,4-11@Box1.fab])["(_ <- _)":96,4-11@Box1.fab] <= (_["_":96,4-11@Box1.fab] <- _["_":96,4-11@Box1.fab])["(_ <- _)":96,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[93,2-94,9@Box1.fab]
+
+C_A["A":94,11-12@Box1.fab] <= C_A["A":94,11-12@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[93,2-94,9@Box1.fab]
+I_A["A":94,11-12@Box1.fab] <= I_A["A":94,11-12@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[93,2-94,9@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[93,2-94,9@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[93,2-94,9@Box1.fab]
+
+(C_L["L":93,11-12@Box1.fab] ⊔ C_x1["{x}":96,4-9@Box1.fab] ⊔ C_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ x ⊔ mapserv.Box.provider}":93,10-25@Box1.fab] <= (C_L["L":93,11-12@Box1.fab] ⊔ C_x1["{x}":96,4-9@Box1.fab] ⊔ C_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ x ⊔ mapserv.Box.provider}":93,10-25@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[93,2-94,9@Box1.fab]
+(I_L["L":93,11-12@Box1.fab] ⊔ I_x1["{x}":96,4-9@Box1.fab] ⊔ I_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ x ⊔ mapserv.Box.provider}":93,10-25@Box1.fab] <= (I_L["L":93,11-12@Box1.fab] ⊔ I_x1["{x}":96,4-9@Box1.fab] ⊔ I_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ x ⊔ mapserv.Box.provider}":93,10-25@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[93,2-94,9@Box1.fab]
+
+(*["*":113,4-11@Box1.fab] -> *["*":113,4-11@Box1.fab])["(* -> *)":113,4-11@Box1.fab] <= (*["*":113,4-11@Box1.fab] -> *["*":113,4-11@Box1.fab])["(* -> *)":113,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[110,2-111,9@Box1.fab]
+(_["_":113,4-11@Box1.fab] <- _["_":113,4-11@Box1.fab])["(_ <- _)":113,4-11@Box1.fab] <= (_["_":113,4-11@Box1.fab] <- _["_":113,4-11@Box1.fab])["(_ <- _)":113,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[110,2-111,9@Box1.fab]
+
+C_A["A":111,11-12@Box1.fab] <= C_A["A":111,11-12@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[110,2-111,9@Box1.fab]
+I_A["A":111,11-12@Box1.fab] <= I_A["A":111,11-12@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[110,2-111,9@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[110,2-111,9@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[110,2-111,9@Box1.fab]
+
+(C_L["L":110,11-12@Box1.fab] ⊔ C_y1["{y}":113,4-9@Box1.fab] ⊔ C_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ y ⊔ mapserv.Box.provider}":110,10-25@Box1.fab] <= (C_L["L":110,11-12@Box1.fab] ⊔ C_y1["{y}":113,4-9@Box1.fab] ⊔ C_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ y ⊔ mapserv.Box.provider}":110,10-25@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[110,2-111,9@Box1.fab]
+(I_L["L":110,11-12@Box1.fab] ⊔ I_y1["{y}":113,4-9@Box1.fab] ⊔ I_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ y ⊔ mapserv.Box.provider}":110,10-25@Box1.fab] <= (I_L["L":110,11-12@Box1.fab] ⊔ I_y1["{y}":113,4-9@Box1.fab] ⊔ I_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ y ⊔ mapserv.Box.provider}":110,10-25@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[110,2-111,9@Box1.fab]
+
+C_*l["{*l}":139,4-5@Box1.fab] <= (*["*":139,10-11@Box1.fab] -> s["s":139,12-13@Box1.fab])["(* -> s)":139,10-13@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[139,4-14@Box1.fab]
+I_*l["{*l}":139,4-5@Box1.fab] <= (_["_":139,9-14@Box1.fab] <- _["_":139,9-14@Box1.fab])["(_ <- _)":139,9-14@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[139,4-14@Box1.fab]
+
+(_["_":139,16-21@Box1.fab] -> _["_":139,16-21@Box1.fab])["(_ -> _)":139,16-21@Box1.fab] <= C_*l["{*l}":139,25-26@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[139,16-26@Box1.fab]
+(*["*":139,17-18@Box1.fab] <- s["s":139,19-20@Box1.fab])["(* <- s)":139,17-20@Box1.fab] <= I_*l["{*l}":139,25-26@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[139,16-26@Box1.fab]
+
+C_*a["{*a}":139,28-29@Box1.fab] <= (*["*":139,34-35@Box1.fab] -> s["s":139,36-37@Box1.fab])["(* -> s)":139,34-37@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[139,28-38@Box1.fab]
+I_*a["{*a}":139,28-29@Box1.fab] <= (_["_":139,33-38@Box1.fab] <- _["_":139,33-38@Box1.fab])["(_ <- _)":139,33-38@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[139,28-38@Box1.fab]
+
+C_*l["{*l}":140,4-5@Box1.fab] <= C_*a["{*a}":140,9-10@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[140,4-10@Box1.fab]
+I_*l["{*l}":140,4-5@Box1.fab] <= I_*a["{*a}":140,9-10@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[140,4-10@Box1.fab]
+
+C_L["L":142,4-5@Box1.fab] <= C_*l["{*l}":142,16-17@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[142,4-17@Box1.fab]
+I_L["L":142,4-5@Box1.fab] <= I_*l["{*l}":142,16-17@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[142,4-17@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_*l["{*l}":143,16-17@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[143,4-17@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_*l["{*l}":143,16-17@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[143,4-17@Box1.fab]
+
+(C_l["{l}":133,4-9@Box1.fab] ⊔ C_a["{a}":134,4-9@Box1.fab])["{l ⊔ a}":144,4-9@Box1.fab] <= C_*l["{*l}":144,16-17@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[144,4-17@Box1.fab]
+(I_l["{l}":133,4-9@Box1.fab] ⊔ I_a["{a}":134,4-9@Box1.fab])["{l ⊔ a}":144,4-9@Box1.fab] <= I_*l["{*l}":144,16-17@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[144,4-17@Box1.fab]
+
+(*["*":133,4-11@Box1.fab] -> *["*":133,4-11@Box1.fab])["(* -> *)":133,4-11@Box1.fab] <= (*["*":133,4-11@Box1.fab] -> *["*":133,4-11@Box1.fab])["(* -> *)":133,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+(_["_":133,4-11@Box1.fab] <- _["_":133,4-11@Box1.fab])["(_ <- _)":133,4-11@Box1.fab] <= (_["_":133,4-11@Box1.fab] <- _["_":133,4-11@Box1.fab])["(_ <- _)":133,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+
+(*["*":134,4-11@Box1.fab] -> *["*":134,4-11@Box1.fab])["(* -> *)":134,4-11@Box1.fab] <= (*["*":134,4-11@Box1.fab] -> *["*":134,4-11@Box1.fab])["(* -> *)":134,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+(_["_":134,4-11@Box1.fab] <- _["_":134,4-11@Box1.fab])["(_ <- _)":134,4-11@Box1.fab] <= (_["_":134,4-11@Box1.fab] <- _["_":134,4-11@Box1.fab])["(_ <- _)":134,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+
+(*["*":135,4-11@Box1.fab] -> *["*":135,4-11@Box1.fab])["(* -> *)":135,4-11@Box1.fab] <= (*["*":135,4-11@Box1.fab] -> *["*":135,4-11@Box1.fab])["(* -> *)":135,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+(_["_":135,4-11@Box1.fab] <- _["_":135,4-11@Box1.fab])["(_ <- _)":135,4-11@Box1.fab] <= (_["_":135,4-11@Box1.fab] <- _["_":135,4-11@Box1.fab])["(_ <- _)":135,4-11@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+
+(C_*l["{*l}":128,6-7@Box1.fab] ⊓ (*["*":129,5-6@Box1.fab] -> s["s":129,7-8@Box1.fab])["(* -> s)":129,5-8@Box1.fab] ⊓ C_A["A":130,5-6@Box1.fab])["{{*l} ⊓ {(* -> s)} ⊓ A}":128,4-130,7@Box1.fab] <= (C_*l["{*l}":128,6-7@Box1.fab] ⊓ (*["*":129,5-6@Box1.fab] -> s["s":129,7-8@Box1.fab])["(* -> s)":129,5-8@Box1.fab] ⊓ C_A["A":130,5-6@Box1.fab])["{{*l} ⊓ {(* -> s)} ⊓ A}":128,4-130,7@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+(I_*l["{*l}":128,6-7@Box1.fab] ⊓ (_["_":129,4-9@Box1.fab] <- _["_":129,4-9@Box1.fab])["(_ <- _)":129,4-9@Box1.fab] ⊓ I_A["A":130,5-6@Box1.fab])["{{*l} ⊓ {(* -> s)} ⊓ A}":128,4-130,7@Box1.fab] <= (I_*l["{*l}":128,6-7@Box1.fab] ⊓ (_["_":129,4-9@Box1.fab] <- _["_":129,4-9@Box1.fab])["(_ <- _)":129,4-9@Box1.fab] ⊓ I_A["A":130,5-6@Box1.fab])["{{*l} ⊓ {(* -> s)} ⊓ A}":128,4-130,7@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+
+(C_L["L":125,12-13@Box1.fab] ⊔ C_l["{l}":133,4-9@Box1.fab] ⊔ C_a["{a}":134,4-9@Box1.fab] ⊔ C_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ l ⊔ a ⊔ mapserv.Box.provider}":125,11-28@Box1.fab] <= (C_L["L":125,12-13@Box1.fab] ⊔ C_l["{l}":133,4-9@Box1.fab] ⊔ C_a["{a}":134,4-9@Box1.fab] ⊔ C_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ l ⊔ a ⊔ mapserv.Box.provider}":125,11-28@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+(I_L["L":125,12-13@Box1.fab] ⊔ I_l["{l}":133,4-9@Box1.fab] ⊔ I_a["{a}":134,4-9@Box1.fab] ⊔ I_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ l ⊔ a ⊔ mapserv.Box.provider}":125,11-28@Box1.fab] <= (I_L["L":125,12-13@Box1.fab] ⊔ I_l["{l}":133,4-9@Box1.fab] ⊔ I_a["{a}":134,4-9@Box1.fab] ⊔ I_mapserv.Box.provider1["mapserv.Box.provider":])["{L ⊔ l ⊔ a ⊔ mapserv.Box.provider}":125,11-28@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));C_*l <= (* -> s);I_*l <= (_ <- _);(_ -> _) <= C_*l;(* <- s) <= I_*l;C_*a <= (* -> s);I_*a <= (_ <- _);C_*l <= C_*a;I_*l <= I_*a;C_L <= C_*l;I_L <= I_*l;C_l <= C_*l;I_l <= I_*l;C_a <= C_*l;I_a <= I_*l;};[125,2-126,6@Box1.fab]
+
+(*["*":153,28-35@Box1.fab] -> *["*":153,28-35@Box1.fab])["(* -> *)":153,28-35@Box1.fab] <= (*["*":153,28-35@Box1.fab] -> *["*":153,28-35@Box1.fab])["(* -> *)":153,28-35@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+(_["_":153,28-35@Box1.fab] <- _["_":153,28-35@Box1.fab])["(_ <- _)":153,28-35@Box1.fab] <= (_["_":153,28-35@Box1.fab] <- _["_":153,28-35@Box1.fab])["(_ <- _)":153,28-35@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+
+(*["*":153,37-44@Box1.fab] -> *["*":153,37-44@Box1.fab])["(* -> *)":153,37-44@Box1.fab] <= (*["*":153,37-44@Box1.fab] -> *["*":153,37-44@Box1.fab])["(* -> *)":153,37-44@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+(_["_":153,37-44@Box1.fab] <- _["_":153,37-44@Box1.fab])["(_ <- _)":153,37-44@Box1.fab] <= (_["_":153,37-44@Box1.fab] <- _["_":153,37-44@Box1.fab])["(_ <- _)":153,37-44@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+
+(*["*":153,17-26@Box1.fab] -> *["*":153,17-26@Box1.fab])["(* -> *)":153,17-26@Box1.fab] <= (*["*":153,17-26@Box1.fab] -> *["*":153,17-26@Box1.fab])["(* -> *)":153,17-26@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+(_["_":153,17-26@Box1.fab] <- _["_":153,17-26@Box1.fab])["(_ <- _)":153,17-26@Box1.fab] <= (_["_":153,17-26@Box1.fab] <- _["_":153,17-26@Box1.fab])["(_ <- _)":153,17-26@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+
+(C_a1["{a}":153,28-33@Box1.fab] ⊔ C_b1["{b}":153,37-42@Box1.fab])["{a ⊔ b}":153,28-33@Box1.fab] <= (C_a1["{a}":153,28-33@Box1.fab] ⊔ C_b1["{b}":153,37-42@Box1.fab])["{a ⊔ b}":153,28-33@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+(I_a1["{a}":153,28-33@Box1.fab] ⊔ I_b1["{b}":153,37-42@Box1.fab])["{a ⊔ b}":153,28-33@Box1.fab] <= (I_a1["{a}":153,28-33@Box1.fab] ⊔ I_b1["{b}":153,37-42@Box1.fab])["{a ⊔ b}":153,28-33@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[153,17-26@Box1.fab]
+
+(*["*":160,28-35@Box1.fab] -> *["*":160,28-35@Box1.fab])["(* -> *)":160,28-35@Box1.fab] <= (*["*":160,28-35@Box1.fab] -> *["*":160,28-35@Box1.fab])["(* -> *)":160,28-35@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+(_["_":160,28-35@Box1.fab] <- _["_":160,28-35@Box1.fab])["(_ <- _)":160,28-35@Box1.fab] <= (_["_":160,28-35@Box1.fab] <- _["_":160,28-35@Box1.fab])["(_ <- _)":160,28-35@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+
+(*["*":160,37-44@Box1.fab] -> *["*":160,37-44@Box1.fab])["(* -> *)":160,37-44@Box1.fab] <= (*["*":160,37-44@Box1.fab] -> *["*":160,37-44@Box1.fab])["(* -> *)":160,37-44@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+(_["_":160,37-44@Box1.fab] <- _["_":160,37-44@Box1.fab])["(_ <- _)":160,37-44@Box1.fab] <= (_["_":160,37-44@Box1.fab] <- _["_":160,37-44@Box1.fab])["(_ <- _)":160,37-44@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+
+(*["*":160,17-26@Box1.fab] -> *["*":160,17-26@Box1.fab])["(* -> *)":160,17-26@Box1.fab] <= (*["*":160,17-26@Box1.fab] -> *["*":160,17-26@Box1.fab])["(* -> *)":160,17-26@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+(_["_":160,17-26@Box1.fab] <- _["_":160,17-26@Box1.fab])["(_ <- _)":160,17-26@Box1.fab] <= (_["_":160,17-26@Box1.fab] <- _["_":160,17-26@Box1.fab])["(_ <- _)":160,17-26@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+
+C_mapserv.Box.provider1["mapserv.Box.provider":] <= C_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+I_mapserv.Box.provider1["mapserv.Box.provider":] <= I_mapserv.Box.provider1["mapserv.Box.provider":] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+
+(C_a2["{a}":160,28-33@Box1.fab] ⊔ C_b["{b}":160,37-42@Box1.fab])["{a ⊔ b}":160,28-33@Box1.fab] <= (C_a2["{a}":160,28-33@Box1.fab] ⊔ C_b["{b}":160,37-42@Box1.fab])["{a ⊔ b}":160,28-33@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+(I_a2["{a}":160,28-33@Box1.fab] ⊔ I_b["{b}":160,37-42@Box1.fab])["{a ⊔ b}":160,28-33@Box1.fab] <= (I_a2["{a}":160,28-33@Box1.fab] ⊔ I_b["{b}":160,37-42@Box1.fab])["{a ⊔ b}":160,28-33@Box1.fab] {C_this <= (C_A ⊔ (_ -> _));I_this <= (I_A ⊔ (_ <- _));};[160,17-26@Box1.fab]
+
