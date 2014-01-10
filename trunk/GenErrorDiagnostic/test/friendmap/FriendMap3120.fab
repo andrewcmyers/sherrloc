@@ -384,7 +384,7 @@ where
   annotateMap
   {                 // side effects:
     {A}           ⊓ // this is fetched
-    {*→n}         ⊓ // user is fetched
+    {*→n;*←n}     ⊓ // user is fetched
     {_→_}         ⊓ // user's friends are fetched
     {*map_access} ⊓ // map is fetched
     {*map_update}   // map is updated
@@ -414,7 +414,8 @@ where
     // general access policy invariants
     {_←}          <= {*map_access},
     {*map_update} <= {*map_access},
-    user.p equiv (n,o)
+    user.p equiv (n,o),
+    {user} <= {*→*;*←user.p}
   {
     if (map == null) throw new AssertionFailedError("MapImage.copy return value should be non-null");
 
