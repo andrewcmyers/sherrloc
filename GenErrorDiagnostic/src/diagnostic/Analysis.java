@@ -29,7 +29,6 @@ import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.Position;
-import constraint.ast.Variable;
 import constraint.graph.ConstraintGraph;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
@@ -44,9 +43,10 @@ public class Analysis {
     boolean DEBUG = false;
     boolean SHOW_WHOLE_GRAPH=false;
     boolean GEN_CUT = true;
-    boolean GEN_ASSUMP = true;
+    boolean GEN_ASSUMP = false;
     boolean GEN_UNIFIED = false;
     boolean REC = false;
+    boolean VERBOSE = false;
 	boolean done = false;
 	ConstraintGraph graph;
 	String sourceName;
@@ -80,6 +80,7 @@ public class Analysis {
 		options.addOption("r", false, "allow recursion");
 		options.addOption("s", false, "symmetric");
 		options.addOption("u", false, "combined report with cut and assumptions");
+		options.addOption("v", false, "report data (for evaluation)");
 		
 		CommandLineParser parser = new PosixParser();
 		CommandLine cmd=null;
@@ -102,6 +103,7 @@ public class Analysis {
 		boolean recursion = false;
 		boolean symmentric = false;
 		boolean unified = false;
+		boolean verbose = false;
 		
 		if (cmd.hasOption("a"))
 			assumption = true;
@@ -123,6 +125,8 @@ public class Analysis {
 			symmentric = true;
 		if (cmd.hasOption("u"))
 			unified = true;
+		if (cmd.hasOption("v"))
+			verbose = true;
 		
 		for (Object arg : cmd.getArgList()) {
 			String diagfile = (String) arg;
@@ -133,6 +137,7 @@ public class Analysis {
 				ana.GEN_CUT = cut;
 				ana.GEN_UNIFIED = unified;
 				ana.REC = recursion;
+				ana.VERBOSE = verbose;
 			    ana.sourceName = infile;
 				ana.htmlFileName = outfile;
 				ana.initialize();
@@ -200,7 +205,8 @@ public class Analysis {
         }
 
     	PathFinder finder = getPathFinder( graph);
-    	System.out.println("graph_size: "+graph.getAllNodes().size());
+    	if (VERBOSE)
+    		System.out.println("graph_size: "+graph.getAllNodes().size());
 				
 		for (ElementNode start : startNodes) {
 			for (ElementNode end : endNodes) {
@@ -210,7 +216,7 @@ public class Analysis {
 				if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
 						continue;
 				
-				List<Edge> l = finder.getPath(start, end);
+				List<Edge> l = finder.getPath(start, end, VERBOSE);
 				if (l==null) continue;
 								
 				if (!REC && start.getIndex() != end.getIndex()) {
@@ -280,7 +286,6 @@ public class Analysis {
     public String getAssumptionString () {
     	if (!done) {
     		genErrorPaths();
-    		System.out.println(unsatPaths.size());
     	}
     	return unsatPaths.getAssumptionString();
     }
@@ -438,7 +443,7 @@ public class Analysis {
     	StringBuffer sb = new StringBuffer();
     	sb.append(
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
-    		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console)/*+paths.genEdgeCut()*/:"")+
+    		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console, VERBOSE)/*+paths.genEdgeCut()*/:"")+
     		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
     	if (!console) {             
     		sb.append("<HR>\n" + paths.toHTML());

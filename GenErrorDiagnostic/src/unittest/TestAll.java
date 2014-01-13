@@ -124,7 +124,7 @@ public class TestAll {
 		testAssumptionsSub("test/friendmap/FriendMap3115_1.con", "C_*map_update <= (⊥)->(⊥)", false);
 		testExpression("test/friendmap/FriendMap3116_1.con", "FriendMap3116.fab:429,32-42", false);
 		testExpression("test/friendmap/FriendMap3120_1.con", "FriendMap3120.fab:494,4-5", false);
-		testAssumptionsSub("test/friendmap/FriendMap3122_1.con", "(⊤)<-((fn)meet(fo)) <= I_*map_update", false);
+		testAssumptionsSub("test/friendmap/FriendMap3122_1.con", "(⊤)<-((fo)meet(fn)) <= I_*map_update", false);
 		testExpression("test/friendmap/FriendMap3144_1.con", "FriendMap3144.fab:445,32-42", false);
 		testAssumptionsSub("test/friendmap/FriendMap3167_1.con", "C_l <= (⊤)->(n1);C_n <= (⊤)->(n1)", false);
 		testAssumptionsSub("test/friendmap/FriendMap3192_1.con", "C_s <= C_*friend_access_bound", false);

@@ -166,10 +166,10 @@ public class Environment {
 		}
 
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
-			if (finder.getPath(graph.getNode(e1), graph.getNode(e2))!=null)
+			if (finder.getPath(graph.getNode(e1), graph.getNode(e2), false)!=null)
 				return true;
 			for (Element e : graph.getAllElements()) {
-				if (finder.getPath(graph.getNode(e1), graph.getNode(e))!=null && leq(e, e2, false))
+				if (finder.getPath(graph.getNode(e1), graph.getNode(e), false)!=null && leq(e, e2, false))
 					return true;
 			}
 			return false;
