@@ -185,12 +185,13 @@ public class UnsatPaths {
 		return sb.toString();
 	}
     
-    public String genNodeCut (Map<String, Double> succCount, Map<String, Node> exprMap, boolean console) {
+    public String genNodeCut (Map<String, Double> succCount, Map<String, Node> exprMap, boolean console, boolean verbose) {
     	StringBuffer sb = new StringBuffer();
 		long startTime = System.currentTimeMillis();
 		Set<Set<String>> results = genHeuristicSnippetCut(succCount);
 		long endTime =  System.currentTimeMillis();
-		System.out.println("ranking_time: "+(endTime-startTime));
+		if (verbose)
+			System.out.println("ranking_time: "+(endTime-startTime));
 		
 		if (!console)
 			sb.append("<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
@@ -214,7 +215,8 @@ public class UnsatPaths {
 			else
 				sb.append(cuts.get(i).toHTML(exprMap));
 		}
-		System.out.println("top_rank_size: "+i);
+		if (verbose)
+			System.out.println("top_rank_size: "+i);
 		if (!console) {
 			sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
 			sb.append("<div id=\"more_expr\">");
