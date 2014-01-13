@@ -27,6 +27,17 @@ public class TestAll {
 		}
 	}
 	
+	public void testExpression (String filename, String loc, boolean sym) {
+		try {
+			Analysis ana = Analysis.getAnalysisInstance(filename, sym);;
+			assertTrue(ana.toString().contains(loc));
+		}
+		catch (Exception e) {
+			System.out.println(filename);
+			e.printStackTrace();
+		}
+	}
+	
 	public void testAssumptions (String filename, String expected, boolean sym) {
 		try {
 			Analysis ana = Analysis.getAnalysisInstance(filename, sym);
@@ -48,7 +59,7 @@ public class TestAll {
 			e.printStackTrace();
 		}
 	}
-	
+		
 	@Test
 	public void testHypothesis () {
 		/* test for Jif constraint */
@@ -105,59 +116,19 @@ public class TestAll {
 	
 	@Test
 	public void testJif () {
-		/* test for Jif constraint */
-		testErrorPaths("src/constraint/tests/jif/inte.con", 1, false);
-		
-		testErrorPaths("src/constraint/tests/jif/test.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/array.con", 4, false);
-
-		testErrorPaths("src/constraint/tests/jif/constant.con", 2, false);
-
-		testAssumptions("src/constraint/tests/jif/CMUcred.con", "Alice <= p1;\n", false);
-
-		testErrorPaths("src/constraint/tests/jif/Do2.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/Do3.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/field.con", 3, false); 
-
-		testErrorPaths("src/constraint/tests/jif/For2.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/For3.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/p3.con", 2, false);
-
-		testErrorPaths("src/constraint/tests/jif/para.con", 1, false);
-
-		testErrorPaths("src/constraint/tests/jif/duplicate.con", 0, false);
-								
-		/* currently, these contraints are generated from the snapshot of Mar. 6. 2012 */
-//		testErrorPaths("src/constraint/tests/jif/r3122.con", 0, false);
-//		testAssumptions("src/constraint/tests/jif/r3122.con", "", false);
-//		
-//		testErrorPaths("src/constraint/tests/jif/r3141.con", 0, false);
-//		testAssumptions("src/constraint/tests/jif/r3141.con", 0, false);
-//		
-//		testErrorPaths("src/constraint/tests/jif/r3142.con", 9, false);
-//		testAssumptions("src/constraint/tests/jif/r3142.con", 2, false);
-		
-		/* the change from 3142 to 3143 is interesting, since another file is changed */
-//		testErrorPaths("src/constraint/tests/jif/r3143.con", 16, false);
-//		testAssumptions("src/constraint/tests/jif/r3143.con", "", false);
-//		
-//		testErrorPaths("src/constraint/tests/jif/r3144.con", 16, false); // or 21?
-//		testAssumptions("src/constraint/tests/jif/r3144.con", "", false);
-//		testOneFile("src/constraint/tests/jif/r3151.con", 41, false); // or 44?
-		
-//		testOneFile("src/constraint/tests/jif/r3167.con", 5, false); // or 4?
-//		
-//		testOneFile("src/constraint/tests/jif/r3176.con", 23, false); // or 15?
-//		
-//		testAssumptions("src/constraint/tests/jif/FriendMap3192.con", "{s} <= {*->n}", false);
-//		testAssumptions("src/constraint/tests/jif/hypoinfer.con", "a <= (c)join(b);\n", false); // or 26
-		
-//		testOneFile("src/constraint/tests/jif/23.con", 41, false);
+		testAssumptionsSub("test/friendmap/FriendMap3108_1.con", "(⊥)<-(⊥) <= I_*map_access", false);
+		testAssumptionsSub("test/friendmap/FriendMap3110_1.con", "(⊤)<-(user.p) <= I_*map_update", false);
+		testAssumptionsSub("test/friendmap/FriendMap3112_1.con", "(⊤)<-(local) <= I_*box_u", false);
+		testAssumptionsSub("test/friendmap/FriendMap3113_1.con", "C_map <= C_*map_update;I_map <= I_*map_update;", false);
+		testAssumptionsSub("test/friendmap/FriendMap3114_1.con", "C_*map_update <= (⊥)->(⊥)", false);
+		testAssumptionsSub("test/friendmap/FriendMap3115_1.con", "C_*map_update <= (⊥)->(⊥)", false);
+		testExpression("test/friendmap/FriendMap3116_1.con", "FriendMap3116.fab:429,32-42", false);
+		testExpression("test/friendmap/FriendMap3120_1.con", "FriendMap3120.fab:494,4-5", false);
+		testAssumptionsSub("test/friendmap/FriendMap3122_1.con", "(⊤)<-((fn)meet(fo)) <= I_*map_update", false);
+		testExpression("test/friendmap/FriendMap3144_1.con", "FriendMap3144.fab:445,32-42", false);
+		testAssumptionsSub("test/friendmap/FriendMap3167_1.con", "C_l <= (⊤)->(n1);C_n <= (⊤)->(n1)", false);
+		testAssumptionsSub("test/friendmap/FriendMap3192_1.con", "C_s <= C_*friend_access_bound", false);
+		testAssumptionsSub("test/friendmap/FriendMap3193_1.con", "(⊤)<-(this.service) <= I_*fetchLabel", false);
 	}
 	
 	@Test

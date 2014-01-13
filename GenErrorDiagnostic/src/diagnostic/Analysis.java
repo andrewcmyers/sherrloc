@@ -418,17 +418,20 @@ public class Analysis {
     			"</HTML>";
     }
     
-    public void toConsole () {
+    public String toString () {
         if (!done) 
         	genErrorPaths();
         
         // type check succeeded
         if (unsatPaths.size()==0) {
-			System.out.println("The program passed type checking. No errors were found.");
+			return "The program passed type checking. No errors were found.";
 		} else {
-			System.out.println("One typing error is identified");
-			System.out.println(getOneSuggestion(sourceName, unsatPaths, true));
+			return "One typing error is identified\n" + getOneSuggestion(sourceName, unsatPaths, true);
 		}
+    }
+    
+    public void toConsole () {
+    	System.out.println(toString());
     }
     
     public String getOneSuggestion (String sourcefile, UnsatPaths paths, boolean console) {
