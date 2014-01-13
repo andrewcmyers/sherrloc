@@ -212,7 +212,7 @@ public class Analysis {
 				
 				List<Edge> l = finder.getPath(start, end);
 				if (l==null) continue;
-				
+								
 				if (!REC && start.getIndex() != end.getIndex()) {
 					if ( (e1 instanceof ComplexElement && e1.getVars().contains(e2)) 
 					  || (e2 instanceof ComplexElement && e2.getVars().contains(e1))) {
@@ -223,8 +223,8 @@ public class Analysis {
 					}
 				}
 				
-				// if one end is variable, the satisfiability is trivial
-				if (e1 instanceof Variable || e2 instanceof Variable) {
+				// if one end is variable, or an join/meet with a variable, the satisfiability is trivial
+				if (e1.trivialEnd() || e2.trivialEnd()) {
 					continue;
 				}
 								
@@ -233,7 +233,7 @@ public class Analysis {
 					continue;
 								
 				ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
-		
+
 				if (path.isSuccPath(cachedEnv)) {
 					path.incSuccCounter();
 					continue;

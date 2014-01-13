@@ -88,6 +88,15 @@ public class MeetElement extends EnumerableElement {
 	}	
 	
 	@Override
+	public boolean trivialEnd() {
+		for (Element e : elements) {
+			if (e.trivialEnd())
+				return true;
+		}
+		return false;
+	}
+	
+	@Override
 	public Element getBaseElement() {
 		List<Element> baseElements =  new ArrayList<Element>();
 		for (Element e : elements) {

@@ -53,6 +53,11 @@ public class Variable extends Element {
 	}
 	
 	@Override
+	public boolean trivialEnd() {
+		return true;
+	}
+	
+	@Override
 	public Element getBaseElement() {
 		return this;
 	}
