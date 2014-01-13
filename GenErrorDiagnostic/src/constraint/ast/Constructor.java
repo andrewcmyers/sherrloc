@@ -95,6 +95,11 @@ public class Constructor extends Element {
 	}
 	
 	@Override
+	public boolean trivialEnd() {
+		return false;
+	}
+	
+	@Override
 	public Element getBaseElement() {
 		return new Constructor(name, arity, contraVariant, Position.EmptyPosition());
 	}	
