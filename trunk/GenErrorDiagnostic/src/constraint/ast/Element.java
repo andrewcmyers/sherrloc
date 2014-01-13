@@ -60,6 +60,8 @@ public abstract class Element {
 	public boolean isEnd() {
 		return true;
 	}
+	
+	abstract public boolean trivialEnd ();
 
 	abstract public String toDotString ();
 	
