@@ -60,7 +60,7 @@ public class ConstraintPath {
 
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
-			if (finder.getPath(first, edge.to)!=null)
+			if (finder.getPath(first, edge.to, false)!=null)
 				ret.add(edge.to);
 		}
 		return ret;
