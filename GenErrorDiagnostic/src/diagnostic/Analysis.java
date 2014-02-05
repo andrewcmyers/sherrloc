@@ -53,7 +53,7 @@ public class Analysis {
 	String htmlFileName;
 	Position pos=null;
 	Map<String, Node> exprMap;
-	Map<String, Double> succCount;
+	Map<String, Integer> succCount;
 	UnsatPaths unsatPaths;
 	HTTPUtil util;
 	public HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
@@ -61,7 +61,7 @@ public class Analysis {
 	public Analysis(ConstraintGraph g) {
 		graph = g;
         exprMap = new HashMap<String, Node>();
-        succCount = new HashMap<String, Double>();
+        succCount = new HashMap<String, Integer>();
         unsatPaths = new UnsatPaths();
         util = new HTTPUtil();
         cachedEnv = new HashMap<Environment, Environment>();
@@ -184,7 +184,7 @@ public class Analysis {
         // initialize the maps, expr to node and succ path counter
         for (Node n : graph.getAllNodes()) {
         	exprMap.put(n.toString(), n);
-        	succCount.put(n.toString(), 0.0);
+        	succCount.put(n.toString(), 0);
         }
         
         if (DEBUG) {
@@ -261,7 +261,7 @@ public class Analysis {
 		}
 		
 		for (Node n : graph.getAllNodes()) {
-			double count = succCount.get(n.toString());
+			int count = succCount.get(n.toString());
 			succCount.put(n.toString(), count+n.getSuccCounter());
 		}
 		done = true;
@@ -443,8 +443,8 @@ public class Analysis {
     	StringBuffer sb = new StringBuffer();
     	sb.append(
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
-    		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console, VERBOSE)/*+paths.genEdgeCut()*/:"")+
-    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
+    		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console, VERBOSE)/*+paths.genEdgeCut()*/:""));
+//    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
     	if (!console) {             
     		sb.append("<HR>\n" + paths.toHTML());
         }
