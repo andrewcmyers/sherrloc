@@ -1,6 +1,13 @@
 package util;
 
 public class StringUtil {
+	
+	/** 
+	 * Generate simple names for DOT files
+	 * 
+	 * @param name
+	 * @return simplified name
+	 */
 	public static String getPrettyName (String name) {
     	int i=0;
     	for (; i<name.length(); i++) {

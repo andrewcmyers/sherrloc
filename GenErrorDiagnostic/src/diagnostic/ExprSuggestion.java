@@ -4,34 +4,28 @@ import java.util.Map;
 import java.util.Set;
 
 import util.HTTPUtil;
-import util.HeuristicSearch;
 import constraint.ast.Element;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
 
 public class ExprSuggestion implements Comparable<ExprSuggestion> {
-	double rank = 0;
-	Set<String> exprs;
-	int id;
-	Map<String, Double> succCount;
+	double weight = 0;
+	Set<Entity> entities;
+	double succCount;
 
-	public ExprSuggestion(int id, Set<String> exprs, Map<String, Double> succCount) {
-		this.exprs = exprs;
-		this.id = id;
-		for (String expr : exprs) {
-			rank += succCount.get(expr);
-		}
-		rank = HeuristicSearch.getScore(exprs.size(), rank);
+	public ExprSuggestion(Set<Entity> exprs, double succCount, double weight) {
+		this.entities = exprs;
+		this.weight = weight;
 		this.succCount = succCount;
 	}
 	
 	public double getRank() {
-		return rank;
+		return weight;
 	}
 	
 	@Override
 	public int compareTo(ExprSuggestion o) {
-		return new Double(rank).compareTo(o.rank);
+		return new Double(weight).compareTo(o.weight);
 	}
 	
 	public String toHTML (Map<String, Node> exprMap) {
@@ -41,8 +35,8 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
-		for (String c : exprs) {
-			Element en = ((ElementNode)exprMap.get(c)).getElement();
+		for (Entity e : entities) {
+			Element en = ((ElementNode)exprMap.get(e.toString())).getElement();
     		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
     		exprBuffer.append(en.toSnippetString()+" [loc: "+en.getPosition()+"]    ");
     	}
@@ -64,8 +58,8 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
-		for (String c : exprs) {
-			Element en = ((ElementNode)exprMap.get(c)).getElement();
+		for (Entity e : entities) {
+			Element en = ((ElementNode)exprMap.get(e.toString())).getElement();
     		locBuffer.append(en.getPosition() + ", ");
     		exprBuffer.append(en.toSnippetString() + ", ");
     	}
@@ -78,8 +72,8 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 	@Override
 	public String toString() {
     	StringBuffer exprBuffer = new StringBuffer();
-    	for (String c : exprs) {
-    		exprBuffer.append(c+succCount.get(c)+"    ");
+    	for (Entity e : entities) {
+    		exprBuffer.append(e.toString()+e.getSuccCount()+"    ");
     	}
     	return exprBuffer.toString();
 	}

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import util.CombinedExplainationFinder;
+import util.EntityExplanationFinder;
 import util.HTTPUtil;
 import util.HeuristicSearch;
 import util.MinCutFinder;
@@ -88,30 +88,18 @@ public class UnsatPaths {
     	return genSnippetCut (6);
     }
     
-    public Set<Set<String>> genHeuristicSnippetCut (Map<String, Double> succCount) {
-    	Set<String> cand = new HashSet<String>();
+    public Set<ExprSuggestion> genHeuristicSnippetCut (Map<String, Integer> succCount) {
+    	Set<Entity> cand = new HashSet<Entity>();
 		
     	for (ConstraintPath path : errPaths) {
     		for (Node n : path.getAllNodes()) {
     			if (!((ElementNode)n).getElement().getPosition().isEmpty())
-    				cand.add(n.toString());
+    				cand.add(new ExprEntity(n.toString(), succCount.get(n.toString())));
     		}
     	}
     	
-    	HeuristicSearch<String> finder = new HeuristicSearch<String>(this, cand, succCount) {
-    		@Override
-    		public Set<ConstraintPath> mapsTo(String element) {
-    			Set<ConstraintPath> ret = new HashSet<ConstraintPath>();
-    			
-    	    	for (ConstraintPath path : errPaths) {
-    	    		for (Node n : path.getAllNodes()) {
-    	    			if (n.toString().equals(element))
-    	    				ret.add(path);
-    	    		}
-    	    	}
-    			return ret;
-    		}
-		};
+    	Entity[] candarr = cand.toArray(new Entity[cand.size()]);
+    	HeuristicSearch finder = new EntityExplanationFinder(this, candarr);
 		
 		return finder.AStarSearch();
     }
@@ -185,10 +173,10 @@ public class UnsatPaths {
 		return sb.toString();
 	}
     
-    public String genNodeCut (Map<String, Double> succCount, Map<String, Node> exprMap, boolean console, boolean verbose) {
+    public String genNodeCut (Map<String, Integer> succCount, Map<String, Node> exprMap, boolean console, boolean verbose) {
     	StringBuffer sb = new StringBuffer();
 		long startTime = System.currentTimeMillis();
-		Set<Set<String>> results = genHeuristicSnippetCut(succCount);
+		Set<ExprSuggestion> results = genHeuristicSnippetCut(succCount);
 		long endTime =  System.currentTimeMillis();
 		if (verbose)
 			System.out.println("ranking_time: "+(endTime-startTime));
@@ -197,19 +185,17 @@ public class UnsatPaths {
 			sb.append("<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
 		List<ExprSuggestion> cuts = new ArrayList<ExprSuggestion>();
-		int count = 1;
-		for (Set<String> set : results) {
-			cuts.add(new ExprSuggestion(count, set, succCount));
-			count++;
+		for (ExprSuggestion set : results) {
+			cuts.add(set);
 		}
 		Collections.sort(cuts);
 
 		double best=Double.MAX_VALUE;
 		int i=0;
 		for ( ; i<cuts.size(); i++) {
-			if (cuts.get(i).rank>best)
+			if (cuts.get(i).weight>best)
 				break;
-			best = cuts.get(i).rank;
+			best = cuts.get(i).weight;
 			if (console)
 				sb.append(cuts.get(i).toConsole(exprMap)+"\n");
 			else
@@ -228,6 +214,7 @@ public class UnsatPaths {
 		return sb.toString();
     }
     
+    /*
     public String genCombinedResult (Map<Environment, Environment> envs, Map<String, Node> exprMap, Map<String, Double> succCount) {
     	final Set<Hypothesis> candidates = new HashSet<Hypothesis>();
     	final Map<Environment, Environment> cachedEnv = envs;
@@ -262,6 +249,7 @@ public class UnsatPaths {
 		}
 		return sb.toString();
     }
+    */
     
     public String genEdgeCut ( ) {
     	StringBuffer sb = new StringBuffer();

@@ -79,7 +79,7 @@ my $total_size = 0;
 sub diagnoseLocations {
   $mlfile = shift;
   `$ezyocaml/ecamlc $mlfile >/dev/null 2>&1`;
-  my $str = `$diagnostic -c -s -l error.con 2>&1`;
+  my $str = `$diagnostic -c -s -l -v error.con 2>&1`;
   unlink ("error.con");
   for(split /^/, $str) {
     if (/^top_rank_size:/) {

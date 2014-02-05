@@ -18,7 +18,7 @@ public class TestAll {
 	
 	public void testErrorPaths (String filename, int expectedpaths, boolean sym) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance(filename, sym);;
+			Analysis ana = Analysis.getAnalysisInstance(filename, sym);
 			assertEquals(filename, expectedpaths, ana.getPathNumber());
 		}
 		catch (Exception e) {
@@ -29,7 +29,7 @@ public class TestAll {
 	
 	public void testExpression (String filename, String loc, boolean sym) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance(filename, sym);;
+			Analysis ana = Analysis.getAnalysisInstance(filename, sym);
 			assertTrue(ana.toString().contains(loc));
 		}
 		catch (Exception e) {
