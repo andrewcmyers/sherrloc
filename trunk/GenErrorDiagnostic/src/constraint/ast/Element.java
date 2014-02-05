@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Element {
 	String name;
 	Position pos;
-    double succCount;
+    int succCount;
 	
 	public Element(String name, Position pos) {
 		this.name = name;
@@ -29,7 +29,7 @@ public abstract class Element {
         succCount += i;
     }
     
-    public double getSuccCounter () {
+    public int getSuccCounter () {
 		return succCount;
 	}
 	

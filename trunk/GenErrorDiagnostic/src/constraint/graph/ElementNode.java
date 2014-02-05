@@ -49,7 +49,7 @@ public class ElementNode extends Node {
         e.incSuccCounter(i);
     }
     
-    public double getSuccCounter () {
+    public int getSuccCounter () {
 		return e.getSuccCounter();
 	}
     

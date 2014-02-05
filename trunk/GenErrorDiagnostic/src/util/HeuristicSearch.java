@@ -1,89 +1,78 @@
 package util;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
 import constraint.graph.ConstraintPath;
+import constraint.graph.ElementNode;
+import constraint.graph.Node;
+import diagnostic.Entity;
+import diagnostic.ExprSuggestion;
 import diagnostic.UnsatPaths;
 
-// we do a heuristic search that returns an explanation with maximum likelihood
-public abstract class HeuristicSearch<EntityType> {
-	private int nodes =0;
-    UnsatPaths paths;
-    EntityType[] candidates;
-	Map<String, Double> succCount;
-	HashMap<EntityType, Set<ConstraintPath>> dep;
-    static final double C1 = 3;
-    static final double C2 = 1;
-	double best=Double.MAX_VALUE;
-    int MAX_SUG = 5;
-
-    public HeuristicSearch(UnsatPaths paths, Set<EntityType> candidates, Map<String, Double> succCount) {
+/**
+ * This class implements the main functionality of A* search. Given a set of
+ * entities, method <code>AStarSearch()</code> returns all subsets of entities
+ * so that a metric defined in subclass is maximized.
+ */
+public abstract class HeuristicSearch {
+    protected Entity[] candidates;			// a set of candidates to be searched
+    protected double best=Double.MAX_VALUE;		// current best value
+    protected int MAX_SUG = 5;					// if specified, return sub-maximum suggestions
+    protected UnsatPaths paths;
+    
+    /**
+     * @param candidates a set of candidates to be searched
+     */
+    public HeuristicSearch(Entity[] candidates, UnsatPaths paths) {
+    	this.candidates = candidates;
     	this.paths = paths;
-    	this.candidates = (EntityType[])candidates.toArray();
-    	this.succCount = succCount;
-    	dep = getDependency();
-    }
-
-    // a heuristic that estimates the "cost" of satisfying remaining paths
-    public int Estimate(Collection<ConstraintPath> paths, int index) {
-		if (paths.size()==0)
-    		return 0;
-        
-        for (int i=index; i<candidates.length; i++) {
-			EntityType cand = candidates[i];
-			
-			// a quick test
-			if (dep.get(cand).size()<paths.size())
-				continue;
-			
-			boolean iscut=true;
-			for (ConstraintPath p : paths) {
-				if (!dep.get(cand).contains(p)) {
-					iscut=false;
-					break;
-				}	
-			}
-			if (iscut) {
-				return 1;
-			}
-		}
-		return 2;
-    }
+	}   
     
-    public HashMap<EntityType, Set<ConstraintPath>> getDependency ( ) {
-    	HashMap<EntityType, Set<ConstraintPath>> map = new HashMap<EntityType, Set<ConstraintPath>>();
-    	
-    	for (EntityType cand : candidates) {
-    		map.put(cand, mapsTo(cand));
-    	}
-    	return map;
-    }
-    
+    /**
+     * 
+     * 
+     */
     protected class SearchNode {
-    	Set<Integer> set;
-		List<ConstraintPath> remaining;
-		int index;
-		double est;
+    	private Set<Integer> entities;	// a subset of entities (by index)
+		private int index;			// the largest searched index to avoid duplication 
+		private double est;			// cost estimation
+		private List<ConstraintPath> remaining; // remaining paths to be solved
     	
-    	public SearchNode(Set<Integer> set, List<ConstraintPath> remaining, int index, double est) {
-    		this.set = set;
-    		this.remaining = remaining;
+		/**
+		 * 
+		 * @param entities a subset of entities (represented by their indices)
+		 * @param index the largest entity index that is already searched (avoid duplication) 
+		 * @param remaining remaining paths to be solved
+		 * @param est cost estimation
+		 */
+    	public SearchNode(Set<Integer> entities, int index, List<ConstraintPath> remaining, double est) {
+    		this.entities = entities;
     		this.index = index;
     		this.est = est;
+    		this.remaining = remaining;
+    	}
+    	
+    	/**
+    	 * @return remaining unsatisfiable paths to cover
+    	 */
+    	public List<ConstraintPath> getRemaining() {
+			return remaining;
+		}
+    	
+    	/**
+    	 * @return entity set
+    	 */
+    	public Set<Integer> getEntities() {
+			return entities;
 		}
     }
     
-    public Set<Set<EntityType>> AStarSearch ( ) {
-    	Collection<ConstraintPath> allpaths = paths.getPaths();
-    	Set<Set<EntityType>> ret = new HashSet<Set<EntityType>>();
+    public Set<ExprSuggestion> AStarSearch ( ) {
+    	Set<ExprSuggestion> ret = new HashSet<ExprSuggestion>();
     	PriorityQueue<SearchNode> queue = new PriorityQueue<SearchNode>(
     			100, new Comparator<SearchNode>() {
 					public int compare(SearchNode n1, SearchNode n2) {
@@ -93,43 +82,18 @@ public abstract class HeuristicSearch<EntityType> {
     	
     	// explore the first level
     	for (int i=0; i<candidates.length; i++) {
-    		EntityType cand = candidates[i];
-    		Set<Integer> set = new HashSet<Integer>();
-			set.add(i);
-			
-    		List<ConstraintPath> remaining = new ArrayList<ConstraintPath>();
-    		for (ConstraintPath path : allpaths) {
-      			if (!dep.get(cand).contains(path)) {
-      				remaining.add(path);
-      			}
-      		}
-    		
-    		addSerchNode(queue, set, remaining, i+1);
+    		addSerchNode(queue, i, null, i+1);
     	}
     	
     	while (!queue.isEmpty()) {
     		SearchNode data = queue.poll();
-    		Set<Integer> set = data.set;
-    		List<ConstraintPath> toSat = data.remaining;
     		boolean stop = goalTest(ret, data, data.est);
     		if (stop)
     			return ret;
     		
     		// explore the next level
         	for (int i=data.index; i<candidates.length; i++) {
-        		EntityType cand = candidates[i];
-        		
-        		HashSet<Integer> toadd = new HashSet<Integer>(set);
-    			toadd.add(i);
-    			
-        		List<ConstraintPath> remaining = new ArrayList<ConstraintPath>();
-        		for (ConstraintPath path : toSat) {
-          			if (!dep.get(cand).contains(path)) {
-          				remaining.add(path);
-          			}
-          		}
-        		        		
-        		addSerchNode(queue, toadd, remaining, i+1);
+        		addSerchNode(queue, i, data, i+1);
         	}
     	}
     	
@@ -137,19 +101,21 @@ public abstract class HeuristicSearch<EntityType> {
     }
     
     // return true if the search is done
-    public boolean goalTest (Set<Set<EntityType>> ret, SearchNode node, double key) {
+    private boolean goalTest (Set<ExprSuggestion> ret, SearchNode node, double key) {
     	if (node.remaining.size()!=0)
     		return false;
     	else {
-    		// test if this is a end node before searching deeper
+    		// test if this is an end node before searching deeper
 			if (best==Double.MAX_VALUE)
 				best = key;
 			if (key<=best /*|| ret.size()<MAX_SUG*/) {
-				Set<EntityType> eset = new HashSet<EntityType>();
-				for (Integer j:node.set) {
+				Set<Entity> eset = new HashSet<Entity>();
+				double succCount = 0;
+				for (Integer j:node.entities) {
 					eset.add(candidates[j]);
+					succCount += candidates[j].getSuccCount();
 				}
-				ret.add(eset);
+				ret.add( new ExprSuggestion(eset, succCount, key));
 				return false;
 			}
 			else {
@@ -158,24 +124,17 @@ public abstract class HeuristicSearch<EntityType> {
 		}
     }
     
-    public void addSerchNode (PriorityQueue<SearchNode> queue, Set<Integer> set, List<ConstraintPath> remaining, int index) {
-    	double succSum=0;
-		for (Integer j : set) {
-			succSum+=succCount.get(candidates[j].toString());
-		}
-		double real = HeuristicSearch.getScore(set.size(),succSum);
-		double est = C1*Estimate(remaining, index);
-		double key = real + est;
+    abstract protected void addSerchNode (PriorityQueue<SearchNode> queue, int candIdx, SearchNode previous, int index);
+    
+    public Set<ConstraintPath> mapsTo (Entity element) {
+    	Set<ConstraintPath> ret = new HashSet<ConstraintPath>();
 		
-		SearchNode newnode = new SearchNode(set, remaining, index, key);
-		nodes ++;
-		queue.offer(newnode);
+    	for (ConstraintPath path : paths.getPaths()) {
+    		for (Node n : path.getAllNodes()) {
+    			if (element.matches((ElementNode)n))
+    				ret.add(path);
+    		}
+    	}
+		return ret;
     }
-    
-    public abstract Set<ConstraintPath> mapsTo (EntityType element);
-    
-    public static double getScore(int setsize, double succ) {
-    	return C1*setsize + C2*succ;
-    }
-
 }
