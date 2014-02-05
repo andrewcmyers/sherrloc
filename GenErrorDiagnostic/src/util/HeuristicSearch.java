@@ -125,16 +125,4 @@ public abstract class HeuristicSearch {
     }
     
     abstract protected void addSerchNode (PriorityQueue<SearchNode> queue, int candIdx, SearchNode previous, int index);
-    
-    public Set<ConstraintPath> mapsTo (Entity element) {
-    	Set<ConstraintPath> ret = new HashSet<ConstraintPath>();
-		
-    	for (ConstraintPath path : paths.getPaths()) {
-    		for (Node n : path.getAllNodes()) {
-    			if (element.matches((ElementNode)n))
-    				ret.add(path);
-    		}
-    	}
-		return ret;
-    }
 }
