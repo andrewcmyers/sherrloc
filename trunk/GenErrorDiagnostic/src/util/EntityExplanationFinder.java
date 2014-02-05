@@ -22,7 +22,7 @@ import diagnostic.UnsatPaths;
 public class EntityExplanationFinder extends HeuristicSearch {
 	static final double C1 = 3;
     static final double C2 = 1;
-    private HashMap<Entity, Set<ConstraintPath>> dep;
+    private HashMap<Entity, Set<ConstraintPath>> dep = new HashMap<Entity, Set<ConstraintPath>>();
     
     public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates) {
     	super (candidates, paths);
