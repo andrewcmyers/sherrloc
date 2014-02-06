@@ -1,10 +1,10 @@
-package constraint.graph.visitor;
+package graph.visitor;
+
+import graph.ElementNode;
+import graph.Node;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import constraint.graph.ElementNode;
-import constraint.graph.Node;
 
 /*
  * generate dot file

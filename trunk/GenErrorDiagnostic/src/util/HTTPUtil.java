@@ -1,5 +1,11 @@
 package util;
 
+import graph.ConstraintPath;
+import graph.Edge;
+import graph.ElementNode;
+import graph.EquationEdge;
+import graph.Node;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,11 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 import constraint.ast.Position;
-import constraint.graph.ConstraintPath;
-import constraint.graph.Edge;
-import constraint.graph.ElementNode;
-import constraint.graph.EquationEdge;
-import constraint.graph.Node;
 import diagnostic.UnsatPaths;
 
 public class HTTPUtil {

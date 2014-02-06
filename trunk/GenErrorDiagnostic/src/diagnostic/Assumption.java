@@ -1,6 +1,6 @@
 package diagnostic;
 
-import constraint.graph.ElementNode;
+import graph.ElementNode;
 
 /* 
  * assumption is a set of source->sink pairs

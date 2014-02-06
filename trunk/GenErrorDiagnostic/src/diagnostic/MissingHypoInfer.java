@@ -1,5 +1,7 @@
 package diagnostic;
 
+import graph.ConstraintPath;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -7,12 +9,11 @@ import java.util.Set;
 import util.MinCutFinder;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
-import constraint.graph.ConstraintPath;
 
 public class MissingHypoInfer {
 	
 	
-    public static Set<ExprSuggestion> genAssumptions (UnsatPaths paths, Map<Environment, Environment> env) {    	    	
+    public static Set<Explanation> genAssumptions (UnsatPaths paths, Map<Environment, Environment> env) {    	    	
     	final Set<HypothesisEntity> cand = new HashSet<HypothesisEntity>();
     	for (ConstraintPath path : paths.getPaths())
     		cand.add(new HypothesisEntity(path.getMinHypo(), env));

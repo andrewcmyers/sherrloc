@@ -1,4 +1,17 @@
-package constraint.graph.pathfinder;
+package graph.pathfinder;
+
+import graph.ConstraintGraph;
+import graph.ConstructorEdge;
+import graph.Edge;
+import graph.EmptyEdge;
+import graph.EquationEdge;
+import graph.JoinEdge;
+import graph.LeftEdge;
+import graph.LeqEdge;
+import graph.MeetEdge;
+import graph.Node;
+import graph.ReductionEdge;
+import graph.RightEdge;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,18 +24,6 @@ import constraint.ast.ComplexElement;
 import constraint.ast.Element;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
-import constraint.graph.ConstraintGraph;
-import constraint.graph.ConstructorEdge;
-import constraint.graph.Edge;
-import constraint.graph.EmptyEdge;
-import constraint.graph.EquationEdge;
-import constraint.graph.JoinEdge;
-import constraint.graph.LeftEdge;
-import constraint.graph.LeqEdge;
-import constraint.graph.MeetEdge;
-import constraint.graph.Node;
-import constraint.graph.ReductionEdge;
-import constraint.graph.RightEdge;
 
 /**
  * 

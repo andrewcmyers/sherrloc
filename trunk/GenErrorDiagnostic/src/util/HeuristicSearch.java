@@ -1,14 +1,15 @@
 package util;
 
+import graph.ConstraintPath;
+
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import constraint.graph.ConstraintPath;
 import diagnostic.Entity;
-import diagnostic.ExprSuggestion;
+import diagnostic.Explanation;
 import diagnostic.UnsatPaths;
 
 /**
@@ -69,8 +70,8 @@ public abstract class HeuristicSearch {
 		}
     }
     
-    public Set<ExprSuggestion> AStarSearch ( ) {
-    	Set<ExprSuggestion> ret = new HashSet<ExprSuggestion>();
+    public Set<Explanation> AStarSearch ( ) {
+    	Set<Explanation> ret = new HashSet<Explanation>();
     	PriorityQueue<SearchNode> queue = new PriorityQueue<SearchNode>(
     			100, new Comparator<SearchNode>() {
 					public int compare(SearchNode n1, SearchNode n2) {
@@ -99,7 +100,7 @@ public abstract class HeuristicSearch {
     }
     
     // return true if the search is done
-    private boolean goalTest (Set<ExprSuggestion> ret, SearchNode node, double key) {
+    private boolean goalTest (Set<Explanation> ret, SearchNode node, double key) {
     	if (node.remaining.size()!=0)
     		return false;
     	else {
@@ -108,12 +109,10 @@ public abstract class HeuristicSearch {
 				best = key;
 			if (key<=best /*|| ret.size()<MAX_SUG*/) {
 				Set<Entity> eset = new HashSet<Entity>();
-				double succCount = 0;
 				for (Integer j:node.entities) {
 					eset.add(candidates[j]);
-					succCount += candidates[j].getSuccCount();
 				}
-				ret.add( new ExprSuggestion(eset, succCount, key));
+				ret.add( new Explanation(eset, key));
 				return false;
 			}
 			else {

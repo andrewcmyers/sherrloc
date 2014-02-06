@@ -1,4 +1,4 @@
-package constraint.graph;
+package graph;
 
 import java.util.Map;
 import java.util.Set;

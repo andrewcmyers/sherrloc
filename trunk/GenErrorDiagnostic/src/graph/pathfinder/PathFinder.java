@@ -1,10 +1,10 @@
-package constraint.graph.pathfinder;
+package graph.pathfinder;
+
+import graph.ConstraintGraph;
+import graph.Edge;
+import graph.Node;
 
 import java.util.List;
-
-import constraint.graph.ConstraintGraph;
-import constraint.graph.Edge;
-import constraint.graph.Node;
 
 /** 
  * 

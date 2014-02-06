@@ -1,12 +1,13 @@
 package diagnostic;
 
+import graph.ElementNode;
+import graph.Node;
+
 import java.util.Map;
 import java.util.Set;
 
 import util.HTTPUtil;
 import constraint.ast.Element;
-import constraint.graph.ElementNode;
-import constraint.graph.Node;
 
 public class CombinedSuggestion<K> implements Comparable<CombinedSuggestion<K>> {
 	int rank = 0;

@@ -1,11 +1,12 @@
 package diagnostic;
 
+import graph.ConstraintPath;
+import graph.ElementNode;
+import graph.Node;
+
 import java.util.Map;
 
 import constraint.ast.Element;
-import constraint.graph.ConstraintPath;
-import constraint.graph.ElementNode;
-import constraint.graph.Node;
 
 public class ExprEntity extends Entity {
 	final private String expr;

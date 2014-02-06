@@ -1,5 +1,11 @@
 package diagnostic;
 
+import graph.ConstraintPath;
+import graph.Edge;
+import graph.ElementNode;
+import graph.EquationEdge;
+import graph.Node;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,11 +22,6 @@ import util.MinCutFinder;
 import constraint.ast.Constraint;
 import constraint.ast.Environment;
 import constraint.ast.Position;
-import constraint.graph.ConstraintPath;
-import constraint.graph.Edge;
-import constraint.graph.ElementNode;
-import constraint.graph.EquationEdge;
-import constraint.graph.Node;
 
 /* a set of unsatisfiable paths identified on the constraint graph */
 public class UnsatPaths {
@@ -47,14 +48,14 @@ public class UnsatPaths {
 		
 	// number of missing hypotheses, used for unit test
     public int getAssumptionNumber () {
-        Set<ExprSuggestion> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
+        Set<Explanation> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
     	return result.size();
     }
     
     public String getAssumptionString () {
-        Set<ExprSuggestion> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
+        Set<Explanation> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
         StringBuffer sb = new StringBuffer();
-        for (ExprSuggestion s : result) {
+        for (Explanation s : result) {
             List<String> list = new ArrayList<String>();
         	for (Entity en :s.getEntities())
         		list.add(en.toString());
@@ -66,7 +67,7 @@ public class UnsatPaths {
     	return sb.toString();
     }
   	
-    public Set<ExprSuggestion> genEdgeCuts (Map<String, Integer> succCount) {
+    public Set<Explanation> genEdgeCuts (Map<String, Integer> succCount) {
     	Set<Entity> cand = new HashSet<Entity>();
 		
     	for (ConstraintPath path : errPaths) {
@@ -84,7 +85,7 @@ public class UnsatPaths {
 		return finder.AStarSearch();
     }
         
-    public Set<ExprSuggestion> genHeuristicSnippetCut (Map<String, Integer> succCount) {
+    public Set<Explanation> genHeuristicSnippetCut (Map<String, Integer> succCount) {
     	Set<Entity> cand = new HashSet<Entity>();
 		
     	for (ConstraintPath path : errPaths) {
@@ -100,7 +101,7 @@ public class UnsatPaths {
 		return finder.AStarSearch();
     }
     
-    public Set<ExprSuggestion> genSnippetCut (int max) {
+    public Set<Explanation> genSnippetCut (int max) {
     	Set<Entity> cand = new HashSet<Entity>();
 		
     	for (ConstraintPath path : errPaths) {
@@ -152,11 +153,11 @@ public class UnsatPaths {
     
     public String genMissingAssumptions (Position pos, String sourceName ) {
     	StringBuffer sb = new StringBuffer();
-		Set<ExprSuggestion> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
+		Set<Explanation> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
 		sb.append("<H3>Likely missing assumption(s): </H3>\n");
 		sb.append("<UL>\n");
 		
-		for (ExprSuggestion g : result) {
+		for (Explanation g : result) {
 			sb.append("<LI>");
 			for (Entity en : g.getEntities()) {
 				en.toHTML(null, null, sb);
@@ -171,7 +172,7 @@ public class UnsatPaths {
     public String genNodeCut (Map<String, Integer> succCount, Map<String, Node> exprMap, boolean console, boolean verbose) {
     	StringBuffer sb = new StringBuffer();
 		long startTime = System.currentTimeMillis();
-		Set<ExprSuggestion> results = genHeuristicSnippetCut(succCount);
+		Set<Explanation> results = genHeuristicSnippetCut(succCount);
 		long endTime =  System.currentTimeMillis();
 		if (verbose)
 			System.out.println("ranking_time: "+(endTime-startTime));
@@ -179,8 +180,8 @@ public class UnsatPaths {
 		if (!console)
 			sb.append("<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
-		List<ExprSuggestion> cuts = new ArrayList<ExprSuggestion>();
-		for (ExprSuggestion set : results) {
+		List<Explanation> cuts = new ArrayList<Explanation>();
+		for (Explanation set : results) {
 			cuts.add(set);
 		}
 		Collections.sort(cuts);
@@ -249,7 +250,7 @@ public class UnsatPaths {
     public String genEdgeCut (Map<String, Integer> succCount, Map<String, Node> exprMap, boolean console, boolean verbose) {
     	StringBuffer sb = new StringBuffer();
 		long startTime = System.currentTimeMillis();
-		Set<ExprSuggestion> results = genEdgeCuts(succCount);
+		Set<Explanation> results = genEdgeCuts(succCount);
 		long endTime =  System.currentTimeMillis();
 		if (verbose)
 			System.out.println("ranking_time: "+(endTime-startTime));
@@ -257,8 +258,8 @@ public class UnsatPaths {
 		if (!console)
 			sb.append("<H4>Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
-		List<ExprSuggestion> cuts = new ArrayList<ExprSuggestion>();
-		for (ExprSuggestion set : results) {
+		List<Explanation> cuts = new ArrayList<Explanation>();
+		for (Explanation set : results) {
 			cuts.add(set);
 		}
 		Collections.sort(cuts);
