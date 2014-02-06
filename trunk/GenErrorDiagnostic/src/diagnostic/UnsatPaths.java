@@ -13,6 +13,7 @@ import util.EntityExplanationFinder;
 import util.HTTPUtil;
 import util.HeuristicSearch;
 import util.MinCutFinder;
+import constraint.ast.Constraint;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
 import constraint.ast.Position;
@@ -66,28 +67,24 @@ public class UnsatPaths {
     	return sb.toString();
     }
   	
-    /* Calculating a min cut is NP complete. Currently, we use iterative deepening search to quickly identify the goal */
-    public Set<Set<EquationEdge>> genEdgeCuts ( ) {
+    public Set<ExprSuggestion> genEdgeCuts (Map<String, Integer> succCount) {
+    	Set<Entity> cand = new HashSet<Entity>();
+		
+    	for (ConstraintPath path : errPaths) {
+    		for (Edge edge : path.getEdges()) {
+    			if (edge instanceof EquationEdge) {
+    				Constraint cons = ((EquationEdge) edge).getEquation();
+    				cand.add(new ConstraintEntity(cons, cons.getSuccPaths()));
+    			}
+    		}
+    	}
     	
-    	MinCutFinder<EquationEdge> cutFinder = new MinCutFinder<EquationEdge>(this) {
-			@Override
-			public Set<EquationEdge> mapsTo(ConstraintPath path) {
-				Set<EquationEdge> ret = new HashSet<EquationEdge>();
-				for (Edge edge : path.getEdges()) {
-					if (edge instanceof EquationEdge)
-						ret.add((EquationEdge)edge);
-				}
-				return ret;
-			}
-		};
-    	
-    	return cutFinder.findMinCut( );
+    	Entity[] candarr = cand.toArray(new Entity[cand.size()]);
+    	HeuristicSearch finder = new EntityExplanationFinder(this, candarr);
+		
+		return finder.AStarSearch();
     }
-    
-    public Set<Set<String>> genSnippetCut () {
-    	return genSnippetCut (6);
-    }
-    
+        
     public Set<ExprSuggestion> genHeuristicSnippetCut (Map<String, Integer> succCount) {
     	Set<Entity> cand = new HashSet<Entity>();
 		
@@ -251,38 +248,44 @@ public class UnsatPaths {
     }
     */
     
-    public String genEdgeCut ( ) {
+    public String genEdgeCut (Map<String, Integer> succCount, Map<String, Node> exprMap, boolean console, boolean verbose) {
     	StringBuffer sb = new StringBuffer();
-    	Set<Set<EquationEdge>> results = genEdgeCuts();
-		sb.append("<H4>Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
+		long startTime = System.currentTimeMillis();
+		Set<ExprSuggestion> results = genEdgeCuts(succCount);
+		long endTime =  System.currentTimeMillis();
+		if (verbose)
+			System.out.println("ranking_time: "+(endTime-startTime));
+		
+		if (!console)
+			sb.append("<H4>Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n");
 
-		// sb.append("<OL>\n");
-
-		// get all cuts and rank them
-		List<ConsSuggestion> cuts = new ArrayList<ConsSuggestion>();
-		int count = 1;
-		for (Set<EquationEdge> set : results) {
-			cuts.add(new ConsSuggestion(count, set));
-			count++;
+		List<ExprSuggestion> cuts = new ArrayList<ExprSuggestion>();
+		for (ExprSuggestion set : results) {
+			cuts.add(set);
 		}
 		Collections.sort(cuts);
-
-        int best=Integer.MAX_VALUE;
+		
+		double best=Double.MAX_VALUE;
 		int i=0;
 		for ( ; i<cuts.size(); i++) {
-			if (cuts.get(i).rank>best)
+			if (cuts.get(i).weight>best)
 				break;
-			best = cuts.get(i).rank;
-			sb.append(cuts.get(i).toHTML());
+			best = cuts.get(i).weight;
+			if (console)
+				sb.append(cuts.get(i).toConsole(exprMap)+"\n");
+			else
+				sb.append(cuts.get(i).toHTML(exprMap));
 		}
-		sb.append("<button onclick=\"show_more_cons()\">show/hide more</button><br>\n");
-		sb.append("<div id=\"more_cons\">");
-		for ( ; i<cuts.size(); i++) {
-			sb.append(cuts.get(i).toHTML());
+		if (verbose)
+			System.out.println("top_rank_size: "+i);
+		if (!console) {
+			sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
+			sb.append("<div id=\"more_expr\">");
+			for (; i < cuts.size(); i++) {
+				sb.append(cuts.get(i).toHTML(exprMap));
+			}
+			sb.append("</div>\n");
 		}
-		sb.append("</div>\n");
-		// sb.append("</OL>\n");
-	
 		return sb.toString();
     }
 }

@@ -27,12 +27,7 @@ public class CompEdge extends Edge {
 		public boolean isDirected() {
 			return true;
 		}
-		
-		@Override
-		public void incSuccCounter() {
-			// do nothing
-		}
-		
+				
 		@Override
 		public Environment getAssumption() {
 			return env;
