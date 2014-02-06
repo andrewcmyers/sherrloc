@@ -7,9 +7,9 @@ import util.HTTPUtil;
 import constraint.graph.Node;
 
 public class ExprSuggestion implements Comparable<ExprSuggestion> {
-	double weight = 0;
-	Set<Entity> entities;
-	double succCount;
+	private final double weight;
+	private Set<Entity> entities;
+	private final double succCount;
 
 	public ExprSuggestion(Set<Entity> exprs, double succCount, double weight) {
 		this.entities = exprs;
@@ -17,8 +17,16 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		this.succCount = succCount;
 	}
 	
-	public double getRank() {
+	public double getWeight() {
 		return weight;
+	}
+	
+	public double getSuccCount() {
+		return succCount;
+	}
+	
+	public Set<Entity> getEntities() {
+		return entities;
 	}
 	
 	@Override
