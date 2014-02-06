@@ -7,8 +7,6 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import constraint.graph.ConstraintPath;
-import constraint.graph.ElementNode;
-import constraint.graph.Node;
 import diagnostic.Entity;
 import diagnostic.ExprSuggestion;
 import diagnostic.UnsatPaths;

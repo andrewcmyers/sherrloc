@@ -4,8 +4,6 @@ import java.util.Map;
 import java.util.Set;
 
 import util.HTTPUtil;
-import constraint.ast.Element;
-import constraint.graph.ElementNode;
 import constraint.graph.Node;
 
 public class ExprSuggestion implements Comparable<ExprSuggestion> {
@@ -35,15 +33,13 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
-		for (Entity e : entities) {
-			Element en = ((ElementNode)exprMap.get(e.toString())).getElement();
-    		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
-    		exprBuffer.append(en.toSnippetString()+" [loc: "+en.getPosition()+"]    ");
+		for (Entity en : entities) {
+			en.toHTML(exprMap, locBuffer, exprBuffer);
     	}
     	sb.append("<span class=\"path\" ");
 		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
 		sb.append(">");
-		sb.append("<code>"+exprBuffer.toString()+"</code></span>");
+		sb.append(exprBuffer.toString()+"</span>");
     	sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
         sb.append(locBuffer.toString());
     	sb.append("])\" ");
@@ -58,10 +54,8 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
-		for (Entity e : entities) {
-			Element en = ((ElementNode)exprMap.get(e.toString())).getElement();
-    		locBuffer.append(en.getPosition() + ", ");
-    		exprBuffer.append(en.toSnippetString() + ", ");
+		for (Entity en : entities) {
+			en.toConsole(exprMap, locBuffer, exprBuffer);
     	}
 		sb.append(exprBuffer.toString()+": ");
         sb.append(locBuffer.toString());

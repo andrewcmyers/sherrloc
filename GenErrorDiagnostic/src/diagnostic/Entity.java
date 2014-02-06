@@ -1,6 +1,9 @@
 package diagnostic;
 
+import java.util.Map;
+
 import constraint.graph.ElementNode;
+import constraint.graph.Node;
 
 /**
  * Entities are the basic units of error report. In OCaml, the entities are
@@ -31,6 +34,16 @@ public abstract class Entity {
 	 * Returns true if the element node represents the entity
 	 */
 	public abstract boolean matches(ElementNode n);
+	
+	/**
+	 * Pretty print the entity for HTML
+	 */
+	public abstract void toHTML (Map<String, Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf);
+	
+	/**
+	 * Pretty print the entity for console
+	 */
+	public abstract void toConsole (Map<String, Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf);
 	
 	/**
 	 * Forces subclass to implement equals
