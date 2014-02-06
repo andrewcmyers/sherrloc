@@ -1,5 +1,8 @@
 package util;
 
+import graph.ConstraintPath;
+import graph.Node;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,11 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.graph.ConstraintPath;
-import constraint.graph.Node;
 import diagnostic.CombinedSuggestion;
 import diagnostic.Entity;
-import diagnostic.ExprSuggestion;
+import diagnostic.Explanation;
 import diagnostic.UnsatPaths;
 
 // we do an iterative deeping search until at least one cut is returned
@@ -61,8 +62,8 @@ public abstract class CombinedExplainationFinder {
     	for (ConstraintPath path : dependencies.keySet()) {
 			toTest.addUnsatPath(path);
 		}
-		Set<ExprSuggestion> r = toTest.genSnippetCut(1);
-		for (ExprSuggestion sugg : r) {
+		Set<Explanation> r = toTest.genSnippetCut(1);
+		for (Explanation sugg : r) {
 			Set<String> sset = new HashSet<String>();
 			for (Entity en : sugg.getEntities())
 				sset.add(en.toString());
@@ -120,8 +121,8 @@ public abstract class CombinedExplainationFinder {
    	   				UnsatPaths toTest = new UnsatPaths();
    	   				for (ConstraintPath path : remaining)
    	   					toTest.addUnsatPath(path);
-   	   				Set<ExprSuggestion> r = toTest.genSnippetCut(maxsize-s.size()+1);
-   	   				for (ExprSuggestion sugg : r) {
+   	   				Set<Explanation> r = toTest.genSnippetCut(maxsize-s.size()+1);
+   	   				for (Explanation sugg : r) {
    	   					Set<String> sset = new HashSet<String>();
    	   					for (Entity en : sugg.getEntities())
    	   						sset.add(en.toString());

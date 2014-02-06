@@ -1,4 +1,4 @@
-package constraint.graph;
+package graph;
 
 /* a special edge corresponds to nonterminal left */
 public class LeftEdge extends ReductionEdge {

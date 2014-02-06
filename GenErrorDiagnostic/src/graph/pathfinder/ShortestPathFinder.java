@@ -1,4 +1,16 @@
-package constraint.graph.pathfinder;
+package graph.pathfinder;
+
+import graph.CompEdge;
+import graph.ConstraintGraph;
+import graph.Edge;
+import graph.EdgeCondition;
+import graph.EmptyEdge;
+import graph.LeftEdge;
+import graph.LeqEdge;
+import graph.Node;
+import graph.Polarity;
+import graph.ReductionEdge;
+import graph.RightEdge;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,17 +24,6 @@ import constraint.ast.Environment;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Variable;
-import constraint.graph.CompEdge;
-import constraint.graph.ConstraintGraph;
-import constraint.graph.Edge;
-import constraint.graph.EdgeCondition;
-import constraint.graph.EmptyEdge;
-import constraint.graph.LeftEdge;
-import constraint.graph.LeqEdge;
-import constraint.graph.Node;
-import constraint.graph.Polarity;
-import constraint.graph.ReductionEdge;
-import constraint.graph.RightEdge;
 
 public class ShortestPathFinder extends CFLPathFinder {
 	int MAX = 10000;

@@ -4,8 +4,8 @@ import diagnostic.Entity;
 import diagnostic.UnsatPaths;
 
 /**
- * Fining minimal cut is an instance of the more general heuristic search with a
- * metric |E|
+ * Fining minimal cut is an instance of the more general heuristic search, with the
+ * metric of entity size
  */
 public class MinCutFinder extends EntityExplanationFinder {
     

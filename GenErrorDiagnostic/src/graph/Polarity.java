@@ -1,3 +1,3 @@
-package constraint.graph;
+package graph;
 
 public enum Polarity {POS, NEG, BOTH}

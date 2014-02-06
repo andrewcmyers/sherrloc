@@ -1,6 +1,6 @@
-package constraint.graph.visitor;
+package graph.visitor;
 
-import constraint.graph.Node;
+import graph.Node;
 
 public interface NodeVisitor {
 	public void discoverVertex(Node n);

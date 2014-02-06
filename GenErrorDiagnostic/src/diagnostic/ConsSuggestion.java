@@ -1,10 +1,11 @@
 package diagnostic;
 
+import graph.EquationEdge;
+
 import java.util.Set;
 
 import util.HTTPUtil;
 import constraint.ast.Element;
-import constraint.graph.EquationEdge;
 
 public class ConsSuggestion implements Comparable<ConsSuggestion> {
 	int rank = 0;

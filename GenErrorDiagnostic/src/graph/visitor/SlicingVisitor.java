@@ -1,6 +1,6 @@
-package constraint.graph.visitor;
+package graph.visitor;
 
-import constraint.graph.Node;
+import graph.Node;
 
 //this visitor just labels all node visited as "shouldprint"
 public class SlicingVisitor implements NodeVisitor {

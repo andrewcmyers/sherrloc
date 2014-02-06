@@ -1,13 +1,14 @@
 package diagnostic;
 
+import graph.ConstraintPath;
+import graph.Edge;
+import graph.EquationEdge;
+import graph.Node;
+
 import java.util.Map;
 
 import constraint.ast.Constraint;
 import constraint.ast.Element;
-import constraint.graph.ConstraintPath;
-import constraint.graph.Edge;
-import constraint.graph.EquationEdge;
-import constraint.graph.Node;
 
 public class ConstraintEntity extends Entity {
 	final private Constraint cons;

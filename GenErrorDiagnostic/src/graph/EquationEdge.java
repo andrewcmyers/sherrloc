@@ -1,4 +1,4 @@
-package constraint.graph;
+package graph;
 
 import constraint.ast.Constraint;
 import constraint.ast.Environment;

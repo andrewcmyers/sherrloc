@@ -1,4 +1,6 @@
-package constraint.graph;
+package graph;
+
+import graph.pathfinder.PathFinder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +16,6 @@ import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
-import constraint.graph.pathfinder.PathFinder;
 
 public class ConstraintPath {
     List<Edge> edges;
