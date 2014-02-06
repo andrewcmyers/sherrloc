@@ -1,6 +1,14 @@
 
 package diagnostic;
 
+import graph.ConstraintGraph;
+import graph.ConstraintPath;
+import graph.Edge;
+import graph.ElementNode;
+import graph.Node;
+import graph.pathfinder.PathFinder;
+import graph.pathfinder.ShortestPathFinder;
+
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,13 +37,6 @@ import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.Position;
-import constraint.graph.ConstraintGraph;
-import constraint.graph.ConstraintPath;
-import constraint.graph.Edge;
-import constraint.graph.ElementNode;
-import constraint.graph.Node;
-import constraint.graph.pathfinder.PathFinder;
-import constraint.graph.pathfinder.ShortestPathFinder;
 import constraint.parse.GrmLexer;
 import constraint.parse.parser;
 

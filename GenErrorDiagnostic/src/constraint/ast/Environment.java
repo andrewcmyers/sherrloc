@@ -1,12 +1,12 @@
 package constraint.ast;
 
+import graph.ConstraintGraph;
+import graph.pathfinder.PathFinder;
+import graph.pathfinder.ShortestPathFinder;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import constraint.graph.ConstraintGraph;
-import constraint.graph.pathfinder.PathFinder;
-import constraint.graph.pathfinder.ShortestPathFinder;
 
 /**
  * Environment is a List of additional assumptions (in the form of equations)

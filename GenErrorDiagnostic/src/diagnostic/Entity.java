@@ -1,10 +1,9 @@
 package diagnostic;
 
-import java.util.Map;
+import graph.ConstraintPath;
+import graph.Node;
 
-import constraint.graph.ConstraintPath;
-import constraint.graph.ElementNode;
-import constraint.graph.Node;
+import java.util.Map;
 
 /**
  * Entities are the basic units of error report. In OCaml, the entities are

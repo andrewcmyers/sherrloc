@@ -1,28 +1,30 @@
 package diagnostic;
 
+import graph.Node;
+
 import java.util.Map;
 import java.util.Set;
 
 import util.HTTPUtil;
-import constraint.graph.Node;
 
-public class ExprSuggestion implements Comparable<ExprSuggestion> {
+/**
+ * <code>Explanation</code> is the result of the error diagnosis algorithm. An
+ * explanation consists of a set of entities (e.g., expressions, constraints,
+ * hypotheses), a weight w.r.t. ranking metric, and number of satisfiable paths
+ * using those entities
+ */
+public class Explanation implements Comparable<Explanation> {
 	private final double weight;
 	private Set<Entity> entities;
-	private final double succCount;
+	private boolean DEBUG = false;
 
-	public ExprSuggestion(Set<Entity> exprs, double succCount, double weight) {
-		this.entities = exprs;
+	public Explanation(Set<Entity> entities, double weight) {
+		this.entities = entities;
 		this.weight = weight;
-		this.succCount = succCount;
 	}
 	
 	public double getWeight() {
 		return weight;
-	}
-	
-	public double getSuccCount() {
-		return succCount;
 	}
 	
 	public Set<Entity> getEntities() {
@@ -30,14 +32,16 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
 	}
 	
 	@Override
-	public int compareTo(ExprSuggestion o) {
+	public int compareTo(Explanation o) {
 		return new Double(weight).compareTo(o.weight);
 	}
 	
 	public String toHTML (Map<String, Node> exprMap) {
 		StringBuffer sb = new StringBuffer();
-//		sb.append("<LI>\n");
-//		sb.append("<span class=\"rank\">(score "+rank+")</span> ");
+		
+		if (DEBUG) {
+			sb.append("<span class=\"rank\">(score "+weight+")</span> ");
+		}
 		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
@@ -71,7 +75,6 @@ public class ExprSuggestion implements Comparable<ExprSuggestion> {
    		return sb.toString();
 	}
 	
-	@Override
 	public String toString() {
     	StringBuffer exprBuffer = new StringBuffer();
     	for (Entity e : entities) {

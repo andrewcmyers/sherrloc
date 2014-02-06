@@ -1,11 +1,12 @@
 package diagnostic;
 
+import graph.ConstraintPath;
+import graph.Node;
+
 import java.util.Map;
 
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
-import constraint.graph.ConstraintPath;
-import constraint.graph.Node;
 
 public class HypothesisEntity extends Entity {
 	private Hypothesis hypo;
