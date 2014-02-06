@@ -5,7 +5,6 @@ import constraint.ast.Environment;
 abstract public class Edge {
     Node from;
     Node to;
-    int succPaths = 0;
     
     public Edge(Node from, Node to) {
     	this.from = from;
@@ -27,7 +26,7 @@ abstract public class Edge {
 	public void setCause() {
 		// do nothing
 	}
-    
+	    
     abstract public String toString ();
     
     abstract public String toDotString ();

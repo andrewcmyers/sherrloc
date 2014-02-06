@@ -1,6 +1,10 @@
 package diagnostic;
 
+import java.util.Map;
+
+import constraint.ast.Element;
 import constraint.graph.ElementNode;
+import constraint.graph.Node;
 
 public class ExprEntity extends Entity {
 	final private String expr;
@@ -13,6 +17,20 @@ public class ExprEntity extends Entity {
 	@Override
 	public boolean matches(ElementNode n) {
 		return n.toString().equals(expr);
+	}
+	
+	@Override
+	public void toHTML(Map<String,Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf) {
+		Element en = ((ElementNode)exprMap.get(expr)).getElement();
+		locBuf.append("['pathelement', \'"+en.getPosition()+"\'], ");
+		exprBuf.append("<code>"+en.toSnippetString()+"</code>"+" [loc: "+en.getPosition()+"]    ");
+	}
+	
+	@Override
+	public void toConsole(Map<String, Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf) {
+		Element en = ((ElementNode)exprMap.get(expr)).getElement();
+		locBuf.append(en.getPosition() + ", ");
+		exprBuf.append(en.toSnippetString() + ", ");
 	}
 	
 	@Override
