@@ -1,4 +1,4 @@
-package diagnostic;
+package diagnostic.explanation;
 
 import graph.ConstraintPath;
 import graph.Edge;

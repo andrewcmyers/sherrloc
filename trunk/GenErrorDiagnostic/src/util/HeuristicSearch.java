@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import diagnostic.Entity;
-import diagnostic.Explanation;
 import diagnostic.UnsatPaths;
+import diagnostic.explanation.Entity;
+import diagnostic.explanation.Explanation;
 
 /**
  * This class implements the main functionality of A* search. Given a set of
