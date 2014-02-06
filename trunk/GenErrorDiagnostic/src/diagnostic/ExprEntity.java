@@ -3,6 +3,7 @@ package diagnostic;
 import java.util.Map;
 
 import constraint.ast.Element;
+import constraint.graph.ConstraintPath;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
 
@@ -15,8 +16,12 @@ public class ExprEntity extends Entity {
 	}
 	
 	@Override
-	public boolean matches(ElementNode n) {
-		return n.toString().equals(expr);
+	public boolean explains (ConstraintPath p) {
+    	for (Node n : p.getAllNodes()) {
+    		if (n.toString().equals(expr))
+    			return true;
+    	}
+		return false;
 	}
 	
 	@Override

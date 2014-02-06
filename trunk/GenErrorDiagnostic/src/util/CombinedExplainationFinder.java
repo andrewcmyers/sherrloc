@@ -10,10 +10,12 @@ import java.util.Set;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Node;
 import diagnostic.CombinedSuggestion;
+import diagnostic.Entity;
+import diagnostic.ExprSuggestion;
 import diagnostic.UnsatPaths;
 
 // we do an iterative deeping search until at least one cut is returned
-public abstract class CombinedExplainationFinder<EntityType> {
+public abstract class CombinedExplainationFinder {
 
     int REC_MAX = 6;
 //    int SAT_MAX = 4;
@@ -28,18 +30,18 @@ public abstract class CombinedExplainationFinder<EntityType> {
 		this.succCount = succCount;
     }
     
-    public abstract Set<EntityType>  mapsTo (ConstraintPath path);
+    public abstract Set<Entity>  mapsTo (ConstraintPath path);
     
-    public Set<EntityType> genCandidates ( ) {
-    	Set<EntityType> ret = new HashSet<EntityType>();
+    public Set<Entity> genCandidates ( ) {
+    	Set<Entity> ret = new HashSet<Entity>();
     	for (ConstraintPath path : paths.getPaths()) {
     		ret.addAll(mapsTo(path));
     	}
     	return ret;
     }
     
-    public HashMap<ConstraintPath, Set<EntityType>> getDependency ( ) {
-    	HashMap<ConstraintPath, Set<EntityType>> map = new HashMap<ConstraintPath, Set<EntityType>>();
+    public HashMap<ConstraintPath, Set<Entity>> getDependency ( ) {
+    	HashMap<ConstraintPath, Set<Entity>> map = new HashMap<ConstraintPath, Set<Entity>>();
     	
     	for (ConstraintPath path : paths.getPaths()) {
     		map.put(path, mapsTo(path));
@@ -48,25 +50,28 @@ public abstract class CombinedExplainationFinder<EntityType> {
     }
     
     // find a minimal subset of candidates which covers dependencies.keySet
-    public List<CombinedSuggestion<EntityType>> findMinCut ( ) {
-    	List<CombinedSuggestion<EntityType>> ret = new ArrayList<CombinedSuggestion<EntityType>>();
-    	HashMap<ConstraintPath, Set<EntityType>> dependencies = getDependency();
-    	Set<EntityType> candidates = genCandidates( );
-    	EntityType[] candArray = (EntityType[])candidates.toArray();
+    public List<CombinedSuggestion<Entity>> findMinCut ( ) {
+    	List<CombinedSuggestion<Entity>> ret = new ArrayList<CombinedSuggestion<Entity>>();
+    	HashMap<ConstraintPath, Set<Entity>> dependencies = getDependency();
+    	Set<Entity> candidates = genCandidates( );
+    	Entity[] candArray = (Entity[])candidates.toArray();
     	// we do an iterative deeping search until at least one cut is returned
     	
     	UnsatPaths toTest = new UnsatPaths();
     	for (ConstraintPath path : dependencies.keySet()) {
 			toTest.addUnsatPath(path);
 		}
-		Set<Set<String>> r = toTest.genSnippetCut(1);
-		for (Set<String> set : r) {
-			ret.add(new CombinedSuggestion<EntityType>(new HashSet<EntityType>(), set, succCount));
+		Set<ExprSuggestion> r = toTest.genSnippetCut(1);
+		for (ExprSuggestion sugg : r) {
+			Set<String> sset = new HashSet<String>();
+			for (Entity en : sugg.getEntities())
+				sset.add(en.toString());
+			ret.add(new CombinedSuggestion<Entity>(new HashSet<Entity>(), sset, succCount));
 		}
     	int size = ret.size();
 				
     	for (int level=1; level <= REC_MAX; level++) {
-   			boundedDepthSearch (level, level, candArray, 0, dependencies, new ArrayList<EntityType>(), ret);
+   			boundedDepthSearch (level, level, candArray, 0, dependencies, new ArrayList<Entity>(), ret);
    			if (ret.size()!=size)
    				break;
     	}
@@ -74,11 +79,11 @@ public abstract class CombinedExplainationFinder<EntityType> {
     	return ret;
     }
     
-    private void boundedDepthSearch (int level, int maxsize, EntityType[] candidates, int index, HashMap<ConstraintPath, Set<EntityType>> dependencies, List<EntityType> visited, List<CombinedSuggestion<EntityType>> results) {
+    private void boundedDepthSearch (int level, int maxsize, Entity[] candidates, int index, HashMap<ConstraintPath, Set<Entity>> dependencies, List<Entity> visited, List<CombinedSuggestion<Entity>> results) {
     	
     	/* first level */
    		for (int i=index; i<candidates.length; i++) {
-   			EntityType e = candidates[i];
+   			Entity e = candidates[i];
    			visited.add(e);
    			
    			if (level == 1) {
@@ -87,7 +92,7 @@ public abstract class CombinedExplainationFinder<EntityType> {
    				// for any path, at least one element in the visited list should appear
    	   			for (ConstraintPath path : dependencies.keySet()) {
    	   				boolean flag = false;
-   	   				for (EntityType cand : visited) {
+   	   				for (Entity cand : visited) {
    	   					if (dependencies.get(path).contains(cand)) {
    	   						flag=true;
    	   						break;
@@ -105,21 +110,24 @@ public abstract class CombinedExplainationFinder<EntityType> {
 //   	   				}
 //   	   			}
    	   			
-   	   			HashSet<EntityType> s = new HashSet<EntityType>();
-  				for (EntityType v : visited) 
+   	   			HashSet<Entity> s = new HashSet<Entity>();
+  				for (Entity v : visited) 
   					s.add(v);
    	   			if (remaining.isEmpty()) {
-   	   				results.add(new CombinedSuggestion<EntityType>(s, new HashSet<String>(), succCount));
+   	   				results.add(new CombinedSuggestion<Entity>(s, new HashSet<String>(), succCount));
    	   			}
    	   			else {
    	   				UnsatPaths toTest = new UnsatPaths();
    	   				for (ConstraintPath path : remaining)
    	   					toTest.addUnsatPath(path);
-   	   				Set<Set<String>> r = toTest.genSnippetCut(maxsize-s.size()+1);
-   	   				for (Set<String> set : r) {
+   	   				Set<ExprSuggestion> r = toTest.genSnippetCut(maxsize-s.size()+1);
+   	   				for (ExprSuggestion sugg : r) {
+   	   					Set<String> sset = new HashSet<String>();
+   	   					for (Entity en : sugg.getEntities())
+   	   						sset.add(en.toString());
 //   	   					ExprSuggestion sugg = new ExprSuggestion(0, set, succCount);
 //   	   					if (sugg.getRank()<SAT_MAX) {
-   	   						results.add(new CombinedSuggestion<EntityType>(s, set, succCount));
+ 	   					results.add(new CombinedSuggestion<Entity>(s, sset, succCount));
 //   	   					}
    	   				}
    	   			}

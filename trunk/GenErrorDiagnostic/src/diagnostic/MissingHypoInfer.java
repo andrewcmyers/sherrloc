@@ -12,20 +12,14 @@ import constraint.graph.ConstraintPath;
 public class MissingHypoInfer {
 	
 	
-    public static Set<Set<Hypothesis>> genAssumptions (UnsatPaths paths, Map<Environment, Environment> env) {    	    	
-    	final Set<Hypothesis> candidates = new HashSet<Hypothesis>();
-    	final Map<Environment, Environment> cachedEnv = env;
+    public static Set<ExprSuggestion> genAssumptions (UnsatPaths paths, Map<Environment, Environment> env) {    	    	
+    	final Set<HypothesisEntity> cand = new HashSet<HypothesisEntity>();
     	for (ConstraintPath path : paths.getPaths())
-    		candidates.add(path.getMinHypo());
+    		cand.add(new HypothesisEntity(path.getMinHypo(), env));
     	    	
-    	MinCutFinder<Hypothesis> cutFinder = new MinCutFinder<Hypothesis>(paths) {
-			@Override
-			public Set<Hypothesis> mapsTo(ConstraintPath path) {
-				return genAssumptionDep(path, candidates, cachedEnv);
-			}
-		};
+    	MinCutFinder cutFinder = new MinCutFinder(paths, cand.toArray(new Entity[cand.size()]));
  
-   		return cutFinder.findMinCut();
+   		return cutFinder.AStarSearch();
    		
     }
     

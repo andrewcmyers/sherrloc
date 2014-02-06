@@ -2,6 +2,7 @@ package diagnostic;
 
 import java.util.Map;
 
+import constraint.graph.ConstraintPath;
 import constraint.graph.ElementNode;
 import constraint.graph.Node;
 
@@ -31,9 +32,11 @@ public abstract class Entity {
 	}
 	
 	/**
-	 * Returns true if the element node represents the entity
+	 * Returns true if the entity "explains" an error on path p. That is, if an
+	 * expression/constraint appears on path p, or an hypothesis suppresses the
+	 * error on path p
 	 */
-	public abstract boolean matches(ElementNode n);
+	public abstract boolean explains (ConstraintPath p);
 	
 	/**
 	 * Pretty print the entity for HTML
