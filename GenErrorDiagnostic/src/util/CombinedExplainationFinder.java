@@ -11,9 +11,9 @@ import java.util.Map;
 import java.util.Set;
 
 import diagnostic.CombinedSuggestion;
-import diagnostic.Entity;
-import diagnostic.Explanation;
 import diagnostic.UnsatPaths;
+import diagnostic.explanation.Entity;
+import diagnostic.explanation.Explanation;
 
 // we do an iterative deeping search until at least one cut is returned
 public abstract class CombinedExplainationFinder {
