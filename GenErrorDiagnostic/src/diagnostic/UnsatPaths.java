@@ -15,7 +15,6 @@ import util.HeuristicSearch;
 import util.MinCutFinder;
 import constraint.ast.Constraint;
 import constraint.ast.Environment;
-import constraint.ast.Hypothesis;
 import constraint.ast.Position;
 import constraint.graph.ConstraintPath;
 import constraint.graph.Edge;
@@ -48,17 +47,17 @@ public class UnsatPaths {
 		
 	// number of missing hypotheses, used for unit test
     public int getAssumptionNumber () {
-        Set<Set<Hypothesis>> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
+        Set<ExprSuggestion> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
     	return result.size();
     }
     
     public String getAssumptionString () {
-        Set<Set<Hypothesis>> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
+        Set<ExprSuggestion> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
         StringBuffer sb = new StringBuffer();
-        for (Set<Hypothesis> s : result) {
+        for (ExprSuggestion s : result) {
             List<String> list = new ArrayList<String>();
-        	for (Hypothesis g :s )
-        		list.add(g.toString());
+        	for (Entity en :s.getEntities())
+        		list.add(en.toString());
         	Collections.sort(list);
         	for (String str : list)
         		sb.append(str+";");
@@ -101,21 +100,20 @@ public class UnsatPaths {
 		return finder.AStarSearch();
     }
     
-    public Set<Set<String>> genSnippetCut (int max) {
+    public Set<ExprSuggestion> genSnippetCut (int max) {
+    	Set<Entity> cand = new HashSet<Entity>();
+		
+    	for (ConstraintPath path : errPaths) {
+    		for (Node n : path.getAllNodes()) {
+    			if (!((ElementNode)n).getElement().getPosition().isEmpty())
+    				cand.add(new ExprEntity(n.toString(), 0));
+    		}
+    	}
     	
-    	MinCutFinder<String> cutFinder = new MinCutFinder<String>( this, max) {
-			@Override
-			public Set<String> mapsTo(ConstraintPath path) {
-				Set<String> ret = new HashSet<String>();
-				
-				for (Node n : path.getAllNodes()) {
-					ret.add(n.toString());
-				}
-				return ret;
-			}
-		};
+    	Entity[] candarr = cand.toArray(new Entity[cand.size()]);
+    	MinCutFinder cutFinder = new MinCutFinder(this, candarr);
     	
-    	return cutFinder.findMinCut();
+    	return cutFinder.AStarSearch();
     }
     
     
@@ -154,14 +152,14 @@ public class UnsatPaths {
     
     public String genMissingAssumptions (Position pos, String sourceName ) {
     	StringBuffer sb = new StringBuffer();
-		Set<Set<Hypothesis>> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
+		Set<ExprSuggestion> result = MissingHypoInfer.genAssumptions(this, cachedEnv);
 		sb.append("<H3>Likely missing assumption(s): </H3>\n");
 		sb.append("<UL>\n");
 		
-		for (Set<Hypothesis> g : result) {
+		for (ExprSuggestion g : result) {
 			sb.append("<LI>");
-			for (Hypothesis h : g) {
-				sb.append( h.toString() + ";");
+			for (Entity en : g.getEntities()) {
+				en.toHTML(null, null, sb);
 			}
 			sb.append("\n");
 		}
@@ -190,9 +188,9 @@ public class UnsatPaths {
 		double best=Double.MAX_VALUE;
 		int i=0;
 		for ( ; i<cuts.size(); i++) {
-			if (cuts.get(i).weight>best)
+			if (cuts.get(i).getWeight()>best)
 				break;
-			best = cuts.get(i).weight;
+			best = cuts.get(i).getWeight();
 			if (console)
 				sb.append(cuts.get(i).toConsole(exprMap)+"\n");
 			else
@@ -268,9 +266,9 @@ public class UnsatPaths {
 		double best=Double.MAX_VALUE;
 		int i=0;
 		for ( ; i<cuts.size(); i++) {
-			if (cuts.get(i).weight>best)
+			if (cuts.get(i).getWeight()>best)
 				break;
-			best = cuts.get(i).weight;
+			best = cuts.get(i).getWeight();
 			if (console)
 				sb.append(cuts.get(i).toConsole(exprMap)+"\n");
 			else

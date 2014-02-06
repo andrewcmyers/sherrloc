@@ -9,8 +9,6 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import constraint.graph.ConstraintPath;
-import constraint.graph.ElementNode;
-import constraint.graph.Node;
 import diagnostic.Entity;
 import diagnostic.UnsatPaths;
 
@@ -20,18 +18,24 @@ import diagnostic.UnsatPaths;
  */
 
 public class EntityExplanationFinder extends HeuristicSearch {
-	static final double C1 = 3;
-    static final double C2 = 1;
+	final double C1;
+    final double C2;
     private HashMap<Entity, Set<ConstraintPath>> dep = new HashMap<Entity, Set<ConstraintPath>>();
     
     public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates) {
+    	this(paths, candidates, 3, 1);
+    }
+    
+    public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates, double C1, double C2) {
     	super (candidates, paths);
     	for (Entity en : candidates) {
     		dep.put(en, mapsTo(en));
     	}
+    	this.C1 = C1;
+    	this.C2 = C2;
     }
     
-	static public double getScore(int setsize, double succ) {
+	public double getScore(int setsize, double succ) {
     	return C1*setsize + C2*succ;
     }
 	
@@ -98,10 +102,8 @@ public class EntityExplanationFinder extends HeuristicSearch {
     	Set<ConstraintPath> ret = new HashSet<ConstraintPath>();
 		
     	for (ConstraintPath path : paths.getPaths()) {
-    		for (Node n : path.getAllNodes()) {
-    			if (en.matches((ElementNode)n))
-    				ret.add(path);
-    		}
+    		if (en.explains(path))
+   				ret.add(path);
     	}
 		return ret;
     }
