@@ -9,6 +9,9 @@ import java.util.Set;
 import util.MinCutFinder;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
+import diagnostic.explanation.Entity;
+import diagnostic.explanation.Explanation;
+import diagnostic.explanation.HypothesisEntity;
 
 public class MissingHypoInfer {
 	

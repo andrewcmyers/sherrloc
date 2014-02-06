@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import diagnostic.Entity;
 import diagnostic.UnsatPaths;
+import diagnostic.explanation.Entity;
 
 /**
  * that returns sets of EntityType that maximize the term C1*|E|+C2*k_E, where

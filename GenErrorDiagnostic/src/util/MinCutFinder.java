@@ -1,7 +1,7 @@
 package util;
 
-import diagnostic.Entity;
 import diagnostic.UnsatPaths;
+import diagnostic.explanation.Entity;
 
 /**
  * Fining minimal cut is an instance of the more general heuristic search, with the

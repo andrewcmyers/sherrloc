@@ -22,6 +22,10 @@ import util.MinCutFinder;
 import constraint.ast.Constraint;
 import constraint.ast.Environment;
 import constraint.ast.Position;
+import diagnostic.explanation.ConstraintEntity;
+import diagnostic.explanation.Entity;
+import diagnostic.explanation.Explanation;
+import diagnostic.explanation.ExprEntity;
 
 /* a set of unsatisfiable paths identified on the constraint graph */
 public class UnsatPaths {

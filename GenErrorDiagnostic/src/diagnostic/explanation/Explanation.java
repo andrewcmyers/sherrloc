@@ -1,4 +1,4 @@
-package diagnostic;
+package diagnostic.explanation;
 
 import graph.Node;
 
@@ -10,23 +10,32 @@ import util.HTTPUtil;
 /**
  * <code>Explanation</code> is the result of the error diagnosis algorithm. An
  * explanation consists of a set of entities (e.g., expressions, constraints,
- * hypotheses), a weight w.r.t. ranking metric, and number of satisfiable paths
- * using those entities
+ * hypotheses) and a weight w.r.t. ranking metric
  */
 public class Explanation implements Comparable<Explanation> {
 	private final double weight;
 	private Set<Entity> entities;
 	private boolean DEBUG = false;
 
+	/**
+	 * @param entities a set of entities (e.g., expressions, constraints, hypotheses)
+	 * @param weight a weight w.r.t. ranking metric
+	 */
 	public Explanation(Set<Entity> entities, double weight) {
 		this.entities = entities;
 		this.weight = weight;
 	}
 	
+	/**
+	 * @return weight
+	 */
 	public double getWeight() {
 		return weight;
 	}
 	
+	/**
+	 * @return a set of entities
+	 */
 	public Set<Entity> getEntities() {
 		return entities;
 	}
@@ -36,6 +45,12 @@ public class Explanation implements Comparable<Explanation> {
 		return new Double(weight).compareTo(o.weight);
 	}
 	
+	/**
+	 * For pretty print of the explanation in HTML format
+	 * 
+	 * @param exprMap a map from string representation of expression to corresponding graph node
+	 * @return
+	 */
 	public String toHTML (Map<String, Node> exprMap) {
 		StringBuffer sb = new StringBuffer();
 		
@@ -55,12 +70,17 @@ public class Explanation implements Comparable<Explanation> {
     	sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
         sb.append(locBuffer.toString());
     	sb.append("])\" ");
-		// setShowHideActions(true, sb, path_buff.toString(), 0);
 		sb.append(">show it</button><br>\n");
     	
    		return sb.toString();
 	}
 	
+	/**
+	 * For pretty print of the explanation to console
+	 * 
+	 * @param exprMap a map from string representation of expression to corresponding graph node
+	 * @return
+	 */
 	public String toConsole (Map<String, Node> exprMap) {
 		StringBuffer sb = new StringBuffer();
 		
@@ -74,11 +94,12 @@ public class Explanation implements Comparable<Explanation> {
     	
    		return sb.toString();
 	}
-	
+
+	@Override
 	public String toString() {
     	StringBuffer exprBuffer = new StringBuffer();
-    	for (Entity e : entities) {
-    		exprBuffer.append(e.toString()+e.getSuccCount()+"    ");
+    	for (Entity en : entities) {
+    		exprBuffer.append(en.toString()+"("+en.getSuccCount()+")    ");
     	}
     	return exprBuffer.toString();
 	}
