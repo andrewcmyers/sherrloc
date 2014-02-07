@@ -53,7 +53,6 @@ public class Analysis {
 	String sourceName;
 	String htmlFileName;
 	Position pos=null;
-	Map<String, Node> exprMap;
 	Map<String, Integer> succCount;
 	UnsatPaths unsatPaths;
 	HTTPUtil util;
@@ -61,7 +60,6 @@ public class Analysis {
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
-        exprMap = new HashMap<String, Node>();
         succCount = new HashMap<String, Integer>();
         unsatPaths = new UnsatPaths();
         util = new HTTPUtil();
@@ -184,7 +182,6 @@ public class Analysis {
         
         // initialize the maps, expr to node and succ path counter
         for (Node n : graph.getAllNodes()) {
-        	exprMap.put(n.toString(), n);
         	succCount.put(n.toString(), 0);
         }
         
@@ -281,14 +278,14 @@ public class Analysis {
     	if (!done) {
     		genErrorPaths();
     	}
-    	return unsatPaths.getAssumptionNumber();
+    	return (new MissingHypoInfer(unsatPaths)).getAssumptionNumber();
     }
     
     public String getAssumptionString () {
     	if (!done) {
     		genErrorPaths();
     	}
-    	return unsatPaths.getAssumptionString();
+    	return (new MissingHypoInfer(unsatPaths)).getAssumptionString();
     }
     
     void printRank () {    	
@@ -444,7 +441,7 @@ public class Analysis {
     	StringBuffer sb = new StringBuffer();
     	sb.append(
     		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
-    		(GEN_CUT?paths.genNodeCut(succCount, exprMap, console, VERBOSE)/*+paths.genEdgeCut()*/:""));
+    		(GEN_CUT?(new ExprInfer(paths, succCount)).infer(console, VERBOSE)/*+paths.genEdgeCut()*/:""));
 //    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
     	if (!console) {             
     		sb.append("<HR>\n" + paths.toHTML());
