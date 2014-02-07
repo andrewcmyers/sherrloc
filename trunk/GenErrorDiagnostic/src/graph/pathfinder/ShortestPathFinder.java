@@ -45,10 +45,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 	/**
 	 * Finding the (shortest) reduction path for error diagnosis is an instance
 	 * of the context-free-language-reachability problem with the following grammar:
-	 * 
+	 * <p>
 	 * id := left right | id id 
 	 * left := left id
-	 * 
+	 * <p>
 	 * We use the dynamic programming algorithm proposed by Chris Barrett, Riko
 	 * Jacob and Madhav Marathe. More details can be found in their paper 
 	 * "Formal-language-constrained path problems". One difference is that we also

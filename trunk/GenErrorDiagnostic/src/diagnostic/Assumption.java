@@ -1,6 +1,6 @@
 package diagnostic;
 
-import graph.ElementNode;
+import graph.Node;
 
 /* 
  * assumption is a set of source->sink pairs
@@ -8,10 +8,10 @@ import graph.ElementNode;
  * 
  */
 public class Assumption {
-	ElementNode source;
-	ElementNode sink;
+	Node source;
+	Node sink;
 	
-	public Assumption(ElementNode src, ElementNode snk) {
+	public Assumption(Node src, Node snk) {
 		source = src;
 		sink = snk;
 	}

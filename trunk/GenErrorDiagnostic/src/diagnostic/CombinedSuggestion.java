@@ -1,6 +1,5 @@
 package diagnostic;
 
-import graph.ElementNode;
 import graph.Node;
 
 import java.util.Map;
@@ -40,7 +39,7 @@ public class CombinedSuggestion<K> implements Comparable<CombinedSuggestion<K>> 
 			exprBuffer.append(" #");
     	}
     	for (String c : exprs) {
-			Element en = ((ElementNode)exprMap.get(c)).getElement();
+			Element en = exprMap.get(c).getElement();
     		locBuffer.append("['pathelement', \'"+en.getPosition()+"\'], ");
     		exprBuffer.append(en.toSnippetString()+"    ");
     	}

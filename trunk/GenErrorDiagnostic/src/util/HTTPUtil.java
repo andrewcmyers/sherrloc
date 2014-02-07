@@ -2,7 +2,6 @@ package util;
 
 import graph.ConstraintPath;
 import graph.Edge;
-import graph.ElementNode;
 import graph.EquationEdge;
 import graph.Node;
 
@@ -86,7 +85,7 @@ public class HTTPUtil {
     	for (ConstraintPath path : unsatPaths.getPaths()) {
     		Set<Node> nodes = path.getAllNodes();
     		for (Node node : nodes) {
-    			posSet.add(((ElementNode)node).getElement().getPosition());
+    			posSet.add(node.getElement().getPosition());
     		}
     		
     		List<Edge> edges = path.getEdges();

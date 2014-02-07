@@ -1,16 +1,15 @@
 package diagnostic;
 
 import graph.ConstraintPath;
-import graph.ElementNode;
 import graph.Node;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.ast.Element;
 import util.EntityExplanationFinder;
 import util.HeuristicSearch;
+import constraint.ast.Element;
 import diagnostic.explanation.Entity;
 import diagnostic.explanation.ExprEntity;
 
@@ -28,7 +27,7 @@ public class ExprInfer extends InferenceEngine {
 		
     	for (ConstraintPath path : paths.errPaths) {
     		for (Node n : path.getAllNodes()) {
-    			Element e = ((ElementNode)n).getElement();
+    			Element e = n.getElement();
     			if (!e.getPosition().isEmpty())
     				cand.add(new ExprEntity(n.toString(), e.toSnippetString(), 
     						e.getPosition().toString(), succCount.get(n.toString())));
