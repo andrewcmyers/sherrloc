@@ -15,11 +15,11 @@ import diagnostic.explanation.Explanation;
 /**
  * This class implements the main functionality of A* search. Given a set of
  * entities, method <code>AStarSearch()</code> returns all subsets of entities
- * so that a metric defined in subclass is maximized.
+ * so that a metric defined in subclass is minimized.
  */
 public abstract class HeuristicSearch {
-    protected Entity[] candidates;			// a set of candidates to be searched
-    protected double best=Double.MAX_VALUE;		// current best value
+    protected final Entity[] candidates;				// a set of candidates to be searched
+    private double best=Double.MAX_VALUE;		// current best value
     protected int MAX_SUG = 5;					// if specified, return sub-maximum suggestions
     protected UnsatPaths paths;
     

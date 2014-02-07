@@ -1,8 +1,8 @@
 package diagnostic.explanation;
 
 import graph.ConstraintPath;
-import graph.Node;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import constraint.ast.Environment;
@@ -10,12 +10,11 @@ import constraint.ast.Hypothesis;
 
 public class HypothesisEntity extends Entity {
 	private Hypothesis hypo;
-	private Map<Environment, Environment> cachedEnv;
+	private Map<Environment, Environment> cachedEnv = new HashMap<Environment, Environment>();
 	
-	public HypothesisEntity(Hypothesis hypo, Map<Environment, Environment> cachedEnv) {
+	public HypothesisEntity(Hypothesis hypo) {
 		super(0);
 		this.hypo = hypo;
-		this.cachedEnv = cachedEnv;
 	}
 	
 	@Override
@@ -52,13 +51,13 @@ public class HypothesisEntity extends Entity {
 	}
 	
 	@Override
-	public void toHTML(Map<String, Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf) {
+	public void toHTML(StringBuffer locBuf, StringBuffer exprBuf) {
 		exprBuf.append(toString() + ";");
 	}
 	
 	@Override
-	public void toConsole(Map<String, Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf) {
-		
+	public void toConsole(StringBuffer locBuf, StringBuffer exprBuf) {
+		exprBuf.append(toString() + ";");
 	}
 	
 	@Override

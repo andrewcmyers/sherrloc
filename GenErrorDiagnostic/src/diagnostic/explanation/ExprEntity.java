@@ -1,19 +1,18 @@
 package diagnostic.explanation;
 
 import graph.ConstraintPath;
-import graph.ElementNode;
 import graph.Node;
-
-import java.util.Map;
-
-import constraint.ast.Element;
 
 public class ExprEntity extends Entity {
 	final private String expr;
+	final private String snippet;
+	final private String loc;
 	
-	public ExprEntity(String expr, int succ) {
+	public ExprEntity(String expr, String snippet, String loc, int succ) {
 		super(succ);
 		this.expr = expr;
+		this.snippet = snippet;
+		this.loc = loc;
 	}
 	
 	@Override
@@ -26,17 +25,15 @@ public class ExprEntity extends Entity {
 	}
 	
 	@Override
-	public void toHTML(Map<String,Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf) {
-		Element en = ((ElementNode)exprMap.get(expr)).getElement();
-		locBuf.append("['pathelement', \'"+en.getPosition()+"\'], ");
-		exprBuf.append("<code>"+en.toSnippetString()+"</code>"+" [loc: "+en.getPosition()+"]    ");
+	public void toHTML(StringBuffer locBuf, StringBuffer exprBuf) {
+		locBuf.append("['pathelement', \'"+loc+"\'], ");
+		exprBuf.append("<code>"+snippet+"</code>"+" [loc: "+loc+"]    ");
 	}
 	
 	@Override
-	public void toConsole(Map<String, Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf) {
-		Element en = ((ElementNode)exprMap.get(expr)).getElement();
-		locBuf.append(en.getPosition() + ", ");
-		exprBuf.append(en.toSnippetString() + ", ");
+	public void toConsole(StringBuffer locBuf, StringBuffer exprBuf) {
+		locBuf.append(loc + ", ");
+		exprBuf.append(snippet + ", ");
 	}
 	
 	@Override
