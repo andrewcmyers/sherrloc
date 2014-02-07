@@ -1,7 +1,6 @@
 package diagnostic;
 
 import graph.ConstraintPath;
-import graph.ElementNode;
 import graph.Node;
 
 import java.util.Collection;
@@ -53,7 +52,7 @@ public class UnsatPaths {
 		
     	for (ConstraintPath path : errPaths) {
     		for (Node n : path.getAllNodes()) {
-    			Element e = ((ElementNode)n).getElement();
+    			Element e = n.getElement();
     			if (!e.getPosition().isEmpty())
     				cand.add(new ExprEntity(n.toString(), e.toSnippetString(), 
     						e.getPosition().toString(), 0));
@@ -81,7 +80,7 @@ public class UnsatPaths {
 			StringBuffer path_buff = new StringBuffer();
 			List<Node> nodes = path.getIdNodes();
 			for (Node n : nodes) {
-				path_buff.append("['pathelement', \'"+((ElementNode)n).getElement().getPosition()+"\'], ");
+				path_buff.append("['pathelement', \'"+n.getElement().getPosition()+"\'], ");
 			}
 			sb.append("<LI>\n<span class=\"path\" ");
 			HTTPUtil.setShowHideActions(true, sb, path_buff.toString(), 0);

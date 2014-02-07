@@ -45,19 +45,19 @@ public class ConstraintGraph extends Graph {
         this.SYMMENTRIC = symmentric;
     }
             
-    Map<Element, ElementNode> eleToNode = new HashMap<Element, ElementNode>(); // map from AST elements to graph nodes
+    Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
     int varCounter = 1;
     
     /* get the corresponding node in graph. Create one if none exists */
-    public ElementNode getNode (Element e) {
+    public Node getNode (Element e) {
     	return getNode(e, false);
     }
     
-    public ElementNode getNode (Element e, boolean inCons) {
+    public Node getNode (Element e, boolean inCons) {
     	if (! eleToNode.containsKey(e)) {
             String vid = "v"+varCounter;
             varCounter++;
-            ElementNode n = new ElementNode(vid, e, this, inCons); 
+            Node n = new Node (vid, e, this, inCons); 
             eleToNode.put(e, n);
         }
         return eleToNode.get(e);
@@ -70,8 +70,8 @@ public class ConstraintGraph extends Graph {
     
     // claim that first element is leq than the second element because of constraint e
     public boolean addOneConstraint (Element first, Element second, Constraint e) {
-		ElementNode source = getNode(first, true);
-		ElementNode to = getNode(second, true);
+		Node source = getNode(first, true);
+		Node to = getNode(second, true);
 
 		addEdge(source, to, new EquationEdge(e, source, to));
 
@@ -107,7 +107,7 @@ public class ConstraintGraph extends Graph {
         // we need to handle constructors, including two special constructors, join and meet
         while (workingList.size()!=0) {
         	Element e = workingList.get(0);
-        	ElementNode currentnode = getNode(e);
+        	Node currentnode = getNode(e);
             workingList.remove(0);
             processed.add(e);
             
@@ -120,7 +120,7 @@ public class ConstraintGraph extends Graph {
             	
             	int index=0;
                 for (Element element : compset) {
-                    ElementNode compnode = getNode(element);
+                    Node compnode = getNode(element);
                     index++;
                     if (!processed.contains(element) && !workingList.contains(element))
                         workingList.add(element);
@@ -161,14 +161,11 @@ public class ConstraintGraph extends Graph {
         String nodes = "";
         String links = "";
         
-        for (Node node : allNodes) {
-            if (node instanceof ElementNode) {
-                ElementNode n = (ElementNode) node;
-                if (!n.shouldprint)
-                    continue;
-                nodes += n.printNodeToDotString();
-                links += n.printLinkToDotString();
-            }
+        for (Node n : allNodes) {
+			if (!n.shouldprint)
+				continue;
+			nodes += n.printNodeToDotString();
+			links += n.printLinkToDotString();
         }
         
         ret += "digraph G1 {\n";

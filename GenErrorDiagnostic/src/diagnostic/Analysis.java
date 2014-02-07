@@ -4,7 +4,6 @@ package diagnostic;
 import graph.ConstraintGraph;
 import graph.ConstraintPath;
 import graph.Edge;
-import graph.ElementNode;
 import graph.Node;
 import graph.pathfinder.PathFinder;
 import graph.pathfinder.ShortestPathFinder;
@@ -175,8 +174,8 @@ public class Analysis {
 	
     public void genErrorPaths ( ) {
         
-        ArrayList<ElementNode> startNodes = new ArrayList<ElementNode>();
-        ArrayList<ElementNode> endNodes = new ArrayList<ElementNode>();
+        ArrayList<Node> startNodes = new ArrayList<Node>();
+        ArrayList<Node> endNodes = new ArrayList<Node>();
         Set<Element> elements = graph.getAllElements();
         Set<Element> testElements = new HashSet<Element>();
         
@@ -206,8 +205,8 @@ public class Analysis {
     	if (VERBOSE)
     		System.out.println("graph_size: "+graph.getAllNodes().size());
 				
-		for (ElementNode start : startNodes) {
-			for (ElementNode end : endNodes) {
+		for (Node start : startNodes) {
+			for (Node end : endNodes) {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
 				
