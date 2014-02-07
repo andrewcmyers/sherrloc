@@ -3,10 +3,6 @@ package diagnostic.explanation;
 import graph.ConstraintPath;
 import graph.Edge;
 import graph.EquationEdge;
-import graph.Node;
-
-import java.util.Map;
-
 import constraint.ast.Constraint;
 import constraint.ast.Element;
 
@@ -29,7 +25,7 @@ public class ConstraintEntity extends Entity {
 	}
 	
 	@Override
-	public void toHTML(Map<String,Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf) {
+	public void toHTML(StringBuffer locBuf, StringBuffer exprBuf) {
 		Element left = cons.getFirstElement();
 		Element right = cons.getSecondElement();
 		locBuf.append("['left', \'"+left.getPosition()+"\'], ");
@@ -40,7 +36,7 @@ public class ConstraintEntity extends Entity {
 	}
 	
 	@Override
-	public void toConsole(Map<String, Node> exprMap, StringBuffer locBuf, StringBuffer exprBuf) {
+	public void toConsole(StringBuffer locBuf, StringBuffer exprBuf) {
 		Element left = cons.getFirstElement();
 		Element right = cons.getSecondElement();
 		locBuf.append(left.getPosition() + ", ");

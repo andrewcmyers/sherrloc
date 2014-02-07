@@ -1,8 +1,5 @@
 package diagnostic.explanation;
 
-import graph.Node;
-
-import java.util.Map;
 import java.util.Set;
 
 import util.HTTPUtil;
@@ -51,7 +48,7 @@ public class Explanation implements Comparable<Explanation> {
 	 * @param exprMap a map from string representation of expression to corresponding graph node
 	 * @return
 	 */
-	public String toHTML (Map<String, Node> exprMap) {
+	public String toHTML ( ) {
 		StringBuffer sb = new StringBuffer();
 		
 		if (DEBUG) {
@@ -61,7 +58,7 @@ public class Explanation implements Comparable<Explanation> {
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
 		for (Entity en : entities) {
-			en.toHTML(exprMap, locBuffer, exprBuffer);
+			en.toHTML(locBuffer, exprBuffer);
     	}
     	sb.append("<span class=\"path\" ");
 		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
@@ -81,13 +78,13 @@ public class Explanation implements Comparable<Explanation> {
 	 * @param exprMap a map from string representation of expression to corresponding graph node
 	 * @return
 	 */
-	public String toConsole (Map<String, Node> exprMap) {
+	public String toConsole ( ) {
 		StringBuffer sb = new StringBuffer();
 		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
 		for (Entity en : entities) {
-			en.toConsole(exprMap, locBuffer, exprBuffer);
+			en.toConsole(locBuffer, exprBuffer);
     	}
 		sb.append(exprBuffer.toString()+": ");
         sb.append(locBuffer.toString());

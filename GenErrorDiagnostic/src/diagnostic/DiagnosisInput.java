@@ -5,10 +5,17 @@ import java.util.Set;
 import constraint.ast.Constraint;
 import constraint.ast.Environment;
 
+/**
+ * Result of parser
+ */
 public class DiagnosisInput {
-	Environment env;
-	Set<Constraint> constraints;
+	private Environment env;
+	private Set<Constraint> constraints;
 	
+	/**
+	 * @param env Global assumptions
+	 * @param cons A set of constraints
+	 */
 	public DiagnosisInput(Environment env, Set<Constraint> cons) {
 		this.env = env;
 		constraints = cons;
