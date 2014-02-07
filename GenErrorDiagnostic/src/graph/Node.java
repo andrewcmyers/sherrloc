@@ -1,53 +1,103 @@
 package graph;
 
+import java.util.Map;
+import java.util.Set;
+
 import constraint.ast.Element;
 
-
-abstract public class Node implements Comparable<Node>{
-    int count;
-    int index; // index in graph
+/**
+ * A node in the constraint graph represents an element in the constraint
+ * language. A node <code>Node</code> has an unique id (to generate dot graph),
+ * a constraint element, 
+ * 
+ */
+public class Node {
+    private int index; // index in graph
+    private Element element;
+    private Graph graph;
+    private String uid;
     public boolean shouldprint;
     boolean iscause;
+    boolean isInCons;
           
-    public Node(Graph g) {
+    public Node(String uid, Element element, Graph graph, boolean isIncons) {
         shouldprint = false;
         iscause = false;
-        count = 0;
-        g.addNode(this);
-        index = g.getAllNodes().indexOf(this);
+        graph.addNode(this);
+        index = graph.getAllNodes().indexOf(this);
+        this.element = element;
+        this.graph = graph;
+        this.isInCons = isIncons;
+        this.uid = uid;
     }
         
     void setCause () {
         iscause = true;
-        count ++;
     }
     
     public boolean isCause () {
         return iscause;
     }
-    
-    int getCount () {
-        return count;
-    }
-    
-    
-    double getRank () {
-    	return count;
-    }
-    
+            
     public int getIndex() {
 		return index;
 	}
     
-    public int compareTo(Node n) {
-        double rank1 = getRank();
-        double rank2 = n.getRank();
-        return Double.compare(rank2, rank1);
+    public String getName () {
+    	return element.toDetailString();
     }
-        
-    abstract public void incSuccCounter ();
-    abstract public void incNestedCounter (int i);
-    abstract public int getSuccCounter ();
-    abstract public Element getElement ();
-    abstract public String getName();
+    
+    public Element getElement() {
+		return element;
+	}
+    
+    public boolean isInCons () {
+    	return isInCons;
+    }
+    
+    /* treat join labels in backtracking specially for better error message */
+    public boolean isend () {
+    	return element.hasVars();
+    }
+    
+    public String toString() {
+        return getName();
+    }
+    
+    public void incSuccCounter () {
+        element.incSuccCounter(1);
+    }
+    
+    public void incNestedCounter (int i) {
+        element.incSuccCounter(i);
+    }
+    
+    public int getSuccCounter () {
+		return element.getSuccCounter();
+	}
+    
+    public String printNodeToDotString () {
+        if (isCause())
+            return  uid + " [style=filled, fillcolor=yellow, label=\"" + element.toDotString()+ "\"];\n";
+        else
+            return  uid + " [label=\"" + element.toDotString()+ "\"];\n";
+    }
+    
+    public String printLinkToDotString () {
+        String ret = "";
+        Map<Node, Set<Edge>> neighbors = graph.getNeighbors(this);
+        for (Node n : neighbors.keySet()) {
+			for (Edge edge : graph.getEdges(this, n)) {
+				if (n.shouldprint) {
+					if (edge.isDirected())
+						ret += this.uid + "->" + n.uid + " [label=\""
+								+ edge.toDotString() + "\"];\n";
+					else if (this.getIndex() < n.getIndex())
+						ret += this.uid + "->" + n.uid + " [dir=both label=\""
+								+ edge.toDotString() + "\"];\n";
+				}
+			}
+        }
+        return ret;
+    }
 }

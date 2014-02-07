@@ -1,6 +1,5 @@
 package graph.visitor;
 
-import graph.ElementNode;
 import graph.Node;
 
 import java.util.HashSet;
@@ -23,15 +22,12 @@ public class ToDotVisitor implements NodeVisitor {
     }
     
     public void visit(Node node) {
-        if (node instanceof ElementNode) {
-            ElementNode n = (ElementNode) node;
-            if (!n.shouldprint)
-                return;
-//            sourcePosition.addAll(n.getPositions());
-            nodes += n.printNodeToDotString();
-            links += n.printLinkToDotString();
-        }
-    }
+		if (!node.shouldprint)
+			return;
+		// sourcePosition.addAll(n.getPositions());
+		nodes += node.printNodeToDotString();
+		links += node.printLinkToDotString();
+   }
     
     public String getNodeString () { return nodes;}
     public String getLinkString () { return links;}
