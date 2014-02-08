@@ -3,38 +3,39 @@ package constraint.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-/* a compound element is constructed by a Constructor */
+/**
+ * Represents a constraint element with parameters, such as constructors with
+ * non-zero arity, join and meet elements
+ */
 public abstract class EnumerableElement extends Element {
-	List<Element> elements;
-	
+	protected List<Element> elements;
+
 	public EnumerableElement(String name, List<Element> elements) {
 		super(name, Position.EmptyPosition());
 		this.elements = elements;
 	}
-	
-	public List<Element> getElements () {
+
+	public List<Element> getElements() {
 		return elements;
 	}
-	
+
 	// return the symbol of the current element, such as ->, *, meet, join
 	abstract String getSymbol();
-	
+
 	public String toString() {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
 		if (symbol.equals("->") || symbol.equals("*") || symbol.equals("<-")) {
 			return infixToString();
-		}
-		else {
+		} else {
 			ret += symbol;
 			for (Element e : elements)
-				ret += " ("+e.toString() + ")";
+				ret += " (" + e.toString() + ")";
 		}
 		return ret;
 	}
 
-	
 	public String toSnippetString() {
 		if (!pos.isEmpty()) {
 			return pos.snippet.toString();
@@ -44,15 +45,14 @@ public abstract class EnumerableElement extends Element {
 		// infix
 		if (symbol.equals("->") || symbol.equals("*") || symbol.equals("<-")) {
 			return infixToSnippetString();
-		}
-		else {
+		} else {
 			ret += symbol;
 			for (Element e : elements)
-				ret += " ("+e.toSnippetString() + ")";
+				ret += " (" + e.toSnippetString() + ")";
 		}
 		return ret;
 	}
-		
+
 	@Override
 	public String toDotString() {
 		String symbol = getSymbol();
@@ -60,59 +60,59 @@ public abstract class EnumerableElement extends Element {
 		// infix
 		if (symbol.equals("->") || symbol.equals("*")) {
 			return infixToDotString();
-		}
-		else {
+		} else {
 			ret += symbol;
 			for (Element e : elements)
-				ret += " ("+e.toDotString() + ")";
+				ret += " (" + e.toDotString() + ")";
 		}
 		return ret;
 	}
-	
-	public String infixToString () {
+
+	public String infixToString() {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
-		ret += "("+elements.get(0).toString() + ")";
-		for (int j=1; j<elements.size(); j++)
+		ret += "(" + elements.get(0).toString() + ")";
+		for (int j = 1; j < elements.size(); j++)
 			ret += symbol + "(" + elements.get(j).toString() + ")";
 		return ret;
 	}
-	
-	public String infixToSnippetString () {
+
+	public String infixToSnippetString() {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
-		ret += "("+elements.get(0).toSnippetString() + ")";
-		for (int j=1; j<elements.size(); j++)
+		ret += "(" + elements.get(0).toSnippetString() + ")";
+		for (int j = 1; j < elements.size(); j++)
 			ret += symbol + "(" + elements.get(j).toSnippetString() + ")";
 		return ret;
 	}
-	
-	public String infixToDotString () {
+
+	public String infixToDotString() {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
-		ret += "("+elements.get(0).toDotString() + ")";
-		for (int j=1; j<elements.size(); j++)
+		ret += "(" + elements.get(0).toDotString() + ")";
+		for (int j = 1; j < elements.size(); j++)
 			ret += symbol + "(" + elements.get(j).toDotString() + ")";
 		return ret;
 	}
-	
-	public List<Variable> getVars () {
+
+	public List<Variable> getVars() {
 		List<Variable> ret = new ArrayList<Variable>();
 		for (Element e : elements) {
 			ret.addAll(e.getVars());
 		}
 		return ret;
 	}
-	
+
 	public boolean hasVars() {
 		for (Element e : elements)
-			if (e.hasVars()) return true;
+			if (e.hasVars())
+				return true;
 		return false;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof EnumerableElement) {
@@ -128,7 +128,7 @@ public abstract class EnumerableElement extends Element {
 		}
 		return true;
 	}
-	
+
 	public int hashCode() {
 		int ret = 1;
 		for (Element e : elements) {
@@ -136,13 +136,4 @@ public abstract class EnumerableElement extends Element {
 		}
 		return ret;
 	}
-	
-	
-	public Element getInstance() {
-		if (hasVars()) {
-			return getBaseElement();
-		}
-		else
-			return this;
-	};
 }

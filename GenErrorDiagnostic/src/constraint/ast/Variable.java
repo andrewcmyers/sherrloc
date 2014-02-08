@@ -51,6 +51,11 @@ public class Variable extends Element {
 	public boolean isTop() {
 		return false;
 	}
+
+	@Override
+	public boolean trivialStart() {
+		return true;
+	}
 	
 	@Override
 	public boolean trivialEnd() {

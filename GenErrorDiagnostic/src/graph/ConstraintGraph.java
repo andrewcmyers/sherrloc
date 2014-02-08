@@ -20,23 +20,32 @@ import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Relation;
 
-/*
- * A constraint graph takes a set of constructors (include user-defined ones), assumptions, as well as constraints as inputs
- * 
- * This class builds a basic graph from the constraints, without any path finding algorithm
- * Different PathFinders are used to find unsatisfiable paths, which is later used as inputs to the analysis
- * 
+/**
+ * A constraint graph is built on a set of constructors (including user-defined
+ * ones), assumptions, as well as constraints as inputs.
+ * <p>
+ * This class builds a basic graph from the constraints, without saturation.
+ * Different <code>PathFinders</code> are used to saturate the graph, which is
+ * later used as inputs to infer the most likely error cause.
  */
 public class ConstraintGraph extends Graph {
-	Environment env;
-    Set<Constraint> constraints;
-    boolean SYMMENTRIC;
-    boolean DEBUG = false;
+	private Environment env;
+    private Set<Constraint> constraints;
+    
+    private Set<String> files;                                          // source codes involved, only used for DOT files
+    private boolean generated;                                   		// if the graph has been generated already, just reuse it
+    private final boolean PRINT_SRC = false;                     		// print corresponding source code in DOT files
+    private final boolean DEBUG = false;
+    private boolean SYMMENTRIC;
+    private Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
+    private int varCounter = 1;
 
-    Set<String> files;                                          // source codes involved
-    public boolean generated;                                   // if the graph has been generated already, just reuse it
-    static final boolean PRINT_SRC = false;                     // print corresponding source code in DOT files
-
+    /**
+     * @param env Global assumptions
+     * @param equations Constraints
+     * @param symmentric Set to true when all constraints are equalities
+     * 
+     */
     public ConstraintGraph (Environment env, Set<Constraint> equations, boolean symmentric) {
         this.env = env;
     	this.constraints = equations;
@@ -44,67 +53,72 @@ public class ConstraintGraph extends Graph {
         this.generated = false;
         this.SYMMENTRIC = symmentric;
     }
-            
-    Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
-    int varCounter = 1;
-    
-    /* get the corresponding node in graph. Create one if none exists */
+                
+    /**
+	 * Lookup a node representing element <code>e</code> in graph. Create a
+	 * fresh node if no such node exists
+	 * 
+	 * @param e Element to find
+	 * @return A node representing <code>e</code>
+	 */
     public Node getNode (Element e) {
-    	return getNode(e, false);
-    }
-    
-    public Node getNode (Element e, boolean inCons) {
     	if (! eleToNode.containsKey(e)) {
             String vid = "v"+varCounter;
             varCounter++;
-            Node n = new Node (vid, e, this, inCons); 
+            Node n = new Node (vid, e, this); 
             eleToNode.put(e, n);
         }
         return eleToNode.get(e);
     }
-    
+
+    /**
+     * @param e A constraint element
+     * @return True if the graph has a node representing <code>e</code>
+     */
     public boolean hasElement (Element e) {
     	return eleToNode.containsKey(e);
     }
     
-    
-    // claim that first element is leq than the second element because of constraint e
-    public boolean addOneConstraint (Element first, Element second, Constraint e) {
-		Node source = getNode(first, true);
-		Node to = getNode(second, true);
+    /**
+	 * Adding a constraint to graph (add edges between nodes representing
+	 * constraint elements)
+	 * 
+	 * @param cons Constraint
+	 */
+    public void addOneConstraint (Constraint cons) {
+		Node source = getNode(cons.getFirstElement());
+		Node to = getNode(cons.getSecondElement());
 
-		addEdge(source, to, new EquationEdge(e, source, to));
+		addEdge(source, to, new EquationEdge(cons, source, to));
 
-		if (e.getRelation() == Relation.EQ)
-			addEdge(to, source, new EquationEdge(e, to, source));
-		return true;    		
+		if (cons.getRelation() == Relation.EQ)
+			addEdge(to, source, new EquationEdge(cons, to, source));
     }
     
+    /**
+     * Generate a constraint graph from constraints
+     */
     public void generateGraph ( ) {
         if (generated || constraints.size() == 0)
             return;
        
-        // generate the simple links from the constraints. handle constructors, meet and join later
+        /** generate the simple links from the constraints. handle constructors, meet and join later */
 		for (Constraint cons : constraints) {
-			addOneConstraint(cons.getFirstElement(), cons.getSecondElement(), cons);
+			addOneConstraint(cons);
 		}
 		
 		if (DEBUG)
 			System.out.println("Total simple nodes : " + eleToNode.size());
                 
-        /* 
-         * generate inferred links from constructors, join and meet elements
-         * 1. flow from components to components of same constructor
-         * 2. flow from components to a join label
-         * 3. flow from a meet label to components
-         * 
-         */
-		
-        // only need to handle nodes in the graph
+        /**
+         * generate extra nodes and edges for constructors, join and meet elements
+         * 1. Constructor edges between a constructor and its parameters
+         * 2. Edges from components to a join element
+         * 3. Edges from a meet element to components
+         */		
         List<Element> workingList = new ArrayList<Element>(eleToNode.keySet());
         Set<Element> processed = new HashSet<Element>();
         
-        // we need to handle constructors, including two special constructors, join and meet
         while (workingList.size()!=0) {
         	Element e = workingList.get(0);
         	Node currentnode = getNode(e);
@@ -122,6 +136,7 @@ public class ConstraintGraph extends Graph {
                 for (Element element : compset) {
                     Node compnode = getNode(element);
                     index++;
+                    // add the component element to the working list if not seen before
                     if (!processed.contains(element) && !workingList.contains(element))
                         workingList.add(element);
                     
@@ -145,8 +160,13 @@ public class ConstraintGraph extends Graph {
         	System.out.println("Total nodes after static: " + eleToNode.size());
     }
     
-    // this function is used to filter out letters that can not be prettily printed in the dot format
-    // such as " and \n
+    /**
+	 * This function is used to filter out characters that can not be prettily
+	 * printed in the DOT format such as " and \n
+	 * 
+	 * @param s A string to output to a DOT file
+	 * @return A string without " and \
+	 */
     private String sanitaze (String s) {
         if (s!=null)
             return s.replace('"', '\'').replace("\\", "\\\\");
@@ -154,10 +174,11 @@ public class ConstraintGraph extends Graph {
             return s;
     }
     
-    
+    /**
+     * @return A string in DOT file format which represents the graph
+     */
     public String toDotString ( ) {
         String ret = "";
-        
         String nodes = "";
         String links = "";
         
@@ -196,30 +217,39 @@ public class ConstraintGraph extends Graph {
         return ret;
     }
     
+    /** 
+     * Mark graph nodes that relates to an error
+     */
     public void slicing () {
     	for (Node node : allNodes) {
     		node.shouldprint = node.isCause();
     	}
     }
     
+    /**
+     * @return All constraint elements
+     */
     public Set<Element> getAllElements () {
      return eleToNode.keySet();	
     }
     
+    /**
+     * @return Global assumptions
+     */
     public Environment getEnv() {
 		return env;
 	}
     
+    /**
+     * @return Constraints
+     */
     public Set<Constraint> getConstraints() {
 		return constraints;
 	}
     
-    public void showAllConstraints() {
-    	for (Constraint c : constraints) {
-    		System.out.println(c);
-    	}
-    }
-    
+    /**
+     * @return True if all constraints are equalities
+     */
     public boolean isSymmentric() {
 		return SYMMENTRIC;
 	}

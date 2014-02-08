@@ -178,24 +178,21 @@ term     	::=  ele_pos:t1 ARROW ele_pos:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				ComplexElement e = new ComplexElement ("", constructors.get("arrow"), l);
-				RESULT = e.getInstance();
+				RESULT = new ComplexElement ("", constructors.get("arrow"), l);
 			:}
 			|
 				ele_pos:t1 LARROW ele_pos:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				ComplexElement e = new ComplexElement ("", constructors.get("larrow"), l);
-				RESULT = e.getInstance();
+				RESULT = new ComplexElement ("", constructors.get("larrow"), l);
 			:}
 			| ele_pos:t1 COMMA ele_pos:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				ComplexElement e = new ComplexElement ("", constructors.get("pair"), l); 
-				RESULT = e;
+				RESULT = new ComplexElement ("", constructors.get("pair"), l); 
 			:}
 			| ele_pos:t1 JOIN join_list:l
 			{: 	
@@ -221,8 +218,7 @@ term     	::=  ele_pos:t1 ARROW ele_pos:t2
 			        Constructor c = (Constructor) e;
 				    if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
-			        ComplexElement ret = new ComplexElement ("", c, l);
-			        RESULT = ret.getInstance();
+			        RESULT = new ComplexElement ("", c, l);
 			    } 
 			:}
 /*			| element:e position:p
