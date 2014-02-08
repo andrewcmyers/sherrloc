@@ -42,17 +42,7 @@ public class MeetElement extends EnumerableElement {
 	String getSymbol() {
 		return "meet";
 	}
-	
-	@Override
-	public boolean isStart() {
-		return true;
-	}
-	
-	@Override
-	public boolean isEnd() {
-		return false;
-	}
-	
+		
 	@Override
 	public boolean equals (Object o) {
 		if (this==o)
@@ -86,6 +76,11 @@ public class MeetElement extends EnumerableElement {
 		}
 		return false;
 	}	
+	
+	@Override
+	public boolean trivialStart() {
+		return false;
+	}
 	
 	@Override
 	public boolean trivialEnd() {

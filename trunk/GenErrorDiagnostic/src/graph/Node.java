@@ -18,16 +18,14 @@ public class Node {
     private String uid;
     public boolean shouldprint;
     boolean iscause;
-    boolean isInCons;
           
-    public Node(String uid, Element element, Graph graph, boolean isIncons) {
+    public Node(String uid, Element element, Graph graph) {
         shouldprint = false;
         iscause = false;
         graph.addNode(this);
         index = graph.getAllNodes().indexOf(this);
         this.element = element;
         this.graph = graph;
-        this.isInCons = isIncons;
         this.uid = uid;
     }
         
@@ -50,16 +48,7 @@ public class Node {
     public Element getElement() {
 		return element;
 	}
-    
-    public boolean isInCons () {
-    	return isInCons;
-    }
-    
-    /* treat join labels in backtracking specially for better error message */
-    public boolean isend () {
-    	return element.hasVars();
-    }
-    
+            
     public String toString() {
         return getName();
     }

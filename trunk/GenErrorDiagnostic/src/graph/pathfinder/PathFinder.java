@@ -7,10 +7,8 @@ import graph.Node;
 import java.util.List;
 
 /** 
- * 
  * A path finder is initialized with a constraint graph and it provides an interface 
  * that returns an unsatisfiable path, if one exists
- * 
  */
 
 public abstract class PathFinder {
@@ -36,5 +34,5 @@ public abstract class PathFinder {
 		}
 		
 		return _getPath(start, end);
-	}
+	}	
 }
