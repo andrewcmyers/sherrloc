@@ -154,7 +154,7 @@ public class Environment {
 			
 		if (finder == null) {
 			for (Constraint c : assertions) {
-				graph.addOneConstraint(c.e1, c.e2, c);
+				graph.addOneConstraint(c);
 			}
 			graph.generateGraph();
 			

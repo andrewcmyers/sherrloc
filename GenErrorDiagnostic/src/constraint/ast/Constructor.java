@@ -95,6 +95,11 @@ public class Constructor extends Element {
 	}
 	
 	@Override
+	public boolean trivialStart() {
+		return false;
+	}
+	
+	@Override
 	public boolean trivialEnd() {
 		return false;
 	}

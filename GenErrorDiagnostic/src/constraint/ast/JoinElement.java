@@ -44,15 +44,19 @@ public class JoinElement extends EnumerableElement {
 	}
 	
 	@Override
-	public boolean isStart() {
-		return false;
+	public boolean trivialStart() {
+		return true;
 	}
 	
 	@Override
-	public boolean isEnd() {
-		return true;
+	public boolean trivialEnd() {
+		for (Element e : elements) {
+			if (e.trivialEnd())
+				return true;
+		}
+		return false;
 	}
-
+	
 	@Override
 	public boolean equals (Object o) {
 		if (this == o)
@@ -85,15 +89,6 @@ public class JoinElement extends EnumerableElement {
 				return false;
 		}
 		return true;
-	}
-	
-	@Override
-	public boolean trivialEnd() {
-		for (Element e : elements) {
-			if (e.trivialEnd())
-				return true;
-		}
-		return false;
 	}
 	
 	@Override

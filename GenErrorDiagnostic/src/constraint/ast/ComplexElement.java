@@ -69,6 +69,11 @@ public class ComplexElement extends EnumerableElement {
 	}
 	
 	@Override
+	public boolean trivialStart() {
+		return false;
+	}
+	
+	@Override
 	public boolean trivialEnd() {
 		return false;
 	}

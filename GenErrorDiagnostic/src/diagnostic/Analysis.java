@@ -35,6 +35,8 @@ import constraint.ast.ComplexElement;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.Environment;
+import constraint.ast.JoinElement;
+import constraint.ast.MeetElement;
 import constraint.ast.Position;
 import constraint.parse.GrmLexer;
 import constraint.parse.parser;
@@ -153,8 +155,7 @@ public class Analysis {
 	}
 	
 	private void initialize () {
-		if (!graph.generated) 
-        	graph.generateGraph();
+		graph.generateGraph();
 	}
 	
 	static public Analysis getAnalysisInstance (String input, boolean symmentric) throws Exception {
@@ -189,9 +190,9 @@ public class Analysis {
         }
         
         for (Element element : elements) {
-            if (element.isStart())                    
+            if (!(element instanceof JoinElement))                    
             	startNodes.add(graph.getNode(element));
-			if (element.isEnd())
+			if (!(element instanceof MeetElement))
             	endNodes.add(graph.getNode(element));
         }
         
@@ -227,7 +228,7 @@ public class Analysis {
 				}
 				
 				// if one end is variable, or an join/meet with a variable, the satisfiability is trivial
-				if (e1.trivialEnd() || e2.trivialEnd()) {
+				if (e1.trivialStart() || e2.trivialEnd()) {
 					continue;
 				}
 								
