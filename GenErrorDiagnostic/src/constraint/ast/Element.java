@@ -78,16 +78,10 @@ public abstract class Element {
 	 * @return Dot-friendly string of the element
 	 */
 	abstract public String toDotString ();
-
-	/**
-	 * @return True when the satisfiability of a path is trivial when it starts
-	 *         with the element (e.g., a variable and a join element)
-	 */
-	abstract public boolean trivialStart ();
 	
 	/**
 	 * @return True when the satisfiability of a path is trivial when it ends
-	 *         with the element (e.g., a variable and a meet element)
+	 *         with the element (e.g., a variable)
 	 */
 	abstract public boolean trivialEnd ();
 	
@@ -96,14 +90,27 @@ public abstract class Element {
 	 */
 	abstract public List<Variable> getVars ();
 	
+	/**
+	 * @return True if the element contains a constraint variable
+	 */
 	abstract public boolean hasVars ();
-	
-	abstract public boolean equals (Object o);
-			
+				
+	/**
+	 * @return True if this is the bottom element in lattice
+	 */
 	abstract public boolean isBottom();
 	
+	/**
+	 * @return True if this is the top element in lattice
+	 */
 	abstract public boolean isTop();
 	
-	// all duplicated elements should return the base element, where version number is 0 by this function
+	/**
+	 * Same constraint elements with different positions are treated as
+	 * different elements to improve the precision of error diagnosis. However,
+	 * when testing the partial ordering on elements, this method must be
+	 * called, so that all duplicated elements are represented by the same base
+	 * element, where the position is set to empty
+	 */
 	abstract public Element getBaseElement();
 }

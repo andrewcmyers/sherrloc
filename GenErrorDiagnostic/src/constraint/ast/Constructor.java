@@ -7,20 +7,33 @@ public class Constructor extends Element {
 	int		arity;
 	boolean contraVariant;
 	
+	/**
+	 * @param name Constructor name
+	 * @param arity Arity of the constructor
+	 * @param contravariant False if all parameters are covariant; true if all parameters are contravariant
+	 * @param p Position of the element in source code
+	 */
 	public Constructor(String name, int arity, boolean contravariant, Position p) {
 		super(name, p);
 		this.arity = arity;
 		this.contraVariant = contravariant;
 	}
 	
+	/**
+	 * @return Arity of the constructor
+	 */
 	public int getArity () {
 		return arity;
 	}
 	
+	/**
+	 * @return False if all parameters are covariant; true if all parameters are contravariant
+	 */
 	public boolean isContraVariant() {
 		return contraVariant;
 	}
 	
+	@Override
 	public String toString () {
 		if (name.equals("arrow"))
 			return "->";
@@ -32,6 +45,7 @@ public class Constructor extends Element {
 			return name;
 	}
 			
+	@Override
 	public String toSnippetString () {
 		if (!pos.isEmpty())
 			return pos.snippet;
@@ -46,19 +60,25 @@ public class Constructor extends Element {
 			return name;
 	}
 	
+	@Override
 	public String toDotString () {
 		return toString();
 	}
 		
+	@Override
 	public List<Variable> getVars () {
 		return new ArrayList<Variable>();
 	}
 	
+	@Override
 	public boolean hasVars() {
 		return false;
 	}
 	
 	@Override
+	/**
+	 * Same constructor as different positions are treated as different elements to improve the precision of error diagnosis
+	 */
 	public boolean equals(Object o) {
 		if (o instanceof Constructor) {
 			Constructor c = (Constructor)o;
@@ -72,15 +92,8 @@ public class Constructor extends Element {
 		return arity * 85751 + name.hashCode()*1913 + pos.hashCode()*3 + (this.contraVariant?1:0);
 	}
 		
-	/* To make error diagnosis more precise, different instances of constants
-	 * should be treated as separate nodes in the constraint flow graph.
-	 * However, these constructors are the same when solving the constraints. 
-	 * 
-	 * The trick here is constants with different positions in the source code are
-	 * duplicated in the constraint graph, but operations on constraint solving 
-	 * call getBaseElement() to treat these duplicated nodes in the same way
-	 */
-	public Constructor getInstance ( ) {
+	@Override
+	public Constructor clone ( ) {
 		return new Constructor(name, arity, contraVariant, pos);
 	}
 	
@@ -91,11 +104,6 @@ public class Constructor extends Element {
 	
 	@Override
 	public boolean isTop() {
-		return false;
-	}
-	
-	@Override
-	public boolean trivialStart() {
 		return false;
 	}
 	

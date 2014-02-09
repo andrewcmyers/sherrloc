@@ -178,21 +178,24 @@ term     	::=  ele_pos:t1 ARROW ele_pos:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ComplexElement ("", constructors.get("arrow"), l);
+				ComplexElement e = new ComplexElement ("", constructors.get("arrow"), l);
+				RESULT = e.getInstance();
 			:}
 			|
 				ele_pos:t1 LARROW ele_pos:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ComplexElement ("", constructors.get("larrow"), l);
+				ComplexElement e = new ComplexElement ("", constructors.get("larrow"), l);
+				RESULT = e.getInstance();
 			:}
 			| ele_pos:t1 COMMA ele_pos:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				RESULT = new ComplexElement ("", constructors.get("pair"), l); 
+				ComplexElement e = new ComplexElement ("", constructors.get("pair"), l); 
+				RESULT = e.getInstance();
 			:}
 			| ele_pos:t1 JOIN join_list:l
 			{: 	
@@ -286,7 +289,7 @@ element		::= IDENTIFIER:s
 			{: 	
 			    Element e;
 				if (constructors.containsKey(s)) {
-					e = constructors.get(s).getInstance();
+					e = constructors.get(s).clone();
 				} 
 			   	else {
 			   		if (!(variables.containsKey(s)))
