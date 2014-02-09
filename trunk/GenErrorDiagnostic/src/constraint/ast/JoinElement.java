@@ -42,12 +42,7 @@ public class JoinElement extends EnumerableElement {
 	String getSymbol() {
 		return "join";
 	}
-	
-	@Override
-	public boolean trivialStart() {
-		return true;
-	}
-	
+		
 	@Override
 	public boolean trivialEnd() {
 		for (Element e : elements) {

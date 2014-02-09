@@ -4,24 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a constraint element with parameters, such as constructors with
- * non-zero arity, join and meet elements
+ * A constraint element with parameters, such as constructors with non-zero
+ * arity, join and meet elements
  */
 public abstract class EnumerableElement extends Element {
 	protected List<Element> elements;
 
+	/**
+	 * @param name Constructor name
+	 * @param elements A list of parameters
+	 */
 	public EnumerableElement(String name, List<Element> elements) {
 		super(name, Position.EmptyPosition());
 		this.elements = elements;
 	}
 
+	/**
+	 * @return A list of parameters
+	 */
 	public List<Element> getElements() {
 		return elements;
 	}
 
-	// return the symbol of the current element, such as ->, *, meet, join
+	/**
+	 * @return the symbol of the current element, such as ->, *, meet, join
+	 */
 	abstract String getSymbol();
 
+	@Override
 	public String toString() {
 		String symbol = getSymbol();
 		String ret = "";
@@ -36,6 +46,7 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 
+	@Override
 	public String toSnippetString() {
 		if (!pos.isEmpty()) {
 			return pos.snippet.toString();
@@ -68,7 +79,10 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 
-	public String infixToString() {
+	/**
+	 * @return Pretty print in infix format
+	 */
+	protected String infixToString() {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
@@ -78,7 +92,11 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 
-	public String infixToSnippetString() {
+	
+	/**
+	 * @return Pretty print in infix format
+	 */
+	protected String infixToSnippetString() {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
@@ -88,7 +106,10 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 
-	public String infixToDotString() {
+	/**
+	 * @return Pretty print in infix format
+	 */
+	protected String infixToDotString() {
 		String symbol = getSymbol();
 		String ret = "";
 		// infix
@@ -98,6 +119,7 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 
+	@Override
 	public List<Variable> getVars() {
 		List<Variable> ret = new ArrayList<Variable>();
 		for (Element e : elements) {
@@ -106,6 +128,7 @@ public abstract class EnumerableElement extends Element {
 		return ret;
 	}
 
+	@Override
 	public boolean hasVars() {
 		for (Element e : elements)
 			if (e.hasVars())
@@ -129,6 +152,7 @@ public abstract class EnumerableElement extends Element {
 		return true;
 	}
 
+	@Override
 	public int hashCode() {
 		int ret = 1;
 		for (Element e : elements) {
@@ -136,4 +160,13 @@ public abstract class EnumerableElement extends Element {
 		}
 		return ret;
 	}
+	
+	public Element getInstance() {
+		if (hasVars()) {
+			return getBaseElement();
+		}
+		else
+			return this;
+	};
+
 }
