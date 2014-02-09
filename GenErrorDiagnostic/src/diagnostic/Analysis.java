@@ -228,7 +228,7 @@ public class Analysis {
 				}
 				
 				// if one end is variable, or an join/meet with a variable, the satisfiability is trivial
-				if (e1.trivialStart() || e2.trivialEnd()) {
+				if (e1.trivialEnd() || e2.trivialEnd()) {
 					continue;
 				}
 								

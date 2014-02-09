@@ -13,8 +13,8 @@ public class Bottom extends Constructor {
 	}
 	
 	@Override
-	public Bottom getInstance () {
-		return new Bottom(Position.EmptyPosition());
+	public Bottom clone () {
+		return new Bottom(pos);
 	}
 		
 	@Override
