@@ -27,7 +27,7 @@ public class ConstraintInfer extends InferenceEngine {
     		for (Edge edge : path.getEdges()) {
     			if (edge instanceof EquationEdge) {
     				Constraint cons = ((EquationEdge) edge).getEquation();
-    				cand.add(new ConstraintEntity(cons, cons.getSuccPaths()));
+    				cand.add(new ConstraintEntity(cons, cons.getNumSuccPaths()));
     			}
     		}
     	}

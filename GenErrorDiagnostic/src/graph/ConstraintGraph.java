@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.ast.ComplexElement;
+import constraint.ast.ConstructorApplication;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.EnumerableElement;
@@ -146,11 +146,11 @@ public class ConstraintGraph extends Graph {
                     else if (e instanceof JoinElement) {
                     	addEdge(compnode, currentnode, new JoinEdge(compnode, currentnode));
                     }
-                    else if (e instanceof ComplexElement){
-                    	ComplexElement ce = (ComplexElement)e;
+                    else if (e instanceof ConstructorApplication){
+                    	ConstructorApplication ce = (ConstructorApplication)e;
                     	Polarity pol = ce.getCons().isContraVariant()?Polarity.NEG:Polarity.POS;
-                    	addEdge(compnode, currentnode, new ConstructorEdge(new EdgeCondition(((ComplexElement)e).getCons(), index, false, pol), compnode, currentnode));
-                    	addEdge(currentnode, compnode, new ConstructorEdge(new EdgeCondition(((ComplexElement)e).getCons(), index, true, pol), currentnode, compnode));
+                    	addEdge(compnode, currentnode, new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, false, pol), compnode, currentnode));
+                    	addEdge(currentnode, compnode, new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, true, pol), currentnode, compnode));
                     }
                 }
             }

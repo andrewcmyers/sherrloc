@@ -69,7 +69,7 @@ public class EntityExplanationFinder extends HeuristicSearch {
         
     public void addSerchNode (PriorityQueue<SearchNode> queue, int candIdx, SearchNode previous, int index) {
 		List<ConstraintPath> remaining = new ArrayList<ConstraintPath>();
-    	Collection<ConstraintPath> toSat;
+		Collection<ConstraintPath> toSat;
 		Set<Integer> set;
 		Entity cand = candidates[candIdx];
     	if (previous == null) {

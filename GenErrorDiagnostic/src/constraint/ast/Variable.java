@@ -5,21 +5,32 @@ import java.util.List;
 
 import util.StringUtil;
 
+/**
+ * This class represents constraint variable to be inferred
+ */
 public class Variable extends Element {
+	
+	/**
+	 * @param name Variable name
+	 * @param p Source code position of the variable
+	 */
 	public Variable(String name, Position p) {
 		super(name, p);
 	}
 	
+	@Override
 	public List<Variable> getVars () {
 		List<Variable> ret = new ArrayList<Variable>();
 		ret.add(this);
 		return ret;
 	}
 	
+	@Override
 	public boolean hasVars() {
 		return true;
 	}
 	
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Variable) {
 			return this.name==((Variable)o).name;

@@ -31,7 +31,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
 import util.HTTPUtil;
-import constraint.ast.ComplexElement;
+import constraint.ast.ConstructorApplication;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.Environment;
@@ -218,8 +218,8 @@ public class Analysis {
 				if (l==null) continue;
 								
 				if (!REC && start.getIndex() != end.getIndex()) {
-					if ( (e1 instanceof ComplexElement && e1.getVars().contains(e2)) 
-					  || (e2 instanceof ComplexElement && e2.getVars().contains(e1))) {
+					if ( (e1 instanceof ConstructorApplication && e1.getVars().contains(e2)) 
+					  || (e2 instanceof ConstructorApplication && e2.getVars().contains(e1))) {
 						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
 						path.setCause();
 						unsatPaths.addUnsatPath(path);
@@ -247,6 +247,7 @@ public class Analysis {
 					testElements.add(e2);
 					path.setCause();
 					unsatPaths.addUnsatPath(path);
+//					System.out.println(path);
 				}
 			}
 		}
@@ -292,8 +293,8 @@ public class Analysis {
         Constraint[] all = graph.getConstraints().toArray(new Constraint[graph.getConstraints().size()]);
         Arrays.sort(all); 
         for (Constraint equ : all) {
-            if (equ.getRank() >0) 
-                System.out.println(equ.getRank() + ": " + equ.toString());
+            if (equ.getNumSuccPaths() >0) 
+                System.out.println(equ.getNumSuccPaths() + ": " + equ.toString());
         }
     }
     

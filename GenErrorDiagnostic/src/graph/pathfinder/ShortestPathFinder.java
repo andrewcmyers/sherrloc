@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import constraint.ast.ComplexElement;
+import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
@@ -463,8 +463,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// constructors
 		for (Node cnFrom : consElements.get(from)) {
 			for (Node cnTo : consElements.get(to)) {				
-				ComplexElement ce1 = (ComplexElement) cnFrom.getElement();  // make sure this is "ce1", not the swapped one when the constructor is contravariant
-				ComplexElement ce2 = (ComplexElement) cnTo.getElement();
+				ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement();  // make sure this is "ce1", not the swapped one when the constructor is contravariant
+				ConstructorApplication ce2 = (ConstructorApplication) cnTo.getElement();
 				
 				if (!ce1.getCons().isContraVariant() && idPath[cnFrom.getIndex()][cnTo.getIndex()]!=null)
 					continue;
