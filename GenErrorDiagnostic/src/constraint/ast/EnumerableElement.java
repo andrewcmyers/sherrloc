@@ -162,10 +162,10 @@ public abstract class EnumerableElement extends Element {
 	}
 	
 	public Element getInstance() {
-		if (hasVars()) {
-			return getBaseElement();
-		}
-		else
+//		if (hasVars()) {
+//			return getBaseElement();
+//		}
+//		else
 			return this;
 	};
 
