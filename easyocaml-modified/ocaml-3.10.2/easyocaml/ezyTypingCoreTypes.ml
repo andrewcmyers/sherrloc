@@ -150,11 +150,11 @@ end = struct
         | Some l -> tyvarmap, Constr (l, k, tys'))
     | Arrow (label, tx1, tx2) ->
         let tyvarmap, tx1' = fresh_variant ~create ~tyvarmap ~loc tx1 in
-        let tyvarmap, tx2' = fresh_variant ~create ~tyvarmap ~loc:(inc_location loc 1) tx2 in
+        let tyvarmap, tx2' = fresh_variant ~create ~tyvarmap ~loc tx2 in
         tyvarmap, Arrow (label, tx1', tx2')
 
   and fresh_variants ?(create=true) ?(tyvarmap=TyVarMap.empty) ?(loc=None) tys =
-    let aux i tyvarmap ty = fresh_variant ~create ~tyvarmap ~loc:(inc_location loc i) ty in
+    let aux i tyvarmap ty = fresh_variant ~create ~tyvarmap ~loc ty in
     let (x, y, _) = List.foldmapi aux tyvarmap tys in
     (x, y)
 
