@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.ast.ComplexElement;
+import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
@@ -161,8 +161,8 @@ abstract public class CFLPathFinder extends PathFinder {
 				}
 			}
 			
-			if (element instanceof ComplexElement) {
-				ComplexElement ce = (ComplexElement) element;
+			if (element instanceof ConstructorApplication) {
+				ConstructorApplication ce = (ConstructorApplication) element;
 				for (Element ele : ce.getElements()) {
 					consElements.get(g.getNode(ele)).add(n);
 				}

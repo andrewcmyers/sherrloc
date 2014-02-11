@@ -30,9 +30,7 @@ public class ConstraintEntity extends Entity {
 		Element right = cons.getSecondElement();
 		locBuf.append("['left', \'"+left.getPosition()+"\'], ");
 		locBuf.append("['right', \'"+right.getPosition()+"\'], ");
-		exprBuf.append("<code>" + left.toString() + "</code>");
-		exprBuf.append(" is less or equal than ");
-		exprBuf.append("<code>" + right.toString() + "</code>");
+		exprBuf.append(cons.toHTMLString());
 	}
 	
 	@Override
@@ -41,7 +39,7 @@ public class ConstraintEntity extends Entity {
 		Element right = cons.getSecondElement();
 		locBuf.append(left.getPosition() + ", ");
 		locBuf.append(right.getPosition() + ", ");
-		exprBuf.append(cons.toSnippetString() + ", ");
+		exprBuf.append(cons.toConsoleString() + ", ");
 	}
 
 	

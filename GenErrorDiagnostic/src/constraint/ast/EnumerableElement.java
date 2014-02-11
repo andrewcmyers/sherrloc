@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A constraint element with parameters, such as constructors with non-zero
- * arity, join and meet elements
+ * A constraint element with parameters, such as constructor applications, join
+ * and meet elements
  */
 public abstract class EnumerableElement extends Element {
 	protected List<Element> elements;

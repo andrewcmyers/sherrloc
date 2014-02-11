@@ -24,14 +24,14 @@ public class Explanation implements Comparable<Explanation> {
 	}
 	
 	/**
-	 * @return weight
+	 * @return Weight
 	 */
 	public double getWeight() {
 		return weight;
 	}
 	
 	/**
-	 * @return a set of entities
+	 * @return A set of entities
 	 */
 	public Set<Entity> getEntities() {
 		return entities;
@@ -45,8 +45,7 @@ public class Explanation implements Comparable<Explanation> {
 	/**
 	 * For pretty print of the explanation in HTML format
 	 * 
-	 * @param exprMap a map from string representation of expression to corresponding graph node
-	 * @return
+	 * @return Explanation in HTML format
 	 */
 	public String toHTML ( ) {
 		StringBuffer sb = new StringBuffer();
@@ -75,8 +74,7 @@ public class Explanation implements Comparable<Explanation> {
 	/**
 	 * For pretty print of the explanation to console
 	 * 
-	 * @param exprMap a map from string representation of expression to corresponding graph node
-	 * @return
+	 * @return Explanation in plain text
 	 */
 	public String toConsole ( ) {
 		StringBuffer sb = new StringBuffer();
