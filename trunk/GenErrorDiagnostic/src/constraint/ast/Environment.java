@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Environment is a List of additional assumptions (in the form of equations)
- * That can be used in the leq check
+ * Environment represents hypothesis (a conjunction of inequalities)
  */
 public class Environment {
 	Set<Constraint> assertions;
@@ -33,11 +32,7 @@ public class Environment {
 		}
 		return sb.toString();
 	}
-	
-	public Set<Constraint> getAssertions() {
-		return assertions;
-	}
-	
+		
 	public void addAssertion (Constraint equ) {
 		assertions.add(equ.baseConstraint());
 	}
@@ -75,7 +70,7 @@ public class Environment {
 		return leq(p1, p2, true);
 	}
 	
-	public boolean leq(Element p1, Element p2, boolean rec) {
+	private boolean leq(Element p1, Element p2, boolean rec) {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
 				
@@ -86,10 +81,6 @@ public class Environment {
 		if (e1.isBottom() || e2.isTop())
 			return true;
 		
-//		if (e1.toString().equals("{lbl}"))
-//			System.out.print(e1.getClass());
-
-		// the type to be inferred cannot have recursive types
 		if (e1 instanceof Variable || e2 instanceof Variable) {
 			return true;
 		}
@@ -98,15 +89,15 @@ public class Environment {
 		if (rec && leqApplyAssertions(e1, e2))
 			return true;
 					
-		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
-			if (!((ComplexElement)e1).getCons().equals(((ComplexElement)e2).getCons()))
+		if (e1 instanceof ConstructorApplication && e2 instanceof ConstructorApplication) {
+			if (!((ConstructorApplication)e1).getCons().equals(((ConstructorApplication)e2).getCons()))
 				return false;
 		}
 		
-		if (e1 instanceof ComplexElement && e2 instanceof ComplexElement) {
-			List<Element> l1 = ((ComplexElement) e1).elements;
-			List<Element> l2 = ((ComplexElement) e2).elements;
-			boolean contravariant = ((ComplexElement)e1).getCons().isContraVariant();
+		if (e1 instanceof ConstructorApplication && e2 instanceof ConstructorApplication) {
+			List<Element> l1 = ((ConstructorApplication) e1).elements;
+			List<Element> l2 = ((ConstructorApplication) e2).elements;
+			boolean contravariant = ((ConstructorApplication)e1).getCons().isContraVariant();
 			for (int i=0; i<l1.size(); i++) {
 				if (!contravariant && !leq(l1.get(i), l2.get(i)))
 					return false;
@@ -183,11 +174,11 @@ public class Environment {
 		if (obj instanceof Environment) {
 			Environment other = (Environment) obj;
 			for (Constraint cons : assertions) {
-				if (!other.getAssertions().contains(cons))
+				if (!other.assertions.contains(cons))
 					return false;
 			}
 			
-			for (Constraint cons : other.getAssertions()) {
+			for (Constraint cons : other.assertions) {
 				if (!assertions.contains(cons))
 					return false;
 			}

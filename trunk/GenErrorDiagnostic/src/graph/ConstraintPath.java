@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import constraint.ast.ComplexElement;
+import constraint.ast.ConstructorApplication;
 import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.Environment;
@@ -93,7 +93,7 @@ public class ConstraintPath {
 		for (int k = 0; k < edges.size(); k++) {
 			Edge edge = edges.get(k);
 			Node eto = edge.to;
-			boolean needCmp = eto.getElement() instanceof Constructor || eto.getElement() instanceof ComplexElement
+			boolean needCmp = eto.getElement() instanceof Constructor || eto.getElement() instanceof ConstructorApplication
 					|| eto.getElement() instanceof JoinElement || eto.getElement() instanceof MeetElement;
 			if (edge instanceof EquationEdge || edge instanceof JoinEdge ||
 					edge instanceof MeetEdge) {
@@ -218,7 +218,7 @@ public class ConstraintPath {
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			if (!processedEdges.contains(edge)) {
-				edge.incSuccCounter();
+				edge.incNumSuccCounter();
 				processedEdges.add(edge.toString());
 			}
 			if (!processedNodes.contains(edge.getTo().toString())) {

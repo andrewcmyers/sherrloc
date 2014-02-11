@@ -3,9 +3,13 @@ package constraint.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A constructor (e.g., list(1), pair(2)) has a name, an arity and the variance
+ * of parameters
+ */
 public class Constructor extends Element {
-	int		arity;
-	boolean contraVariant;
+	private final int arity;
+	private final boolean contraVariant;
 	
 	/**
 	 * @param name Constructor name
@@ -27,7 +31,9 @@ public class Constructor extends Element {
 	}
 	
 	/**
-	 * @return False if all parameters are covariant; true if all parameters are contravariant
+	 * @return False if all parameters are covariant; true if all parameters are
+	 *         contravariant (all parameters must have the same variance in the
+	 *         current implementation)
 	 */
 	public boolean isContraVariant() {
 		return contraVariant;
@@ -49,15 +55,8 @@ public class Constructor extends Element {
 	public String toSnippetString () {
 		if (!pos.isEmpty())
 			return pos.snippet;
-		
-		if (name.equals("arrow"))
-			return "->";
-		if (name.equals("larrow"))
-			return "<-";
-		else if (name.equals("pair"))
-			return "*";
 		else
-			return name;
+			return toString();
 	}
 	
 	@Override
@@ -77,7 +76,7 @@ public class Constructor extends Element {
 	
 	@Override
 	/**
-	 * Same constructor as different positions are treated as different elements to improve the precision of error diagnosis
+	 * Same constructor used at different positions are treated as different elements to improve the precision of error diagnosis
 	 */
 	public boolean equals(Object o) {
 		if (o instanceof Constructor) {

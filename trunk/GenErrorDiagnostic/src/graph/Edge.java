@@ -19,7 +19,7 @@ abstract public class Edge {
 		return to;
 	}
 
-	public void incSuccCounter() {
+	public void incNumSuccCounter() {
 		// do nothing
 	}
 	
