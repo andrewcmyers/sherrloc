@@ -100,20 +100,4 @@ public class ConstructorApplication extends EnumerableElement {
 		}
 		return new ConstructorApplication((Constructor)cons.getBaseElement(), baseElements) ;
 	}
-	
-	public static void main(String[] args) {
-		Variable a = new Variable("x", Position.EmptyPosition());
-		Variable b = new Variable("y", Position.EmptyPosition());
-		List<Element> l = new ArrayList<Element>();
-		l.add(a);
-		l.add(b);
-		ConstructorApplication ca1 = new ConstructorApplication(new Constructor("arrow", 2, false, Position.EmptyPosition()), l);
-		Element e1 = ca1.getInstance();
-		e1.setPosition(new Position("aa", "aa", 10, 10, 10, 12));
-		ConstructorApplication ca2 = new ConstructorApplication(new Constructor("arrow", 2, false, Position.EmptyPosition()), l);
-		Element e2 = ca2.getInstance();
-		e2.setPosition(new Position("aa", "aa", 10, 10, 10, 14));
-		System.out.println(e1.equals(e2));
-		System.out.println(e1.hashCode() == e2.hashCode());
-	}
 }

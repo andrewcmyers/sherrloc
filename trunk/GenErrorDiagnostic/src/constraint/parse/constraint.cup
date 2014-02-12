@@ -178,24 +178,21 @@ term     	::=  ele_pos:t1 ARROW ele_pos:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				ConstructorApplication e = new ConstructorApplication (constructors.get("arrow"), l);
-				RESULT = e.getInstance();
+				RESULT = new ConstructorApplication (constructors.get("arrow"), l);
 			:}
 			|
 				ele_pos:t1 LARROW ele_pos:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				ConstructorApplication e = new ConstructorApplication (constructors.get("larrow"), l);
-				RESULT = e.getInstance();
+				RESULT = new ConstructorApplication (constructors.get("larrow"), l);
 			:}
 			| ele_pos:t1 COMMA ele_pos:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
-				ConstructorApplication e = new ConstructorApplication (constructors.get("pair"), l); 
-				RESULT = e.getInstance();
+				RESULT = new ConstructorApplication (constructors.get("pair"), l); 
 			:}
 			| ele_pos:t1 JOIN join_list:l
 			{: 	
@@ -267,15 +264,6 @@ ele_pos_list ::= ele_pos_list:l ele_pos:e
 			    RESULT = l; 
 			:}
 			;
-			
-/* cons		::= IDENTIFIER:s
-			{:
-				if (constructors.containsKey(s)) {
-					RESULT = constructors.get(s).getInstance();
-				} 
-			   	else throw new Error("\""+s+"\"" + " is not a constructor");
-			:}
-			; */
 			
 ele_pos ::= element:e1 position:p 
 			{:
