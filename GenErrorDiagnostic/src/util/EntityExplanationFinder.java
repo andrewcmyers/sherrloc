@@ -19,9 +19,8 @@ import diagnostic.explanation.Entity;
  */
 
 public class EntityExplanationFinder extends HeuristicSearch {
-	final double C1;
-    final double C2;
     private HashMap<Entity, Set<ConstraintPath>> dep = new HashMap<Entity, Set<ConstraintPath>>();
+    private RankingMetric metric;
     
     public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates) {
     	this(paths, candidates, 3, 1);
@@ -32,14 +31,9 @@ public class EntityExplanationFinder extends HeuristicSearch {
     	for (Entity en : candidates) {
     		dep.put(en, mapsTo(en));
     	}
-    	this.C1 = C1;
-    	this.C2 = C2;
+    	metric = new RankingMetric(C1, C2);
     }
-    
-	public double getScore(int setsize, double succ) {
-    	return C1*setsize + C2*succ;
-    }
-	
+    	
     // a heuristic that estimates the "cost" of satisfying remaining paths
     public int Estimate(Collection<ConstraintPath> paths, int index) {
         
@@ -92,8 +86,8 @@ public class EntityExplanationFinder extends HeuristicSearch {
 		for (Integer j : set) {
 			succSum+=candidates[j].getSuccCount();
 		}
-		double real = getScore(set.size(),succSum);
-		double est = C1*Estimate(remaining, index);
+		double real = metric.getScore(set.size(),succSum);
+		double est = metric.getScore(Estimate(remaining, index),0);
 		double key = real + est;
 		SearchNode newnode = new SearchNode(set, index, remaining, key);
 		queue.offer(newnode);

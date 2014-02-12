@@ -160,13 +160,4 @@ public abstract class EnumerableElement extends Element {
 		}
 		return ret;
 	}
-	
-	public Element getInstance() {
-//		if (hasVars()) {
-//			return getBaseElement();
-//		}
-//		else
-			return this;
-	};
-
 }
