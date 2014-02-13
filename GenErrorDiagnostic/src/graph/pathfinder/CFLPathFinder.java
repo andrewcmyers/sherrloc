@@ -42,14 +42,6 @@ abstract public class CFLPathFinder extends PathFinder {
 	
 	public CFLPathFinder(ConstraintGraph graph) {
 		super(graph);
-		// initialize reduction edges
-		for (Node n : graph.getAllNodes()) {
-			reductionEdges.put(n, new HashMap<Node, List<ReductionEdge>>());
-			joinElements.put(n, new ArrayList<Node>());
-			meetElements.put(n, new ArrayList<Node>());
-			consElements.put(n, new ArrayList<Node>());
-		}
-		hasRightEdge = new boolean[graph.getAllNodes().size()][graph.getAllNodes().size()];
 	}
 	
 	protected void addReductionEdge (Node from, Node to, ReductionEdge edge) {
@@ -115,6 +107,14 @@ abstract public class CFLPathFinder extends PathFinder {
     
 	@Override
 	void initialize() {
+		// initialize reduction edges
+		for (Node n : g.getAllNodes()) {
+			reductionEdges.put(n, new HashMap<Node, List<ReductionEdge>>());
+			joinElements.put(n, new ArrayList<Node>());
+			meetElements.put(n, new ArrayList<Node>());
+			consElements.put(n, new ArrayList<Node>());
+		}
+		hasRightEdge = new boolean[g.getAllNodes().size()][g.getAllNodes().size()];
 		
 		List<Edge> edges = g.getAllEdges();
 		for (Node start : g.getAllNodes()) {

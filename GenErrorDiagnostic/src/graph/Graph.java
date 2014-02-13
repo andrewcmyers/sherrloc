@@ -25,7 +25,9 @@ public abstract class Graph {
 		return allNodes;
 	}
 	      
-    public void addEdge (Node from, Node to, Edge edge) {
+    public void addEdge (Edge edge) {
+    	Node from = edge.from;
+    	Node to = edge.to;
     	if (!hasEdge(from, to))
     		edges.get(from).put(to, new HashSet<Edge>());
     	edges.get(from).get(to).add(edge);
