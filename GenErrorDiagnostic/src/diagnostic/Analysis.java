@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +31,6 @@ import org.apache.commons.cli.PosixParser;
 
 import util.HTTPUtil;
 import constraint.ast.ConstructorApplication;
-import constraint.ast.Constraint;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.JoinElement;
@@ -288,16 +286,7 @@ public class Analysis {
     	}
     	return (new MissingHypoInfer(unsatPaths)).getAssumptionString();
     }
-    
-    void printRank () {    	
-        Constraint[] all = graph.getConstraints().toArray(new Constraint[graph.getConstraints().size()]);
-        Arrays.sort(all); 
-        for (Constraint equ : all) {
-            if (equ.getNumSuccPaths() >0) 
-                System.out.println(equ.getNumSuccPaths() + ": " + equ.toString());
-        }
-    }
-    
+        
     public void writeToDotFile () {
         String filename;
 

@@ -11,13 +11,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import constraint.ast.ConstructorApplication;
 import constraint.ast.Constraint;
+import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
 import constraint.ast.EnumerableElement;
 import constraint.ast.Environment;
+import constraint.ast.Inequality;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
+import constraint.ast.Position;
 import constraint.ast.Relation;
 
 /**
@@ -30,7 +32,6 @@ import constraint.ast.Relation;
  */
 public class ConstraintGraph extends Graph {
 	private Environment env;
-    private Set<Constraint> constraints;
     
     private Set<String> files;                                          // source codes involved, only used for DOT files
     private boolean generated;                                   		// if the graph has been generated already, just reuse it
@@ -46,12 +47,18 @@ public class ConstraintGraph extends Graph {
      * @param symmentric Set to true when all constraints are equalities
      * 
      */
-    public ConstraintGraph (Environment env, Set<Constraint> equations, boolean symmentric) {
+    public ConstraintGraph (Environment env, Set<Constraint> constraints, boolean symmentric) {
         this.env = env;
-    	this.constraints = equations;
     	this.files = new HashSet<String>();
         this.generated = false;
         this.SYMMENTRIC = symmentric;
+		/**
+		 * generate the simple links from the constraints. handle constructors,
+		 * meet and join later
+		 */
+		for (Constraint cons : constraints) {
+			addOneConstraint(cons);
+		}
     }
                 
     /**
@@ -89,23 +96,27 @@ public class ConstraintGraph extends Graph {
 		Node source = getNode(cons.getFirstElement());
 		Node to = getNode(cons.getSecondElement());
 
-		addEdge(source, to, new EquationEdge(cons, source, to));
+		addEdge(new EquationEdge(cons, source, to));
 
 		if (cons.getRelation() == Relation.EQ)
-			addEdge(to, source, new EquationEdge(cons, to, source));
+			addEdge(new EquationEdge(cons, to, source));
+    }
+    
+    /**
+	 * Adding an inequality to graph
+	 * 
+	 * @param cons Constraint
+	 */
+    public void addOneInequality (Inequality ieq) {
+    	addOneConstraint(new Constraint(ieq, null, Position.EmptyPosition()));
     }
     
     /**
      * Generate a constraint graph from constraints
      */
     public void generateGraph ( ) {
-        if (generated || constraints.size() == 0)
+        if (generated)
             return;
-       
-        /** generate the simple links from the constraints. handle constructors, meet and join later */
-		for (Constraint cons : constraints) {
-			addOneConstraint(cons);
-		}
 		
 		if (DEBUG)
 			System.out.println("Total simple nodes : " + eleToNode.size());
@@ -141,16 +152,16 @@ public class ConstraintGraph extends Graph {
                         workingList.add(element);
                     
                     if (e instanceof MeetElement) {
-                    	addEdge(currentnode, compnode, new MeetEdge(currentnode, compnode));
+                    	addEdge(new MeetEdge(currentnode, compnode));
                     }
                     else if (e instanceof JoinElement) {
-                    	addEdge(compnode, currentnode, new JoinEdge(compnode, currentnode));
+                    	addEdge(new JoinEdge(compnode, currentnode));
                     }
                     else if (e instanceof ConstructorApplication){
                     	ConstructorApplication ce = (ConstructorApplication)e;
                     	Polarity pol = ce.getCons().isContraVariant()?Polarity.NEG:Polarity.POS;
-                    	addEdge(compnode, currentnode, new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, false, pol), compnode, currentnode));
-                    	addEdge(currentnode, compnode, new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, true, pol), currentnode, compnode));
+                    	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, false, pol), compnode, currentnode));
+                    	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, true, pol), currentnode, compnode));
                     }
                 }
             }
@@ -239,14 +250,7 @@ public class ConstraintGraph extends Graph {
     public Environment getEnv() {
 		return env;
 	}
-    
-    /**
-     * @return Constraints
-     */
-    public Set<Constraint> getConstraints() {
-		return constraints;
-	}
-    
+        
     /**
      * @return True if all constraints are equalities
      */

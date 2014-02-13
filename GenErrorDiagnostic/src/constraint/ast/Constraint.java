@@ -9,11 +9,10 @@ import util.PrettyPrinter;
  * (e1 , e2), where {@link Relation} can be <= or ==
  * 
  */
-public class Constraint implements Comparable<Constraint>, PrettyPrinter {	
-	private final Element e1, e2;
-	private final Relation r;
+public class Constraint implements PrettyPrinter {	
 	private final Position pos;
 	private final Environment assumption;
+	private final Inequality conclusion;
 
 	private int succPaths=0;
 	
@@ -29,46 +28,35 @@ public class Constraint implements Comparable<Constraint>, PrettyPrinter {
 	 * @param pos Source program position that generates the constraint
 	 */
 	public Constraint(Element e1, Element e2, Relation r, Environment assumption, Position pos) {
-		this.e1 = e1;
-		this.e2 = e2;
-		this.r = r;
+		conclusion = new Inequality(e1, e2, r);
 		this.assumption = assumption;
 		this.pos = pos;
 	}
 	
 	/**
-	 * @return The constraint where all elements has an empty position. See
+	 * Creates a constraint <code>assumption</code> entails
+	 * <code>ieq</code>. Position information is also required to trace the
+	 * error cause back into program
+	 * 
+	 * @param ieq Conclusion of the constraint
+	 * @param assumption Hypothesis of the generated constraint
+	 * @param pos Source program position that generates the constraint
+	 */
+	public Constraint(Inequality ieq, Environment assumption, Position pos) {
+		conclusion = ieq;
+		this.assumption = assumption;
+		this.pos = pos;
+	}
+	
+	/**
+	 * @return The constraint where all elements have empty positions. See
 	 *         {@link Element#getBaseElement()}
 	 */
 	public Constraint baseConstraint () {
-		return new Constraint(e1.getBaseElement(), e2.getBaseElement(), r, assumption, pos); 
+		return new Constraint(conclusion.baseInequality(), assumption, pos); 
 	}
-	
+		
 	/**
-	 * @return Element <code>e1</code> in constraint <code>assumption</code>
-	 *         entails <code>r(e1,e2)</code>
-	 */
-	public Element getFirstElement () {
-		return e1;
-	}
-
-	/**
-	 * @return Element <code>e2</code> in constraint <code>assumption</code>
-	 *         entails <code>r(e1,e2)</code>
-	 */
-	public Element getSecondElement () {
-		return e2;
-	}
-	
-	/**
-	 * @return Relation (<= or ==)
-	 */
-	public Relation getRelation () {
-		return r;
-	}
-	
-	/**
-	 * 
 	 * @return Hypothesis <code>assumption</code> in constraint
 	 *         <code>assumption</code> entails <code>r(e1,e2)</code>
 	 */
@@ -76,34 +64,59 @@ public class Constraint implements Comparable<Constraint>, PrettyPrinter {
 		return assumption;
 	}
 	
+	/**
+	 * @return The first element in conclusion (LHS of a relation <= or ==)
+	 */
+	public Element getFirstElement () {
+		return conclusion.getFirstElement();
+	}
+	
+	/**
+	 * @return The second element in conclusion (RHS of a relation <= or ==)
+	 */
+	public Element getSecondElement () {
+		return conclusion.getSecondElement();
+	}
+	
+	/**
+	 * @return The relation in conclusion (<= or ==)
+	 */
+	public Relation getRelation () {
+		return conclusion.getRelation();
+	}
+	
+	/**
+	 * @return Conclusion of the constraint
+	 */
+	public Inequality getConclusion() {
+		return conclusion;
+	}
+	
 	@Override
 	public String toString () {
-		return e1.toString()+r.toString()+e2.toString()+pos.toString();
+		return conclusion.toString()+pos.toString();
 	}
 	
 	@Override
 	public String toDotString () {
-		return e1.toDotString()+r.toString()+e2.toDotString();
+		return conclusion.toDotString();
 	}
 	
 	@Override
 	public String toHTMLString() {
-		return ("<code>" + e1.toString()
-				+ "</code> is less or equal than <code>" + e2.toString() + "</code>");
+		return conclusion.toHTMLString();
 	}
 	
 	@Override
 	public String toConsoleString() {
-		return e1.toSnippetString()+r.toString()+e2.toSnippetString();
+		return conclusion.toConsoleString();
 	}
 	
 	/**
 	 * @return All variables used in the constraint
 	 */
 	public List<Variable> getVars () {
-		List<Variable> ret = e1.getVars();
-		ret.addAll(e2.getVars());
-		return ret;
+		return conclusion.getVars();
 	}
 	
 	/**
@@ -126,26 +139,18 @@ public class Constraint implements Comparable<Constraint>, PrettyPrinter {
 	public Position getPos() {
 		return pos;
 	}
-    
-	@Override
-    public int compareTo(Constraint n) {
-        double rank1 = getNumSuccPaths();
-        double rank2 = n.getNumSuccPaths();
-        return Double.compare(rank2, rank1);
-    }
-    
+        
     @Override
     public boolean equals(Object obj) {
     	if (obj instanceof Constraint) {
-    		Constraint c = (Constraint) obj;
-    		return e1.equals(c.e1) && e2.equals(c.e2) 
-    		&& r.equals(c.r) && pos.equals(c.pos);
+			return conclusion.equals(((Constraint) obj).conclusion)
+					&& pos.equals(((Constraint) obj).pos);
     	}
     	return false;
     }
     
     @Override
     public int hashCode() {
-    	return e1.hashCode()*4759 + e2.hashCode()*523 + pos.hashCode()*3 + ((r==Relation.EQ)?1:0);
+    	return conclusion.hashCode() + pos.hashCode()*3;
     }
 }
