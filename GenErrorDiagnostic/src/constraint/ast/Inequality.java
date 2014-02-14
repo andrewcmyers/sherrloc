@@ -7,7 +7,6 @@ import util.PrettyPrinter;
 /**
  * Inequality is the building block of constraints. An inequality has the format
  * of {@link Relation} (e1 , e2), where {@link Relation} can be <= or ==
- * 
  */
 public class Inequality implements PrettyPrinter {
 	protected final Element e1, e2;

@@ -49,7 +49,7 @@ public abstract class EnumerableElement extends Element {
 	@Override
 	public String toSnippetString() {
 		if (!pos.isEmpty()) {
-			return pos.snippet.toString();
+			return pos.getSnippet();
 		}
 		String symbol = getSymbol();
 		String ret = "";

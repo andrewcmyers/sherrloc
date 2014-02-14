@@ -64,7 +64,7 @@ public abstract class Element {
 		if (pos.isEmpty())
 			return name;
 		else
-			return pos.snippet;
+			return pos.getSnippet();
 	}		
 	
 	/**
