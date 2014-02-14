@@ -19,21 +19,21 @@ public class Environment {
 	private Environment parent = null; // used to reduce shared environments
 										// (e.g., to store global assumptions)
 
+	/**
+	 * Empty assumption
+	 */
 	public Environment() {
 		assertions = new HashSet<Inequality>();
 		graph = new ConstraintGraph(null, new HashSet<Constraint>(), false);
 	}
 
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		for (Inequality cons : assertions)
-			sb.append(cons.toString() + "; ");
-		sb.append("\n");
-		for (Element ele : graph.getAllElements()) {
-			sb.append(ele.toString() + "; ");
-		}
-		return sb.toString();
+	/**
+	 * @param s
+	 *            A set of inequalities
+	 */
+	public Environment(Set<Inequality> s) {
+		assertions = s;
+		graph = new ConstraintGraph(null, new HashSet<Constraint>(), false);
 	}
 
 	/**
@@ -57,19 +57,6 @@ public class Environment {
 			parent = e;
 		} else {
 			assertions.addAll(e.getInequalities());
-		}
-	}
-
-	/**
-	 * Add all elements in <code>eles</code> to the constraint graph, in order
-	 * to infer partial orderings when they does not exist in the graph
-	 * 
-	 * @param eles
-	 *            Elements to be added
-	 */
-	public void addElements(Set<Element> eles) {
-		for (Element e : eles) {
-			graph.getNode(e.getBaseElement());
 		}
 	}
 
@@ -114,19 +101,11 @@ public class Environment {
 	 *            Element on RHS
 	 * @return True if <code>e1</code> <= <code>e2</code>
 	 */
-	public boolean leq(Element e1, Element e2) {
-		return leq(e1, e2, true);
-	}
-
-	/**
-	 * See {@link #leq(Element, Element)}
-	 */
-	private boolean leq(Element p1, Element p2, boolean rec) {
+	public boolean leq(Element p1, Element p2) {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
 
-		// for the same constructor, we should break them into components. Just
-		// return true here
+		// simple cases
 		if (e1.equals(e2))
 			return true;
 
@@ -137,11 +116,15 @@ public class Environment {
 			return true;
 		}
 
-		// the assumption can be made on the join/meet/constructors, so apply
+		// an assumption can be made on the join/meet/constructors, so apply
 		// the assumptions first
-		if (rec && leqApplyAssertions(e1, e2))
+		if (leqApplyAssertions(e1, e2))
 			return true;
-
+		if (graph.hasElement(e1) && graph.hasElement(e2)) {
+			return false;
+		}
+		
+		// constructor mismatch
 		if (e1 instanceof ConstructorApplication
 				&& e2 instanceof ConstructorApplication) {
 			if (!((ConstructorApplication) e1).getCons().equals(
@@ -149,6 +132,7 @@ public class Environment {
 				return false;
 		}
 
+		// break constructor application into the comparison on components
 		if (e1 instanceof ConstructorApplication
 				&& e2 instanceof ConstructorApplication) {
 			List<Element> l1 = ((ConstructorApplication) e1).elements;
@@ -158,7 +142,7 @@ public class Environment {
 			for (int i = 0; i < l1.size(); i++) {
 				if (!contravariant && !leq(l1.get(i), l2.get(i)))
 					return false;
-				if (contravariant && !leq(l2.get(i), l1.get(i)))
+				else if (contravariant && !leq(l2.get(i), l1.get(i)))
 					return false;
 			}
 			return true;
@@ -166,24 +150,25 @@ public class Environment {
 
 		if (e1 instanceof JoinElement) {
 			for (Element e : ((JoinElement) e1).getElements())
-				if (!leq(e, e2, rec))
+				if (!leq(e, e2))
 					return false;
 			return true;
-		} else if (e1 instanceof MeetElement) {
+		} 
+		else if (e1 instanceof MeetElement) {
 			for (Element e : ((MeetElement) e1).getElements())
-				if (leq(e, e2, rec))
+				if (leq(e, e2))
 					return true;
 			return false;
 		}
 
 		if (e2 instanceof JoinElement) {
 			for (Element e : ((JoinElement) e2).getElements())
-				if (leq(e1, e, rec))
+				if (leq(e1, e))
 					return true;
 			return false;
 		} else if (e2 instanceof MeetElement) {
 			for (Element e : ((MeetElement) e2).getElements())
-				if (!leq(e1, e, rec))
+				if (!leq(e1, e))
 					return false;
 			return true;
 		}
@@ -194,7 +179,7 @@ public class Environment {
 	/**
 	 * @return All inequalities made in the assumption
 	 */
-	private Set<Inequality> getInequalities() {
+	public Set<Inequality> getInequalities() {
 		if (parent == null)
 			return assertions;
 		else {
@@ -238,14 +223,20 @@ public class Environment {
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 			if (finder.getPath(graph.getNode(e1), graph.getNode(e2), false) != null)
 				return true;
-			for (Element e : graph.getAllElements()) {
-				if (finder.getPath(graph.getNode(e1), graph.getNode(e), false) != null
-						&& leq(e, e2, false))
-					return true;
-			}
-			return false;
-		} else
-			return false;
+		} 
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		for (Inequality cons : assertions)
+			sb.append(cons.toString() + "; ");
+		sb.append("\n");
+		for (Element ele : graph.getAllElements()) {
+			sb.append(ele.toString() + "; ");
+		}
+		return sb.toString();
 	}
 
 	@Override

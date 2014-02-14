@@ -1,9 +1,11 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import constraint.ast.Environment;
+import constraint.ast.Inequality;
 
 
 /*
@@ -61,12 +63,10 @@ abstract public class ReductionEdge extends Edge{
 	
 	
 	@Override
-	public Environment getAssumption() {
-		Environment env = new Environment();
-		if (!(first instanceof EmptyEdge))
-			env.addEnv(first.getAssumption());
-		if (!(second instanceof EmptyEdge))
-			env.addEnv(second.getAssumption());
-		return env;
+	public Set<Inequality> getInequalities() {
+		Set<Inequality> ret = new HashSet<Inequality>();
+		ret.addAll(first.getInequalities());
+		ret.addAll(second.getInequalities());
+		return ret;
 	}
 }

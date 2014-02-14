@@ -14,6 +14,7 @@ import constraint.ast.Constructor;
 import constraint.ast.Element;
 import constraint.ast.Environment;
 import constraint.ast.Hypothesis;
+import constraint.ast.Inequality;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 
@@ -23,13 +24,15 @@ public class ConstraintPath {
     PathFinder finder;
     Hypothesis minHypo;
     
-    public ConstraintPath(List<Edge> edges, PathFinder finder, Environment globalEnv) {
+    public ConstraintPath(List<Edge> edges, PathFinder finder, Environment globalEnv, HashMap<Environment, Environment> cachedEnv) {
         this.edges = edges;
         assumption = new Environment();
         assumption.addEnv(globalEnv);
         for (Edge edge : edges) {
-        	assumption.addEnv(edge.getAssumption());
+        	for (Inequality ieq : edge.getInequalities())
+        		assumption.addInequality(ieq);
         }
+        assumption = getEnv_(cachedEnv);
         this.finder =  finder;
         if (edges.size()==0) {
         	this.minHypo = null;
@@ -68,7 +71,7 @@ public class ConstraintPath {
 	}
 	
 	// a succ path is one where all LEQ are provable and all LEQ nodes are variable free
-	public boolean isSuccPath(HashMap<Environment, Environment> cachedEnv) {
+	public boolean isSuccPath() {
 		if (edges.size()==0) return false;
 		
 		// at least one of the edges should be equation edge
@@ -82,7 +85,6 @@ public class ConstraintPath {
 		if (!hasEqu)
 			return false;
 		
-		Environment env = getEnv_(cachedEnv);
 		// System.out.println("Checking one equation in env: "+path.env);
 		Stack<Node> leqNodes = new Stack<Node>();
 		Stack<EdgeCondition> conditions = new Stack<EdgeCondition>();
@@ -105,7 +107,7 @@ public class ConstraintPath {
 							length ++;
 					}
 					
-					if (!env.leq(leqNodes.peek().getElement(), eto.getElement()))
+					if (!assumption.leq(leqNodes.peek().getElement(), eto.getElement()))
 						return false;
 					else {
 						leqNodes.pop();
@@ -130,7 +132,7 @@ public class ConstraintPath {
 								length ++;
 						}
 						
-						if (!leqNodes.empty() && !env.leq(leqNodes.peek().getElement(), eto.getElement()))
+						if (!leqNodes.empty() && !assumption.leq(leqNodes.peek().getElement(), eto.getElement()))
 							return false;
 						else {
 							leqNodes.pop();
@@ -144,11 +146,10 @@ public class ConstraintPath {
 		return true;
 	}
 	
-	public boolean isUnsatPath(HashMap<Environment, Environment> cachedEnv) {
+	public boolean isUnsatPath() {
 		if (edges.size()==0) return false;
-		Environment env = getEnv_(cachedEnv);
 		
-		return !env.leq(getFirst().getElement(), getLast().getElement());
+		return !assumption.leq(getFirst().getElement(), getLast().getElement());
 	}
 	
 	private Environment getEnv_ (HashMap<Environment, Environment> cachedEnv) {

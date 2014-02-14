@@ -32,14 +32,12 @@ public class ShortestPathFinder extends CFLPathFinder {
 	int[][] shortestLEQ;
 	boolean CORRECTNESS_CHECK = false;
 	Map<EdgeCondition, Integer>[][] shortestLeft;
-	Environment env;
 	
 	public ShortestPathFinder(ConstraintGraph graph) {
 		super(graph);
 		int size = g.getAllNodes().size();
 		idPath = new ReductionEdge[size][size];
 		leftPath = new HashMap[size][size];
-		env = new Environment();
 	}
 	
 	/**
@@ -496,8 +494,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 							t = cnFrom;
 							f = cnTo;
 						}
-						ReductionEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, env, ""), redEdge);
-						newedge = new LeqEdge(f, t, newedge, new CompEdge(f, t, env, ""));
+						ReductionEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, ""), redEdge);
+						newedge = new LeqEdge(f, t, newedge, new CompEdge(f, t, ""));
 						// this number is a little ad hoc
 						shortestLEQ[f.getIndex()][t.getIndex()] = newedge.getLength();
 						queue.offer(newedge);

@@ -10,7 +10,6 @@ import java.util.Set;
 public abstract class Graph {
 	
 	protected List<Node> allNodes = new ArrayList<Node>();
-	protected List<Edge> allEdges = new ArrayList<Edge>();
 	protected Map<Node, Map<Node, Set<Edge>>>   edges = new HashMap<Node, Map<Node,Set<Edge>>>();
 	
 	public Graph( ) {
@@ -31,11 +30,16 @@ public abstract class Graph {
     	if (!hasEdge(from, to))
     		edges.get(from).put(to, new HashSet<Edge>());
     	edges.get(from).get(to).add(edge);
-    	allEdges.add(edge);
     }
     
     public List<Edge> getAllEdges () {
-    	return allEdges;
+    	List<Edge> ret = new ArrayList<Edge>();
+    	for (Node n1 : edges.keySet()) {
+    		for (Node n2 : edges.get(n1).keySet()) {
+    			ret.addAll(edges.get(n1).get(n2));
+    		}
+    	}
+    	return ret;
     }
     
     public boolean hasEdge (Node from, Node to) {
