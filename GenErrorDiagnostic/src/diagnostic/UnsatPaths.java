@@ -11,7 +11,6 @@ import java.util.Set;
 import util.HTTPUtil;
 import util.MinCutFinder;
 import constraint.ast.Element;
-import constraint.ast.Position;
 import diagnostic.explanation.Entity;
 import diagnostic.explanation.Explanation;
 import diagnostic.explanation.ExprEntity;
@@ -99,7 +98,7 @@ public class UnsatPaths {
 		return sb.toString();
     }
     
-    public String genMissingAssumptions (Position pos, String sourceName ) {
+    public String genMissingAssumptions (String sourceName ) {
     	StringBuffer sb = new StringBuffer();
     	MissingHypoInfer infer = new MissingHypoInfer(this);
 		Set<Explanation> result = infer.infer();
