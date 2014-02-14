@@ -43,7 +43,7 @@ public class ConstraintGraph extends Graph {
 
     /**
      * @param env Global assumptions
-     * @param equations Constraints
+     * @param constraints Constraints
      * @param symmentric Set to true when all constraints are equalities
      * 
      */
@@ -112,7 +112,7 @@ public class ConstraintGraph extends Graph {
     /**
 	 * Adding an inequality to graph
 	 * 
-	 * @param cons Constraint
+	 * @param ieq Inequality to be added
 	 */
     public void addOneInequality (Inequality ieq) {
     	addOneConstraint(new Constraint(ieq, null, Position.EmptyPosition()));
