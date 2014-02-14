@@ -218,7 +218,7 @@ public class Analysis {
 				if (!REC && start.getIndex() != end.getIndex()) {
 					if ( (e1 instanceof ConstructorApplication && e1.getVars().contains(e2)) 
 					  || (e2 instanceof ConstructorApplication && e2.getVars().contains(e1))) {
-						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
+						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
 						path.setCause();
 						unsatPaths.addUnsatPath(path);
 						continue;
@@ -234,29 +234,23 @@ public class Analysis {
 				if (e1.isBottom() || e2.isTop())
 					continue;
 								
-				ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
+				ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
 
-				if (path.isSuccPath(cachedEnv)) {
+				if (path.isSuccPath()) {
 					path.incSuccCounter();
 					continue;
 				}								
-				else if (path.isUnsatPath(cachedEnv)) {
+				else if (path.isUnsatPath()) {
 					testElements.add(e1);
 					testElements.add(e2);
 					path.setCause();
 					unsatPaths.addUnsatPath(path);
-//					System.out.println(path);
+					if (DEBUG)
+						System.out.println(path);
 				}
 			}
 		}
-		
-		for (ConstraintPath path : unsatPaths.getPaths()) {
-			Environment env = new Environment();
-			env.addEnv(path.getAssumption());
-			env.addElements(testElements);
-			path.setAssumption(env);
-		}
-		
+				
 		for (Node n : graph.getAllNodes()) {
 			int count = succCount.get(n.toString());
 			succCount.put(n.toString(), count+n.getSuccCounter());

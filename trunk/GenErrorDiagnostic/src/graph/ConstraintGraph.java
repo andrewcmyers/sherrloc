@@ -48,10 +48,7 @@ public class ConstraintGraph extends Graph {
      * 
      */
     public ConstraintGraph (Environment env, Set<Constraint> constraints, boolean symmentric) {
-        this.env = env;
-    	this.files = new HashSet<String>();
-        this.generated = false;
-        this.SYMMENTRIC = symmentric;
+        this(env, symmentric);
 		/**
 		 * generate the simple links from the constraints. handle constructors,
 		 * meet and join later
@@ -59,6 +56,16 @@ public class ConstraintGraph extends Graph {
 		for (Constraint cons : constraints) {
 			addOneConstraint(cons);
 		}
+    }
+    
+    /**
+     * See {@link #ConstraintGraph(Environment, Set, boolean)}
+     */
+    public ConstraintGraph (Environment env, boolean symmentric) {
+        this.env = env;
+    	this.files = new HashSet<String>();
+        this.generated = false;
+        this.SYMMENTRIC = symmentric;
     }
                 
     /**

@@ -19,6 +19,7 @@ public class TestAll {
 	public void testErrorPaths (String filename, int expectedpaths, boolean sym) {
 		try {
 			Analysis ana = Analysis.getAnalysisInstance(filename, sym);
+			System.out.println(ana.getPathNumber());
 			assertEquals(filename, expectedpaths, ana.getPathNumber());
 		}
 		catch (Exception e) {
@@ -397,5 +398,8 @@ public class TestAll {
 		testErrorPaths("test/jiftestcases/LabelSubst01_8.con", 0, false);
 	}
 	
-	
+	@Test
+	public void simpleTests () {
+		testErrorPaths("test/jif/hypograph.con", 0, false);
+	}
 }

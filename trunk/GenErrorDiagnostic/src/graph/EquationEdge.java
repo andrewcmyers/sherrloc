@@ -1,7 +1,10 @@
 package graph;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import constraint.ast.Constraint;
-import constraint.ast.Environment;
+import constraint.ast.Inequality;
 import constraint.ast.Relation;
 
 /* 
@@ -44,11 +47,11 @@ public class EquationEdge extends Edge {
     }
     
     @Override
-    public Environment getAssumption() {
+    public Set<Inequality> getInequalities() {
     	if (equ.getAssumption()==null)
-    		return new Environment();
+    		return new HashSet<Inequality>();
     	else
-    		return equ.getAssumption();
+    		return equ.getAssumption().getInequalities();    	
     }
     
     @Override

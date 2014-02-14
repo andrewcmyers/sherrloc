@@ -1,6 +1,9 @@
 package graph;
 
-import constraint.ast.Environment;
+import java.util.HashSet;
+import java.util.Set;
+
+import constraint.ast.Inequality;
 
 /**
  * edges used for constructors
@@ -33,8 +36,8 @@ public class ConstructorEdge extends Edge {
 	}
 		
 	@Override
-	public Environment getAssumption() {
-		return new Environment();
+	public Set<Inequality> getInequalities() {
+		return new HashSet<Inequality>();
 	}
 	
 	@Override

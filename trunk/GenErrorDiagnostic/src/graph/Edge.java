@@ -1,6 +1,8 @@
 package graph;
 
-import constraint.ast.Environment;
+import java.util.Set;
+
+import constraint.ast.Inequality;
 
 abstract public class Edge {
     Node from;
@@ -35,7 +37,7 @@ abstract public class Edge {
     
     abstract public int getLength ();
     
-    abstract public Environment getAssumption ();
+    abstract public Set<Inequality> getInequalities ();
     
     abstract public Edge getReverse ();
 }
