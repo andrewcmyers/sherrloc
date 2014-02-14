@@ -1,6 +1,7 @@
 package diagnostic;
 
 import graph.ConstraintGraph;
+import graph.ConstraintPath;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -12,6 +13,7 @@ import java.io.OutputStreamWriter;
 import util.HTTPUtil;
 import util.PrettyPrinter;
 import constraint.analysis.ConstraintAnalysis;
+import constraint.analysis.ConstraintAnalysisImpl;
 import constraint.parse.GrmLexer;
 import constraint.parse.parser;
 
@@ -30,7 +32,7 @@ public class Analysis implements PrettyPrinter {
 		graph = g;
 		this.option = option;
         util = new HTTPUtil();
-        cana = new ConstraintAnalysis(graph, option.isSymmetric(), option.isVerbose(), option.isRecursive());
+        cana = new ConstraintAnalysisImpl(option.isSymmetric(), option.isVerbose(), option.isRecursive());
 	}
 
 	/**
@@ -65,16 +67,16 @@ public class Analysis implements PrettyPrinter {
 	}
 	
 	public int getPathNumber() {
-	 	return cana.getPathNumber();
+	 	return cana.genErrorPaths(graph).size();
 	}
 	       
     public int getAssumptionNumber () {
-    	UnsatPaths paths = cana.genErrorPaths();
+    	UnsatPaths paths = cana.genErrorPaths(graph);
     	return (new MissingHypoInfer(paths)).getAssumptionNumber();
     }
     
     public String getAssumptionString () {
-    	UnsatPaths paths = cana.genErrorPaths();
+    	UnsatPaths paths = cana.genErrorPaths(graph);
     	return (new MissingHypoInfer(paths)).getAssumptionString();
     }
         
@@ -108,7 +110,7 @@ public class Analysis implements PrettyPrinter {
     public String toHTMLString() {
     	StringBuffer sb = new StringBuffer();
     
-		UnsatPaths paths = cana.genErrorPaths();
+		UnsatPaths paths = cana.genErrorPaths(graph);
         
         // out.write(getHeader());
         sb.append(HTTPUtil.getFeedback());
@@ -139,7 +141,7 @@ public class Analysis implements PrettyPrinter {
                 
     @Override
     public String toConsoleString () {
-		UnsatPaths paths = cana.genErrorPaths();
+		UnsatPaths paths = cana.genErrorPaths(graph);
 
         // type check succeeded
         if (paths.size()==0) {
@@ -151,6 +153,10 @@ public class Analysis implements PrettyPrinter {
     
     @Override
     public String toDotString() {
+    	UnsatPaths paths = cana.genErrorPaths(graph);
+    	for (ConstraintPath path : paths.errPaths) {
+    		path.setCause();
+    	}
     	if (option.isWholeGraph()) 
         	graph.labelAll();
         else
