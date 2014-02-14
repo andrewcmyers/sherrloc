@@ -31,7 +31,7 @@ public class TestAll {
 	public void testExpression (String filename, String loc, boolean sym) {
 		try {
 			Analysis ana = Analysis.getAnalysisInstance(filename, sym);
-			assertTrue(ana.toString().contains(loc));
+			assertTrue(ana.toConsoleString().contains(loc));
 		}
 		catch (Exception e) {
 			System.out.println(filename);

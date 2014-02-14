@@ -1,12 +1,13 @@
 package constraint.ast;
 
 import graph.ConstraintGraph;
-import graph.pathfinder.PathFinder;
-import graph.pathfinder.ShortestPathFinder;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import constraint.analysis.PathFinder;
+import constraint.analysis.ShortestPathFinder;
 
 /**
  * Hypothesis consists a conjunction of inequalities
@@ -24,7 +25,7 @@ public class Hypothesis {
 	 */
 	public Hypothesis() {
 		assertions = new HashSet<Inequality>();
-		graph = new ConstraintGraph(null, false);
+		graph = new ConstraintGraph(null);
 	}
 
 	/**
@@ -33,7 +34,7 @@ public class Hypothesis {
 	 */
 	public Hypothesis(Set<Inequality> s) {
 		assertions = s;
-		graph = new ConstraintGraph(null, false);
+		graph = new ConstraintGraph(null);
 	}
 
 	/**

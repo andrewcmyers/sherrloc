@@ -1,4 +1,9 @@
-// CUP specification for a set-based constraint language (no actions)
+/** 
+ * CUP specification for a constraint language as described in paper 
+ * "Toward General Diagnosis of Static Errors" 
+ * by Danfeng Zhang and Andrew C. Myers
+ */
+
 package constraint.parse;
 
 import java.util.ArrayList;
@@ -45,7 +50,7 @@ non terminal Set<Inequality>    inequalities;
 non terminal Hypothesis 		env;
 non terminal 					constructors, constructor;
 non terminal				    assumptions;
-non terminal Element			term, element, ele_pos, cons;
+non terminal Element			term, element, ele_pos;
 non terminal String           	id;
 non terminal Integer			arity;
 non terminal List<Element>		ele_pos_list, join_list, meet_list;
@@ -181,13 +186,6 @@ range		::= INTEGER_LITERAL:d1 COMMA INTEGER_LITERAL:d2 DASH INTEGER_LITERAL:d3
 			{:  RESULT = Position.EmptyPosition(); :}
 			;
             
-/* term_pos    ::= term:t1 position:p 
-			{:
-				t1.setPosition(p);
-				RESULT = t1;
-			:}
-			;*/
-
 term     	::=  ele_pos:t1 ARROW ele_pos:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
@@ -235,9 +233,6 @@ term     	::=  ele_pos:t1 ARROW ele_pos:t2
 			        RESULT = new ConstructorApplication (c, l);
 			    } 
 			:}
-/*			| element:e position:p
-			{:  e.setPosition(p);
-			    RESULT = e; :}*/
 			;
 		
 join_list    ::= join_list:l JOIN ele_pos:e

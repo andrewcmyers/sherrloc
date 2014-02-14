@@ -1,7 +1,5 @@
 package graph;
 
-import graph.pathfinder.PathFinder;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import constraint.analysis.PathFinder;
 import constraint.ast.Constructor;
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
