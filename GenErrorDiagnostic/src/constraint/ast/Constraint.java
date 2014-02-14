@@ -5,13 +5,13 @@ import java.util.List;
 import util.PrettyPrinter;
 
 /**
- * A constraint has the format of {@link Environment} entails {@link Relation}
+ * A constraint has the format of {@link Hypothesis} entails {@link Relation}
  * (e1 , e2), where {@link Relation} can be <= or ==
  * 
  */
 public class Constraint implements PrettyPrinter {	
 	private final Position pos;
-	private final Environment assumption;
+	private final Hypothesis assumption;
 	private final Inequality conclusion;
 
 	private int succPaths=0;
@@ -27,7 +27,7 @@ public class Constraint implements PrettyPrinter {
 	 * @param assumption Hypothesis of the generated constraint
 	 * @param pos Source program position that generates the constraint
 	 */
-	public Constraint(Element e1, Element e2, Relation r, Environment assumption, Position pos) {
+	public Constraint(Element e1, Element e2, Relation r, Hypothesis assumption, Position pos) {
 		conclusion = new Inequality(e1, e2, r);
 		this.assumption = assumption;
 		this.pos = pos;
@@ -42,7 +42,7 @@ public class Constraint implements PrettyPrinter {
 	 * @param assumption Hypothesis of the generated constraint
 	 * @param pos Source program position that generates the constraint
 	 */
-	public Constraint(Inequality ieq, Environment assumption, Position pos) {
+	public Constraint(Inequality ieq, Hypothesis assumption, Position pos) {
 		conclusion = ieq;
 		this.assumption = assumption;
 		this.pos = pos;
@@ -60,7 +60,7 @@ public class Constraint implements PrettyPrinter {
 	 * @return Hypothesis <code>assumption</code> in constraint
 	 *         <code>assumption</code> entails <code>r(e1,e2)</code>
 	 */
-	public Environment getAssumption() {
+	public Hypothesis getAssumption() {
 		return assumption;
 	}
 	
