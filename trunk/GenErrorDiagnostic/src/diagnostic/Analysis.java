@@ -1,12 +1,9 @@
-
 package diagnostic;
 
 import graph.ConstraintGraph;
 import graph.ConstraintPath;
 import graph.Edge;
 import graph.Node;
-import graph.pathfinder.PathFinder;
-import graph.pathfinder.ShortestPathFinder;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -14,175 +11,93 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
-
 import util.HTTPUtil;
+import util.PrettyPrinter;
+import constraint.analysis.PathFinder;
+import constraint.analysis.ShortestPathFinder;
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
 import constraint.ast.Hypothesis;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
-import constraint.ast.Position;
 import constraint.parse.GrmLexer;
 import constraint.parse.parser;
 
-public class Analysis {
-    boolean DEBUG = false;
-    boolean SHOW_WHOLE_GRAPH=false;
-    boolean GEN_CUT = true;
-    boolean GEN_ASSUMP = false;
-    boolean GEN_UNIFIED = false;
-    boolean REC = false;
-    boolean VERBOSE = false;
-	boolean done = false;
-	ConstraintGraph graph;
-	String sourceName;
-	String htmlFileName;
-	Position pos=null;
-	Map<String, Integer> succCount;
-	UnsatPaths unsatPaths;
+/**
+ * The top level interface for error diagnosis
+ */
+public class Analysis implements PrettyPrinter {
+	private DiagnosticOptions option;
+	private ConstraintGraph graph;	// a constraint graph from constraints
+	private UnsatPaths unsatPaths;	// a set of unsatisfiable paths from constraint analysis on graph
+
+	/** internal states */
+	private HashMap<Hypothesis, Hypothesis> cachedEnv;	// Reuse saturated hypothesis graph when possible
+    private boolean DEBUG = false;    
+    private boolean done = false;	
 	HTTPUtil util;
-	public HashMap<Hypothesis, Hypothesis> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	
-	public Analysis(ConstraintGraph g) {
+	private Analysis(ConstraintGraph g, DiagnosticOptions option) {
 		graph = g;
-        succCount = new HashMap<String, Integer>();
+		this.option = option;
         unsatPaths = new UnsatPaths();
         util = new HTTPUtil();
         cachedEnv = new HashMap<Hypothesis, Hypothesis>();
 	}
-	
-	public static void main(String[] args) {
-		
-		Options options = new Options();
-		options.addOption("a", false, "generate assumptions");
-		options.addOption("c", false, "generate cut");
-		options.addOption("d", false, "output constraint graph as a dot file");
-		options.addOption("f", false, "show full dependency graph");
-		options.addOption("i", true, "original source file generating the constraints");
-		options.addOption("l", false, "console report");
-		options.addOption("o", true, "output file");
-		options.addOption("r", false, "allow recursion");
-		options.addOption("s", false, "symmetric");
-		options.addOption("u", false, "combined report with cut and assumptions");
-		options.addOption("v", false, "report data (for evaluation)");
-		
-		CommandLineParser parser = new PosixParser();
-		CommandLine cmd=null;
-		try {
-			cmd = parser.parse(options, args);
-		}
-		catch (ParseException e) {
-			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("diagnostic", options);
-			System.exit(-1);
-		}
-		
-		boolean assumption = false;
-		boolean cut = false;
-		boolean dotfile = false;
-		boolean whole_graph = false;
-		String infile = "";
-		boolean locationonly = false;
-		String outfile = "error.html";
-		boolean recursion = false;
-		boolean symmentric = false;
-		boolean unified = false;
-		boolean verbose = false;
-		
-		if (cmd.hasOption("a"))
-			assumption = true;
-		if (cmd.hasOption("c"))
-			cut = true;
-		if (cmd.hasOption("d"))
-			dotfile = true;
-		if (cmd.hasOption("f"))		
-			whole_graph = true;
-		if (cmd.hasOption("i"))
-			infile = cmd.getOptionValue("i");
-		if (cmd.hasOption("l"))
-			locationonly = true;
-		if (cmd.hasOption("o"))
-			outfile = cmd.getOptionValue("o");
-		if (cmd.hasOption("r"))
-			recursion = true;
-		if (cmd.hasOption("s"))
-			symmentric = true;
-		if (cmd.hasOption("u"))
-			unified = true;
-		if (cmd.hasOption("v"))
-			verbose = true;
-		
-		for (Object arg : cmd.getArgList()) {
-			String diagfile = (String) arg;
-			try {
-				Analysis ana = Analysis.getAnalysisInstance(diagfile, symmentric);
-				ana.SHOW_WHOLE_GRAPH = whole_graph;
-				ana.GEN_ASSUMP = assumption;
-				ana.GEN_CUT = cut;
-				ana.GEN_UNIFIED = unified;
-				ana.REC = recursion;
-				ana.VERBOSE = verbose;
-			    ana.sourceName = infile;
-				ana.htmlFileName = outfile;
-				ana.initialize();
-				if (dotfile) {
-					ana.writeToDotFile();
-				}
-				if (locationonly)
-					ana.toConsole();
-				else
-					ana.writeToHTML();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	private void initialize () {
-		graph.generateGraph();
-	}
-	
-	static public Analysis getAnalysisInstance (String input, boolean symmentric) throws Exception {
-	    parser p = new parser(new GrmLexer(new InputStreamReader(new FileInputStream(input), "UTF-8")));
+
+	/**
+	 * Get an analysis instance from options
+	 * 
+	 * @param option Configurations
+	 * @return An analysis instance
+	 * @throws Exception
+	 */
+	static public Analysis getAnalysisInstance (DiagnosticOptions option) throws Exception {
+	    parser p = new parser(new GrmLexer(new InputStreamReader(new FileInputStream(option.consFile), "UTF-8")));
 	    DiagnosisInput result = (DiagnosisInput) p.parse().value;
 
-	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), symmentric);
-	    Analysis ret = new Analysis(graph);
-	    ret.initialize();
+	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints());
+	    graph.generateGraph();
+	    Analysis ret = new Analysis(graph, option);
 	    return ret;
 	}
 	
-	// this method is used to configure the path finder
-	public PathFinder getPathFinder ( ConstraintGraph g) {
-		return new ShortestPathFinder(g);
+	/**
+	 * Get an analysis instance from a constraint file. Useful for unit tests
+	 * 
+	 * @param Input Constraint file
+	 * @param Symmentric True if only equality is used in constraints
+	 * @return An analysis instance
+	 * @throws Exception
+	 */
+	static public Analysis getAnalysisInstance (String consFile, boolean isSym) throws Exception {
+		DiagnosticOptions option = new DiagnosticOptions(consFile, isSym);
+		
+	    return getAnalysisInstance(option);
 	}
 	
-    public void genErrorPaths ( ) {
-        
+	/**
+	 * Return an instance of constraint analysis. Currently, the only analysis
+	 * implemented is {@link ShortestPathFinder}
+	 * 
+	 * @return An constraint analysis algorithm
+	 */
+	public PathFinder getPathFinder () {
+		return new ShortestPathFinder(graph);
+	}
+	
+    public void genErrorPaths ( ) {        
         ArrayList<Node> startNodes = new ArrayList<Node>();
         ArrayList<Node> endNodes = new ArrayList<Node>();
         Set<Element> elements = graph.getAllElements();
         Set<Element> testElements = new HashSet<Element>();
-        
-        // initialize the maps, expr to node and succ path counter
-        for (Node n : graph.getAllNodes()) {
-        	succCount.put(n.toString(), 0);
-        }
-        
+                
         if (DEBUG) {
         	System.out.println("Total nodes before path generaton: " + elements.size());        
         }
@@ -200,8 +115,8 @@ public class Analysis {
         	System.out.println("Total comparison required: " + startNodes.size() * endNodes.size());
         }
 
-    	PathFinder finder = getPathFinder( graph);
-    	if (VERBOSE)
+    	PathFinder finder = getPathFinder();
+    	if (option.isVerbose())
     		System.out.println("graph_size: "+graph.getAllNodes().size());
 				
 		for (Node start : startNodes) {
@@ -209,13 +124,13 @@ public class Analysis {
 				Element e1 = start.getElement();
 				Element e2 = end.getElement();
 				
-				if (graph.isSymmentric() && (start.getIndex() <= end.getIndex()))
+				if (option.isSymmetric() && (start.getIndex() <= end.getIndex()))
 						continue;
 				
-				List<Edge> l = finder.getPath(start, end, VERBOSE);
+				List<Edge> l = finder.getPath(start, end, option.isVerbose());
 				if (l==null) continue;
 								
-				if (!REC && start.getIndex() != end.getIndex()) {
+				if (!option.isRecursive() && start.getIndex() != end.getIndex()) {
 					if ( (e1 instanceof ConstructorApplication && e1.getVars().contains(e2)) 
 					  || (e2 instanceof ConstructorApplication && e2.getVars().contains(e1))) {
 						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
@@ -251,12 +166,7 @@ public class Analysis {
 			}
 		}
 				
-		for (Node n : graph.getAllNodes()) {
-			int count = succCount.get(n.toString());
-			succCount.put(n.toString(), count+n.getSuccCounter());
-		}
 		done = true;
-
 	}
     
     public int getPathNumber () {
@@ -281,7 +191,7 @@ public class Analysis {
     	return (new MissingHypoInfer(unsatPaths)).getAssumptionString();
     }
         
-    public void writeToDotFile () {
+    private void writeToDotFile () {
         String filename;
 
         filename = "error.dot";
@@ -292,145 +202,115 @@ public class Analysis {
         try {
             FileOutputStream fstream = new FileOutputStream(filename);
             OutputStreamWriter out = new OutputStreamWriter(fstream,"UTF-8");
-            if (SHOW_WHOLE_GRAPH) 
-            	graph.labelAll();
-            else
-            	graph.slicing();
-            out.write(graph.toDotString());
+            out.write(toDotString());
             out.close();
         } catch (IOException e) {
             System.out.println("Unable to write the DOT file to: " + filename);
         }
     }
     
-    public void writeToHTML () {
-        if (!done) 
-        	genErrorPaths();
-        
+    private void writeToHTML () {
         try {
-            FileOutputStream fstream = new FileOutputStream(htmlFileName);
+            FileOutputStream fstream = new FileOutputStream(option.htmlFileName);
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fstream, "UTF-8"));
-            // out.write(getHeader());
-            writeFeedback(out);
-        	
-        	out.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
-        			"<H2>\n" +
-        			"<BR>\n" +
-        			"Error Diagnostic Report </H2>\n" +
-        			"<HR>\n");
-        	
-        	// type check succeeded
-        	if (unsatPaths.size()==0) {
-        		out.append("<H2>");
-    			out.append("The program passed type checking. No errors were found.</H2>");
-                out.append("<script type=\"text/javascript\">"+
-                          "document.getElementById('feedback').style.display = 'none';</script>");
-        	}
-        	else {
-       			out.append("<H2>One typing error is identified<H2>");
-        		out.append(getOneSuggestion(sourceName, unsatPaths, false));
-        		out.append(util.genAnnotatedCode(unsatPaths, sourceName) +
-        				(sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
-        				:("<script>numberSuggestions();</script>\n")));
-            }
+            out.write(toHTMLString());
             out.close();
         } catch (IOException e) {
-            System.out.println("Unable to write the HTML file to: " + htmlFileName);
+            System.out.println("Unable to write the HTML file to: " + option.htmlFileName);
         }
     }
     
-    public String getHeader () {
-    	return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n" +
-    			"<!--NewPage-->\n" +
-    			"<HTML>\n" +
-    			"<HEAD>\n" +
-    			"<meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\" />\n" +
-    			"<TITLE>\n" +
-    			"Experimental Error Diagnosis\n" +
-    			"</TITLE>\n" +
-    			"<SCRIPT type=\"text/javascript\">\n" +
-    					"function windowTitle()\n" +
-    					"{\n" +
-    					"\tif (location.href.indexOf('is-external=true') == -1) {\n" +
-    					"\t\tparent.document.title=\"report\";\n" +
-    					"\t}\n" +
-    					"}\n" +
-    			"</SCRIPT>\n" +
-    			
-    			"\n<link rel=\"stylesheet\" href=\"style.css\">\n" +
-    			"\n<script src=\"errors.js\"></script>\n" +
-    			"\n<script src=\"colorize.js\"></script>\n" +
-    			
-    			"\n</HEAD>\n" +
-    			
-    			"\n<BODY BGCOLOR=\"white\" onload=\"windowTitle();\">\n" +
-    			"\n";
-    }
+    @Override
+    public String toHTMLString() {
+    	StringBuffer sb = new StringBuffer();
     
-    public void writeFeedback(Writer out) throws IOException {
-    	out.write("<div id=feedback class=feedback>\r\n");
-    	out.write("<form method=\"POST\" action=\"submit.pl\" accept-charset=\"UTF-8\">");
-
-    	out.write("Please rate this error diagnosis:<br>\r\n");
-
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> 1. not helpful\r\n");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"2\"> 2. somewhat helpful\r\n");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"3\"> 3. helpful\r\n");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"4\"> 4. very helpful\r\n");
-    	out.write("<input type=\"radio\" name=\"helpfulness\" value=\"5\"> 5. extremely helpful\r\n");
+        if (!done) 
+        	genErrorPaths();
+        
+        // out.write(getHeader());
+        sb.append(HTTPUtil.getFeedback());
     	
-    	out.write("<p>How does it compare in usefulness to the error message you get from OCaml?<br>\r\n");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"1\"> 1. much worse\r\n");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"2\"> 2. worse\r\n");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"3\"> 3. about the same\r\n");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"4\"> 4. better\r\n");
-    	out.write("<input type=\"radio\" name=\"comparison\" value=\"5\"> 5. much better\r\n");
+    	sb.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
+    			"<H2>\n" +
+    			"<BR>\n" +
+    			"Error Diagnostic Report </H2>\n" +
+    			"<HR>\n");
     	
-    	out.write("<p>If you think you know where the error is in the program, please enter the line number:</p>");
-    	out.write("<input type=\"text\" name=\"errorloc\" />");
+    	// type check succeeded
+    	if (unsatPaths.size()==0) {
+    		sb.append("<H2>");
+			sb.append("The program passed type checking. No errors were found.</H2>");
+            sb.append("<script type=\"text/javascript\">"+
+                      "document.getElementById('feedback').style.display = 'none';</script>");
+    	}
+    	else {
+   			sb.append("<H2>One typing error is identified<H2>");
+    		sb.append(getOneSuggestion(option.sourceName, unsatPaths));
+    		sb.append(util.genAnnotatedCode(unsatPaths, option.sourceName) +
+    				(option.sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
+    				:("<script>numberSuggestions();</script>\n")));
+        }
     	
-    	out.write("<p>If you have any other comments about how this diagnosis " +
-    			"(or this tool) could be improved, you may enter them here:</p>\r\n");
-    	out.write("<textarea name=\"comments\" rows=\"2\" cols=\"50\" /></textarea>\r\n");
-    	out.write("<input type=\"submit\" value=\"Submit\"></div>\r\n");
-    	out.write("</form>\r\n");
-	    out.write("<button id=\"hide_button\" onclick=\"hide_feedback_form()\">show/hide</button>\r\n");
-	
-    	out.write("</div>\r\n");
+    	return sb.toString();
     }
-    
-    public String getTail () {
-    	return 	"\n\n" +
-    			"</BODY>\n" +
-    			"</HTML>";
-    }
-    
-    public String toString () {
+                
+    @Override
+    public String toConsoleString () {
         if (!done) 
         	genErrorPaths();
         
         // type check succeeded
         if (unsatPaths.size()==0) {
-			return "The program passed type checking. No errors were found.";
+			return ("The program passed type checking. No errors were found.");
 		} else {
-			return "One typing error is identified\n" + getOneSuggestion(sourceName, unsatPaths, true);
+			return ("One typing error is identified\n" + getOneSuggestion(option.sourceName, unsatPaths));
 		}
     }
     
-    public void toConsole () {
-    	System.out.println(toString());
+    @Override
+    public String toDotString() {
+    	if (option.isWholeGraph()) 
+        	graph.labelAll();
+        else
+        	graph.slicing();
+        return graph.toDotString();
     }
     
-    public String getOneSuggestion (String sourcefile, UnsatPaths paths, boolean console) {
+    public String getOneSuggestion (String sourcefile, UnsatPaths paths) {
     	StringBuffer sb = new StringBuffer();
     	sb.append(
-    		(GEN_ASSUMP?paths.genMissingAssumptions(pos, sourcefile):"") +
-    		(GEN_CUT?(new ExprInfer(paths, succCount)).infer(console, VERBOSE)/*+paths.genEdgeCut()*/:""));
+    		(option.isGenHypothesis()?paths.genMissingAssumptions(sourcefile):"") +
+    		(option.isGenElements()?(new ExprInfer(paths, graph.getAllNodes())).infer(option.isToConsole(), option.isVerbose())/*+paths.genEdgeCut()*/:""));
 //    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
-    	if (!console) {             
+    	if (!option.isToConsole()) {             
     		sb.append("<HR>\n" + paths.toHTML());
         }
 
     	return sb.toString();
     }
+    
+    public void writeToOutput () {
+		if (option.isDotFile()) {
+			writeToDotFile();
+		}
+		if (option.isToConsole())
+			System.out.println(toConsoleString());
+		else
+			writeToHTML();
+    }
+    
+	/**
+	 * Command line interface
+	 */
+	public static void main(String[] args) {
+
+		DiagnosticOptions option = new DiagnosticOptions(args);
+
+		try {
+			Analysis ana = Analysis.getAnalysisInstance(option);
+			ana.writeToOutput();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

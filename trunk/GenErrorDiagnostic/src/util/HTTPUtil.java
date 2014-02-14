@@ -19,6 +19,75 @@ import constraint.ast.Position;
 import diagnostic.UnsatPaths;
 
 public class HTTPUtil {
+	
+    public static String getFeedback() {
+    	StringBuffer sb = new StringBuffer();
+    	sb.append("<div id=feedback class=feedback>\r\n");
+    	sb.append("<form method=\"POST\" action=\"submit.pl\" accept-charset=\"UTF-8\">");
+
+    	sb.append("Please rate this error diagnosis:<br>\r\n");
+
+    	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> 1. not helpful\r\n");
+    	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"2\"> 2. somewhat helpful\r\n");
+    	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"3\"> 3. helpful\r\n");
+    	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"4\"> 4. very helpful\r\n");
+    	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"5\"> 5. extremely helpful\r\n");
+    	
+    	sb.append("<p>How does it compare in usefulness to the error message you get from OCaml?<br>\r\n");
+    	sb.append("<input type=\"radio\" name=\"comparison\" value=\"1\"> 1. much worse\r\n");
+    	sb.append("<input type=\"radio\" name=\"comparison\" value=\"2\"> 2. worse\r\n");
+    	sb.append("<input type=\"radio\" name=\"comparison\" value=\"3\"> 3. about the same\r\n");
+    	sb.append("<input type=\"radio\" name=\"comparison\" value=\"4\"> 4. better\r\n");
+    	sb.append("<input type=\"radio\" name=\"comparison\" value=\"5\"> 5. much better\r\n");
+    	
+    	sb.append("<p>If you think you know where the error is in the program, please enter the line number:</p>");
+    	sb.append("<input type=\"text\" name=\"errorloc\" />");
+    	
+    	sb.append("<p>If you have any other comments about how this diagnosis " +
+    			"(or this tool) could be improved, you may enter them here:</p>\r\n");
+    	sb.append("<textarea name=\"comments\" rows=\"2\" cols=\"50\" /></textarea>\r\n");
+    	sb.append("<input type=\"submit\" value=\"Submit\"></div>\r\n");
+    	sb.append("</form>\r\n");
+    	sb.append("<button id=\"hide_button\" onclick=\"hide_feedback_form()\">show/hide</button>\r\n");
+	
+    	sb.append("</div>\r\n");
+    	
+    	return sb.toString();
+    }
+    
+    public static String getHeader () {
+    	return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n" +
+    			"<!--NewPage-->\n" +
+    			"<HTML>\n" +
+    			"<HEAD>\n" +
+    			"<meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\" />\n" +
+    			"<TITLE>\n" +
+    			"Experimental Error Diagnosis\n" +
+    			"</TITLE>\n" +
+    			"<SCRIPT type=\"text/javascript\">\n" +
+    					"function windowTitle()\n" +
+    					"{\n" +
+    					"\tif (location.href.indexOf('is-external=true') == -1) {\n" +
+    					"\t\tparent.document.title=\"report\";\n" +
+    					"\t}\n" +
+    					"}\n" +
+    			"</SCRIPT>\n" +
+    			
+    			"\n<link rel=\"stylesheet\" href=\"style.css\">\n" +
+    			"\n<script src=\"errors.js\"></script>\n" +
+    			"\n<script src=\"colorize.js\"></script>\n" +
+    			
+    			"\n</HEAD>\n" +
+    			
+    			"\n<BODY BGCOLOR=\"white\" onload=\"windowTitle();\">\n" +
+    			"\n";
+    }
+    
+    public static String getTail () {
+    	return 	"\n\n" +
+    			"</BODY>\n" +
+    			"</HTML>";
+    }
 
     public static void setShowHideActions(boolean isPath, StringBuffer sb, String loc, int id) {
 		String num = isPath?"true":"false"; 

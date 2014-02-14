@@ -37,18 +37,16 @@ public class ConstraintGraph extends Graph {
     private boolean generated;                                   		// if the graph has been generated already, just reuse it
     private final boolean PRINT_SRC = false;                     		// print corresponding source code in DOT files
     private final boolean DEBUG = false;
-    private boolean SYMMENTRIC;
     private Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
     private int varCounter = 1;
 
     /**
      * @param env Global assumptions
      * @param constraints Constraints
-     * @param symmentric Set to true when all constraints are equalities
      * 
      */
-    public ConstraintGraph (Hypothesis env, Set<Constraint> constraints, boolean symmentric) {
-        this(env, symmentric);
+    public ConstraintGraph (Hypothesis env, Set<Constraint> constraints) {
+        this(env);
 		/**
 		 * generate the simple links from the constraints. handle constructors,
 		 * meet and join later
@@ -59,13 +57,12 @@ public class ConstraintGraph extends Graph {
     }
     
     /**
-     * See {@link #ConstraintGraph(Hypothesis, Set, boolean)}
+     * See {@link #ConstraintGraph(Hypothesis, Set)}
      */
-    public ConstraintGraph (Hypothesis env, boolean symmentric) {
+    public ConstraintGraph (Hypothesis env) {
         this.env = env;
     	this.files = new HashSet<String>();
         this.generated = false;
-        this.SYMMENTRIC = symmentric;
     }
                 
     /**
@@ -256,12 +253,5 @@ public class ConstraintGraph extends Graph {
      */
     public Hypothesis getEnv() {
 		return env;
-	}
-        
-    /**
-     * @return True if all constraints are equalities
-     */
-    public boolean isSymmentric() {
-		return SYMMENTRIC;
 	}
 }

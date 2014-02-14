@@ -3,7 +3,9 @@ package diagnostic;
 import graph.ConstraintPath;
 import graph.Node;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,9 +18,18 @@ import diagnostic.explanation.ExprEntity;
 public class ExprInfer extends InferenceEngine {
 	Map<String, Integer> succCount;
 	
-	public ExprInfer(UnsatPaths paths, Map<String, Integer> succCount) {
+	public ExprInfer(UnsatPaths paths, List<Node> allNodes) {
 		super(paths);
-		this.succCount = succCount;
+		
+        // gather # satisfiable paths using an expression (represented by string)
+		succCount = new HashMap<String, Integer>();
+        for (Node n : allNodes) {
+        	succCount.put(n.toString(), 0);
+        }
+        for (Node n : allNodes) {
+			int count = succCount.get(n.toString());
+			succCount.put(n.toString(), count+n.getSuccCounter());
+        }
 	}
 	
 	@Override
