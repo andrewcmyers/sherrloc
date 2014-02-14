@@ -54,7 +54,7 @@ public class Constructor extends Element {
 	@Override
 	public String toSnippetString () {
 		if (!pos.isEmpty())
-			return pos.snippet;
+			return pos.getSnippet();
 		else
 			return toString();
 	}

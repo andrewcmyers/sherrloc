@@ -3,30 +3,23 @@ package constraint.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Join of constraint elements
+ */
 public class JoinElement extends EnumerableElement {
 
-	public JoinElement(String name, List<Element> elements) {
-		super(name, elements);
+	/**
+	 * @param elements A list of join components
+	 */
+	public JoinElement(List<Element> elements) {
+		super("", elements);
 		flat();
 	}
 	
-	public String toString( ) {
-		return infixToString()+pos;
-	}
-	
-	public String toSnippetString() {
-		if (!pos.isEmpty()) {
-			return pos.snippet.toString();
-		}
-		return infixToSnippetString();
-	}
-	
-	@Override
-	public String toDotString() {
-		return infixToDotString();
-	}
-	
-	public void flat () {
+	/**
+	 * flatten nested join elements
+	 */
+	private void flat () {
 		List<Element> flat = new ArrayList<Element>();
 		for (Element e : elements) {
 			if (e instanceof JoinElement) {
@@ -36,6 +29,24 @@ public class JoinElement extends EnumerableElement {
 				flat.add(e);
 		}
 		elements = flat;
+	}
+	
+	@Override
+	public String toString( ) {
+		return infixToString()+pos;
+	}
+	
+	@Override
+	public String toSnippetString() {
+		if (!pos.isEmpty()) {
+			return pos.getSnippet();
+		}
+		return infixToSnippetString();
+	}
+	
+	@Override
+	public String toDotString() {
+		return infixToDotString();
 	}
 	
 	@Override
@@ -92,6 +103,6 @@ public class JoinElement extends EnumerableElement {
 		for (Element e : elements) {
 			baseElements.add(e.getBaseElement());
 		}
-		return new JoinElement(name, baseElements);
+		return new JoinElement(baseElements);
 	}
 }

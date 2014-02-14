@@ -3,30 +3,23 @@ package constraint.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Meet of constraint elements
+ */
 public class MeetElement extends EnumerableElement {
 	
-	public MeetElement(String name, List<Element> elements) {
-		super (name, elements);
+	/**
+	 * @param elements A list of meet components
+	 */
+	public MeetElement(List<Element> elements) {
+		super ("", elements);
 		flat();
 	}
 	
-	public String toString( ) {
-		return infixToString();
-	}
-	
-	public String toSnippetString() {
-		if (!pos.isEmpty()) {
-			return pos.snippet.toString();
-		}
-		return infixToSnippetString();
-	}
-	
-	@Override
-	public String toDotString() {
-		return infixToDotString();
-	}
-	
-	public void flat () {
+	/**
+	 * flatten nested meet elements
+	 */
+	private void flat () {
 		List<Element> flat = new ArrayList<Element>();
 		for (Element e : elements) {
 			if (e instanceof MeetElement) {
@@ -36,6 +29,24 @@ public class MeetElement extends EnumerableElement {
 				flat.add(e);
 		}
 		elements = flat;
+	}
+	
+	@Override
+	public String toString( ) {
+		return infixToString();
+	}
+	
+	@Override
+	public String toSnippetString() {
+		if (!pos.isEmpty()) {
+			return pos.getSnippet();
+		}
+		return infixToSnippetString();
+	}
+	
+	@Override
+	public String toDotString() {
+		return infixToDotString();
 	}
 	
 	@Override
@@ -92,6 +103,6 @@ public class MeetElement extends EnumerableElement {
 		for (Element e : elements) {
 			baseElements.add(e.getBaseElement());
 		}
-		return new MeetElement(name, baseElements);
+		return new MeetElement(baseElements);
 	}
 }
