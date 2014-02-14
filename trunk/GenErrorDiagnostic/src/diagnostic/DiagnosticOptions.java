@@ -87,6 +87,10 @@ public class DiagnosticOptions {
 		if (cmd.hasOption("v"))
 			verbose = true;
 		
+		if (cmd.getArgs().length==0) {
+			System.out.println("Please privide a constraint file to be analyzed");
+			System.exit(0);
+		}
 		consFile = cmd.getArgs()[0];
     }
     
@@ -100,6 +104,7 @@ public class DiagnosticOptions {
     	recursive = false;
     	symmetric = false;
     	verbose = false;
+    	htmlFileName = "error.html";
     }
     
     public String getConsFile() {
