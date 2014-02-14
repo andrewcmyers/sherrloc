@@ -3,10 +3,6 @@ CONSTRUCTOR b 0
 CONSTRUCTOR c 0
 
 %%
-(* <- *) <= (a <- a);
-(a <- a) <= (_ <- _);
-(* <- *) <= (b <- b);
-(b <- b) <= (_ <- _);
 
 %%
-(a <- a) <= (b <- b);
+a <= a join c;

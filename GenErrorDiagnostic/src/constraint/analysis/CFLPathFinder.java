@@ -26,11 +26,11 @@ import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 
 /**
- * 
  * Construct a CFL graph based on the input
- *
  */
-abstract public class CFLPathFinder extends PathFinder {
+abstract public class CFLPathFinder implements PathFinder {
+	protected boolean initialized = false;
+	protected final ConstraintGraph g;
 	
 	// Edges used in CFL-reachablity algorithm. Should not be observable for most graph operations
 	protected Map<Node, Map<Node, List<ReductionEdge>>>   reductionEdges = new HashMap<Node, Map<Node,List<ReductionEdge>>>();
@@ -39,7 +39,7 @@ abstract public class CFLPathFinder extends PathFinder {
 	protected Map<Node, List<Node>>   consElements = new HashMap<Node, List<Node>>();
 	
 	public CFLPathFinder(ConstraintGraph graph) {
-		super(graph);
+		g = graph;
 	}
 	
 	protected void addReductionEdge (Node from, Node to, ReductionEdge edge) {
@@ -103,7 +103,6 @@ abstract public class CFLPathFinder extends PathFinder {
     	return ret;
     }
     
-	@Override
 	void initialize() {
 		// initialize reduction edges
 		for (Node n : g.getAllNodes()) {
@@ -162,6 +161,22 @@ abstract public class CFLPathFinder extends PathFinder {
 
 		saturation();
 	}
+	
+	public List<Edge> getPath(Node start, Node end, boolean verbose) {
+		if (!initialized) {
+			long startTime = System.currentTimeMillis();
+			initialize();
+			initialized = true;
+			long endTime = System.currentTimeMillis();
+			if (verbose)
+				System.out.println("path_finding time: "
+						+ (endTime - startTime));
+		}
+
+		return _getPath(start, end);
+	}
+	
+	abstract protected List<Edge> _getPath(Node start, Node end);
 
 	// the method used to generate all CFG nonterminals in a graph
 	abstract public void saturation();
