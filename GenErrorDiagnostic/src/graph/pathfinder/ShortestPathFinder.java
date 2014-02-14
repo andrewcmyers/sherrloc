@@ -20,7 +20,7 @@ import java.util.PriorityQueue;
 
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
-import constraint.ast.Environment;
+import constraint.ast.Hypothesis;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Variable;

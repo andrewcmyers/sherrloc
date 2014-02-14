@@ -12,7 +12,7 @@ import java.util.Stack;
 import constraint.ast.Constructor;
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
-import constraint.ast.Environment;
+import constraint.ast.Hypothesis;
 import constraint.ast.Inequality;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
@@ -20,14 +20,14 @@ import constraint.ast.Relation;
 
 public class ConstraintPath {
 	List<Edge> edges;
-	Environment assumption;
+	Hypothesis assumption;
 	PathFinder finder;
 	Inequality minHypo;
 
 	public ConstraintPath(List<Edge> edges, PathFinder finder,
-			Environment globalEnv, HashMap<Environment, Environment> cachedEnv) {
+			Hypothesis globalEnv, HashMap<Hypothesis, Hypothesis> cachedEnv) {
 		this.edges = edges;
-		assumption = new Environment();
+		assumption = new Hypothesis();
 		assumption.addEnv(globalEnv);
 		for (Edge edge : edges) {
 			for (Inequality ieq : edge.getInequalities())
@@ -164,7 +164,7 @@ public class ConstraintPath {
 		return !assumption.leq(getFirst().getElement(), getLast().getElement());
 	}
 
-	private Environment getEnv_(HashMap<Environment, Environment> cachedEnv) {
+	private Hypothesis getEnv_(HashMap<Hypothesis, Hypothesis> cachedEnv) {
 		if (cachedEnv.containsKey(assumption))
 			return cachedEnv.get(assumption);
 		else {
@@ -211,11 +211,11 @@ public class ConstraintPath {
 			return null;
 	}
 
-	public Environment getAssumption() {
+	public Hypothesis getAssumption() {
 		return assumption;
 	}
 
-	public void setAssumption(Environment assumption) {
+	public void setAssumption(Hypothesis assumption) {
 		this.assumption = assumption;
 	}
 

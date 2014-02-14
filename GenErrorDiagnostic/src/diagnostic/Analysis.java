@@ -32,7 +32,7 @@ import org.apache.commons.cli.PosixParser;
 import util.HTTPUtil;
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
-import constraint.ast.Environment;
+import constraint.ast.Hypothesis;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Position;
@@ -55,14 +55,14 @@ public class Analysis {
 	Map<String, Integer> succCount;
 	UnsatPaths unsatPaths;
 	HTTPUtil util;
-	public HashMap<Environment, Environment> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
+	public HashMap<Hypothesis, Hypothesis> cachedEnv;	// Reuse graph.env join env if the current env is already seen before
 	
 	public Analysis(ConstraintGraph g) {
 		graph = g;
         succCount = new HashMap<String, Integer>();
         unsatPaths = new UnsatPaths();
         util = new HTTPUtil();
-        cachedEnv = new HashMap<Environment, Environment>();
+        cachedEnv = new HashMap<Hypothesis, Hypothesis>();
 	}
 	
 	public static void main(String[] args) {

@@ -5,12 +5,12 @@ import graph.ConstraintPath;
 import java.util.HashMap;
 import java.util.Map;
 
-import constraint.ast.Environment;
+import constraint.ast.Hypothesis;
 import constraint.ast.Inequality;
 
 public class HypothesisEntity extends Entity {
 	private Inequality ieq;
-	private Map<Environment, Environment> cachedEnv = new HashMap<Environment, Environment>();
+	private Map<Hypothesis, Hypothesis> cachedEnv = new HashMap<Hypothesis, Hypothesis>();
 	
 	public HypothesisEntity(Inequality ieq) {
 		super(0);
@@ -23,7 +23,7 @@ public class HypothesisEntity extends Entity {
 		if (ieq.equals(minHypo))
 			return true;
 
-		Environment env = p.getAssumption().addLeq(ieq.getFirstElement(), ieq.getSecondElement());
+		Hypothesis env = p.getAssumption().addLeq(ieq.getFirstElement(), ieq.getSecondElement());
 		
 		if (cachedEnv.containsKey(env))
 			env = cachedEnv.get(env);
