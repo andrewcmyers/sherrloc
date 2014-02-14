@@ -1,6 +1,9 @@
 package graph;
 
-import constraint.ast.Environment;
+import java.util.HashSet;
+import java.util.Set;
+
+import constraint.ast.Inequality;
 
 /**
  * A special edge used for the special constructor MEET (aka, UNION)
@@ -28,8 +31,8 @@ public class MeetEdge extends Edge {
 	}
 	
 	@Override
-	public Environment getAssumption() {
-		return new Environment();
+	public Set<Inequality> getInequalities() {
+		return new HashSet<Inequality>();
 	}
 	
 	@Override

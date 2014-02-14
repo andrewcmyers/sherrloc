@@ -1,16 +1,17 @@
 package graph;
 
-import constraint.ast.Environment;
+import java.util.HashSet;
+import java.util.Set;
+
+import constraint.ast.Inequality;
 
 /* this edge is inferred only when all components of an Constructor element flow into another */
 public class CompEdge extends Edge {
 		String info;
-		Environment env;
 	
-		public CompEdge(Node from, Node to, Environment env, String info) {
+		public CompEdge(Node from, Node to, String info) {
 			super(from, to);
 			this.info = info;
-			this.env = env;
 		}
 		
 		@Override
@@ -27,10 +28,10 @@ public class CompEdge extends Edge {
 		public boolean isDirected() {
 			return true;
 		}
-				
+		
 		@Override
-		public Environment getAssumption() {
-			return env;
+		public Set<Inequality> getInequalities() {
+			return new HashSet<Inequality>();
 		}
 		
 		@Override
@@ -40,6 +41,6 @@ public class CompEdge extends Edge {
 
 		@Override
 		public Edge getReverse() {
-			return new CompEdge(to, from, env, info);
+			return new CompEdge(to, from, info);
 		}
 }

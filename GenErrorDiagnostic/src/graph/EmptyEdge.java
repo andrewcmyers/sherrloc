@@ -1,6 +1,9 @@
 package graph;
 
-import constraint.ast.Environment;
+import java.util.HashSet;
+import java.util.Set;
+
+import constraint.ast.Inequality;
 
 public class EmptyEdge extends Edge {
 	static EmptyEdge instance=null;
@@ -15,11 +18,12 @@ public class EmptyEdge extends Edge {
 		return instance;
 	}
 
-	@Override
-	public Environment getAssumption() {
-		return null;
-	}
 
+	@Override
+	public Set<Inequality> getInequalities() {
+		return new HashSet<Inequality>();
+	}
+	
 	@Override
 	public int getLength() {
 		return 0;
