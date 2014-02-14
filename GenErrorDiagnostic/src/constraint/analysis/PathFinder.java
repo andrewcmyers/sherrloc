@@ -1,4 +1,4 @@
-package graph.pathfinder;
+package constraint.analysis;
 
 import graph.ConstraintGraph;
 import graph.Edge;
