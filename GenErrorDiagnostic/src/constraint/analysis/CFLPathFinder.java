@@ -37,8 +37,6 @@ abstract public class CFLPathFinder extends PathFinder {
 	protected Map<Node, List<Node>>   joinElements = new HashMap<Node, List<Node>>();
 	protected Map<Node, List<Node>>   meetElements = new HashMap<Node, List<Node>>();
 	protected Map<Node, List<Node>>   consElements = new HashMap<Node, List<Node>>();
-	boolean[][] hasRightEdge;
-
 	
 	public CFLPathFinder(ConstraintGraph graph) {
 		super(graph);
@@ -114,14 +112,8 @@ abstract public class CFLPathFinder extends PathFinder {
 			meetElements.put(n, new ArrayList<Node>());
 			consElements.put(n, new ArrayList<Node>());
 		}
-		hasRightEdge = new boolean[g.getAllNodes().size()][g.getAllNodes().size()];
 		
 		List<Edge> edges = g.getAllEdges();
-		for (Node start : g.getAllNodes()) {
-			for (Node end : g.getAllNodes()) {
-				hasRightEdge[start.getIndex()][end.getIndex()] = false;
-			}
-		}
 
 		// generate the initial CFG graph
 		for (Edge edge : edges) {
@@ -136,7 +128,6 @@ abstract public class CFLPathFinder extends PathFinder {
 				ConstructorEdge e = (ConstructorEdge) edge;
 				if (e.getCondition().isReverse()) {
 					addReductionEdge(from, to, new RightEdge(e.getCondition(), from, to, edge, EmptyEdge.getInstance()));
-					hasRightEdge[from.getIndex()][to.getIndex()] = true;
 				}
 				else {
 					addReductionEdge(from, to, new LeftEdge (e.getCondition(), from, to, edge, EmptyEdge.getInstance()));
