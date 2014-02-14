@@ -6,24 +6,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 import constraint.ast.Environment;
-import constraint.ast.Hypothesis;
+import constraint.ast.Inequality;
 
 public class HypothesisEntity extends Entity {
-	private Hypothesis hypo;
+	private Inequality ieq;
 	private Map<Environment, Environment> cachedEnv = new HashMap<Environment, Environment>();
 	
-	public HypothesisEntity(Hypothesis hypo) {
+	public HypothesisEntity(Inequality ieq) {
 		super(0);
-		this.hypo = hypo;
+		this.ieq = ieq;
 	}
 	
 	@Override
 	public boolean explains(ConstraintPath p) {
-		Hypothesis minHypo = p.getMinHypo();
-		if (hypo.equals(minHypo))
+		Inequality minHypo = p.getMinHypo();
+		if (ieq.equals(minHypo))
 			return true;
 
-		Environment env = p.getAssumption().addLeq(hypo.getFirst(), hypo.getSecond());
+		Environment env = p.getAssumption().addLeq(ieq.getFirstElement(), ieq.getSecondElement());
 		
 		if (cachedEnv.containsKey(env))
 			env = cachedEnv.get(env);
@@ -31,7 +31,7 @@ public class HypothesisEntity extends Entity {
 			cachedEnv.put(env, env);
 		}
 		
-		if (env.leq(minHypo.getFirst(), minHypo.getSecond()))
+		if (env.leq(minHypo.getFirstElement(), minHypo.getSecondElement()))
 			return true;
 			
 		return false;
@@ -40,14 +40,14 @@ public class HypothesisEntity extends Entity {
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof HypothesisEntity) {
-			return hypo.equals(((HypothesisEntity) other).hypo);
+			return ieq.equals(((HypothesisEntity) other).ieq);
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return hypo.hashCode();
+		return ieq.hashCode();
 	}
 	
 	@Override
@@ -62,6 +62,6 @@ public class HypothesisEntity extends Entity {
 	
 	@Override
 	public String toString() {
-		return hypo.toString();
+		return ieq.toString();
 	}
 }
