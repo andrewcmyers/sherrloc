@@ -3,25 +3,25 @@ package diagnostic;
 import java.util.Set;
 
 import constraint.ast.Constraint;
-import constraint.ast.Environment;
+import constraint.ast.Hypothesis;
 
 /**
  * Result of parser
  */
 public class DiagnosisInput {
-	private Environment env;
+	private Hypothesis env;
 	private Set<Constraint> constraints;
 	
 	/**
 	 * @param env Global assumptions
 	 * @param cons A set of constraints
 	 */
-	public DiagnosisInput(Environment env, Set<Constraint> cons) {
+	public DiagnosisInput(Hypothesis env, Set<Constraint> cons) {
 		this.env = env;
 		constraints = cons;
 	}
 	
-	public Environment getEnv() {
+	public Hypothesis getEnv() {
 		return env;
 	}
 	

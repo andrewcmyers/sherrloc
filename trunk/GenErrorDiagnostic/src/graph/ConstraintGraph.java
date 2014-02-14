@@ -15,7 +15,7 @@ import constraint.ast.Constraint;
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
 import constraint.ast.EnumerableElement;
-import constraint.ast.Environment;
+import constraint.ast.Hypothesis;
 import constraint.ast.Inequality;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
@@ -31,7 +31,7 @@ import constraint.ast.Relation;
  * later used as inputs to infer the most likely error cause.
  */
 public class ConstraintGraph extends Graph {
-	private Environment env;
+	private Hypothesis env;
     
     private Set<String> files;                                          // source codes involved, only used for DOT files
     private boolean generated;                                   		// if the graph has been generated already, just reuse it
@@ -47,7 +47,7 @@ public class ConstraintGraph extends Graph {
      * @param symmentric Set to true when all constraints are equalities
      * 
      */
-    public ConstraintGraph (Environment env, Set<Constraint> constraints, boolean symmentric) {
+    public ConstraintGraph (Hypothesis env, Set<Constraint> constraints, boolean symmentric) {
         this(env, symmentric);
 		/**
 		 * generate the simple links from the constraints. handle constructors,
@@ -59,9 +59,9 @@ public class ConstraintGraph extends Graph {
     }
     
     /**
-     * See {@link #ConstraintGraph(Environment, Set, boolean)}
+     * See {@link #ConstraintGraph(Hypothesis, Set, boolean)}
      */
-    public ConstraintGraph (Environment env, boolean symmentric) {
+    public ConstraintGraph (Hypothesis env, boolean symmentric) {
         this.env = env;
     	this.files = new HashSet<String>();
         this.generated = false;
@@ -254,7 +254,7 @@ public class ConstraintGraph extends Graph {
     /**
      * @return Global assumptions
      */
-    public Environment getEnv() {
+    public Hypothesis getEnv() {
 		return env;
 	}
         

@@ -11,18 +11,18 @@ import java.util.Set;
 /**
  * Environment represents hypothesis (a conjunction of inequalities)
  */
-public class Environment {
+public class Hypothesis {
 	private Set<Inequality> assertions;
 	private ConstraintGraph graph;
 	private PathFinder finder = null;
 	private boolean SHOW_HYPOTHESIS = false;
-	private Environment parent = null; // used to reduce shared environments
+	private Hypothesis parent = null; // used to reduce shared environments
 										// (e.g., to store global assumptions)
 
 	/**
 	 * Empty assumption
 	 */
-	public Environment() {
+	public Hypothesis() {
 		assertions = new HashSet<Inequality>();
 		graph = new ConstraintGraph(null, new HashSet<Constraint>(), false);
 	}
@@ -31,7 +31,7 @@ public class Environment {
 	 * @param s
 	 *            A set of inequalities
 	 */
-	public Environment(Set<Inequality> s) {
+	public Hypothesis(Set<Inequality> s) {
 		assertions = s;
 		graph = new ConstraintGraph(null, new HashSet<Constraint>(), false);
 	}
@@ -52,7 +52,7 @@ public class Environment {
 	 * @param e
 	 *            An assumption to be added
 	 */
-	public void addEnv(Environment e) {
+	public void addEnv(Hypothesis e) {
 		if (parent == null) {
 			parent = e;
 		} else {
@@ -71,8 +71,8 @@ public class Environment {
 	 * @return A fresh assumption where an inequality <code>e1</code> <=
 	 *         <code>e2</code> is added to the current assumption
 	 */
-	public Environment addLeq(Element e1, Element e2) {
-		Environment e = new Environment();
+	public Hypothesis addLeq(Element e1, Element e2) {
+		Hypothesis e = new Hypothesis();
 		e.addEnv(this);
 		e.addInequality(new Inequality(e1.getBaseElement(),
 				e2.getBaseElement(), Relation.LEQ));
@@ -246,8 +246,8 @@ public class Environment {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Environment) {
-			Environment other = (Environment) obj;
+		if (obj instanceof Hypothesis) {
+			Hypothesis other = (Hypothesis) obj;
 			for (Inequality cons : assertions) {
 				if (!other.assertions.contains(cons))
 					return false;
