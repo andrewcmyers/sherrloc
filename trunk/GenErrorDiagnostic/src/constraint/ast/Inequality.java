@@ -57,7 +57,7 @@ public class Inequality implements PrettyPrinter {
 	
 	@Override
 	public String toString () {
-		return e1.toString()+r.toString()+e2.toString();
+		return e1.toString()+" "+r.toString()+" "+e2.toString();
 	}
 	
 	@Override
