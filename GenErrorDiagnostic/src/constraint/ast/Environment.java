@@ -120,10 +120,20 @@ public class Environment {
 		// the assumptions first
 		if (leqApplyAssertions(e1, e2))
 			return true;
+
+		// in principle, all partial orderings can be inferred on the hypothesis
+		// graph. But since the graph is constructed from constraints, a
+		// relation can be missing if the element to be tested is not present in
+		// the graph (e.g., A <= A join B). One way is to incrementally add the
+		// extra nodes to a saturated constraint graph. Here, we apply the
+		// direct rules for constructors, joins and meets for better performance
+		
+		// the following test is require only when e1 or e2 is not represented
+		// in hypothesis graph
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 			return false;
 		}
-		
+
 		// constructor mismatch
 		if (e1 instanceof ConstructorApplication
 				&& e2 instanceof ConstructorApplication) {
@@ -148,13 +158,13 @@ public class Environment {
 			return true;
 		}
 
+		// apply the inference rules for joins and meets
 		if (e1 instanceof JoinElement) {
 			for (Element e : ((JoinElement) e1).getElements())
 				if (!leq(e, e2))
 					return false;
 			return true;
-		} 
-		else if (e1 instanceof MeetElement) {
+		} else if (e1 instanceof MeetElement) {
 			for (Element e : ((MeetElement) e1).getElements())
 				if (leq(e, e2))
 					return true;
@@ -191,10 +201,6 @@ public class Environment {
 	}
 
 	/**
-	 * TODO: is there a way to eliminate the constraints _->_ <= labels?
-	 * Otherwise, hard to tell the type of "labels"
-	 */
-	/**
 	 * Saturate a constraint graph from all assumptions to test if
 	 * <code>e1</code><=<code>e2</code> can be inferred
 	 * 
@@ -215,7 +221,6 @@ public class Environment {
 
 			if (SHOW_HYPOTHESIS) {
 				graph.labelAll();
-				System.out.println(graph.toDotString());
 			}
 			finder = new ShortestPathFinder(graph);
 		}
@@ -223,7 +228,7 @@ public class Environment {
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 			if (finder.getPath(graph.getNode(e1), graph.getNode(e2), false) != null)
 				return true;
-		} 
+		}
 		return false;
 	}
 

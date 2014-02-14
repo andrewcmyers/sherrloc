@@ -9,54 +9,58 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import constraint.ast.ConstructorApplication;
 import constraint.ast.Constructor;
+import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
 import constraint.ast.Environment;
-import constraint.ast.Hypothesis;
 import constraint.ast.Inequality;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
+import constraint.ast.Relation;
 
 public class ConstraintPath {
-    List<Edge> edges;
-    Environment assumption;
-    PathFinder finder;
-    Hypothesis minHypo;
-    
-    public ConstraintPath(List<Edge> edges, PathFinder finder, Environment globalEnv, HashMap<Environment, Environment> cachedEnv) {
-        this.edges = edges;
-        assumption = new Environment();
-        assumption.addEnv(globalEnv);
-        for (Edge edge : edges) {
-        	for (Inequality ieq : edge.getInequalities())
-        		assumption.addInequality(ieq);
-        }
-        assumption = getEnv_(cachedEnv);
-        this.finder =  finder;
-        if (edges.size()==0) {
-        	this.minHypo = null;
-        }
-        else
-        	this.minHypo = new Hypothesis(getFirstElement(), getLastElement());
-    }
+	List<Edge> edges;
+	Environment assumption;
+	PathFinder finder;
+	Inequality minHypo;
 
-    int size () {
-        return edges.size();
-    }
-    
-    public List<Edge> getEdges() {
+	public ConstraintPath(List<Edge> edges, PathFinder finder,
+			Environment globalEnv, HashMap<Environment, Environment> cachedEnv) {
+		this.edges = edges;
+		assumption = new Environment();
+		assumption.addEnv(globalEnv);
+		for (Edge edge : edges) {
+			for (Inequality ieq : edge.getInequalities())
+				assumption.addInequality(ieq);
+		}
+		assumption = getEnv_(cachedEnv);
+		this.finder = finder;
+		if (edges.size() == 0) {
+			this.minHypo = null;
+		} else
+			// hypothesis use elements with no position information. See the
+			// definition of getBaseElement for why.
+			this.minHypo = new Inequality(getFirstElement().getBaseElement(),
+					getLastElement().getBaseElement(), Relation.LEQ);
+	}
+
+	int size() {
+		return edges.size();
+	}
+
+	public List<Edge> getEdges() {
 		return edges;
 	}
-    
-    public Hypothesis getMinHypo() {
+
+	public Inequality getMinHypo() {
 		return minHypo;
 	}
-    
-	public List<Node> getIdNodes( ) {
+
+	public List<Node> getIdNodes() {
 		ArrayList<Node> ret = new ArrayList<Node>();
-		
-		if (edges.size()==0) return ret;
+
+		if (edges.size() == 0)
+			return ret;
 
 		// System.out.println("Checking one equation in env: "+path.env);
 		Node first = getFirst();
@@ -64,16 +68,18 @@ public class ConstraintPath {
 
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
-			if (finder.getPath(first, edge.to, false)!=null)
+			if (finder.getPath(first, edge.to, false) != null)
 				ret.add(edge.to);
 		}
 		return ret;
 	}
-	
-	// a succ path is one where all LEQ are provable and all LEQ nodes are variable free
+
+	// a succ path is one where all LEQ are provable and all LEQ nodes are
+	// variable free
 	public boolean isSuccPath() {
-		if (edges.size()==0) return false;
-		
+		if (edges.size() == 0)
+			return false;
+
 		// at least one of the edges should be equation edge
 		boolean hasEqu = false;
 		for (Edge e : edges) {
@@ -84,55 +90,60 @@ public class ConstraintPath {
 		}
 		if (!hasEqu)
 			return false;
-		
+
 		// System.out.println("Checking one equation in env: "+path.env);
 		Stack<Node> leqNodes = new Stack<Node>();
 		Stack<EdgeCondition> conditions = new Stack<EdgeCondition>();
 		int length = 0;
 		Node first = getFirst();
 		leqNodes.push(first);
-		
+
 		for (int k = 0; k < edges.size(); k++) {
 			Edge edge = edges.get(k);
 			Node eto = edge.to;
-			boolean needCmp = eto.getElement() instanceof Constructor || eto.getElement() instanceof ConstructorApplication
-					|| eto.getElement() instanceof JoinElement || eto.getElement() instanceof MeetElement;
-			if (edge instanceof EquationEdge || edge instanceof JoinEdge ||
-					edge instanceof MeetEdge) {
+			boolean needCmp = eto.getElement() instanceof Constructor
+					|| eto.getElement() instanceof ConstructorApplication
+					|| eto.getElement() instanceof JoinElement
+					|| eto.getElement() instanceof MeetElement;
+			if (edge instanceof EquationEdge || edge instanceof JoinEdge
+					|| edge instanceof MeetEdge) {
 				if (needCmp) {
-					if (conditions.size()==0) {
-						if (length>0)
+					if (conditions.size() == 0) {
+						if (length > 0)
 							return false;
 						else
-							length ++;
+							length++;
 					}
-					
-					if (!assumption.leq(leqNodes.peek().getElement(), eto.getElement()))
+
+					if (!assumption.leq(leqNodes.peek().getElement(),
+							eto.getElement()))
 						return false;
 					else {
 						leqNodes.pop();
 						leqNodes.push(eto);
 					}
 				}
-			}
-			else if (edge instanceof ConstructorEdge) {
-				ConstructorEdge cedge = (ConstructorEdge)edge;
-				if (conditions.empty() || !conditions.peek().matches(cedge.condition)) {
+			} else if (edge instanceof ConstructorEdge) {
+				ConstructorEdge cedge = (ConstructorEdge) edge;
+				if (conditions.empty()
+						|| !conditions.peek().matches(cedge.condition)) {
 					conditions.push(cedge.condition);
 					leqNodes.push(eto);
-				}
-				else {
+				} else {
 					conditions.pop();
 					leqNodes.pop();
 					if (needCmp) {
-						if (conditions.size()==0) {
-							if (length>0)
+						if (conditions.size() == 0) {
+							if (length > 0)
 								return false;
 							else
-								length ++;
+								length++;
 						}
-						
-						if (!leqNodes.empty() && !assumption.leq(leqNodes.peek().getElement(), eto.getElement()))
+
+						if (!leqNodes.empty()
+								&& !assumption.leq(
+										leqNodes.peek().getElement(),
+										eto.getElement()))
 							return false;
 						else {
 							leqNodes.pop();
@@ -145,14 +156,15 @@ public class ConstraintPath {
 
 		return true;
 	}
-	
+
 	public boolean isUnsatPath() {
-		if (edges.size()==0) return false;
-		
+		if (edges.size() == 0)
+			return false;
+
 		return !assumption.leq(getFirst().getElement(), getLast().getElement());
 	}
-	
-	private Environment getEnv_ (HashMap<Environment, Environment> cachedEnv) {
+
+	private Environment getEnv_(HashMap<Environment, Environment> cachedEnv) {
 		if (cachedEnv.containsKey(assumption))
 			return cachedEnv.get(assumption);
 		else {
@@ -160,11 +172,12 @@ public class ConstraintPath {
 			return assumption;
 		}
 	}
-	
-	public Set<Node> getAllNodes( ) {
+
+	public Set<Node> getAllNodes() {
 		HashSet<Node> ret = new HashSet<Node>();
-		
-		if (edges.size()==0) return ret;
+
+		if (edges.size() == 0)
+			return ret;
 
 		Node first = getFirst();
 		ret.add(first);
@@ -175,40 +188,41 @@ public class ConstraintPath {
 		}
 		return ret;
 	}
-    
+
 	public Node getFirst() {
 		if (edges.size() != 0)
 			return edges.get(0).from;
 		else
 			return null;
 	}
-	
-	public Element getFirstElement () {
+
+	public Element getFirstElement() {
 		return getFirst().getElement();
 	}
-	
-	public Element getLastElement () {
+
+	public Element getLastElement() {
 		return getLast().getElement();
 	}
-    
+
 	public Node getLast() {
 		if (edges.size() != 0)
-			return edges.get(edges.size()-1).to;
+			return edges.get(edges.size() - 1).to;
 		else
 			return null;
 	}
-	
-	public Environment getAssumption () {
+
+	public Environment getAssumption() {
 		return assumption;
 	}
-	
+
 	public void setAssumption(Environment assumption) {
 		this.assumption = assumption;
 	}
-		
-	public void incSuccCounter ( ) {
-		if (edges.size()==0) return;
-		
+
+	public void incSuccCounter() {
+		if (edges.size() == 0)
+			return;
+
 		// avoid duplicate expressions
 		Set<String> processedNodes = new HashSet<String>();
 		Set<String> processedEdges = new HashSet<String>();
@@ -228,9 +242,10 @@ public class ConstraintPath {
 			}
 		}
 	}
-		
-	public void setCause ( ) {
-		if (edges.size()==0) return;
+
+	public void setCause() {
+		if (edges.size() == 0)
+			return;
 
 		Node leftmost = getFirst();
 		leftmost.setCause();
@@ -241,19 +256,20 @@ public class ConstraintPath {
 			edge.to.setCause();
 		}
 	}
-	    
-	public String toString( ) {
+
+	public String toString() {
 		String ret = "";
-		
-		if (edges.size()==0) return "";
+
+		if (edges.size() == 0)
+			return "";
 
 		ret += "\n----Start of one path----\n";
 		Node leftmost = getFirst();
-		ret += leftmost.getElement().toString()+"\n";
+		ret += leftmost.getElement().toString() + "\n";
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			ret += "--> (" + (edge.toString()) + ")\n";
-				ret += edge.to.getElement().toString()+"\n";
+			ret += edge.to.getElement().toString() + "\n";
 		}
 		ret += "----End of one path----\n";
 		return ret;
