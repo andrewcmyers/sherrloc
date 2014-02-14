@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Environment represents hypothesis (a conjunction of inequalities)
+ * Hypothesis consists a conjunction of inequalities
  */
 public class Hypothesis {
 	private Set<Inequality> assertions;
@@ -20,11 +20,11 @@ public class Hypothesis {
 										// (e.g., to store global assumptions)
 
 	/**
-	 * Empty assumption
+	 * Construct an empty hypothesis
 	 */
 	public Hypothesis() {
 		assertions = new HashSet<Inequality>();
-		graph = new ConstraintGraph(null, new HashSet<Constraint>(), false);
+		graph = new ConstraintGraph(null, false);
 	}
 
 	/**
@@ -33,11 +33,11 @@ public class Hypothesis {
 	 */
 	public Hypothesis(Set<Inequality> s) {
 		assertions = s;
-		graph = new ConstraintGraph(null, new HashSet<Constraint>(), false);
+		graph = new ConstraintGraph(null, false);
 	}
 
 	/**
-	 * Add an inequality to the assumption
+	 * Add an inequality to the hypothesis
 	 * 
 	 * @param ieq
 	 *            An inequality to be added
@@ -47,10 +47,10 @@ public class Hypothesis {
 	}
 
 	/**
-	 * Add all inequalities in <code>e</code> to the assumption
+	 * Add all inequalities in <code>e</code> to the hypothesis
 	 * 
 	 * @param e
-	 *            An assumption to be added
+	 *            An hypothesis to be added
 	 */
 	public void addEnv(Hypothesis e) {
 		if (parent == null) {
@@ -61,26 +61,26 @@ public class Hypothesis {
 	}
 
 	/**
-	 * Return a fresh assumption where an inequality <code>e1</code> <=
-	 * <code>e2</code> is added to the current assumption
+	 * Return a fresh hypothesis where an inequality <code>e1 <= e2</code> is
+	 * added to the current hypothesis
 	 * 
 	 * @param e1
 	 *            Element on LHS
 	 * @param e2
 	 *            Element on RHS
-	 * @return A fresh assumption where an inequality <code>e1</code> <=
-	 *         <code>e2</code> is added to the current assumption
+	 * @return A fresh hypothesis where an inequality <code>e1</code> <=
+	 *         <code>e2</code> is added to the current hypothesis
 	 */
 	public Hypothesis addLeq(Element e1, Element e2) {
-		Hypothesis e = new Hypothesis();
-		e.addEnv(this);
-		e.addInequality(new Inequality(e1.getBaseElement(),
+		Hypothesis h = new Hypothesis();
+		h.addEnv(this);
+		h.addInequality(new Inequality(e1.getBaseElement(),
 				e2.getBaseElement(), Relation.LEQ));
-		return e;
+		return h;
 	}
 
 	/**
-	 * @return A string of all inequalities
+	 * @return A string of all inequalities in hypothesis
 	 */
 	public String inequalityString() {
 		StringBuffer sb = new StringBuffer();
@@ -93,13 +93,13 @@ public class Hypothesis {
 
 	/**
 	 * Test if the relation <code>e1</code> <= <code>e2</code> can be derived
-	 * from the assumption
+	 * from the hypothesis
 	 * 
-	 * @param e1
+	 * @param p1
 	 *            Element on LHS
-	 * @param e2
+	 * @param p2
 	 *            Element on RHS
-	 * @return True if <code>e1</code> <= <code>e2</code>
+	 * @return True if <code>p1 <= p2</code>
 	 */
 	public boolean leq(Element p1, Element p2) {
 		Element e1 = p1.getBaseElement();
@@ -121,14 +121,15 @@ public class Hypothesis {
 		if (leqApplyAssertions(e1, e2))
 			return true;
 
-		// in principle, all partial orderings can be inferred on the hypothesis
+		// In principle, all partial orderings can be inferred on the hypothesis
 		// graph. But since the graph is constructed from constraints, a
-		// relation can be missing if the element to be tested is not present in
-		// the graph (e.g., A <= A join B). One way is to incrementally add the
-		// extra nodes to a saturated constraint graph. Here, we apply the
-		// direct rules for constructors, joins and meets for better performance
-		
-		// the following test is require only when e1 or e2 is not represented
+		// relation can be missing if the element to be tested on does not
+		// present in the graph (e.g., A <= A join B). One way is to
+		// incrementally add the extra nodes to a saturated constraint graph.
+		// Here, we apply the direct rules for constructors, joins and meets for
+		// better performance.
+
+		// The following test is require only when e1 or e2 is not represented
 		// in hypothesis graph
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 			return false;
@@ -187,7 +188,7 @@ public class Hypothesis {
 	}
 
 	/**
-	 * @return All inequalities made in the assumption
+	 * @return All inequalities made in the hypothesis
 	 */
 	public Set<Inequality> getInequalities() {
 		if (parent == null)
@@ -201,15 +202,14 @@ public class Hypothesis {
 	}
 
 	/**
-	 * Saturate a constraint graph from all assumptions to test if
-	 * <code>e1</code><=<code>e2</code> can be inferred
+	 * Saturate a hypothesis graph to test if <code>e1<=e2</code> can be
+	 * inferred
 	 * 
 	 * @param e1
 	 *            Element on LHS
 	 * @param e2
 	 *            Element on RHS
-	 * @return True if <code>e1</code><=<code>e2</code> can be inferred from
-	 *         assumption
+	 * @return True if <code>e1 <= e2</code> can be inferred from the hypothesis
 	 */
 	private boolean leqApplyAssertions(Element e1, Element e2) {
 
