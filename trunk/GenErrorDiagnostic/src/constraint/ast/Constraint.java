@@ -6,7 +6,7 @@ import util.PrettyPrinter;
 
 /**
  * A constraint has the format of {@link Hypothesis} entails {@link Relation}
- * (e1 , e2), where {@link Relation} can be <= or ==
+ * ({@link Element} , {@link Element}), where {@link Relation} can be <= or ==
  * 
  */
 public class Constraint implements PrettyPrinter {	
