@@ -3,6 +3,7 @@ package constraint.analysis;
 import graph.ConstraintGraph;
 import graph.ConstructorEdge;
 import graph.Edge;
+import graph.EdgeCondition;
 import graph.EmptyEdge;
 import graph.EquationEdge;
 import graph.JoinEdge;
@@ -14,11 +15,11 @@ import graph.ReductionEdge;
 import graph.RightEdge;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.PriorityQueue;
 
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
@@ -32,84 +33,107 @@ abstract public class CFLPathFinder implements PathFinder {
 	protected boolean initialized = false;
 	protected final ConstraintGraph g;
 	
-	// Edges used in CFL-reachablity algorithm. Should not be observable for most graph operations
-	protected Map<Node, Map<Node, List<ReductionEdge>>>   reductionEdges = new HashMap<Node, Map<Node,List<ReductionEdge>>>();
+	int MAX = 10000;
+	ReductionEdge[][] idPath;
+	Map<EdgeCondition, LeftEdge>[][] leftPath;
+	int[][] shortestLEQ;
+	Map<EdgeCondition, Integer>[][] shortestLeft;
+	PriorityQueue<ReductionEdge> queue;
+	
+	/** Edges used in CFL-reachablity algorithm */
+	protected Map<Node, Map<Node, List<RightEdge>>> rightEdges = new HashMap<Node, Map<Node,List<RightEdge>>>();
+	
+	/** Lookup tables to find enumerable elements from components */
 	protected Map<Node, List<Node>>   joinElements = new HashMap<Node, List<Node>>();
 	protected Map<Node, List<Node>>   meetElements = new HashMap<Node, List<Node>>();
 	protected Map<Node, List<Node>>   consElements = new HashMap<Node, List<Node>>();
 	
 	public CFLPathFinder(ConstraintGraph graph) {
 		g = graph;
+		queue = new PriorityQueue<ReductionEdge>(
+				500, new Comparator<ReductionEdge>() {
+					public int compare(ReductionEdge o1, ReductionEdge o2) {
+						return o1.size - o2.size;
+					}
+				});
 	}
 	
-	protected void addReductionEdge (Node from, Node to, ReductionEdge edge) {
-    	if (!reductionEdges.get(from).containsKey(to)) {
-    		reductionEdges.get(from).put(to, new ArrayList<ReductionEdge>());
-    	}
-    	reductionEdges.get(from).get(to).add(edge);
-    }
-    
-    protected List<ReductionEdge> getAllReductionEdges ( ) {
-    	List<ReductionEdge> ret =  new ArrayList<ReductionEdge>();
-    	for (Node n : g.getAllNodes()) {
-    		for (Node next : reductionEdges.get(n).keySet()) {
-    			ret.addAll(reductionEdges.get(n).get(next));
-    		}
-    	}
-    	return ret;
-    }
-    
-    protected boolean hasReductionEdge (Edge edge) {
-    	Node from = edge.getFrom();
-    	Node to = edge.getTo();
-
-    	if (reductionEdges.get(from).containsKey(to)) {
-    		for (Edge e : reductionEdges.get(from).get(to)) {
-    			if (e.equals (edge)) {
-    				return true;
-    			}
-    		}
-    	}
-    	return false;
-    }
-    
-    protected Map<Node, List<ReductionEdge>> getReductionNeighbors (Node from) {
-    	return reductionEdges.get(from);
-    }
-    
-    protected List<ReductionEdge> getReductionEdges (Node from, Node to) {
-    	if (reductionEdges.get(from).containsKey(to))
-    		return reductionEdges.get(from).get(to);
-    	else
-    		return new ArrayList<ReductionEdge>();
-    }
-    
-    protected LeqEdge getLeqEdge (Node from, Node to) {
-    	List<ReductionEdge> edges = getReductionEdges(from, to);
-    	for (Edge edge : edges) {
-    		if (edge instanceof LeqEdge)
-    			return ((LeqEdge)edge);
-    	}
-    	return null;
-    }
-    
-    protected Set<RightEdge> getRightEdges (Node from, Node to) {
-    	Set<RightEdge> ret = new HashSet<RightEdge>();
-    	List<ReductionEdge> edges = getReductionEdges(from, to);
-    	for (Edge edge : edges) {
-    		if (edge instanceof RightEdge)
-    			ret.add((RightEdge)edge);
-    	}
-    	return ret;
+	protected void addLeqEdge (LeqEdge edge) {
+		int fIndex = edge.getFrom().getIndex();
+		int tIndex = edge.getTo().getIndex();
+		
+		shortestLEQ[fIndex][tIndex] = 1;
+		idPath[fIndex][tIndex] = edge;
+		queue.offer(edge);
+	}
+	
+	protected void addLeftEdge (LeftEdge edge) {
+		int fIndex = edge.getFrom().getIndex();
+		int tIndex = edge.getTo().getIndex();
+		
+		shortestLeft[fIndex][tIndex].put(edge.cons, 1);
+		leftPath[fIndex][tIndex].put(edge.cons, edge);
+		queue.offer(edge);
+	}
+	
+	/**
+	 * Add <code>edge</code> to the saturated graph
+	 * 
+	 * @param Edge to be added
+	 */
+	protected void addRightEdge (RightEdge edge) {
+		Node from = edge.getFrom();
+		Node to = edge.getTo();
+		
+		if (!rightEdges.containsKey(from)) {
+			rightEdges.put(from, new HashMap<Node, List<RightEdge>>());
+		}
+		if (!rightEdges.get(from).containsKey(to)) {
+			rightEdges.get(from).put(to, new ArrayList<RightEdge>());
+		}
+		rightEdges.get(from).get(to).add(edge);
+	}
+            
+    protected List<RightEdge> getRightEdges (Node from, Node to) {
+		if (rightEdges.containsKey(from) && rightEdges.get(from).containsKey(to)) {
+			return rightEdges.get(from).get(to);
+		} else
+			return new ArrayList<RightEdge>();
     }
     
 	void initialize() {
+		List<Node> allNodes = g.getAllNodes();
+		
 		// initialize reduction edges
-		for (Node n : g.getAllNodes()) {
-			reductionEdges.put(n, new HashMap<Node, List<ReductionEdge>>());
-			joinElements.put(n, new ArrayList<Node>());
-			meetElements.put(n, new ArrayList<Node>());
-			consElements.put(n, new ArrayList<Node>());
+//		for (Node n : allNodes) {
+//			rightEdges.put(n, new HashMap<Node, List<RightEdge>>());
+//			joinElements.put(n, new ArrayList<Node>());
+//			meetElements.put(n, new ArrayList<Node>());
+//			consElements.put(n, new ArrayList<Node>());
+//		}
+		
+		int size = allNodes.size();
+		shortestLEQ = new int[size][size];
+		shortestLeft = new HashMap[size][size];
+		
+		// Step 1: initialize graph, fix MAX later
+		for (Node start : allNodes) {
+			for (Node end : allNodes) {
+				int sIndex = start.getIndex();
+				int eIndex = end.getIndex();
+
+				idPath[sIndex][eIndex] = null;
+				leftPath[sIndex][eIndex] = new HashMap<EdgeCondition, LeftEdge>();
+				shortestLeft[sIndex][eIndex] = new HashMap<EdgeCondition, Integer>();
+				shortestLEQ[sIndex][eIndex] = MAX;
+			}
+		}
+
+		for (Node n : allNodes) {
+			shortestLEQ[n.getIndex()][n.getIndex()] = 0;
+			ReductionEdge e = new LeqEdge(n, n, EmptyEdge.getInstance(),
+					EmptyEdge.getInstance());
+			idPath[n.getIndex()][n.getIndex()] = e;
 		}
 		
 		List<Edge> edges = g.getAllEdges();
@@ -121,15 +145,15 @@ abstract public class CFLPathFinder implements PathFinder {
 			
 			// add equation edge as "id" edge, constructor edge as left or right edge
 			if (edge instanceof EquationEdge || edge instanceof MeetEdge || edge instanceof JoinEdge) {
-				addReductionEdge(from, to, new LeqEdge(from, to, edge, EmptyEdge.getInstance()));
+				addLeqEdge(new LeqEdge(from, to, edge, EmptyEdge.getInstance()));
 			}
 			else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
 				if (e.getCondition().isReverse()) {
-					addReductionEdge(from, to, new RightEdge(e.getCondition(), from, to, edge, EmptyEdge.getInstance()));
+					addRightEdge(new RightEdge(e.getCondition(), from, to, edge, EmptyEdge.getInstance()));
 				}
 				else {
-					addReductionEdge(from, to, new LeftEdge (e.getCondition(), from, to, edge, EmptyEdge.getInstance()));
+					addLeftEdge(new LeftEdge (e.getCondition(), from, to, edge, EmptyEdge.getInstance()));
 				}
 			}
 		}		
@@ -140,21 +164,30 @@ abstract public class CFLPathFinder implements PathFinder {
 			if (element instanceof JoinElement) {
 				JoinElement je = (JoinElement) element;
 				for (Element ele : je.getElements()) {
-					joinElements.get(g.getNode(ele)).add(n);
+					Node toadd = g.getNode(ele);
+					if (!joinElements.containsKey(toadd))
+						joinElements.put(toadd, new ArrayList<Node>());
+					joinElements.get(toadd).add(n);
 				}
 			}
 			
 			if (element instanceof MeetElement) {
 				MeetElement je = (MeetElement) element;
 				for (Element ele : je.getElements()) {
-					meetElements.get(g.getNode(ele)).add(n);
+					Node toadd = g.getNode(ele);
+					if (!meetElements.containsKey(toadd))
+						meetElements.put(toadd, new ArrayList<Node>());
+					meetElements.get(toadd).add(n);
 				}
 			}
 			
 			if (element instanceof ConstructorApplication) {
 				ConstructorApplication ce = (ConstructorApplication) element;
 				for (Element ele : ce.getElements()) {
-					consElements.get(g.getNode(ele)).add(n);
+					Node toadd = g.getNode(ele);
+					if (!consElements.containsKey(toadd))
+						consElements.put(toadd, new ArrayList<Node>());
+					consElements.get(toadd).add(n);
 				}
 			}
 		}

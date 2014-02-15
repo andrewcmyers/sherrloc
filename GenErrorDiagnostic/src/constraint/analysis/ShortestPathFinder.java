@@ -12,26 +12,18 @@ import graph.Polarity;
 import graph.ReductionEdge;
 import graph.RightEdge;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
-import constraint.ast.Hypothesis;
 import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Variable;
 
 public class ShortestPathFinder extends CFLPathFinder {
-	int MAX = 10000;
-	ReductionEdge[][] idPath;
-	Map<EdgeCondition, ReductionEdge>[][] leftPath;
-	int[][] shortestLEQ;
 	boolean CORRECTNESS_CHECK = false;
-	Map<EdgeCondition, Integer>[][] shortestLeft;
 	
 	public ShortestPathFinder(ConstraintGraph graph) {
 		super(graph);
@@ -56,55 +48,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 	public void saturation() {
 		List<Node> allNodes = g.getAllNodes();
 		int size = allNodes.size();
-		List<ReductionEdge> alledges = getAllReductionEdges();
-		
-		shortestLEQ = new int[size][size];
-		shortestLeft = new HashMap[size][size];
-		
-		// Step 1: initialize graph, fix MAX later
-		for (Node start : allNodes) {
-			for (Node end : allNodes) {
-				int sIndex = start.getIndex();
-				int eIndex = end.getIndex();
-				
-				idPath[sIndex][eIndex] = null;
-				leftPath[sIndex][eIndex] = new HashMap<EdgeCondition,ReductionEdge>();
-				shortestLeft[sIndex][eIndex] = new HashMap<EdgeCondition, Integer>();
-				shortestLEQ[sIndex][eIndex] = MAX;
-			}
-		}
-		
-		PriorityQueue<ReductionEdge> queue = new PriorityQueue<ReductionEdge>(
-				500, new Comparator<ReductionEdge>() {
-					public int compare(ReductionEdge o1, ReductionEdge o2) {
-						return o1.size - o2.size;
-					}
-				});
-
-		
-		for (Node n : allNodes) {
-			shortestLEQ[n.getIndex()][n.getIndex()] = 0;
-			ReductionEdge e = new LeqEdge(n, n, EmptyEdge.getInstance(), EmptyEdge.getInstance());
-			idPath[n.getIndex()][n.getIndex()] = e;
-		}
-		
-		for (ReductionEdge e : alledges) {
-			int fIndex = e.getFrom().getIndex();
-			int tIndex = e.getTo().getIndex();
-			
-			if (e instanceof LeqEdge) {
-				shortestLEQ[fIndex][tIndex] = 1;
-				idPath[fIndex][tIndex] = e;
-				queue.offer(e);
-			}
-			
-			if (e instanceof LeftEdge) {
-				LeftEdge le = (LeftEdge) e;
-				shortestLeft[fIndex][tIndex].put(le.cons, 1);
-				leftPath[fIndex][tIndex].put(le.cons, le);
-				queue.offer(e);
-			}
-		}
 		
 		// use a priority queue as a working list, and update the table
 		int current_length = 0;
@@ -172,7 +115,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 											+ shortestLEQ[fIndex][tIndex] < shortestLeft[sIndex][tIndex]
 											.get(ec)) {
 
-								ReductionEdge newedge = new LeftEdge(ec, edge
+								LeftEdge newedge = new LeftEdge(ec, edge
 										.getFrom(), to, edge,
 										idPath[fIndex][tIndex]);
 
@@ -198,7 +141,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							if (!shortestLeft[sIndex][tIndex].containsKey(ec)
 									|| shortestLeft[sIndex][fIndex].get(ec) + shortestLEQ[tIndex][fIndex] < shortestLeft[sIndex][tIndex].get(ec)) {
 
-								ReductionEdge newedge = new LeftEdge(ec, edge
+								LeftEdge newedge = new LeftEdge(ec, edge
 										.getFrom(), to, edge,
 										idPath[tIndex][fIndex].getReverse());
 
@@ -278,7 +221,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 											+ shortestLEQ[fIndex][tIndex] < shortestLeft[sIndex][tIndex]
 											.get(ec)) {
 
-								ReductionEdge newedge = new LeftEdge(ec, from,
+								LeftEdge newedge = new LeftEdge(ec, from,
 										edge.getTo(), leftPath[sIndex][fIndex]
 												.get(ec), edge);
 
@@ -300,33 +243,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						}
 					}	
 				}
-			
-				// id = left right
-				if (edge instanceof RightEdge) {
-					for (EdgeCondition ec : shortestLeft[sIndex][fIndex].keySet()) {
-						// first check that left and right edges can be canceled
-						if (ec.matches(((RightEdge)edge).cons)) {
-							if (shortestLeft[sIndex][fIndex].get(ec) + 1 < shortestLEQ[sIndex][tIndex]) {
-								ReductionEdge newedge = new LeqEdge(from, edge.getTo(), leftPath[sIndex][fIndex].get(ec), edge);
-
-								shortestLEQ[sIndex][tIndex] = shortestLeft[sIndex][fIndex]
-										.get(ec) + 1;
-								if (idPath[sIndex][tIndex]!=null)
-									queue.remove(idPath[sIndex][tIndex]);
-								queue.offer(newedge);
-								idPath[sIndex][tIndex] = newedge;
-
-								if (CORRECTNESS_CHECK && shortestLEQ[sIndex][tIndex]<current_length)
-									System.err.println("[RIGHT] " + from
-											+ "-left-" + edge.getFrom()
-											+ "-right-" + edge.getTo()
-											+ " implies " + from + "-id-"
-											+ edge.getTo());
-							}
-						}
-					}
-				}
-				
+							
 				// try to use the reverse id edge as NEG LEQ edge
 				if (edge instanceof LeqEdge) {
 					sIndex = from.getIndex();
@@ -339,7 +256,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 											+ shortestLEQ[tIndex][fIndex] < shortestLeft[sIndex][tIndex]
 											.get(ec)) {
 
-								ReductionEdge newedge = new LeftEdge(ec, from,
+								LeftEdge newedge = new LeftEdge(ec, from,
 										edge.getFrom(), leftPath[sIndex][fIndex]
 												.get(ec), edge.getReverse());
 
@@ -395,6 +312,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		Node to = edge.getTo();
 		
 		// if to is an element of a meet label, check if some node flows into all components
+		if (meetElements.containsKey(to)) {
 		for (Node meetnode : meetElements.get(to)) {
 			MeetElement me = (MeetElement) meetnode.getElement();
 			Node candidate = from;
@@ -425,8 +343,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 				idPath[candIndex][meetIndex] = newedge;
 			}
 		}
+		}
 		
 		// if from is an element of a join label, check if all components flows into some node
+		if (joinElements.containsKey(from)) {
 		for (Node joinnode : joinElements.get(from)) {
 			JoinElement je = (JoinElement) joinnode.getElement();
 			Node candidate = to;
@@ -456,9 +376,11 @@ public class ShortestPathFinder extends CFLPathFinder {
 				idPath[joinIndex][candIndex] = newedge;
 			}
 		}
+		}
 		
 		// if from and to belongs to some constructors, check if this new link enables a leq relation on the
 		// constructors
+		if (consElements.containsKey(from) && consElements.containsKey(to)) {
 		for (Node cnFrom : consElements.get(from)) {
 			for (Node cnTo : consElements.get(to)) {				
 				ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement();  // make sure this is "ce1", not the swapped one when the constructor is contravariant
@@ -503,6 +425,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					}
 				}
 			}
+		}
 		}
 	}
 
