@@ -55,8 +55,8 @@ public class Analysis implements PrettyPrinter {
 	/**
 	 * Get an analysis instance from a constraint file. Useful for unit tests
 	 * 
-	 * @param Input Constraint file
-	 * @param Symmentric True if only equality is used in constraints
+	 * @param consFile Constraint file
+	 * @param isSym True if only equality is used in constraints
 	 * @return An analysis instance
 	 * @throws Exception
 	 */

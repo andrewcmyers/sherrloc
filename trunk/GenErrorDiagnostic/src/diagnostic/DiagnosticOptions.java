@@ -94,6 +94,9 @@ public class DiagnosticOptions {
 		consFile = cmd.getArgs()[0];
     }
     
+    /** 
+     * Set all options to default values
+     */
     private void setDefault () {
     	dotFile = false;
     	genBoth = false;
