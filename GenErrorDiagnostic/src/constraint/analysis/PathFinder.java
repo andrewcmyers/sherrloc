@@ -6,7 +6,9 @@ import graph.Node;
 import java.util.List;
 
 /**
- * The interface for path finders
+ * The interface for path finders, which saturates a constraint graph so that
+ * derivable partial orderings from constraints represented in graph are
+ * represented in the saturated graph
  */
 public interface PathFinder {
 
