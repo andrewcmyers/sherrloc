@@ -4,8 +4,8 @@ package graph;
 public class LeftEdge extends ReductionEdge {
 	public EdgeCondition cons;
 	
-	public LeftEdge(EdgeCondition cons, Node from, Node to, Edge first, Edge second) {
-		super(from, to, first, second);
+	public LeftEdge(EdgeCondition cons, Edge first, Edge second) {
+		super(first, second);
 		this.cons = cons;
 	}
 	
@@ -34,6 +34,6 @@ public class LeftEdge extends ReductionEdge {
 	
 	@Override
 	public Edge getReverse() {
-		return new LeftEdge(cons, to, from, second.getReverse(), first.getReverse());
+		return new LeftEdge(cons, second.getReverse(), first.getReverse());
 	}
 }

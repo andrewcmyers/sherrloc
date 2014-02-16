@@ -16,8 +16,12 @@ abstract public class ReductionEdge extends Edge{
 	Edge second;
 	public int size;
 	
-	public ReductionEdge(Node from, Node to, Edge first, Edge second) {
-		super(from, to);
+	public ReductionEdge(Edge first, Edge second) {
+		super(first.from, second.to);
+		if (first instanceof EmptyEdge)
+			from = second.from;
+		if (second instanceof EmptyEdge)
+			to = first.to;
 		this.first = first;
 		this.second = second;
 		size = first.getLength()+second.getLength();

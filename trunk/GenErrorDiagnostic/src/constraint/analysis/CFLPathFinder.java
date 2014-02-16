@@ -87,20 +87,15 @@ abstract public class CFLPathFinder implements PathFinder {
 		List<Edge> edges = g.getAllEdges();
 
 		for (Edge edge : edges) {
-			Node from = edge.getFrom();
-			Node to = edge.getTo();
-
 			if (edge instanceof EquationEdge || edge instanceof MeetEdge
 					|| edge instanceof JoinEdge) {
 				addEdge(new LeqEdge(edge, EmptyEdge.getInstance()));
 			} else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
 				if (e.getCondition().isReverse()) {
-					addEdge(new RightEdge(e.getCondition(), from, to, edge,
-							EmptyEdge.getInstance()));
+					addEdge(new RightEdge(e.getCondition(), edge, EmptyEdge.getInstance()));
 				} else {
-					addEdge(new LeftEdge(e.getCondition(), from, to, edge,
-							EmptyEdge.getInstance()));
+					addEdge(new LeftEdge(e.getCondition(), edge, EmptyEdge.getInstance()));
 				}
 			}
 		}
