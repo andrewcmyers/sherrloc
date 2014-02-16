@@ -5,8 +5,10 @@ import graph.ConstraintGraph;
 import graph.Edge;
 import graph.EdgeCondition;
 import graph.EmptyEdge;
+import graph.JoinEdge;
 import graph.LeftEdge;
 import graph.LeqEdge;
+import graph.MeetEdge;
 import graph.Node;
 import graph.Polarity;
 import graph.ReductionEdge;
@@ -191,7 +193,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				// id = id id
 				if (edge instanceof LeqEdge) {
 					if (shortestLEQ[sIndex][fIndex] + shortestLEQ[fIndex][tIndex] < shortestLEQ[sIndex][tIndex]) {
-						LeqEdge newedge = new LeqEdge(edge.getFrom(), to, edge, leqPath[fIndex][tIndex]);
+						LeqEdge newedge = new LeqEdge(edge, leqPath[fIndex][tIndex]);
 						
 						shortestLEQ[sIndex][tIndex] = shortestLEQ[sIndex][fIndex]
 								+ shortestLEQ[fIndex][tIndex];
@@ -270,7 +272,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						// first check if left and right edges can be canceled
 						for (RightEdge e : getRightEdges(from, to)) {
 							if (e != null && ec.matches(e.cons)) {
-								LeqEdge newedge = new LeqEdge(edge.getFrom(), to, edge, e);
+								LeqEdge newedge = new LeqEdge(edge, e);
 
 								shortestLEQ[sIndex][tIndex] = shortestLeft[sIndex][fIndex]
 										.get(ec) + 1;
@@ -299,7 +301,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				// id = id id
 				if (edge instanceof LeqEdge) {
 					if (shortestLEQ[sIndex][fIndex] + shortestLEQ[fIndex][tIndex] < shortestLEQ[sIndex][tIndex]) {
-						LeqEdge newedge = new LeqEdge(from, edge.getTo(),leqPath[sIndex][fIndex], edge);
+						LeqEdge newedge = new LeqEdge(leqPath[sIndex][fIndex], edge);
 						
 						shortestLEQ[sIndex][tIndex] = shortestLEQ[sIndex][fIndex]
 								+ shortestLEQ[fIndex][tIndex];
@@ -440,10 +442,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 				if (success) {
 					for (Element e : me.getElements()) {
 						int eleIndex = g.getNode(e).getIndex();
-						redEdge = new LeqEdge(candidate, meetnode, leqPath[candIndex][eleIndex], redEdge);
+						redEdge = new LeqEdge(leqPath[candIndex][eleIndex], redEdge);
 					}
-					LeqEdge newedge = new LeqEdge(candidate, meetnode, redEdge,
-							EmptyEdge.getInstance());
+					LeqEdge newedge = new LeqEdge(new MeetEdge(from, meetnode), redEdge);
+					newedge = new LeqEdge(newedge, new MeetEdge(from, meetnode));
 					shortestLEQ[candIndex][meetIndex] = newedge.getLength();
 					queue.offer(newedge);
 					leqPath[candIndex][meetIndex] = newedge;
@@ -474,10 +476,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 				if (success) {
 					for (Element e : je.getElements()) {
 						int eleIndex = g.getNode(e).getIndex();
-						redEdge = new LeqEdge(joinnode, candidate, leqPath[eleIndex][candIndex], redEdge);
+						redEdge = new LeqEdge(leqPath[eleIndex][candIndex], redEdge);
 					}
-					LeqEdge newedge = new LeqEdge(joinnode, candidate, redEdge,
-							EmptyEdge.getInstance());
+					LeqEdge newedge = new LeqEdge(new JoinEdge(joinnode, to), redEdge);
+					newedge = new LeqEdge(newedge, new JoinEdge(joinnode, to));
 					// this number is a little ad hoc
 					shortestLEQ[joinIndex][candIndex] = newedge.getLength();
 					queue.offer(newedge);
@@ -516,8 +518,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 								success = false;
 								break;
 							} else {
-								redEdge = new LeqEdge(g.getNode(e1), g.getNode(e2), 
-										leqPath[ie1][ie2], redEdge);
+								redEdge = new LeqEdge(leqPath[ie1][ie2], redEdge);
 							}
 						}
 						if (success) {
@@ -527,8 +528,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 								t = cnFrom;
 								f = cnTo;
 							}
-							LeqEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, ""), redEdge);
-							newedge = new LeqEdge(f, t, newedge, new CompEdge(f, t, ""));
+							LeqEdge newedge = new LeqEdge(new CompEdge(f, t, ""), redEdge);
+							newedge = new LeqEdge(newedge, new CompEdge(f, t, ""));
 							shortestLEQ[f.getIndex()][t.getIndex()] = newedge.getLength();
 							queue.offer(newedge);
 							leqPath[f.getIndex()][t.getIndex()] = newedge;

@@ -6,8 +6,12 @@ package graph;
  */
 public class LeqEdge extends ReductionEdge {
 	
-	public LeqEdge(Node from, Node to, Edge first, Edge second) {
-		super(from, to, first, second);
+	public LeqEdge(Edge first, Edge second) {
+		super(first.from, second.to, first, second);
+		if (first instanceof EmptyEdge)
+			from = second.from;
+		if (second instanceof EmptyEdge)
+			to = first.to;
 	}	
 	
 	public boolean equals(Object obj) {
@@ -31,6 +35,6 @@ public class LeqEdge extends ReductionEdge {
 	
 	@Override
 	public Edge getReverse() {
-		return new LeqEdge(to, from, second.getReverse(), first.getReverse());
+		return new LeqEdge(second.getReverse(), first.getReverse());
 	}	
 }
