@@ -19,6 +19,10 @@ public class EdgeCondition {
 		return reverse;
 	}
 	
+	public EdgeCondition getMatch () {
+		return new EdgeCondition(con, index, !reverse, polarity);
+	}
+	
 	public Polarity getPolarity() {
 		return polarity;
 	}
