@@ -7,11 +7,7 @@ package graph;
 public class LeqEdge extends ReductionEdge {
 	
 	public LeqEdge(Edge first, Edge second) {
-		super(first.from, second.to, first, second);
-		if (first instanceof EmptyEdge)
-			from = second.from;
-		if (second instanceof EmptyEdge)
-			to = first.to;
+		super(first, second);
 	}	
 	
 	public boolean equals(Object obj) {

@@ -220,9 +220,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 											+ shortestLEQ[fIndex][tIndex] < shortestLeft[sIndex][tIndex]
 											.get(ec)) {
 
-								LeftEdge newedge = new LeftEdge(ec, edge
-										.getFrom(), to, edge,
-										leqPath[fIndex][tIndex]);
+								LeftEdge newedge = new LeftEdge(ec, edge, leqPath[fIndex][tIndex]);
 
 								shortestLeft[sIndex][tIndex].put(ec,
 										shortestLeft[sIndex][fIndex].get(ec)
@@ -246,9 +244,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							if (!shortestLeft[sIndex][tIndex].containsKey(ec)
 									|| shortestLeft[sIndex][fIndex].get(ec) + shortestLEQ[tIndex][fIndex] < shortestLeft[sIndex][tIndex].get(ec)) {
 
-								LeftEdge newedge = new LeftEdge(ec, edge
-										.getFrom(), to, edge,
-										leqPath[tIndex][fIndex].getReverse());
+								LeftEdge newedge = new LeftEdge(ec, edge, leqPath[tIndex][fIndex].getReverse());
 
 								shortestLeft[sIndex][tIndex].put(ec,
 										shortestLeft[sIndex][fIndex].get(ec)
@@ -326,9 +322,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 											+ shortestLEQ[fIndex][tIndex] < shortestLeft[sIndex][tIndex]
 											.get(ec)) {
 
-								LeftEdge newedge = new LeftEdge(ec, from,
-										edge.getTo(), leftPath[sIndex][fIndex]
-												.get(ec), edge);
+								LeftEdge newedge = new LeftEdge(ec, leftPath[sIndex][fIndex].get(ec), edge);
 
 								shortestLeft[sIndex][tIndex].put(ec,
 										shortestLeft[sIndex][fIndex].get(ec)
@@ -361,9 +355,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 											+ shortestLEQ[tIndex][fIndex] < shortestLeft[sIndex][tIndex]
 											.get(ec)) {
 
-								LeftEdge newedge = new LeftEdge(ec, from,
-										edge.getFrom(), leftPath[sIndex][fIndex]
-												.get(ec), edge.getReverse());
+								LeftEdge newedge = new LeftEdge(ec, leftPath[sIndex][fIndex].get(ec), edge.getReverse());
 
 								shortestLeft[sIndex][tIndex].put(ec,
 										shortestLeft[sIndex][fIndex].get(ec)
