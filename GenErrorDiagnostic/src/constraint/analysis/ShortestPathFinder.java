@@ -25,19 +25,32 @@ import constraint.ast.JoinElement;
 import constraint.ast.MeetElement;
 import constraint.ast.Variable;
 
+/**
+ * Implements the dynamic programming algorithm proposed by Chris Barrett, Riko
+ * Jacob and Madhav Marathe. More details can be found in their paper
+ * "Formal-language-constrained path problems". We also handle "meet" and "join"
+ * when leq edges are inferred
+ */
 public class ShortestPathFinder extends CFLPathFinder {
-	boolean CORRECTNESS_CHECK = false;
-	private int MAX = 10000;
-	PriorityQueue<ReductionEdge> queue;
 	
-	int[][] shortestLEQ;
-	Map<EdgeCondition, Integer>[][] shortestLeft;
+	/** length of shortest paths */
+	private int[][] shortestLEQ;
+	private Map<EdgeCondition, Integer>[][] shortestLeft;
 	
 	/** Lookup tables to find enumerable elements from components. These tables are used to infer extra edges for join/meet/constructors */
-	protected Map<Node, List<Node>>   joinElements = new HashMap<Node, List<Node>>();
-	protected Map<Node, List<Node>>   meetElements = new HashMap<Node, List<Node>>();
-	protected Map<Node, List<Node>>   consElements = new HashMap<Node, List<Node>>();
+	private Map<Node, List<Node>>   joinElements = new HashMap<Node, List<Node>>();
+	private Map<Node, List<Node>>   meetElements = new HashMap<Node, List<Node>>();
+	private Map<Node, List<Node>>   consElements = new HashMap<Node, List<Node>>();
 	
+	/** other fields */
+	private boolean CORRECTNESS_CHECK = false;
+	private int MAX = 10000;
+	private PriorityQueue<ReductionEdge> queue;
+	
+	/**
+	 * @param graph
+	 *            A graph to be saturated
+	 */
 	public ShortestPathFinder(ConstraintGraph graph) {
 		super(graph);
 		int size = g.getAllNodes().size();
@@ -60,8 +73,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 		initTables();
 	}
 	
-	private void initTables () {
-		// initialize the lookup tables
+	/**
+	 * initialize the lookup tables
+	 */
+	private void initTables() {
 		for (Node n : g.getAllNodes()) {
 			Element element = n.getElement();
 			if (element instanceof JoinElement) {
@@ -72,9 +87,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						joinElements.put(toadd, new ArrayList<Node>());
 					joinElements.get(toadd).add(n);
 				}
-			}
-			
-			if (element instanceof MeetElement) {
+			} else if (element instanceof MeetElement) {
 				MeetElement je = (MeetElement) element;
 				for (Element ele : je.getElements()) {
 					Node toadd = g.getNode(ele);
@@ -82,9 +95,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						meetElements.put(toadd, new ArrayList<Node>());
 					meetElements.get(toadd).add(n);
 				}
-			}
-			
-			if (element instanceof ConstructorApplication) {
+			} else if (element instanceof ConstructorApplication) {
 				ConstructorApplication ce = (ConstructorApplication) element;
 				for (Element ele : ce.getElements()) {
 					Node toadd = g.getNode(ele);
@@ -96,15 +107,12 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 	}
 	
-	/**
-	 * Add <code>edge</code> to the graph
-	 * 
-	 * @param Edge to be added
-	 */
+	@Override
 	protected void addEdge (ReductionEdge edge) {
 		int fIndex = edge.getFrom().getIndex();
 		int tIndex = edge.getTo().getIndex();
 		
+		// LeqEdge and LeftEdge are added to the working list (queue) to infer more edges
 		if (edge instanceof LeqEdge) {
 			shortestLEQ[fIndex][tIndex] = 1;
 			leqPath[fIndex][tIndex] = (LeqEdge) edge;
@@ -134,26 +142,23 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * Finding the (shortest) reduction path for error diagnosis is an instance
 	 * of the context-free-language-reachability problem with the following grammar:
 	 * <p>
-	 * id := left right | id id 
-	 * left := left id
+	 * leq := left right | leq leq 
+	 * left := left leq
 	 * <p>
-	 * We use the dynamic programming algorithm proposed by Chris Barrett, Riko
+	 * We follow the dynamic programming algorithm proposed by Chris Barrett, Riko
 	 * Jacob and Madhav Marathe. More details can be found in their paper 
 	 * "Formal-language-constrained path problems". One difference is that we also
 	 * handle "meet" and "join" when id edges are inferred
-	 * 
 	 */
-	public void saturation() {
+	protected void saturation() {
 		List<Node> allNodes = g.getAllNodes();
-		int size = allNodes.size();
 		
-		// use a priority queue as a working list, and update the table
 		int current_length = 0;
 		while (!queue.isEmpty()) {	
 			ReductionEdge edge = queue.poll();
 
 			if (edge instanceof LeqEdge)
-				tryAddingBackEdges ((LeqEdge)edge, queue);
+				tryAddingExtraEdges ((LeqEdge)edge);
 
 			// the following code is activated for debugging only
 			if (CORRECTNESS_CHECK && current_length>edge.getEdges().size()) {
@@ -404,126 +409,133 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 	}
 	
-	// given a newly discovered IdEdge, this function tries to identify back edges
-	void tryAddingBackEdges (LeqEdge edge, PriorityQueue<ReductionEdge> queue) {
+	/**
+	 * Given a newly discovered LeqEdge, this function tries to identify extra
+	 * LeqEdges by using the properties of meet, join and constructor
+	 */
+	private void tryAddingExtraEdges (LeqEdge edge) {
 		Node from = edge.getFrom();
 		Node to = edge.getTo();
 		
-		// if to is an element of a meet label, check if some node flows into all components
+		// if node "to" is an element of a meet label, add an leq edge from node
+		// "from" to the meet element if it flows into all components
 		if (meetElements.containsKey(to)) {
-		for (Node meetnode : meetElements.get(to)) {
-			MeetElement me = (MeetElement) meetnode.getElement();
-			Node candidate = from;
-			int candIndex = candidate.getIndex();
-			int meetIndex = meetnode.getIndex();
-			boolean success = false;
-			Edge redEdge=EmptyEdge.getInstance();
-				
-			if (leqPath[candIndex][meetIndex]!=null)
-				continue;
-			for (Element e : me.getElements()) {
-				int eleIndex = g.getNode(e).getIndex();
-				if (leqPath[candIndex][eleIndex]!=null) {
-					redEdge = new LeqEdge(candidate, meetnode, leqPath[candIndex][eleIndex], redEdge);
-					success = true;
-					continue;
-				}
-				else {
-					success = false;
-					break;
-				}	
-			}
-			if (success) {
-				LeqEdge newedge = new LeqEdge(candidate, meetnode, redEdge, EmptyEdge.getInstance());
-//				// this number is a little ad hoc
-				shortestLEQ[candIndex][meetIndex] = newedge.getLength();
-				queue.offer(newedge);
-				leqPath[candIndex][meetIndex] = newedge;
-			}
-		}
-		}
-		
-		// if from is an element of a join label, check if all components flows into some node
-		if (joinElements.containsKey(from)) {
-		for (Node joinnode : joinElements.get(from)) {
-			JoinElement je = (JoinElement) joinnode.getElement();
-			Node candidate = to;
-			int candIndex = candidate.getIndex();
-			int joinIndex = joinnode.getIndex();
-			boolean success = true;
-			Edge redEdge = EmptyEdge.getInstance();
-				
-			if (leqPath[joinIndex][candIndex]!=null)
-					continue;
-			for (Element e : je.getElements()) {
-				int eleIndex = g.getNode(e).getIndex();
-				if (leqPath[eleIndex][candIndex]!=null) {
-					redEdge = new LeqEdge(joinnode, candidate, leqPath[eleIndex][candIndex], redEdge);
-					continue;
-				}
-				else {
-					success = false;
-					break;
-				}	
-			}
-			if (success) {
-				LeqEdge newedge = new LeqEdge(joinnode, candidate, redEdge, EmptyEdge.getInstance());
-				// this number is a little ad hoc
-				shortestLEQ[joinIndex][candIndex] = newedge.getLength();
-				queue.offer(newedge);
-				leqPath[joinIndex][candIndex] = newedge;
-			}
-		}
-		}
-		
-		// if from and to belongs to some constructors, check if this new link enables a leq relation on the
-		// constructors
-		if (consElements.containsKey(from) && consElements.containsKey(to)) {
-		for (Node cnFrom : consElements.get(from)) {
-			for (Node cnTo : consElements.get(to)) {				
-				ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement();  // make sure this is "ce1", not the swapped one when the constructor is contravariant
-				ConstructorApplication ce2 = (ConstructorApplication) cnTo.getElement();
-				
-				if (!ce1.getCons().isContraVariant() && leqPath[cnFrom.getIndex()][cnTo.getIndex()]!=null)
-					continue;
-				if (ce1.getCons().isContraVariant() && leqPath[cnTo.getIndex()][cnFrom.getIndex()]!=null)
-					continue;
-				
-				if (ce1.getCons().equals(ce2.getCons())) {
-					
-					// check if all elements flows into another constructor
-					boolean success = true;
-					Edge redEdge = EmptyEdge.getInstance();
+			for (Node meetnode : meetElements.get(to)) {
+				MeetElement me = (MeetElement) meetnode.getElement();
+				Node candidate = from;
+				int candIndex = candidate.getIndex();
+				int meetIndex = meetnode.getIndex();
+				boolean success = true;
+				Edge redEdge = EmptyEdge.getInstance();
 
-					for (int i=0; i<ce1.getCons().getArity(); i++) {
-						Element e1 = ce1.getElements().get(i);
-						Element e2 = ce2.getElements().get(i);
-						if (leqPath[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()]==null
-								|| e1 instanceof Variable || e2 instanceof Variable) {
-							success = false;
-							break;
-						}
-						else {
-							redEdge = new LeqEdge(g.getNode(e1), g.getNode(e2), leqPath[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()], redEdge);
-						}
+				if (leqPath[candIndex][meetIndex] != null)
+					continue;
+				for (Element e : me.getElements()) {
+					int eleIndex = g.getNode(e).getIndex();
+					if (leqPath[candIndex][eleIndex] == null) {
+						success = false;
+						break;
 					}
-					if (success) {						
-						Node f = cnFrom;
-						Node t = cnTo;
-						if (ce1.getCons().isContraVariant()) {
-							t = cnFrom;
-							f = cnTo;
-						}
-						LeqEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, ""), redEdge);
-						newedge = new LeqEdge(f, t, newedge, new CompEdge(f, t, ""));
-						// this number is a little ad hoc
-						shortestLEQ[f.getIndex()][t.getIndex()] = newedge.getLength();
-						queue.offer(newedge);
-						leqPath[f.getIndex()][t.getIndex()] = newedge;
+				}
+				if (success) {
+					for (Element e : me.getElements()) {
+						int eleIndex = g.getNode(e).getIndex();
+						redEdge = new LeqEdge(candidate, meetnode, leqPath[candIndex][eleIndex], redEdge);
 					}
+					LeqEdge newedge = new LeqEdge(candidate, meetnode, redEdge,
+							EmptyEdge.getInstance());
+					shortestLEQ[candIndex][meetIndex] = newedge.getLength();
+					queue.offer(newedge);
+					leqPath[candIndex][meetIndex] = newedge;
 				}
 			}
 		}
+		
+		// if node "from" is an element of a join label, add an leq edge from 
+		// the join element to node "to" if all components flow into it
+		if (joinElements.containsKey(from)) {
+			for (Node joinnode : joinElements.get(from)) {
+				JoinElement je = (JoinElement) joinnode.getElement();
+				Node candidate = to;
+				int candIndex = candidate.getIndex();
+				int joinIndex = joinnode.getIndex();
+				boolean success = true;
+				Edge redEdge = EmptyEdge.getInstance();
+
+				if (leqPath[joinIndex][candIndex] != null)
+					continue;
+				for (Element e : je.getElements()) {
+					int eleIndex = g.getNode(e).getIndex();
+					if (leqPath[eleIndex][candIndex] == null) {
+						success = false;
+						break;
+					}
+				}
+				if (success) {
+					for (Element e : je.getElements()) {
+						int eleIndex = g.getNode(e).getIndex();
+						redEdge = new LeqEdge(joinnode, candidate, leqPath[eleIndex][candIndex], redEdge);
+					}
+					LeqEdge newedge = new LeqEdge(joinnode, candidate, redEdge,
+							EmptyEdge.getInstance());
+					// this number is a little ad hoc
+					shortestLEQ[joinIndex][candIndex] = newedge.getLength();
+					queue.offer(newedge);
+					leqPath[joinIndex][candIndex] = newedge;
+				}
+			}
+		}
+		
+		// if node "from" and "to" belong to same constructor, check if this new
+		// link enables a leq relation on the constructor application
+		if (consElements.containsKey(from) && consElements.containsKey(to)) {
+			for (Node cnFrom : consElements.get(from)) {
+				for (Node cnTo : consElements.get(to)) {
+					// make sure this is "ce1", not the swapped one when the constructor is contravariant
+					ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement(); 
+					ConstructorApplication ce2 = (ConstructorApplication) cnTo.getElement();
+
+					if (!ce1.getCons().isContraVariant()
+							&& leqPath[cnFrom.getIndex()][cnTo.getIndex()] != null)
+						continue;
+					if (ce1.getCons().isContraVariant()
+							&& leqPath[cnTo.getIndex()][cnFrom.getIndex()] != null)
+						continue;
+
+					if (ce1.getCons().equals(ce2.getCons())) {
+						// check if all elements flows into another constructor
+						boolean success = true;
+						Edge redEdge = EmptyEdge.getInstance();
+
+						for (int i = 0; i < ce1.getCons().getArity(); i++) {
+							Element e1 = ce1.getElements().get(i);
+							Element e2 = ce2.getElements().get(i);
+							int ie1 = g.getNode(e1).getIndex();
+							int ie2 = g.getNode(e2).getIndex();
+							if (leqPath[ie1][ie2] == null || e1 instanceof Variable || e2 instanceof Variable) {
+								success = false;
+								break;
+							} else {
+								redEdge = new LeqEdge(g.getNode(e1), g.getNode(e2), 
+										leqPath[ie1][ie2], redEdge);
+							}
+						}
+						if (success) {
+							Node f = cnFrom;
+							Node t = cnTo;
+							if (ce1.getCons().isContraVariant()) {
+								t = cnFrom;
+								f = cnTo;
+							}
+							LeqEdge newedge = new LeqEdge(f, t, new CompEdge(f, t, ""), redEdge);
+							newedge = new LeqEdge(f, t, newedge, new CompEdge(f, t, ""));
+							shortestLEQ[f.getIndex()][t.getIndex()] = newedge.getLength();
+							queue.offer(newedge);
+							leqPath[f.getIndex()][t.getIndex()] = newedge;
+						}
+					}
+				}
+			}
 		}
 	}
 }
