@@ -6,7 +6,7 @@ import java.util.Set;
 import constraint.ast.Inequality;
 
 public class EmptyEdge extends Edge {
-	static EmptyEdge instance=null;
+	private static EmptyEdge instance=null;
 	
 	private EmptyEdge() {
 		super(null, null);
