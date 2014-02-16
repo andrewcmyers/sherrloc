@@ -141,7 +141,7 @@ abstract public class CFLPathFinder implements PathFinder {
 	 *            End node
 	 * @return An LEQ path
 	 */
-	private LeqEdge getLeqPath(Node start, Node end) {
+	protected LeqEdge getLeqPath(Node start, Node end) {
 		int sIndex = start.getIndex();
 		int eIndex = end.getIndex();
 
