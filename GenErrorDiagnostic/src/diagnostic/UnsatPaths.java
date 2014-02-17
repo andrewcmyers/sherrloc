@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import util.HTTPUtil;
+import util.HTMLUtil;
 import util.MinCutFinder;
 import constraint.ast.Element;
 import diagnostic.explanation.Entity;
@@ -82,7 +82,7 @@ public class UnsatPaths {
 				path_buff.append("['pathelement', \'"+n.getElement().getPosition()+"\'], ");
 			}
 			sb.append("<LI>\n<span class=\"path\" ");
-			HTTPUtil.setShowHideActions(true, sb, path_buff.toString(), 0);
+			HTMLUtil.setShowHideActions(true, sb, path_buff.toString(), 0);
 			sb.append(">");
 			sb.append("A value with type "+path.getFirstElement() + 
 				    " is being used at type " + path.getLastElement());

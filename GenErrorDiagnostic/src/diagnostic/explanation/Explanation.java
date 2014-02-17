@@ -2,7 +2,7 @@ package diagnostic.explanation;
 
 import java.util.Set;
 
-import util.HTTPUtil;
+import util.HTMLUtil;
 
 /**
  * <code>Explanation</code> is the result of the error diagnosis algorithm. An
@@ -60,7 +60,7 @@ public class Explanation implements Comparable<Explanation> {
 			en.toHTML(locBuffer, exprBuffer);
     	}
     	sb.append("<span class=\"path\" ");
-		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
+		HTMLUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
 		sb.append(">");
 		sb.append(exprBuffer.toString()+"</span>");
     	sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
