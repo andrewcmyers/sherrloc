@@ -45,7 +45,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 	private Map<Node, List<Node>>   consElements = new HashMap<Node, List<Node>>();
 	
 	/** other fields */
-	private boolean CORRECTNESS_CHECK = false;
 	private int MAX = 10000;
 	private PriorityQueue<ReductionEdge> queue;
 	
@@ -55,6 +54,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 */
 	public ShortestPathFinder(ConstraintGraph graph) {
 		super(graph);
+		/** initialize data structures */
 		int size = g.getAllNodes().size();
 		queue = new PriorityQueue<ReductionEdge>(
 				500, new Comparator<ReductionEdge>() {
@@ -127,30 +127,115 @@ public class ShortestPathFinder extends CFLPathFinder {
 			queue.offer(edge);		
 		}
 		else if (edge instanceof RightEdge) {
-			Node from = edge.getFrom();
-			Node to = edge.getTo();
-			
-			if (!rightPath.containsKey(from)) {
-				rightPath.put(from, new HashMap<Node, List<RightEdge>>());
+			if (!rightPath.containsKey(fIndex)) {
+				rightPath.put(fIndex, new HashMap<Integer, List<RightEdge>>());
 			}
-			if (!rightPath.get(from).containsKey(to)) {
-				rightPath.get(from).put(to, new ArrayList<RightEdge>());
+			if (!rightPath.get(fIndex).containsKey(tIndex)) {
+				rightPath.get(fIndex).put(tIndex, new ArrayList<RightEdge>());
 			}
-			rightPath.get(from).get(to).add((RightEdge)edge);
+			rightPath.get(fIndex).get(tIndex).add((RightEdge)edge);
 		}
 	}
 	
 	/**
+	 * apply rule LEQ ::= LEQ LEQ
+	 * 
+	 * @param sIndex
+	 *            Start node of the first LEQ edge
+	 * @param fIndex
+	 *            End node of the first LEQ edge (the same as the start node of
+	 *            the second LEQ edge
+	 * @param tIndex
+	 *            End node of the second LEQ edge
+	 */
+	private void applyLeqLeq (int sIndex, int fIndex, int tIndex) {
+		if (shortestLEQ[sIndex][fIndex] + shortestLEQ[fIndex][tIndex] < shortestLEQ[sIndex][tIndex]) {
+			LeqEdge newedge = new LeqEdge(leqPath[sIndex][fIndex], leqPath[fIndex][tIndex]);
+			shortestLEQ[sIndex][tIndex] = shortestLEQ[sIndex][fIndex]
+					+ shortestLEQ[fIndex][tIndex];
+			queue.offer(newedge);
+			leqPath[sIndex][tIndex] = newedge;
+			assert (newedge.getLength() == shortestLEQ[sIndex][tIndex]):"Inconsistent length in shortestLEQ";
+		}
+	}
+		
+	/**
+	 * apply rule LEQ ::= LEFT RIGHT
+	 * 
+	 * @param leftS
+	 *            Start node of the LEFT edge
+	 * @param leftE
+	 *            End node of the LEFT edge (the same as the start node of the
+	 *            RIGHT edge
+	 * @param rightE
+	 *            End node of the RIGHT edge
+	 * @param ec
+	 *            Edge condition ({@link EdgeCondition}) of the LEFT edge
+	 */
+	private void applyLeftRight (int leftS, int leftE, int rightE, EdgeCondition ec) {
+		if (ec != null && hasRightEdges(leftE, rightE) && shortestLeft[leftS][leftE].get(ec) + 1 < shortestLEQ[leftS][rightE]) {
+			for (RightEdge e : getRightEdges(leftE, rightE)) {
+				if (e != null && ec.matches(((RightEdge) e).cons)) {
+					LeqEdge newedge = new LeqEdge(leftPath[leftS][leftE].get(ec), e);
+					shortestLEQ[leftS][rightE] = shortestLeft[leftS][leftE].get(ec) + 1;
+					queue.offer(newedge);
+					leqPath[leftS][rightE] = newedge;
+					assert (newedge.getLength() == shortestLEQ[leftS][rightE]):"Inconsistent length in shortestLEQ";
+				}
+			}
+		}
+	}
+		
+	/**
+	 * apply rule LEFT ::= LEFT LEQ
+	 * 
+	 * @param leftS
+	 *            Start node of the LEFT edge
+	 * @param leftE
+	 *            End node of the LEFT edge
+	 * @param newE
+	 *            End node of the inferred LEFT edge
+	 * @param ec
+	 *            Edge condition ({@link EdgeCondition}) of the LEFT edge
+	 * @param useReverse
+	 *            Use the reverse of LEQ edge, since the negative LEQ edges are
+	 *            not explicitly represented in graph to save space
+	 */
+	private void applyLeftLeq (int leftS, int leftE, int newE, EdgeCondition ec, boolean useReverse) {
+		int leqS = leftE, leqE = newE;
+		if (useReverse) {
+			leqS = newE;
+			leqE = leftE;
+		}
+		
+		if (ec != null && shortestLEQ[leqS][leqE] < MAX && (!shortestLeft[leftS][newE].containsKey(ec)
+			|| shortestLeft[leftS][leftE].get(ec) + shortestLEQ[leqS][leqE] < shortestLeft[leftS][newE].get(ec))) {
+
+				LeftEdge newedge;
+				if (!useReverse)
+					newedge = new LeftEdge(ec, leftPath[leftS][leftE].get(ec), leqPath[leqS][leqE]);
+				else
+					// have to reverse the ID edge to make sure the newedge has right end node
+					newedge = new LeftEdge(ec, leftPath[leftS][leftE].get(ec), leqPath[leqS][leqE].getReverse());
+
+				shortestLeft[leftS][newE].put(ec, shortestLeft[leftS][leftE].get(ec) + shortestLEQ[leqS][leqE]);
+				queue.offer(newedge);
+				leftPath[leftS][newE].put(ec, newedge);
+				assert (newedge.getLength() == shortestLeft[leftS][newE].get(ec)):"Inconsistent length in shortestLEQ";
+		}
+	}	
+	
+	/**
 	 * Finding the (shortest) reduction path for error diagnosis is an instance
-	 * of the context-free-language-reachability problem with the following grammar:
+	 * of the context-free-language-reachability problem with the following
+	 * grammar:
 	 * <p>
-	 * leq := left right | leq leq 
-	 * left := left leq
+	 * leq := left right | leq leq left := left leq
 	 * <p>
-	 * We follow the dynamic programming algorithm proposed by Chris Barrett, Riko
-	 * Jacob and Madhav Marathe. More details can be found in their paper 
-	 * "Formal-language-constrained path problems". One difference is that we also
-	 * handle "meet" and "join" when id edges are inferred
+	 * We follow the dynamic programming algorithm proposed by Chris Barrett,
+	 * Riko Jacob and Madhav Marathe. More details can be found in their paper
+	 * "Formal-language-constrained path problems". We also handle contravariant
+	 * parameters, "meet" and "join" when id edges are inferred
 	 */
 	protected void saturation() {
 		List<Node> allNodes = g.getAllNodes();
@@ -158,245 +243,47 @@ public class ShortestPathFinder extends CFLPathFinder {
 		int current_length = 0;
 		while (!queue.isEmpty()) {	
 			ReductionEdge edge = queue.poll();
-
+			
 			if (edge instanceof LeqEdge)
-				tryAddingExtraEdges ((LeqEdge)edge);
-
+				tryAddingExtraEdges ((LeqEdge)edge, current_length);
+			
 			// the following code is activated for debugging only
-			if (CORRECTNESS_CHECK && current_length>edge.getEdges().size()) {
-				System.err.println("Error: got a smaller edge");
-				System.exit(0);
-			}
-			if (CORRECTNESS_CHECK && edge instanceof LeqEdge) {
-				if (shortestLEQ[edge.getFrom().getIndex()][edge.getTo().getIndex()] != edge.getEdges().size()) {
-					System.err.println("Error: the id edge"+edge.getFrom() + " "+edge.getTo()+"is not the shortest");
-					System.exit(0);
+			if (current_length > edge.size) {
+				for (Edge e : edge.getEdges()) {
+					System.out.println(e);
 				}
 			}
-			if (CORRECTNESS_CHECK && edge instanceof LeftEdge) {
-				EdgeCondition ec = ((LeftEdge)edge).getCondition();
-				if (shortestLeft[edge.getFrom().getIndex()][edge.getTo().getIndex()].get(ec) 
-						!= edge.getEdges().size()) {
-					System.err.println("Error: the left edge" +edge.getFrom() + " "+edge.getTo()+ "is not the shortest");
-					System.exit(0);
-				}
-			}
-			current_length = edge.getEdges().size();
+			assert (current_length <= edge.size) : "Error: got a smaller edge "+ current_length + " " + edge.size;
+			
+			current_length = edge.size;
 						
-			// when edge is the left part of reduction
-			for (Node to : allNodes) {
+			for (int i=0; i<allNodes.size(); i++) {
+				// first, use the edge as the left part of a reduction rule
 				int sIndex = edge.getFrom().getIndex();
 				int fIndex = edge.getTo().getIndex();
-				int tIndex = to.getIndex();
-				Node from = edge.getTo();
 				
-				// id = id id
+				// LEQ = LEQ LEQ
 				if (edge instanceof LeqEdge) {
-					if (shortestLEQ[sIndex][fIndex] + shortestLEQ[fIndex][tIndex] < shortestLEQ[sIndex][tIndex]) {
-						LeqEdge newedge = new LeqEdge(edge, leqPath[fIndex][tIndex]);
-						
-						shortestLEQ[sIndex][tIndex] = shortestLEQ[sIndex][fIndex]
-								+ shortestLEQ[fIndex][tIndex];
-						if (leqPath[sIndex][tIndex]!=null)
-							queue.remove(newedge);
-						queue.offer(newedge);
-						leqPath[sIndex][tIndex] = newedge;
-						
-						if (CORRECTNESS_CHECK && shortestLEQ[sIndex][tIndex] < current_length)
-							System.err.println("[LEFT] " + edge.getFrom()
-									+ "-id-" + from + "-id-" + to + " implies "
-									+ edge.getFrom() + "-id-" + to);
-					}
+					applyLeqLeq(sIndex, fIndex, i);
 				}
-	
 				else if (edge instanceof LeftEdge) {
 					EdgeCondition ec = ((LeftEdge)edge).getCondition();
 					
-					if (ec.getPolarity()==Polarity.POS) {
-						// left = left id
-						if (shortestLEQ[fIndex][tIndex] < MAX) {
-							if (!shortestLeft[sIndex][tIndex].containsKey(ec)
-									|| shortestLeft[sIndex][fIndex].get(ec)
-											+ shortestLEQ[fIndex][tIndex] < shortestLeft[sIndex][tIndex]
-											.get(ec)) {
+					// LEQ = LEFT RIGHT
+					applyLeftRight(sIndex, fIndex, i, ec);
 
-								LeftEdge newedge = new LeftEdge(ec, edge, leqPath[fIndex][tIndex]);
-
-								shortestLeft[sIndex][tIndex].put(ec,
-										shortestLeft[sIndex][fIndex].get(ec)
-												+ shortestLEQ[fIndex][tIndex]);
-								if (leftPath[sIndex][tIndex].containsKey(ec))
-									queue.remove(leftPath[sIndex][tIndex].get(ec));
-								queue.offer(newedge);;
-								leftPath[sIndex][tIndex].put(ec, newedge);
-
-								if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
-									System.err.println("[LEFT] "
-											+ edge.getFrom() + "-left-" + from
-											+ "-id-" + to + " implies "
-											+ edge.getFrom() + "-left-" + to);
-							}
-						}
-					}
-					else { // negative polarity, should use negative LEQ edges.
-						// left = left id
-						if (shortestLEQ[tIndex][fIndex] < MAX) {
-							if (!shortestLeft[sIndex][tIndex].containsKey(ec)
-									|| shortestLeft[sIndex][fIndex].get(ec) + shortestLEQ[tIndex][fIndex] < shortestLeft[sIndex][tIndex].get(ec)) {
-
-								LeftEdge newedge = new LeftEdge(ec, edge, leqPath[tIndex][fIndex].getReverse());
-
-								shortestLeft[sIndex][tIndex].put(ec,
-										shortestLeft[sIndex][fIndex].get(ec)
-												+ shortestLEQ[tIndex][fIndex]);
-								if (leftPath[sIndex][tIndex].containsKey(ec))
-									queue.remove(leftPath[sIndex][tIndex].get(ec));
-								queue.offer(newedge);
-								leftPath[sIndex][tIndex].put(ec, newedge);
-
-								if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
-									System.err.println("[LEFT] "
-											+ edge.getFrom() + "-left(neg)-" + from
-											+ "-id(neg)-" + to + " implies "
-											+ edge.getFrom() + "-left(neg)-" + to);
-							}
-						}
-					}
-
-					// id = left right
-					if (shortestLeft[sIndex][fIndex].get(ec) + 1 < shortestLEQ[sIndex][tIndex]) {
-						// first check if left and right edges can be canceled
-						for (RightEdge e : getRightEdges(from, to)) {
-							if (e != null && ec.matches(e.cons)) {
-								LeqEdge newedge = new LeqEdge(edge, e);
-
-								shortestLEQ[sIndex][tIndex] = shortestLeft[sIndex][fIndex]
-										.get(ec) + 1;
-								if (leqPath[sIndex][tIndex] != null)
-									queue.remove(leqPath[sIndex][tIndex]);
-								queue.offer(newedge);
-								leqPath[sIndex][tIndex] = newedge;
-
-								if (CORRECTNESS_CHECK && shortestLEQ[sIndex][tIndex] < current_length)
-									System.err.println("[LEFT] "
-											+ edge.getFrom() + "-left-" + from
-											+ "-right-" + to + " implies "
-											+ edge.getFrom() + "-id-" + to);
-							}
-						}
-					}
+					// LEFT = LEFT LEQ
+					applyLeftLeq(sIndex, fIndex, i, ec, ec.getPolarity()==Polarity.NEG);
 				}
-			}
-			
-			// when edge is right part of reduction
-			for (Node from : allNodes) {
-				int sIndex = from.getIndex();
-				int fIndex = edge.getFrom().getIndex();
-				int tIndex = edge.getTo().getIndex();
 				
-				// id = id id
+				// next, use the edge as the right part of a reduction rule
 				if (edge instanceof LeqEdge) {
-					if (shortestLEQ[sIndex][fIndex] + shortestLEQ[fIndex][tIndex] < shortestLEQ[sIndex][tIndex]) {
-						LeqEdge newedge = new LeqEdge(leqPath[sIndex][fIndex], edge);
-						
-						shortestLEQ[sIndex][tIndex] = shortestLEQ[sIndex][fIndex]
-								+ shortestLEQ[fIndex][tIndex];
-						if (leqPath[sIndex][tIndex]!=null)
-							queue.remove(leqPath[sIndex][tIndex]);
-						queue.offer(newedge);
-						leqPath[sIndex][tIndex] = newedge;
-
-						if (CORRECTNESS_CHECK && shortestLEQ[sIndex][tIndex]<current_length)
-							System.err.println("[RIGHT] " + from + "-id-"
-									+ edge.getFrom() + "-id-" + edge.getTo()
-									+ " implies " + from + "-id-"
-									+ edge.getTo());
-					}
+					// LEQ = LEQ LEQ
+					applyLeqLeq(i, sIndex, fIndex);
 	
-					// left := left id
-					// first, use id edge as POS LEQ edge
-					for (EdgeCondition ec : shortestLeft[sIndex][fIndex].keySet()) {
-						if (ec.getPolarity()==Polarity.POS) {
-							if (!shortestLeft[sIndex][tIndex].containsKey(ec)
-									|| shortestLeft[sIndex][fIndex].get(ec)
-											+ shortestLEQ[fIndex][tIndex] < shortestLeft[sIndex][tIndex]
-											.get(ec)) {
-
-								LeftEdge newedge = new LeftEdge(ec, leftPath[sIndex][fIndex].get(ec), edge);
-
-								shortestLeft[sIndex][tIndex].put(ec,
-										shortestLeft[sIndex][fIndex].get(ec)
-												+ shortestLEQ[fIndex][tIndex]);
-								if (leftPath[sIndex][tIndex].containsKey(ec))
-									queue.remove(leftPath[sIndex][tIndex].get(ec));
-								queue.offer(newedge);
-								leftPath[sIndex][tIndex].put(ec, newedge);
-
-								if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
-									System.err.println("[RIGHT] " + from
-											+ "-left-" + edge.getFrom()
-											+ "-id-" + edge.getTo()
-											+ " implies " + from + "-left-"
-											+ edge.getTo());
-							}
-						}
-					}	
-				}
-							
-				// try to use the reverse id edge as NEG LEQ edge
-				if (edge instanceof LeqEdge) {
-					sIndex = from.getIndex();
-					fIndex = edge.getTo().getIndex();
-					tIndex = edge.getFrom().getIndex();
-					for (EdgeCondition ec : shortestLeft[sIndex][fIndex].keySet()) {
-						if (ec.getPolarity() == Polarity.NEG) {
-							if (!shortestLeft[sIndex][tIndex].containsKey(ec)
-									|| shortestLeft[sIndex][fIndex].get(ec)
-											+ shortestLEQ[tIndex][fIndex] < shortestLeft[sIndex][tIndex]
-											.get(ec)) {
-
-								LeftEdge newedge = new LeftEdge(ec, leftPath[sIndex][fIndex].get(ec), edge.getReverse());
-
-								shortestLeft[sIndex][tIndex].put(ec,
-										shortestLeft[sIndex][fIndex].get(ec)
-												+ shortestLEQ[tIndex][fIndex]);
-								if (leftPath[sIndex][tIndex].containsKey(ec))
-									queue.remove(leftPath[sIndex][tIndex].get(ec));
-								queue.offer(newedge);
-								leftPath[sIndex][tIndex].put(ec, newedge);
-
-								if (CORRECTNESS_CHECK && shortestLeft[sIndex][tIndex].get(ec) < current_length)
-									System.err.println("[RIGHT] " + from
-											+ "-left(neg)-" + edge.getTo()
-											+ "-id(neg)-" + edge.getFrom()
-											+ " implies " + from + "-left-"
-											+ edge.getFrom());
-							}
-						}
-					}
-				}
-			}
-			
-			// consistency check
-			if (CORRECTNESS_CHECK) {
-				for (Node start : allNodes) {
-					for (Node end : allNodes) {
-						int startIndex = start.getIndex();
-						int endIndex = end.getIndex();
-						for (EdgeCondition ec : shortestLeft[startIndex][endIndex]
-								.keySet()) {
-							if (shortestLeft[startIndex][endIndex].get(ec) != leftPath[startIndex][endIndex]
-									.get(ec).getEdges().size()) {
-								System.err.println("Error: shortest left-path length is inconsistent from " + start + " to " + end);
-								System.exit(1);
-							}
-						}
-						if (leqPath[startIndex][endIndex] != null
-								&& shortestLEQ[startIndex][endIndex] != leqPath[startIndex][endIndex]
-										.getEdges().size()) {
-							System.err.println("Error: shortest id-path length is inconsistent from " + start + " to " + end);
-							System.exit(1);
-						}
+					// LEFT := LEFT LEQ
+					for (EdgeCondition ec : shortestLeft[i][sIndex].keySet()) {
+							applyLeftLeq(i, sIndex, fIndex, ec, ec.getPolarity()==Polarity.NEG);
 					}
 				}
 			}
@@ -407,7 +294,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * Given a newly discovered LeqEdge, this function tries to identify extra
 	 * LeqEdges by using the properties of meet, join and constructor
 	 */
-	private void tryAddingExtraEdges (LeqEdge edge) {
+	private void tryAddingExtraEdges (LeqEdge edge, int count) {
 		Node from = edge.getFrom();
 		Node to = edge.getTo();
 		
@@ -472,7 +359,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 					}
 					LeqEdge newedge = new LeqEdge(new JoinEdge(joinnode, to), redEdge);
 					newedge = new LeqEdge(newedge, new JoinEdge(joinnode, to));
-					// this number is a little ad hoc
 					shortestLEQ[joinIndex][candIndex] = newedge.getLength();
 					queue.offer(newedge);
 					leqPath[joinIndex][candIndex] = newedge;
