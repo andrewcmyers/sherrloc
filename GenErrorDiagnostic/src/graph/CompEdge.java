@@ -20,11 +20,6 @@ public class CompEdge extends Edge {
 		}
 		
 		@Override
-		public String toDotString() {
-			return "comp("+info+")";
-		}
-		
-		@Override
 		public boolean isDirected() {
 			return true;
 		}

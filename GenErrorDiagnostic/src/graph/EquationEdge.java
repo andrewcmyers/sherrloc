@@ -42,11 +42,6 @@ public class EquationEdge extends Edge {
     }
     
     @Override
-    public String toDotString() {
-        return  equ.toDotString();
-    }
-    
-    @Override
     public Set<Inequality> getInequalities() {
     	if (equ.getAssumption()==null)
     		return new HashSet<Inequality>();

@@ -223,21 +223,21 @@ public class ConstraintPath {
 			return;
 
 		// avoid duplicate expressions
-		Set<String> processedNodes = new HashSet<String>();
-		Set<String> processedEdges = new HashSet<String>();
+		Set<Node> processedNodes = new HashSet<Node>();
+		Set<Edge> processedEdges = new HashSet<Edge>();
 
 		Node leftmost = getFirst();
 		leftmost.incSuccCounter();
-		processedNodes.add(leftmost.toString());
+		processedNodes.add(leftmost);
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			if (!processedEdges.contains(edge)) {
 				edge.incNumSuccCounter();
-				processedEdges.add(edge.toString());
+				processedEdges.add(edge);
 			}
-			if (!processedNodes.contains(edge.getTo().toString())) {
+			if (!processedNodes.contains(edge.getTo())) {
 				edge.getTo().incSuccCounter();
-				processedNodes.add(edge.getTo().toString());
+				processedNodes.add(edge.getTo());
 			}
 		}
 	}

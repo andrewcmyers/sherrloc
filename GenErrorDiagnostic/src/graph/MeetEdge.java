@@ -19,12 +19,7 @@ public class MeetEdge extends Edge {
 	public String toString() {
 		return "meet";
 	}
-	
-	@Override
-	public String toDotString() {
-        return  "meet"; 
-    }
-	
+		
 	@Override
 	public boolean isDirected() {
 		return true;

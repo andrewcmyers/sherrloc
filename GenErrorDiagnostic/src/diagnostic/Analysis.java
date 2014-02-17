@@ -151,7 +151,6 @@ public class Analysis implements PrettyPrinter {
 		}
     }
     
-    @Override
     public String toDotString() {
     	UnsatPaths paths = cana.genErrorPaths(graph);
     	for (ConstraintPath path : paths.errPaths) {

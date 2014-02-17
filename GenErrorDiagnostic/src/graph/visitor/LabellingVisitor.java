@@ -13,6 +13,6 @@ public class LabellingVisitor implements NodeVisitor {
 	}
 
 	public void visit(Node n) {
-		n.shouldprint = true;
+		n.markAsPrint();
 	}
 }
