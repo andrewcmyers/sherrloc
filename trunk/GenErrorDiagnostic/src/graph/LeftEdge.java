@@ -11,7 +11,8 @@ public class LeftEdge extends ReductionEdge {
 	
 	public boolean equals(Object obj) {
 		if (obj instanceof LeftEdge) {
-			return cons.equals(((LeftEdge)obj).cons) && from.equals(((LeftEdge)obj).from) && to.equals(((LeftEdge)obj).to);
+			LeftEdge le = (LeftEdge)obj;
+			return cons.equals(le.cons) && from.equals(le.from) && to.equals(le.to);
 		}
 		return false;
 	}
