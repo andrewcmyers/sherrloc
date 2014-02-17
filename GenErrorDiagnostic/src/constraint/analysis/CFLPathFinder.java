@@ -28,8 +28,8 @@ import java.util.Map;
  * <li>RIGHT: destructor edge
  * </ul>
  * <p>
- * See the full grammar in paper "Toward General Diagnosis of Static Errors" by
- * Danfeng Zhang and Andrew C. Myers
+ * See the full grammar in the paper "Toward General Diagnosis of Static Errors"
+ * by Danfeng Zhang and Andrew C. Myers
  */
 abstract public class CFLPathFinder implements PathFinder {
 	/** Edges used in CFL-reachablity algorithm */
