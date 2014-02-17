@@ -188,13 +188,13 @@ public class ConstraintGraph extends Graph {
         Map<Node, Set<Edge>> neighbors = getNeighbors(node);
         for (Node n : neighbors.keySet()) {
 			for (Edge edge : getEdges(node, n)) {
-				if (n.shouldprint) {
+				if (n.shouldPrint()) {
 					if (edge.isDirected())
 						ret += node.getUid() + "->" + n.getUid() + " [label=\""
-								+ edge.toDotString() + "\"];\n";
+								+ edge.toString() + "\"];\n";
 					else if (node.getIndex() < n.getIndex())
 						ret += node.getUid() + "->" + n.getUid() + " [dir=both label=\""
-								+ edge.toDotString() + "\"];\n";
+								+ edge.toString() + "\"];\n";
 				}
 			}
         }
@@ -210,9 +210,9 @@ public class ConstraintGraph extends Graph {
         String links = "";
         
         for (Node n : allNodes) {
-			if (!n.shouldprint)
+			if (!n.shouldPrint())
 				continue;
-			nodes += n.printNodeToDotString();
+			nodes += n.toDotString();
 			links += printLinkToDotString(n);
         }
         
@@ -249,7 +249,8 @@ public class ConstraintGraph extends Graph {
      */
     public void slicing () {
     	for (Node node : allNodes) {
-    		node.shouldprint = node.isCause();
+    		if (node.isCause())
+    			node.markAsPrint();
     	}
     }
     

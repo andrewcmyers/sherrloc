@@ -40,11 +40,6 @@ public class EmptyEdge extends Edge {
 	}
 
 	@Override
-	public String toDotString() {
-		return "";
-	}
-
-	@Override
 	public String toString() {
 		return "";
 	}

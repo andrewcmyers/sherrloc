@@ -53,7 +53,7 @@ public class UnsatPaths {
     		for (Node n : path.getAllNodes()) {
     			Element e = n.getElement();
     			if (!e.getPosition().isEmpty())
-    				cand.add(new ExprEntity(n.toString(), e.toSnippetString(), 
+    				cand.add(new ExprEntity(n.toString(), 
     						e.getPosition().toString(), 0));
     		}
     	}

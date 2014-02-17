@@ -14,6 +14,6 @@ public class SlicingVisitor implements NodeVisitor {
     
     public void visit(Node n) {
         if (n.isCause())
-            n.shouldprint = true;
+            n.markAsPrint();
     }
 }

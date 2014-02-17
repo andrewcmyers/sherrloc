@@ -63,11 +63,6 @@ public class Inequality implements PrettyPrinter {
 	}
 
 	@Override
-	public String toDotString() {
-		return e1.toDotString() + r.toString() + e2.toDotString();
-	}
-
-	@Override
 	public String toHTMLString() {
 		return ("<code>" + e1.toString()
 				+ "</code> is less or equal than <code>" + e2.toString() + "</code>");

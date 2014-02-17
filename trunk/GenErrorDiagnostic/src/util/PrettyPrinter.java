@@ -8,7 +8,7 @@ public interface PrettyPrinter {
 	/**
 	 * Proper string for the DOT format
 	 */
-	public String toDotString ();
+//	public String toDotString ();
 
 	/**
 	 * Proper string for the HTML format

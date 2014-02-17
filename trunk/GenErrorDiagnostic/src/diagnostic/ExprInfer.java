@@ -5,7 +5,6 @@ import graph.Node;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,8 +39,8 @@ public class ExprInfer extends InferenceEngine {
     		for (Node n : path.getAllNodes()) {
     			Element e = n.getElement();
     			if (!e.getPosition().isEmpty())
-    				cand.add(new ExprEntity(n.toString(), e.toSnippetString(), 
-    						e.getPosition().toString(), succCount.get(n.toString())));
+					cand.add(new ExprEntity(n.toString(), e.getPosition()
+							.toString(), succCount.get(n.toString())));
     		}
     	}
     	

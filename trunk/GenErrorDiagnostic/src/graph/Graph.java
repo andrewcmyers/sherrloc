@@ -113,6 +113,6 @@ public abstract class Graph {
      */
     public void labelAll ( ) {
     	for (Node n : allNodes)
-        		n.shouldprint = true;
+        	n.markAsPrint();;
     }
 }
