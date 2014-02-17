@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
@@ -238,7 +239,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * parameters, "meet" and "join" when id edges are inferred
 	 */
 	protected void saturation() {
-		List<Node> allNodes = g.getAllNodes();
+		Set<Node> allNodes = g.getAllNodes();
 		
 		int current_length = 0;
 		while (!queue.isEmpty()) {	
@@ -323,8 +324,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 						int eleIndex = g.getNode(e).getIndex();
 						redEdge = new LeqEdge(leqPath[candIndex][eleIndex], redEdge);
 					}
-					LeqEdge newedge = new LeqEdge(new MeetEdge(from, meetnode), redEdge);
-					newedge = new LeqEdge(newedge, new MeetEdge(from, meetnode));
+					LeqEdge newedge = new LeqEdge(new CompEdge(from, meetnode,""), redEdge);
+					newedge = new LeqEdge(newedge, new CompEdge(from, meetnode,""));
 					shortestLEQ[candIndex][meetIndex] = newedge.getLength();
 					queue.offer(newedge);
 					leqPath[candIndex][meetIndex] = newedge;
@@ -357,8 +358,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 						int eleIndex = g.getNode(e).getIndex();
 						redEdge = new LeqEdge(leqPath[eleIndex][candIndex], redEdge);
 					}
-					LeqEdge newedge = new LeqEdge(new JoinEdge(joinnode, to), redEdge);
-					newedge = new LeqEdge(newedge, new JoinEdge(joinnode, to));
+					LeqEdge newedge = new LeqEdge(new CompEdge(joinnode, to, ""), redEdge);
+					newedge = new LeqEdge(newedge, new CompEdge(joinnode, to, ""));
 					shortestLEQ[joinIndex][candIndex] = newedge.getLength();
 					queue.offer(newedge);
 					leqPath[joinIndex][candIndex] = newedge;

@@ -18,7 +18,7 @@ import diagnostic.explanation.ExprEntity;
 public class ExprInfer extends InferenceEngine {
 	Map<String, Integer> succCount;
 	
-	public ExprInfer(UnsatPaths paths, List<Node> allNodes) {
+	public ExprInfer(UnsatPaths paths, Set<Node> allNodes) {
 		super(paths);
 		
         // gather # satisfiable paths using an expression (represented by string)

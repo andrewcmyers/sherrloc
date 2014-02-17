@@ -1,32 +1,27 @@
 package graph;
 
-import java.util.Map;
-import java.util.Set;
-
 import constraint.ast.Element;
 
 /**
  * A node in the constraint graph represents an element in the constraint
- * language. A node <code>Node</code> has an unique id (to generate dot graph),
- * a constraint element, 
- * 
  */
 public class Node {
-    private int index; // index in graph
+    private int index; 				// index in graph, used to quickly retrieve a node from graph
     private Element element;
-    private Graph graph;
-    private String uid;
     public boolean shouldprint;
     boolean iscause;
           
-    public Node(String uid, Element element, Graph graph) {
+	/**
+	 * @param index
+	 *            Index of all nodes in graph. Used to quickly retrieve a node
+	 * @param element
+	 *            An element that the constructed node represents
+	 */
+    public Node(int index, Element element) {
         shouldprint = false;
         iscause = false;
-        graph.addNode(this);
-        index = graph.getAllNodes().indexOf(this);
+        this.index = index;
         this.element = element;
-        this.graph = graph;
-        this.uid = uid;
     }
         
     void setCause () {
@@ -65,28 +60,14 @@ public class Node {
 		return element.getSuccCounter();
 	}
     
-    public String printNodeToDotString () {
-        if (isCause())
-            return  uid + " [style=filled, fillcolor=yellow, label=\"" + element.toDotString()+ "\"];\n";
-        else
-            return  uid + " [label=\"" + element.toDotString()+ "\"];\n";
+    public String getUid () {
+    	return "v"+index;
     }
     
-    public String printLinkToDotString () {
-        String ret = "";
-        Map<Node, Set<Edge>> neighbors = graph.getNeighbors(this);
-        for (Node n : neighbors.keySet()) {
-			for (Edge edge : graph.getEdges(this, n)) {
-				if (n.shouldprint) {
-					if (edge.isDirected())
-						ret += this.uid + "->" + n.uid + " [label=\""
-								+ edge.toDotString() + "\"];\n";
-					else if (this.getIndex() < n.getIndex())
-						ret += this.uid + "->" + n.uid + " [dir=both label=\""
-								+ edge.toDotString() + "\"];\n";
-				}
-			}
-        }
-        return ret;
+    public String printNodeToDotString () {
+        if (isCause())
+            return  getUid() + " [style=filled, fillcolor=yellow, label=\"" + element.toDotString()+ "\"];\n";
+        else
+            return  getUid() + " [label=\"" + element.toDotString()+ "\"];\n";
     }
 }
