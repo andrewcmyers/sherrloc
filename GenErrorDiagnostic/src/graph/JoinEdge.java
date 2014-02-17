@@ -21,11 +21,6 @@ public class JoinEdge extends Edge {
 	}
 	
 	@Override
-	public String toDotString() {
-        return  "join"; 
-    }
-	
-	@Override
 	public boolean isDirected() {
 		return true;
 	}

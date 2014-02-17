@@ -5,13 +5,11 @@ import graph.Node;
 
 public class ExprEntity extends Entity {
 	final private String expr;
-	final private String snippet;
 	final private String loc;
 	
-	public ExprEntity(String expr, String snippet, String loc, int succ) {
+	public ExprEntity(String expr, String loc, int succ) {
 		super(succ);
 		this.expr = expr;
-		this.snippet = snippet;
 		this.loc = loc;
 	}
 	
@@ -27,13 +25,13 @@ public class ExprEntity extends Entity {
 	@Override
 	public void toHTML(StringBuffer locBuf, StringBuffer exprBuf) {
 		locBuf.append("['pathelement', \'"+loc+"\'], ");
-		exprBuf.append("<code>"+snippet+"</code>"+" [loc: "+loc+"]    ");
+		exprBuf.append("<code>"+expr+"</code>"+" [loc: "+loc+"]    ");
 	}
 	
 	@Override
 	public void toConsole(StringBuffer locBuf, StringBuffer exprBuf) {
 		locBuf.append(loc + ", ");
-		exprBuf.append(snippet + ", ");
+		exprBuf.append(expr + ", ");
 	}
 	
 	@Override

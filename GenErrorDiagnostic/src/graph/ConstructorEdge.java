@@ -24,12 +24,7 @@ public class ConstructorEdge extends Edge {
 	public String toString() {
 		return condition.toString();
 	}
-	
-	@Override
-	public String toDotString() {
-        return condition.toString(); 
-    }
-	
+		
 	@Override
 	public boolean isDirected() {
 		return true;

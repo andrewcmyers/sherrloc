@@ -12,7 +12,7 @@ public abstract class Element {
 	
 	/**
 	 * @param name Element name.
-	 * @param pos Element position in the source file.
+	 * @param pos Element position in the source file
 	 */
 	public Element(String name, Position pos) {
 		this.name = name;
@@ -28,25 +28,28 @@ public abstract class Element {
 	}
 		
 	/**
-	 * @return Element position in the source file.
+	 * @return Element position in the source file
 	 */
 	public Position getPosition () {
 		return pos;
 	}
 	
 	/**
-	 * @param pos Element position in the source file.
+	 * @param pos Element position in the source file
 	 */
 	public void setPosition (Position pos) {
 		this.pos = pos;
 	}
 	
-    public void incSuccCounter (int i) {
-        succCount += i;
+	/**
+	 * Increase # satisfiable path using this element
+	 */
+    public void incSuccCounter () {
+        succCount += 1;
     }
     
     /**
-     * @return # satisfiable path using this element.
+     * @return # satisfiable path using this element
      */
     public int getSuccCounter () {
 		return succCount;

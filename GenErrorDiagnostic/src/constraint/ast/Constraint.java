@@ -96,12 +96,7 @@ public class Constraint implements PrettyPrinter {
 	public String toString () {
 		return conclusion.toString()+pos.toString();
 	}
-	
-	@Override
-	public String toDotString () {
-		return conclusion.toDotString();
-	}
-	
+		
 	@Override
 	public String toHTMLString() {
 		return conclusion.toHTMLString();
