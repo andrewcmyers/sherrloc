@@ -18,7 +18,7 @@ import java.util.Set;
 import constraint.ast.Position;
 import diagnostic.UnsatPaths;
 
-public class HTTPUtil {
+public class HTMLUtil {
 	
     public static String getFeedback() {
     	StringBuffer sb = new StringBuffer();

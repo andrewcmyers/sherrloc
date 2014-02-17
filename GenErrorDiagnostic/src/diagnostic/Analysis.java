@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-import util.HTTPUtil;
+import util.HTMLUtil;
 import util.PrettyPrinter;
 import constraint.analysis.ConstraintAnalysis;
 import constraint.analysis.ConstraintAnalysisImpl;
@@ -26,12 +26,12 @@ public class Analysis implements PrettyPrinter {
 	private ConstraintAnalysis cana;
 	
 	/** internal states */
-	HTTPUtil util;
+	HTMLUtil util;
 	
 	private Analysis(ConstraintGraph g, DiagnosticOptions option) {
 		graph = g;
 		this.option = option;
-        util = new HTTPUtil();
+        util = new HTMLUtil();
         cana = new ConstraintAnalysisImpl(option.isSymmetric(), option.isVerbose(), option.isRecursive());
 	}
 
@@ -113,7 +113,7 @@ public class Analysis implements PrettyPrinter {
 		UnsatPaths paths = cana.genErrorPaths(graph);
         
         // out.write(getHeader());
-        sb.append(HTTPUtil.getFeedback());
+        sb.append(HTMLUtil.getFeedback());
     	
     	sb.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
     			"<H2>\n" +
