@@ -66,6 +66,7 @@ sub parse {
   }
   elsif ((scalar @locs) == 0) {
     print "parse error";
+    print $str;
     cleanup();
     exit 0;
   }
