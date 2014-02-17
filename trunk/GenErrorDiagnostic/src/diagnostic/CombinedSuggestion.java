@@ -5,7 +5,7 @@ import graph.Node;
 import java.util.Map;
 import java.util.Set;
 
-import util.HTTPUtil;
+import util.HTMLUtil;
 import constraint.ast.Element;
 
 public class CombinedSuggestion<K> implements Comparable<CombinedSuggestion<K>> {
@@ -44,7 +44,7 @@ public class CombinedSuggestion<K> implements Comparable<CombinedSuggestion<K>> 
     		exprBuffer.append(en.toSnippetString()+"    ");
     	}
     	sb.append("<span class=\"path\" ");
-		HTTPUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
+		HTMLUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
 		sb.append(">");
 		sb.append("<code>"+exprBuffer.toString()+"</code></span>");
     	sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
