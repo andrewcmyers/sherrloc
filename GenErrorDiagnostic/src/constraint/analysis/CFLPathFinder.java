@@ -37,7 +37,7 @@ abstract public class CFLPathFinder implements PathFinder {
 	protected Map<EdgeCondition, LeftEdge>[][] leftPath;
 	// since the RIGHT edges are rare in a graph, and no right edges are
 	// inferred, using HashMap can be more memory efficient than arrays
-	protected Map<Node, Map<Node, List<RightEdge>>> rightPath;
+	protected Map<Integer, Map<Integer, List<RightEdge>>> rightPath;
 
 	/** other fields */
 	protected boolean initialized = false;
@@ -52,7 +52,7 @@ abstract public class CFLPathFinder implements PathFinder {
 		int size = g.getAllNodes().size();
 		leqPath = new LeqEdge[size][size];
 		leftPath = new HashMap[size][size];
-		rightPath = new HashMap<Node, Map<Node, List<RightEdge>>>();
+		rightPath = new HashMap<Integer, Map<Integer, List<RightEdge>>>();
 		for (Node start : g.getAllNodes()) {
 			for (Node end : g.getAllNodes()) {
 				int sIndex = start.getIndex();
@@ -72,11 +72,41 @@ abstract public class CFLPathFinder implements PathFinder {
 	 */
 	abstract protected void addEdge(ReductionEdge edge);
 
-	protected List<RightEdge> getRightEdges(Node from, Node to) {
-		if (rightPath.containsKey(from) && rightPath.get(from).containsKey(to)) {
-			return rightPath.get(from).get(to);
+	/**
+	 * Return all {@link RightEdge}s from <code>fIndex</code> to
+	 * <code>tIndex</code>
+	 * 
+	 * @param fIndex
+	 *            Start node
+	 * @param tIndex
+	 *            End node
+	 * @return All {@link RightEdge}s from <code>fIndex</code> to
+	 *         <code>tIndex</code>
+	 */
+	protected List<RightEdge> getRightEdges(int fIndex, int tIndex) {
+		if (hasRightEdges(fIndex, tIndex)) {
+			return rightPath.get(fIndex).get(tIndex);
 		} else
 			return new ArrayList<RightEdge>();
+	}
+	
+	/**
+	 * Return true if there is at least one {@link RightEdge} from
+	 * <code>fIndex</code> to <code>tIndex</code>
+	 * 
+	 * @param fIndex
+	 *            Start node
+	 * @param tIndex
+	 *            End node
+	 * @return True if there is at least one {@link RightEdge} from
+	 *         <code>fIndex</code> to <code>tIndex</code>
+	 */
+	protected boolean hasRightEdges(int fIndex, int tIndex) {
+		if (rightPath.containsKey(fIndex) && rightPath.get(fIndex).containsKey(tIndex)) {
+			return true;
+		} 
+		else
+			return false;
 	}
 
 	/**
