@@ -16,7 +16,6 @@ public class Hypothesis {
 	private Set<Inequality> assertions;
 	private ConstraintGraph graph;
 	private PathFinder finder = null;
-	private boolean SHOW_HYPOTHESIS = false;
 	private Hypothesis parent = null; // used to reduce shared environments
 										// (e.g., to store global assumptions)
 
@@ -220,9 +219,6 @@ public class Hypothesis {
 			}
 			graph.generateGraph();
 
-			if (SHOW_HYPOTHESIS) {
-				graph.labelAll();
-			}
 			finder = new ShortestPathFinder(graph);
 		}
 

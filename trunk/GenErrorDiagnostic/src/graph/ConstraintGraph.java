@@ -36,9 +36,8 @@ public class ConstraintGraph extends Graph {
     private Set<String> files;                                          // source codes involved, only used for DOT files
     private boolean generated;                                   		// if the graph has been generated already, just reuse it
     private final boolean PRINT_SRC = false;                     		// print corresponding source code in DOT files
-    private final boolean DEBUG = false;
     private Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
-    private int varCounter = 1;
+    private int varCounter = 0;
 
     /**
      * @param env Global assumptions
@@ -74,9 +73,9 @@ public class ConstraintGraph extends Graph {
 	 */
     public Node getNode (Element e) {
     	if (! eleToNode.containsKey(e)) {
-            String vid = "v"+varCounter;
+            Node n = new Node (varCounter, e);
+            addNode(n);
             varCounter++;
-            Node n = new Node (vid, e, this); 
             eleToNode.put(e, n);
         }
         return eleToNode.get(e);
@@ -122,9 +121,6 @@ public class ConstraintGraph extends Graph {
         if (generated)
             return;
 		
-		if (DEBUG)
-			System.out.println("Total simple nodes : " + eleToNode.size());
-                
         /**
          * generate extra nodes and edges for constructors, join and meet elements
          * 1. Constructor edges between a constructor and its parameters
@@ -171,8 +167,6 @@ public class ConstraintGraph extends Graph {
             }
         }
         generated = true;
-        if (DEBUG)
-        	System.out.println("Total nodes after static: " + eleToNode.size());
     }
     
     /**
@@ -189,6 +183,24 @@ public class ConstraintGraph extends Graph {
             return s;
     }
     
+    private String printLinkToDotString (Node node) {
+        String ret = "";
+        Map<Node, Set<Edge>> neighbors = getNeighbors(node);
+        for (Node n : neighbors.keySet()) {
+			for (Edge edge : getEdges(node, n)) {
+				if (n.shouldprint) {
+					if (edge.isDirected())
+						ret += node.getUid() + "->" + n.getUid() + " [label=\""
+								+ edge.toDotString() + "\"];\n";
+					else if (node.getIndex() < n.getIndex())
+						ret += node.getUid() + "->" + n.getUid() + " [dir=both label=\""
+								+ edge.toDotString() + "\"];\n";
+				}
+			}
+        }
+        return ret;
+    }
+    
     /**
      * @return A string in DOT file format which represents the graph
      */
@@ -201,7 +213,7 @@ public class ConstraintGraph extends Graph {
 			if (!n.shouldprint)
 				continue;
 			nodes += n.printNodeToDotString();
-			links += n.printLinkToDotString();
+			links += printLinkToDotString(n);
         }
         
         ret += "digraph G1 {\n";
