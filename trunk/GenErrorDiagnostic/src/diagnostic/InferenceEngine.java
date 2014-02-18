@@ -43,41 +43,41 @@ public abstract class InferenceEngine {
 		else
 			sb.append(info());
 
-		List<Explanation> result = new ArrayList<Explanation>();
+		List<Explanation> list = new ArrayList<Explanation>();
 		for (Explanation set : results) {
-			result.add(set);
+			list.add(set);
 		}
-		Collections.sort(result);
+		Collections.sort(list);
 
 		double best = Double.MAX_VALUE;
 		int i = 0;
 		if (!isConsole)
 			sb.append("<UL>\n");
-		for (; i < result.size(); i++) {
-			if (result.get(i).getWeight() > best)
+		for (; i < list.size(); i++) {
+			if (list.get(i).getWeight() > best)
 				break;
-			best = result.get(i).getWeight();
+			best = list.get(i).getWeight();
 			if (isConsole)
-				sb.append("- " + result.get(i).toConsole() + "\n");
+				sb.append("- " + list.get(i).toConsole() + "\n");
 			else
-				sb.append("<LI> " + result.get(i).toHTML());
+				sb.append("<LI> " + list.get(i).toHTML());
 		}
 		if (!isConsole)
 			sb.append("</UL>\n");
 		if (verbose)
 			System.out.println("top_rank_size: " + i);
-		if (i < result.size()) {
+		if (i < list.size()) {
 			if (!isConsole) {
 				sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
 				sb.append("<div id=\"more_expr\">");
-				for (; i < result.size(); i++) {
-					sb.append(result.get(i).toHTML());
+				for (; i < list.size(); i++) {
+					sb.append(list.get(i).toHTML());
 				}
 				sb.append("</div>\n");
 			} else {
 				sb.append("Other less likely suggestions: \n");
-				for (; i < result.size(); i++) {
-					sb.append(result.get(i).toConsole());
+				for (; i < list.size(); i++) {
+					sb.append(list.get(i).toConsole());
 				}
 			}
 		}
