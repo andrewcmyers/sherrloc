@@ -20,7 +20,7 @@ import constraint.parse.parser;
 /**
  * The top level interface for error diagnosis
  */
-public class Analysis implements PrettyPrinter {
+public class ErrorDiagnosis implements PrettyPrinter {
 	private DiagnosticOptions option;
 	private ConstraintGraph graph;	// a constraint graph from constraints
 	private ConstraintAnalysis cana;
@@ -28,7 +28,13 @@ public class Analysis implements PrettyPrinter {
 	/** internal states */
 	HTMLUtil util;
 	
-	private Analysis(ConstraintGraph g, DiagnosticOptions option) {
+	/**
+	 * @param g
+	 *            A constraint graph construction from constraint file
+	 * @param option
+	 *            A configuration of the error diagnostic tool
+	 */
+	private ErrorDiagnosis(ConstraintGraph g, DiagnosticOptions option) {
 		graph = g;
 		this.option = option;
         util = new HTMLUtil();
@@ -38,30 +44,33 @@ public class Analysis implements PrettyPrinter {
 	/**
 	 * Get an analysis instance from options
 	 * 
-	 * @param option Configurations
+	 * @param option
+	 *            Configurations
 	 * @return An analysis instance
 	 * @throws Exception
 	 */
-	static public Analysis getAnalysisInstance (DiagnosticOptions option) throws Exception {
-	    parser p = new parser(new GrmLexer(new InputStreamReader(new FileInputStream(option.consFile), "UTF-8")));
+	static public ErrorDiagnosis getAnalysisInstance (DiagnosticOptions option) throws Exception {
+	    parser p = new parser(new GrmLexer(new InputStreamReader(new FileInputStream(option.getConsFile()), "UTF-8")));
 	    DiagnosisInput result = (DiagnosisInput) p.parse().value;
 
 	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints());
 	    graph.generateGraph();
-	    Analysis ret = new Analysis(graph, option);
+	    ErrorDiagnosis ret = new ErrorDiagnosis(graph, option);
 	    return ret;
 	}
 	
 	/**
 	 * Get an analysis instance from a constraint file. Useful for unit tests
 	 * 
-	 * @param consFile Constraint file
-	 * @param isSym True if only equality is used in constraints
+	 * @param consFile
+	 *            Constraint file
+	 * @param isSym
+	 *            True if only equality is used in constraints
 	 * @return An analysis instance
 	 * @throws Exception
 	 */
-	static public Analysis getAnalysisInstance (String consFile, boolean isExpr, boolean isSym, boolean isConsole) throws Exception {
-		DiagnosticOptions option = new DiagnosticOptions(consFile, isExpr, isSym, isConsole);
+	static public ErrorDiagnosis getAnalysisInstance (String consFile, boolean isExpr, boolean isSym) throws Exception {
+		DiagnosticOptions option = new DiagnosticOptions(consFile, isExpr, isSym);
 		
 	    return getAnalysisInstance(option);
 	}
@@ -74,11 +83,40 @@ public class Analysis implements PrettyPrinter {
 	}
 	
 	/**
-	 * @return Missing hypothesis suggestion in plain text
+	 * Use a error diagnosis algorithm as specified in configuration to find the
+	 * most likely cause of the error
+	 * 
+	 * @param paths
+	 *            A set of unsatisfiable paths
+	 * @return The most likely cause of the error
 	 */
-    public String getAssumptionString () {
-    	UnsatPaths paths = cana.genErrorPaths(graph);
-    	return (new MissingHypoInfer(paths)).getAssumptionString();
+    public String getSuggestions (UnsatPaths paths) {
+    	StringBuffer sb = new StringBuffer();
+    	
+    	if (option.isGenHypothesis()) {
+    		sb.append((new MissingHypoInfer(paths)).infer(option.isToConsole(), option.isVerbose()));
+    	}
+    	if (option.isGenElements()) {
+    		sb.append((new ExprInfer(paths, graph.getAllNodes())).infer(option.isToConsole(), option.isVerbose()));
+    	}
+    	if (option.isGenBoth()) {
+    		sb.append(new UnifiedExplanationInfer(paths).infer(option.isToConsole(), option.isVerbose()));
+    	}
+    	
+    	return sb.toString();
+    }
+    
+    /**
+     * Output the result into a format specified in configuration
+     */
+    public void writeToOutput () {
+		if (option.isDotFile()) {
+			writeToDotFile();
+		}
+		if (option.isToConsole())
+			System.out.println(toConsoleString());
+		else
+			writeToHTML();
     }
         
     /**
@@ -103,12 +141,12 @@ public class Analysis implements PrettyPrinter {
      */
     private void writeToHTML () {
         try {
-            FileOutputStream fstream = new FileOutputStream(option.htmlFileName);
+            FileOutputStream fstream = new FileOutputStream(option.getHtmlFileName());
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fstream, "UTF-8"));
             out.write(toHTMLString());
             out.close();
         } catch (IOException e) {
-            System.out.println("Unable to write the HTML file to: " + option.htmlFileName);
+            System.out.println("Unable to write the HTML file to: " + option.getHtmlFileName());
         }
     }
     
@@ -129,16 +167,17 @@ public class Analysis implements PrettyPrinter {
     	
     	// type check succeeded
     	if (paths.size()==0) {
-    		sb.append("<H2>");
-			sb.append("The program passed type checking. No errors were found.</H2>");
+			sb.append("<H2>The program passed program analysis. No errors were found.</H2>");
             sb.append("<script type=\"text/javascript\">"+
                       "document.getElementById('feedback').style.display = 'none';</script>");
     	}
     	else {
-    		sb.append(getOneSuggestion(option.sourceName, paths));
-			if (option.sourceName != null) {
-				sb.append(util.genAnnotatedCode(paths, option.sourceName)
-						+ (option.sourceName.contains("jif") ? ("<script>colorize_all(); numberSuggestions();</script>\n")
+    		sb.append(getSuggestions(paths));
+     		sb.append("<HR>\n" + paths.toHTMLString());
+
+			if (option.getSourceName() != null) {
+				sb.append(util.genAnnotatedCode(paths, option.getSourceName())
+						+ (option.getSourceName().contains("jif") ? ("<script>colorize_all(); numberSuggestions();</script>\n")
 								: ("<script>numberSuggestions();</script>\n")));
 			}
         }
@@ -152,15 +191,18 @@ public class Analysis implements PrettyPrinter {
 
         // type check succeeded
         if (paths.size()==0) {
-			return ("The program passed type checking. No errors were found.");
+			return ("The program passed program analysis. No errors were found.");
 		} else {
-			return (getOneSuggestion(option.sourceName, paths));
+			return (getSuggestions(paths));
 		}
     }
     
+    /** 
+     * @return Output the constraint graph as a string in DOT format
+     */
     public String toDotString() {
     	UnsatPaths paths = cana.genErrorPaths(graph);
-    	for (ConstraintPath path : paths.errPaths) {
+    	for (ConstraintPath path : paths.getPaths()) {
     		path.setCause();
     	}
     	if (option.isWholeGraph()) 
@@ -168,32 +210,6 @@ public class Analysis implements PrettyPrinter {
         else
         	graph.slicing();
         return graph.toDotString();
-    }
-    
-    public String getOneSuggestion (String sourcefile, UnsatPaths paths) {
-    	StringBuffer sb = new StringBuffer();
-    	sb.append(
-    		(option.isGenHypothesis()?(new MissingHypoInfer(paths)).infer(option.isToConsole(), option.isVerbose()):"") +
-    		(option.isGenElements()?(new ExprInfer(paths, graph.getAllNodes())).infer(option.isToConsole(), option.isVerbose())/*+paths.genEdgeCut()*/:""));
-//    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
-    	if (!option.isToConsole()) {             
-    		sb.append("<HR>\n" + paths.toHTML());
-        }
-
-    	return sb.toString();
-    }
-    
-    /**
-     * Output the result into a format specified in configuration
-     */
-    public void writeToOutput () {
-		if (option.isDotFile()) {
-			writeToDotFile();
-		}
-		if (option.isToConsole())
-			System.out.println(toConsoleString());
-		else
-			writeToHTML();
     }
     
 	/**
@@ -204,7 +220,7 @@ public class Analysis implements PrettyPrinter {
 		DiagnosticOptions option = new DiagnosticOptions(args);
 
 		try {
-			Analysis ana = Analysis.getAnalysisInstance(option);
+			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(option);
 			ana.writeToOutput();
 		} catch (Exception e) {
 			e.printStackTrace();

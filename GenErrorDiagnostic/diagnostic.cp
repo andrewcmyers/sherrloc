@@ -6,4 +6,4 @@ java=java
 
 classpath="$dir/build:$dir/lib/commons-cli-1.2.jar:$dir/lib/java-cup-11a.jar:$dir/lib/JFlex.jar"
 
-eval "$java" -Xmx1000m -classpath "'$classpath'" "diagnostic.Analysis $@"
+eval "$java" -Xmx1000m -classpath "'$classpath'" "diagnostic.ErrorDiagnosis $@"
