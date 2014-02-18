@@ -39,7 +39,7 @@ public class ExprInfer extends InferenceEngine {
     		for (Node n : path.getAllNodes()) {
     			Element e = n.getElement();
     			if (!e.getPosition().isEmpty())
-					cand.add(new ExprEntity(n.toString(), e.getPosition()
+					cand.add(new ExprEntity(e.toSnippetString(), e.getPosition()
 							.toString(), succCount.get(n.toString())));
     		}
     	}
@@ -56,5 +56,10 @@ public class ExprInfer extends InferenceEngine {
 	@Override
 	public String HTMLinfo() {
 		return "<H4>Expressions in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n";
+	}	
+	
+	@Override
+	public String info() {
+		return "Expressions in the source code that appear most likely to be wrong: \n";
 	}	
 }

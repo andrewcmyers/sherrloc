@@ -27,10 +27,13 @@ public class DiagnosticOptions {
 	/**
 	 * Use default configurations
 	 */
-	public DiagnosticOptions(String consFile, boolean isSym) {
+	public DiagnosticOptions(String consFile, boolean isExpr, boolean isSym, boolean isConsole) {
 		setDefault();
 		this.consFile = consFile;
 		this.symmetric = isSym;
+		this.genElements = isExpr;
+		this.genHypothesis = !isExpr;
+		this.toConsole = isConsole;
 	}
     
     /**
@@ -100,10 +103,10 @@ public class DiagnosticOptions {
     private void setDefault () {
     	dotFile = false;
     	genBoth = false;
-    	genElements = true;
+    	genElements = false;
     	genHypothesis = false;
     	wholeGraph = false;
-    	toConsole = true;
+    	toConsole = false;
     	recursive = false;
     	symmetric = false;
     	verbose = false;

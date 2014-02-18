@@ -90,7 +90,6 @@ public class UnsatPaths {
         		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
 	        	sb.append(path_buff.toString());
         		sb.append("])\" ");
-			// setShowHideActions(true, sb, path_buff.toString(), 0);
 			sb.append(">show it</button><br>\n");
 		}
 		sb.append("</UL>\n");
