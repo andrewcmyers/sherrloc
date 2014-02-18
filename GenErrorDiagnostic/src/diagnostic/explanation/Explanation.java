@@ -1,5 +1,8 @@
 package diagnostic.explanation;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import util.HTMLUtil;
@@ -78,14 +81,27 @@ public class Explanation implements Comparable<Explanation> {
 	 */
 	public String toConsole ( ) {
 		StringBuffer sb = new StringBuffer();
-		
 		StringBuffer locBuffer = new StringBuffer();
     	StringBuffer exprBuffer = new StringBuffer();
+    	List<String> list = new ArrayList<String>();
+
+    	if (DEBUG) {
+			sb.append("(score "+weight+") ");
+		}
 		for (Entity en : entities) {
 			en.toConsole(locBuffer, exprBuffer);
+			String loc = locBuffer.toString();
+			list.add(exprBuffer.toString()+(loc.equals("")?"":":["+loc+"]"));
+			locBuffer.setLength(0);
+			exprBuffer.setLength(0);
     	}
-		sb.append(exprBuffer.toString()+": ");
-        sb.append(locBuffer.toString());
+		// set the order so that the result is deterministic. The main purpose
+		// of doing this is for unit test
+		Collections.sort(list);
+		
+		for (String str : list)
+			sb.append(str + ";");
+		sb.append("\n");
     	
    		return sb.toString();
 	}
