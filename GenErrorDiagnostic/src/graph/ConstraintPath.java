@@ -223,21 +223,22 @@ public class ConstraintPath {
 			return;
 
 		// avoid duplicate expressions
-		Set<Node> processedNodes = new HashSet<Node>();
-		Set<Edge> processedEdges = new HashSet<Edge>();
+		// changing the sets to "Node", "Edge" breaks OCaml tests, check this later
+		Set<String> processedNodes = new HashSet<String>();
+		Set<String> processedEdges = new HashSet<String>();
 
 		Node leftmost = getFirst();
 		leftmost.incSuccCounter();
-		processedNodes.add(leftmost);
+		processedNodes.add(leftmost.toString());
 		for (int k = 0; k < size(); k++) {
 			Edge edge = edges.get(k);
 			if (!processedEdges.contains(edge)) {
 				edge.incNumSuccCounter();
-				processedEdges.add(edge);
+				processedEdges.add(edge.toString());
 			}
-			if (!processedNodes.contains(edge.getTo())) {
+			if (!processedNodes.contains(edge.getTo().toString())) {
 				edge.getTo().incSuccCounter();
-				processedNodes.add(edge.getTo());
+				processedNodes.add(edge.getTo().toString());
 			}
 		}
 	}
