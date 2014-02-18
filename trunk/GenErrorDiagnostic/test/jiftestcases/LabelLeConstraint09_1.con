@@ -1,18 +1,18 @@
-CONSTRUCTOR C_L 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint09.jif:2,8-9
-CONSTRUCTOR I_L 0 //class jif.types.label.ParamLabel_c@LabelLeConstraint09.jif:2,8-9
+CONSTRUCTOR C_L 0 //C_L["L":2,8-9@LabelLeConstraint09.jif]
+CONSTRUCTOR I_L 0 //I_L["L":2,8-9@LabelLeConstraint09.jif]
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= C_L;
-C_L <= * -> *;
-* <- * <= I_L;
-I_L <= _ <- _;
-_ -> _ <= C_f;
-C_f <= * -> *;
-* <- * <= I_f;
-I_f <= _ <- _;
+(_ -> _) <= C_L;
+C_L <= (* -> *);
+(* <- *) <= I_L;
+I_L <= (_ <- _);
+(_ -> _) <= C_f;
+C_f <= (* -> *);
+(* <- *) <= I_f;
+I_f <= (_ <- _);
 
 %%
-C_f["{f}":2,4-13] == C_L["L":2,8-9] {};[2,4-13]
-I_f["{f}":2,4-13] == I_L["L":2,8-9] {};[2,4-13]
+C_f["{f}":2,4-13@LabelLeConstraint09.jif] == C_L["L":2,8-9@LabelLeConstraint09.jif] {};[2,4-13@LabelLeConstraint09.jif]
+I_f["{f}":2,4-13@LabelLeConstraint09.jif] == I_L["L":2,8-9@LabelLeConstraint09.jif] {};[2,4-13@LabelLeConstraint09.jif]
 

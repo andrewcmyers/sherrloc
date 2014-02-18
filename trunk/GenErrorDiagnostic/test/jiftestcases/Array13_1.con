@@ -1,83 +1,83 @@
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Array13.jif:1,0-7
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Array13.jif:1,0-7
-CONSTRUCTOR C_C.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR I_C.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Array13.jif:2,4-10
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Array13.jif:2,4-10
+CONSTRUCTOR C_this 0 //C_this["{this}":1,0-7@Array13.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":1,0-7@Array13.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":2,4-10@Array13.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":2,4-10@Array13.jif]
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
-CONSTRUCTOR _ 0 //@Array13.jif:5,2-10
-CONSTRUCTOR * 0 //@Array13.jif:5,3-9
+CONSTRUCTOR _ 0 //@Array13.jif:7,2-10
+CONSTRUCTOR * 0 //@Array13.jif:7,3-9
 
 %%
 C_caller_pc <= (_ -> _);
 I_caller_pc <= (* <- *);
-C_C.provider == _ -> _;
-I_C.provider == * <- *;
-_ -> _ <= (Alice -> Alice);
-(Alice -> Alice) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_C.provider;
-C_C.provider <= * -> *;
-* <- * <= I_C.provider;
-I_C.provider <= _ <- _;
-_ -> _ <= C_y;
-C_y <= * -> *;
-* <- * <= I_y;
-I_y <= _ <- _;
-_ -> _ <= C_x;
-C_x <= * -> *;
-* <- * <= I_x;
-I_x <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_w;
-C_w <= * -> *;
-* <- * <= I_w;
-I_w <= _ <- _;
-_ -> _ <= C_z;
-C_z <= * -> *;
-* <- * <= I_z;
-I_z <= _ <- _;
+(_ -> _) <= (Alice -> Alice);
+(Alice -> Alice) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_y;
+C_y <= (* -> *);
+(* <- *) <= I_y;
+I_y <= (_ <- _);
+(_ -> _) <= C_x;
+C_x <= (* -> *);
+(* <- *) <= I_x;
+I_x <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_w;
+C_w <= (* -> *);
+(* <- *) <= I_w;
+I_w <= (_ <- _);
+(_ -> _) <= C_z;
+C_z <= (* -> *);
+(* <- *) <= I_z;
+I_z <= (_ <- _);
+(_ -> _) <= C_C.provider;
+C_C.provider <= (* -> *);
+(* <- *) <= I_C.provider;
+I_C.provider <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
 
 %%
-(C_caller_pc)["{caller_pc}":2,4-10] <= C_x["{x}":3,21-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,25-29]
-(I_caller_pc)["{caller_pc}":2,4-10] <= I_x["{x}":3,21-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,25-29]
+(C_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{caller_pc}":2,4-10@Array13.jif] <= C_x["{x}":3,21-22@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,25-29@Array13.jif]
+(I_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{caller_pc}":2,4-10@Array13.jif] <= I_x["{x}":3,21-22@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,25-29@Array13.jif]
 
-(C_caller_pc)["{caller_pc}":2,4-10] <= C_y["{y}":4,9-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,13-17]
-(I_caller_pc)["{caller_pc}":2,4-10] <= I_y["{y}":4,9-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,13-17]
+(C_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{caller_pc}":2,4-10@Array13.jif] <= C_y["{y}":4,9-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,13-17@Array13.jif]
+(I_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{caller_pc}":2,4-10@Array13.jif] <= I_y["{y}":4,9-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,13-17@Array13.jif]
 
-(C_caller_pc)["{caller_pc}":2,4-10] <= C_z["{z}":5,15-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,19-23]
-(I_caller_pc)["{caller_pc}":2,4-10] <= I_z["{z}":5,15-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,19-23]
+(C_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{caller_pc}":2,4-10@Array13.jif] <= C_z["{z}":5,15-16@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,19-23@Array13.jif]
+(I_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{caller_pc}":2,4-10@Array13.jif] <= I_z["{z}":5,15-16@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[5,19-23@Array13.jif]
 
-(C_caller_pc)["{caller_pc}":2,4-10] <= C_w["{w}":7,13-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,17-21]
-(I_caller_pc)["{caller_pc}":2,4-10] <= I_w["{w}":7,13-14] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,17-21]
+(C_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{caller_pc}":2,4-10@Array13.jif] <= C_w["{w}":7,13-14@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,17-21@Array13.jif]
+(I_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{caller_pc}":2,4-10@Array13.jif] <= I_w["{w}":7,13-14@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[7,17-21@Array13.jif]
 
-(C_w) ⊔ (C_caller_pc) ⊔ (C_z)["{w ⊔ caller_pc ⊔ z}":7,13-14] <= (Alice -> Alice)["{(Alice -> *)}":5,2-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-2]
-(I_w) ⊔ (I_caller_pc) ⊔ (I_z)["{w ⊔ caller_pc ⊔ z}":7,13-14] <= (_ <- _)["{(Alice -> *)}":5,2-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-2]
+(C_w["{w}":7,13-14@Array13.jif] ⊔ C_caller_pc["{caller_pc}":2,4-10@Array13.jif] ⊔ C_z["{z}":5,15-16@Array13.jif])["{w ⊔ caller_pc ⊔ z}":7,13-14@Array13.jif] <= (_["_":5,1-12@Array13.jif] -> _["_":5,1-12@Array13.jif])["(_ -> _)":5,1-12@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-2@Array13.jif]
+(I_w["{w}":7,13-14@Array13.jif] ⊔ I_caller_pc["{caller_pc}":2,4-10@Array13.jif] ⊔ I_z["{z}":5,15-16@Array13.jif])["{w ⊔ caller_pc ⊔ z}":7,13-14@Array13.jif] <= (_["_":5,1-12@Array13.jif] <- _["_":5,1-12@Array13.jif])["(_ <- _)":5,1-12@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-2@Array13.jif]
 
-C_C.provider <= (Alice -> Alice)["{(Alice -> *)}":5,2-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-2]
-I_C.provider <= (_ <- _)["{(Alice -> *)}":5,2-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-2]
+C_C.provider["C.provider":] <= (_["_":5,1-12@Array13.jif] -> _["_":5,1-12@Array13.jif])["(_ -> _)":5,1-12@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-2@Array13.jif]
+I_C.provider["C.provider":] <= (_["_":5,1-12@Array13.jif] <- _["_":5,1-12@Array13.jif])["(_ <- _)":5,1-12@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-2@Array13.jif]
 
-(Alice -> Alice)["{(Alice -> *)}":5,2-10] <= (Alice -> Alice)["{(Alice -> *)}":7,2-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-9]
-(_ <- _)["{(Alice -> *)}":5,2-10] <= (_ <- _)["{(Alice -> *)}":7,2-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-9]
+(Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":5,3-9@Array13.jif] <= (Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":7,3-9@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-9@Array13.jif]
+(_["_":5,2-10@Array13.jif] <- _["_":5,2-10@Array13.jif])["(_ <- _)":5,2-10@Array13.jif] <= (_["_":7,2-10@Array13.jif] <- _["_":7,2-10@Array13.jif])["(_ <- _)":7,2-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-9@Array13.jif]
 
-(Alice -> Alice)["{(Alice -> *)}":7,2-10] <= (Alice -> Alice)["{(Alice -> *)}":5,2-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-9]
-(_ <- _)["{(Alice -> *)}":7,2-10] <= (_ <- _)["{(Alice -> *)}":5,2-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-9]
+(Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":7,3-9@Array13.jif] <= (Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":5,3-9@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-9@Array13.jif]
+(_["_":7,2-10@Array13.jif] <- _["_":7,2-10@Array13.jif])["(_ <- _)":7,2-10@Array13.jif] <= (_["_":5,2-10@Array13.jif] <- _["_":5,2-10@Array13.jif])["(_ <- _)":5,2-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[8,1-9@Array13.jif]
 
-(C_z) ⊔ (C_caller_pc)["{z ⊔ caller_pc}":5,15-16] <= C_caller_pc["{caller_pc}":2,4-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10]
-(I_z) ⊔ (I_caller_pc)["{z ⊔ caller_pc}":5,15-16] <= I_caller_pc["{caller_pc}":2,4-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10]
+(C_z["{z}":5,15-16@Array13.jif] ⊔ C_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{z ⊔ caller_pc}":5,15-16@Array13.jif] <= C_caller_pc["{caller_pc}":2,4-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10@Array13.jif]
+(I_z["{z}":5,15-16@Array13.jif] ⊔ I_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{z ⊔ caller_pc}":5,15-16@Array13.jif] <= I_caller_pc["{caller_pc}":2,4-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10@Array13.jif]
 
-(C_z) ⊔ (C_caller_pc)["{z ⊔ caller_pc}":5,15-16] <= C_caller_pc["{caller_pc}":2,4-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10]
-(I_z) ⊔ (I_caller_pc)["{z ⊔ caller_pc}":5,15-16] <= I_caller_pc["{caller_pc}":2,4-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10]
+(C_z["{z}":5,15-16@Array13.jif] ⊔ C_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{z ⊔ caller_pc}":5,15-16@Array13.jif] <= C_caller_pc["{caller_pc}":2,4-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10@Array13.jif]
+(I_z["{z}":5,15-16@Array13.jif] ⊔ I_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{z ⊔ caller_pc}":5,15-16@Array13.jif] <= I_caller_pc["{caller_pc}":2,4-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10@Array13.jif]
 
-(C_z) ⊔ (C_caller_pc)["{z ⊔ caller_pc}":5,15-16] <= C_caller_pc["{caller_pc}":2,4-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10]
-(I_z) ⊔ (I_caller_pc)["{z ⊔ caller_pc}":5,15-16] <= I_caller_pc["{caller_pc}":2,4-10] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10]
+(C_z["{z}":5,15-16@Array13.jif] ⊔ C_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{z ⊔ caller_pc}":5,15-16@Array13.jif] <= C_caller_pc["{caller_pc}":2,4-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10@Array13.jif]
+(I_z["{z}":5,15-16@Array13.jif] ⊔ I_caller_pc["{caller_pc}":2,4-10@Array13.jif])["{z ⊔ caller_pc}":5,15-16@Array13.jif] <= I_caller_pc["{caller_pc}":2,4-10@Array13.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[2,4-10@Array13.jif]
 

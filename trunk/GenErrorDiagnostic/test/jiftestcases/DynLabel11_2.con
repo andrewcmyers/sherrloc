@@ -1,18 +1,18 @@
-CONSTRUCTOR C_*C.f 0 //class jif.types.label.DynamicLabel_c@DynLabel11.jif:5,9-12
-CONSTRUCTOR I_*C.f 0 //class jif.types.label.DynamicLabel_c@DynLabel11.jif:5,9-12
+CONSTRUCTOR C_*C.f 0 //C_*C.f["{*C.f}":5,9-12@DynLabel11.jif]
+CONSTRUCTOR I_*C.f 0 //I_*C.f["{*C.f}":5,9-12@DynLabel11.jif]
 CONSTRUCTOR this 0
 
 %%
-_ -> _ <= C_*C.f;
-C_*C.f <= * -> *;
-* <- * <= I_*C.f;
-I_*C.f <= _ <- _;
-_ -> _ <= C_foo;
-C_foo <= * -> *;
-* <- * <= I_foo;
-I_foo <= _ <- _;
+(_ -> _) <= C_*C.f;
+C_*C.f <= (* -> *);
+(* <- *) <= I_*C.f;
+I_*C.f <= (_ <- _);
+(_ -> _) <= C_foo;
+C_foo <= (* -> *);
+(* <- *) <= I_foo;
+I_foo <= (_ <- _);
 
 %%
-C_foo["{foo}":5,4-18] == C_*C.f["{*C.f}":5,9-12] {};[5,4-18]
-I_foo["{foo}":5,4-18] == I_*C.f["{*C.f}":5,9-12] {};[5,4-18]
+C_foo["{foo}":5,4-18@DynLabel11.jif] == C_*C.f["{*C.f}":5,9-12@DynLabel11.jif] {};[5,4-18@DynLabel11.jif]
+I_foo["{foo}":5,4-18@DynLabel11.jif] == I_*C.f["{*C.f}":5,9-12@DynLabel11.jif] {};[5,4-18@DynLabel11.jif]
 

@@ -1,50 +1,50 @@
-CONSTRUCTOR C_*lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint01.jif:3,6-10
-CONSTRUCTOR I_*lbl1 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint01.jif:3,6-10
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint01.jif:1,0-7
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint01.jif:1,0-7
-CONSTRUCTOR C_*lbl2 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint01.jif:2,54-58
-CONSTRUCTOR I_*lbl2 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint01.jif:2,54-58
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint01.jif:2,4-10
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint01.jif:2,4-10
+CONSTRUCTOR C_*lbl2 0 //C_*lbl2["{*lbl2}":2,54-58@LabelLeConstraint01.jif]
+CONSTRUCTOR I_*lbl2 0 //I_*lbl2["{*lbl2}":2,54-58@LabelLeConstraint01.jif]
+CONSTRUCTOR C_this 0 //C_this["{this}":1,0-7@LabelLeConstraint01.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":1,0-7@LabelLeConstraint01.jif]
+CONSTRUCTOR C_*lbl1 0 //C_*lbl1["{*lbl1}":3,6-10@LabelLeConstraint01.jif]
+CONSTRUCTOR I_*lbl1 0 //I_*lbl1["{*lbl1}":3,6-10@LabelLeConstraint01.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif]
 CONSTRUCTOR this 0
 
 %%
 I_caller_pc <= (_ <- _);
-_ -> _ <= C_*lbl1;
-C_*lbl1 <= * -> *;
-* <- * <= I_*lbl1;
-I_*lbl1 <= _ <- _;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_y;
-C_y <= * -> *;
-* <- * <= I_y;
-I_y <= _ <- _;
-_ -> _ <= C_*lbl2;
-C_*lbl2 <= * -> *;
-* <- * <= I_*lbl2;
-I_*lbl2 <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_x;
-C_x <= * -> *;
-* <- * <= I_x;
-I_x <= _ <- _;
+(_ -> _) <= C_*lbl2;
+C_*lbl2 <= (* -> *);
+(* <- *) <= I_*lbl2;
+I_*lbl2 <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_*lbl1;
+C_*lbl1 <= (* -> *);
+(* <- *) <= I_*lbl1;
+I_*lbl1 <= (_ <- _);
+(_ -> _) <= C_y;
+C_y <= (* -> *);
+(* <- *) <= I_y;
+I_y <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_x;
+C_x <= (* -> *);
+(* <- *) <= I_x;
+I_x <= (_ <- _);
 
 %%
-C_x["{x}":3,12-13] == (C_caller_pc) ⊔ (C_*lbl1)["{caller_pc ⊔ *lbl1}":2,4-10] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,12-13]
-I_x["{x}":3,12-13] == (I_caller_pc) ⊔ (I_*lbl1)["{caller_pc ⊔ *lbl1}":2,4-10] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,12-13]
+C_x["{x}":3,12-13@LabelLeConstraint01.jif] == (C_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif] ⊔ C_*lbl1["{*lbl1}":3,6-10@LabelLeConstraint01.jif])["{caller_pc ⊔ *lbl1}":2,4-10@LabelLeConstraint01.jif] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,12-13@LabelLeConstraint01.jif]
+I_x["{x}":3,12-13@LabelLeConstraint01.jif] == (I_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif] ⊔ I_*lbl1["{*lbl1}":3,6-10@LabelLeConstraint01.jif])["{caller_pc ⊔ *lbl1}":2,4-10@LabelLeConstraint01.jif] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,12-13@LabelLeConstraint01.jif]
 
-(C_caller_pc)["{caller_pc}":2,4-10] <= C_x["{x}":3,12-13] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,16-17]
-(I_caller_pc)["{caller_pc}":2,4-10] <= I_x["{x}":3,12-13] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,16-17]
+(C_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif])["{caller_pc}":2,4-10@LabelLeConstraint01.jif] <= C_x["{x}":3,12-13@LabelLeConstraint01.jif] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,16-17@LabelLeConstraint01.jif]
+(I_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif])["{caller_pc}":2,4-10@LabelLeConstraint01.jif] <= I_x["{x}":3,12-13@LabelLeConstraint01.jif] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[3,16-17@LabelLeConstraint01.jif]
 
-C_y["{y}":4,12-13] == (C_caller_pc) ⊔ (C_*lbl2)["{caller_pc ⊔ *lbl2}":2,4-10] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,12-13]
-I_y["{y}":4,12-13] == (I_caller_pc) ⊔ (I_*lbl2)["{caller_pc ⊔ *lbl2}":2,4-10] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,12-13]
+C_y["{y}":4,12-13@LabelLeConstraint01.jif] == (C_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif] ⊔ C_*lbl2["{*lbl2}":4,6-10@LabelLeConstraint01.jif])["{caller_pc ⊔ *lbl2}":2,4-10@LabelLeConstraint01.jif] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,12-13@LabelLeConstraint01.jif]
+I_y["{y}":4,12-13@LabelLeConstraint01.jif] == (I_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif] ⊔ I_*lbl2["{*lbl2}":4,6-10@LabelLeConstraint01.jif])["{caller_pc ⊔ *lbl2}":2,4-10@LabelLeConstraint01.jif] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,12-13@LabelLeConstraint01.jif]
 
-(C_x) ⊔ (C_caller_pc)["{x ⊔ caller_pc}":3,12-13] <= C_y["{y}":4,12-13] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,16-17]
-(I_x) ⊔ (I_caller_pc)["{x ⊔ caller_pc}":3,12-13] <= I_y["{y}":4,12-13] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,16-17]
+(C_x["{x}":3,12-13@LabelLeConstraint01.jif] ⊔ C_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif])["{x ⊔ caller_pc}":3,12-13@LabelLeConstraint01.jif] <= C_y["{y}":4,12-13@LabelLeConstraint01.jif] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,16-17@LabelLeConstraint01.jif]
+(I_x["{x}":3,12-13@LabelLeConstraint01.jif] ⊔ I_caller_pc["{caller_pc}":2,4-10@LabelLeConstraint01.jif])["{x ⊔ caller_pc}":3,12-13@LabelLeConstraint01.jif] <= I_y["{y}":4,12-13@LabelLeConstraint01.jif] {C_*lbl1 <= C_*lbl2;I_*lbl1 <= I_*lbl2;C_this <= C_caller_pc;I_this <= I_caller_pc;};[4,16-17@LabelLeConstraint01.jif]
 

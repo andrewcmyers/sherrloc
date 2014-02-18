@@ -1,13 +1,9 @@
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR C_*guessApp.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
-CONSTRUCTOR I_*guessApp.lb 0 //class jif.types.label.DynamicLabel_c@LabelSubst01.jif:6,10-49
-CONSTRUCTOR C_D.provider 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR I_D.provider 0 //class jif.types.label.ProviderLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelSubst01.jif:22,0-7
-CONSTRUCTOR C_D.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR I_D.provider1 0 //class jif.types.label.ProviderLabel_c@null
+CONSTRUCTOR C_this 0 //C_this["{this}":22,0-7@LabelSubst01.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":22,0-7@LabelSubst01.jif]
+CONSTRUCTOR C_*guessApp.lb 0 //C_*guessApp.lb["{*guessApp.lb}":6,10-49@LabelSubst01.jif]
+CONSTRUCTOR I_*guessApp.lb 0 //I_*guessApp.lb["{*guessApp.lb}":6,10-49@LabelSubst01.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":22,0-7@LabelSubst01.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":22,0-7@LabelSubst01.jif]
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@LabelSubst01.jif:6,39-48
@@ -15,53 +11,49 @@ CONSTRUCTOR * 0 //@LabelSubst01.jif:6,40-41
 
 %%
 I_caller_pc <= (_ <- _);
-C_D.provider == _ -> _;
-I_D.provider == * <- *;
-C_D.provider1 == _ -> _;
-I_D.provider1 == * <- *;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_*guessApp.lb;
-C_*guessApp.lb <= * -> *;
-* <- * <= I_*guessApp.lb;
-I_*guessApp.lb <= _ <- _;
-_ -> _ <= C_D.provider;
-C_D.provider <= * -> *;
-* <- * <= I_D.provider;
-I_D.provider <= _ <- _;
-_ -> _ <= (* -> Alice);
-(* -> Alice) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_D.provider1;
-C_D.provider1 <= * -> *;
-* <- * <= I_D.provider1;
-I_D.provider1 <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (* <- *);
-(* <- *) <= _ <- _;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_D.provider;
+C_D.provider <= (* -> *);
+(* <- *) <= I_D.provider;
+I_D.provider <= (_ <- _);
+(_ -> _) <= (* -> Alice);
+(* -> Alice) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_*guessApp.lb;
+C_*guessApp.lb <= (* -> *);
+(* <- *) <= I_*guessApp.lb;
+I_*guessApp.lb <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_D.provider;
+C_D.provider <= (* -> *);
+(* <- *) <= I_D.provider;
+I_D.provider <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (* <- *);
+(* <- *) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
 
 %%
-C_D.provider1 <= (* -> *)["{(* -> *)}":22,0-7] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[22,0-7]
-I_D.provider1 <= (_ <- _)["{(* -> *)}":22,0-7] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[22,0-7]
+C_D.provider["D.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[22,0-7@LabelSubst01.jif]
+I_D.provider["D.provider":] <= (_["_":22,0-7@LabelSubst01.jif] <- _["_":22,0-7@LabelSubst01.jif])["(_ <- _)":] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[22,0-7@LabelSubst01.jif]
 
-(* -> Alice)["{(* -> Alice)}":25,23-32] <= (* -> Alice)["{(* -> Alice)}":25,23-32] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[25,11-23]
-(_ <- _)["{(* -> Alice)}":25,23-32] <= (_ <- _)["{(* -> Alice)}":25,23-32] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[25,11-23]
+(*["*":25,24-25@LabelSubst01.jif] -> Alice["Alice":])["(* -> Alice)":25,24-31@LabelSubst01.jif] <= (*["*":25,24-25@LabelSubst01.jif] -> Alice["Alice":])["(* -> Alice)":25,24-31@LabelSubst01.jif] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[25,11-23@LabelSubst01.jif]
+(_["_":25,23-32@LabelSubst01.jif] <- _["_":25,23-32@LabelSubst01.jif])["(_ <- _)":25,23-32@LabelSubst01.jif] <= (_["_":25,23-32@LabelSubst01.jif] <- _["_":25,23-32@LabelSubst01.jif])["(_ <- _)":25,23-32@LabelSubst01.jif] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[25,11-23@LabelSubst01.jif]
 
-(_ -> _) <= (_ -> _) {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[25,11-23]
-(* <- *) <= (* <- *) {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[25,11-23]
+(_["_":25,11-23@LabelSubst01.jif] -> _["_":25,11-23@LabelSubst01.jif])["(_ -> _)":25,11-23@LabelSubst01.jif] <= (_["_":25,11-23@LabelSubst01.jif] -> _["_":25,11-23@LabelSubst01.jif])["(_ -> _)":25,11-23@LabelSubst01.jif] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[25,11-23@LabelSubst01.jif]
+(*["*":25,11-23@LabelSubst01.jif] <- *["*":25,11-23@LabelSubst01.jif])["(* <- *)":25,11-23@LabelSubst01.jif] <= (*["*":25,11-23@LabelSubst01.jif] <- *["*":25,11-23@LabelSubst01.jif])["(* <- *)":25,11-23@LabelSubst01.jif] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;};[25,11-23@LabelSubst01.jif]
 
-C_D.provider["D.provider":22,0-7] <= (* -> *)["{(* -> *)}":17,11-19] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider);I_caller_pc <= (I_D.provider);};[22,0-0]
-I_D.provider["D.provider":22,0-7] <= (_ <- _)["{(* -> *)}":17,11-19] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider);I_caller_pc <= (I_D.provider);};[22,0-0]
+C_D.provider["D.provider":22,0-7@LabelSubst01.jif] <= (*["*":17,11-19@Object.jif] -> *["*":17,11-19@Object.jif])["(* -> *)":17,11-19@Object.jif] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider);I_caller_pc <= (I_D.provider);};[22,0-0@LabelSubst01.jif]
+I_D.provider["D.provider":22,0-7@LabelSubst01.jif] <= (_["_":17,11-19@Object.jif] <- _["_":17,11-19@Object.jif])["(_ <- _)":17,11-19@Object.jif] {C_*guessApp.lb <= (* -> Alice);I_*guessApp.lb <= (_ <- _);(* -> Alice) <= C_*guessApp.lb;(_ <- _) <= I_*guessApp.lb;C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider);I_caller_pc <= (I_D.provider);};[22,0-0@LabelSubst01.jif]
 

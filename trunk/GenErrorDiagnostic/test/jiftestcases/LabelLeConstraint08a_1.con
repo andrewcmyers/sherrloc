@@ -2,16 +2,16 @@ CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@LabelLeConstraint08a.jif:2,10-39
 
 %%
-_ -> _ <= C_f;
-C_f <= * -> *;
-* <- * <= I_f;
-I_f <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
+(_ -> _) <= C_f;
+C_f <= (* -> *);
+(* <- *) <= I_f;
+I_f <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
 
 %%
-C_f["{f}":2,10-39] == (_ -> _)["{}":2,10-39] {};[2,10-39]
-I_f["{f}":2,10-39] == (_ <- _)["{}":2,10-39] {};[2,10-39]
+C_f["{f}":2,10-39@LabelLeConstraint08a.jif] == (_["_":2,10-39@LabelLeConstraint08a.jif] -> _["_":2,10-39@LabelLeConstraint08a.jif])["(_ -> _)":2,10-39@LabelLeConstraint08a.jif] {};[2,10-39@LabelLeConstraint08a.jif]
+I_f["{f}":2,10-39@LabelLeConstraint08a.jif] == (_["_":2,10-39@LabelLeConstraint08a.jif] <- _["_":2,10-39@LabelLeConstraint08a.jif])["(_ <- _)":2,10-39@LabelLeConstraint08a.jif] {};[2,10-39@LabelLeConstraint08a.jif]
 

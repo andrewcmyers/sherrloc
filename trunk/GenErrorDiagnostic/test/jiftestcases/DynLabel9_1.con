@@ -1,32 +1,32 @@
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@null
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@null
+CONSTRUCTOR C_this 0 //C_this["{this}":]
+CONSTRUCTOR I_this 0 //I_this["{this}":]
 CONSTRUCTOR this 0
-CONSTRUCTOR this.pr 0 //@DynLabel9.jif:5,18-25
 CONSTRUCTOR _ 0 //@DynLabel9.jif:5,17-27
 CONSTRUCTOR * 0 //@DynLabel9.jif:5,18-26
+CONSTRUCTOR this.pr 0 //@DynLabel9.jif:5,18-25
 
 %%
-_ -> _ <= (this.pr -> this.pr);
-(this.pr -> this.pr) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_x;
-C_x <= * -> *;
-* <- * <= I_x;
-I_x <= _ <- _;
-_ -> _ <= C_pr;
-C_pr <= * -> *;
-* <- * <= I_pr;
-I_pr <= _ <- _;
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= (this.pr -> this.pr);
+(this.pr -> this.pr) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_x;
+C_x <= (* -> *);
+(* <- *) <= I_x;
+I_x <= (_ <- _);
+(_ -> _) <= C_pr;
+C_pr <= (* -> *);
+(* <- *) <= I_pr;
+I_pr <= (_ <- _);
 
 %%
-C_pr["{pr}":4,17-36] == C_this {};[4,17-36]
-I_pr["{pr}":4,17-36] == I_this {};[4,17-36]
+C_pr["{pr}":4,17-36@DynLabel9.jif] == C_this["{this}":] {};[4,17-36@DynLabel9.jif]
+I_pr["{pr}":4,17-36@DynLabel9.jif] == I_this["{this}":] {};[4,17-36@DynLabel9.jif]
 
-C_x["{x}":5,4-37] == (this.pr -> this.pr)["{(this.pr -> *)}":5,17-27] {};[5,4-37]
-I_x["{x}":5,4-37] == (_ <- _)["{(this.pr -> *)}":5,17-27] {};[5,4-37]
+C_x["{x}":5,4-37@DynLabel9.jif] == (this.pr["this.pr":5,18-25@DynLabel9.jif] -> this.pr["this.pr":5,18-25@DynLabel9.jif])["(this.pr -> *)":5,18-26@DynLabel9.jif] {};[5,4-37@DynLabel9.jif]
+I_x["{x}":5,4-37@DynLabel9.jif] == (_["_":5,17-27@DynLabel9.jif] <- _["_":5,17-27@DynLabel9.jif])["(_ <- _)":5,17-27@DynLabel9.jif] {};[5,4-37@DynLabel9.jif]
 

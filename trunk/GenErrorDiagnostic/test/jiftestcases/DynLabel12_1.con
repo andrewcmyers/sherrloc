@@ -1,30 +1,30 @@
-CONSTRUCTOR C_*this.foo.c 0 //class jif.types.label.DynamicLabel_c@DynLabel12.jif:4,9-19
-CONSTRUCTOR I_*this.foo.c 0 //class jif.types.label.DynamicLabel_c@DynLabel12.jif:4,9-19
+CONSTRUCTOR C_*this.foo.c 0 //C_*this.foo.c["{*this.foo.c}":4,9-19@DynLabel12.jif]
+CONSTRUCTOR I_*this.foo.c 0 //I_*this.foo.c["{*this.foo.c}":4,9-19@DynLabel12.jif]
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@DynLabel12.jif:3,19-21
 
 %%
-_ -> _ <= C_*this.foo.c;
-C_*this.foo.c <= * -> *;
-* <- * <= I_*this.foo.c;
-I_*this.foo.c <= _ <- _;
-_ -> _ <= C_x;
-C_x <= * -> *;
-* <- * <= I_x;
-I_x <= _ <- _;
-_ -> _ <= C_foo;
-C_foo <= * -> *;
-* <- * <= I_foo;
-I_foo <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
+(_ -> _) <= C_x;
+C_x <= (* -> *);
+(* <- *) <= I_x;
+I_x <= (_ <- _);
+(_ -> _) <= C_foo;
+C_foo <= (* -> *);
+(* <- *) <= I_foo;
+I_foo <= (_ <- _);
+(_ -> _) <= C_*this.foo.c;
+C_*this.foo.c <= (* -> *);
+(* <- *) <= I_*this.foo.c;
+I_*this.foo.c <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
 
 %%
-C_foo["{foo}":3,18-26] == (_ -> _)["{}":3,19-21] {};[3,18-26]
-I_foo["{foo}":3,18-26] == (_ <- _)["{}":3,19-21] {};[3,18-26]
+C_foo["{foo}":3,18-26@DynLabel12.jif] == (_["_":3,19-21@DynLabel12.jif] -> _["_":3,19-21@DynLabel12.jif])["(_ -> _)":3,19-21@DynLabel12.jif] {};[3,18-26@DynLabel12.jif]
+I_foo["{foo}":3,18-26@DynLabel12.jif] == (_["_":3,19-21@DynLabel12.jif] <- _["_":3,19-21@DynLabel12.jif])["(_ <- _)":3,19-21@DynLabel12.jif] {};[3,18-26@DynLabel12.jif]
 
-C_x["{x}":4,4-23] == C_*this.foo.c["{*this.foo.c}":4,9-19] {};[4,4-23]
-I_x["{x}":4,4-23] == I_*this.foo.c["{*this.foo.c}":4,9-19] {};[4,4-23]
+C_x["{x}":4,4-23@DynLabel12.jif] == C_*this.foo.c["{*this.foo.c}":4,9-19@DynLabel12.jif] {};[4,4-23@DynLabel12.jif]
+I_x["{x}":4,4-23@DynLabel12.jif] == I_*this.foo.c["{*this.foo.c}":4,9-19@DynLabel12.jif] {};[4,4-23@DynLabel12.jif]
 
