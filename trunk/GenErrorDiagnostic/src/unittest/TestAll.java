@@ -67,16 +67,16 @@ public class TestAll {
 		/* test for Jif constraint */
 		
 		/* auction */
-		testAssumptionsSub("test/hypothesis/constraints/AirlineAgent1.con", "- (TheAirline)->(TheAirline) <= C_L;\n", false);// same assumption
-		/* AirlineAgent2 secure */
-		/* User1 secure */
-		testAssumptionsSub("test/hypothesis/constraints/AirlineExample1.con", "- AirlineA <= airlines;\n", false);// same assumption
-		testAssumptionsSub("test/hypothesis/constraints/AirlineExample2.con", "- AirlineA <= airlines;AirlineB <= airlines;\n", false);// same assumption
-		/* jif compiler is too conservative in this case. it's secure */
-		testAssumptionsSub("test/hypothesis/constraints/AirlineExample3.con", "The program passed type checking. No errors were found.", false); // secure
-		
-		/* battleship */
-		testAssumptionsSub("test/hypothesis/constraints/Board1.con", "- (p1)->(p1) <= C_L;(p1)<-(p1) <= I_L;C_L <= (p1)->(p1);I_L <= (p1)<-(p1);\n", false); // same assumption
+//		testAssumptionsSub("test/hypothesis/constraints/AirlineAgent1.con", "- (TheAirline)->(TheAirline) <= C_L;\n", false);// same assumption
+//		/* AirlineAgent2 secure */
+//		/* User1 secure */
+//		testAssumptionsSub("test/hypothesis/constraints/AirlineExample1.con", "- AirlineA <= airlines;\n", false);// same assumption
+//		testAssumptionsSub("test/hypothesis/constraints/AirlineExample2.con", "- AirlineA <= airlines;AirlineB <= airlines;\n", false);// same assumption
+//		/* jif compiler is too conservative in this case. it's secure */
+//		testAssumptionsSub("test/hypothesis/constraints/AirlineExample3.con", "The program passed type checking. No errors were found.", false); // secure
+//		
+//		/* battleship */
+//		testAssumptionsSub("test/hypothesis/constraints/Board1.con", "- (p1)->(p1) <= C_L;(p1)<-(p1) <= I_L;C_L <= (p1)->(p1);I_L <= (p1)<-(p1);\n", false); // same assumption
 
 		/* social */
 		/* SocialNetwork1 secure */

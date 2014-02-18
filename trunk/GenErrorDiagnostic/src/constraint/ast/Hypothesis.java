@@ -102,8 +102,17 @@ public class Hypothesis {
 	 * @return True if <code>p1 <= p2</code>
 	 */
 	public boolean leq(Element p1, Element p2) {
+		return leq(p1, p2, true);
+	}
+	
+	
+	private boolean leq(Element p1, Element p2, boolean rec) {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
+		if (p1.toString().equals("(SN)meet(user)") && p2.toString().equals("⊥")) 
+			System.out.println("stop");
+		System.out.println("testing "+p1+" "+p2);
+		
 
 		// simple cases
 		if (e1.equals(e2))
@@ -118,7 +127,7 @@ public class Hypothesis {
 
 		// an assumption can be made on the join/meet/constructors, so apply
 		// the assumptions first
-		if (leqApplyAssertions(e1, e2))
+		if (rec && leqApplyAssertions(e1, e2))
 			return true;
 
 		// In principle, all partial orderings can be inferred on the hypothesis
@@ -128,12 +137,6 @@ public class Hypothesis {
 		// incrementally add the extra nodes to a saturated constraint graph.
 		// Here, we apply the direct rules for constructors, joins and meets for
 		// better performance.
-
-		// The following test is require only when e1 or e2 is not represented
-		// in hypothesis graph
-		if (graph.hasElement(e1) && graph.hasElement(e2)) {
-			return false;
-		}
 
 		// constructor mismatch
 		if (e1 instanceof ConstructorApplication
@@ -225,6 +228,10 @@ public class Hypothesis {
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 			if (finder.getPath(graph.getNode(e1), graph.getNode(e2), false) != null)
 				return true;
+			for (Element e : graph.getAllElements()) {
+				if (finder.getPath(graph.getNode(e1), graph.getNode(e), false)!=null && leq(e, e2, false))
+					return true;
+			}
 		}
 		return false;
 	}
