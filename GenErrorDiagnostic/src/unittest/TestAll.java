@@ -6,22 +6,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import diagnostic.Analysis;
-import diagnostic.MissingHypoInfer;
 
 
 public class TestAll {
-	
-	@Test
-	public void testGraph () {
-		testJif();
-		jifTestcases();
-	}
-	
-	public void testErrorPaths (String filename, int expectedpaths, boolean sym) {
+		
+	public void testErrorPaths (String filename, boolean expectederror, boolean sym) {
 		try {
 			Analysis ana = Analysis.getAnalysisInstance(filename, true, sym, true);
-			System.out.println(ana.getUnsatPathNumber());
-			assertEquals(filename, expectedpaths, ana.getUnsatPathNumber());
+			assertEquals(filename, expectederror, ana.getUnsatPathNumber()>0);
 		}
 		catch (Exception e) {
 			System.out.println(filename);
@@ -43,12 +35,20 @@ public class TestAll {
 	public void testAssumptions (String filename, String expected, boolean sym) {
 		try {
 			Analysis ana = Analysis.getAnalysisInstance(filename, false, sym, true);
-			assertTrue(filename, ana.toConsoleString().contains(expected));
+			String result = ana.toConsoleString();
+			assertTrue("Expected ("+expected+"), but got ("+result+")", result.contains(expected));
 		}
 		catch (Exception e) {
 			System.out.println(filename);
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void testAll () {
+		testHypothesis();
+		testJif();
+		jifTestcases();
 	}
 		
 	@Test
@@ -124,272 +124,267 @@ public class TestAll {
 	
 	@Test
 	public void jifTestcases () {
-		testErrorPaths("test/jiftestcases/A_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/A_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/A_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/A_4.con", 0, false);
+		testErrorPaths("test/jiftestcases/A_1.con", false, false);
+		testErrorPaths("test/jiftestcases/A_2.con", false, false);
+		testErrorPaths("test/jiftestcases/A_3.con", false, false);
+		testErrorPaths("test/jiftestcases/A_4.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Account_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Account_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Account_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Account_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/ArgLabel1_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabel1_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabel1_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/ArgLabel1_1.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabel1_2.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabel1_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/ArgLabel2_1.con", 0, false);
+		testErrorPaths("test/jiftestcases/ArgLabel2_1.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/ArgLabelSubst_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst_5.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst_6.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst_7.con", 0, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst_1.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst_2.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst_3.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst_4.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst_5.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst_6.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst_7.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/ArgLabelSubst2_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst2_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst2_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst2_4.con", 0, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst2_1.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst2_2.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst2_3.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst2_4.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/ArgLabelSubst3_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst3_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst3_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst3_1.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst3_2.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst3_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/ArgLabelSubst4_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst4_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst4_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/ArgLabelSubst4_4.con", 0, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst4_1.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst4_2.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst4_3.con", false, false);
+		testErrorPaths("test/jiftestcases/ArgLabelSubst4_4.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Array_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array1_1.con", 7, false);
-		testErrorPaths("test/jiftestcases/Array1_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array1_1.con", true, false);
+		testErrorPaths("test/jiftestcases/Array1_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array2_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array2_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array2_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array2_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array3_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array3_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array3_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array3_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array3_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Array3_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array4_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array4_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array4_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array4_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array4_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array4_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array4_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Array4_3.con", false, false);
+		testErrorPaths("test/jiftestcases/Array4_4.con", false, false);
+		testErrorPaths("test/jiftestcases/Array4_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array5_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array5_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array5_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array5_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array5_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Array5_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array6_1.con", 6, false);
-		testErrorPaths("test/jiftestcases/Array6_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array6_1.con", true, false);
+		testErrorPaths("test/jiftestcases/Array6_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array7_1.con", 3, false);
-		testErrorPaths("test/jiftestcases/Array7_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array7_1.con", true, false);
+		testErrorPaths("test/jiftestcases/Array7_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array8_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array8_2.con", 4, false);
+		testErrorPaths("test/jiftestcases/Array8_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array8_2.con", true, false);
 		
-		testErrorPaths("test/jiftestcases/Array9_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array9_2.con", 2, false);
+		testErrorPaths("test/jiftestcases/Array9_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array9_2.con", true, false);
 		
-		testErrorPaths("test/jiftestcases/Array10_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array10_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array10_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array10_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array11_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array11_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array11_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array11_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array12_1.con", 2, false);
-		testErrorPaths("test/jiftestcases/Array12_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array12_1.con", true, false);
+		testErrorPaths("test/jiftestcases/Array12_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array13_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array13_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array13_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array13_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array14_1.con", 2, false);
-		testErrorPaths("test/jiftestcases/Array14_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array14_1.con", true, false);
+		testErrorPaths("test/jiftestcases/Array14_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array15_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array15_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array15_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array15_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array16_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array16_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array16_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array16_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array17_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array17_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array17_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array17_2.con", false, false);
 		
 		// Array18 is not constraint related
 		
-		testErrorPaths("test/jiftestcases/Array19_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array19_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array19_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array19_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array19_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Array19_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Array20_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array20_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Array20_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Array20_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Array20_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Array20_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Dyn1_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn1_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn1_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn1_4.con", 0, false);
+		testErrorPaths("test/jiftestcases/Dyn1_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn1_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn1_3.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn1_4.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Dyn2_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn2_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn2_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Dyn2_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn2_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn2_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Dyn4_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn4_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn4_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn4_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn4_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/Dyn4_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn4_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn4_3.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn4_4.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn4_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Dyn5_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn5_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn5_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Dyn5_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn5_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn5_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Dyn6_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn6_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn6_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Dyn6_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn6_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn6_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/Dyn7_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn7_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/Dyn7_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/Dyn7_1.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn7_2.con", false, false);
+		testErrorPaths("test/jiftestcases/Dyn7_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/DynLabel1_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel1_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel1_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/DynLabel1_1.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel1_2.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel1_3.con", false, false);
 		
 		// DynLabel2-7 fails due to syntactic errors
 		
-		testErrorPaths("test/jiftestcases/DynLabel8_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel8_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel8_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/DynLabel8_1.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel8_2.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel8_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/DynLabel9_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel9_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel9_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel9_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel9_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/DynLabel9_1.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel9_2.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel9_3.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel9_4.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel9_5.con", false, false);
 	
-		testErrorPaths("test/jiftestcases/DynLabel10_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel10_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel10_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel10_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel10_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/DynLabel10_1.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel10_2.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel10_3.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel10_4.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel10_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/DynLabel11_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel11_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel11_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel11_4.con", 0, false);
+		testErrorPaths("test/jiftestcases/DynLabel11_1.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel11_2.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel11_3.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel11_4.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/DynLabel12_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/DynLabel12_2.con", 0, false);
-//		testOneFile("test/jiftestcases/DynLabel12_3.con", 0, false); // fails due to the final access path
-		testErrorPaths("test/jiftestcases/DynLabel12_4.con", 0, false);
+		testErrorPaths("test/jiftestcases/DynLabel12_1.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel12_2.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel12_3.con", false, false);
+		testErrorPaths("test/jiftestcases/DynLabel12_4.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/DynLabel13_1.con", 1, false);
-		testErrorPaths("test/jiftestcases/DynLabel13_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/DynLabel13_1.con", true, false);
+		testErrorPaths("test/jiftestcases/DynLabel13_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/For1_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/For1_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/For1_1.con", false, false);
+		testErrorPaths("test/jiftestcases/For1_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/For2_1.con", 2, false);
-		testErrorPaths("test/jiftestcases/For2_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/For2_1.con", true, false);
+		testErrorPaths("test/jiftestcases/For2_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/For3_1.con", 2, false);
-		testErrorPaths("test/jiftestcases/For3_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/For3_1.con", true, false);
+		testErrorPaths("test/jiftestcases/For3_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/For4_1.con", 2, false);
-		testErrorPaths("test/jiftestcases/For4_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/For4_1.con", true, false);
+		testErrorPaths("test/jiftestcases/For4_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/For5_1.con", 2, false);
-		testErrorPaths("test/jiftestcases/For5_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/For5_1.con", true, false);
+		testErrorPaths("test/jiftestcases/For5_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint01_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint01_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint01_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint01_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint02_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint02_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint02_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint02_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint03_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint03_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint03_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint03_4.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint03_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint03_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint03_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint03_4.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint04_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint04_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint04_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint04_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint04_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint04_3.con", false, false);
 	
-		testErrorPaths("test/jiftestcases/LabelLeConstraint05_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint05_2.con", 2, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint05_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint05_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint05_2.con", true, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint05_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint06_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint06_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint06_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint06_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint06_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint06_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint07_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint07_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint07_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint07_4.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint07_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint07_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint07_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint07_4.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08_4.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_4.con", 1, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_4.con", true, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint08a_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint09_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint09_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint09_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint09_4.con", 4, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint09_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint09_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint09_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint09_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint09_4.con", true, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint09_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint10_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint10_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint10_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint10_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint10_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint10_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint10_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint10_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint10_4.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint10_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint11_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint11_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint11_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint11_4.con", 6, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint11_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint11_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint11_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint11_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint11_4.con", true, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint11_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint12_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint12_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint12_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint12_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint12_5.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint12_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint12_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint12_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint12_4.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint12_5.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint13_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint13_2.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint13_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint13_2.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelLeConstraint14_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint14_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelLeConstraint14_3.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint14_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint14_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelLeConstraint14_3.con", false, false);
 		
-		testErrorPaths("test/jiftestcases/LabelSubst01_1.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelSubst01_2.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelSubst01_3.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelSubst01_4.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelSubst01_5.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelSubst01_6.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelSubst01_7.con", 0, false);
-		testErrorPaths("test/jiftestcases/LabelSubst01_8.con", 0, false);
-	}
-	
-	@Test
-	public void simpleTests () {
-		testErrorPaths("test/jif/hypograph.con", 0, false);
+		testErrorPaths("test/jiftestcases/LabelSubst01_1.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelSubst01_2.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelSubst01_3.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelSubst01_4.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelSubst01_5.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelSubst01_6.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelSubst01_7.con", false, false);
+		testErrorPaths("test/jiftestcases/LabelSubst01_8.con", false, false);
 	}
 }
