@@ -109,10 +109,6 @@ public class Hypothesis {
 	private boolean leq(Element p1, Element p2, boolean rec) {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
-		if (p1.toString().equals("(SN)meet(user)") && p2.toString().equals("⊥")) 
-			System.out.println("stop");
-		System.out.println("testing "+p1+" "+p2);
-		
 
 		// simple cases
 		if (e1.equals(e2))
@@ -165,24 +161,24 @@ public class Hypothesis {
 		// apply the inference rules for joins and meets
 		if (e1 instanceof JoinElement) {
 			for (Element e : ((JoinElement) e1).getElements())
-				if (!leq(e, e2))
+				if (!leq(e, e2, rec))
 					return false;
 			return true;
 		} else if (e1 instanceof MeetElement) {
 			for (Element e : ((MeetElement) e1).getElements())
-				if (leq(e, e2))
+				if (leq(e, e2, rec))
 					return true;
 			return false;
 		}
 
 		if (e2 instanceof JoinElement) {
 			for (Element e : ((JoinElement) e2).getElements())
-				if (leq(e1, e))
+				if (leq(e1, e, rec))
 					return true;
 			return false;
 		} else if (e2 instanceof MeetElement) {
 			for (Element e : ((MeetElement) e2).getElements())
-				if (!leq(e1, e))
+				if (!leq(e1, e, rec))
 					return false;
 			return true;
 		}
