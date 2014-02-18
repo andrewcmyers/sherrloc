@@ -12,7 +12,6 @@ public class Variable extends Element {
 	
 	/**
 	 * @param name Variable name
-	 * @param p Source code position of the variable
 	 */
 	public Variable(String name) {
 		super(name, Position.EmptyPosition());
