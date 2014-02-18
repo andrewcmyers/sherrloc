@@ -109,7 +109,7 @@ public class Hypothesis {
 	private boolean leq(Element p1, Element p2, boolean rec) {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
-
+		
 		// simple cases
 		if (e1.equals(e2))
 			return true;
@@ -131,8 +131,8 @@ public class Hypothesis {
 		// relation can be missing if the element to be tested on does not
 		// present in the graph (e.g., A <= A join B). One way is to
 		// incrementally add the extra nodes to a saturated constraint graph.
-		// Here, we apply the direct rules for constructors, joins and meets for
-		// better performance.
+		// Here, we apply the rules for constructors, joins and meets directly
+		// for simplicity.
 
 		// constructor mismatch
 		if (e1 instanceof ConstructorApplication
@@ -160,27 +160,33 @@ public class Hypothesis {
 
 		// apply the inference rules for joins and meets
 		if (e1 instanceof JoinElement) {
+			boolean succ = true;
 			for (Element e : ((JoinElement) e1).getElements())
-				if (!leq(e, e2, rec))
-					return false;
-			return true;
+				if (!leq(e, e2, rec)) {
+					succ = false;
+					break;
+				}
+			if (succ)
+				return true;
 		} else if (e1 instanceof MeetElement) {
 			for (Element e : ((MeetElement) e1).getElements())
 				if (leq(e, e2, rec))
 					return true;
-			return false;
 		}
 
 		if (e2 instanceof JoinElement) {
 			for (Element e : ((JoinElement) e2).getElements())
 				if (leq(e1, e, rec))
 					return true;
-			return false;
 		} else if (e2 instanceof MeetElement) {
+			boolean succ = true;
 			for (Element e : ((MeetElement) e2).getElements())
-				if (!leq(e1, e, rec))
-					return false;
-			return true;
+				if (!leq(e1, e, rec)) {
+					succ = false;
+					break;
+				}
+			if (succ)
+				return true;
 		}
 
 		return false;
