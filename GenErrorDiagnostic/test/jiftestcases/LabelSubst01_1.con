@@ -4,23 +4,23 @@ CONSTRUCTOR _ 0 //@LabelSubst01.jif:6,15-24
 CONSTRUCTOR * 0 //@LabelSubst01.jif:6,16-17
 
 %%
-_ -> _ <= (* -> Alice);
-(* -> Alice) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_foo;
-C_foo <= * -> *;
-* <- * <= I_foo;
-I_foo <= _ <- _;
-_ -> _ <= C_lb;
-C_lb <= * -> *;
-* <- * <= I_lb;
-I_lb <= _ <- _;
+(_ -> _) <= (* -> Alice);
+(* -> Alice) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_foo;
+C_foo <= (* -> *);
+(* <- *) <= I_foo;
+I_foo <= (_ <- _);
+(_ -> _) <= C_lb;
+C_lb <= (* -> *);
+(* <- *) <= I_lb;
+I_lb <= (_ <- _);
 
 %%
-C_lb["{lb}":6,10-49] == (* -> Alice)["{(* -> Alice)}":6,15-24] {};[6,10-49]
-I_lb["{lb}":6,10-49] == (_ <- _)["{(* -> Alice)}":6,15-24] {};[6,10-49]
+C_lb["{lb}":6,10-49@LabelSubst01.jif] == (*["*":6,16-17@LabelSubst01.jif] -> Alice["Alice":])["(* -> Alice)":6,16-23@LabelSubst01.jif] {};[6,10-49@LabelSubst01.jif]
+I_lb["{lb}":6,10-49@LabelSubst01.jif] == (_["_":6,15-24@LabelSubst01.jif] <- _["_":6,15-24@LabelSubst01.jif])["(_ <- _)":6,15-24@LabelSubst01.jif] {};[6,10-49@LabelSubst01.jif]
 
-C_foo["{foo}":7,11-36] == (* -> Alice)["{(* -> Alice)}":7,22-31] {};[7,11-36]
-I_foo["{foo}":7,11-36] == (_ <- _)["{(* -> Alice)}":7,22-31] {};[7,11-36]
+C_foo["{foo}":7,11-36@LabelSubst01.jif] == (*["*":7,23-24@LabelSubst01.jif] -> Alice["Alice":])["(* -> Alice)":7,23-30@LabelSubst01.jif] {};[7,11-36@LabelSubst01.jif]
+I_foo["{foo}":7,11-36@LabelSubst01.jif] == (_["_":7,22-31@LabelSubst01.jif] <- _["_":7,22-31@LabelSubst01.jif])["(_ <- _)":7,22-31@LabelSubst01.jif] {};[7,11-36@LabelSubst01.jif]
 

@@ -1,56 +1,48 @@
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint11.jif:9,0-7
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint11.jif:9,0-7
-CONSTRUCTOR C_D.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR I_D.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint11.jif:9,0-7
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint11.jif:9,0-7
-CONSTRUCTOR C_D.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint11.jif:9,0-7
-CONSTRUCTOR I_D.provider1 0 //class jif.types.label.ProviderLabel_c@LabelLeConstraint11.jif:9,0-7
+CONSTRUCTOR C_this 0 //C_this["{this}":9,0-7@LabelLeConstraint11.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":9,0-7@LabelLeConstraint11.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":9,0-7@LabelLeConstraint11.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":9,0-7@LabelLeConstraint11.jif]
 CONSTRUCTOR this 0
-CONSTRUCTOR _ 0 //@null
-CONSTRUCTOR * 0 //@null
+CONSTRUCTOR _ 0 //@LabelLeConstraint11.jif:10,4-12
+CONSTRUCTOR * 0 //@LabelLeConstraint11.jif:10,4-12
 
 %%
 I_caller_pc <= (_ <- _);
-C_D.provider == _ -> _;
-I_D.provider == * <- *;
-C_D.provider1 == _ -> _;
-I_D.provider1 == * <- *;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_D.provider;
-C_D.provider <= * -> *;
-* <- * <= I_D.provider;
-I_D.provider <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_D.provider1;
-C_D.provider1 <= * -> *;
-* <- * <= I_D.provider1;
-I_D.provider1 <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (* <- *);
-(* <- *) <= _ <- _;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_D.provider;
+C_D.provider <= (* -> *);
+(* <- *) <= I_D.provider;
+I_D.provider <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_D.provider;
+C_D.provider <= (* -> *);
+(* <- *) <= I_D.provider;
+I_D.provider <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (* <- *);
+(* <- *) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
 
 %%
-C_D.provider <= (* -> *)["{(* -> *)}":9,0-7] {};[9,0-7]
-I_D.provider <= (_ <- _)["{(* -> *)}":9,0-7] {};[9,0-7]
+C_D.provider["D.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {};[9,0-7@LabelLeConstraint11.jif]
+I_D.provider["D.provider":] <= (_["_":9,0-7@LabelLeConstraint11.jif] <- _["_":9,0-7@LabelLeConstraint11.jif])["(_ <- _)":] {};[9,0-7@LabelLeConstraint11.jif]
 
-(* -> *)["{(* -> *)}":10,4-12] <= (* -> *)["{(* -> *)}":10,4-12] {};[10,4-12]
-(_ <- _)["{(* -> *)}":10,4-12] <= (_ <- _)["{(* -> *)}":10,4-12] {};[10,4-12]
+(*["*":10,4-12@LabelLeConstraint11.jif] -> *["*":10,4-12@LabelLeConstraint11.jif])["(* -> *)":10,4-12@LabelLeConstraint11.jif] <= (*["*":10,4-12@LabelLeConstraint11.jif] -> *["*":10,4-12@LabelLeConstraint11.jif])["(* -> *)":10,4-12@LabelLeConstraint11.jif] {};[10,4-12@LabelLeConstraint11.jif]
+(_["_":10,4-12@LabelLeConstraint11.jif] <- _["_":10,4-12@LabelLeConstraint11.jif])["(_ <- _)":10,4-12@LabelLeConstraint11.jif] <= (_["_":10,4-12@LabelLeConstraint11.jif] <- _["_":10,4-12@LabelLeConstraint11.jif])["(_ <- _)":10,4-12@LabelLeConstraint11.jif] {};[10,4-12@LabelLeConstraint11.jif]
 
-(_ -> _) <= (_ -> _) {};[10,4-12]
-(* <- *) <= (* <- *) {};[10,4-12]
+(_["_":10,4-12@LabelLeConstraint11.jif] -> _["_":10,4-12@LabelLeConstraint11.jif])["(_ -> _)":10,4-12@LabelLeConstraint11.jif] <= (_["_":10,4-12@LabelLeConstraint11.jif] -> _["_":10,4-12@LabelLeConstraint11.jif])["(_ -> _)":10,4-12@LabelLeConstraint11.jif] {};[10,4-12@LabelLeConstraint11.jif]
+(*["*":10,4-12@LabelLeConstraint11.jif] <- *["*":10,4-12@LabelLeConstraint11.jif])["(* <- *)":10,4-12@LabelLeConstraint11.jif] <= (*["*":10,4-12@LabelLeConstraint11.jif] <- *["*":10,4-12@LabelLeConstraint11.jif])["(* <- *)":10,4-12@LabelLeConstraint11.jif] {};[10,4-12@LabelLeConstraint11.jif]
 
-C_D.provider1["D.provider":9,0-7] <= (* -> *)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider1);I_caller_pc <= (I_D.provider1);};[9,0-0]
-I_D.provider1["D.provider":9,0-7] <= (_ <- _)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider1);I_caller_pc <= (I_D.provider1);};[9,0-0]
+C_D.provider["D.provider":9,0-7@LabelLeConstraint11.jif] <= (*["*":17,11-19@Object.jif] -> *["*":17,11-19@Object.jif])["(* -> *)":17,11-19@Object.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider);I_caller_pc <= (I_D.provider);};[9,0-0@LabelLeConstraint11.jif]
+I_D.provider["D.provider":9,0-7@LabelLeConstraint11.jif] <= (_["_":17,11-19@Object.jif] <- _["_":17,11-19@Object.jif])["(_ <- _)":17,11-19@Object.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_D.provider);I_caller_pc <= (I_D.provider);};[9,0-0@LabelLeConstraint11.jif]
 

@@ -1,76 +1,68 @@
-CONSTRUCTOR C_p 0 //class jif.types.label.ArgLabel_c@Account.jif:4,22-24
-CONSTRUCTOR I_p 0 //class jif.types.label.ArgLabel_c@Account.jif:4,22-24
-CONSTRUCTOR C_Account.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR I_Account.provider 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR C_Account.provider1 0 //class jif.types.label.ProviderLabel_c@Account.jif:1,0-13
-CONSTRUCTOR I_Account.provider1 0 //class jif.types.label.ProviderLabel_c@Account.jif:1,0-13
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Account.jif:1,0-13
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Account.jif:1,0-13
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Account.jif:4,2-27
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Account.jif:4,2-27
+CONSTRUCTOR C_p 0 //C_p["{p}":4,22-24@Account.jif]
+CONSTRUCTOR I_p 0 //I_p["{p}":4,22-24@Account.jif]
+CONSTRUCTOR C_this 0 //C_this["{this}":1,0-13@Account.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":1,0-13@Account.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":4,2-27@Account.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":4,2-27@Account.jif]
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@Account.jif:8,8-19
-CONSTRUCTOR this.customer 0 //@Account.jif:8,9-17
 CONSTRUCTOR * 0 //@Account.jif:8,9-18
+CONSTRUCTOR this.customer 0 //@Account.jif:8,9-17
 
 %%
 C_p <= (_ -> _);
 I_p <= (_ <- _);
 C_caller_pc <= C_p;
 I_caller_pc <= I_p;
-C_Account.provider == _ -> _;
-I_Account.provider == * <- *;
-C_Account.provider1 == _ -> _;
-I_Account.provider1 == * <- *;
-_ -> _ <= (this.customer -> this.customer);
-(this.customer -> this.customer) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_p;
-C_p <= * -> *;
-* <- * <= I_p;
-I_p <= _ <- _;
-_ -> _ <= C_Account.provider;
-C_Account.provider <= * -> *;
-* <- * <= I_Account.provider;
-I_Account.provider <= _ <- _;
-_ -> _ <= C_Account.provider1;
-C_Account.provider1 <= * -> *;
-* <- * <= I_Account.provider1;
-I_Account.provider1 <= _ <- _;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
+(_ -> _) <= C_Account.provider;
+C_Account.provider <= (* -> *);
+(* <- *) <= I_Account.provider;
+I_Account.provider <= (_ <- _);
+(_ -> _) <= C_Account.provider;
+C_Account.provider <= (* -> *);
+(* <- *) <= I_Account.provider;
+I_Account.provider <= (_ <- _);
+(_ -> _) <= C_p;
+C_p <= (* -> *);
+(* <- *) <= I_p;
+I_p <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= (this.customer -> this.customer);
+(this.customer -> this.customer) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
 
 %%
-C_Account.provider <= (* -> *)["{(* -> *)}":1,0-13] {};[1,0-13]
-I_Account.provider <= (_ <- _)["{(* -> *)}":1,0-13] {};[1,0-13]
+C_Account.provider["Account.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {};[1,0-13@Account.jif]
+I_Account.provider["Account.provider":] <= (_["_":1,0-13@Account.jif] <- _["_":1,0-13@Account.jif])["(_ <- _)":] {};[1,0-13@Account.jif]
 
-(_ -> _)["{}":2,8-27] == (_ -> _)["{}":2,8-27] {};[2,8-27]
-(_ <- _)["{}":2,8-27] == (_ <- _)["{}":2,8-27] {};[2,8-27]
+(_["_":2,8-27@Account.jif] -> _["_":2,8-27@Account.jif])["(_ -> _)":2,8-27@Account.jif] == (_["_":2,8-27@Account.jif] -> _["_":2,8-27@Account.jif])["(_ -> _)":2,8-27@Account.jif] {};[2,8-27@Account.jif]
+(_["_":2,8-27@Account.jif] <- _["_":2,8-27@Account.jif])["(_ <- _)":2,8-27@Account.jif] == (_["_":2,8-27@Account.jif] <- _["_":2,8-27@Account.jif])["(_ <- _)":2,8-27@Account.jif] {};[2,8-27@Account.jif]
 
-C_Account.provider1["Account.provider":1,0-13] <= (* -> *)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Account.provider1);I_caller_pc <= (I_Account.provider1);};[4,28-29]
-I_Account.provider1["Account.provider":1,0-13] <= (_ <- _)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Account.provider1);I_caller_pc <= (I_Account.provider1);};[4,28-29]
+C_Account.provider["Account.provider":1,0-13@Account.jif] <= (*["*":17,11-19@Object.jif] -> *["*":17,11-19@Object.jif])["(* -> *)":17,11-19@Object.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Account.provider);I_caller_pc <= (I_Account.provider);};[4,28-29@Account.jif]
+I_Account.provider["Account.provider":1,0-13@Account.jif] <= (_["_":17,11-19@Object.jif] <- _["_":17,11-19@Object.jif])["(_ <- _)":17,11-19@Object.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Account.provider);I_caller_pc <= (I_Account.provider);};[4,28-29@Account.jif]
 
-(C_p) ⊔ (C_this)["{p ⊔ this}":4,22-24] <= (_ -> _)["{}":2,8-27] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Account.provider1);I_caller_pc <= (I_Account.provider1);this.customer == p1;};[5,4-12]
-(I_p) ⊔ (I_this)["{p ⊔ this}":4,22-24] <= (_ <- _)["{}":2,8-27] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Account.provider1);I_caller_pc <= (I_Account.provider1);this.customer == p1;};[5,4-12]
+(C_p["{p}":4,22-24@Account.jif] ⊔ C_this["{this}":1,0-13@Account.jif])["{p ⊔ this}":4,22-24@Account.jif] <= (_["_":2,8-27@Account.jif] -> _["_":2,8-27@Account.jif])["(_ -> _)":2,8-27@Account.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Account.provider);I_caller_pc <= (I_Account.provider);p1 == this.customer;};[5,4-12@Account.jif]
+(I_p["{p}":4,22-24@Account.jif] ⊔ I_this["{this}":1,0-13@Account.jif])["{p ⊔ this}":4,22-24@Account.jif] <= (_["_":2,8-27@Account.jif] <- _["_":2,8-27@Account.jif])["(_ <- _)":2,8-27@Account.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Account.provider);I_caller_pc <= (I_Account.provider);p1 == this.customer;};[5,4-12@Account.jif]
 
-(this.customer -> this.customer)["{(this.customer -> *)}":8,8-19] == (this.customer -> this.customer)["{(this.customer -> *)}":8,8-19] {};[8,2-25]
-(_ <- _)["{(this.customer -> *)}":8,8-19] == (_ <- _)["{(this.customer -> *)}":8,8-19] {};[8,2-25]
+(this.customer["this.customer":8,9-17@Account.jif] -> this.customer["this.customer":8,9-17@Account.jif])["(this.customer -> *)":8,9-18@Account.jif] == (this.customer["this.customer":8,9-17@Account.jif] -> this.customer["this.customer":8,9-17@Account.jif])["(this.customer -> *)":8,9-18@Account.jif] {};[8,2-25@Account.jif]
+(_["_":8,8-19@Account.jif] <- _["_":8,8-19@Account.jif])["(_ <- _)":8,8-19@Account.jif] == (_["_":8,8-19@Account.jif] <- _["_":8,8-19@Account.jif])["(_ <- _)":8,8-19@Account.jif] {};[8,2-25@Account.jif]
 
-(this.customer -> this.customer)["{(this.customer -> *)}":9,7-18] == (this.customer -> this.customer)["{(this.customer -> *)}":9,7-18] {};[9,2-27]
-(_ <- _)["{(this.customer -> *)}":9,7-18] == (_ <- _)["{(this.customer -> *)}":9,7-18] {};[9,2-27]
+(this.customer["this.customer":9,8-16@Account.jif] -> this.customer["this.customer":9,8-16@Account.jif])["(this.customer -> *)":9,8-17@Account.jif] == (this.customer["this.customer":9,8-16@Account.jif] -> this.customer["this.customer":9,8-16@Account.jif])["(this.customer -> *)":9,8-17@Account.jif] {};[9,2-27@Account.jif]
+(_["_":9,7-18@Account.jif] <- _["_":9,7-18@Account.jif])["(_ <- _)":9,7-18@Account.jif] == (_["_":9,7-18@Account.jif] <- _["_":9,7-18@Account.jif])["(_ <- _)":9,7-18@Account.jif] {};[9,2-27@Account.jif]
 

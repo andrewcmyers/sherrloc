@@ -1,9 +1,9 @@
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint11.jif:9,0-7
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@LabelLeConstraint11.jif:9,0-7
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint11.jif:10,4-12
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@LabelLeConstraint11.jif:10,4-12
-CONSTRUCTOR C_*lbl 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint11.jif:13,19-22
-CONSTRUCTOR I_*lbl 0 //class jif.types.label.DynamicLabel_c@LabelLeConstraint11.jif:13,19-22
+CONSTRUCTOR C_*lbl 0 //C_*lbl["{*lbl}":13,19-22@LabelLeConstraint11.jif]
+CONSTRUCTOR I_*lbl 0 //I_*lbl["{*lbl}":13,19-22@LabelLeConstraint11.jif]
+CONSTRUCTOR C_this 0 //C_this["{this}":9,0-7@LabelLeConstraint11.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":9,0-7@LabelLeConstraint11.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif]
 CONSTRUCTOR this 0
 CONSTRUCTOR Alice 0 //@null
 CONSTRUCTOR _ 0 //@LabelLeConstraint11.jif:13,43-47
@@ -12,77 +12,77 @@ CONSTRUCTOR * 0 //@LabelLeConstraint11.jif:13,43-47
 
 %%
 I_caller_pc <= (_ <- _);
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= (Bob -> Bob);
-(Bob -> Bob) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= (Alice -> Alice);
-(Alice -> Alice) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_c;
-C_c <= * -> *;
-* <- * <= I_c;
-I_c <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_lbl;
-C_lbl <= * -> *;
-* <- * <= I_lbl;
-I_lbl <= _ <- _;
-_ -> _ <= C_*lbl;
-C_*lbl <= * -> *;
-* <- * <= I_*lbl;
-I_*lbl <= _ <- _;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_newC;
-C_newC <= * -> *;
-* <- * <= I_newC;
-I_newC <= _ <- _;
+(_ -> _) <= C_*lbl;
+C_*lbl <= (* -> *);
+(* <- *) <= I_*lbl;
+I_*lbl <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= (Bob -> Bob);
+(Bob -> Bob) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (Alice -> Alice);
+(Alice -> Alice) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_c;
+C_c <= (* -> *);
+(* <- *) <= I_c;
+I_c <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_lbl;
+C_lbl <= (* -> *);
+(* <- *) <= I_lbl;
+I_lbl <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_newC;
+C_newC <= (* -> *);
+(* <- *) <= I_newC;
+I_newC <= (_ <- _);
 
 %%
-C_caller_pc["{caller_pc}":10,4-12] <= C_newC["{newC}":12,23-40] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40]
-I_caller_pc["{caller_pc}":10,4-12] <= I_newC["{newC}":12,23-40] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40]
+C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] <= C_newC["{newC}":12,23-40@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40@LabelLeConstraint11.jif]
+I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] <= I_newC["{newC}":12,23-40@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40@LabelLeConstraint11.jif]
 
-C_caller_pc["{caller_pc}":10,4-12] <= (* -> *) {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40]
-I_caller_pc["{caller_pc}":10,4-12] <= (_ <- _) {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40]
+C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] <= (*["*":1,0-7@LabelLeConstraint11.jif] -> *["*":1,0-7@LabelLeConstraint11.jif])["(* -> *)":1,0-7@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40@LabelLeConstraint11.jif]
+I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] <= (_["_":1,0-7@LabelLeConstraint11.jif] <- _["_":1,0-7@LabelLeConstraint11.jif])["(_ <- _)":1,0-7@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40@LabelLeConstraint11.jif]
 
-(Alice -> Alice)["{(Alice -> *)}":12,29-37] == (Alice -> Alice)["{(Alice -> *)}":12,9-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40]
-(_ <- _)["{(Alice -> *)}":12,29-37] == (_ <- _)["{(Alice -> *)}":12,9-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40]
+(Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":12,30-36@LabelLeConstraint11.jif] == (Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":12,10-16@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40@LabelLeConstraint11.jif]
+(_["_":12,29-37@LabelLeConstraint11.jif] <- _["_":12,29-37@LabelLeConstraint11.jif])["(_ <- _)":12,29-37@LabelLeConstraint11.jif] == (_["_":12,9-17@LabelLeConstraint11.jif] <- _["_":12,9-17@LabelLeConstraint11.jif])["(_ <- _)":12,9-17@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40@LabelLeConstraint11.jif]
 
-(C_caller_pc) ⊔ (C_newC)["{caller_pc ⊔ newC}":10,4-12] <= C_c["{c}":12,19-20] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40]
-(I_caller_pc) ⊔ (I_newC)["{caller_pc ⊔ newC}":10,4-12] <= I_c["{c}":12,19-20] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40]
+(C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] ⊔ C_newC["{newC}":12,23-40@LabelLeConstraint11.jif])["{caller_pc ⊔ newC}":10,4-12@LabelLeConstraint11.jif] <= C_c["{c}":12,19-20@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40@LabelLeConstraint11.jif]
+(I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] ⊔ I_newC["{newC}":12,23-40@LabelLeConstraint11.jif])["{caller_pc ⊔ newC}":10,4-12@LabelLeConstraint11.jif] <= I_c["{c}":12,19-20@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[12,23-40@LabelLeConstraint11.jif]
 
-C_lbl["{lbl}":13,19-22] == (C_caller_pc) ⊔ ((Bob -> Bob))["{caller_pc ⊔ (Bob -> *); _ <- _}":10,4-12] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[13,19-22]
-I_lbl["{lbl}":13,19-22] == (I_caller_pc) ⊔ ((_ <- _))["{caller_pc ⊔ (Bob -> *); _ <- _}":10,4-12] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[13,19-22]
+C_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] == (C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] ⊔ (Bob["Bob":] -> Bob["Bob":])["(Bob -> *)":13,13-17@LabelLeConstraint11.jif])["{caller_pc ⊔ (Bob -> *); (_ <- _)}":10,4-12@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[13,19-22@LabelLeConstraint11.jif]
+I_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] == (I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] ⊔ (_["_":13,12-18@LabelLeConstraint11.jif] <- _["_":13,12-18@LabelLeConstraint11.jif])["(_ <- _)":13,12-18@LabelLeConstraint11.jif])["{caller_pc ⊔ (Bob -> *); (_ <- _)}":10,4-12@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[13,19-22@LabelLeConstraint11.jif]
 
-C_caller_pc["{caller_pc}":10,4-12] <= C_lbl["{lbl}":13,19-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[13,25-48]
-I_caller_pc["{caller_pc}":10,4-12] <= I_lbl["{lbl}":13,19-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[13,25-48]
+C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] <= C_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[13,25-48@LabelLeConstraint11.jif]
+I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif] <= I_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[13,25-48@LabelLeConstraint11.jif]
 
-(C_lbl) ⊔ (C_c) ⊔ (C_caller_pc)["{lbl ⊔ c ⊔ caller_pc}":13,19-22] <= (* -> *)["{(* -> *)}":4,17-27] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,5-8]
-(I_lbl) ⊔ (I_c) ⊔ (I_caller_pc)["{lbl ⊔ c ⊔ caller_pc}":13,19-22] <= (_ <- _)["{(* -> *)}":4,17-27] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,5-8]
+(C_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] ⊔ C_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{lbl ⊔ c ⊔ caller_pc}":13,19-22@LabelLeConstraint11.jif] <= (*["*":4,17-27@LabelLeConstraint11.jif] -> *["*":4,17-27@LabelLeConstraint11.jif])["(* -> *)":4,17-27@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,5-8@LabelLeConstraint11.jif]
+(I_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] ⊔ I_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{lbl ⊔ c ⊔ caller_pc}":13,19-22@LabelLeConstraint11.jif] <= (_["_":4,17-27@LabelLeConstraint11.jif] <- _["_":4,17-27@LabelLeConstraint11.jif])["(_ <- _)":4,17-27@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,5-8@LabelLeConstraint11.jif]
 
-(C_c) ⊔ (C_caller_pc)["{c ⊔ caller_pc}":12,19-20] <= (* -> *)["{(* -> *)}":4,4-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
-(I_c) ⊔ (I_caller_pc)["{c ⊔ caller_pc}":12,19-20] <= (_ <- _)["{(* -> *)}":4,4-16] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
+(C_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{c ⊔ caller_pc}":12,19-20@LabelLeConstraint11.jif] <= (*["*":4,4-16@LabelLeConstraint11.jif] -> *["*":4,4-16@LabelLeConstraint11.jif])["(* -> *)":4,4-16@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
+(I_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{c ⊔ caller_pc}":12,19-20@LabelLeConstraint11.jif] <= (_["_":4,4-16@LabelLeConstraint11.jif] <- _["_":4,4-16@LabelLeConstraint11.jif])["(_ <- _)":4,4-16@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
 
-(Alice -> Alice)["{(Alice -> *)}":12,9-17] <= C_*lbl["{*lbl}":4,44-48] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
-(_ <- _)["{(Alice -> *)}":12,9-17] <= I_*lbl["{*lbl}":4,44-48] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
+(Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":12,10-16@LabelLeConstraint11.jif] <= C_*lbl["{*lbl}":4,44-48@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
+(_["_":12,9-17@LabelLeConstraint11.jif] <- _["_":12,9-17@LabelLeConstraint11.jif])["(_ <- _)":12,9-17@LabelLeConstraint11.jif] <= I_*lbl["{*lbl}":4,44-48@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
 
-(C_lbl) ⊔ (C_c) ⊔ (C_caller_pc)["{lbl ⊔ c ⊔ caller_pc}":13,19-22] <= (Alice -> Alice)["{(Alice -> *)}":12,9-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
-(I_lbl) ⊔ (I_c) ⊔ (I_caller_pc)["{lbl ⊔ c ⊔ caller_pc}":13,19-22] <= (_ <- _)["{(Alice -> *)}":12,9-17] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
+(C_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] ⊔ C_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{lbl ⊔ c ⊔ caller_pc}":13,19-22@LabelLeConstraint11.jif] <= (Alice["Alice":] -> Alice["Alice":])["(Alice -> *)":12,10-16@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
+(I_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] ⊔ I_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{lbl ⊔ c ⊔ caller_pc}":13,19-22@LabelLeConstraint11.jif] <= (_["_":12,9-17@LabelLeConstraint11.jif] <- _["_":12,9-17@LabelLeConstraint11.jif])["(_ <- _)":12,9-17@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
 
-C_receiver["{receiver}":14,1-9] == (C_c) ⊔ (C_caller_pc)["{c ⊔ caller_pc}":12,19-20] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
-I_receiver["{receiver}":14,1-9] == (I_c) ⊔ (I_caller_pc)["{c ⊔ caller_pc}":12,19-20] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
+C_receiver["{receiver}":14,1-9@LabelLeConstraint11.jif] == (C_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{c ⊔ caller_pc}":12,19-20@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
+I_receiver["{receiver}":14,1-9@LabelLeConstraint11.jif] == (I_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{c ⊔ caller_pc}":12,19-20@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
 
-C_arg1label["{arg1label}":14,5-8] == (C_lbl) ⊔ (C_c) ⊔ (C_caller_pc)["{lbl ⊔ c ⊔ caller_pc}":13,19-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
-I_arg1label["{arg1label}":14,5-8] == (I_lbl) ⊔ (I_c) ⊔ (I_caller_pc)["{lbl ⊔ c ⊔ caller_pc}":13,19-22] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= ((Alice -> Alice)) ⊔ ((Bob -> Bob));I_*lbl <= (_ <- _);((Alice -> Alice)) ⊔ ((Bob -> Bob)) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9]
+C_arg1label["{arg1label}":14,5-8@LabelLeConstraint11.jif] == (C_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] ⊔ C_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ C_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{lbl ⊔ c ⊔ caller_pc}":13,19-22@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
+I_arg1label["{arg1label}":14,5-8@LabelLeConstraint11.jif] == (I_lbl["{lbl}":13,19-22@LabelLeConstraint11.jif] ⊔ I_c["{c}":12,19-20@LabelLeConstraint11.jif] ⊔ I_caller_pc["{caller_pc}":10,4-12@LabelLeConstraint11.jif])["{lbl ⊔ c ⊔ caller_pc}":13,19-22@LabelLeConstraint11.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_*lbl <= (((Alice -> Alice)) ⊔ ((Bob -> Bob)));I_*lbl <= (_ <- _);(((Alice -> Alice)) ⊔ ((Bob -> Bob))) <= C_*lbl;(_ <- _) <= I_*lbl;};[14,1-9@LabelLeConstraint11.jif]
 
