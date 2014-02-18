@@ -13,8 +13,15 @@ import constraint.ast.Constraint;
 import diagnostic.explanation.ConstraintEntity;
 import diagnostic.explanation.Entity;
 
+/**
+ * Infer the most likely wrong constraint in a program
+ */
 public class ConstraintInfer extends InferenceEngine {
 	
+	/**
+	 * @param paths
+	 *            All unsatisfiable paths identified in constraint analysis
+	 */
 	public ConstraintInfer(UnsatPaths paths) {
 		super(paths);
 	}
@@ -23,7 +30,7 @@ public class ConstraintInfer extends InferenceEngine {
 	public Set<Entity> getCandidates() {
     	Set<Entity> cand = new HashSet<Entity>();
 		
-    	for (ConstraintPath path : paths.errPaths) {
+    	for (ConstraintPath path : paths.getPaths()) {
     		for (Edge edge : path.getEdges()) {
     			if (edge instanceof EquationEdge) {
     				Constraint cons = ((EquationEdge) edge).getEquation();

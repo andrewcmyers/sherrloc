@@ -14,9 +14,21 @@ import constraint.ast.Element;
 import diagnostic.explanation.Entity;
 import diagnostic.explanation.ExprEntity;
 
+/**
+ * Infer the most likely wrong expressions in a program. Expressions are
+ * distinguished by their text and position in program (provided as comments in
+ * the constraint language)
+ */
 public class ExprInfer extends InferenceEngine {
-	Map<String, Integer> succCount;
+	private Map<String, Integer> succCount;
 	
+	/**
+	 * @param paths
+	 *            All unsatisfiable paths identified in constraint analysis
+	 * @param allNodes
+	 *            All nodes in the constraint graph. Used to retrieve #
+	 *            satisfiable paths using the expressions
+	 */
 	public ExprInfer(UnsatPaths paths, Set<Node> allNodes) {
 		super(paths);
 		
@@ -35,7 +47,7 @@ public class ExprInfer extends InferenceEngine {
 	public Set<Entity> getCandidates() {
     	Set<Entity> cand = new HashSet<Entity>();
 		
-    	for (ConstraintPath path : paths.errPaths) {
+    	for (ConstraintPath path : paths.getPaths()) {
     		for (Node n : path.getAllNodes()) {
     			Element e = n.getElement();
     			if (!e.getPosition().isEmpty())

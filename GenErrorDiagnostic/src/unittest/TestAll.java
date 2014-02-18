@@ -5,14 +5,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import diagnostic.Analysis;
+import diagnostic.ErrorDiagnosis;
 
 
 public class TestAll {
 		
 	public void testErrorPaths (String filename, boolean expectederror, boolean sym) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance(filename, true, sym, true);
+			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, true, sym);
 			assertEquals(filename, expectederror, ana.getUnsatPathNumber()>0);
 		}
 		catch (Exception e) {
@@ -23,7 +23,7 @@ public class TestAll {
 	
 	public void testExpression (String filename, String loc, boolean sym) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance(filename, true, sym, true);
+			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, true, sym);
 			assertTrue(ana.toConsoleString().contains(loc));
 		}
 		catch (Exception e) {
@@ -34,7 +34,7 @@ public class TestAll {
 	
 	public void testAssumptions (String filename, String expected, boolean sym) {
 		try {
-			Analysis ana = Analysis.getAnalysisInstance(filename, false, sym, true);
+			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, false, sym);
 			String result = ana.toConsoleString();
 			assertTrue("Expected ("+expected+"), but got ("+result+")", result.contains(expected));
 		}
@@ -62,7 +62,7 @@ public class TestAll {
 		testAssumptions("test/hypothesis/constraints/AirlineExample1.con", "- AirlineA <= airlines;\n", false);// same assumption
 		testAssumptions("test/hypothesis/constraints/AirlineExample2.con", "- AirlineA <= airlines;AirlineB <= airlines;\n", false);// same assumption
 		/* jif compiler is too conservative in this case. it's secure */
-		testAssumptions("test/hypothesis/constraints/AirlineExample3.con", "The program passed type checking. No errors were found.", false); // secure
+		testAssumptions("test/hypothesis/constraints/AirlineExample3.con", "The program passed program analysis. No errors were found.", false); // secure
 		
 		/* battleship */
 		testAssumptions("test/hypothesis/constraints/Board1.con", "- (p1)->(p1) <= C_L;(p1)<-(p1) <= I_L;C_L <= (p1)->(p1);I_L <= (p1)<-(p1);\n", false); // same assumption
