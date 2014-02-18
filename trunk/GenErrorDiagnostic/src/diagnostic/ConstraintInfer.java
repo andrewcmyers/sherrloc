@@ -45,4 +45,9 @@ public class ConstraintInfer extends InferenceEngine {
 	public String HTMLinfo() {
 		return "<H4>Constraints in the source code that appear most likely to be wrong (mouse over to highlight code):</H4>\n";
 	}	
+	
+	@Override
+	public String info() {
+		return "Constraints in the source code that appear most likely to be wrong: \n";
+	}	
 }

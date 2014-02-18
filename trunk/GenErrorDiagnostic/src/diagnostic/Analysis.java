@@ -60,29 +60,32 @@ public class Analysis implements PrettyPrinter {
 	 * @return An analysis instance
 	 * @throws Exception
 	 */
-	static public Analysis getAnalysisInstance (String consFile, boolean isSym) throws Exception {
-		DiagnosticOptions option = new DiagnosticOptions(consFile, isSym);
+	static public Analysis getAnalysisInstance (String consFile, boolean isExpr, boolean isSym, boolean isConsole) throws Exception {
+		DiagnosticOptions option = new DiagnosticOptions(consFile, isExpr, isSym, isConsole);
 		
 	    return getAnalysisInstance(option);
 	}
 	
-	public int getPathNumber() {
+	/**
+	 * @return Number of unsatisfiable paths identified
+	 */
+	public int getUnsatPathNumber() {
 	 	return cana.genErrorPaths(graph).size();
 	}
-	       
-    public int getAssumptionNumber () {
-    	UnsatPaths paths = cana.genErrorPaths(graph);
-    	return (new MissingHypoInfer(paths)).getAssumptionNumber();
-    }
-    
+	
+	/**
+	 * @return Missing hypothesis suggestion in plain text
+	 */
     public String getAssumptionString () {
     	UnsatPaths paths = cana.genErrorPaths(graph);
     	return (new MissingHypoInfer(paths)).getAssumptionString();
     }
         
+    /**
+     * Output constraint graph in DOT format
+     */
     private void writeToDotFile () {
         String filename;
-
         filename = "error.dot";
 
         try {
@@ -95,6 +98,9 @@ public class Analysis implements PrettyPrinter {
         }
     }
     
+    /**
+     * Output error report in HTML format
+     */
     private void writeToHTML () {
         try {
             FileOutputStream fstream = new FileOutputStream(option.htmlFileName);
@@ -129,11 +135,12 @@ public class Analysis implements PrettyPrinter {
                       "document.getElementById('feedback').style.display = 'none';</script>");
     	}
     	else {
-   			sb.append("<H2>One typing error is identified<H2>");
     		sb.append(getOneSuggestion(option.sourceName, paths));
-    		sb.append(util.genAnnotatedCode(paths, option.sourceName) +
-    				(option.sourceName.contains("jif")?("<script>colorize_all(); numberSuggestions();</script>\n")
-    				:("<script>numberSuggestions();</script>\n")));
+			if (option.sourceName != null) {
+				sb.append(util.genAnnotatedCode(paths, option.sourceName)
+						+ (option.sourceName.contains("jif") ? ("<script>colorize_all(); numberSuggestions();</script>\n")
+								: ("<script>numberSuggestions();</script>\n")));
+			}
         }
     	
     	return sb.toString();
@@ -147,7 +154,7 @@ public class Analysis implements PrettyPrinter {
         if (paths.size()==0) {
 			return ("The program passed type checking. No errors were found.");
 		} else {
-			return ("One typing error is identified\n" + getOneSuggestion(option.sourceName, paths));
+			return (getOneSuggestion(option.sourceName, paths));
 		}
     }
     
@@ -166,7 +173,7 @@ public class Analysis implements PrettyPrinter {
     public String getOneSuggestion (String sourcefile, UnsatPaths paths) {
     	StringBuffer sb = new StringBuffer();
     	sb.append(
-    		(option.isGenHypothesis()?paths.genMissingAssumptions(sourcefile):"") +
+    		(option.isGenHypothesis()?(new MissingHypoInfer(paths)).infer(option.isToConsole(), option.isVerbose()):"") +
     		(option.isGenElements()?(new ExprInfer(paths, graph.getAllNodes())).infer(option.isToConsole(), option.isVerbose())/*+paths.genEdgeCut()*/:""));
 //    		(GEN_UNIFIED?paths.genCombinedResult(cachedEnv, exprMap, succCount):""));
     	if (!option.isToConsole()) {             
@@ -176,6 +183,9 @@ public class Analysis implements PrettyPrinter {
     	return sb.toString();
     }
     
+    /**
+     * Output the result into a format specified in configuration
+     */
     public void writeToOutput () {
 		if (option.isDotFile()) {
 			writeToDotFile();

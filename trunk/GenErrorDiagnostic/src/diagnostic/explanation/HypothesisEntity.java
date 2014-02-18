@@ -52,12 +52,12 @@ public class HypothesisEntity extends Entity {
 	
 	@Override
 	public void toHTML(StringBuffer locBuf, StringBuffer exprBuf) {
-		exprBuf.append(toString() + ";");
+		exprBuf.append(toString());
 	}
 	
 	@Override
 	public void toConsole(StringBuffer locBuf, StringBuffer exprBuf) {
-		exprBuf.append(toString() + ";");
+		exprBuf.append(toString());
 	}
 	
 	@Override

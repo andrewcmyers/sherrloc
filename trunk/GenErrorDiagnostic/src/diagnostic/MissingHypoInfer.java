@@ -47,23 +47,29 @@ public class MissingHypoInfer extends InferenceEngine {
     	return result.size();
     }
     
-    public String getAssumptionString () {
-        Set<Explanation> result = infer();
-        StringBuffer sb = new StringBuffer();
-        for (Explanation s : result) {
-            List<String> list = new ArrayList<String>();
-        	for (Entity en :s.getEntities())
-        		list.add(en.toString());
-        	Collections.sort(list);
-        	for (String str : list)
-        		sb.append(str+";");
-        	sb.append("\n");
-        }
-    	return sb.toString();
-    }
+	public String getAssumptionString() {
+		Set<Explanation> result = infer();
+		StringBuffer sb = new StringBuffer();
+		for (Explanation s : result) {
+			List<String> list = new ArrayList<String>();
+			for (Entity en : s.getEntities())
+				list.add(en.toString());
+			Collections.sort(list);
+			for (String str : list)
+				sb.append(str + ";");
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
     
     @Override
     public String HTMLinfo() {
     	return "<H3>Likely missing assumption(s): </H3>\n";
+    }
+    
+    @Override
+    public String info() {
+    	return "Likely missing assumption(s): \n";
     }
 }

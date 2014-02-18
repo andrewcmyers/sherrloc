@@ -38,34 +38,47 @@ public abstract class InferenceEngine {
 			System.out.println("ranking_time: "+(endTime-startTime));
 		
 		if (!isConsole)
-			sb.append(HTMLinfo());
+			sb.append("\n"+HTMLinfo());
+		else
+			sb.append(info());
 
-		List<Explanation> cuts = new ArrayList<Explanation>();
+		List<Explanation> result = new ArrayList<Explanation>();
 		for (Explanation set : results) {
-			cuts.add(set);
+			result.add(set);
 		}
-		Collections.sort(cuts);
+		Collections.sort(result);
 
 		double best=Double.MAX_VALUE;
 		int i=0;
-		for ( ; i<cuts.size(); i++) {
-			if (cuts.get(i).getWeight()>best)
+		if (!isConsole)
+			sb.append("<UL>\n");
+		for ( ; i<result.size(); i++) {
+			if (result.get(i).getWeight()>best)
 				break;
-			best = cuts.get(i).getWeight();
+			best = result.get(i).getWeight();
 			if (isConsole)
-				sb.append(cuts.get(i).toConsole()+"\n");
+				sb.append("- " + result.get(i).toConsole()+"\n");
 			else
-				sb.append(cuts.get(i).toHTML());
+				sb.append("<LI> "+result.get(i).toHTML());
 		}
+		if (!isConsole)
+			sb.append("</UL>\n");
 		if (verbose)
 			System.out.println("top_rank_size: "+i);
-		if (!isConsole) {
-			sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
-			sb.append("<div id=\"more_expr\">");
-			for (; i < cuts.size(); i++) {
-				sb.append(cuts.get(i).toHTML());
+		if (i < result.size()) {
+			if (!isConsole) {
+				sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
+				sb.append("<div id=\"more_expr\">");
+				for (; i < result.size(); i++) {
+					sb.append(result.get(i).toHTML());
+				}
+				sb.append("</div>\n");
+			} else {
+				sb.append("Other less likely suggestions: \n");
+				for (; i < result.size(); i++) {
+					sb.append(result.get(i).toConsole());
+				}
 			}
-			sb.append("</div>\n");
 		}
 		return sb.toString();
 	}
@@ -85,4 +98,9 @@ public abstract class InferenceEngine {
 	 * @return A string describing the nature of returned entities in HTML format
 	 */
 	public abstract String HTMLinfo ();	
+	
+	/**
+	 * @return A string describing the nature of returned entities in plain text format
+	 */
+	public abstract String info ();	
 }
