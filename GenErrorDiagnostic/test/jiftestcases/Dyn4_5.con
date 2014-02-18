@@ -1,105 +1,97 @@
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR C_*M 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:14,42-43
-CONSTRUCTOR I_*M 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:14,42-43
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR C_Dyn4.provider 0 //class jif.types.label.ProviderLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR I_Dyn4.provider 0 //class jif.types.label.ProviderLabel_c@Dyn4.jif:1,0-10
-CONSTRUCTOR C_Dyn4.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR I_Dyn4.provider1 0 //class jif.types.label.ProviderLabel_c@null
-CONSTRUCTOR C_*L 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:4,16-17
-CONSTRUCTOR I_*L 0 //class jif.types.label.DynamicLabel_c@Dyn4.jif:4,16-17
+CONSTRUCTOR C_this 0 //C_this["{this}":1,0-10@Dyn4.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":1,0-10@Dyn4.jif]
+CONSTRUCTOR C_*L 0 //C_*L["{*L}":4,16-17@Dyn4.jif]
+CONSTRUCTOR I_*L 0 //I_*L["{*L}":4,16-17@Dyn4.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":1,0-10@Dyn4.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":1,0-10@Dyn4.jif]
+CONSTRUCTOR C_*M 0 //C_*M["{*M}":14,42-43@Dyn4.jif]
+CONSTRUCTOR I_*M 0 //I_*M["{*M}":14,42-43@Dyn4.jif]
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@Dyn4.jif:4,32-38
 CONSTRUCTOR * 0 //@Dyn4.jif:4,33-34
 
 %%
 I_caller_pc <= (_ <- _);
-C_Dyn4.provider1 == _ -> _;
-I_Dyn4.provider1 == * <- *;
-C_Dyn4.provider == _ -> _;
-I_Dyn4.provider == * <- *;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_*M;
-C_*M <= * -> *;
-* <- * <= I_*M;
-I_*M <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_Dyn4.provider;
-C_Dyn4.provider <= * -> *;
-* <- * <= I_Dyn4.provider;
-I_Dyn4.provider <= _ <- _;
-_ -> _ <= C_Dyn4.provider1;
-C_Dyn4.provider1 <= * -> *;
-* <- * <= I_Dyn4.provider1;
-I_Dyn4.provider1 <= _ <- _;
-_ -> _ <= C_*L;
-C_*L <= * -> *;
-* <- * <= I_*L;
-I_*L <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (* <- *);
-(* <- *) <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_Dyn4.provider;
+C_Dyn4.provider <= (* -> *);
+(* <- *) <= I_Dyn4.provider;
+I_Dyn4.provider <= (_ <- _);
+(_ -> _) <= C_*L;
+C_*L <= (* -> *);
+(* <- *) <= I_*L;
+I_*L <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_Dyn4.provider;
+C_Dyn4.provider <= (* -> *);
+(* <- *) <= I_Dyn4.provider;
+I_Dyn4.provider <= (_ <- _);
+(_ -> _) <= C_*M;
+C_*M <= (* -> *);
+(* <- *) <= I_*M;
+I_*M <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (* <- *);
+(* <- *) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
 
 %%
-C_Dyn4.provider1 <= (* -> *)["{(* -> *)}":1,0-10] {};[1,0-10]
-I_Dyn4.provider1 <= (_ <- _)["{(* -> *)}":1,0-10] {};[1,0-10]
+C_Dyn4.provider["Dyn4.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {};[1,0-10@Dyn4.jif]
+I_Dyn4.provider["Dyn4.provider":] <= (_["_":1,0-10@Dyn4.jif] <- _["_":1,0-10@Dyn4.jif])["(_ <- _)":] {};[1,0-10@Dyn4.jif]
 
-(_ -> _)["{}":2,4-10] == (_ -> _)["{}":2,4-10] {};[2,4-10]
-(_ <- _)["{}":2,4-10] == (_ <- _)["{}":2,4-10] {};[2,4-10]
+(_["_":2,4-10@Dyn4.jif] -> _["_":2,4-10@Dyn4.jif])["(_ -> _)":2,4-10@Dyn4.jif] == (_["_":2,4-10@Dyn4.jif] -> _["_":2,4-10@Dyn4.jif])["(_ -> _)":2,4-10@Dyn4.jif] {};[2,4-10@Dyn4.jif]
+(_["_":2,4-10@Dyn4.jif] <- _["_":2,4-10@Dyn4.jif])["(_ <- _)":2,4-10@Dyn4.jif] == (_["_":2,4-10@Dyn4.jif] <- _["_":2,4-10@Dyn4.jif])["(_ <- _)":2,4-10@Dyn4.jif] {};[2,4-10@Dyn4.jif]
 
-(_ -> _)["{* <- *}":4,32-38] <= (_ -> _)["{* <- *}":4,32-38] {};[4,11-20]
-(* <- *)["{* <- *}":4,32-38] <= (* <- *)["{* <- *}":4,32-38] {};[4,11-20]
+(_["_":4,32-38@Dyn4.jif] -> _["_":4,32-38@Dyn4.jif])["(_ -> _)":4,32-38@Dyn4.jif] <= (_["_":4,32-38@Dyn4.jif] -> _["_":4,32-38@Dyn4.jif])["(_ -> _)":4,32-38@Dyn4.jif] {};[4,11-20@Dyn4.jif]
+(*["*":4,33-34@Dyn4.jif] <- *["*":4,36-37@Dyn4.jif])["(* <- *)":4,33-37@Dyn4.jif] <= (*["*":4,33-34@Dyn4.jif] <- *["*":4,36-37@Dyn4.jif])["(* <- *)":4,33-37@Dyn4.jif] {};[4,11-20@Dyn4.jif]
 
-(_ -> _)["{* <- *}":4,20-26] <= (_ -> _)["{* <- *}":4,20-26] {};[4,11-20]
-(* <- *)["{* <- *}":4,20-26] <= (* <- *)["{* <- *}":4,20-26] {};[4,11-20]
+(_["_":4,20-26@Dyn4.jif] -> _["_":4,20-26@Dyn4.jif])["(_ -> _)":4,20-26@Dyn4.jif] <= (_["_":4,20-26@Dyn4.jif] -> _["_":4,20-26@Dyn4.jif])["(_ -> _)":4,20-26@Dyn4.jif] {};[4,11-20@Dyn4.jif]
+(*["*":4,21-22@Dyn4.jif] <- *["*":4,24-25@Dyn4.jif])["(* <- *)":4,21-25@Dyn4.jif] <= (*["*":4,21-22@Dyn4.jif] <- *["*":4,24-25@Dyn4.jif])["(* <- *)":4,21-25@Dyn4.jif] {};[4,11-20@Dyn4.jif]
 
-(_ -> _) <= (_ -> _) {};[4,11-20]
-(* <- *) <= (* <- *) {};[4,11-20]
+(_["_":4,11-20@Dyn4.jif] -> _["_":4,11-20@Dyn4.jif])["(_ -> _)":4,11-20@Dyn4.jif] <= (_["_":4,11-20@Dyn4.jif] -> _["_":4,11-20@Dyn4.jif])["(_ -> _)":4,11-20@Dyn4.jif] {};[4,11-20@Dyn4.jif]
+(*["*":4,11-20@Dyn4.jif] <- *["*":4,11-20@Dyn4.jif])["(* <- *)":4,11-20@Dyn4.jif] <= (*["*":4,11-20@Dyn4.jif] <- *["*":4,11-20@Dyn4.jif])["(* <- *)":4,11-20@Dyn4.jif] {};[4,11-20@Dyn4.jif]
 
-C_*L["{*L}":4,16-17] <= C_*L["{*L}":4,16-17] {};[4,11-20]
-I_*L["{*L}":4,16-17] <= I_*L["{*L}":4,16-17] {};[4,11-20]
+C_*L["{*L}":4,16-17@Dyn4.jif] <= C_*L["{*L}":4,16-17@Dyn4.jif] {};[4,11-20@Dyn4.jif]
+I_*L["{*L}":4,16-17@Dyn4.jif] <= I_*L["{*L}":4,16-17@Dyn4.jif] {};[4,11-20@Dyn4.jif]
 
-(* -> *)["{(* -> *)}":10,11-21] <= (* -> *)["{(* -> *)}":10,11-21] {};[10,11-21]
-(_ <- _)["{(* -> *)}":10,11-21] <= (_ <- _)["{(* -> *)}":10,11-21] {};[10,11-21]
+(*["*":10,11-21@Dyn4.jif] -> *["*":10,11-21@Dyn4.jif])["(* -> *)":10,11-21@Dyn4.jif] <= (*["*":10,11-21@Dyn4.jif] -> *["*":10,11-21@Dyn4.jif])["(* -> *)":10,11-21@Dyn4.jif] {};[10,11-21@Dyn4.jif]
+(_["_":10,11-21@Dyn4.jif] <- _["_":10,11-21@Dyn4.jif])["(_ <- _)":10,11-21@Dyn4.jif] <= (_["_":10,11-21@Dyn4.jif] <- _["_":10,11-21@Dyn4.jif])["(_ <- _)":10,11-21@Dyn4.jif] {};[10,11-21@Dyn4.jif]
 
-(_ -> _) <= (_ -> _) {};[10,11-21]
-(* <- *) <= (* <- *) {};[10,11-21]
+(_["_":10,11-21@Dyn4.jif] -> _["_":10,11-21@Dyn4.jif])["(_ -> _)":10,11-21@Dyn4.jif] <= (_["_":10,11-21@Dyn4.jif] -> _["_":10,11-21@Dyn4.jif])["(_ -> _)":10,11-21@Dyn4.jif] {};[10,11-21@Dyn4.jif]
+(*["*":10,11-21@Dyn4.jif] <- *["*":10,11-21@Dyn4.jif])["(* <- *)":10,11-21@Dyn4.jif] <= (*["*":10,11-21@Dyn4.jif] <- *["*":10,11-21@Dyn4.jif])["(* <- *)":10,11-21@Dyn4.jif] {};[10,11-21@Dyn4.jif]
 
-(_ -> _)["{}":10,14-16] <= (_ -> _)["{}":10,14-16] {};[10,11-21]
-(_ <- _)["{}":10,14-16] <= (_ <- _)["{}":10,14-16] {};[10,11-21]
+(_["_":10,14-16@Dyn4.jif] -> _["_":10,14-16@Dyn4.jif])["(_ -> _)":10,14-16@Dyn4.jif] <= (_["_":10,14-16@Dyn4.jif] -> _["_":10,14-16@Dyn4.jif])["(_ -> _)":10,14-16@Dyn4.jif] {};[10,11-21@Dyn4.jif]
+(_["_":10,14-16@Dyn4.jif] <- _["_":10,14-16@Dyn4.jif])["(_ <- _)":10,14-16@Dyn4.jif] <= (_["_":10,14-16@Dyn4.jif] <- _["_":10,14-16@Dyn4.jif])["(_ <- _)":10,14-16@Dyn4.jif] {};[10,11-21@Dyn4.jif]
 
-(* -> *)["{(* -> *)}":14,28-35] <= (* -> *)["{(* -> *)}":14,28-35] {};[14,18-27]
-(_ <- _)["{(* -> *)}":14,28-35] <= (_ <- _)["{(* -> *)}":14,28-35] {};[14,18-27]
+(*["*":14,28-35@Dyn4.jif] -> *["*":14,28-35@Dyn4.jif])["(* -> *)":14,28-35@Dyn4.jif] <= (*["*":14,28-35@Dyn4.jif] -> *["*":14,28-35@Dyn4.jif])["(* -> *)":14,28-35@Dyn4.jif] {};[14,18-27@Dyn4.jif]
+(_["_":14,28-35@Dyn4.jif] <- _["_":14,28-35@Dyn4.jif])["(_ <- _)":14,28-35@Dyn4.jif] <= (_["_":14,28-35@Dyn4.jif] <- _["_":14,28-35@Dyn4.jif])["(_ <- _)":14,28-35@Dyn4.jif] {};[14,18-27@Dyn4.jif]
 
-C_*M["{*M}":14,42-43] <= C_*M["{*M}":14,42-43] {};[14,18-27]
-I_*M["{*M}":14,42-43] <= I_*M["{*M}":14,42-43] {};[14,18-27]
+C_*M["{*M}":14,42-43@Dyn4.jif] <= C_*M["{*M}":14,42-43@Dyn4.jif] {};[14,18-27@Dyn4.jif]
+I_*M["{*M}":14,42-43@Dyn4.jif] <= I_*M["{*M}":14,42-43@Dyn4.jif] {};[14,18-27@Dyn4.jif]
 
-(* -> *)["{(* -> *)}":14,18-27] <= (* -> *)["{(* -> *)}":14,18-27] {};[14,18-27]
-(_ <- _)["{(* -> *)}":14,18-27] <= (_ <- _)["{(* -> *)}":14,18-27] {};[14,18-27]
+(*["*":14,18-27@Dyn4.jif] -> *["*":14,18-27@Dyn4.jif])["(* -> *)":14,18-27@Dyn4.jif] <= (*["*":14,18-27@Dyn4.jif] -> *["*":14,18-27@Dyn4.jif])["(* -> *)":14,18-27@Dyn4.jif] {};[14,18-27@Dyn4.jif]
+(_["_":14,18-27@Dyn4.jif] <- _["_":14,18-27@Dyn4.jif])["(_ <- _)":14,18-27@Dyn4.jif] <= (_["_":14,18-27@Dyn4.jif] <- _["_":14,18-27@Dyn4.jif])["(_ <- _)":14,18-27@Dyn4.jif] {};[14,18-27@Dyn4.jif]
 
-(_ -> _) <= (_ -> _) {};[14,18-27]
-(* <- *) <= (* <- *) {};[14,18-27]
+(_["_":14,18-27@Dyn4.jif] -> _["_":14,18-27@Dyn4.jif])["(_ -> _)":14,18-27@Dyn4.jif] <= (_["_":14,18-27@Dyn4.jif] -> _["_":14,18-27@Dyn4.jif])["(_ -> _)":14,18-27@Dyn4.jif] {};[14,18-27@Dyn4.jif]
+(*["*":14,18-27@Dyn4.jif] <- *["*":14,18-27@Dyn4.jif])["(* <- *)":14,18-27@Dyn4.jif] <= (*["*":14,18-27@Dyn4.jif] <- *["*":14,18-27@Dyn4.jif])["(* <- *)":14,18-27@Dyn4.jif] {};[14,18-27@Dyn4.jif]
 
-C_*M["{*M}":14,23-24] <= C_*M["{*M}":14,23-24] {};[14,18-27]
-I_*M["{*M}":14,23-24] <= I_*M["{*M}":14,23-24] {};[14,18-27]
+C_*M["{*M}":14,23-24@Dyn4.jif] <= C_*M["{*M}":14,23-24@Dyn4.jif] {};[14,18-27@Dyn4.jif]
+I_*M["{*M}":14,23-24@Dyn4.jif] <= I_*M["{*M}":14,23-24@Dyn4.jif] {};[14,18-27@Dyn4.jif]
 
-C_Dyn4.provider["Dyn4.provider":1,0-10] <= (* -> *)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Dyn4.provider);I_caller_pc <= (I_Dyn4.provider);};[1,0-0]
-I_Dyn4.provider["Dyn4.provider":1,0-10] <= (_ <- _)["{(* -> *)}":17,11-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Dyn4.provider);I_caller_pc <= (I_Dyn4.provider);};[1,0-0]
+C_Dyn4.provider["Dyn4.provider":1,0-10@Dyn4.jif] <= (*["*":17,11-19@Object.jif] -> *["*":17,11-19@Object.jif])["(* -> *)":17,11-19@Object.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Dyn4.provider);I_caller_pc <= (I_Dyn4.provider);};[1,0-0@Dyn4.jif]
+I_Dyn4.provider["Dyn4.provider":1,0-10@Dyn4.jif] <= (_["_":17,11-19@Object.jif] <- _["_":17,11-19@Object.jif])["(_ <- _)":17,11-19@Object.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;C_caller_pc <= (C_Dyn4.provider);I_caller_pc <= (I_Dyn4.provider);};[1,0-0@Dyn4.jif]
 

@@ -1,18 +1,18 @@
-CONSTRUCTOR C_z 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,72-81
-CONSTRUCTOR I_z 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,72-81
-CONSTRUCTOR C_this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:8,0-21
-CONSTRUCTOR I_this 0 //class jif.types.label.ThisLabel_c@ArgLabelSubst2.jif:8,0-21
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,11-25
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,11-25
-CONSTRUCTOR C_y 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,59-68
-CONSTRUCTOR I_y 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,59-68
-CONSTRUCTOR C_x 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,49-55
-CONSTRUCTOR I_x 0 //class jif.types.label.ArgLabel_c@ArgLabelSubst2.jif:9,49-55
+CONSTRUCTOR C_z 0 //C_z["{z}":9,72-81@ArgLabelSubst2.jif]
+CONSTRUCTOR I_z 0 //I_z["{z}":9,72-81@ArgLabelSubst2.jif]
+CONSTRUCTOR C_this 0 //C_this["{this}":8,0-21@ArgLabelSubst2.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":8,0-21@ArgLabelSubst2.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":9,11-25@ArgLabelSubst2.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":9,11-25@ArgLabelSubst2.jif]
+CONSTRUCTOR C_y 0 //C_y["{y}":9,59-68@ArgLabelSubst2.jif]
+CONSTRUCTOR I_y 0 //I_y["{y}":9,59-68@ArgLabelSubst2.jif]
+CONSTRUCTOR C_x 0 //C_x["{x}":9,49-55@ArgLabelSubst2.jif]
+CONSTRUCTOR I_x 0 //I_x["{x}":9,49-55@ArgLabelSubst2.jif]
 CONSTRUCTOR this 0
 CONSTRUCTOR _ 0 //@ArgLabelSubst2.jif:9,17-21
 CONSTRUCTOR q 0 //@ArgLabelSubst2.jif:9,18-19
-CONSTRUCTOR y1 0 //@ArgLabelSubst2.jif:12,8-9
 CONSTRUCTOR * 0 //@ArgLabelSubst2.jif:9,18-20
+CONSTRUCTOR y1 0 //@ArgLabelSubst2.jif:12,8-9
 
 %%
 I_z <= (_ <- _);
@@ -21,84 +21,84 @@ I_caller_pc <= (* <- *);
 I_y <= (_ <- _);
 C_x <= (_ -> _);
 I_x <= (* <- *);
-_ -> _ <= C_z;
-C_z <= * -> *;
-* <- * <= I_z;
-I_z <= _ <- _;
-_ -> _ <= (q -> q);
-(q -> q) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= C_this;
-C_this <= * -> *;
-* <- * <= I_this;
-I_this <= _ <- _;
-_ -> _ <= C_answer2;
-C_answer2 <= * -> *;
-* <- * <= I_answer2;
-I_answer2 <= _ <- _;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_y;
-C_y <= * -> *;
-* <- * <= I_y;
-I_y <= _ <- _;
-_ -> _ <= C_x;
-C_x <= * -> *;
-* <- * <= I_x;
-I_x <= _ <- _;
-_ -> _ <= (* -> *);
-(* -> *) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
-_ -> _ <= (_ -> _);
-(_ -> _) <= * -> *;
-* <- * <= (* <- *);
-(* <- *) <= _ <- _;
-_ -> _ <= (y1 -> y1);
-(y1 -> y1) <= * -> *;
-* <- * <= (_ <- _);
-(_ <- _) <= _ <- _;
+(_ -> _) <= C_z;
+C_z <= (* -> *);
+(* <- *) <= I_z;
+I_z <= (_ <- _);
+(_ -> _) <= (q -> q);
+(q -> q) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_answer2;
+C_answer2 <= (* -> *);
+(* <- *) <= I_answer2;
+I_answer2 <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_y;
+C_y <= (* -> *);
+(* <- *) <= I_y;
+I_y <= (_ <- _);
+(_ -> _) <= C_x;
+C_x <= (* -> *);
+(* <- *) <= I_x;
+I_x <= (_ <- _);
+(_ -> _) <= (y1 -> y1);
+(y1 -> y1) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (* <- *);
+(* <- *) <= (_ <- _);
 
 %%
-(C_caller_pc)["{caller_pc}":9,11-25] <= (q -> q)["{(q -> *)}":9,17-21] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,16-30]
-(I_caller_pc)["{caller_pc}":9,11-25] <= (_ <- _)["{(q -> *)}":9,17-21] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,16-30]
+(C_caller_pc["{caller_pc}":9,11-25@ArgLabelSubst2.jif])["{caller_pc}":9,11-25@ArgLabelSubst2.jif] <= (q["q":9,18-19@ArgLabelSubst2.jif] -> q["q":9,18-19@ArgLabelSubst2.jif])["(q -> *)":9,18-20@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,16-30@ArgLabelSubst2.jif]
+(I_caller_pc["{caller_pc}":9,11-25@ArgLabelSubst2.jif])["{caller_pc}":9,11-25@ArgLabelSubst2.jif] <= (_["_":9,17-21@ArgLabelSubst2.jif] <- _["_":9,17-21@ArgLabelSubst2.jif])["(_ <- _)":9,17-21@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[10,16-30@ArgLabelSubst2.jif]
 
-C_answer2["{answer2}":12,12-19] == (y1 -> y1)["{(y -> *)}":12,7-11] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,12-19]
-I_answer2["{answer2}":12,12-19] == (_ <- _)["{(y -> *)}":12,7-11] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,12-19]
+C_answer2["{answer2}":12,12-19@ArgLabelSubst2.jif] == (y1["y":12,8-9@ArgLabelSubst2.jif] -> y1["y":12,8-9@ArgLabelSubst2.jif])["(y -> *)":12,8-10@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,12-19@ArgLabelSubst2.jif]
+I_answer2["{answer2}":12,12-19@ArgLabelSubst2.jif] == (_["_":12,7-11@ArgLabelSubst2.jif] <- _["_":12,7-11@ArgLabelSubst2.jif])["(_ <- _)":12,7-11@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,12-19@ArgLabelSubst2.jif]
 
-(C_caller_pc)["{caller_pc}":9,11-25] <= C_answer2["{answer2}":12,12-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,22-26]
-(I_caller_pc)["{caller_pc}":9,11-25] <= I_answer2["{answer2}":12,12-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,22-26]
+(C_caller_pc["{caller_pc}":9,11-25@ArgLabelSubst2.jif])["{caller_pc}":9,11-25@ArgLabelSubst2.jif] <= C_answer2["{answer2}":12,12-19@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,22-26@ArgLabelSubst2.jif]
+(I_caller_pc["{caller_pc}":9,11-25@ArgLabelSubst2.jif])["{caller_pc}":9,11-25@ArgLabelSubst2.jif] <= I_answer2["{answer2}":12,12-19@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[12,22-26@ArgLabelSubst2.jif]
 
-(C_x)["{x}":9,49-55] <= (_ -> _)["{* <- *}":9,49-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,17-21]
-(I_x)["{x}":9,49-55] <= (* <- *)["{* <- *}":9,49-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,17-21]
+(C_x["{x}":9,49-55@ArgLabelSubst2.jif])["{x}":9,49-55@ArgLabelSubst2.jif] <= (_["_":9,49-55@ArgLabelSubst2.jif] -> _["_":9,49-55@ArgLabelSubst2.jif])["(_ -> _)":9,49-55@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,17-21@ArgLabelSubst2.jif]
+(I_x["{x}":9,49-55@ArgLabelSubst2.jif])["{x}":9,49-55@ArgLabelSubst2.jif] <= (*["*":9,50-51@ArgLabelSubst2.jif] <- *["*":9,53-54@ArgLabelSubst2.jif])["(* <- *)":9,50-54@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,17-21@ArgLabelSubst2.jif]
 
-C_z["{z}":9,72-81] <= (* -> *)["{(* -> *)}":9,59-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,23-24]
-I_z["{z}":9,72-81] <= (_ <- _)["{(* -> *)}":9,59-70] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,23-24]
+C_z["{z}":9,72-81@ArgLabelSubst2.jif] <= (*["*":9,59-70@ArgLabelSubst2.jif] -> *["*":9,59-70@ArgLabelSubst2.jif])["(* -> *)":9,59-70@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,23-24@ArgLabelSubst2.jif]
+I_z["{z}":9,72-81@ArgLabelSubst2.jif] <= (_["_":9,59-70@ArgLabelSubst2.jif] <- _["_":9,59-70@ArgLabelSubst2.jif])["(_ <- _)":9,59-70@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,23-24@ArgLabelSubst2.jif]
 
-C_y["{y}":9,59-68] <= (* -> *)["{(* -> *)}":9,72-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,26-27]
-I_y["{y}":9,59-68] <= (_ <- _)["{(* -> *)}":9,72-83] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,26-27]
+C_y["{y}":9,59-68@ArgLabelSubst2.jif] <= (*["*":9,72-83@ArgLabelSubst2.jif] -> *["*":9,72-83@ArgLabelSubst2.jif])["(* -> *)":9,72-83@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,26-27@ArgLabelSubst2.jif]
+I_y["{y}":9,59-68@ArgLabelSubst2.jif] <= (_["_":9,72-83@ArgLabelSubst2.jif] <- _["_":9,72-83@ArgLabelSubst2.jif])["(_ <- _)":9,72-83@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,26-27@ArgLabelSubst2.jif]
 
-C_x["{x}":9,49-55] <= (_ -> _)["{* <- *}":9,25-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
-I_x["{x}":9,49-55] <= (* <- *)["{* <- *}":9,25-31] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
+C_x["{x}":9,49-55@ArgLabelSubst2.jif] <= (_["_":9,25-31@ArgLabelSubst2.jif] -> _["_":9,25-31@ArgLabelSubst2.jif])["(_ -> _)":9,25-31@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
+I_x["{x}":9,49-55@ArgLabelSubst2.jif] <= (*["*":9,26-27@ArgLabelSubst2.jif] <- *["*":9,29-30@ArgLabelSubst2.jif])["(* <- *)":9,26-30@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
 
-C_receiver["{receiver}":14,11-28] == C_x["{x}":9,49-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
-I_receiver["{receiver}":14,11-28] == I_x["{x}":9,49-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
+C_receiver["{receiver}":14,11-28@ArgLabelSubst2.jif] == C_x["{x}":9,49-55@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
+I_receiver["{receiver}":14,11-28@ArgLabelSubst2.jif] == I_x["{x}":9,49-55@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
 
-C_arg1label["{arg1label}":14,17-21] == (C_x)["{x}":9,49-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
-I_arg1label["{arg1label}":14,17-21] == (I_x)["{x}":9,49-55] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
+C_arg1label["{arg1label}":14,17-21@ArgLabelSubst2.jif] == (C_x["{x}":9,49-55@ArgLabelSubst2.jif])["{x}":9,49-55@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
+I_arg1label["{arg1label}":14,17-21@ArgLabelSubst2.jif] == (I_x["{x}":9,49-55@ArgLabelSubst2.jif])["{x}":9,49-55@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
 
-C_arg2label["{arg2label}":14,23-24] == C_z["{z}":9,72-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
-I_arg2label["{arg2label}":14,23-24] == I_z["{z}":9,72-81] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
+C_arg2label["{arg2label}":14,23-24@ArgLabelSubst2.jif] == C_z["{z}":9,72-81@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
+I_arg2label["{arg2label}":14,23-24@ArgLabelSubst2.jif] == I_z["{z}":9,72-81@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
 
-C_arg3label["{arg3label}":14,26-27] == C_y["{y}":9,59-68] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
-I_arg3label["{arg3label}":14,26-27] == I_y["{y}":9,59-68] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28]
+C_arg3label["{arg3label}":14,26-27@ArgLabelSubst2.jif] == C_y["{y}":9,59-68@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
+I_arg3label["{arg3label}":14,26-27@ArgLabelSubst2.jif] == I_y["{y}":9,59-68@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,11-28@ArgLabelSubst2.jif]
 
-(y1 -> y1)["{(y -> *)}":9,17-21] <= C_answer2["{answer2}":12,12-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,1-8]
-(_ <- _)["{(y -> *)}":9,17-21] <= I_answer2["{answer2}":12,12-19] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,1-8]
+(y1["y":9,47-48@ArgLabelSubst2.jif] -> y1["y":9,47-48@ArgLabelSubst2.jif])["(y -> *)":9,18-20@ArgLabelSubst2.jif] <= C_answer2["{answer2}":12,12-19@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,1-8@ArgLabelSubst2.jif]
+(_["_":9,17-21@ArgLabelSubst2.jif] <- _["_":9,17-21@ArgLabelSubst2.jif])["(_ <- _)":9,17-21@ArgLabelSubst2.jif] <= I_answer2["{answer2}":12,12-19@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[14,1-8@ArgLabelSubst2.jif]
 
-(C_caller_pc)["{caller_pc}":9,11-25] <= (q -> q)["{(q -> *)}":9,17-21] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[17,1-16]
-(I_caller_pc)["{caller_pc}":9,11-25] <= (_ <- _)["{(q -> *)}":9,17-21] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[17,1-16]
+(C_caller_pc["{caller_pc}":9,11-25@ArgLabelSubst2.jif])["{caller_pc}":9,11-25@ArgLabelSubst2.jif] <= (q["q":9,18-19@ArgLabelSubst2.jif] -> q["q":9,18-19@ArgLabelSubst2.jif])["(q -> *)":9,18-20@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[17,1-16@ArgLabelSubst2.jif]
+(I_caller_pc["{caller_pc}":9,11-25@ArgLabelSubst2.jif])["{caller_pc}":9,11-25@ArgLabelSubst2.jif] <= (_["_":9,17-21@ArgLabelSubst2.jif] <- _["_":9,17-21@ArgLabelSubst2.jif])["(_ <- _)":9,17-21@ArgLabelSubst2.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};[17,1-16@ArgLabelSubst2.jif]
 

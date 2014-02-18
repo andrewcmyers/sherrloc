@@ -1,29 +1,29 @@
-CONSTRUCTOR C_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:10,18-27
-CONSTRUCTOR I_caller_pc 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:10,18-27
-CONSTRUCTOR C_y 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:10,40-44
-CONSTRUCTOR I_y 0 //class jif.types.label.ArgLabel_c@Dyn6.jif:10,40-44
-CONSTRUCTOR C_*M 0 //class jif.types.label.DynamicLabel_c@Dyn6.jif:10,23-24
-CONSTRUCTOR I_*M 0 //class jif.types.label.DynamicLabel_c@Dyn6.jif:10,23-24
+CONSTRUCTOR C_*M 0 //C_*M["{*M}":10,23-24@Dyn6.jif]
+CONSTRUCTOR I_*M 0 //I_*M["{*M}":10,23-24@Dyn6.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":10,18-27@Dyn6.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":10,18-27@Dyn6.jif]
+CONSTRUCTOR C_y 0 //C_y["{y}":10,40-44@Dyn6.jif]
+CONSTRUCTOR I_y 0 //I_y["{y}":10,40-44@Dyn6.jif]
 CONSTRUCTOR this 0
 
 %%
 I_caller_pc <= (_ <- _);
 C_y <= C_*M;
 I_y <= I_*M;
-_ -> _ <= C_caller_pc;
-C_caller_pc <= * -> *;
-* <- * <= I_caller_pc;
-I_caller_pc <= _ <- _;
-_ -> _ <= C_y;
-C_y <= * -> *;
-* <- * <= I_y;
-I_y <= _ <- _;
-_ -> _ <= C_*M;
-C_*M <= * -> *;
-* <- * <= I_*M;
-I_*M <= _ <- _;
+(_ -> _) <= C_*M;
+C_*M <= (* -> *);
+(* <- *) <= I_*M;
+I_*M <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_y;
+C_y <= (* -> *);
+(* <- *) <= I_y;
+I_y <= (_ <- _);
 
 %%
-(C_caller_pc) ⊔ (C_y)["{caller_pc ⊔ y}":10,18-27] <= (C_*M) ⊔ (C_caller_pc)["{*M ⊔ caller_pc}":10,23-24] {};[10,50-61]
-(I_caller_pc) ⊔ (I_y)["{caller_pc ⊔ y}":10,18-27] <= (I_*M) ⊔ (I_caller_pc)["{*M ⊔ caller_pc}":10,23-24] {};[10,50-61]
+(C_caller_pc["{caller_pc}":10,18-27@Dyn6.jif] ⊔ C_y["{y}":10,40-44@Dyn6.jif])["{caller_pc ⊔ y}":10,18-27@Dyn6.jif] <= (C_*M["{*M}":10,23-24@Dyn6.jif] ⊔ C_caller_pc["{caller_pc}":10,18-27@Dyn6.jif])["{*M ⊔ caller_pc}":10,23-24@Dyn6.jif] {};[10,50-61@Dyn6.jif]
+(I_caller_pc["{caller_pc}":10,18-27@Dyn6.jif] ⊔ I_y["{y}":10,40-44@Dyn6.jif])["{caller_pc ⊔ y}":10,18-27@Dyn6.jif] <= (I_*M["{*M}":10,23-24@Dyn6.jif] ⊔ I_caller_pc["{caller_pc}":10,18-27@Dyn6.jif])["{*M ⊔ caller_pc}":10,23-24@Dyn6.jif] {};[10,50-61@Dyn6.jif]
 
