@@ -67,20 +67,20 @@ public class TestAll {
 		/* test for Jif constraint */
 		
 		/* auction */
-//		testAssumptionsSub("test/hypothesis/constraints/AirlineAgent1.con", "- (TheAirline)->(TheAirline) <= C_L;\n", false);// same assumption
-//		/* AirlineAgent2 secure */
-//		/* User1 secure */
-//		testAssumptionsSub("test/hypothesis/constraints/AirlineExample1.con", "- AirlineA <= airlines;\n", false);// same assumption
-//		testAssumptionsSub("test/hypothesis/constraints/AirlineExample2.con", "- AirlineA <= airlines;AirlineB <= airlines;\n", false);// same assumption
-//		/* jif compiler is too conservative in this case. it's secure */
-//		testAssumptionsSub("test/hypothesis/constraints/AirlineExample3.con", "The program passed type checking. No errors were found.", false); // secure
-//		
-//		/* battleship */
-//		testAssumptionsSub("test/hypothesis/constraints/Board1.con", "- (p1)->(p1) <= C_L;(p1)<-(p1) <= I_L;C_L <= (p1)->(p1);I_L <= (p1)<-(p1);\n", false); // same assumption
+		testAssumptionsSub("test/hypothesis/constraints/AirlineAgent1.con", "- (TheAirline)->(TheAirline) <= C_L;\n", false);// same assumption
+		/* AirlineAgent2 secure */
+		/* User1 secure */
+		testAssumptionsSub("test/hypothesis/constraints/AirlineExample1.con", "- AirlineA <= airlines;\n", false);// same assumption
+		testAssumptionsSub("test/hypothesis/constraints/AirlineExample2.con", "- AirlineA <= airlines;AirlineB <= airlines;\n", false);// same assumption
+		/* jif compiler is too conservative in this case. it's secure */
+		testAssumptionsSub("test/hypothesis/constraints/AirlineExample3.con", "The program passed type checking. No errors were found.", false); // secure
+		
+		/* battleship */
+		testAssumptionsSub("test/hypothesis/constraints/Board1.con", "- (p1)->(p1) <= C_L;(p1)<-(p1) <= I_L;C_L <= (p1)->(p1);I_L <= (p1)<-(p1);\n", false); // same assumption
 
 		/* social */
 		/* SocialNetwork1 secure */
-		testAssumptions("test/hypothesis/constraints/SocialNetwork2.con", "- bb <= SN;bg <= SN;user <= SN;\n", false); // same
+		testAssumptionsSub("test/hypothesis/constraints/SocialNetwork2.con", "- bb <= SN;bg <= SN;user <= SN;\n", false); // same
 
 		/* friendmap */
 		testAssumptionsSub("test/hypothesis/constraints/Location1.con", "- C_L <= (C_A)join((⊥)->(⊥));\n", false);// same assumption
@@ -100,7 +100,7 @@ public class TestAll {
 		/* FriendMap12 secure */
 		/* FriendMap13 secure */
 		testAssumptionsSub("test/hypothesis/constraints/FriendMap14.con", "- C_*iterLabel <= (⊤)->(fn);\n", false); // weaker  assumption
-		testAssumptionsSub("test/hypothesis/constraints/FriendMap15.con", "- C_*iterLabel <= (⊤)->(fn);\n", false); // same  assumption
+		testAssumptionsSub("test/hypothesis/constraints/FriendMap15.con", "C_*iterLabel <= (⊤)->(fn);\n", false); // same  assumption
 		testAssumptionsSub("test/hypothesis/constraints/FriendMap16.con", "- (⊤)<-(localStore) <= I_*lbl;C_*lbl <= (⊤)->(localStore);\n", false); // same  assumption
 		testAssumptionsSub("test/hypothesis/constraints/FriendMap17.con", "- C_*l <= (⊤)->(s1);\n", false); // same  assumption
 		testAssumptionsSub("test/hypothesis/constraints/Box1.con", "- C_L <= (C_A)join((⊥)->(⊥));\n", false); // same assumption
@@ -113,7 +113,7 @@ public class TestAll {
 		testAssumptionsSub("test/hypothesis/constraints/MapImage4.con", "- C_*bdry_update <= C_*bdry_access;I_*bdry_update <= I_*bdry_access;\n", false); // same assumption
 		testAssumptionsSub("test/hypothesis/constraints/MapImage5.con", "- C_boundary <= C_L;C_data <= C_L;I_boundary <= I_L;I_data <= I_L;\n", false); // weaker assumption
 		testAssumptionsSub("test/hypothesis/constraints/MapImage6.con", "- C_L <= C_*l;C_a <= C_*l;C_l <= C_*l;I_L <= I_*l;I_a <= I_*l;I_l <= I_*l;\n", false); // weaker assumption (6 assumptions with integrity)
-		testAssumptionsSub("test/hypothesis/constraints/MapServer1.con", "- *l <= (⊤)->(this.store);\n", false); // same assumption
+		testAssumptionsSub("test/hypothesis/constraints/MapServer1.con", "*l <= (⊤)->(this.store);\n", false); // same assumption
 	}
 	
 	@Test
