@@ -290,7 +290,7 @@ element		::= IDENTIFIER:s
 				} 
 			   	else {
 			   		if (!(variables.containsKey(s)))
-			   			variables.put (s, new Variable(s,Position.EmptyPosition()));
+			   			variables.put (s, new Variable(s));
 			   		e = variables.get(s);
 			   	}		
 			   	RESULT = e;

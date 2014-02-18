@@ -14,8 +14,13 @@ public class Variable extends Element {
 	 * @param name Variable name
 	 * @param p Source code position of the variable
 	 */
-	public Variable(String name, Position p) {
-		super(name, p);
+	public Variable(String name) {
+		super(name, Position.EmptyPosition());
+	}
+	
+	@Override
+	public void setPosition(Position pos) {
+		// do nothing
 	}
 	
 	@Override
