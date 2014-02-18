@@ -6,9 +6,16 @@ import graph.EquationEdge;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
 
+/**
+ * A basic unit of constraint explanation
+ */
 public class ConstraintEntity extends Entity {
 	final private Constraint cons;
 	
+	/**
+	 * @param cons A constraint
+	 * @param succ # satisfiable paths using the constraint
+	 */
 	public ConstraintEntity(Constraint cons, int succ) {
 		super(succ);
 		this.cons = cons;
@@ -25,21 +32,21 @@ public class ConstraintEntity extends Entity {
 	}
 	
 	@Override
-	public void toHTML(StringBuffer locBuf, StringBuffer exprBuf) {
+	public void toHTML(StringBuffer locBuf, StringBuffer expBuf) {
 		Element left = cons.getFirstElement();
 		Element right = cons.getSecondElement();
 		locBuf.append("['left', \'"+left.getPosition()+"\'], ");
 		locBuf.append("['right', \'"+right.getPosition()+"\'], ");
-		exprBuf.append(cons.toHTMLString());
+		expBuf.append(cons.toHTMLString());
 	}
 	
 	@Override
-	public void toConsole(StringBuffer locBuf, StringBuffer exprBuf) {
+	public void toConsole(StringBuffer locBuf, StringBuffer expBuf) {
 		Element left = cons.getFirstElement();
 		Element right = cons.getSecondElement();
 		locBuf.append(left.getPosition() + ", ");
 		locBuf.append(right.getPosition() + ", ");
-		exprBuf.append(cons.toConsoleString() + ", ");
+		expBuf.append(cons.toConsoleString() + ", ");
 	}
 
 	

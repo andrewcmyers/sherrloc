@@ -58,9 +58,9 @@ public abstract class InferenceEngine {
 				break;
 			best = list.get(i).getWeight();
 			if (isConsole)
-				sb.append("- " + list.get(i).toConsole() + "\n");
+				sb.append("- " + list.get(i).toConsoleString() + "\n");
 			else
-				sb.append("<LI> " + list.get(i).toHTML());
+				sb.append("<LI> " + list.get(i).toHTMLString());
 		}
 		if (!isConsole)
 			sb.append("</UL>\n");
@@ -71,13 +71,13 @@ public abstract class InferenceEngine {
 				sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
 				sb.append("<div id=\"more_expr\">");
 				for (; i < list.size(); i++) {
-					sb.append(list.get(i).toHTML());
+					sb.append(list.get(i).toHTMLString());
 				}
 				sb.append("</div>\n");
 			} else {
 				sb.append("Other less likely suggestions: \n");
 				for (; i < list.size(); i++) {
-					sb.append(list.get(i).toConsole());
+					sb.append(list.get(i).toConsoleString());
 				}
 			}
 		}

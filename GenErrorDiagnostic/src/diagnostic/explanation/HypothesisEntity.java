@@ -8,10 +8,17 @@ import java.util.Map;
 import constraint.ast.Hypothesis;
 import constraint.ast.Inequality;
 
+/**
+ * A basic unit of missing hypothesis explanation
+ */
 public class HypothesisEntity extends Entity {
-	private Inequality ieq;
-	private Map<Hypothesis, Hypothesis> cachedEnv = new HashMap<Hypothesis, Hypothesis>();
+	final private Inequality ieq;
+	/** reuse saturated hypothesis graph for better performance */
+	private Map<Hypothesis, Hypothesis> cachedEnv = new HashMap<Hypothesis, Hypothesis>();	
 	
+	/**
+	 * @param ieq An inequality
+	 */
 	public HypothesisEntity(Inequality ieq) {
 		super(0);
 		this.ieq = ieq;
