@@ -16,12 +16,7 @@ public class Variable extends Element {
 	public Variable(String name) {
 		super(name, Position.EmptyPosition());
 	}
-	
-	@Override
-	public void setPosition(Position pos) {
-		// do nothing
-	}
-	
+		
 	@Override
 	public List<Variable> getVars () {
 		List<Variable> ret = new ArrayList<Variable>();
