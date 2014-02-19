@@ -2,11 +2,9 @@ package util;
 
 import graph.ConstraintPath;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -88,32 +86,14 @@ public class EntityExplanationFinder extends HeuristicSearch {
 		return 2;
     }
         
-    /**
-	 * Add a new node to the frontier of search tree (<code>queue</code>).
-	 * 
-	 * @param queue
-	 *            The frontier of search tree where the new node is added to
-	 * @param candIdx
-	 *            Index of the entity to be added to the previous search node
-	 *            <code>previous</code>
-	 * @param previous
-	 *            The previous search node
-	 */
+    @Override
 	public void addSerchNode(PriorityQueue<SearchNode> queue, int candIdx,
 			SearchNode previous) {
-		List<ConstraintPath> remaining = new ArrayList<ConstraintPath>();
-		Collection<ConstraintPath> toSat;
-		Set<Integer> set;
+		Set<ConstraintPath> remaining = new HashSet<ConstraintPath>();
+		Set<ConstraintPath> toSat = previous.getRemaining();
+		Set<Integer> set = new HashSet<Integer>(previous.getEntities());
+		set.add(candIdx);
 		Entity cand = candidates[candIdx];
-    	if (previous == null) {
-    		toSat = paths.getPaths();
-    		set = new HashSet<Integer>();
-    	}
-    	else {
-    		toSat = previous.getRemaining();
-    		set = new HashSet<Integer>(previous.getEntities());
-    	}
-    	set.add(candIdx);
     	
     	// calculate the remaining paths to satisfy after the new entity is added
 		for (ConstraintPath path : toSat) {
