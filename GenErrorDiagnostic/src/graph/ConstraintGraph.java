@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import util.StringUtil;
 import constraint.ast.Constraint;
 import constraint.ast.ConstructorApplication;
 import constraint.ast.Element;
@@ -169,20 +170,6 @@ public class ConstraintGraph extends Graph {
         generated = true;
     }
     
-    /**
-	 * This function is used to filter out characters that can not be prettily
-	 * printed in the DOT format such as " and \n
-	 * 
-	 * @param s A string to output to a DOT file
-	 * @return A string without " and \
-	 */
-    private String sanitaze (String s) {
-        if (s!=null)
-            return s.replace('"', '\'').replace("\\", "\\\\");
-        else
-            return s;
-    }
-    
     private String printLinkToDotString (Node node) {
         String ret = "";
         Map<Node, Set<Edge>> neighbors = getNeighbors(node);
@@ -226,7 +213,7 @@ public class ConstraintGraph extends Graph {
                     int linenum = 1;
                     ret += "source [shape=box, label=\"";
                     while (line != null) {                           
-                    	ret += linenum + ":\t" + sanitaze(line) + "\\l";
+                    	ret += linenum + ":\t" + StringUtil.sanitize(line) + "\\l";
                         line = reader.readLine();
                         linenum++;
                     }

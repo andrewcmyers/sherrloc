@@ -5,10 +5,8 @@ import graph.ConstraintGraph;
 import graph.Edge;
 import graph.EdgeCondition;
 import graph.EmptyEdge;
-import graph.JoinEdge;
 import graph.LeftEdge;
 import graph.LeqEdge;
-import graph.MeetEdge;
 import graph.Node;
 import graph.Polarity;
 import graph.ReductionEdge;
@@ -248,12 +246,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 			if (edge instanceof LeqEdge)
 				tryAddingExtraEdges ((LeqEdge)edge, current_length);
 			
-			// the following code is activated for debugging only
-			if (current_length > edge.size) {
-				for (Edge e : edge.getEdges()) {
-					System.out.println(e);
-				}
-			}
 			assert (current_length <= edge.size) : "Error: got a smaller edge "+ current_length + " " + edge.size;
 			
 			current_length = edge.size;
