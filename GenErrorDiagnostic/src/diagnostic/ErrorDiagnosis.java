@@ -174,6 +174,7 @@ public class ErrorDiagnosis implements PrettyPrinter {
     	else {
     		sb.append(getSuggestions(paths));
      		sb.append("<HR>\n" + paths.toHTMLString());
+            sb.append("<button onclick=\"hide_all()\">hide all highlights</button><br>\n");
 
 			if (option.getSourceName() != null) {
 				sb.append(util.genAnnotatedCode(paths, option.getSourceName())
