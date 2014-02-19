@@ -14,27 +14,29 @@ import diagnostic.explanation.Explanation;
 
 /**
  * This class implements the main functionality of A* search. Given a set of
- * entities, method <code>AStarSearch()</code> returns all subsets of entities
- * so that a metric defined in subclass is minimized.
+ * entities, method {@link #findOptimal()} returns all subsets of entities so
+ * that a metric defined in subclass is minimized.
  */
 public abstract class HeuristicSearch {
-    protected final Entity[] candidates;				// a set of candidates to be searched
+    protected final Entity[] candidates;		// a set of candidates to be searched
     private double best=Double.MAX_VALUE;		// current best value
     protected int MAX_SUG = 5;					// if specified, return sub-maximum suggestions
     protected UnsatPaths paths;
     
-    /**
-     * @param candidates a set of candidates to be searched
-     */
+	/**
+	 * @param candidates
+	 *            A set of candidates to be searched
+	 * @param paths
+	 *            Unsatisfiable paths identified in the constraint analysis
+	 */
     public HeuristicSearch(Entity[] candidates, UnsatPaths paths) {
     	this.candidates = candidates;
     	this.paths = paths;
 	}   
     
-    /**
-     * 
-     * 
-     */
+	/**
+	 * A node in the search tree
+	 */
     protected class SearchNode {
     	private Set<Integer> entities;	// a subset of entities (by index)
 		private int index;			// the largest searched index to avoid duplication 
@@ -42,13 +44,17 @@ public abstract class HeuristicSearch {
 		private List<ConstraintPath> remaining; // remaining paths to be solved
     	
 		/**
-		 * 
-		 * @param entities a subset of entities (represented by their indices)
-		 * @param index the largest entity index that is already searched (avoid duplication) 
-		 * @param remaining remaining paths to be solved
-		 * @param est cost estimation
+		 * @param entities
+		 *            a subset of entities (represented by their indices)
+		 * @param index
+		 *            the largest entity index in <code>entities</code> (avoid
+		 *            duplication)
+		 * @param remaining
+		 *            remaining paths to be solved
+		 * @param est
+		 *            cost estimation
 		 */
-    	public SearchNode(Set<Integer> entities, int index, List<ConstraintPath> remaining, double est) {
+    	protected SearchNode(Set<Integer> entities, int index, List<ConstraintPath> remaining, double est) {
     		this.entities = entities;
     		this.index = index;
     		this.est = est;
@@ -70,7 +76,7 @@ public abstract class HeuristicSearch {
 		}
     }
     
-    public Set<Explanation> AStarSearch ( ) {
+    public Set<Explanation> findOptimal ( ) {
     	Set<Explanation> ret = new HashSet<Explanation>();
     	PriorityQueue<SearchNode> queue = new PriorityQueue<SearchNode>(
     			100, new Comparator<SearchNode>() {
@@ -81,7 +87,7 @@ public abstract class HeuristicSearch {
     	
     	// explore the first level
     	for (int i=0; i<candidates.length; i++) {
-    		addSerchNode(queue, i, null, i+1);
+    		addSerchNode(queue, i, null);
     	}
     	
     	while (!queue.isEmpty()) {
@@ -91,8 +97,8 @@ public abstract class HeuristicSearch {
     			return ret;
     		
     		// explore the next level
-        	for (int i=data.index; i<candidates.length; i++) {
-        		addSerchNode(queue, i, data, i+1);
+        	for (int i=data.index; i<candidates.length-1; i++) {
+        		addSerchNode(queue, i+1, data);
         	}
     	}
     	
@@ -121,5 +127,5 @@ public abstract class HeuristicSearch {
 		}
     }
     
-    abstract protected void addSerchNode (PriorityQueue<SearchNode> queue, int candIdx, SearchNode previous, int index);
+    abstract protected void addSerchNode (PriorityQueue<SearchNode> queue, int candIdx, SearchNode previous);
 }

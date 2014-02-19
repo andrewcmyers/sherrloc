@@ -7,9 +7,21 @@ import org.junit.Test;
 
 import diagnostic.ErrorDiagnosis;
 
-
+/**
+ * Unit tests
+ */
 public class TestAll {
 		
+	/**
+	 * Test if there is an error in the program analysis
+	 * 
+	 * @param filename
+	 *            Constraint inputs
+	 * @param expectederror
+	 *            True if the input constrains error
+	 * @param sym
+	 *            True if all constraints are equalities
+	 */
 	public void testErrorPaths (String filename, boolean expectederror, boolean sym) {
 		try {
 			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, true, sym);
@@ -21,6 +33,16 @@ public class TestAll {
 		}
 	}
 	
+	/**
+	 * Test if the error diagnosis identifies the true wrong expression
+	 * 
+	 * @param filename
+	 *            Constraint inputs
+	 * @param loc
+	 *            Location of the true mistake
+	 * @param sym
+	 *            True if all constraints are equalities
+	 */
 	public void testExpression (String filename, String loc, boolean sym) {
 		try {
 			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, true, sym);
@@ -32,6 +54,16 @@ public class TestAll {
 		}
 	}
 	
+	/**
+	 * Test if the error diagnosis identifies the true missing hypothesis
+	 * 
+	 * @param filename
+	 *            Constraint inputs
+	 * @param expected
+	 *            The true missing hypothesis
+	 * @param sym
+	 *            True if all constraints are equalities
+	 */
 	public void testAssumptions (String filename, String expected, boolean sym) {
 		try {
 			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, false, sym);

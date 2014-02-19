@@ -33,7 +33,7 @@ public abstract class InferenceEngine {
 
 		StringBuffer sb = new StringBuffer();
 		long startTime = System.currentTimeMillis();
-		Set<Explanation> results = algorithm.AStarSearch();
+		Set<Explanation> results = algorithm.findOptimal();
 		long endTime = System.currentTimeMillis();
 		if (verbose)
 			System.out.println("ranking_time: " + (endTime - startTime));
