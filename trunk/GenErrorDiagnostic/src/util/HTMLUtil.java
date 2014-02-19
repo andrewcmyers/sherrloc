@@ -18,8 +18,14 @@ import java.util.Set;
 import constraint.ast.Position;
 import diagnostic.UnsatPaths;
 
+/**
+ * Several methods for generating HTML output
+ */
 public class HTMLUtil {
 	
+	/**
+	 * @return Feedback form
+	 */
     public static String getFeedback() {
     	StringBuffer sb = new StringBuffer();
     	sb.append("<div id=feedback class=feedback>\r\n");
@@ -55,6 +61,9 @@ public class HTMLUtil {
     	return sb.toString();
     }
     
+    /**
+     * @return HTML header
+     */
     public static String getHeader () {
     	return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n" +
     			"<!--NewPage-->\n" +
@@ -83,13 +92,29 @@ public class HTMLUtil {
     			"\n";
     }
     
+    /**
+     * @return HTML tail
+     */
     public static String getTail () {
     	return 	"\n\n" +
     			"</BODY>\n" +
     			"</HTML>";
     }
 
-    public static void setShowHideActions(boolean isPath, StringBuffer sb, String loc, int id) {
+    /**
+	 * Enable show/hide all locations provided as a parameter
+	 * 
+	 * @param sb
+	 *            A string buffer to be appended
+	 * @param isPath
+	 *            True if try to set actions for a constraint path; False for an
+	 *            explanation
+	 * @param loc
+	 *            A string of locations to be highlighted
+	 * @param id
+	 *            Explanation id, only used when <code>isPath</code> is false
+	 */
+    public static void setShowHideActions(StringBuffer sb, boolean isPath, String loc, int id) {
 		String num = isPath?"true":"false"; 
 		sb.append(" onmouseover=\"show_elements("+num+", [");
 		sb.append(loc+"]) ");
@@ -103,54 +128,28 @@ public class HTMLUtil {
 		sb.append("\"");
 	}
     
-    // this class is used to ease the ordering of <line, column> pair
-    private class LineColumnPair implements Comparable<LineColumnPair> {
-    	int line;
-    	int column;
-    	// the following two field are only used to break ties
-    	int endline;
-    	int endcol;
-    	String id; 
-    	
-    	public LineColumnPair(int line, int column, int endline, int endcol, String id) {
-    		this.line = line;
-    		this.column = column;
-    		this.endline = endline;
-    		this.endcol = endcol;
-    		this.id = id;
-		}
-    	
-    	public int compareTo(LineColumnPair p) {
-    		if (line!=p.line)
-    			return new Integer(line).compareTo(p.line);
-    		if (column!=p.column)
-    			return new Integer(column).compareTo(p.column);
-    		// order is reverse
-    		if (endline!=p.endline)
-    			return new Integer(p.endline).compareTo(endline);
-    		if (endcol!=p.endcol)
-    			return new Integer(p.endcol).compareTo(endcol);
-    		return 0;
-    	}
-    	    	
-    	@Override
-    	public int hashCode() {
-    		return id.hashCode();
-    	}
-    	
-    }
-    
-    // find all locations involved in the unsat paths, and then wrap the corresponding code with <span> </span> notations
+    /**
+	 * Wrap the source code so that all locations needed to be highlighted
+	 * (e.g., constraint paths, explanations) with "span" annotations for code
+	 * highlighting
+	 * 
+	 * @param unsatPaths
+	 *            Unsatisfiable paths identified by constraint analysis
+	 * @param sourceName
+	 *            Source file
+	 * @return Annotated source code so that all locations needed to be
+	 *         highlighted are properly labeled
+	 */
     public String genAnnotatedCode (UnsatPaths unsatPaths, String sourceName) {
     	StringBuffer sb = new StringBuffer();
-        sb.append("<button onclick=\"hide_all()\">hide all highlights</button><br>\n");
     	sb.append("\n<pre class=\"code\" id=\"code\">\n");
     	
-    	// collect all position information, and sort them
+    	/** collect all position information, and sort them*/
     	List<LineColumnPair> startList = new ArrayList<LineColumnPair>();
     	List<LineColumnPair> endList = new ArrayList<LineColumnPair>();
-    	List<LineColumnPair> emptyList = new ArrayList<LineColumnPair>(); // the set where start=end
-    	Set<Position> posSet = new HashSet<Position>();
+    	List<LineColumnPair> emptyList = new ArrayList<LineColumnPair>(); 	// the set where start=end
+    	Set<Position> posSet = new HashSet<Position>();						// positions require highlighting
+  
     	for (ConstraintPath path : unsatPaths.getPaths()) {
     		Set<Node> nodes = path.getAllNodes();
     		for (Node node : nodes) {
@@ -166,11 +165,15 @@ public class HTMLUtil {
     	
     	for (Position pos : posSet) {
 			if (!pos.isEmpty()) {
-				if (pos.getLineStart()==pos.getLineEnd() && pos.getColStart() == pos.getColEnd())
-					emptyList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
+				if (pos.getLineStart() == pos.getLineEnd()
+						&& pos.getColStart() == pos.getColEnd())
+					emptyList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), 
+							pos.getLineEnd(), pos.getColEnd(), pos.toString()));
 				else {
-					startList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
-					endList.add(new LineColumnPair(pos.getLineEnd(), pos.getColEnd(), pos.getLineEnd(), pos.getColEnd(), pos.toString()));
+					startList.add(new LineColumnPair(pos.getLineStart(), pos.getColStart(), 
+							pos.getLineEnd(), pos.getColEnd(), pos.toString()));
+					endList.add(new LineColumnPair(pos.getLineEnd(), pos.getColEnd(), 
+							pos.getLineEnd(), pos.getColEnd(), pos.toString()));
 				}
 			}
     	}
@@ -253,4 +256,43 @@ public class HTMLUtil {
 		sb.append("</pre>\n");
 		return sb.toString();
 	}
+    
+    /**
+     * Used to facilitate the ordering of <line, column> pair
+     */
+    private class LineColumnPair implements Comparable<LineColumnPair> {
+    	int line;
+    	int column;
+    	// the following two field are only used to break ties
+    	int endline;
+    	int endcol;
+    	String id; 
+    	
+    	public LineColumnPair(int line, int column, int endline, int endcol, String id) {
+    		this.line = line;
+    		this.column = column;
+    		this.endline = endline;
+    		this.endcol = endcol;
+    		this.id = id;
+		}
+    	
+    	public int compareTo(LineColumnPair p) {
+    		if (line!=p.line)
+    			return new Integer(line).compareTo(p.line);
+    		if (column!=p.column)
+    			return new Integer(column).compareTo(p.column);
+    		// order is reverse
+    		if (endline!=p.endline)
+    			return new Integer(p.endline).compareTo(endline);
+    		if (endcol!=p.endcol)
+    			return new Integer(p.endcol).compareTo(endcol);
+    		return 0;
+    	}
+    	    	
+    	@Override
+    	public int hashCode() {
+    		return id.hashCode();
+    	}
+    	
+    }
 }

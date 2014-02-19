@@ -62,7 +62,7 @@ public class UnsatPaths implements PrettyPrinter {
 						+ n.getElement().getPosition() + "\'], ");
 			}
 			sb.append("<LI>\n<span class=\"path\" ");
-			HTMLUtil.setShowHideActions(true, sb, path_buff.toString(), 0);
+			HTMLUtil.setShowHideActions(sb, true, path_buff.toString(), 0);
 			sb.append(">");
 			sb.append("A value with type " + path.getFirstElement()
 					+ " is being used at type " + path.getLastElement());
