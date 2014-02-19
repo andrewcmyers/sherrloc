@@ -63,7 +63,7 @@ public class Explanation implements Comparable<Explanation>, PrettyPrinter {
 			en.toHTML(locBuffer, exprBuffer);
 		}
 		sb.append("<span class=\"path\" ");
-		HTMLUtil.setShowHideActions(false, sb, locBuffer.toString(), 0);
+		HTMLUtil.setShowHideActions(sb, false, locBuffer.toString(), 0);
 		sb.append(">");
 		sb.append(exprBuffer.toString() + "</span>");
 		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
