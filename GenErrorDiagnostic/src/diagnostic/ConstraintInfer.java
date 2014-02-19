@@ -7,8 +7,6 @@ import graph.EquationEdge;
 import java.util.HashSet;
 import java.util.Set;
 
-import util.EntityExplanationFinder;
-import util.HeuristicSearch;
 import constraint.ast.Constraint;
 import diagnostic.explanation.ConstraintEntity;
 import diagnostic.explanation.Entity;

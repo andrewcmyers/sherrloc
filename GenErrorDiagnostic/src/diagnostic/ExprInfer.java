@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import util.EntityExplanationFinder;
-import util.HeuristicSearch;
 import constraint.ast.Element;
 import diagnostic.explanation.Entity;
 import diagnostic.explanation.ExprEntity;

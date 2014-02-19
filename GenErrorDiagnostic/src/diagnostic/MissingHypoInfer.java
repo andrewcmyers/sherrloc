@@ -5,8 +5,6 @@ import graph.ConstraintPath;
 import java.util.HashSet;
 import java.util.Set;
 
-import util.HeuristicSearch;
-import util.MinCutFinder;
 import diagnostic.explanation.Entity;
 import diagnostic.explanation.HypothesisEntity;
 

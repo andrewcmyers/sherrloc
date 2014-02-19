@@ -6,8 +6,6 @@ import graph.Node;
 import java.util.HashSet;
 import java.util.Set;
 
-import util.HeuristicSearch;
-import util.MinCutFinder;
 import constraint.ast.Element;
 import diagnostic.explanation.Entity;
 import diagnostic.explanation.ExprEntity;
