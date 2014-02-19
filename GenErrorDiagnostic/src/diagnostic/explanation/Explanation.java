@@ -7,12 +7,12 @@ import java.util.Set;
 
 import util.HTMLUtil;
 import util.PrettyPrinter;
-import util.RankingMetric;
+import diagnostic.RankingMetric;
 
 /**
- * <code>Explanation</code> is the result of the error diagnosis algorithm. An
- * explanation consists of a set of entities (e.g., expressions, constraints,
- * hypotheses) and a weight w.r.t. ranking metric {@link RankingMetric}
+ * The result of the error diagnosis algorithm. An explanation consists of a set
+ * of entities (e.g., expressions, constraints, hypotheses) and a weight w.r.t.
+ * ranking metric {@link RankingMetric}
  */
 public class Explanation implements Comparable<Explanation>, PrettyPrinter {
 	private final double weight;

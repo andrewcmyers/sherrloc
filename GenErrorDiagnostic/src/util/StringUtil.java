@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * Some utilities on String
+ */
 public class StringUtil {
 	
 	/** 
@@ -19,4 +22,19 @@ public class StringUtil {
     	else
     		return name;
 	}
+	
+    /**
+	 * This function is used to filter out characters that can not be prettily
+	 * printed in the DOT format such as " and \n
+	 * 
+	 * @param s
+	 *            A string to output to a DOT file
+	 * @return A string without " and \
+	 */
+    public static String sanitize (String s) {
+        if (s!=null)
+            return s.replace('"', '\'').replace("\\", "\\\\");
+        else
+            return s;
+    }
 }
