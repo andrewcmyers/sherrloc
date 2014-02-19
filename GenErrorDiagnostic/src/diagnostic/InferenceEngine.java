@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import util.HeuristicSearch;
 import diagnostic.explanation.Entity;
 import diagnostic.explanation.Explanation;
 
