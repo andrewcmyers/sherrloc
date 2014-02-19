@@ -4,7 +4,6 @@ import graph.ConstraintPath;
 
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
@@ -41,7 +40,7 @@ public abstract class HeuristicSearch {
     	private Set<Integer> entities;	// a subset of entities (by index)
 		private int index;			// the largest searched index to avoid duplication 
 		private double est;			// cost estimation
-		private List<ConstraintPath> remaining; // remaining paths to be solved
+		private Set<ConstraintPath> remaining; // remaining paths to be solved
     	
 		/**
 		 * @param entities
@@ -54,7 +53,7 @@ public abstract class HeuristicSearch {
 		 * @param est
 		 *            cost estimation
 		 */
-    	protected SearchNode(Set<Integer> entities, int index, List<ConstraintPath> remaining, double est) {
+    	protected SearchNode(Set<Integer> entities, int index, Set<ConstraintPath> remaining, double est) {
     		this.entities = entities;
     		this.index = index;
     		this.est = est;
@@ -64,7 +63,7 @@ public abstract class HeuristicSearch {
     	/**
     	 * @return remaining unsatisfiable paths to cover
     	 */
-    	public List<ConstraintPath> getRemaining() {
+    	public Set<ConstraintPath> getRemaining() {
 			return remaining;
 		}
     	
@@ -76,6 +75,10 @@ public abstract class HeuristicSearch {
 		}
     }
     
+    /**
+	 * @return Find a subset of candidates that 1) explains errors 2) minimizes
+	 *         the ranking metric
+	 */
     public Set<Explanation> findOptimal ( ) {
     	Set<Explanation> ret = new HashSet<Explanation>();
     	PriorityQueue<SearchNode> queue = new PriorityQueue<SearchNode>(
@@ -87,12 +90,12 @@ public abstract class HeuristicSearch {
     	
     	// explore the first level
     	for (int i=0; i<candidates.length; i++) {
-    		addSerchNode(queue, i, null);
+    		addSerchNode(queue, i, new SearchNode(new HashSet<Integer>(), 0, paths.getPaths(), 0.0));
     	}
     	
     	while (!queue.isEmpty()) {
     		SearchNode data = queue.poll();
-    		boolean stop = goalTest(ret, data, data.est);
+    		boolean stop = goalTest(ret, data);
     		if (stop)
     			return ret;
     		
@@ -105,8 +108,16 @@ public abstract class HeuristicSearch {
     	return ret;
     }
     
-    // return true if the search is done
-    private boolean goalTest (Set<Explanation> ret, SearchNode node, double key) {
+    /**
+	 * @param ret
+	 *            A set of explanations where the search node is added to if the
+	 *            node is an explanation
+	 * @param node
+	 *            A search node to be added if it is an explanation
+	 * @return Return true if the search is done
+	 */
+    private boolean goalTest (Set<Explanation> ret, SearchNode node) {
+    	double key = node.est;
     	if (node.remaining.size()!=0)
     		return false;
     	else {
@@ -127,5 +138,16 @@ public abstract class HeuristicSearch {
 		}
     }
     
+    /**
+	 * Add a new node to the frontier of search tree (<code>queue</code>).
+	 * 
+	 * @param queue
+	 *            The frontier of search tree where the new node is added to
+	 * @param candIdx
+	 *            Index of the entity to be added to the previous search node
+	 *            <code>previous</code>
+	 * @param previous
+	 *            The previous search node
+	 */
     abstract protected void addSerchNode (PriorityQueue<SearchNode> queue, int candIdx, SearchNode previous);
 }
