@@ -1,4 +1,4 @@
-package util;
+package diagnostic;
 
 import graph.ConstraintPath;
 
@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import diagnostic.UnsatPaths;
 import diagnostic.explanation.Entity;
 import diagnostic.explanation.Explanation;
 
