@@ -8,7 +8,7 @@ import graph.EmptyEdge;
 import graph.LeftEdge;
 import graph.LeqEdge;
 import graph.Node;
-import graph.Polarity;
+import graph.Variance;
 import graph.ReductionEdge;
 import graph.RightEdge;
 
@@ -266,7 +266,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					applyLeftRight(sIndex, fIndex, i, ec);
 
 					// LEFT = LEFT LEQ
-					applyLeftLeq(sIndex, fIndex, i, ec, ec.getPolarity()==Polarity.NEG);
+					applyLeftLeq(sIndex, fIndex, i, ec, ec.getVariance()==Variance.NEG);
 				}
 				
 				// next, use the edge as the right part of a reduction rule
@@ -276,7 +276,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	
 					// LEFT := LEFT LEQ
 					for (EdgeCondition ec : shortestLeft[i][sIndex].keySet()) {
-							applyLeftLeq(i, sIndex, fIndex, ec, ec.getPolarity()==Polarity.NEG);
+							applyLeftLeq(i, sIndex, fIndex, ec, ec.getVariance()==Variance.NEG);
 					}
 				}
 			}
