@@ -10,7 +10,7 @@ public class EdgeCondition {
 	private final Constructor con;
 	private final int index;
 	private final boolean reverse;
-	private final Polarity polarity;
+	private final Variance variance;
 	
 	/**
 	 * @param con
@@ -20,14 +20,14 @@ public class EdgeCondition {
 	 *            is connecting to
 	 * @param reverse
 	 *            True if the edge is from constructor to a parameter
-	 * @param pol
+	 * @param v
 	 *            Variance of the parameter
 	 */
-	public EdgeCondition(Constructor con, int index, boolean reverse, Polarity pol) {
+	public EdgeCondition(Constructor con, int index, boolean reverse, Variance v) {
 		this.con = con;
 		this.index = index;
 		this.reverse = reverse;
-		this.polarity = pol;
+		this.variance = v;
 	}
 	
 	/**
@@ -41,14 +41,14 @@ public class EdgeCondition {
 	 * @return A {@link EdgeCondition} that matches this condition
 	 */
 	public EdgeCondition getMatch () {
-		return new EdgeCondition(con, index, !reverse, polarity);
+		return new EdgeCondition(con, index, !reverse, variance);
 	}
 	
 	/**
 	 * @return Variance
 	 */
-	public Polarity getPolarity() {
-		return polarity;
+	public Variance getVariance() {
+		return variance;
 	}
 	
 	@Override
@@ -64,14 +64,14 @@ public class EdgeCondition {
 		if (obj instanceof EdgeCondition) {
 			EdgeCondition ec = (EdgeCondition) obj;
 			return con.equals(ec.con) && index == ec.index 
-				&& reverse == ec.reverse && polarity == ec.polarity; 
+				&& reverse == ec.reverse && variance == ec.variance; 
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return con.hashCode() * 1237 + index * 131 + polarity.ordinal()*5 + (reverse?1:0);
+		return con.hashCode() * 1237 + index * 131 + variance.ordinal()*5 + (reverse?1:0);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class EdgeCondition {
 	 * @return True if current condition matches parameter
 	 */
 	public boolean matches (EdgeCondition c) {
-		return (con.equals(c.con) && index==c.index && logicXOR(reverse,c.reverse) && polarity==c.polarity);
+		return (con.equals(c.con) && index==c.index && logicXOR(reverse,c.reverse) && variance==c.variance);
 	}
 	
 	/**
