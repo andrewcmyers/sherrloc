@@ -38,7 +38,7 @@ public class ErrorDiagnosis implements PrettyPrinter {
 		graph = g;
 		this.option = option;
         util = new HTMLUtil();
-        cana = new ConstraintAnalysisImpl(option.isSymmetric(), option.isVerbose(), option.isRecursive());
+        cana = new ConstraintAnalysisImpl(g.isSymmetric(), option.isVerbose(), option.isRecursive());
 	}
 
 	/**
@@ -69,8 +69,8 @@ public class ErrorDiagnosis implements PrettyPrinter {
 	 * @return An analysis instance
 	 * @throws Exception
 	 */
-	static public ErrorDiagnosis getAnalysisInstance (String consFile, boolean isExpr, boolean isSym) throws Exception {
-		DiagnosticOptions option = new DiagnosticOptions(consFile, isExpr, isSym);
+	static public ErrorDiagnosis getAnalysisInstance (String consFile, boolean isExpr) throws Exception {
+		DiagnosticOptions option = new DiagnosticOptions(consFile, isExpr);
 		
 	    return getAnalysisInstance(option);
 	}
