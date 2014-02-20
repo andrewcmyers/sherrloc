@@ -40,11 +40,12 @@ public class ConstraintGraph extends Graph {
     private Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
     private int varCounter = 0;
 
-    /**
-     * @param env Global assumptions
-     * @param constraints Constraints
-     * 
-     */
+	/**
+	 * @param env
+	 *            Global assumptions
+	 * @param constraints
+	 *            Constraints
+	 */
     public ConstraintGraph (Hypothesis env, Set<Constraint> constraints) {
         this(env);
 		/**
@@ -65,11 +66,12 @@ public class ConstraintGraph extends Graph {
         this.generated = false;
     }
                 
-    /**
+	/**
 	 * Lookup a node representing element <code>e</code> in graph. Create a
 	 * fresh node if no such node exists
 	 * 
-	 * @param e Element to find
+	 * @param e
+	 *            Element to find
 	 * @return A node representing <code>e</code>
 	 */
     public Node getNode (Element e) {
@@ -82,42 +84,45 @@ public class ConstraintGraph extends Graph {
         return eleToNode.get(e);
     }
 
-    /**
-     * @param e A constraint element
-     * @return True if the graph has a node representing <code>e</code>
-     */
+	/**
+	 * @param e
+	 *            A constraint element
+	 * @return True if the graph has a node representing <code>e</code>
+	 */
     public boolean hasElement (Element e) {
     	return eleToNode.containsKey(e);
     }
     
-    /**
+	/**
 	 * Adding a constraint to graph (add edges between nodes representing
 	 * constraint elements)
 	 * 
-	 * @param cons Constraint
+	 * @param cons
+	 *            Constraint
 	 */
     public void addOneConstraint (Constraint cons) {
 		Node source = getNode(cons.getFirstElement());
 		Node to = getNode(cons.getSecondElement());
 
-		addEdge(new EquationEdge(cons, source, to));
+		addEdge(new ConstraintEdge(cons, source, to));
 
 		if (cons.getRelation() == Relation.EQ)
-			addEdge(new EquationEdge(cons, to, source));
+			addEdge(new ConstraintEdge(cons, to, source));
     }
     
     /**
 	 * Adding an inequality to graph
 	 * 
-	 * @param ieq Inequality to be added
+	 * @param ieq
+	 *            Inequality to be added
 	 */
     public void addOneInequality (Inequality ieq) {
     	addOneConstraint(new Constraint(ieq, null, Position.EmptyPosition()));
     }
     
-    /**
-     * Generate a constraint graph from constraints
-     */
+	/**
+	 * Generate a constraint graph from constraints
+	 */
     public void generateGraph ( ) {
         if (generated)
             return;
@@ -170,6 +175,14 @@ public class ConstraintGraph extends Graph {
         generated = true;
     }
     
+	/**
+	 * Links from node to all neighbors in graph in DOT format
+	 * 
+	 * @param node
+	 *            A graph node
+	 * @return A DOT string representing the links from <code>node</code> to all
+	 *         neighbors in graph
+	 */
     private String printLinkToDotString (Node node) {
         String ret = "";
         Map<Node, Set<Edge>> neighbors = getNeighbors(node);
@@ -188,9 +201,9 @@ public class ConstraintGraph extends Graph {
         return ret;
     }
     
-    /**
-     * @return A string in DOT file format which represents the graph
-     */
+	/**
+	 * @return A string in DOT file format which represents the graph
+	 */
     public String toDotString ( ) {
         String ret = "";
         String nodes = "";
@@ -231,9 +244,9 @@ public class ConstraintGraph extends Graph {
         return ret;
     }
     
-    /** 
-     * Mark graph nodes that relates to an error
-     */
+	/**
+	 * Mark graph nodes that relate to errors
+	 */
     public void slicing () {
     	for (Node node : allNodes) {
     		if (node.isCause())
@@ -241,9 +254,9 @@ public class ConstraintGraph extends Graph {
     	}
     }
     
-    /**
-     * @return All constraint elements
-     */
+	/**
+	 * @return All constraint elements
+	 */
     public Set<Element> getAllElements () {
      return eleToNode.keySet();	
     }

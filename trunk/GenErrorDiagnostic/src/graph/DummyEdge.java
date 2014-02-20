@@ -6,42 +6,44 @@ import java.util.Set;
 import constraint.ast.Inequality;
 
 /**
- * Edges representing join elements in the constraint language
+ * A dummy edge used when non-consecutive edges are connected to produce an LEQ
+ * edge (e.g., when all components of a join element <= another element). The
+ * main purpose is to make the inferred path start/end at the right node
  */
-public class JoinEdge extends Edge {
-	
+public class DummyEdge extends Edge {
+
 	/**
 	 * @param from
 	 *            Start node
 	 * @param to
 	 *            End node
 	 */
-	public JoinEdge(Node from, Node to) {
+	public DummyEdge(Node from, Node to) {
 		super(from, to);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "join";
+		return "dummy";
 	}
-	
+
 	@Override
 	public boolean isDirected() {
 		return true;
 	}
-		
+
 	@Override
 	public Set<Inequality> getHypothesis() {
 		return new HashSet<Inequality>();
 	}
-	
+
 	@Override
 	public int getLength() {
-		return 1;
+		return 0;
 	}
-	
+
 	@Override
 	public Edge getReverse() {
-		return new JoinEdge(to, from);
+		return new DummyEdge(to, from);
 	}
 }

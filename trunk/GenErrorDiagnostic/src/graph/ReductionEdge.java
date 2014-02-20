@@ -5,17 +5,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import constraint.analysis.CFLPathFinder;
 import constraint.ast.Inequality;
 
 
-/*
- * Special edges used in CFL-reachability algorithm
+/**
+ * Derived edges that only used in saturated constraint graphs (used in
+ * CFL-reachability algorithm, see {@link CFLPathFinder})
  */
 abstract public class ReductionEdge extends Edge{
-	Edge first;
-	Edge second;
-	public int size;
+	protected final Edge first;
+	protected final Edge second;
+	private final int size;
 	
+	/**
+	 * @param first
+	 *            First edge based on which the constructed edge is derived from
+	 * @param second
+	 *            Second edge based on which the constructed edge is derived
+	 *            from
+	 */
 	public ReductionEdge(Edge first, Edge second) {
 		super(first.from, second.to);
 		if (first instanceof EmptyEdge)
@@ -27,30 +36,10 @@ abstract public class ReductionEdge extends Edge{
 		size = first.getLength()+second.getLength();
 	}
 	
-	public boolean isDirected() {
-		return true;
-	}
-	
-	public String toDotString() {
-		return "reduction";
-	}
-	
-	public String toString() {
-		return "reduction";
-	}
-	
-	public Edge getFirst() {
-		return first;
-	}
-	
-	public Edge getSecond(){
-		return second;
-	}
-	
-	public int getLength () {
-		return size;
-	}
-	
+	/**
+	 * @return All non-reduction edges (edges in the unsaturated constraint
+	 *         graph) that derive this edge
+	 */
 	public List<Edge> getEdges() {
 		List<Edge> ret = new ArrayList<Edge>();
 		if (first instanceof ReductionEdge)
@@ -65,12 +54,26 @@ abstract public class ReductionEdge extends Edge{
 		return ret;
 	}
 	
+	@Override
+	public boolean isDirected() {
+		return true;
+	}
 	
 	@Override
-	public Set<Inequality> getInequalities() {
+	public String toString() {
+		return "reduction";
+	}
+		
+	@Override
+	public int getLength () {
+		return size;
+	}
+	
+	@Override
+	public Set<Inequality> getHypothesis() {
 		Set<Inequality> ret = new HashSet<Inequality>();
-		ret.addAll(first.getInequalities());
-		ret.addAll(second.getInequalities());
+		ret.addAll(first.getHypothesis());
+		ret.addAll(second.getHypothesis());
 		return ret;
 	}
 }

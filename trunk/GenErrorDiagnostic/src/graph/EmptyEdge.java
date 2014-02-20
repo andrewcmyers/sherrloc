@@ -5,6 +5,9 @@ import java.util.Set;
 
 import constraint.ast.Inequality;
 
+/**
+ * A singleton edge representing empty edge
+ */
 public class EmptyEdge extends Edge {
 	private static EmptyEdge instance=null;
 	
@@ -12,15 +15,17 @@ public class EmptyEdge extends Edge {
 		super(null, null);
 	}
 	
+	/**
+	 * @return An instance of empty edge
+	 */
 	public static EmptyEdge getInstance() {
 		if (instance==null)
 			instance = new EmptyEdge();
 		return instance;
 	}
 
-
 	@Override
-	public Set<Inequality> getInequalities() {
+	public Set<Inequality> getHypothesis() {
 		return new HashSet<Inequality>();
 	}
 	

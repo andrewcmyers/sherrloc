@@ -5,7 +5,7 @@ import graph.ConstructorEdge;
 import graph.Edge;
 import graph.EdgeCondition;
 import graph.EmptyEdge;
-import graph.EquationEdge;
+import graph.ConstraintEdge;
 import graph.JoinEdge;
 import graph.LeftEdge;
 import graph.LeqEdge;
@@ -117,7 +117,7 @@ abstract public class CFLPathFinder implements PathFinder {
 		List<Edge> edges = g.getAllEdges();
 
 		for (Edge edge : edges) {
-			if (edge instanceof EquationEdge || edge instanceof MeetEdge
+			if (edge instanceof ConstraintEdge || edge instanceof MeetEdge
 					|| edge instanceof JoinEdge) {
 				addEdge(new LeqEdge(edge, EmptyEdge.getInstance()));
 			} else if (edge instanceof ConstructorEdge) {

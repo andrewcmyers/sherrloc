@@ -6,16 +6,27 @@ import java.util.Set;
 import constraint.ast.Inequality;
 
 /**
- * edges used for constructors
+ * Edges representing constructors
  */
 public class ConstructorEdge extends Edge {
 	EdgeCondition condition;
 	
+	/**
+	 * @param condition
+	 *            {@link EdgeCondition}
+	 * @param from
+	 *            Start node
+	 * @param to
+	 *            End node
+	 */
 	public ConstructorEdge(EdgeCondition condition, Node from, Node to) {
 		super(from, to);
 		this.condition = condition;
 	}
 	
+	/**
+	 * @see EdgeCondition
+	 */
 	public EdgeCondition getCondition() {
 		return condition;
 	}
@@ -31,7 +42,7 @@ public class ConstructorEdge extends Edge {
 	}
 		
 	@Override
-	public Set<Inequality> getInequalities() {
+	public Set<Inequality> getHypothesis() {
 		return new HashSet<Inequality>();
 	}
 	
