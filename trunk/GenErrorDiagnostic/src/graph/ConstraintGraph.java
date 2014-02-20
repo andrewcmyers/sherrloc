@@ -165,9 +165,9 @@ public class ConstraintGraph extends Graph {
                     }
                     else if (e instanceof ConstructorApplication){
                     	ConstructorApplication ce = (ConstructorApplication)e;
-                    	Polarity pol = ce.getCons().isContraVariant()?Polarity.NEG:Polarity.POS;
-                    	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, false, pol), compnode, currentnode));
-                    	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, true, pol), currentnode, compnode));
+                    	Variance variance = ce.getCons().isContraVariant()?Variance.NEG:Variance.POS;
+                    	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, false, variance), compnode, currentnode));
+                    	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, true, variance), currentnode, compnode));
                     }
                 }
             }
