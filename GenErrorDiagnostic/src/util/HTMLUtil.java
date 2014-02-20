@@ -2,7 +2,7 @@ package util;
 
 import graph.ConstraintPath;
 import graph.Edge;
-import graph.EquationEdge;
+import graph.ConstraintEdge;
 import graph.Node;
 
 import java.io.BufferedReader;
@@ -158,8 +158,8 @@ public class HTMLUtil {
     		
     		List<Edge> edges = path.getEdges();
     		for (Edge edge : edges) {
-    			if(edge instanceof EquationEdge)
-    				posSet.add(((EquationEdge)edge).getEquation().getPos());
+    			if(edge instanceof ConstraintEdge)
+    				posSet.add(((ConstraintEdge)edge).getConstraint().getPos());
     		}
     	}
     	

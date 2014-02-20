@@ -2,7 +2,7 @@ package diagnostic;
 
 import graph.ConstraintPath;
 import graph.Edge;
-import graph.EquationEdge;
+import graph.ConstraintEdge;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,8 +30,8 @@ public class ConstraintInfer extends InferenceEngine {
 		
     	for (ConstraintPath path : paths.getPaths()) {
     		for (Edge edge : path.getEdges()) {
-    			if (edge instanceof EquationEdge) {
-    				Constraint cons = ((EquationEdge) edge).getEquation();
+    			if (edge instanceof ConstraintEdge) {
+    				Constraint cons = ((ConstraintEdge) edge).getConstraint();
     				cand.add(new ConstraintEntity(cons, cons.getNumSuccPaths()));
     			}
     		}

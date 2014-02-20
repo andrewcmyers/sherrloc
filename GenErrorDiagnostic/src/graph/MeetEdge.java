@@ -6,11 +6,16 @@ import java.util.Set;
 import constraint.ast.Inequality;
 
 /**
- * A special edge used for the special constructor MEET (aka, UNION)
- * The singleton design pattern is used to save memory consumption
+ * Edges representing meet elements in the constraint language
  */
 public class MeetEdge extends Edge {
 	
+	/**
+	 * @param from
+	 *            Start node
+	 * @param to
+	 *            End node
+	 */
 	public MeetEdge(Node from, Node to) {
 		super(from, to);
 	}
@@ -26,7 +31,7 @@ public class MeetEdge extends Edge {
 	}
 	
 	@Override
-	public Set<Inequality> getInequalities() {
+	public Set<Inequality> getHypothesis() {
 		return new HashSet<Inequality>();
 	}
 	

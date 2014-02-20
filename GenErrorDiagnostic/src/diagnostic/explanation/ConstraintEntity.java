@@ -2,7 +2,7 @@ package diagnostic.explanation;
 
 import graph.ConstraintPath;
 import graph.Edge;
-import graph.EquationEdge;
+import graph.ConstraintEdge;
 import constraint.ast.Constraint;
 import constraint.ast.Element;
 
@@ -24,7 +24,7 @@ public class ConstraintEntity extends Entity {
 	@Override
 	public boolean explains(ConstraintPath p) {
 		for (Edge edge : p.getEdges()) {
-			if (edge instanceof EquationEdge && ((EquationEdge) edge).getEquation().equals(cons)) {
+			if (edge instanceof ConstraintEdge && ((ConstraintEdge) edge).getConstraint().equals(cons)) {
 				return true;
 			}
 		}

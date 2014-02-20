@@ -124,7 +124,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 
 				ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
 
-				if (path.isSuccPath()) {
+				if (path.isSatPath()) {
 					path.incSuccCounter();
 					continue;
 				} else if (path.isUnsatPath()) {

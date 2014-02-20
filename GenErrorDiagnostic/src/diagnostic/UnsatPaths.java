@@ -56,7 +56,7 @@ public class UnsatPaths implements PrettyPrinter {
 		sb.append("<UL>\n");
 		for (ConstraintPath path : errPaths) {
 			StringBuffer path_buff = new StringBuffer();
-			List<Node> nodes = path.getIdNodes();
+			List<Node> nodes = path.getLeqNodes();
 			for (Node n : nodes) {
 				path_buff.append("['pathelement', \'"
 						+ n.getElement().getPosition() + "\'], ");

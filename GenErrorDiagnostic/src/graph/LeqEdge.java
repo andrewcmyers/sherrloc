@@ -1,36 +1,43 @@
 package graph;
 
-/* 
- * a special edge corresponds to nonterminal id 
- * it keeps track of a path for error reporting
+import constraint.analysis.CFLPathFinder;
+
+/**
+ * A special edge representing nonterminal LEQ in CFG (see {@link CFLPathFinder}).
  */
 public class LeqEdge extends ReductionEdge {
-	
+
+	/**
+	 * @param first
+	 *            Start node
+	 * @param second
+	 *            End node
+	 */
 	public LeqEdge(Edge first, Edge second) {
 		super(first, second);
-	}	
-	
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof LeqEdge) {
-			return from.equals(((LeqEdge) obj).from) && to.equals(((LeqEdge) obj).to);
+			return from.equals(((LeqEdge) obj).from)
+					&& to.equals(((LeqEdge) obj).to);
 		}
 		return false;
 	}
-	
+
+	@Override
 	public int hashCode() {
-		return from.hashCode()*5237 + to.hashCode();
+		return from.hashCode() * 5237 + to.hashCode();
 	}
-	
+
+	@Override
 	public String toString() {
 		return "id";
 	}
-	
-	public String toDotString() {
-		return "id";
-	}
-	
+
 	@Override
 	public Edge getReverse() {
 		return new LeqEdge(second.getReverse(), first.getReverse());
-	}	
+	}
 }
