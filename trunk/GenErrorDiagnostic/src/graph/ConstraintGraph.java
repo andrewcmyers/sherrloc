@@ -39,6 +39,7 @@ public class ConstraintGraph extends Graph {
     private final boolean PRINT_SRC = false;                     		// print corresponding source code in DOT files
     private Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
     private int varCounter = 0;
+    private boolean isSymmetric=true;
 
 	/**
 	 * @param env
@@ -108,6 +109,8 @@ public class ConstraintGraph extends Graph {
 
 		if (cons.getRelation() == Relation.EQ)
 			addEdge(new ConstraintEdge(cons, to, source));
+		else
+			isSymmetric = false;
     }
     
     /**
@@ -266,5 +269,12 @@ public class ConstraintGraph extends Graph {
      */
     public Hypothesis getEnv() {
 		return env;
+	}
+    
+    /** 
+     * @return True if all constraints are symmetric (only equalities)
+     */
+    public boolean isSymmetric() {
+		return isSymmetric;
 	}
 }

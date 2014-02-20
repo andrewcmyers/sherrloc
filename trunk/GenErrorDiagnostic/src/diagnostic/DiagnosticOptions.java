@@ -18,7 +18,6 @@ public class DiagnosticOptions {
 	private boolean genBoth;
 	private boolean recursive;
 	private boolean verbose;
-	private boolean symmetric;
 	private boolean dotFile;
 	private boolean toConsole;
 
@@ -38,10 +37,9 @@ public class DiagnosticOptions {
 	 * @param isSym
 	 *            True if only equalities are used
 	 */
-	public DiagnosticOptions(String consFile, boolean isExpr, boolean isSym) {
+	public DiagnosticOptions(String consFile, boolean isExpr) {
 		setDefault();
 		this.consFile = consFile;
-		this.symmetric = isSym;
 		this.genElements = isExpr;
 		this.genHypothesis = !isExpr;
 		this.toConsole = true;
@@ -63,7 +61,6 @@ public class DiagnosticOptions {
 		options.addOption("l", false, "console report");
 		options.addOption("o", true,  "output file");
 		options.addOption("r", false, "allow recursion (e.g., x = list x)");
-		options.addOption("s", false, "symmetric constraints (equalities only)");
 		options.addOption("u", false, "combined report with wrong constraint elements and missing hypothesis (experimental)");
 		options.addOption("v", false, "verbose mode (for evaluation)");
 
@@ -73,7 +70,7 @@ public class DiagnosticOptions {
 			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
 			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("diagnostic", options);
+			formatter.printHelp("diagnostic <options> <constraint file>", options);
 			System.exit(-1);
 		}
 
@@ -94,8 +91,6 @@ public class DiagnosticOptions {
 			htmlFileName = cmd.getOptionValue("o");
 		if (cmd.hasOption("r"))
 			recursive = true;
-		if (cmd.hasOption("s"))
-			symmetric = true;
 		if (cmd.hasOption("u"))
 			genBoth = true;
 		if (cmd.hasOption("v"))
@@ -122,7 +117,6 @@ public class DiagnosticOptions {
 		wholeGraph = false;
 		toConsole = false;
 		recursive = false;
-		symmetric = false;
 		verbose = false;
 		htmlFileName = "error.html";
 	}
@@ -184,13 +178,6 @@ public class DiagnosticOptions {
 	 */
 	public boolean isRecursive() {
 		return recursive;
-	}
-
-	/**
-	 * @return True when only equalities are used in constraints
-	 */
-	public boolean isSymmetric() {
-		return symmetric;
 	}
 
 	/**
