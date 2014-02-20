@@ -26,7 +26,7 @@ else
 }
 
 system ("$bin/ecamlc", $mlfile);
-system ($diagnostic, "-c", "-s", "-i", $mlfile, "error.con");
+system ($diagnostic, "-e", "-s", $mlfile, "error.con");
 
 print TEMP start_html(
     -title=>'Error Diagnostic Report',
