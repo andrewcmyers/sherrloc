@@ -66,28 +66,42 @@ public class Node  {
     public Element getElement() {
 		return element;
 	}
-            
-    @Override
-    public String toString() {
-        return element.toDetailString();
-    }
     
+	/**
+	 * Increase # satisfiable path using the element that this node is
+	 * representing
+	 */
     public void incSuccCounter () {
         element.incSuccCounter();
     }
     
+    /**
+	 * @return # satisfiable path using the element that this node is
+	 *         representing
+	 */
     public int getSuccCounter () {
 		return element.getSuccCounter();
 	}
     
+    /**
+     * @return An unique id for the node
+     */
     public String getUid () {
     	return "v"+index;
     }
     
+    /**
+     * @return Node representation in DOT format
+     */
     public String toDotString () {
         if (isCause())
             return  getUid() + " [style=filled, fillcolor=yellow, label=\"" + element.toDotString()+ "\"];\n";
         else
             return  getUid() + " [label=\"" + element.toDotString()+ "\"];\n";
+    }
+            
+    @Override
+    public String toString() {
+        return element.toDetailString();
     }
 }

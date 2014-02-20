@@ -1,6 +1,6 @@
 package constraint.analysis;
 
-import graph.CompEdge;
+import graph.DummyEdge;
 import graph.ConstraintGraph;
 import graph.Edge;
 import graph.EdgeCondition;
@@ -58,7 +58,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		queue = new PriorityQueue<ReductionEdge>(
 				500, new Comparator<ReductionEdge>() {
 					public int compare(ReductionEdge o1, ReductionEdge o2) {
-						return o1.size - o2.size;
+						return o1.getLength() - o2.getLength();
 					}
 				});
 		shortestLEQ = new int[size][size];
@@ -121,8 +121,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 		else if (edge instanceof LeftEdge) {
 			LeftEdge le = (LeftEdge) edge;
-			shortestLeft[fIndex][tIndex].put(le.cons, 1);
-			leftPath[fIndex][tIndex].put(le.cons, le);
+			shortestLeft[fIndex][tIndex].put(le.getCondition(), 1);
+			leftPath[fIndex][tIndex].put(le.getCondition(), le);
 			queue.offer(edge);		
 		}
 		else if (edge instanceof RightEdge) {
@@ -246,9 +246,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 			if (edge instanceof LeqEdge)
 				tryAddingExtraEdges ((LeqEdge)edge, current_length);
 			
-			assert (current_length <= edge.size) : "Error: got a smaller edge "+ current_length + " " + edge.size;
+			assert (current_length <= edge.getLength()) : "Error: got a smaller edge "+ current_length + " " + edge.getLength();
 			
-			current_length = edge.size;
+			current_length = edge.getLength();
 						
 			for (int i=0; i<allNodes.size(); i++) {
 				// first, use the edge as the left part of a reduction rule
@@ -316,8 +316,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 						int eleIndex = g.getNode(e).getIndex();
 						redEdge = new LeqEdge(leqPath[candIndex][eleIndex], redEdge);
 					}
-					LeqEdge newedge = new LeqEdge(new CompEdge(from, meetnode,""), redEdge);
-					newedge = new LeqEdge(newedge, new CompEdge(from, meetnode,""));
+					LeqEdge newedge = new LeqEdge(new DummyEdge(from, meetnode), redEdge);
+					newedge = new LeqEdge(newedge, new DummyEdge(from, meetnode));
 					shortestLEQ[candIndex][meetIndex] = newedge.getLength();
 					queue.offer(newedge);
 					leqPath[candIndex][meetIndex] = newedge;
@@ -350,8 +350,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 						int eleIndex = g.getNode(e).getIndex();
 						redEdge = new LeqEdge(leqPath[eleIndex][candIndex], redEdge);
 					}
-					LeqEdge newedge = new LeqEdge(new CompEdge(joinnode, to, ""), redEdge);
-					newedge = new LeqEdge(newedge, new CompEdge(joinnode, to, ""));
+					LeqEdge newedge = new LeqEdge(new DummyEdge(joinnode, to), redEdge);
+					newedge = new LeqEdge(newedge, new DummyEdge(joinnode, to));
 					shortestLEQ[joinIndex][candIndex] = newedge.getLength();
 					queue.offer(newedge);
 					leqPath[joinIndex][candIndex] = newedge;
@@ -399,8 +399,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 								t = cnFrom;
 								f = cnTo;
 							}
-							LeqEdge newedge = new LeqEdge(new CompEdge(f, t, ""), redEdge);
-							newedge = new LeqEdge(newedge, new CompEdge(f, t, ""));
+							LeqEdge newedge = new LeqEdge(new DummyEdge(f, t), redEdge);
+							newedge = new LeqEdge(newedge, new DummyEdge(f, t));
 							shortestLEQ[f.getIndex()][t.getIndex()] = newedge.getLength();
 							queue.offer(newedge);
 							leqPath[f.getIndex()][t.getIndex()] = newedge;

@@ -7,20 +7,29 @@ import constraint.ast.Constraint;
 import constraint.ast.Inequality;
 import constraint.ast.Relation;
 
-/* 
- * an edge in graph is either static (join, meet) or dynamic (a flow that generated from an equation) 
- * the difference is determined by if equ is null for now
- * Do we really need static links? Yes, that's a special case of constructor
+/** 
+ * Edges representing constraints
  */ 
-public class EquationEdge extends Edge {
-    Constraint equ;
+public class ConstraintEdge extends Edge {
+    private Constraint equ;
     
-    public EquationEdge(Constraint e, Node from, Node to) {
+	/**
+	 * @param e
+	 *            A constraint
+	 * @param from
+	 *            Start node
+	 * @param to
+	 *            End node
+	 */
+    public ConstraintEdge(Constraint e, Node from, Node to) {
     	super(from, to);
         this.equ = e;
     }
     
-    public Constraint getEquation() {
+	/**
+	 * @return Get the constraint represented by the edge
+	 */
+    public Constraint getConstraint() {
 		return equ;
 	}
     
@@ -31,8 +40,8 @@ public class EquationEdge extends Edge {
     
     @Override
     public boolean equals(Object obj) {
-    	if (obj instanceof EquationEdge)
-    		return equ.equals(((EquationEdge) obj).getEquation());
+    	if (obj instanceof ConstraintEdge)
+    		return equ.equals(((ConstraintEdge) obj).getConstraint());
     	return false;
     }
     
@@ -42,7 +51,7 @@ public class EquationEdge extends Edge {
     }
     
     @Override
-    public Set<Inequality> getInequalities() {
+    public Set<Inequality> getHypothesis() {
     	if (equ.getAssumption()==null)
     		return new HashSet<Inequality>();
     	else
@@ -66,6 +75,6 @@ public class EquationEdge extends Edge {
     
     @Override
     public Edge getReverse() {
-    	return new EquationEdge(equ, to, from);
+    	return new ConstraintEdge(equ, to, from);
     }
 }
