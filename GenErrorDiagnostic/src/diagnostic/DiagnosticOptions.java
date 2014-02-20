@@ -53,15 +53,15 @@ public class DiagnosticOptions {
 	 */
 	public DiagnosticOptions(String[] args) {
 		Options options = new Options();
-		options.addOption("a", false, "generate missing hypothesis");
-		options.addOption("c", false, "generate wrong constraint elements");
 		options.addOption("d", false, "output constraint graph as a DOT file");
-		options.addOption("f", false, "show full dependency graph (use with -d)");
-		options.addOption("i", true,  "source file generating the constraints");
-		options.addOption("l", false, "console report");
+		options.addOption("e", false, "generate wrong constraint elements");
+		options.addOption("f", false, "show full constraint graph (use with -d)");
+		options.addOption("h", false, "generate missing hypothesis");
 		options.addOption("o", true,  "output file");
+		options.addOption("p", false, "console report");
 		options.addOption("r", false, "allow recursion (e.g., x = list x)");
-		options.addOption("u", false, "combined report with wrong constraint elements and missing hypothesis (experimental)");
+		options.addOption("s", true,  "source file generating the constraints");
+		options.addOption("u", false, "unified report with wrong constraint elements and missing hypothesis (experimental)");
 		options.addOption("v", false, "verbose mode (for evaluation)");
 
 		CommandLineParser parser = new PosixParser();
@@ -75,22 +75,22 @@ public class DiagnosticOptions {
 		}
 
 		setDefault();
-		if (cmd.hasOption("a"))
-			genHypothesis = true;
-		if (cmd.hasOption("c"))
-			genElements = true;
 		if (cmd.hasOption("d"))
 			dotFile = true;
+		if (cmd.hasOption("e"))
+			genElements = true;
 		if (cmd.hasOption("f"))
 			wholeGraph = true;
-		if (cmd.hasOption("i"))
-			sourceName = cmd.getOptionValue("i");
-		if (cmd.hasOption("l"))
-			toConsole = true;
+		if (cmd.hasOption("h"))
+			genHypothesis = true;
 		if (cmd.hasOption("o"))
 			htmlFileName = cmd.getOptionValue("o");
+		if (cmd.hasOption("p"))
+			toConsole = true;
 		if (cmd.hasOption("r"))
 			recursive = true;
+		if (cmd.hasOption("s"))
+			sourceName = cmd.getOptionValue("s");
 		if (cmd.hasOption("u"))
 			genBoth = true;
 		if (cmd.hasOption("v"))
@@ -100,7 +100,7 @@ public class DiagnosticOptions {
 			System.out.println("Please privide a constraint file to be analyzed");
 			System.exit(0);
 		} else if (!genElements && !genHypothesis && !genBoth) {
-			System.out.println("Please set at least one of report type: -c -a or -u");
+			System.out.println("Please set at least one of report type: -e -h or -u");
 			System.exit(0);
 		}
 		consFile = cmd.getArgs()[0];
