@@ -64,8 +64,6 @@ public class ErrorDiagnosis implements PrettyPrinter {
 	 * 
 	 * @param consFile
 	 *            Constraint file
-	 * @param isSym
-	 *            True if only equality is used in constraints
 	 * @return An analysis instance
 	 * @throws Exception
 	 */

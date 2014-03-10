@@ -128,6 +128,10 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					path.incSuccCounter();
 					continue;
 				} else if (path.isUnsatPath()) {
+					if (DEBUG) {
+						System.out.println("****** Unsatisfiable path ******");
+						System.out.println(path);
+					}
 					unsatPaths.addUnsatPath(path);
 				}
 			}

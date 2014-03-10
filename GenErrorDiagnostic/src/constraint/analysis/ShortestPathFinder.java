@@ -283,6 +283,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 	}
 	
+	private boolean isLeq (Node n1, Node n2) {
+		if (leqPath[n1.getIndex()][n2.getIndex()] != null)
+			return true;
+		if (g.getEnv() != null
+				&& g.getEnv().leq(n1.getElement(), n2.getElement())) 
+			return true;
+		return false;
+	}
 	/**
 	 * Given a newly discovered LeqEdge, this function tries to identify extra
 	 * LeqEdges by using the properties of meet, join and constructor
@@ -305,8 +313,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				if (leqPath[candIndex][meetIndex] != null)
 					continue;
 				for (Element e : me.getElements()) {
-					int eleIndex = g.getNode(e).getIndex();
-					if (leqPath[candIndex][eleIndex] == null) {
+					if (!isLeq(candidate, g.getNode(e))) {
 						success = false;
 						break;
 					}
@@ -339,8 +346,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				if (leqPath[joinIndex][candIndex] != null)
 					continue;
 				for (Element e : je.getElements()) {
-					int eleIndex = g.getNode(e).getIndex();
-					if (leqPath[eleIndex][candIndex] == null) {
+					if (!isLeq(g.getNode(e), candidate)) {
 						success = false;
 						break;
 					}
@@ -385,7 +391,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							Element e2 = ce2.getElements().get(i);
 							int ie1 = g.getNode(e1).getIndex();
 							int ie2 = g.getNode(e2).getIndex();
-							if (leqPath[ie1][ie2] == null || e1 instanceof Variable || e2 instanceof Variable) {
+							if (!isLeq(g.getNode(e1), g.getNode(e2))) {
 								success = false;
 								break;
 							} else {

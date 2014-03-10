@@ -19,8 +19,6 @@ public class TestAll {
 	 *            Constraint inputs
 	 * @param expectederror
 	 *            True if the input constrains error
-	 * @param sym
-	 *            True if all constraints are equalities
 	 */
 	public void testErrorPaths (String filename, boolean expectederror) {
 		try {
@@ -40,13 +38,12 @@ public class TestAll {
 	 *            Constraint inputs
 	 * @param loc
 	 *            Location of the true mistake
-	 * @param sym
-	 *            True if all constraints are equalities
 	 */
 	public void testExpression (String filename, String loc) {
 		try {
 			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, true);
-			assertTrue(ana.toConsoleString().contains(loc));
+			String result = ana.toConsoleString();
+			assertTrue("Expected ("+loc+"), but got ("+result+")", result.contains(loc));
 		}
 		catch (Exception e) {
 			System.out.println(filename);
@@ -61,8 +58,6 @@ public class TestAll {
 	 *            Constraint inputs
 	 * @param expected
 	 *            The true missing hypothesis
-	 * @param sym
-	 *            True if all constraints are equalities
 	 */
 	public void testAssumptions (String filename, String expected) {
 		try {
