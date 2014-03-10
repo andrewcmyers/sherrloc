@@ -212,7 +212,7 @@ public class Hypothesis {
 	 *            Element on RHS
 	 * @return True if <code>e1 <= e2</code> can be inferred from the hypothesis
 	 */
-	private boolean leqApplyAssertions(Element e1, Element e2) {
+	public boolean leqApplyAssertions(Element e1, Element e2) {
 
 		if (finder == null) {
 			for (Inequality c : getInequalities()) {
