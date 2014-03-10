@@ -287,7 +287,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		if (leqPath[n1.getIndex()][n2.getIndex()] != null)
 			return true;
 		if (g.getEnv() != null
-				&& g.getEnv().leq(n1.getElement(), n2.getElement())) 
+				&& g.getEnv().leqApplyAssertions(
+						n1.getElement().getBaseElement(), n2.getElement().getBaseElement())) 
 			return true;
 		return false;
 	}
