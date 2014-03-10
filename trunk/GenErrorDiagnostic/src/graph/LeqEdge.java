@@ -14,7 +14,7 @@ public class LeqEdge extends ReductionEdge {
 	 *            End node
 	 */
 	public LeqEdge(Edge first, Edge second) {
-		super(first, second);
+		super(first!=null?first:EmptyEdge.getInstance(), second!=null?second:EmptyEdge.getInstance());
 	}
 
 	@Override

@@ -34,8 +34,6 @@ public class DiagnosticOptions {
 	 * @param isExpr
 	 *            Set "True" to infer likely wrong expressions in program; set
 	 *            "False" to infer likely missing hypothesis
-	 * @param isSym
-	 *            True if only equalities are used
 	 */
 	public DiagnosticOptions(String consFile, boolean isExpr) {
 		setDefault();
