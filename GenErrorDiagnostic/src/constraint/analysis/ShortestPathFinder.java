@@ -283,6 +283,11 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 	}
 	
+	/**
+	 * @param n1 Start node
+	 * @param n2 End node
+	 * @return True if n1<=n2 can be inferred from constraint graph, or hypothesis
+	 */
 	private boolean isLeq (Node n1, Node n2) {
 		if (leqPath[n1.getIndex()][n2.getIndex()] != null)
 			return true;

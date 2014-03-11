@@ -20,10 +20,14 @@ public class EntityExplanationFinder extends HeuristicSearch {
     
 	/**
 	 * @see #EntityExplanationFinder(UnsatPaths, Entity[], double, double). Use
-	 *      default value C1=3 and C2=1
+	 *      default value in {@link RankingMetric}
 	 */
     public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates) {
-    	this(paths, candidates, 3, 1);
+    	super (candidates, paths);
+    	for (Entity en : candidates) {
+    		dep.put(en, mapsTo(en));
+    	}
+    	metric = new RankingMetric();
     }
     
     /**
