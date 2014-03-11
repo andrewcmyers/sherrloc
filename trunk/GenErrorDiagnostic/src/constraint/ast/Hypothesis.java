@@ -117,6 +117,10 @@ public class Hypothesis {
 		if (e1.isBottom() || e2.isTop())
 			return true;
 
+		if (e1 instanceof Variable || e2 instanceof Variable) {
+			return true;
+		}
+
 		// an assumption can be made on the join/meet/constructors, so apply
 		// the assumptions first
 		if (rec && leqApplyAssertions(e1, e2))
@@ -227,8 +231,7 @@ public class Hypothesis {
 			if (finder.getPath(graph.getNode(e1), graph.getNode(e2), false) != null)
 				return true;
 			for (Element e : graph.getAllElements()) {
-				if (finder.getPath(graph.getNode(e1), graph.getNode(e), false)!=null && 
-						((e instanceof Variable) || leq(e, e2, false)))
+				if (finder.getPath(graph.getNode(e1), graph.getNode(e), false)!=null && leq(e, e2, false))
 					return true;
 			}
 		}
