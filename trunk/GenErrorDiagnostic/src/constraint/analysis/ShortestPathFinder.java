@@ -286,10 +286,11 @@ public class ShortestPathFinder extends CFLPathFinder {
 	private boolean isLeq (Node n1, Node n2) {
 		if (leqPath[n1.getIndex()][n2.getIndex()] != null)
 			return true;
-		if (g.getEnv() != null
+		if (g.getEnv() != null && !n1.getElement().trivialEnd() && !n2.getElement().trivialEnd()
 				&& g.getEnv().leqApplyAssertions(
-						n1.getElement().getBaseElement(), n2.getElement().getBaseElement())) 
+						n1.getElement().getBaseElement(), n2.getElement().getBaseElement())) {
 			return true;
+		}
 		return false;
 	}
 	/**
@@ -392,7 +393,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							Element e2 = ce2.getElements().get(i);
 							int ie1 = g.getNode(e1).getIndex();
 							int ie2 = g.getNode(e2).getIndex();
-							if (!isLeq(g.getNode(e1), g.getNode(e2))) {
+							if (!isLeq(g.getNode(e1), g.getNode(e2)) || e1 instanceof Variable || e2 instanceof Variable) {
 								success = false;
 								break;
 							} else {
