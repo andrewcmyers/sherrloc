@@ -13,6 +13,7 @@ import org.apache.commons.cli.PosixParser;
 public class DiagnosticOptions {
 	/** a set of options */
 	private boolean wholeGraph;
+	private boolean genConstraints;
 	private boolean genElements;
 	private boolean genHypothesis;
 	private boolean genBoth;
@@ -50,7 +51,8 @@ public class DiagnosticOptions {
 	 *            Command line input
 	 */
 	public DiagnosticOptions(String[] args) {
-		Options options = new Options();
+		Options options = new Options();		
+		options.addOption("c", false, "generate wrong constraints");
 		options.addOption("d", false, "output constraint graph as a DOT file");
 		options.addOption("e", false, "generate wrong constraint elements");
 		options.addOption("f", false, "show full constraint graph (use with -d)");
@@ -73,6 +75,8 @@ public class DiagnosticOptions {
 		}
 
 		setDefault();
+		if (cmd.hasOption("c"))
+			genConstraints = true;
 		if (cmd.hasOption("d"))
 			dotFile = true;
 		if (cmd.hasOption("e"))
@@ -97,8 +101,8 @@ public class DiagnosticOptions {
 		if (cmd.getArgs().length == 0) {
 			System.out.println("Please privide a constraint file to be analyzed");
 			System.exit(0);
-		} else if (!genElements && !genHypothesis && !genBoth) {
-			System.out.println("Please set at least one of report type: -e -h or -u");
+		} else if (!genConstraints && !genElements && !genHypothesis && !genBoth) {
+			System.out.println("Please set at least one of report type: -c -e -h or -u");
 			System.exit(0);
 		}
 		consFile = cmd.getArgs()[0];
@@ -110,6 +114,7 @@ public class DiagnosticOptions {
 	private void setDefault() {
 		dotFile = false;
 		genBoth = false;
+		genConstraints = false;
 		genElements = false;
 		genHypothesis = false;
 		wholeGraph = false;
@@ -157,6 +162,13 @@ public class DiagnosticOptions {
 		return genBoth;
 	}
 
+	/**
+	 * @return True to generate likely wrong constraints
+	 */
+	public boolean isGenConstraints() {
+		return genConstraints;
+	}
+	
 	/**
 	 * @return True to generate likely wrong expressions
 	 */

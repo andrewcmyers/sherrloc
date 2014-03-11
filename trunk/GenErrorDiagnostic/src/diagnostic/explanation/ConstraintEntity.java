@@ -1,10 +1,9 @@
 package diagnostic.explanation;
 
+import graph.ConstraintEdge;
 import graph.ConstraintPath;
 import graph.Edge;
-import graph.ConstraintEdge;
 import constraint.ast.Constraint;
-import constraint.ast.Element;
 
 /**
  * A basic unit of constraint explanation
@@ -33,19 +32,13 @@ public class ConstraintEntity extends Entity {
 	
 	@Override
 	public void toHTML(StringBuffer locBuf, StringBuffer expBuf) {
-		Element left = cons.getFirstElement();
-		Element right = cons.getSecondElement();
-		locBuf.append("['left', \'"+left.getPosition()+"\'], ");
-		locBuf.append("['right', \'"+right.getPosition()+"\'], ");
+		locBuf.append("['left', \'"+cons.getPos()+"\'], ");
 		expBuf.append(cons.toHTMLString());
 	}
 	
 	@Override
 	public void toConsole(StringBuffer locBuf, StringBuffer expBuf) {
-		Element left = cons.getFirstElement();
-		Element right = cons.getSecondElement();
-		locBuf.append(left.getPosition() + ", ");
-		locBuf.append(right.getPosition() + ", ");
+		locBuf.append(cons.getPos() + ", ");
 		expBuf.append(cons.toConsoleString() + ", ");
 	}
 
