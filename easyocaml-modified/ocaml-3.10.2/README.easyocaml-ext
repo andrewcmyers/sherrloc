@@ -3,7 +3,7 @@ language described in the paper "Toward general diagnosis of static errors" by
 Danfeng Zhang and Andrew C. Myers. This implementation is based on EasyOCaml,
 an extension to the OCaml compiler.
 
-To install and run this modified OCaml compiler, please follow the instructions
+To install and run the modified OCaml compiler, please follow the instructions
 in README.easyocaml.
 
 To generate constraint file, use the executables "ecaml" or "ecamlc" in the
