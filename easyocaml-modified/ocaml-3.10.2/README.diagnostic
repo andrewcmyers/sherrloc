@@ -1,0 +1,16 @@
+This software release generates constraints according to the constraint
+language described in the paper "Toward general diagnosis of static errors" by
+Danfeng Zhang and Andrew C. Myers. This implementation is based on EasyOCaml,
+an extension to the OCaml compiler.
+
+To install and run this modified OCaml compiler, please follow the instructions
+in README.easyocaml.
+
+The command line interface of ocaml/ocamlc is unmodified, except that the
+following option is added to enable interprocedural type inferrence:
+
+-inter:  Enable interprocedural type inferrence
+
+The compilation generates a constraint file (error.con) when type inference
+fails. This constraint file can then be fed into the general error diagnostic
+tool, Sherrloc, to find the most likely cause of the type errors.
