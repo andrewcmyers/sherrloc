@@ -309,7 +309,7 @@ let use_file ppf name =
           List.iter
             (fun ph ->
               if !Clflags.dump_parsetree then Printast.top_phrase ppf ph;
-              (* dz: extract the structure if the top level is a module *)
+              (* extract the structure if the top level is a module *)
               match ph with
               | Ptop_def (h::t) -> (
                   match h.Parsetree.pstr_desc with 
