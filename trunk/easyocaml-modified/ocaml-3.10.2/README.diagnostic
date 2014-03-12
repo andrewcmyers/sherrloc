@@ -6,8 +6,9 @@ an extension to the OCaml compiler.
 To install and run this modified OCaml compiler, please follow the instructions
 in README.easyocaml.
 
-The command line interface of ocaml/ocamlc is unmodified, except that the
-following option is added to enable interprocedural type inferrence:
+To generate constraint file, use the executables "ecaml" or "ecamlc" in the
+"bin" directory. The following option is added to the standard OCaml
+command-line interface to enable interprocedural type inferrence:
 
 -inter:  Enable interprocedural type inferrence
 
