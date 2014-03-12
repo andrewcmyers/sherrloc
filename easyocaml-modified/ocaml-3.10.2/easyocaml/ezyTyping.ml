@@ -325,7 +325,7 @@ let type_structure ?program (oenv: Env.t) (sstr: EzyAst.imported_structure) (par
   let enr_str, cs, pp, env' =
     (* logger#atime "Generate constraints" $ *) EzyGenerate.for_structure sstr parsetree env oenv in
   enr_str, env'
-  (* dz: generate constraints only *)
+  (* generate constraints only: no need to solve them *)
   (* if not (EzyErrors.HeavyErrorSet.is_empty pp.EzyGenerate.PostProcess.heavies) then begin
     let heavies = EzyErrors.HeavyErrorSet.add_errors pp.EzyGenerate.PostProcess.errors pp.EzyGenerate.PostProcess.heavies in
     EzyErrors.raise_annotated_error (EzyErrors.Heavies heavies) sstr
@@ -419,7 +419,7 @@ let type_and_compare_implementation sourcefile outputprefix modulename initial_e
 
 let type_and_compare_top_phrase fs oldenv str =
   logger#debug "Conf.load_path: [%a]" (EzyUtils.List.print Format.pp_print_string ", ") (!Config.load_path);
-  (* dz: no need to compare the results. Feed the str to ocaml type inference
+  (* no need to compare the results. Feed the str to ocaml type inference
    * to identify typing errors *)
   (* let ted_str = EzyEnrichedAst.apply_substitution s enr_str in *)
   begin try
