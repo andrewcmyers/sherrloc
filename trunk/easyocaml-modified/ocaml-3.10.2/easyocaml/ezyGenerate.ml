@@ -644,7 +644,7 @@ and collect_rec_bindings env loc bindings =
     List.foldmap process_binding (AtConstrSet.empty, PostProcess.empty, StringSet.empty, env) bindings' in
   (cs, pp, env'), enr_bindings
 
-(* dz: the binding information is feeded to make the named functions more meaningful *)
+(* the binding information is feeded to make the named functions more meaningful *)
 and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> generated_expression * AtConstrSet.t * PostProcess.t =
   fun ?(binding=None) expr env ->
 
@@ -762,11 +762,11 @@ and for_expr: ?binding:string option -> imported_expression -> EzyEnv.t -> gener
                 | Some {pexp_desc = Pexp_tuple sel} when expected_arg_count > 1 -> sel, true
                 | Some se -> [se], false in
             let enr_exps, css, uss = List.split3 (List.map (for_expr // env) sargs) in
-            (* dz: the translation from ["x"] to "x"::[] is unfortunate for error
+            (* note: the translation from ["x"] to "x"::[] is unfortunate for error
              * diagnosis purpose. Here, I explictly avoid translating [] when
              * this case do arise
              *)
-            (* dz: the location information for exp_1 :: exp_2 is somehow incorrect.
+            (* note: the location information for exp_1 :: exp_2 is somehow incorrect.
              * The location is start_of(::) to end_of(exp_2).
              * I fixed the location information here instead of in the parser.
              *) 
