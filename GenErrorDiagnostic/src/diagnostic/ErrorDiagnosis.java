@@ -1,7 +1,6 @@
 package diagnostic;
 
 import graph.ConstraintGraph;
-import graph.ConstraintPath;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -203,10 +202,6 @@ public class ErrorDiagnosis implements PrettyPrinter {
      * @return Output the constraint graph as a string in DOT format
      */
     public String toDotString() {
-    	UnsatPaths paths = cana.genErrorPaths(graph);
-    	for (ConstraintPath path : paths.getPaths()) {
-    		path.setCause();
-    	}
     	if (option.isWholeGraph()) 
         	graph.labelAll();
         else

@@ -60,7 +60,7 @@ public class MeetElement extends EnumerableElement {
 			return true;
 		
 		if (o instanceof MeetElement) {
-			return super.equals(o);
+			return super.equals(o) && pos.equals(((MeetElement) o).pos);
 		}
 		return false;
 	}

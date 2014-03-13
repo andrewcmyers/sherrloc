@@ -133,6 +133,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 						System.out.println(path);
 					}
 					unsatPaths.addUnsatPath(path);
+		    		path.setCause();
 				}
 			}
 		}
