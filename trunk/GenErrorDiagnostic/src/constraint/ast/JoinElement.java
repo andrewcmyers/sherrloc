@@ -69,7 +69,7 @@ public class JoinElement extends EnumerableElement {
 			return true;
 		
 		if (o instanceof JoinElement) {
-			return super.equals(o);
+			return super.equals(o) && pos.equals(((JoinElement) o).pos);
 		}
 		return false;
 	}
@@ -104,5 +104,5 @@ public class JoinElement extends EnumerableElement {
 			baseElements.add(e.getBaseElement());
 		}
 		return new JoinElement(baseElements);
-	}
+	}	
 }

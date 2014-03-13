@@ -139,6 +139,9 @@ public abstract class EnumerableElement extends Element {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof EnumerableElement) {
+			if (!pos.equals(((EnumerableElement) o).pos))
+				return false;
+			
 			List<Element> list2 = ((EnumerableElement) o).elements;
 			for (Element e : elements) {
 				if (!list2.contains(e))
@@ -158,6 +161,6 @@ public abstract class EnumerableElement extends Element {
 		for (Element e : elements) {
 			ret += e.hashCode();
 		}
-		return ret;
+		return ret+pos.hashCode();
 	}
 }
