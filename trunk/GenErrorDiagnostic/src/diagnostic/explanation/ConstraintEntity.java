@@ -23,7 +23,7 @@ public class ConstraintEntity extends Entity {
 	@Override
 	public boolean explains(ConstraintPath p) {
 		for (Edge edge : p.getEdges()) {
-			if (edge instanceof ConstraintEdge && ((ConstraintEdge) edge).getConstraint().equals(cons)) {
+			if (edge instanceof ConstraintEdge && ((ConstraintEdge) edge).getConstraint().toString().equals(cons.toString())) {
 				return true;
 			}
 		}
@@ -46,13 +46,13 @@ public class ConstraintEntity extends Entity {
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof ConstraintEntity) {
-			return cons.equals(((ConstraintEntity) other).cons);
+			return cons.toString().equals(((ConstraintEntity) other).cons.toString());
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return cons.hashCode();
+		return cons.toString().hashCode();
 	}
 }
