@@ -94,7 +94,7 @@ public class Constraint implements PrettyPrinter {
 	
 	@Override
 	public String toString () {
-		return conclusion.toConsoleString()+pos.toString();
+		return conclusion.toString()+pos.toString();
 	}
 		
 	@Override
