@@ -110,7 +110,21 @@ public class EntityExplanationFinder extends HeuristicSearch {
 		for (Integer j : set) {
 			succSum+=candidates[j].getSuccCount();
 		}
-		double real = metric.getScore(set.size(),succSum);
+		
+		// the entities may belong to the same expression/constraint (e.g.,
+		// confidentiality and integrity), we add a penalty of 0.5 for such cases.
+		Set<String> candStr = new HashSet<String>();
+		double size = 0;
+		for (int i : set) {
+			if (candStr.contains(candidates[i].toString())) {
+				size += 0.5;
+			}
+			else {
+				candStr.add(candidates[i].toString());
+				size += 1;
+			}
+		}
+		double real = metric.getScore(size, succSum);
 		double est = metric.getScore(Estimate(remaining, candIdx+1),0);
 		double key = real + est;
 		SearchNode newnode = new SearchNode(set, candIdx, remaining, key);
