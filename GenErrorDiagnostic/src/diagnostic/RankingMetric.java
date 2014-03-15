@@ -36,7 +36,7 @@ public class RankingMetric {
 	 *            # Successful paths using elements in the suggestion
 	 * @return <code>P1*setsize+P2*succ</code>
 	 */
-	public double getScore(int setsize, double succ) {
+	public double getScore(double setsize, double succ) {
     	return P1*setsize + P2*succ;
     }
 }
