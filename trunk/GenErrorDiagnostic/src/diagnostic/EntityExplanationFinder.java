@@ -22,8 +22,8 @@ public class EntityExplanationFinder extends HeuristicSearch {
 	 * @see #EntityExplanationFinder(UnsatPaths, Entity[], double, double). Use
 	 *      default value in {@link RankingMetric}
 	 */
-    public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates) {
-    	super (candidates, paths);
+    public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates, int nSubopt) {
+    	super (candidates, paths, nSubopt);
     	for (Entity en : candidates) {
     		dep.put(en, mapsTo(en));
     	}
@@ -41,8 +41,8 @@ public class EntityExplanationFinder extends HeuristicSearch {
 	 * @param C2
 	 *            Value of C2 in ranking metric C1*|E|+C2*k_E
 	 */
-    public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates, double C1, double C2) {
-    	super (candidates, paths);
+    public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates, int nSubopt, double C1, double C2) {
+    	super (candidates, paths, nSubopt);
     	for (Entity en : candidates) {
     		dep.put(en, mapsTo(en));
     	}
@@ -111,8 +111,8 @@ public class EntityExplanationFinder extends HeuristicSearch {
 			succSum+=candidates[j].getSuccCount();
 		}
 		
-		// the entities may belong to the same expression/constraint (e.g.,
-		// confidentiality and integrity), we add a penalty of 0.5 for such cases.
+		// different entities may belong to the same expression/constraint
+		// (e.g., confidentiality and integrity), we add a penalty of 0.5 for such cases
 		Set<String> candStr = new HashSet<String>();
 		double size = 0;
 		for (int i : set) {

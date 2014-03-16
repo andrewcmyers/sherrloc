@@ -23,8 +23,8 @@ public class UnifiedExplanationInfer extends InferenceEngine {
 	 * @param paths
 	 *            All unsatisfiable paths identified in constraint analysis
 	 */
-	public UnifiedExplanationInfer(UnsatPaths paths) {
-		super(paths);
+	public UnifiedExplanationInfer(UnsatPaths paths, DiagnosticOptions opt) {
+		super(paths, opt);
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class UnifiedExplanationInfer extends InferenceEngine {
 	
 	@Override
 	public HeuristicSearch getAlogithm(Set<Entity> candidates) {
-		return new MinCutFinder(paths, candidates.toArray(new Entity[candidates.size()]));
+		return new MinCutFinder(paths, candidates.toArray(new Entity[candidates.size()]), options.getNSubopt());
 	}
 	
 	@Override

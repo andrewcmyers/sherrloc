@@ -14,19 +14,21 @@ import diagnostic.explanation.Explanation;
 public abstract class InferenceEngine {
 
 	protected UnsatPaths paths;
+	protected DiagnosticOptions options;
 
 	/**
 	 * @param paths
 	 *            A set of unsatisfiable paths (errors) to be explained
 	 */
-	public InferenceEngine(UnsatPaths paths) {
+	public InferenceEngine(UnsatPaths paths, DiagnosticOptions opt) {
 		this.paths = paths;
+		this.options = opt;
 	}
 
 	/**
 	 * @return Best explanation of the errors observed in constraint graph
 	 */
-	public String infer(boolean isConsole, boolean verbose) {
+	public String infer( ) {
 		final Set<Entity> cand = getCandidates();
 		HeuristicSearch algorithm = getAlogithm(cand);
 
@@ -34,10 +36,10 @@ public abstract class InferenceEngine {
 		long startTime = System.currentTimeMillis();
 		Set<Explanation> results = algorithm.findOptimal();
 		long endTime = System.currentTimeMillis();
-		if (verbose)
+		if (options.isVerbose())
 			System.out.println("ranking_time: " + (endTime - startTime));
 
-		if (!isConsole)
+		if (!options.isToConsole())
 			sb.append("\n" + HTMLinfo());
 		else
 			sb.append(info());
@@ -50,23 +52,23 @@ public abstract class InferenceEngine {
 
 		double best = Double.MAX_VALUE;
 		int i = 0;
-		if (!isConsole)
+		if (!options.isToConsole())
 			sb.append("<UL>\n");
 		for (; i < list.size(); i++) {
 			if (list.get(i).getWeight() > best)
 				break;
 			best = list.get(i).getWeight();
-			if (isConsole)
+			if (options.isToConsole())
 				sb.append("- " + list.get(i).toConsoleString() + "\n");
 			else
 				sb.append("<LI> " + list.get(i).toHTMLString());
 		}
-		if (!isConsole)
+		if (!options.isToConsole())
 			sb.append("</UL>\n");
-		if (verbose)
+		if (options.isVerbose())
 			System.out.println("top_rank_size: " + i);
 		if (i < list.size()) {
-			if (!isConsole) {
+			if (!options.isToConsole()) {
 				sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");
 				sb.append("<div id=\"more_expr\">");
 				for (; i < list.size(); i++) {

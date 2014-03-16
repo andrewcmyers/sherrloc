@@ -21,6 +21,7 @@ public class DiagnosticOptions {
 	private boolean verbose;
 	private boolean dotFile;
 	private boolean toConsole;
+	private int nSubopt;
 
 	/** input/output files */
 	private String sourceName;
@@ -52,15 +53,16 @@ public class DiagnosticOptions {
 	 */
 	public DiagnosticOptions(String[] args) {
 		Options options = new Options();		
-		options.addOption("c", false, "generate wrong constraints");
+		options.addOption("c", false, "generate likely wrong constraints");
 		options.addOption("d", false, "output constraint graph as a DOT file");
-		options.addOption("e", false, "generate wrong constraint elements");
+		options.addOption("e", false, "generate likely wrong constraint elements");
 		options.addOption("f", false, "show full constraint graph (use with -d)");
-		options.addOption("h", false, "generate missing hypothesis");
+		options.addOption("h", false, "generate likely missing hypothesis");
+		options.addOption("n", true,  "number of suboptimal suggestions to report. Default value is zero");
 		options.addOption("o", true,  "output file");
 		options.addOption("p", false, "console report");
 		options.addOption("r", false, "allow recursion (e.g., x = list x)");
-		options.addOption("s", true,  "source file generating the constraints");
+		options.addOption("s", true,  "source file which generates the constraints");
 		options.addOption("u", false, "unified report with wrong constraint elements and missing hypothesis (experimental)");
 		options.addOption("v", false, "verbose mode (for evaluation)");
 
@@ -85,6 +87,15 @@ public class DiagnosticOptions {
 			wholeGraph = true;
 		if (cmd.hasOption("h"))
 			genHypothesis = true;
+		if (cmd.hasOption("n")) {
+			try {
+				nSubopt = Integer.parseInt(cmd.getOptionValue("n"));
+			}
+			catch (NumberFormatException exp) {
+				System.out.println("-n requires an integer parameter");
+				System.exit(0);
+			}
+		}
 		if (cmd.hasOption("o"))
 			htmlFileName = cmd.getOptionValue("o");
 		if (cmd.hasOption("p"))
@@ -122,6 +133,7 @@ public class DiagnosticOptions {
 		recursive = false;
 		verbose = false;
 		htmlFileName = "error.html";
+		nSubopt = 0;
 	}
 
 	/**
@@ -209,5 +221,12 @@ public class DiagnosticOptions {
 	 */
 	public boolean isWholeGraph() {
 		return wholeGraph;
+	}
+	
+	/**
+	 * @return Number of suboptimal suggestions to report
+	 */
+	public int getNSubopt() {
+		return nSubopt;
 	}
 }

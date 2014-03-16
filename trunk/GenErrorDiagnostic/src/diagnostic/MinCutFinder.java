@@ -15,7 +15,7 @@ public class MinCutFinder extends EntityExplanationFinder {
 	 *            A set of entities so that all subsets can be a potential
 	 *            explanation
 	 */
-    public MinCutFinder(UnsatPaths paths, Entity[] candidates) {
-    	super(paths, candidates, 1, 0);
+    public MinCutFinder(UnsatPaths paths, Entity[] candidates, int nOpt) {
+    	super(paths, candidates, nOpt, 1, 0);
     }
 }
