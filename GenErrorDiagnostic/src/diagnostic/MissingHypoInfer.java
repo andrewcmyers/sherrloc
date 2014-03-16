@@ -20,8 +20,8 @@ public class MissingHypoInfer extends InferenceEngine {
 	 * @param paths
 	 *            Unsatisfiable paths identified by constraint analysis
 	 */
-	public MissingHypoInfer(UnsatPaths paths) {
-		super(paths);
+	public MissingHypoInfer(UnsatPaths paths, DiagnosticOptions opt) {
+		super(paths, opt);
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class MissingHypoInfer extends InferenceEngine {
 	
 	@Override
 	public HeuristicSearch getAlogithm(Set<Entity> candidates) {
-		return new MinCutFinder(paths, candidates.toArray(new Entity[candidates.size()]));
+		return new MinCutFinder(paths, candidates.toArray(new Entity[candidates.size()]), options.getNSubopt());
 	}
     
     @Override

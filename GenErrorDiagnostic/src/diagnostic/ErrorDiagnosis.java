@@ -91,16 +91,16 @@ public class ErrorDiagnosis implements PrettyPrinter {
     	StringBuffer sb = new StringBuffer();
     	
     	if (option.isGenHypothesis()) {
-    		sb.append((new MissingHypoInfer(paths)).infer(option.isToConsole(), option.isVerbose()));
+    		sb.append((new MissingHypoInfer(paths, option)).infer());
     	}
     	if (option.isGenConstraints()) {
-    		sb.append((new ConstraintInfer(paths)).infer(option.isToConsole(), option.isVerbose()));
+    		sb.append((new ConstraintInfer(paths, option)).infer());
     	}
     	if (option.isGenElements()) {
-    		sb.append((new ExprInfer(paths, graph.getAllNodes())).infer(option.isToConsole(), option.isVerbose()));
+    		sb.append((new ExprInfer(paths, graph.getAllNodes(), option)).infer());
     	}
     	if (option.isGenBoth()) {
-    		sb.append(new UnifiedExplanationInfer(paths).infer(option.isToConsole(), option.isVerbose()));
+    		sb.append(new UnifiedExplanationInfer(paths, option).infer());
     	}
     	
     	return sb.toString();
