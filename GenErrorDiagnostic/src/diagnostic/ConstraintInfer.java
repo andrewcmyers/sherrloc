@@ -20,8 +20,8 @@ public class ConstraintInfer extends InferenceEngine {
 	 * @param paths
 	 *            All unsatisfiable paths identified in constraint analysis
 	 */
-	public ConstraintInfer(UnsatPaths paths) {
-		super(paths);		
+	public ConstraintInfer(UnsatPaths paths, DiagnosticOptions opt) {
+		super(paths, opt);		
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class ConstraintInfer extends InferenceEngine {
 	@Override
 	public HeuristicSearch getAlogithm(Set<Entity> candidates) {
     	Entity[] candarr = candidates.toArray(new Entity[candidates.size()]);
-    	return new EntityExplanationFinder(paths, candarr);		
+    	return new EntityExplanationFinder(paths, candarr, options.getNSubopt());		
 	}
 	
 	@Override

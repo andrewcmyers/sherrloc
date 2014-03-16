@@ -18,18 +18,22 @@ import diagnostic.explanation.Explanation;
 public abstract class HeuristicSearch {
     protected final Entity[] candidates;		// a set of candidates to be searched
     private double best=Double.MAX_VALUE;		// current best value
-    protected int MAX_SUG = 5;					// if specified, return sub-maximum suggestions
     protected UnsatPaths paths;
+    private int nSubopt;
+    private int subOptCount = 0;
     
 	/**
 	 * @param candidates
 	 *            A set of candidates to be searched
 	 * @param paths
 	 *            Unsatisfiable paths identified in the constraint analysis
+	 * @param nSubopt
+	 *            Number of suboptimal suggestions to report
 	 */
-    public HeuristicSearch(Entity[] candidates, UnsatPaths paths) {
+    public HeuristicSearch(Entity[] candidates, UnsatPaths paths, int nSubopt) {
     	this.candidates = candidates;
     	this.paths = paths;
+    	this.nSubopt = nSubopt;
 	}   
     
 	/**
@@ -123,7 +127,9 @@ public abstract class HeuristicSearch {
     		// test if this is an end node before searching deeper
 			if (best==Double.MAX_VALUE)
 				best = key;
-			if (key<=best /*|| ret.size()<MAX_SUG*/) {
+			if (key<=best || subOptCount<nSubopt) {
+				if (key > best)
+					subOptCount ++;
 				Set<Entity> eset = new HashSet<Entity>();
 				for (Integer j:node.entities) {
 					eset.add(candidates[j]);

@@ -27,8 +27,8 @@ public class ExprInfer extends InferenceEngine {
 	 *            All nodes in the constraint graph. Used to retrieve #
 	 *            satisfiable paths using the expressions
 	 */
-	public ExprInfer(UnsatPaths paths, Set<Node> allNodes) {
-		super(paths);
+	public ExprInfer(UnsatPaths paths, Set<Node> allNodes, DiagnosticOptions opt) {
+		super(paths, opt);
 		
         // gather # satisfiable paths using an expression (represented by string)
 		succCount = new HashMap<String, Integer>();
@@ -60,7 +60,7 @@ public class ExprInfer extends InferenceEngine {
 	@Override
 	public HeuristicSearch getAlogithm(Set<Entity> candidates) {
     	Entity[] candarr = candidates.toArray(new Entity[candidates.size()]);
-		return new EntityExplanationFinder(paths, candarr);
+		return new EntityExplanationFinder(paths, candarr, options.getNSubopt());
 	}
 	
 	@Override
