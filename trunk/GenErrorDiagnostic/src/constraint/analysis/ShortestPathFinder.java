@@ -214,9 +214,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 				if (!useReverse)
 					newedge = new LeftEdge(ec, leftPath[leftS][leftE].get(ec), leqPath[leqS][leqE]);
 				else
-					// have to reverse the ID edge to make sure the newedge has right end node
+					// have to reverse the leq edge to make sure the newedge has right end node 
 					newedge = new LeftEdge(ec, leftPath[leftS][leftE].get(ec), leqPath[leqS][leqE].getReverse());
-
 				shortestLeft[leftS][newE].put(ec, shortestLeft[leftS][leftE].get(ec) + shortestLEQ[leqS][leqE]);
 				queue.offer(newedge);
 				leftPath[leftS][newE].put(ec, newedge);
@@ -316,8 +315,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 				int meetIndex = meetnode.getIndex();
 				boolean success = true;
 				Edge redEdge = EmptyEdge.getInstance();
-
-				if (leqPath[candIndex][meetIndex] != null)
+				
+				if (leqPath[candIndex][meetIndex] != null || candIndex == meetIndex)
 					continue;
 				for (Element e : me.getElements()) {
 					if (!isLeq(candidate, g.getNode(e))) {
@@ -326,15 +325,18 @@ public class ShortestPathFinder extends CFLPathFinder {
 					}
 				}
 				if (success) {
+					Node prev = from;
 					for (Element e : me.getElements()) {
 						int eleIndex = g.getNode(e).getIndex();
-						redEdge = new LeqEdge(leqPath[candIndex][eleIndex], redEdge);
+						redEdge = new LeqEdge(redEdge, new DummyEdge(prev, candidate));
+						redEdge = new LeqEdge(redEdge, leqPath[candIndex][eleIndex]);
+						prev = g.getNode(e);
 					}
-					LeqEdge newedge = new LeqEdge(new DummyEdge(from, meetnode), redEdge);
-					newedge = new LeqEdge(newedge, new DummyEdge(from, meetnode));
+					LeqEdge newedge = new LeqEdge(redEdge, new DummyEdge(prev, meetnode));
 					shortestLEQ[candIndex][meetIndex] = newedge.getLength();
 					queue.offer(newedge);
 					leqPath[candIndex][meetIndex] = newedge;
+					assert (newedge.getFrom().getIndex() == candIndex && newedge.getTo().getIndex() == meetIndex);
 				}
 			}
 		}
@@ -350,7 +352,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				boolean success = true;
 				Edge redEdge = EmptyEdge.getInstance();
 
-				if (leqPath[joinIndex][candIndex] != null)
+				if (leqPath[joinIndex][candIndex] != null || joinIndex == candIndex)
 					continue;
 				for (Element e : je.getElements()) {
 					if (!isLeq(g.getNode(e), candidate)) {
@@ -359,12 +361,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 					}
 				}
 				if (success) {
+					Node prev = joinnode;
 					for (Element e : je.getElements()) {
 						int eleIndex = g.getNode(e).getIndex();
-						redEdge = new LeqEdge(leqPath[eleIndex][candIndex], redEdge);
+						redEdge = new LeqEdge(redEdge, new DummyEdge(prev, g.getNode(e)));
+						redEdge = new LeqEdge(redEdge, leqPath[eleIndex][candIndex]);
+						prev = candidate;
 					}
-					LeqEdge newedge = new LeqEdge(new DummyEdge(joinnode, to), redEdge);
-					newedge = new LeqEdge(newedge, new DummyEdge(joinnode, to));
+					LeqEdge newedge = new LeqEdge(redEdge, new DummyEdge(prev, candidate));
 					shortestLEQ[joinIndex][candIndex] = newedge.getLength();
 					queue.offer(newedge);
 					leqPath[joinIndex][candIndex] = newedge;
@@ -381,17 +385,21 @@ public class ShortestPathFinder extends CFLPathFinder {
 					ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement(); 
 					ConstructorApplication ce2 = (ConstructorApplication) cnTo.getElement();
 
-					if (!ce1.getCons().isContraVariant()
-							&& leqPath[cnFrom.getIndex()][cnTo.getIndex()] != null)
+					Node f = cnFrom;
+					Node t = cnTo;
+					if (ce1.getCons().isContraVariant()) {
+						t = cnFrom;
+						f = cnTo;
+					}
+					
+					if (leqPath[f.getIndex()][t.getIndex()] != null || f.getIndex() == t.getIndex())
 						continue;
-					if (ce1.getCons().isContraVariant()
-							&& leqPath[cnTo.getIndex()][cnFrom.getIndex()] != null)
-						continue;
-
+	
 					if (ce1.getCons().equals(ce2.getCons())) {
 						// check if all elements flows into another constructor
 						boolean success = true;
 						Edge redEdge = EmptyEdge.getInstance();
+						Node prev = f; 
 
 						for (int i = 0; i < ce1.getCons().getArity(); i++) {
 							Element e1 = ce1.getElements().get(i);
@@ -402,17 +410,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 								success = false;
 								break;
 							} else {
-								redEdge = new LeqEdge(leqPath[ie1][ie2], redEdge);
+								redEdge = new LeqEdge(redEdge, new DummyEdge(prev, g.getNode(e1)));
+								redEdge = new LeqEdge(redEdge, leqPath[ie1][ie2]);
+								prev = g.getNode(e2);
 							}
 						}
 						if (success) {
-							Node f = cnFrom;
-							Node t = cnTo;
-							if (ce1.getCons().isContraVariant()) {
-								t = cnFrom;
-								f = cnTo;
-							}
-							LeqEdge newedge = new LeqEdge(new DummyEdge(f, t), redEdge);
+							LeqEdge newedge = new LeqEdge(redEdge, new DummyEdge(prev, t));
 							newedge = new LeqEdge(newedge, new DummyEdge(f, t));
 							shortestLEQ[f.getIndex()][t.getIndex()] = newedge.getLength();
 							queue.offer(newedge);
