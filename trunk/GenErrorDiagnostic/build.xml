@@ -1,68 +1,121 @@
-<project name="diagnostic" default="diagnostic" basedir=".">
-	<description>
-    Build file for general error diagnostic
+<project name="sherrloc" default="sherrloc" basedir=".">
+  <description>
+    Build file for the SHErrLoc tool
    </description>
 
-	<!-- set global properties for this build -->
-	<property name="src" location="${basedir}/src"/>
-	<property name="constraint" location="${src}/constraint"/>
-	<property name="parse" location="${constraint}/parse" />
-	<property name="build" location="${basedir}/build"/>
-	<property name="lib" location="${basedir}/lib"/>
+  <!-- set global properties for this build -->
+  <property name="src" location="${basedir}/src"/>
+  <property name="parse" location="${src}/sherrloc/constraint/parse" />
+  <property name="build" location="${basedir}/build"/>
+  <property name="lib" location="${basedir}/lib"/>
+  <!-- distribution directory -->
+  <property name="dist" location="${basedir}/dist"/>
 
-	<available file="${lib}/JFlex.jar" type="file" property="jflex.jar.available" />
-	<available file="${lib}/java-cup-11a.jar" type="file" property="javacup.jar.available" />
+  <available file="${lib}/JFlex.jar" type="file" property="jflex.jar.available" />
+  <available file="${lib}/java-cup-11a.jar" type="file" property="javacup.jar.available" />
 
-	<path id="libraries">
+  <path id="libraries">
         <pathelement location="bin"/>
         <pathelement location="lib/java-cup-11a.jar"/>
         <pathelement location="lib/commons-cli-1.2.jar"/>
- 	    <pathelement location="lib/JFlex.jar"/>
-	    <pathelement location="lib/junit-4.5.jar"/>
-	</path>
+        <pathelement location="lib/JFlex.jar"/>
+        <pathelement location="lib/junit-4.5.jar"/>
+  </path>
 
-	<!--
-	<uptodate property="scanner.src.uptodate" srcfile="etc/GrammarScanner.flex" targetfile="src/beaver/spec/parser/GrammarScanner.java" />
-	<uptodate property="parser.src.uptodate" srcfile="etc/beaver.grammar" targetfile="src/beaver/spec/parser/GrammarParser.java" />
-	-->
+  <target name="lexer" if="jflex.jar.available" description="creat jflex files">
+    <taskdef name="jflex" classname="JFlex.anttask.JFlexTask" classpathref="libraries" />
+    <jflex
+        file="${parse}/constraint.flex"
+    />
+  </target>
 
-	<target name="lexer" if="jflex.jar.available" description="creat jflex files">
-		<taskdef name="jflex" classname="JFlex.anttask.JFlexTask" classpathref="libraries" />
-		<jflex
-		    file="${parse}/constraint.flex"
-		/>
-	</target>
+  <target name="javacup" if="javacup.jar.available" depends="lexer" description="creat java cup files">
+    <java jar="${lib}/java-cup-11a.jar" fork="true">
+      <arg value="-destdir"/>
+      <arg value="${parse}"/>
+      <arg value="${parse}/constraint.cup"/>
+    </java>
+  </target>
 
-	<target name="javacup" if="javacup.jar.available" depends="lexer" description="creat java cup files">
-		<java jar="${lib}/java-cup-11a.jar" fork="true">
-			<arg value="-destdir"/>
-			<arg value="${parse}"/>
-			<arg value="${parse}/constraint.cup"/>
-		</java>
-	</target>
+  <target name="init">
+    <mkdir dir="${build}" />
+  </target>
 
-	<target name="init">
-		<mkdir dir="${build}" />
-	</target>
+  <target name="clean" description="clean up">
+    <delete file="${parse}/GrmLexer.java"/>
+    <delete file="${parse}/parser.java"/>
+    <delete file="${parse}/sym.java"/>
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
 
-	<target name="clean" description="clean up">
-		<delete file="${parse}/GrmLexer.java"/>
-		<delete file="${parse}/parser.java"/>
-		<delete file="${parse}/sym.java"/>
-		<delete dir="${build}"/>
-	</target>
+  <target name="sherrloc" depends="init, javacup" description="build the diagnostic tool">
+    <javac srcdir="${src}" destdir="${build}">
+      <classpath refid="libraries"/>
+    </javac>
+  </target>
 
-	<target name="diagnostic" depends="init, javacup" description="build the diagnostic tool">
-		<javac srcdir="${src}" destdir="${build}">
-			<classpath refid="libraries"/>
-		</javac>
-	</target>
+  <target name="jar" depends="sherrloc">
+  <jar destfile="sherrloc.jar" basedir="${build}" includes="sherrloc/**">
+    <zipgroupfileset dir="${lib}" includes="*.jar" excludes=""/>
 
-	<target name="server" depends="init, javacup" description="build the diagnostic tool">
-		<javac target="jsr14" srcdir="${src}" destdir="${build}">
-			<classpath refid="libraries"/>
-		</javac>
-	</target>
+    <manifest>
+        <attribute name="Main-Class" value="sherrloc.diagnostic.ErrorDiagnosis"/>
+    </manifest>
+  </jar>
+  </target>
+
+  <target name="javadoc">
+      <javadoc sourcepath="${src}" destdir="${basedir}/doc" defaultexcludes="yes" classpathref="libraries">
+      <packageset dir="${src}" defaultexcludes="yes">
+        <include name="**" />
+      </packageset>
+    </javadoc>
+  </target>
+
+  <!-- generate the SHErrLoc distribution -->
+  <target name="dist" description="generate the distribution">
+
+    <!-- Clean everything so we're in a clean state -->
+    <antcall target="clean" />
+
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}" />
+
+    <!-- Copy src files over. -->
+    <copy todir="${dist}" includeEmptyDirs="no">
+      <fileset dir="${basedir}" defaultexcludes="yes">
+        <include name="src/**" />
+	<include name="tests/friendmap/*.con" />
+	<include name="tests/hypothesis/**/*.con" />
+	<include name="tests/jif/*.con" />
+	<include name="tests/jiftestcases/*.con" />
+        <include name="README" />
+	<include name="LICENSE" />
+        <include name="LICENSE.Eclipse" />
+        <include name="LICENSE.LGPL" />
+        <include name="sherrloc" />
+        <include name="build.xml" />
+      </fileset>
+    </copy>
+
+    <!-- Create sherrloc.jar and copy all the jars over -->
+    <antcall target="jar" />
+    <copy todir="${dist}" includeEmptyDirs="no">
+      <fileset dir="${basedir}" defaultexcludes="yes">
+        <include name="lib/*.jar" />
+      </fileset>
+   </copy>
+
+    <!-- Create the Javadoc, and copy the documentation -->
+    <antcall target="javadoc" />
+    <copy todir="${dist}" includeEmptyDirs="no">
+      <fileset dir="${basedir}" defaultexcludes="yes">
+         <include name="doc/**" />
+      </fileset>
+    </copy>
+
+  </target>
 
 
 </project>
