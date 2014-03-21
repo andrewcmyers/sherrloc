@@ -3,7 +3,7 @@
 use Cwd qw();
 my $path = Cwd::abs_path();
 my $bin = "$path/../../../easyocaml-modified/ocaml-3.10.2/bin";
-my $diagnostic = "$path/../../diagnostic";
+my $diagnostic = "$path/../../sherrloc";
 my $html = "temp.html";
 my $mlfile;
 
