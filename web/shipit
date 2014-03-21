@@ -1,0 +1,21 @@
+#!/bin/sh
+dir=/usr/local/www/projects/SHErrLoc
+
+if test -z "$WEBHOST"
+then
+    WEBHOST=hyena
+fi
+if test -z "$real_web"
+then
+    real_web=$WEBHOST:$dir
+fi
+svn update
+rsync "$@" -truvlC --exclude '*.cfg'					      \
+              --exclude Makefile					      \
+              --exclude '.*.swp'					      \
+              --exclude '.*.swo'					      \
+              --exclude shipit 						      \
+	      --exclude '.nfs*'						      \
+              --exclude '*~'						      \
+              --exclude '.*'						      \
+    . "$real_web"
