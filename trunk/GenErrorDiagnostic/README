@@ -16,6 +16,7 @@ Your installation directory contains the following sub-directories:
   - src:      the complete source code of the SHErrLoc tool
   - doc:      documentation 
   - lib:      needed JAR files
+  - HTML:     needed style file and js files to show HTML reports
   - tests:    a collection of constraint files used to test the correctness of
               SHErrLoc
 
@@ -62,11 +63,7 @@ Follow these steps to build the SHErrLoc tool:
 
 
 7. You are now ready to try out SHErrLoc. A suggested starting point is
-   the BattleShip example, in the directory
-   $JIF/examples/battleship. See the README file in that directory for
-   more detailed information on compiling and running the BattleShip
-   example.
-
+   ... (TODO: add some examples in the release) 
 
 
 Running SHErrLoc
@@ -77,7 +74,7 @@ script provides a convenient way to execute the compiled SHErrLoc code.
 
 The command line options for SHErrLoc can be viewed by running sherrloc with
 the "-h" flag:
-    $ $HOME/bin/sherrloc -h
+    $ $HOME/sherrloc -h
 
 usage: diagnostic <options> <constraint file>
  -c         generate likely wrong constraints
@@ -88,12 +85,12 @@ usage: diagnostic <options> <constraint file>
  -n <arg>   number of suboptimal suggestions to report. Default value is
             zero
  -o <arg>   output file
- -p         console report
  -r         allow recursion (e.g., x = list x)
  -s <arg>   source file which generates the constraints
  -u         unified report with wrong constraint elements and missing
             hypothesis (experimental)
  -v         verbose mode (for evaluation)
+ -w         HTML report
 
 See the SHErrLoc documentation ($HOME/doc/index.html) for more information
 about using SHErrLoc. See the directory $HOME/tests for some examples of
