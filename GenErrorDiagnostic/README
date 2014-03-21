@@ -11,6 +11,19 @@ Danfeng Zhang and Andrew C. Myers. In a nutshell, SHErrLoc takes a constraint
 file describing program analysis, and diagnoses the most likely cause of
 errors detected by the static analysis.
 
+Contents
+--------
+
+- SHerrLoc tool
+- web support (style files)
+- not EasyOcaml -> here's where to get it
+- not Jif -> here's where
+- not the OCaml test cases -> ask Dan, run EasyOcaml++ on it.
+- some Jif test cases and constraints
+
+Organization
+------------------------------------------------------------------------
+
 Your installation directory contains the following sub-directories:
 
   - src:      the complete source code of the SHErrLoc tool
