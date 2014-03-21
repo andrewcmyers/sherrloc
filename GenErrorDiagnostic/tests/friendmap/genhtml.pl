@@ -2,7 +2,7 @@
 
 use Cwd;
 my $dirname = getcwd;
-my $diagnostic = "$dirname/../../diagnostic";
+my $diagnostic = "$dirname/../../sherrloc";
 my $cp = "../tests/:.";
 my $html = "temp.html";
 my $consfile;
@@ -25,7 +25,7 @@ else
   exit;
 }
 
-system ($diagnostic, "-c", "-i", $consfile.".fab", $consfile."_1.con");
+system ($diagnostic, "-e", "-i", $consfile.".fab", $consfile."_1.con");
 
 print TEMP start_html(
     -head=>meta({-http_equiv => 'Content-Type',-content => 'text/html',-charset=>'utf-8'}),

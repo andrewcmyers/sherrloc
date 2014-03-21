@@ -3,7 +3,7 @@
 use Cwd;
 my $dirname = getcwd;
 my $ezyocaml = "$dirname/../../../easyocaml-modified/ocaml-3.10.2/bin/";
-my $diagnostic = "$dirname/../../diagnostic";
+my $diagnostic = "$dirname/../../sherrloc";
 my $mlfile;
 my $outfile = "data";
 
