@@ -1,3 +1,4 @@
+
 package sherrloc.diagnostic;
 
 import org.apache.commons.cli.CommandLine;
@@ -60,11 +61,11 @@ public class DiagnosticOptions {
 		options.addOption("h", false, "generate likely missing hypothesis");
 		options.addOption("n", true,  "number of suboptimal suggestions to report. Default value is zero");
 		options.addOption("o", true,  "output file");
-		options.addOption("p", false, "console report");
 		options.addOption("r", false, "allow recursion (e.g., x = list x)");
 		options.addOption("s", true,  "source file which generates the constraints");
 		options.addOption("u", false, "unified report with wrong constraint elements and missing hypothesis (experimental)");
 		options.addOption("v", false, "verbose mode (for evaluation)");
+		options.addOption("w", false, "HTML report");
 
 		CommandLineParser parser = new PosixParser();
 		CommandLine cmd = null;
@@ -98,8 +99,6 @@ public class DiagnosticOptions {
 		}
 		if (cmd.hasOption("o"))
 			htmlFileName = cmd.getOptionValue("o");
-		if (cmd.hasOption("p"))
-			toConsole = true;
 		if (cmd.hasOption("r"))
 			recursive = true;
 		if (cmd.hasOption("s"))
@@ -108,6 +107,8 @@ public class DiagnosticOptions {
 			genBoth = true;
 		if (cmd.hasOption("v"))
 			verbose = true;
+		if (cmd.hasOption("w"))
+			toConsole = false;
 
 		if (cmd.getArgs().length == 0) {
 			System.out.println("Please privide a constraint file to be analyzed");
@@ -129,7 +130,7 @@ public class DiagnosticOptions {
 		genElements = false;
 		genHypothesis = false;
 		wholeGraph = false;
-		toConsole = false;
+		toConsole = true;
 		recursive = false;
 		verbose = false;
 		htmlFileName = "error.html";

@@ -64,13 +64,13 @@ public class HTMLUtil {
      * @return HTML header
      */
     public static String getHeader () {
-    	return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n" +
-    			"<!--NewPage-->\n" +
-    			"<HTML>\n" +
+
+    	return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+    			"<HTML xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en-US\" xml:lang=\"en-US\">\n" +
     			"<HEAD>\n" +
     			"<meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\" />\n" +
     			"<TITLE>\n" +
-    			"Experimental Error Diagnosis\n" +
+    			"Error Diagnostic Report\n" +
     			"</TITLE>\n" +
     			"<SCRIPT type=\"text/javascript\">\n" +
     					"function windowTitle()\n" +
@@ -81,7 +81,7 @@ public class HTMLUtil {
     					"}\n" +
     			"</SCRIPT>\n" +
     			
-    			"\n<link rel=\"stylesheet\" href=\"style.css\">\n" +
+    			"\n<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>\n" +
     			"\n<script src=\"errors.js\"></script>\n" +
     			"\n<script src=\"colorize.js\"></script>\n" +
     			
@@ -152,13 +152,20 @@ public class HTMLUtil {
     	for (ConstraintPath path : unsatPaths.getPaths()) {
     		Set<Node> nodes = path.getAllNodes();
     		for (Node node : nodes) {
-    			posSet.add(node.getElement().getPosition());
+    			Position p = node.getElement().getPosition();
+    			if (sourceName.contains(p.getFile())) {
+    				posSet.add(p);
+    			}
     		}
     		
     		List<Edge> edges = path.getEdges();
     		for (Edge edge : edges) {
-    			if(edge instanceof ConstraintEdge)
-    				posSet.add(((ConstraintEdge)edge).getConstraint().getPos());
+    			if(edge instanceof ConstraintEdge) {
+    				Position p = ((ConstraintEdge)edge).getConstraint().getPos(); 
+    				if (sourceName.contains(p.getFile())) {
+    					posSet.add(p);
+    				}
+    			}
     		}
     	}
     	
