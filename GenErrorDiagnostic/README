@@ -4,12 +4,12 @@ SHErrLoc 1.0.0
 			     ----------------
 
 SHErrLoc (Static Holistic Error Locator) is an implementation of the general
-error diagnostic approach described in the 2014 paper, Toward General Diagnosis
-of Static Errors, published in the Proceedings of the 41th ACM Symposium on
+error diagnostic approach described in the 2014 paper, "Toward General Diagnosis
+of Static Errors", published in the Proceedings of the 41th ACM Symposium on
 Principles of Programming Languages (POPL), January 2014, pp. 569-581, by
 Danfeng Zhang and Andrew C. Myers. In a nutshell, SHErrLoc takes a constraint
 file describing program analysis, and diagnoses the most likely cause of
-analysis errors.
+errors detected by the static analysis.
 
 Your installation directory contains the following sub-directories:
 
@@ -78,7 +78,7 @@ the "-h" flag:
 
 usage: diagnostic <options> <constraint file>
  -c         generate likely wrong constraints
- -d         output constraint graph as a DOT file
+ -d         output the constraint graph as a DOT file
  -e         generate likely wrong constraint elements
  -f         show full constraint graph (use with -d)
  -h         generate likely missing hypothesis
@@ -86,7 +86,7 @@ usage: diagnostic <options> <constraint file>
             zero
  -o <arg>   output file
  -r         allow recursion (e.g., x = list x)
- -s <arg>   source file which generates the constraints
+ -s <arg>   name the source file that generated the constraints
  -u         unified report with wrong constraint elements and missing
             hypothesis (experimental)
  -v         verbose mode (for evaluation)
