@@ -99,7 +99,7 @@ usage: diagnostic <options> <constraint file>
             zero
  -o <arg>   output file
  -r         allow recursion (e.g., x = list x)
- -s <arg>   name the source file that generated the constraints
+ -s <arg>   the source file that generated the constraints (use with -w)
  -u         unified report with wrong constraint elements and missing
             hypothesis (experimental)
  -v         verbose mode (for evaluation)
