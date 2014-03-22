@@ -55,14 +55,14 @@ public class DiagnosticOptions {
 	public DiagnosticOptions(String[] args) {
 		Options options = new Options();		
 		options.addOption("c", false, "generate likely wrong constraints");
-		options.addOption("d", false, "output constraint graph as a DOT file");
+		options.addOption("d", false, "output the constraint graph as a DOT file");
 		options.addOption("e", false, "generate likely wrong constraint elements");
 		options.addOption("f", false, "show full constraint graph (use with -d)");
 		options.addOption("h", false, "generate likely missing hypothesis");
 		options.addOption("n", true,  "number of suboptimal suggestions to report. Default value is zero");
 		options.addOption("o", true,  "output file");
 		options.addOption("r", false, "allow recursion (e.g., x = list x)");
-		options.addOption("s", true,  "source file which generates the constraints");
+		options.addOption("s", true,  "the source file that generated the constraints (use with -w)");
 		options.addOption("u", false, "unified report with wrong constraint elements and missing hypothesis (experimental)");
 		options.addOption("v", false, "verbose mode (for evaluation)");
 		options.addOption("w", false, "HTML report");
