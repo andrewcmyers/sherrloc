@@ -149,6 +149,16 @@ function show_more_expr() {
     }
 }
 
+function show_all_errors() {
+    var style = document.getElementById('all_error').style;
+    if (style.height == 'auto') {
+	style.height = 0;
+    } else {
+	style.height = 'auto';
+    }
+}
+
+
 function show_more_cons() {
     var style = document.getElementById('more_cons').style;
     if (style.height == 'auto') {
