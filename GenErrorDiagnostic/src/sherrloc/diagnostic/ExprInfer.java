@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 import sherrloc.constraint.ast.Element;
+import sherrloc.constraint.ast.JoinElement;
+import sherrloc.constraint.ast.MeetElement;
 import sherrloc.diagnostic.explanation.Entity;
 import sherrloc.diagnostic.explanation.ExprEntity;
 import sherrloc.graph.ConstraintPath;
@@ -47,9 +49,12 @@ public class ExprInfer extends InferenceEngine {
     	for (ConstraintPath path : paths.getPaths()) {
     		for (Node n : path.getAllNodes()) {
     			Element e = n.getElement();
-    			if (!e.getPosition().isEmpty())
+    			if (e.getPosition().isEmpty()) {}
+    			else if (e instanceof JoinElement || e instanceof MeetElement) {}
+    			else {
 					cand.add(new ExprEntity(e.toSnippetString(), e.getPosition()
 							.toString(), succCount.get(n.toString())));
+    			}
     		}
     	}
     	
