@@ -6,7 +6,7 @@ $fmhome="/home/zhdf/APL/Fabric/examples/friendmap/classes";
 $fabrichome="/home/zhdf/APL/Fabric/";
 
 $cp = ".:$fmhome/fabric";
-$dist_dir = "$ARGV[0]/constraints";
+$dist_dir = "constraints/";
 
 # the map from file name to generated graph name
 # this is required since one file may generate 
