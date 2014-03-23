@@ -24,7 +24,7 @@ The following contents are NOT included:
 
 EasyOcaml++, the constraint generator for OCaml type inference, is released
 separately at 
-http://www.cs.cornell.edu/projects/sherrloc/EasyOCaml++.tar.bz2
+http://www.cs.cornell.edu/projects/sherrloc/EasyOCaml++.tar.gz
 
 The constraint generator for the Jif compiler is currently not released. Please
 refer to the Jif homepage, http://www.cs.cornell.edu/jif/, for future release.
