@@ -191,9 +191,15 @@ public class HTMLUtil {
     	int startIndex = 0;
     	int endIndex = 0;
     	int emptyIndex = 0;
-		LineColumnPair start = startList.get(startIndex++);
-		LineColumnPair end = endList.get(endIndex++);
-		LineColumnPair empty;
+		LineColumnPair start, end, empty;
+		if (startList.isEmpty())
+			start = new LineColumnPair(-1, -1, -1, -1, "");
+		else 
+			start = startList.get(startIndex++);
+		if (endList.isEmpty())
+			end = new LineColumnPair(-1, -1, -1, -1, "");
+		else
+			end = endList.get(endIndex++);
 		if (emptyList.isEmpty())
 			empty = new LineColumnPair(-1, -1, -1, -1, "");
 		else
