@@ -88,6 +88,15 @@
         <!-- Copy src files over. -->
 	<include name="src/**" />
 
+	<!-- Copy examples -->
+	<include name="examples/prog1.ml" />
+	<include name="examples/prog1.con" />
+	<include name="examples/prog2.jif" />
+	<include name="examples/prog2.con" />
+	<include name="examples/prog3.jif" />
+	<include name="examples/prog3.con" />
+	<include name="examples/README" />
+
 	<!-- constraint files used in evaluation -->
 	
         <!-- 1. FriendMap application -->
