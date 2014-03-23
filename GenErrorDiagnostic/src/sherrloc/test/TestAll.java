@@ -8,7 +8,7 @@ import org.junit.Test;
 import sherrloc.diagnostic.ErrorDiagnosis;
 
 /**
- * Unit tests
+ * Tests
  */
 public class TestAll {
 		
@@ -72,13 +72,6 @@ public class TestAll {
 	}
 	
 	@Test
-	public void testAll () {
-		testHypothesis();
-		testJif();
-		jifTestcases();
-	}
-		
-	@Test
 	public void testHypothesis () {
 		/* test for Jif constraint */
 		
@@ -133,24 +126,24 @@ public class TestAll {
 	}
 	
 	@Test
-	public void testJif () {
-		testAssumptions("tests/friendmap/FriendMap3108_1.con", "(⊥)<-(⊥) <= I_*map_access");
-		testAssumptions("tests/friendmap/FriendMap3110_1.con", "(⊤)<-(user.p) <= I_*map_update");
-		testAssumptions("tests/friendmap/FriendMap3112_1.con", "(⊤)<-(local) <= I_*box_u");
-		testAssumptions("tests/friendmap/FriendMap3113_1.con", "C_map <= C_*map_update;I_map <= I_*map_update;");
-		testAssumptions("tests/friendmap/FriendMap3114_1.con", "C_*map_update <= (⊥)->(⊥)");
-		testAssumptions("tests/friendmap/FriendMap3115_1.con", "C_*map_update <= (⊥)->(⊥)");
-		testExpression("tests/friendmap/FriendMap3116_1.con", "FriendMap3116.fab:429,32-42");
-		testExpression("tests/friendmap/FriendMap3120_1.con", "FriendMap3120.fab:494,4-5");
-		testAssumptions("tests/friendmap/FriendMap3122_1.con", "(⊤)<-((fo)meet(fn)) <= I_*map_update");
-		testExpression("tests/friendmap/FriendMap3144_1.con", "FriendMap3144.fab:445,32-42");
-		testAssumptions("tests/friendmap/FriendMap3167_1.con", "C_l <= (⊤)->(n1);C_n <= (⊤)->(n1)");
-		testAssumptions("tests/friendmap/FriendMap3192_1.con", "C_s <= C_*friend_access_bound");
-		testAssumptions("tests/friendmap/FriendMap3193_1.con", "(⊤)<-(this.service) <= I_*fetchLabel");
+	public void testFriendMap () {
+		testAssumptions("tests/friendmap/constraints/FriendMap3108_1.con", "(⊥)<-(⊥) <= I_*map_access");
+		testAssumptions("tests/friendmap/constraints/FriendMap3110_1.con", "(⊤)<-(user.p) <= I_*map_update");
+		testAssumptions("tests/friendmap/constraints/FriendMap3112_1.con", "(⊤)<-(local) <= I_*box_u");
+		testAssumptions("tests/friendmap/constraints/FriendMap3113_1.con", "C_map <= C_*map_update;I_map <= I_*map_update;");
+		testAssumptions("tests/friendmap/constraints/FriendMap3114_1.con", "C_*map_update <= (⊥)->(⊥)");
+		testAssumptions("tests/friendmap/constraints/FriendMap3115_1.con", "C_*map_update <= (⊥)->(⊥)");
+		testExpression("tests/friendmap/constraints/FriendMap3116_1.con", "FriendMap3116.fab:429,32-42");
+		testExpression("tests/friendmap/constraints/FriendMap3120_1.con", "FriendMap3120.fab:494,4-5");
+		testAssumptions("tests/friendmap/constraints/FriendMap3122_1.con", "(⊤)<-((fo)meet(fn)) <= I_*map_update");
+		testExpression("tests/friendmap/constraints/FriendMap3144_1.con", "FriendMap3144.fab:445,32-42");
+		testAssumptions("tests/friendmap/constraints/FriendMap3167_1.con", "C_l <= (⊤)->(n1);C_n <= (⊤)->(n1)");
+		testAssumptions("tests/friendmap/constraints/FriendMap3192_1.con", "C_s <= C_*friend_access_bound");
+		testAssumptions("tests/friendmap/constraints/FriendMap3193_1.con", "(⊤)<-(this.service) <= I_*fetchLabel");
 	}
 	
 	@Test
-	public void jifTestcases () {
+	public void testJif () {
 		testErrorPaths("tests/jiftestcases/A_1.con", false);
 		testErrorPaths("tests/jiftestcases/A_2.con", false);
 		testErrorPaths("tests/jiftestcases/A_3.con", false);
