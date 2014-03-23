@@ -14,4 +14,5 @@ command-line interface to enable interprocedural type inferrence:
 
 The compilation generates a constraint file (error.con) when type inference
 fails. This constraint file can then be fed into the general error diagnostic
-tool, Sherrloc, to find the most likely cause of the type errors.
+tool, ShErrLoc (available at http://www.cs.cornell.edu/projects/sherrloc/), to
+find the most likely cause of the type errors.
