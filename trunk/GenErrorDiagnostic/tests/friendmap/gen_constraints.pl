@@ -6,7 +6,7 @@ $fmhome="/home/zhdf/APL/Fabric/examples/friendmap/classes";
 $fabrichome="/home/zhdf/APL/Fabric/";
 
 $cp = ".:$fmhome/fabric";
-$dist_dir = $ARGV[0];
+$dist_dir = "$ARGV[0]/constraints";
 
 # the map from file name to generated graph name
 # this is required since one file may generate 
@@ -55,7 +55,7 @@ if (-e "snapp") { system ("rm -fr snapp")}
 system ("./compile_fm.sh", "3193");
 
 foreach (@names3193) {
-    system ("fabc -diagnostic -e -nonrobust -trusted-providers -fail-on-exception -addsigcp $fmhome/fab-sig -addbootcp $fmhome/fab-sig-impl -classpath ".$cp." ".$_.".fab");
+    system ("fabc -diagnostic -e -nonrobust -trusted-providers -fail-on-exception -addsigcp $fmhome/fab-sig -addbootcp $fmhome/fab-sig-impl -classpath ".$cp." source/".$_.".fab");
     for ($i=1; $i<50; $i++) {
         $name = "error".$i.".con";
         if (-e $name) {
