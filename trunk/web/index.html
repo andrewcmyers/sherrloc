@@ -1,11 +1,14 @@
 <html>
+
 <head>
+    <title>SHErrLoc Project</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--<style>
         h1, h2, h3 { font-family: Palatino; font-weight: bold; color: #336 }
 	body {
 	    font-family: Palatino, serif;
-	    max-width: 100ex;
+	    max-width: 110ex;
 	    margin: 2em auto;
 	    background: #eee;
             padding: 0 2em;
@@ -14,12 +17,120 @@
 	div#bkg { width: 80ex; position: absolute; z-index: -1; margin: 0 auto;
 		opacity: 0.15 }
 	a {text-decoration: none}
-    </style>
+    </style>-->
 </head>
 <body>
+
 <h1>SHErrLoc: Static Holistic Error Locator</h1>
+	
+<div class=figure>
+    <img width=365px height=405px src="SHErrLoc-overview.png">
+</div>
+
+<div class="inset">
+
 <p>
-This is SHErrLoc.
+SHErrLoc is a new, general approach to locate programmer mistakes that are
+detected by static program analyses, such as ML type inference, information
+flow analysis and dataflow analysis.
 </p>
+
+<p>
+The SHErrLoc tool analyzes a system of constraints in a constraint language
+that is expressive enough for a large class of static program analyses. Both
+satisfiable and unsatisfiable constraints are analyzed to identify the most
+likely cause of errors. Based on Bayesian grounds, the likelihood of different
+error explanations is evaluated via two general heuristics:
+<ul>
+<li> 
+All else equal, an explanation in which programmers have made fewer mistakes is
+more likely.
+
+<li> 
+Erroneous expressions are less likely to appear in satisfiable constraints.
+</ul>
+</p>
+
+<p>
+For example, the <a href="#EasyOCaml++">EasyOCaml++</a> tool generates
+constraints in the constraint language format from OCaml programs. The SHErrLoc
+tool then analyzes these application-agnostic constraints to locate the most
+likely programmer mistakes, as illustrate in the overview graph. Please try our 
+<a href="http://apl.cs.cornell.edu/~zhangdf/diagnostic">demo for OCaml</a>.
+</p>
+<!-- For analyses that rely on programmer-stated assumptions, the SHErrLoc tool also
+identifies assumptions likely to have been omitted.-->
+
+<p>
+Evaluation on two very different program analyses, type inference in OCaml and
+information flow analysis in Jif, suggests that this general approach
+identifies error locations significantly more accurately than existing tools.
+</p>
+
+<h2>Downloads</h2>
+
+<form method="POST" 
+      action="http://www.cs.cornell.edu/w8/~andru/cgi-bin/download.pl"
+      enctype="multipart/form-data">
+  <input type="hidden" name="package" value="SHErrLoc 1.0">
+  <input type="hidden" name="style"
+	 value="http://www.cs.cornell.edu/jif/jif.css">
+  <input type="hidden" name="url"
+         value="http://www.cs.cornell.edu/projects/sherrloc/SHErrLoc-1.0.0.tar.gz">
+  <p>The SHErrLoc tool takes a constraint file describing program analysis, and diagnoses the
+  most likely cause of errors detected by the static program analysis.</p>
+  <div class="download_button">
+  <input class="download_button" type="submit" value="Download SHErrLoc 1.0" >
+  </div>
+</form>
+
+<a name="EasyOCaml++"></a>
+<form method="POST" 
+      action="http://www.cs.cornell.edu/w8/~andru/cgi-bin/download.pl"
+      enctype="multipart/form-data">
+  <input type="hidden" name="package" value="EasyOCaml++">
+  <input type="hidden" name="style"
+	 value="http://www.cs.cornell.edu/jif/jif.css">
+  <input type="hidden" name="url"
+         value="http://www.cs.cornell.edu/projects/sherrloc/EasyOCaml++.tar.gz">
+  <p>EasyOCaml++, an extension to 
+  <a href="http://easyocaml.forge.ocamlcore.org">EasyOCaml</a>, generates
+  constraints describing OCaml type inference.
+  </p>
+  <div class="download_button">
+  <input class="download_button" type="submit" value="Download EasyOCaml++" >
+  </div>
+</form>
+
+<h2>Related publications</h2>
+<div class="publist">
+<ul>
+<li>
+    <cite>
+    <a href="http://www.cs.cornell.edu/andru/papers/diagnostic/">
+    Toward General Diagnosis of Static Errors
+    </a></cite><br>
+    <i> Proceedings of the 41st ACM SIGPLAN-SIGACT Symposium on Principles of
+	    Programming Languages</i> (POPL'14), pages 569&ndash;581, January 2014. 
+    Danfeng Zhang and Andrew C. Myers.
+</li>
+</ul>
+</div>
+
+<h2>Project members</h2>
+<ul>
+<li><a href="http://www.cs.cornell.edu/andru">Andrew Myers</a> (faculty)</li>
+<li><a href="http://www.cs.cornell.edu/~zhangdf">Danfeng Zhang</a></li>
+</ul>
+
+<h2>Support</h2>
+<div class="content">The development of SHErrLoc has been supported by by two grants from the Office
+of Naval Research, N00014-09-1-0652 and N00014-13-1-0089, by MURI grant
+FA9550-12-1-0400, by a grant from the National Science Foundation
+(CCF-09644909), and by a grant administered by the Air Force Research
+Laboratory.</div>
+<br>
+</div>
+
 </body>
 </html>
