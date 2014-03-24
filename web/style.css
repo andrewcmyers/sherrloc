@@ -1,0 +1,44 @@
+body {font-size: "100%"; background-color: #ffffff; color: black; margin: 0 }
+p {font-size: 110%; font-family: "Times New Roman", times, serif}
+p {max-width: 100ex }
+ul {font-size:110%; font-family: "Times New Roman", times, serif}
+a {text-decoration: none; color: #558; font-weight: bold}
+a.email {font-family: System, helvetica, sans-serif}
+h1 {font-size: 300%; font-family: "Cronos Pro", "Trebuchet MS", "lucida sans", helvetica, sans-serif; color: #006295; text-align: center}
+h2 {font-size: "150%"; font-family: "Cronos Pro", "Trebuchet MS", helvetica, sans-serif; color: #006295}
+h3 {font-size: "120%"; font-family: "Cronos Pro", "Trebuchet MS", helvetica, sans-serif; color: #006295}
+
+
+div.download { margin: 5px; padding-top:5; padding-bottom: 5;  padding-left:
+    10; padding-right: 10; background-color: #eed; border-style: outset;
+    border-width: 2; float: right; width: 33%}
+
+div.inset { padding: 0ex 2ex; max-width:100ex }
+div.content { font-size: "100%"; font-family: "Times New Roman", times, serif; max-width:100ex }
+
+div.content h1 {
+   color: white; background-color: #50a0c0;
+   text-shadow: #102010 2px 2px 2px;
+   vertical-align: top;
+   margin: 0; padding: 15px}
+
+span.title {white-space: nowrap}
+
+h1 span.title { vertical-align: top }
+
+div.figure {
+    padding: 0ex 2ex 2ex 2ex; float: right
+}
+
+div.download_button {max-width: 80ex; text-align: center}
+
+input.download_button {
+    background-color: #006295;
+    color: white;
+    border-style: outset;
+    border-color: blue;
+    font-size: 130%
+}
+
+div.publist { margin-right: 3em }
+div.publist ul li {padding-bottom: 0.7ex}
