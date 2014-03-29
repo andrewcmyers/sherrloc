@@ -1,0 +1,15 @@
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":120,11-42@Player1.jif]
+CONSTRUCTOR _ 0 //@Player1.jif:120,73-74
+CONSTRUCTOR P 0 //@Player1.jif:26,50-51
+CONSTRUCTOR * 0 //@Player1.jif:120,73-74
+
+%%
+(_ -> _) <= C_newCoordinate;
+C_newCoordinate <= (* -> *);
+(* <- *) <= I_newCoordinate;
+(_ -> _) <= (P -> P);
+(P -> P) <= (* -> *);
+
+%%
+(P -> P) [] <= ((_ -> _)[] ⊔ (C_newCoordinate)[])[];
+C_newCoordinate <= C_caller_pc ;
