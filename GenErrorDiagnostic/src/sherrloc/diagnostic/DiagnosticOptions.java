@@ -12,12 +12,11 @@ import org.apache.commons.cli.PosixParser;
  * A configuration of the error diagnostic tool
  */
 public class DiagnosticOptions {
+	public enum Mode {EXPR, CONS, HYPO, BOTH}
+	
 	/** a set of options */
 	private boolean wholeGraph;
-	private boolean genConstraints;
-	private boolean genElements;
-	private boolean genHypothesis;
-	private boolean genBoth;
+	private Mode mode=null;
 	private boolean recursive;
 	private boolean verbose;
 	private boolean dotFile;
@@ -38,11 +37,10 @@ public class DiagnosticOptions {
 	 *            Set "True" to infer likely wrong expressions in program; set
 	 *            "False" to infer likely missing hypothesis
 	 */
-	public DiagnosticOptions(String consFile, boolean isExpr) {
+	public DiagnosticOptions(String consFile, Mode mode) {
 		setDefault();
 		this.consFile = consFile;
-		this.genElements = isExpr;
-		this.genHypothesis = !isExpr;
+		this.mode = mode;
 		this.toConsole = true;
 	}
 
@@ -79,15 +77,15 @@ public class DiagnosticOptions {
 
 		setDefault();
 		if (cmd.hasOption("c"))
-			genConstraints = true;
+			mode = Mode.CONS;
 		if (cmd.hasOption("d"))
 			dotFile = true;
 		if (cmd.hasOption("e"))
-			genElements = true;
+			mode = Mode.EXPR;
 		if (cmd.hasOption("f"))
 			wholeGraph = true;
 		if (cmd.hasOption("h"))
-			genHypothesis = true;
+			mode = Mode.HYPO;
 		if (cmd.hasOption("n")) {
 			try {
 				nSubopt = Integer.parseInt(cmd.getOptionValue("n"));
@@ -104,7 +102,7 @@ public class DiagnosticOptions {
 		if (cmd.hasOption("s"))
 			sourceName = cmd.getOptionValue("s");
 		if (cmd.hasOption("u"))
-			genBoth = true;
+			mode = Mode.BOTH;
 		if (cmd.hasOption("v"))
 			verbose = true;
 		if (cmd.hasOption("w"))
@@ -113,7 +111,7 @@ public class DiagnosticOptions {
 		if (cmd.getArgs().length == 0) {
 			System.out.println("Please privide a constraint file to be analyzed");
 			System.exit(0);
-		} else if (!genConstraints && !genElements && !genHypothesis && !genBoth) {
+		} else if (mode == null) {
 			System.out.println("Please set at least one of report type: -c -e -h or -u");
 			System.exit(0);
 		}
@@ -125,10 +123,6 @@ public class DiagnosticOptions {
 	 */
 	private void setDefault() {
 		dotFile = false;
-		genBoth = false;
-		genConstraints = false;
-		genElements = false;
-		genHypothesis = false;
 		wholeGraph = false;
 		toConsole = true;
 		recursive = false;
@@ -172,28 +166,28 @@ public class DiagnosticOptions {
 	 *         expressions and missing hypothesis in general)
 	 */
 	public boolean isGenBoth() {
-		return genBoth;
+		return mode == Mode.BOTH;
 	}
 
 	/**
 	 * @return True to generate likely wrong constraints
 	 */
 	public boolean isGenConstraints() {
-		return genConstraints;
+		return mode == Mode.CONS;
 	}
 	
 	/**
 	 * @return True to generate likely wrong expressions
 	 */
 	public boolean isGenElements() {
-		return genElements;
+		return mode == Mode.EXPR;
 	}
 
 	/**
 	 * @return True to generate likely missing hypothesis
 	 */
 	public boolean isGenHypothesis() {
-		return genHypothesis;
+		return mode == Mode.HYPO;
 	}
 
 	/**
