@@ -65,8 +65,8 @@ public abstract class InferenceEngine {
 		}
 		if (!options.isToConsole())
 			sb.append("</UL>\n");
-		if (options.isVerbose())
-			System.out.println("top_rank_size: " + i);
+//		if (options.isVerbose())
+		System.out.println("top_rank_size: " + i);
 		if (i < list.size()) {
 			if (!options.isToConsole()) {
 				sb.append("<button onclick=\"show_more_expr()\">show/hide more</button><br>\n");

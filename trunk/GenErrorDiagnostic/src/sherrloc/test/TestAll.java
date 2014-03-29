@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import sherrloc.diagnostic.DiagnosticOptions.Mode;
 import sherrloc.diagnostic.ErrorDiagnosis;
 
 /**
@@ -22,7 +23,7 @@ public class TestAll {
 	 */
 	public void testErrorPaths (String filename, boolean expectederror) {
 		try {
-			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, true);
+			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, Mode.EXPR);
 			assertEquals(filename, expectederror, ana.getUnsatPathNumber()>0);
 		}
 		catch (Exception e) {
@@ -41,7 +42,27 @@ public class TestAll {
 	 */
 	public void testExpression (String filename, String loc) {
 		try {
-			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, true);
+			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, Mode.EXPR);
+			String result = ana.toConsoleString();
+			assertTrue("Expected ("+loc+"), but got ("+result+")", result.contains(loc));
+		}
+		catch (Exception e) {
+			System.out.println(filename);
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Test if the error diagnosis identifies the true wrong constraints (downgrade location)
+	 * 
+	 * @param filename
+	 *            Constraint inputs
+	 * @param loc
+	 *            Location of the true mistake
+	 */
+	public void testConstraint (String filename, String loc) {
+		try {
+			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, Mode.CONS);
 			String result = ana.toConsoleString();
 			assertTrue("Expected ("+loc+"), but got ("+result+")", result.contains(loc));
 		}
@@ -61,7 +82,7 @@ public class TestAll {
 	 */
 	public void testAssumptions (String filename, String expected) {
 		try {
-			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, false);
+			ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, Mode.HYPO);
 			String result = ana.toConsoleString();
 			assertTrue("Expected ("+expected+"), but got ("+result+")", result.contains(expected));
 		}
@@ -406,5 +427,19 @@ public class TestAll {
 		testErrorPaths("tests/jiftestcases/LabelSubst01_6.con", false);
 		testErrorPaths("tests/jiftestcases/LabelSubst01_7.con", false);
 		testErrorPaths("tests/jiftestcases/LabelSubst01_8.con", false);
+	}
+	
+	@Test
+	public void testDowngrade () {
+		testConstraint("tests/downgrade/Board1.con", "Board1.jif:85,17-41");
+		testConstraint("tests/downgrade/Board2.con", "Board2.jif:95,35-36");
+		testConstraint("tests/downgrade/Board3.con", "Board3.jif:99,31-36");
+		testConstraint("tests/downgrade/Board4.con", "Board4.jif:100,31-36");
+		testConstraint("tests/downgrade/Board5.con", "Board5.jif:103,33-42");
+		testConstraint("tests/downgrade/Board6.con", "Board6.jif:104,38-53");
+		testConstraint("tests/downgrade/Main1.con", "Main1.jif:33,33-36");
+		testConstraint("tests/downgrade/Player1.con", "Player1.jif:141,42-45");
+		testConstraint("tests/downgrade/Player2.con", "Player2.jif:142,42-45");
+		testConstraint("tests/downgrade/Player3.con", "Player3.jif:179,1-15");
 	}
 }
