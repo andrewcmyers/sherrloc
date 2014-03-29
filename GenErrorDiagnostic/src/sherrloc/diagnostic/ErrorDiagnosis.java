@@ -11,6 +11,7 @@ import sherrloc.constraint.analysis.ConstraintAnalysis;
 import sherrloc.constraint.analysis.ConstraintAnalysisImpl;
 import sherrloc.constraint.parse.GrmLexer;
 import sherrloc.constraint.parse.parser;
+import sherrloc.diagnostic.DiagnosticOptions.Mode;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.util.HTMLUtil;
 import sherrloc.util.PrettyPrinter;
@@ -65,8 +66,8 @@ public class ErrorDiagnosis implements PrettyPrinter {
 	 * @return An analysis instance
 	 * @throws Exception
 	 */
-	static public ErrorDiagnosis getAnalysisInstance (String consFile, boolean isExpr) throws Exception {
-		DiagnosticOptions option = new DiagnosticOptions(consFile, isExpr);
+	static public ErrorDiagnosis getAnalysisInstance (String consFile, Mode mode) throws Exception {
+		DiagnosticOptions option = new DiagnosticOptions(consFile, mode);
 		
 	    return getAnalysisInstance(option);
 	}
