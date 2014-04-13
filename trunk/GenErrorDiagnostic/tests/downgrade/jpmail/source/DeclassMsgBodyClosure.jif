@@ -1,0 +1,17 @@
+package smtp;
+
+import pop3.JPMailMessage;
+
+public class DeclassMsgBodyClosure[principal P,label L] implements Closure[P,L] { 
+    final String{P:} msgBody; 
+
+    public DeclassMsgBodyClosure(String{P:} msgBody) {
+    		this.msgBody = msgBody;
+    }
+
+    // This returns a Ciphertext
+    public Object{this} invoke{L}() where caller (P) {
+    		//return declassify(this.msgBody,{this});
+    		return this.msgBody;
+    }
+}

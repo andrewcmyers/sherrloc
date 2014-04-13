@@ -1,0 +1,40 @@
+CONSTRUCTOR * 0 //*["*":166,18-39@RSA.jif]
+CONSTRUCTOR L 0 //L["{L}":21,10-11@RSAClosure.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR P 0 //@RSAClosure.jif:21,25-26
+
+%%
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(_ -> _) <= *;
+* <= (* -> *);
+(_ -> _) <= L;
+L <= (* -> *);
+(_ -> _) <= (this);
+(this) <= (* -> *);
+(_ -> _) <= (P -> P);
+(P -> P) <= (* -> *);
+(_ -> _) <= ((P -> P) ⊔ this);
+((P -> P) ⊔ this) <= (* -> *);
+
+%%
+((P -> P) ⊔ this)["{(P -> P); this}":12,13-17@RSAClosure.jif] <= (P -> P)["{(P -> P)}":23,18-22@RSAClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P); this} <= {(P -> P)}":23,32-35@RSAClosure.jif]
+
+((P -> P) ⊔ this)["{(P -> P); this}":11,20-24@RSAClosure.jif] <= (P -> P)["{(P -> P)}":23,18-22@RSAClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P); this} <= {(P -> P)}":23,36-45@RSAClosure.jif]
+
+(P -> P)["{(P -> P)}":23,18-22@RSAClosure.jif] <= (P -> P)["{(P -> P)}":11,14-18@RSAClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P)} <= {(P -> P)}":23,36-45@RSAClosure.jif]
+
+(P -> P)["{(P -> P)}":11,14-18@RSAClosure.jif] <= (P -> P)["{(P -> P)}":23,18-22@RSAClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P)} <= {(P -> P)}":23,36-45@RSAClosure.jif]
+
+(this)["{this}":21,25-26@RSAClosure.jif] <= *["*":166,18-39@RSA.jif] {this <= L;L <= (P -> P);};["{this} <= *":23,14-46@RSAClosure.jif]
+
+L["{L}":20,30-33@RSAClosure.jif] <= *["*":166,18-39@RSA.jif] {this <= L;L <= (P -> P);};["{L} <= *":23,14-46@RSAClosure.jif]
+
+arg1label["{arg1label}":23,32-35@RSAClosure.jif] == ((P -> P) ⊔ this)["{(P -> P); this}":12,13-17@RSAClosure.jif] {this <= L;L <= (P -> P);};["{arg1label} == {(P -> P); this}":23,14-46@RSAClosure.jif]
+
+arg2label["{arg2label}":23,36-45@RSAClosure.jif] == ((P -> P) ⊔ this)["{(P -> P); this}":11,20-24@RSAClosure.jif] {this <= L;L <= (P -> P);};["{arg2label} == {(P -> P); this}":23,14-46@RSAClosure.jif]
+
+(_ -> _)["{}":20,11-30@RSAClosure.jif] <= (this)["{this}":20,11-30@RSAClosure.jif] {this <= L;};["{} <= {this}":20,11-30@RSAClosure.jif]
+
+(this ⊔ (P -> P))["{this; (P -> P)}":21,25-26@RSAClosure.jif] <= (this)["{this}":10,7-23@RSAClosure.jif] {this <= L;};["{this; (P -> P)} <= {this}":20,11-30@RSAClosure.jif]
+

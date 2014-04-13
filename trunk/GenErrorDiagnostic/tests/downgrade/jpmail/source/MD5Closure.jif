@@ -1,0 +1,21 @@
+package crypto;
+
+import java.security.MessageDigest;
+
+public class MD5Closure[principal P,label L] implements Closure[P,L] { 
+    final String{P:} plaintext; // should this be a String?
+    final MessageDigest{this} md5;
+
+    public MD5Closure(MessageDigest{} md5, String{P:} plaintext) {
+    		this.plaintext = plaintext;
+    		this.md5 = md5;
+    		//super();
+    }
+
+    // This returns a Ciphertext
+    public Object{this} invoke{L}() where caller (P) {
+    		//String{this} plaintxt = declassify(plaintext,{this});
+			String{this} plaintxt = plaintext;
+    		return md5 != null ? md5.digest( plaintxt != null ? plaintxt.getBytes() : null ) : null;
+    }
+}

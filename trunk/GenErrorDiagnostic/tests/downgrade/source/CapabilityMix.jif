@@ -1,0 +1,134 @@
+/*
+ * This file is part of the Civitas software distribution.
+ * Copyright (c) 2007-2008, Civitas project group, Cornell University.
+ * See the LICENSE file accompanying this distribution for further license
+ * and copyright information.
+ */ 
+package civitas.common;
+
+import civitas.crypto.*;
+import java.io.*;
+
+/**
+ * A capability mix is a sequence of encrypted capability capabilities, that is
+ * of <code>ElGamalCiphertext</code>s. It is both the input type
+ * and the output type for the mixing of the elctoral roll performed by 
+ * tabulation tellers.
+ * 
+ */
+public class CapabilityMix extends Mix {
+    private final static String{*<-*} META = "capabilityMix:";
+
+    public static String meta(final ElectionDetails details, int block, int mixNumber, boolean rightMix) {
+        String blockDesc = details==null?"":details.blockName(block);
+        return META + blockDesc + ":" + mixNumber + (rightMix?"R":"L");
+    }
+    
+    public ElGamalCiphertext{}[]{} capabilities;
+    
+    public CapabilityMix(int{this} number) {
+        this(number, null);
+    }
+
+    public CapabilityMix(int{this} number, byte{}const[]{this} mixNonceHash) {
+        this.capabilities = new ElGamalCiphertext[0];
+        super(number, mixNonceHash);
+    }
+
+    public Object{} get(int{} i) throws (IndexOutOfBoundsException{}) {
+        try {
+            return capabilities[i];
+        }
+        catch (NullPointerException e) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+    public ElGamalCiphertext{} getReencrypted{}(principal{} TT, int{TT->TT} i, ElGamalReencryptFactor{TT->TT} factor, ElGamalPublicKey{} key) 
+    throws (IndexOutOfBoundsException{}) where caller(TT), endorse({TT<-TT}) {
+        
+        ElGamalCiphertext{}[] capabilities = endorse(this.capabilities, {TT<-TT});
+        int ii = i; // declassify because of the indexoutofbounds that may be thrown
+        ElGamalCiphertext ci = capabilities == null ? null : capabilities[ii];
+        try {
+            return declassify(endorse(CryptoUtil.factory().elGamalReencrypt(key, ci, factor), {TT<-TT;TT->TT}), {});            
+        }
+        catch (NullPointerException e) {
+            throw new IndexOutOfBoundsException();
+        }        
+    }
+    
+    public void add{}(Object{} v, byte{}const[]{} commitment) throws (ClassCastException{}) {
+        addEncCapability((ElGamalCiphertext)v);
+        addCommitment(commitment);
+    }
+    public void addEncCapability{}(ElGamalCiphertext{} v) {
+        try {
+            ElGamalCiphertext{}[] n = new ElGamalCiphertext[capabilities.length + 1];
+            for (int i = 0; i < capabilities.length; i++) {
+                try {
+                    n[i] = capabilities[i];
+                }
+                catch (NullPointerException ignore) { }                
+                catch (ArrayIndexOutOfBoundsException ignore) { }
+            }
+            n[capabilities.length] = v;
+            this.capabilities = n;
+        }
+        catch (NullPointerException imposs) { }
+        catch (ArrayIndexOutOfBoundsException imposs) { }
+    }
+    
+    public int{} size() {
+        ElGamalCiphertext{}[] vs = capabilities;
+        return vs == null ? 0 : vs.length;
+    }
+
+    public void toXML{*lbl}(label lbl, PrintWriter[lbl]{*lbl} sb) where {this; _!:_; _:_} <= lbl  {
+        if (sb == null) return;
+        sb.print("<capabilityMix>");
+        sb.print("<number>");
+        sb.print(number);
+        sb.print("</number>");
+        
+        if (mixNonceHash != null) {
+            sb.print("<nonceHash>");
+            sb.print(Util.constBytesToString(new label {}, mixNonceHash));
+            sb.print("</nonceHash>");
+        }
+  
+        sb.print("<capabilities>");
+        try {
+            for (int i = 0; i < capabilities.length; i++) {
+                capabilities[i].toXML(lbl, sb);
+            }        
+        }
+        catch (NullPointerException imposs) { }
+        catch (ArrayIndexOutOfBoundsException imposs) { }
+        sb.print("</capabilities>");
+        
+        sb.print("</capabilityMix>");
+    }
+    
+    public static CapabilityMix{} fromXML{}(Reader[{}]{} r)  throws (IllegalArgumentException{}, IOException{}) {
+        final label lbl = new label {};
+        Util.swallowTag(lbl, r,  "capabilityMix");
+        int number = Util.readSimpleIntTag(lbl, r,  "number");
+        byte{}const[] nonceHash = null;
+        if (Util.isNextTag(lbl, r,  "nonceHash")) {
+            nonceHash = Util.stringToConstBytes(lbl, Util.readSimpleTag(lbl, r,  "nonceHash"));
+        }
+        CapabilityMix vm = new CapabilityMix(number, nonceHash);
+        
+        Util.swallowTag(lbl, r,  "capabilities");
+        while (Util.isNextTag(lbl, r,  ElGamalCiphertext.OPENING_TAG)) {
+            try {
+                vm.addEncCapability(CryptoUtil.factory().elGamalCiphertextFromXML(lbl, r));
+            }
+            catch (NullPointerException imposs) { }
+        }
+        
+        Util.swallowEndTag(lbl, r,  "capabilities");
+        Util.swallowEndTag(lbl, r,  "capabilityMix");
+        return vm;
+    }
+}

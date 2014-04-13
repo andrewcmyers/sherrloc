@@ -1,0 +1,657 @@
+CONSTRUCTOR C_this 0 //C_this["{this}":15,0-11@Board1.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":15,0-11@Board1.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif]
+CONSTRUCTOR C_p 0 //C_p["{p}":78,25-41@Board1.jif]
+CONSTRUCTOR I_p 0 //I_p["{p}":78,25-41@Board1.jif]
+CONSTRUCTOR C_o 0 //C_o["{o}":78,54-70@Board1.jif]
+CONSTRUCTOR I_o 0 //I_o["{o}":78,54-70@Board1.jif]
+CONSTRUCTOR C_L 0 //C_L["L":79,11-12@Board1.jif]
+CONSTRUCTOR I_L 0 //I_L["L":79,11-12@Board1.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Board1.jif:79,43-44
+CONSTRUCTOR o1 0 //@Board1.jif:79,43-44
+CONSTRUCTOR * 0 //@Board1.jif:79,43-44
+CONSTRUCTOR p1 0 //@Board1.jif:81,60-61
+
+%%
+C_p <= (_ -> _);
+I_p <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+C_o <= (_ -> _);
+I_o <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+C_caller_pc <= (_ -> _);
+I_caller_pc <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+(_ -> _) <= C_infered_downgrade_from;
+C_infered_downgrade_from <= (* -> *);
+(* <- *) <= I_infered_downgrade_from;
+I_infered_downgrade_from <= (_ <- _);
+(_ -> _) <= C_downgrade_from;
+C_downgrade_from <= (* -> *);
+(* <- *) <= I_downgrade_from;
+I_downgrade_from <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to;
+C_infered_downgrade_to <= (* -> *);
+(* <- *) <= I_infered_downgrade_to;
+I_infered_downgrade_to <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from1;
+C_infered_downgrade_from1 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from1;
+I_infered_downgrade_from1 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to1;
+C_infered_downgrade_to1 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to1;
+I_infered_downgrade_to1 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from2;
+C_infered_downgrade_from2 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from2;
+I_infered_downgrade_from2 <= (_ <- _);
+(_ -> _) <= C_downgrade_from1;
+C_downgrade_from1 <= (* -> *);
+(* <- *) <= I_downgrade_from1;
+I_downgrade_from1 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to2;
+C_infered_downgrade_to2 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to2;
+I_infered_downgrade_to2 <= (_ <- _);
+(_ -> _) <= C_newShip;
+C_newShip <= (* -> *);
+(* <- *) <= I_newShip;
+I_newShip <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to3;
+C_infered_downgrade_to3 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to3;
+I_infered_downgrade_to3 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from3;
+C_infered_downgrade_from3 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from3;
+I_infered_downgrade_from3 <= (_ <- _);
+(_ -> _) <= C_downgrade_from2;
+C_downgrade_from2 <= (* -> *);
+(* <- *) <= I_downgrade_from2;
+I_downgrade_from2 <= (_ <- _);
+(_ -> _) <= C_downgrade_from3;
+C_downgrade_from3 <= (* -> *);
+(* <- *) <= I_downgrade_from3;
+I_downgrade_from3 <= (_ <- _);
+(_ -> _) <= (o1 -> o1);
+(o1 -> o1) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (o1 <- o1);
+(o1 <- o1) <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_Board.provider;
+C_Board.provider <= (* -> *);
+(* <- *) <= I_Board.provider;
+I_Board.provider <= (_ <- _);
+(_ -> _) <= C_newBoard;
+C_newBoard <= (* -> *);
+(* <- *) <= I_newBoard;
+I_newBoard <= (_ <- _);
+(_ -> _) <= C_for;
+C_for <= (* -> *);
+(* <- *) <= I_for;
+I_for <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from4;
+C_infered_downgrade_from4 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from4;
+I_infered_downgrade_from4 <= (_ <- _);
+(_ -> _) <= (C_s ⊔ C_sz ⊔ C_for ⊔ C_i);
+(C_s ⊔ C_sz ⊔ C_for ⊔ C_i) <= (* -> *);
+(* <- *) <= (I_s ⊔ I_sz ⊔ I_for ⊔ I_i);
+(I_s ⊔ I_sz ⊔ I_for ⊔ I_i) <= (_ <- _);
+(_ -> _) <= C_downgrade_from4;
+C_downgrade_from4 <= (* -> *);
+(* <- *) <= I_downgrade_from4;
+I_downgrade_from4 <= (_ <- _);
+(_ -> _) <= C_downgrade_from5;
+C_downgrade_from5 <= (* -> *);
+(* <- *) <= I_downgrade_from5;
+I_downgrade_from5 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to4;
+C_infered_downgrade_to4 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to4;
+I_infered_downgrade_to4 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from5;
+C_infered_downgrade_from5 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from5;
+I_infered_downgrade_from5 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to5;
+C_infered_downgrade_to5 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to5;
+I_infered_downgrade_to5 <= (_ <- _);
+(_ -> _) <= C_downgrade_from6;
+C_downgrade_from6 <= (* -> *);
+(* <- *) <= I_downgrade_from6;
+I_downgrade_from6 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from6;
+C_infered_downgrade_from6 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from6;
+I_infered_downgrade_from6 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to6;
+C_infered_downgrade_to6 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to6;
+I_infered_downgrade_to6 <= (_ <- _);
+(_ -> _) <= C_downgrade_from7;
+C_downgrade_from7 <= (* -> *);
+(* <- *) <= I_downgrade_from7;
+I_downgrade_from7 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from7;
+C_infered_downgrade_from7 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from7;
+I_infered_downgrade_from7 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to7;
+C_infered_downgrade_to7 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to7;
+I_infered_downgrade_to7 <= (_ <- _);
+(_ -> _) <= C_downgrade_from8;
+C_downgrade_from8 <= (* -> *);
+(* <- *) <= I_downgrade_from8;
+I_downgrade_from8 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from8;
+C_infered_downgrade_from8 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from8;
+I_infered_downgrade_from8 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to8;
+C_infered_downgrade_to8 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to8;
+I_infered_downgrade_to8 <= (_ <- _);
+(_ -> _) <= C_downgrade_from9;
+C_downgrade_from9 <= (* -> *);
+(* <- *) <= I_downgrade_from9;
+I_downgrade_from9 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from9;
+C_infered_downgrade_from9 <= (* -> *);
+(* <- *) <= I_infered_downgrade_from9;
+I_infered_downgrade_from9 <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to9;
+C_infered_downgrade_to9 <= (* -> *);
+(* <- *) <= I_infered_downgrade_to9;
+I_infered_downgrade_to9 <= (_ <- _);
+(_ -> _) <= C_newCoordinate;
+C_newCoordinate <= (* -> *);
+(* <- *) <= I_newCoordinate;
+I_newCoordinate <= (_ <- _);
+(_ -> _) <= C_downgrade_from10;
+C_downgrade_from10 <= (* -> *);
+(* <- *) <= I_downgrade_from10;
+I_downgrade_from10 <= (_ <- _);
+(_ -> _) <= C_impossible;
+C_impossible <= (* -> *);
+(* <- *) <= I_impossible;
+I_impossible <= (_ <- _);
+(_ -> _) <= C_t;
+C_t <= (* -> *);
+(* <- *) <= I_t;
+I_t <= (_ <- _);
+(_ -> _) <= C_p;
+C_p <= (* -> *);
+(* <- *) <= I_p;
+I_p <= (_ <- _);
+(_ -> _) <= C_isHoriz;
+C_isHoriz <= (* -> *);
+(* <- *) <= I_isHoriz;
+I_isHoriz <= (_ <- _);
+(_ -> _) <= C_o;
+C_o <= (* -> *);
+(* <- *) <= I_o;
+I_o <= (_ <- _);
+(_ -> _) <= C_length;
+C_length <= (* -> *);
+(* <- *) <= I_length;
+I_length <= (_ <- _);
+(_ -> _) <= C_sz;
+C_sz <= (* -> *);
+(* <- *) <= I_sz;
+I_sz <= (_ <- _);
+(_ -> _) <= C_i;
+C_i <= (* -> *);
+(* <- *) <= I_i;
+I_i <= (_ <- _);
+(_ -> _) <= C_newBoard1;
+C_newBoard1 <= (* -> *);
+(* <- *) <= I_newBoard1;
+I_newBoard1 <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+(((p1 <- p1)) ⊓ ((o1 <- o1))) <= (_ <- _);
+(_ -> _) <= C_shps;
+C_shps <= (* -> *);
+(* <- *) <= I_shps;
+I_shps <= (_ <- _);
+(_ -> _) <= C_posY;
+C_posY <= (* -> *);
+(* <- *) <= I_posY;
+I_posY <= (_ <- _);
+(_ -> _) <= C_c;
+C_c <= (* -> *);
+(* <- *) <= I_c;
+I_c <= (_ <- _);
+(_ -> _) <= C_pos;
+C_pos <= (* -> *);
+(* <- *) <= I_pos;
+I_pos <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_posX;
+C_posX <= (* -> *);
+(* <- *) <= I_posX;
+I_posX <= (_ <- _);
+(_ -> _) <= C_impossible1;
+C_impossible1 <= (* -> *);
+(* <- *) <= I_impossible1;
+I_impossible1 <= (_ <- _);
+(_ -> _) <= C_ss;
+C_ss <= (* -> *);
+(* <- *) <= I_ss;
+I_ss <= (_ <- _);
+(_ -> _) <= C_s;
+C_s <= (* -> *);
+(* <- *) <= I_s;
+I_s <= (_ <- _);
+(_ -> _) <= C_impossible2;
+C_impossible2 <= (* -> *);
+(* <- *) <= I_impossible2;
+I_impossible2 <= (_ <- _);
+(_ -> _) <= C_L;
+C_L <= (* -> *);
+(* <- *) <= I_L;
+I_L <= (_ <- _);
+(_ -> _) <= ((p1 -> p1) ⊔ C_pos ⊔ C_sz ⊔ C_for ⊔ C_i ⊔ C_ss);
+((p1 -> p1) ⊔ C_pos ⊔ C_sz ⊔ C_for ⊔ C_i ⊔ C_ss) <= (* -> *);
+(* <- *) <= ((p1 <- p1) ⊔ I_pos ⊔ I_sz ⊔ I_for ⊔ I_i ⊔ I_ss);
+((p1 <- p1) ⊔ I_pos ⊔ I_sz ⊔ I_for ⊔ I_i ⊔ I_ss) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (((p1 <- p1)) ⊓ ((o1 <- o1)));
+(((p1 <- p1)) ⊓ ((o1 <- o1))) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (o1 <- o1);
+(o1 <- o1) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (* <- *);
+(* <- *) <= (_ <- _);
+
+%%
+C_Board.provider["Board.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["Board.provider <= {(* -> *); (p <- p)}":79,34-45@Board1.jif]
+I_Board.provider["Board.provider":] <= (p1["p":79,41-42@Board1.jif] <- p1["p":79,41-42@Board1.jif])["(p <- p)":] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["Board.provider <= {(* -> *); (p <- p)}":79,34-45@Board1.jif]
+
+C_Board.provider["Board.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["Board.provider <= {(* -> *); (o <- o)}":79,34-45@Board1.jif]
+I_Board.provider["Board.provider":] <= (o1["o":79,43-44@Board1.jif] <- o1["o":79,43-44@Board1.jif])["(o <- o)":] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["Board.provider <= {(* -> *); (o <- o)}":79,34-45@Board1.jif]
+
+(C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif] ⊔ C_o["{o}":78,54-70@Board1.jif] ⊔ C_p["{p}":78,25-41@Board1.jif])["{caller_pc ⊔ o ⊔ p}":76,11-77,38@Board1.jif] <= C_newBoard["{newBoard}":81,49-84@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc ⊔ o ⊔ p} <= {newBoard}":81,49-84@Board1.jif]
+(I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif] ⊔ I_o["{o}":78,54-70@Board1.jif] ⊔ I_p["{p}":78,25-41@Board1.jif])["{caller_pc ⊔ o ⊔ p}":76,11-77,38@Board1.jif] <= I_newBoard["{newBoard}":81,49-84@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc ⊔ o ⊔ p} <= {newBoard}":81,49-84@Board1.jif]
+
+C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif] <= (*["*":18,11-18@Board1.jif] -> *["*":18,11-18@Board1.jif])["(* -> *)":18,11-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc} <= {(* -> *)}":81,49-84@Board1.jif]
+I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif] <= (_["_":18,11-18@Board1.jif] <- _["_":18,11-18@Board1.jif])["(_ <- _)":18,11-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc} <= {(* -> *)}":81,49-84@Board1.jif]
+
+(p1["p":81,60-61@Board1.jif] -> p1["p":81,60-61@Board1.jif])["(p -> *)":81,60-64@Board1.jif] == (p1["p":81,15-16@Board1.jif] -> p1["p":81,15-16@Board1.jif])["(p -> *)":81,15-19@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":81,49-84@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":81,66-80@Board1.jif] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":81,21-35@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":81,49-84@Board1.jif]
+
+(C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif] ⊔ C_newBoard["{newBoard}":81,49-84@Board1.jif])["{caller_pc ⊔ newBoard}":76,11-77,38@Board1.jif] <= C_newBoard1["{newBoard}":81,38-46@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc ⊔ newBoard} <= {newBoard}":81,49-84@Board1.jif]
+(I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif] ⊔ I_newBoard["{newBoard}":81,49-84@Board1.jif])["{caller_pc ⊔ newBoard}":76,11-77,38@Board1.jif] <= I_newBoard1["{newBoard}":81,38-46@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc ⊔ newBoard} <= {newBoard}":81,49-84@Board1.jif]
+
+C_L["L":16,23-24@Board1.jif] == (p1["p":83,14-15@Board1.jif] -> p1["p":83,14-15@Board1.jif])["(p -> *)":83,14-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["L == {(p -> *); (p <- *)}":83,33-43@Board1.jif]
+I_L["L":16,23-24@Board1.jif] == (p1["p":83,19-20@Board1.jif] <- p1["p":83,19-20@Board1.jif])["(p <- *)":83,19-23@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["L == {(p -> *); (p <- *)}":83,33-43@Board1.jif]
+
+(C_this["{this}":15,0-11@Board1.jif] ⊔ C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{this ⊔ caller_pc}":15,0-11@Board1.jif] <= C_shps["{shps}":83,26-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {shps}":83,33-43@Board1.jif]
+(I_this["{this}":15,0-11@Board1.jif] ⊔ I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{this ⊔ caller_pc}":15,0-11@Board1.jif] <= I_shps["{shps}":83,26-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {shps}":83,33-43@Board1.jif]
+
+(C_shps["{shps}":83,26-30@Board1.jif] ⊔ C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{shps ⊔ caller_pc}":83,26-30@Board1.jif] <= (*["*":13,4-15@Collection.jif] -> *["*":13,4-15@Collection.jif])["(* -> *)":13,4-15@Collection.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{shps ⊔ caller_pc} <= {(* -> *)}":85,30-41@Board1.jif]
+(I_shps["{shps}":83,26-30@Board1.jif] ⊔ I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{shps ⊔ caller_pc}":83,26-30@Board1.jif] <= (_["_":13,4-15@Collection.jif] <- _["_":13,4-15@Collection.jif])["(_ <- _)":13,4-15@Collection.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{shps ⊔ caller_pc} <= {(* -> *)}":85,30-41@Board1.jif]
+
+C_receiver["{receiver}":85,30-41@Board1.jif] == (C_shps["{shps}":83,26-30@Board1.jif] ⊔ C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{shps ⊔ caller_pc}":83,26-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{receiver} == {shps ⊔ caller_pc}":85,30-41@Board1.jif]
+I_receiver["{receiver}":85,30-41@Board1.jif] == (I_shps["{shps}":83,26-30@Board1.jif] ⊔ I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{shps ⊔ caller_pc}":83,26-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{receiver} == {shps ⊔ caller_pc}":85,30-41@Board1.jif]
+
+((p1["p":83,14-15@Board1.jif] -> p1["p":83,14-15@Board1.jif])["(p -> *)":83,14-18@Board1.jif] ⊔ C_shps["{shps}":83,26-30@Board1.jif])["{(p -> *); (p <- *) ⊔ shps}":83,13-24@Board1.jif] <= C_sz["{sz}":85,12-14@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ shps} <= {sz}":85,17-41@Board1.jif]
+((p1["p":83,19-20@Board1.jif] <- p1["p":83,19-20@Board1.jif])["(p <- *)":83,19-23@Board1.jif] ⊔ I_shps["{shps}":83,26-30@Board1.jif])["{(p -> *); (p <- *) ⊔ shps}":83,13-24@Board1.jif] <= I_sz["{sz}":85,12-14@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ shps} <= {sz}":85,17-41@Board1.jif]
+
+(C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{caller_pc}":76,11-77,38@Board1.jif] <= C_i["{i}":86,17-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc} <= {i}":86,21-22@Board1.jif]
+(I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{caller_pc}":76,11-77,38@Board1.jif] <= I_i["{i}":86,17-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc} <= {i}":86,21-22@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif])["{sz ⊔ for ⊔ i}":85,12-14@Board1.jif] <= C_s["{s}":87,30-31@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i} <= {s}":87,34-38@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif])["{sz ⊔ for ⊔ i}":85,12-14@Board1.jif] <= I_s["{s}":87,30-31@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i} <= {s}":87,34-38@Board1.jif]
+
+(C_i["{i}":86,17-18@Board1.jif] ⊔ C_shps["{shps}":83,26-30@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif])["{i ⊔ shps ⊔ sz ⊔ for}":86,17-18@Board1.jif] <= (*["*":9,30-39@List.jif] -> *["*":9,30-39@List.jif])["(* -> *)":9,30-39@List.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{i ⊔ shps ⊔ sz ⊔ for} <= {(* -> *)}":89,65-66@Board1.jif]
+(I_i["{i}":86,17-18@Board1.jif] ⊔ I_shps["{shps}":83,26-30@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif])["{i ⊔ shps ⊔ sz ⊔ for}":86,17-18@Board1.jif] <= (_["_":9,30-39@List.jif] <- _["_":9,30-39@List.jif])["(_ <- _)":9,30-39@List.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{i ⊔ shps ⊔ sz ⊔ for} <= {(* -> *)}":89,65-66@Board1.jif]
+
+(C_shps["{shps}":83,26-30@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif])["{shps ⊔ sz ⊔ for ⊔ i}":83,26-30@Board1.jif] <= (*["*":9,4-29@List.jif] -> *["*":9,4-29@List.jif])["(* -> *)":9,4-29@List.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{shps ⊔ sz ⊔ for ⊔ i} <= {(* -> *)}":89,56-67@Board1.jif]
+(I_shps["{shps}":83,26-30@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif])["{shps ⊔ sz ⊔ for ⊔ i}":83,26-30@Board1.jif] <= (_["_":9,4-29@List.jif] <- _["_":9,4-29@List.jif])["(_ <- _)":9,4-29@List.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{shps ⊔ sz ⊔ for ⊔ i} <= {(* -> *)}":89,56-67@Board1.jif]
+
+C_receiver1["{receiver}":89,56-67@Board1.jif] == (C_shps["{shps}":83,26-30@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif])["{shps ⊔ sz ⊔ for ⊔ i}":83,26-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{receiver} == {shps ⊔ sz ⊔ for ⊔ i}":89,56-67@Board1.jif]
+I_receiver1["{receiver}":89,56-67@Board1.jif] == (I_shps["{shps}":83,26-30@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif])["{shps ⊔ sz ⊔ for ⊔ i}":83,26-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{receiver} == {shps ⊔ sz ⊔ for ⊔ i}":89,56-67@Board1.jif]
+
+C_arg1label["{arg1label}":89,65-66@Board1.jif] == (C_i["{i}":86,17-18@Board1.jif] ⊔ C_shps["{shps}":83,26-30@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif])["{i ⊔ shps ⊔ sz ⊔ for}":86,17-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{arg1label} == {i ⊔ shps ⊔ sz ⊔ for}":89,56-67@Board1.jif]
+I_arg1label["{arg1label}":89,65-66@Board1.jif] == (I_i["{i}":86,17-18@Board1.jif] ⊔ I_shps["{shps}":83,26-30@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif])["{i ⊔ shps ⊔ sz ⊔ for}":86,17-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{arg1label} == {i ⊔ shps ⊔ sz ⊔ for}":89,56-67@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ (p1["p":83,14-15@Board1.jif] -> p1["p":83,14-15@Board1.jif])["(p -> *)":83,14-18@Board1.jif] ⊔ C_shps["{shps}":83,26-30@Board1.jif])["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps}":85,12-14@Board1.jif] <= C_s["{s}":87,30-31@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps} <= {s}":89,16-17@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ (p1["p":83,19-20@Board1.jif] <- p1["p":83,19-20@Board1.jif])["(p <- *)":83,19-23@Board1.jif] ⊔ I_shps["{shps}":83,26-30@Board1.jif])["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps}":85,12-14@Board1.jif] <= I_s["{s}":87,30-31@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps} <= {s}":89,16-17@Board1.jif]
+
+(p1["p":89,27-28@Board1.jif] -> p1["p":89,27-28@Board1.jif])["(p -> *)":89,27-31@Board1.jif] == (p1["p":87,18-19@Board1.jif] -> p1["p":87,18-19@Board1.jif])["(p -> *)":87,18-22@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *)} == {(p -> *); (p <- *)}":89,16-67@Board1.jif]
+(p1["p":89,32-33@Board1.jif] <- p1["p":89,32-33@Board1.jif])["(p <- *)":89,32-36@Board1.jif] == (p1["p":87,23-24@Board1.jif] <- p1["p":87,23-24@Board1.jif])["(p <- *)":87,23-27@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *)} == {(p -> *); (p <- *)}":89,16-67@Board1.jif]
+
+((p1["p":83,14-15@Board1.jif] -> p1["p":83,14-15@Board1.jif])["(p -> *)":83,14-18@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_shps["{shps}":83,26-30@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif])["{(p -> *); (p <- *) ⊔ i ⊔ shps ⊔ sz ⊔ for}":10,34-43@List.jif] <= C_impossible2["{impossible}":91,19-55@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ i ⊔ shps ⊔ sz ⊔ for} <= {impossible}":91,19-55@Board1.jif]
+((p1["p":83,19-20@Board1.jif] <- p1["p":83,19-20@Board1.jif])["(p <- *)":83,19-23@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_shps["{shps}":83,26-30@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif])["{(p -> *); (p <- *) ⊔ i ⊔ shps ⊔ sz ⊔ for}":10,34-43@List.jif] <= I_impossible2["{impossible}":91,19-55@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ i ⊔ shps ⊔ sz ⊔ for} <= {impossible}":91,19-55@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ (p1["p":83,14-15@Board1.jif] -> p1["p":83,14-15@Board1.jif])["(p -> *)":83,14-18@Board1.jif] ⊔ C_shps["{shps}":83,26-30@Board1.jif])["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps}":85,12-14@Board1.jif] <= C_impossible1["{impossible}":92,19-48@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps} <= {impossible}":92,19-48@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ (p1["p":83,19-20@Board1.jif] <- p1["p":83,19-20@Board1.jif])["(p <- *)":83,19-23@Board1.jif] ⊔ I_shps["{shps}":83,26-30@Board1.jif])["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps}":85,12-14@Board1.jif] <= I_impossible1["{impossible}":92,19-48@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ (p -> *); (p <- *) ⊔ shps} <= {impossible}":92,19-48@Board1.jif]
+
+C_infered_downgrade_from4["{infered_downgrade_from}":95,43-64@Board1.jif] <= C_downgrade_from4["{downgrade_from}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":95,43-64@Board1.jif]
+I_infered_downgrade_from4["{infered_downgrade_from}":95,43-64@Board1.jif] <= I_downgrade_from4["{downgrade_from}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":95,43-64@Board1.jif]
+
+((C_s["{s}":87,30-31@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif])["{s ⊔ sz ⊔ for ⊔ i}":87,30-31@Board1.jif] ⊓ (_["_":95,43-64@Board1.jif] -> _["_":95,43-64@Board1.jif])["(_ -> _)":95,43-64@Board1.jif])["{{s ⊔ sz ⊔ for ⊔ i} ⊓ {}}":87,30-31@Board1.jif] <= (C_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif] ⊓ (_["_":95,43-64@Board1.jif] -> _["_":95,43-64@Board1.jif])["(_ -> _)":95,43-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{s ⊔ sz ⊔ for ⊔ i} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":95,43-64@Board1.jif]
+((I_s["{s}":87,30-31@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif])["{s ⊔ sz ⊔ for ⊔ i}":87,30-31@Board1.jif] ⊓ (_["_":95,43-64@Board1.jif] <- _["_":95,43-64@Board1.jif])["(_ <- _)":95,43-64@Board1.jif])["{{s ⊔ sz ⊔ for ⊔ i} ⊓ {}}":87,30-31@Board1.jif] <= (I_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif] ⊓ (_["_":95,43-64@Board1.jif] <- _["_":95,43-64@Board1.jif])["(_ <- _)":95,43-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{s ⊔ sz ⊔ for ⊔ i} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":95,43-64@Board1.jif]
+
+(C_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif] ⊓ (_["_":95,43-64@Board1.jif] -> _["_":95,43-64@Board1.jif])["(_ -> _)":95,43-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":95,43-64@Board1.jif] <= (_["_":95,57-63@Board1.jif] -> _["_":95,57-63@Board1.jif])["(_ -> _)":95,57-63@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":95,43-64@Board1.jif]
+(I_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif] ⊓ (_["_":95,43-64@Board1.jif] <- _["_":95,43-64@Board1.jif])["(_ <- _)":95,43-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":95,43-64@Board1.jif] <= (p1["p":95,58-59@Board1.jif] <- p1["p":95,58-59@Board1.jif])["(p <- *)":95,58-62@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":95,43-64@Board1.jif]
+
+((_["_":95,57-63@Board1.jif] -> _["_":95,57-63@Board1.jif])["(_ -> _)":95,57-63@Board1.jif] ⊓ (*["*":95,43-64@Board1.jif] -> *["*":95,43-64@Board1.jif])["(* -> *)":95,43-64@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":95,57-63@Board1.jif] == (C_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif] ⊓ (*["*":95,43-64@Board1.jif] -> *["*":95,43-64@Board1.jif])["(* -> *)":95,43-64@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":95,43-64@Board1.jif]
+((p1["p":95,58-59@Board1.jif] <- p1["p":95,58-59@Board1.jif])["(p <- *)":95,58-62@Board1.jif] ⊓ (*["*":95,43-64@Board1.jif] <- *["*":95,43-64@Board1.jif])["(* <- *)":95,43-64@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":95,57-63@Board1.jif] == (I_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif] ⊓ (*["*":95,43-64@Board1.jif] <- *["*":95,43-64@Board1.jif])["(* <- *)":95,43-64@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":95,43-64@Board1.jif]
+
+(C_s["{s}":87,30-31@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif])["{s ⊔ sz ⊔ for ⊔ i}":87,30-31@Board1.jif] == C_infered_downgrade_from4["{infered_downgrade_from}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{s ⊔ sz ⊔ for ⊔ i} == {infered_downgrade_from}":95,43-64@Board1.jif]
+(I_s["{s}":87,30-31@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif])["{s ⊔ sz ⊔ for ⊔ i}":87,30-31@Board1.jif] == I_infered_downgrade_from4["{infered_downgrade_from}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{s ⊔ sz ⊔ for ⊔ i} == {infered_downgrade_from}":95,43-64@Board1.jif]
+
+C_infered_downgrade_from4["{infered_downgrade_from}":95,43-64@Board1.jif] <= (C_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif] ⊔ (*["*":95,43-64@Board1.jif] -> *["*":95,43-64@Board1.jif])["(* -> *)":95,43-64@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":95,43-64@Board1.jif]
+I_infered_downgrade_from4["{infered_downgrade_from}":95,43-64@Board1.jif] <= (I_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif] ⊔ (*["*":95,43-64@Board1.jif] <- *["*":95,43-64@Board1.jif])["(* <- *)":95,43-64@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":95,43-64@Board1.jif]
+
+C_infered_downgrade_from4["{infered_downgrade_from}":95,43-64@Board1.jif] <= ((((p1 -> p1)) ⊔ ((o1 -> o1)))["(p -> *) ⊔ (o -> *)":79,41-42@Board1.jif] ⊔ C_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":95,43-64@Board1.jif]
+I_infered_downgrade_from4["{infered_downgrade_from}":95,43-64@Board1.jif] <= ((_["_":79,41-42@Board1.jif] <- _["_":79,41-42@Board1.jif])["(_ <- _)":79,41-42@Board1.jif] ⊔ I_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":95,43-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":95,43-64@Board1.jif]
+
+C_infered_downgrade_from5["{infered_downgrade_from}":95,35-83@Board1.jif] == C_downgrade_from5["{downgrade_from}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":95,35-83@Board1.jif]
+I_infered_downgrade_from5["{infered_downgrade_from}":95,35-83@Board1.jif] == I_downgrade_from5["{downgrade_from}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":95,35-83@Board1.jif]
+
+(_["_":95,66-82@Board1.jif] -> _["_":95,66-82@Board1.jif])["(_ -> _)":95,66-82@Board1.jif] == C_infered_downgrade_to5["{infered_downgrade_to}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":95,35-83@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":95,67-81@Board1.jif] == I_infered_downgrade_to5["{infered_downgrade_to}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":95,35-83@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif])["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == C_infered_downgrade_from5["{infered_downgrade_from}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to} == {infered_downgrade_from}":95,35-83@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_infered_downgrade_to4["{infered_downgrade_to}":95,43-64@Board1.jif])["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == I_infered_downgrade_from5["{infered_downgrade_from}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to} == {infered_downgrade_from}":95,35-83@Board1.jif]
+
+(C_infered_downgrade_from5["{infered_downgrade_from}":95,35-83@Board1.jif] ⊓ (*["*":95,35-83@Board1.jif] -> *["*":95,35-83@Board1.jif])["(* -> *)":95,35-83@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":95,35-83@Board1.jif] <= C_infered_downgrade_to5["{infered_downgrade_to}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":95,35-83@Board1.jif]
+(I_infered_downgrade_from5["{infered_downgrade_from}":95,35-83@Board1.jif] ⊓ (*["*":95,35-83@Board1.jif] <- *["*":95,35-83@Board1.jif])["(* <- *)":95,35-83@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":95,35-83@Board1.jif] <= I_infered_downgrade_to5["{infered_downgrade_to}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":95,35-83@Board1.jif]
+
+(C_infered_downgrade_from5["{infered_downgrade_from}":95,35-83@Board1.jif] ⊓ (_["_":79,41-42@Board1.jif] -> _["_":79,41-42@Board1.jif])["(_ -> _)":79,41-42@Board1.jif] ⊓ (_["_":79,43-44@Board1.jif] -> _["_":79,43-44@Board1.jif])["(_ -> _)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":95,35-83@Board1.jif] <= C_infered_downgrade_to5["{infered_downgrade_to}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":95,35-83@Board1.jif]
+(I_infered_downgrade_from5["{infered_downgrade_from}":95,35-83@Board1.jif] ⊓ (p1["p":79,41-42@Board1.jif] <- p1["p":79,41-42@Board1.jif])["(p <- *)":79,41-42@Board1.jif] ⊓ (o1["o":79,43-44@Board1.jif] <- o1["o":79,43-44@Board1.jif])["(o <- *)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":95,35-83@Board1.jif] <= I_infered_downgrade_to5["{infered_downgrade_to}":95,35-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":95,35-83@Board1.jif]
+
+(p1["p":87,18-19@Board1.jif] -> p1["p":87,18-19@Board1.jif])["(p -> *)":87,18-22@Board1.jif] == (p1["p":95,18-19@Board1.jif] -> p1["p":95,18-19@Board1.jif])["(p -> *)":95,18-22@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *)} == {(p -> *); (p <- *)}":95,35-83@Board1.jif]
+(p1["p":87,23-24@Board1.jif] <- p1["p":87,23-24@Board1.jif])["(p <- *)":87,23-27@Board1.jif] == (p1["p":95,23-24@Board1.jif] <- p1["p":95,23-24@Board1.jif])["(p <- *)":95,23-27@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *)} == {(p -> *); (p <- *)}":95,35-83@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_infered_downgrade_to5["{infered_downgrade_to}":95,35-83@Board1.jif])["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= C_ss["{ss}":95,30-32@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to} <= {ss}":95,35-83@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_infered_downgrade_to5["{infered_downgrade_to}":95,35-83@Board1.jif])["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= I_ss["{ss}":95,30-32@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ infered_downgrade_to} <= {ss}":95,35-83@Board1.jif]
+
+(p1["p":95,18-19@Board1.jif] -> p1["p":95,18-19@Board1.jif])["(p -> *)":95,18-22@Board1.jif] == (p1["p":97,28-29@Board1.jif] -> p1["p":97,28-29@Board1.jif])["(p -> *)":97,28-32@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *)} == {(p -> *); (p <- *)}":97,47-53@Board1.jif]
+(p1["p":95,23-24@Board1.jif] <- p1["p":95,23-24@Board1.jif])["(p <- *)":95,23-27@Board1.jif] == (p1["p":97,34-35@Board1.jif] <- p1["p":97,34-35@Board1.jif])["(p <- *)":97,34-38@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *)} == {(p -> *); (p <- *)}":97,47-53@Board1.jif]
+
+(C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif])["{ss ⊔ sz ⊔ for ⊔ i}":95,30-32@Board1.jif] <= C_pos["{pos}":97,41-44@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{ss ⊔ sz ⊔ for ⊔ i} <= {pos}":97,47-53@Board1.jif]
+(I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif])["{ss ⊔ sz ⊔ for ⊔ i}":95,30-32@Board1.jif] <= I_pos["{pos}":97,41-44@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{ss ⊔ sz ⊔ for ⊔ i} <= {pos}":97,47-53@Board1.jif]
+
+C_infered_downgrade_from6["{infered_downgrade_from}":99,39-64@Board1.jif] <= C_downgrade_from6["{downgrade_from}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":99,39-64@Board1.jif]
+I_infered_downgrade_from6["{infered_downgrade_from}":99,39-64@Board1.jif] <= I_downgrade_from6["{downgrade_from}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":99,39-64@Board1.jif]
+
+(((p1["p":97,28-29@Board1.jif] -> p1["p":97,28-29@Board1.jif])["(p -> *)":97,28-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":97,27-39@Board1.jif] ⊓ (_["_":99,39-64@Board1.jif] -> _["_":99,39-64@Board1.jif])["(_ -> _)":99,39-64@Board1.jif])["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}}":97,27-39@Board1.jif] <= (C_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif] ⊓ (_["_":99,39-64@Board1.jif] -> _["_":99,39-64@Board1.jif])["(_ -> _)":99,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":99,39-64@Board1.jif]
+(((p1["p":97,34-35@Board1.jif] <- p1["p":97,34-35@Board1.jif])["(p <- *)":97,34-38@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":97,27-39@Board1.jif] ⊓ (_["_":99,39-64@Board1.jif] <- _["_":99,39-64@Board1.jif])["(_ <- _)":99,39-64@Board1.jif])["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}}":97,27-39@Board1.jif] <= (I_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif] ⊓ (_["_":99,39-64@Board1.jif] <- _["_":99,39-64@Board1.jif])["(_ <- _)":99,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":99,39-64@Board1.jif]
+
+(C_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif] ⊓ (_["_":99,39-64@Board1.jif] -> _["_":99,39-64@Board1.jif])["(_ -> _)":99,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":99,39-64@Board1.jif] <= (_["_":99,57-63@Board1.jif] -> _["_":99,57-63@Board1.jif])["(_ -> _)":99,57-63@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":99,39-64@Board1.jif]
+(I_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif] ⊓ (_["_":99,39-64@Board1.jif] <- _["_":99,39-64@Board1.jif])["(_ <- _)":99,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":99,39-64@Board1.jif] <= (p1["p":99,58-59@Board1.jif] <- p1["p":99,58-59@Board1.jif])["(p <- *)":99,58-62@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":99,39-64@Board1.jif]
+
+((_["_":99,57-63@Board1.jif] -> _["_":99,57-63@Board1.jif])["(_ -> _)":99,57-63@Board1.jif] ⊓ (*["*":99,39-64@Board1.jif] -> *["*":99,39-64@Board1.jif])["(* -> *)":99,39-64@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":99,57-63@Board1.jif] == (C_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif] ⊓ (*["*":99,39-64@Board1.jif] -> *["*":99,39-64@Board1.jif])["(* -> *)":99,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":99,39-64@Board1.jif]
+((p1["p":99,58-59@Board1.jif] <- p1["p":99,58-59@Board1.jif])["(p <- *)":99,58-62@Board1.jif] ⊓ (*["*":99,39-64@Board1.jif] <- *["*":99,39-64@Board1.jif])["(* <- *)":99,39-64@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":99,57-63@Board1.jif] == (I_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif] ⊓ (*["*":99,39-64@Board1.jif] <- *["*":99,39-64@Board1.jif])["(* <- *)":99,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":99,39-64@Board1.jif]
+
+((p1["p":97,28-29@Board1.jif] -> p1["p":97,28-29@Board1.jif])["(p -> *)":97,28-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":97,27-39@Board1.jif] == C_infered_downgrade_from6["{infered_downgrade_from}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} == {infered_downgrade_from}":99,39-64@Board1.jif]
+((p1["p":97,34-35@Board1.jif] <- p1["p":97,34-35@Board1.jif])["(p <- *)":97,34-38@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":97,27-39@Board1.jif] == I_infered_downgrade_from6["{infered_downgrade_from}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} == {infered_downgrade_from}":99,39-64@Board1.jif]
+
+C_infered_downgrade_from6["{infered_downgrade_from}":99,39-64@Board1.jif] <= (C_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif] ⊔ (*["*":99,39-64@Board1.jif] -> *["*":99,39-64@Board1.jif])["(* -> *)":99,39-64@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":99,39-64@Board1.jif]
+I_infered_downgrade_from6["{infered_downgrade_from}":99,39-64@Board1.jif] <= (I_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif] ⊔ (*["*":99,39-64@Board1.jif] <- *["*":99,39-64@Board1.jif])["(* <- *)":99,39-64@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":99,39-64@Board1.jif]
+
+C_infered_downgrade_from6["{infered_downgrade_from}":99,39-64@Board1.jif] <= ((((p1 -> p1)) ⊔ ((o1 -> o1)))["(p -> *) ⊔ (o -> *)":79,41-42@Board1.jif] ⊔ C_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":99,39-64@Board1.jif]
+I_infered_downgrade_from6["{infered_downgrade_from}":99,39-64@Board1.jif] <= ((_["_":79,41-42@Board1.jif] <- _["_":79,41-42@Board1.jif])["(_ <- _)":79,41-42@Board1.jif] ⊔ I_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":99,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":99,39-64@Board1.jif]
+
+C_infered_downgrade_from7["{infered_downgrade_from}":99,31-83@Board1.jif] == C_downgrade_from7["{downgrade_from}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":99,31-83@Board1.jif]
+I_infered_downgrade_from7["{infered_downgrade_from}":99,31-83@Board1.jif] == I_downgrade_from7["{downgrade_from}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":99,31-83@Board1.jif]
+
+(_["_":99,66-82@Board1.jif] -> _["_":99,66-82@Board1.jif])["(_ -> _)":99,66-82@Board1.jif] == C_infered_downgrade_to7["{infered_downgrade_to}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":99,31-83@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":99,67-81@Board1.jif] == I_infered_downgrade_to7["{infered_downgrade_to}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":99,31-83@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == C_infered_downgrade_from7["{infered_downgrade_from}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} == {infered_downgrade_from}":99,31-83@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_infered_downgrade_to6["{infered_downgrade_to}":99,39-64@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == I_infered_downgrade_from7["{infered_downgrade_from}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} == {infered_downgrade_from}":99,31-83@Board1.jif]
+
+(C_infered_downgrade_from7["{infered_downgrade_from}":99,31-83@Board1.jif] ⊓ (*["*":99,31-83@Board1.jif] -> *["*":99,31-83@Board1.jif])["(* -> *)":99,31-83@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":99,31-83@Board1.jif] <= C_infered_downgrade_to7["{infered_downgrade_to}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":99,31-83@Board1.jif]
+(I_infered_downgrade_from7["{infered_downgrade_from}":99,31-83@Board1.jif] ⊓ (*["*":99,31-83@Board1.jif] <- *["*":99,31-83@Board1.jif])["(* <- *)":99,31-83@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":99,31-83@Board1.jif] <= I_infered_downgrade_to7["{infered_downgrade_to}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":99,31-83@Board1.jif]
+
+(C_infered_downgrade_from7["{infered_downgrade_from}":99,31-83@Board1.jif] ⊓ (_["_":79,41-42@Board1.jif] -> _["_":79,41-42@Board1.jif])["(_ -> _)":79,41-42@Board1.jif] ⊓ (_["_":79,43-44@Board1.jif] -> _["_":79,43-44@Board1.jif])["(_ -> _)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":99,31-83@Board1.jif] <= C_infered_downgrade_to7["{infered_downgrade_to}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":99,31-83@Board1.jif]
+(I_infered_downgrade_from7["{infered_downgrade_from}":99,31-83@Board1.jif] ⊓ (p1["p":79,41-42@Board1.jif] <- p1["p":79,41-42@Board1.jif])["(p <- *)":79,41-42@Board1.jif] ⊓ (o1["o":79,43-44@Board1.jif] <- o1["o":79,43-44@Board1.jif])["(o <- *)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":99,31-83@Board1.jif] <= I_infered_downgrade_to7["{infered_downgrade_to}":99,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":99,31-83@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_infered_downgrade_to7["{infered_downgrade_to}":99,31-83@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= C_posX["{posX}":99,24-28@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} <= {posX}":99,31-83@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_infered_downgrade_to7["{infered_downgrade_to}":99,31-83@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= I_posX["{posX}":99,24-28@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} <= {posX}":99,31-83@Board1.jif]
+
+C_infered_downgrade_from8["{infered_downgrade_from}":100,39-64@Board1.jif] <= C_downgrade_from8["{downgrade_from}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":100,39-64@Board1.jif]
+I_infered_downgrade_from8["{infered_downgrade_from}":100,39-64@Board1.jif] <= I_downgrade_from8["{downgrade_from}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":100,39-64@Board1.jif]
+
+(((p1["p":97,28-29@Board1.jif] -> p1["p":97,28-29@Board1.jif])["(p -> *)":97,28-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":97,27-39@Board1.jif] ⊓ (_["_":100,39-64@Board1.jif] -> _["_":100,39-64@Board1.jif])["(_ -> _)":100,39-64@Board1.jif])["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}}":97,27-39@Board1.jif] <= (C_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif] ⊓ (_["_":100,39-64@Board1.jif] -> _["_":100,39-64@Board1.jif])["(_ -> _)":100,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":100,39-64@Board1.jif]
+(((p1["p":97,34-35@Board1.jif] <- p1["p":97,34-35@Board1.jif])["(p <- *)":97,34-38@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":97,27-39@Board1.jif] ⊓ (_["_":100,39-64@Board1.jif] <- _["_":100,39-64@Board1.jif])["(_ <- _)":100,39-64@Board1.jif])["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}}":97,27-39@Board1.jif] <= (I_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif] ⊓ (_["_":100,39-64@Board1.jif] <- _["_":100,39-64@Board1.jif])["(_ <- _)":100,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":100,39-64@Board1.jif]
+
+(C_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif] ⊓ (_["_":100,39-64@Board1.jif] -> _["_":100,39-64@Board1.jif])["(_ -> _)":100,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":100,39-64@Board1.jif] <= (_["_":100,57-63@Board1.jif] -> _["_":100,57-63@Board1.jif])["(_ -> _)":100,57-63@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":100,39-64@Board1.jif]
+(I_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif] ⊓ (_["_":100,39-64@Board1.jif] <- _["_":100,39-64@Board1.jif])["(_ <- _)":100,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":100,39-64@Board1.jif] <= (p1["p":100,58-59@Board1.jif] <- p1["p":100,58-59@Board1.jif])["(p <- *)":100,58-62@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":100,39-64@Board1.jif]
+
+((_["_":100,57-63@Board1.jif] -> _["_":100,57-63@Board1.jif])["(_ -> _)":100,57-63@Board1.jif] ⊓ (*["*":100,39-64@Board1.jif] -> *["*":100,39-64@Board1.jif])["(* -> *)":100,39-64@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":100,57-63@Board1.jif] == (C_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif] ⊓ (*["*":100,39-64@Board1.jif] -> *["*":100,39-64@Board1.jif])["(* -> *)":100,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":100,39-64@Board1.jif]
+((p1["p":100,58-59@Board1.jif] <- p1["p":100,58-59@Board1.jif])["(p <- *)":100,58-62@Board1.jif] ⊓ (*["*":100,39-64@Board1.jif] <- *["*":100,39-64@Board1.jif])["(* <- *)":100,39-64@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":100,57-63@Board1.jif] == (I_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif] ⊓ (*["*":100,39-64@Board1.jif] <- *["*":100,39-64@Board1.jif])["(* <- *)":100,39-64@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":100,39-64@Board1.jif]
+
+((p1["p":97,28-29@Board1.jif] -> p1["p":97,28-29@Board1.jif])["(p -> *)":97,28-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":97,27-39@Board1.jif] == C_infered_downgrade_from8["{infered_downgrade_from}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} == {infered_downgrade_from}":100,39-64@Board1.jif]
+((p1["p":97,34-35@Board1.jif] <- p1["p":97,34-35@Board1.jif])["(p <- *)":97,34-38@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif])["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss}":97,27-39@Board1.jif] == I_infered_downgrade_from8["{infered_downgrade_from}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ pos ⊔ sz ⊔ for ⊔ i ⊔ ss} == {infered_downgrade_from}":100,39-64@Board1.jif]
+
+C_infered_downgrade_from8["{infered_downgrade_from}":100,39-64@Board1.jif] <= (C_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif] ⊔ (*["*":100,39-64@Board1.jif] -> *["*":100,39-64@Board1.jif])["(* -> *)":100,39-64@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":100,39-64@Board1.jif]
+I_infered_downgrade_from8["{infered_downgrade_from}":100,39-64@Board1.jif] <= (I_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif] ⊔ (*["*":100,39-64@Board1.jif] <- *["*":100,39-64@Board1.jif])["(* <- *)":100,39-64@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":100,39-64@Board1.jif]
+
+C_infered_downgrade_from8["{infered_downgrade_from}":100,39-64@Board1.jif] <= ((((p1 -> p1)) ⊔ ((o1 -> o1)))["(p -> *) ⊔ (o -> *)":79,41-42@Board1.jif] ⊔ C_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":100,39-64@Board1.jif]
+I_infered_downgrade_from8["{infered_downgrade_from}":100,39-64@Board1.jif] <= ((_["_":79,41-42@Board1.jif] <- _["_":79,41-42@Board1.jif])["(_ <- _)":79,41-42@Board1.jif] ⊔ I_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":100,39-64@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":100,39-64@Board1.jif]
+
+C_infered_downgrade_from9["{infered_downgrade_from}":100,31-83@Board1.jif] == C_downgrade_from9["{downgrade_from}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":100,31-83@Board1.jif]
+I_infered_downgrade_from9["{infered_downgrade_from}":100,31-83@Board1.jif] == I_downgrade_from9["{downgrade_from}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":100,31-83@Board1.jif]
+
+(_["_":100,66-82@Board1.jif] -> _["_":100,66-82@Board1.jif])["(_ -> _)":100,66-82@Board1.jif] == C_infered_downgrade_to9["{infered_downgrade_to}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":100,31-83@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":100,67-81@Board1.jif] == I_infered_downgrade_to9["{infered_downgrade_to}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":100,31-83@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == C_infered_downgrade_from9["{infered_downgrade_from}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} == {infered_downgrade_from}":100,31-83@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_infered_downgrade_to8["{infered_downgrade_to}":100,39-64@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == I_infered_downgrade_from9["{infered_downgrade_from}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} == {infered_downgrade_from}":100,31-83@Board1.jif]
+
+(C_infered_downgrade_from9["{infered_downgrade_from}":100,31-83@Board1.jif] ⊓ (*["*":100,31-83@Board1.jif] -> *["*":100,31-83@Board1.jif])["(* -> *)":100,31-83@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":100,31-83@Board1.jif] <= C_infered_downgrade_to9["{infered_downgrade_to}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":100,31-83@Board1.jif]
+(I_infered_downgrade_from9["{infered_downgrade_from}":100,31-83@Board1.jif] ⊓ (*["*":100,31-83@Board1.jif] <- *["*":100,31-83@Board1.jif])["(* <- *)":100,31-83@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":100,31-83@Board1.jif] <= I_infered_downgrade_to9["{infered_downgrade_to}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":100,31-83@Board1.jif]
+
+(C_infered_downgrade_from9["{infered_downgrade_from}":100,31-83@Board1.jif] ⊓ (_["_":79,41-42@Board1.jif] -> _["_":79,41-42@Board1.jif])["(_ -> _)":79,41-42@Board1.jif] ⊓ (_["_":79,43-44@Board1.jif] -> _["_":79,43-44@Board1.jif])["(_ -> _)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":100,31-83@Board1.jif] <= C_infered_downgrade_to9["{infered_downgrade_to}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":100,31-83@Board1.jif]
+(I_infered_downgrade_from9["{infered_downgrade_from}":100,31-83@Board1.jif] ⊓ (p1["p":79,41-42@Board1.jif] <- p1["p":79,41-42@Board1.jif])["(p <- *)":79,41-42@Board1.jif] ⊓ (o1["o":79,43-44@Board1.jif] <- o1["o":79,43-44@Board1.jif])["(o <- *)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":100,31-83@Board1.jif] <= I_infered_downgrade_to9["{infered_downgrade_to}":100,31-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":100,31-83@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_infered_downgrade_to9["{infered_downgrade_to}":100,31-83@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= C_posY["{posY}":100,24-28@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} <= {posY}":100,31-83@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_infered_downgrade_to9["{infered_downgrade_to}":100,31-83@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= I_posY["{posY}":100,24-28@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} <= {posY}":100,31-83@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_o["{o}":78,54-70@Board1.jif] ⊔ C_p["{p}":78,25-41@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p}":85,12-14@Board1.jif] <= C_newCoordinate["{newCoordinate}":101,59-109@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p} <= {newCoordinate}":101,59-109@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_o["{o}":78,54-70@Board1.jif] ⊔ I_p["{p}":78,25-41@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p}":85,12-14@Board1.jif] <= I_newCoordinate["{newCoordinate}":101,59-109@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p} <= {newCoordinate}":101,59-109@Board1.jif]
+
+(C_posX["{posX}":99,24-28@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{posX ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":99,24-28@Board1.jif] <= ((p1["p":101,75-76@Board1.jif] -> p1["p":101,75-76@Board1.jif])["(p -> *)":101,75-79@Board1.jif] ⊔ C_newCoordinate["{newCoordinate}":101,59-109@Board1.jif])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":18,25-33@Coordinate.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{posX ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":101,98-102@Board1.jif]
+(I_posX["{posX}":99,24-28@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{posX ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":99,24-28@Board1.jif] <= ((((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":101,81-95@Board1.jif] ⊔ I_newCoordinate["{newCoordinate}":101,59-109@Board1.jif])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":18,25-33@Coordinate.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{posX ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":101,98-102@Board1.jif]
+
+(C_posY["{posY}":100,24-28@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{posY ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":100,24-28@Board1.jif] <= ((p1["p":101,75-76@Board1.jif] -> p1["p":101,75-76@Board1.jif])["(p -> *)":101,75-79@Board1.jif] ⊔ C_newCoordinate["{newCoordinate}":101,59-109@Board1.jif])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":18,40-48@Coordinate.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{posY ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":101,104-108@Board1.jif]
+(I_posY["{posY}":100,24-28@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{posY ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":100,24-28@Board1.jif] <= ((((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":101,81-95@Board1.jif] ⊔ I_newCoordinate["{newCoordinate}":101,59-109@Board1.jif])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":18,40-48@Coordinate.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{posY ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}":101,104-108@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":85,12-14@Board1.jif] <= (*["*":18,11-51@Coordinate.jif] -> *["*":18,11-51@Coordinate.jif])["(* -> *)":18,11-51@Coordinate.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(* -> *)}":101,59-109@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":85,12-14@Board1.jif] <= (_["_":18,11-51@Coordinate.jif] <- _["_":18,11-51@Coordinate.jif])["(_ <- _)":18,11-51@Coordinate.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(* -> *)}":101,59-109@Board1.jif]
+
+(p1["p":101,75-76@Board1.jif] -> p1["p":101,75-76@Board1.jif])["(p -> *)":101,75-79@Board1.jif] == (p1["p":101,32-33@Board1.jif] -> p1["p":101,32-33@Board1.jif])["(p -> *)":101,32-36@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":101,59-109@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":101,81-95@Board1.jif] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":101,38-52@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":101,59-109@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_newCoordinate["{newCoordinate}":101,59-109@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newCoordinate}":85,12-14@Board1.jif] <= C_c["{c}":101,55-56@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newCoordinate} <= {c}":101,59-109@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_newCoordinate["{newCoordinate}":101,59-109@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newCoordinate}":85,12-14@Board1.jif] <= I_c["{c}":101,55-56@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newCoordinate} <= {c}":101,59-109@Board1.jif]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":103,41-70@Board1.jif] <= C_downgrade_from10["{downgrade_from}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":103,41-70@Board1.jif]
+I_infered_downgrade_from1["{infered_downgrade_from}":103,41-70@Board1.jif] <= I_downgrade_from10["{downgrade_from}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":103,41-70@Board1.jif]
+
+(((p1["p":95,18-19@Board1.jif] -> p1["p":95,18-19@Board1.jif])["(p -> *)":95,18-22@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":95,17-28@Board1.jif] ⊓ (_["_":103,41-70@Board1.jif] -> _["_":103,41-70@Board1.jif])["(_ -> _)":103,41-70@Board1.jif])["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}}":95,17-28@Board1.jif] <= (C_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif] ⊓ (_["_":103,41-70@Board1.jif] -> _["_":103,41-70@Board1.jif])["(_ -> _)":103,41-70@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":103,41-70@Board1.jif]
+(((p1["p":95,23-24@Board1.jif] <- p1["p":95,23-24@Board1.jif])["(p <- *)":95,23-27@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":95,17-28@Board1.jif] ⊓ (_["_":103,41-70@Board1.jif] <- _["_":103,41-70@Board1.jif])["(_ <- _)":103,41-70@Board1.jif])["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}}":95,17-28@Board1.jif] <= (I_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif] ⊓ (_["_":103,41-70@Board1.jif] <- _["_":103,41-70@Board1.jif])["(_ <- _)":103,41-70@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":103,41-70@Board1.jif]
+
+(C_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif] ⊓ (_["_":103,41-70@Board1.jif] -> _["_":103,41-70@Board1.jif])["(_ -> _)":103,41-70@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":103,41-70@Board1.jif] <= (_["_":103,63-69@Board1.jif] -> _["_":103,63-69@Board1.jif])["(_ -> _)":103,63-69@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":103,41-70@Board1.jif]
+(I_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif] ⊓ (_["_":103,41-70@Board1.jif] <- _["_":103,41-70@Board1.jif])["(_ <- _)":103,41-70@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":103,41-70@Board1.jif] <= (p1["p":103,64-65@Board1.jif] <- p1["p":103,64-65@Board1.jif])["(p <- *)":103,64-68@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":103,41-70@Board1.jif]
+
+((_["_":103,63-69@Board1.jif] -> _["_":103,63-69@Board1.jif])["(_ -> _)":103,63-69@Board1.jif] ⊓ (*["*":103,41-70@Board1.jif] -> *["*":103,41-70@Board1.jif])["(* -> *)":103,41-70@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":103,63-69@Board1.jif] == (C_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif] ⊓ (*["*":103,41-70@Board1.jif] -> *["*":103,41-70@Board1.jif])["(* -> *)":103,41-70@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":103,41-70@Board1.jif]
+((p1["p":103,64-65@Board1.jif] <- p1["p":103,64-65@Board1.jif])["(p <- *)":103,64-68@Board1.jif] ⊓ (*["*":103,41-70@Board1.jif] <- *["*":103,41-70@Board1.jif])["(* <- *)":103,41-70@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":103,63-69@Board1.jif] == (I_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif] ⊓ (*["*":103,41-70@Board1.jif] <- *["*":103,41-70@Board1.jif])["(* <- *)":103,41-70@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":103,41-70@Board1.jif]
+
+((p1["p":95,18-19@Board1.jif] -> p1["p":95,18-19@Board1.jif])["(p -> *)":95,18-22@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":95,17-28@Board1.jif] == C_infered_downgrade_from1["{infered_downgrade_from}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} == {infered_downgrade_from}":103,41-70@Board1.jif]
+((p1["p":95,23-24@Board1.jif] <- p1["p":95,23-24@Board1.jif])["(p <- *)":95,23-27@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":95,17-28@Board1.jif] == I_infered_downgrade_from1["{infered_downgrade_from}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} == {infered_downgrade_from}":103,41-70@Board1.jif]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":103,41-70@Board1.jif] <= (C_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif] ⊔ (*["*":103,41-70@Board1.jif] -> *["*":103,41-70@Board1.jif])["(* -> *)":103,41-70@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":103,41-70@Board1.jif]
+I_infered_downgrade_from1["{infered_downgrade_from}":103,41-70@Board1.jif] <= (I_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif] ⊔ (*["*":103,41-70@Board1.jif] <- *["*":103,41-70@Board1.jif])["(* <- *)":103,41-70@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":103,41-70@Board1.jif]
+
+C_infered_downgrade_from1["{infered_downgrade_from}":103,41-70@Board1.jif] <= ((((p1 -> p1)) ⊔ ((o1 -> o1)))["(p -> *) ⊔ (o -> *)":79,41-42@Board1.jif] ⊔ C_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":103,41-70@Board1.jif]
+I_infered_downgrade_from1["{infered_downgrade_from}":103,41-70@Board1.jif] <= ((_["_":79,41-42@Board1.jif] <- _["_":79,41-42@Board1.jif])["(_ <- _)":79,41-42@Board1.jif] ⊔ I_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":103,41-70@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":103,41-70@Board1.jif]
+
+C_infered_downgrade_from["{infered_downgrade_from}":103,33-89@Board1.jif] == C_downgrade_from["{downgrade_from}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":103,33-89@Board1.jif]
+I_infered_downgrade_from["{infered_downgrade_from}":103,33-89@Board1.jif] == I_downgrade_from["{downgrade_from}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":103,33-89@Board1.jif]
+
+(_["_":103,72-88@Board1.jif] -> _["_":103,72-88@Board1.jif])["(_ -> _)":103,72-88@Board1.jif] == C_infered_downgrade_to2["{infered_downgrade_to}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":103,33-89@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":103,73-87@Board1.jif] == I_infered_downgrade_to2["{infered_downgrade_to}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":103,33-89@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == C_infered_downgrade_from["{infered_downgrade_from}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} == {infered_downgrade_from}":103,33-89@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_infered_downgrade_to["{infered_downgrade_to}":103,41-70@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == I_infered_downgrade_from["{infered_downgrade_from}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} == {infered_downgrade_from}":103,33-89@Board1.jif]
+
+(C_infered_downgrade_from["{infered_downgrade_from}":103,33-89@Board1.jif] ⊓ (*["*":103,33-89@Board1.jif] -> *["*":103,33-89@Board1.jif])["(* -> *)":103,33-89@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":103,33-89@Board1.jif] <= C_infered_downgrade_to2["{infered_downgrade_to}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":103,33-89@Board1.jif]
+(I_infered_downgrade_from["{infered_downgrade_from}":103,33-89@Board1.jif] ⊓ (*["*":103,33-89@Board1.jif] <- *["*":103,33-89@Board1.jif])["(* <- *)":103,33-89@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":103,33-89@Board1.jif] <= I_infered_downgrade_to2["{infered_downgrade_to}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":103,33-89@Board1.jif]
+
+(C_infered_downgrade_from["{infered_downgrade_from}":103,33-89@Board1.jif] ⊓ (_["_":79,41-42@Board1.jif] -> _["_":79,41-42@Board1.jif])["(_ -> _)":79,41-42@Board1.jif] ⊓ (_["_":79,43-44@Board1.jif] -> _["_":79,43-44@Board1.jif])["(_ -> _)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":103,33-89@Board1.jif] <= C_infered_downgrade_to2["{infered_downgrade_to}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":103,33-89@Board1.jif]
+(I_infered_downgrade_from["{infered_downgrade_from}":103,33-89@Board1.jif] ⊓ (p1["p":79,41-42@Board1.jif] <- p1["p":79,41-42@Board1.jif])["(p <- *)":79,41-42@Board1.jif] ⊓ (o1["o":79,43-44@Board1.jif] <- o1["o":79,43-44@Board1.jif])["(o <- *)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":103,33-89@Board1.jif] <= I_infered_downgrade_to2["{infered_downgrade_to}":103,33-89@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":103,33-89@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_infered_downgrade_to2["{infered_downgrade_to}":103,33-89@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= C_length["{length}":103,24-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} <= {length}":103,33-89@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_infered_downgrade_to2["{infered_downgrade_to}":103,33-89@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= I_length["{length}":103,24-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} <= {length}":103,33-89@Board1.jif]
+
+C_infered_downgrade_from2["{infered_downgrade_from}":104,46-81@Board1.jif] <= C_downgrade_from1["{downgrade_from}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":104,46-81@Board1.jif]
+I_infered_downgrade_from2["{infered_downgrade_from}":104,46-81@Board1.jif] <= I_downgrade_from1["{downgrade_from}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {downgrade_from}":104,46-81@Board1.jif]
+
+(((p1["p":95,18-19@Board1.jif] -> p1["p":95,18-19@Board1.jif])["(p -> *)":95,18-22@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":95,17-28@Board1.jif] ⊓ (_["_":104,46-81@Board1.jif] -> _["_":104,46-81@Board1.jif])["(_ -> _)":104,46-81@Board1.jif])["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}}":95,17-28@Board1.jif] <= (C_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif] ⊓ (_["_":104,46-81@Board1.jif] -> _["_":104,46-81@Board1.jif])["(_ -> _)":104,46-81@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":104,46-81@Board1.jif]
+(((p1["p":95,23-24@Board1.jif] <- p1["p":95,23-24@Board1.jif])["(p <- *)":95,23-27@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":95,17-28@Board1.jif] ⊓ (_["_":104,46-81@Board1.jif] <- _["_":104,46-81@Board1.jif])["(_ <- _)":104,46-81@Board1.jif])["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}}":95,17-28@Board1.jif] <= (I_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif] ⊓ (_["_":104,46-81@Board1.jif] <- _["_":104,46-81@Board1.jif])["(_ <- _)":104,46-81@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":104,46-81@Board1.jif]
+
+(C_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif] ⊓ (_["_":104,46-81@Board1.jif] -> _["_":104,46-81@Board1.jif])["(_ -> _)":104,46-81@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":104,46-81@Board1.jif] <= (_["_":104,74-80@Board1.jif] -> _["_":104,74-80@Board1.jif])["(_ -> _)":104,74-80@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":104,46-81@Board1.jif]
+(I_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif] ⊓ (_["_":104,46-81@Board1.jif] <- _["_":104,46-81@Board1.jif])["(_ <- _)":104,46-81@Board1.jif])["{{infered_downgrade_to} ⊓ {}}":104,46-81@Board1.jif] <= (p1["p":104,75-76@Board1.jif] <- p1["p":104,75-76@Board1.jif])["(p <- *)":104,75-79@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(p <- *)}":104,46-81@Board1.jif]
+
+((_["_":104,74-80@Board1.jif] -> _["_":104,74-80@Board1.jif])["(_ -> _)":104,74-80@Board1.jif] ⊓ (*["*":104,46-81@Board1.jif] -> *["*":104,46-81@Board1.jif])["(* -> *)":104,46-81@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":104,74-80@Board1.jif] == (C_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif] ⊓ (*["*":104,46-81@Board1.jif] -> *["*":104,46-81@Board1.jif])["(* -> *)":104,46-81@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":104,46-81@Board1.jif]
+((p1["p":104,75-76@Board1.jif] <- p1["p":104,75-76@Board1.jif])["(p <- *)":104,75-79@Board1.jif] ⊓ (*["*":104,46-81@Board1.jif] <- *["*":104,46-81@Board1.jif])["(* <- *)":104,46-81@Board1.jif])["{{(p <- *)} ⊓ {(* -> *); (* <- *)}}":104,74-80@Board1.jif] == (I_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif] ⊓ (*["*":104,46-81@Board1.jif] <- *["*":104,46-81@Board1.jif])["(* <- *)":104,46-81@Board1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(p <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":104,46-81@Board1.jif]
+
+((p1["p":95,18-19@Board1.jif] -> p1["p":95,18-19@Board1.jif])["(p -> *)":95,18-22@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":95,17-28@Board1.jif] == C_infered_downgrade_from2["{infered_downgrade_from}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} == {infered_downgrade_from}":104,46-81@Board1.jif]
+((p1["p":95,23-24@Board1.jif] <- p1["p":95,23-24@Board1.jif])["(p <- *)":95,23-27@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos}":95,17-28@Board1.jif] == I_infered_downgrade_from2["{infered_downgrade_from}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊔ ss ⊔ sz ⊔ for ⊔ i ⊔ pos} == {infered_downgrade_from}":104,46-81@Board1.jif]
+
+C_infered_downgrade_from2["{infered_downgrade_from}":104,46-81@Board1.jif] <= (C_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif] ⊔ (*["*":104,46-81@Board1.jif] -> *["*":104,46-81@Board1.jif])["(* -> *)":104,46-81@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":104,46-81@Board1.jif]
+I_infered_downgrade_from2["{infered_downgrade_from}":104,46-81@Board1.jif] <= (I_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif] ⊔ (*["*":104,46-81@Board1.jif] <- *["*":104,46-81@Board1.jif])["(* <- *)":104,46-81@Board1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":104,46-81@Board1.jif]
+
+C_infered_downgrade_from2["{infered_downgrade_from}":104,46-81@Board1.jif] <= ((((p1 -> p1)) ⊔ ((o1 -> o1)))["(p -> *) ⊔ (o -> *)":79,41-42@Board1.jif] ⊔ C_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":104,46-81@Board1.jif]
+I_infered_downgrade_from2["{infered_downgrade_from}":104,46-81@Board1.jif] <= ((_["_":79,41-42@Board1.jif] <- _["_":79,41-42@Board1.jif])["(_ <- _)":79,41-42@Board1.jif] ⊔ I_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif])["{(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":104,46-81@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(p -> *) ⊔ (o -> *); (_ <- _) ⊔ infered_downgrade_to}":104,46-81@Board1.jif]
+
+C_infered_downgrade_from3["{infered_downgrade_from}":104,38-100@Board1.jif] == C_downgrade_from2["{downgrade_from}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":104,38-100@Board1.jif]
+I_infered_downgrade_from3["{infered_downgrade_from}":104,38-100@Board1.jif] == I_downgrade_from2["{downgrade_from}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} == {downgrade_from}":104,38-100@Board1.jif]
+
+(_["_":104,83-99@Board1.jif] -> _["_":104,83-99@Board1.jif])["(_ -> _)":104,83-99@Board1.jif] == C_infered_downgrade_to3["{infered_downgrade_to}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":104,38-100@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":104,84-98@Board1.jif] == I_infered_downgrade_to3["{infered_downgrade_to}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p <- *) ⊓ (o <- *)} == {infered_downgrade_to}":104,38-100@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == C_infered_downgrade_from3["{infered_downgrade_from}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} == {infered_downgrade_from}":104,38-100@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_infered_downgrade_to1["{infered_downgrade_to}":104,46-81@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] == I_infered_downgrade_from3["{infered_downgrade_from}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} == {infered_downgrade_from}":104,38-100@Board1.jif]
+
+(C_infered_downgrade_from3["{infered_downgrade_from}":104,38-100@Board1.jif] ⊓ (*["*":104,38-100@Board1.jif] -> *["*":104,38-100@Board1.jif])["(* -> *)":104,38-100@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":104,38-100@Board1.jif] <= C_infered_downgrade_to3["{infered_downgrade_to}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":104,38-100@Board1.jif]
+(I_infered_downgrade_from3["{infered_downgrade_from}":104,38-100@Board1.jif] ⊓ (*["*":104,38-100@Board1.jif] <- *["*":104,38-100@Board1.jif])["(* <- *)":104,38-100@Board1.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":104,38-100@Board1.jif] <= I_infered_downgrade_to3["{infered_downgrade_to}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":104,38-100@Board1.jif]
+
+(C_infered_downgrade_from3["{infered_downgrade_from}":104,38-100@Board1.jif] ⊓ (_["_":79,41-42@Board1.jif] -> _["_":79,41-42@Board1.jif])["(_ -> _)":79,41-42@Board1.jif] ⊓ (_["_":79,43-44@Board1.jif] -> _["_":79,43-44@Board1.jif])["(_ -> _)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":104,38-100@Board1.jif] <= C_infered_downgrade_to3["{infered_downgrade_to}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":104,38-100@Board1.jif]
+(I_infered_downgrade_from3["{infered_downgrade_from}":104,38-100@Board1.jif] ⊓ (p1["p":79,41-42@Board1.jif] <- p1["p":79,41-42@Board1.jif])["(p <- *)":79,41-42@Board1.jif] ⊓ (o1["o":79,43-44@Board1.jif] <- o1["o":79,43-44@Board1.jif])["(o <- *)":79,43-44@Board1.jif])["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":104,38-100@Board1.jif] <= I_infered_downgrade_to3["{infered_downgrade_to}":104,38-100@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {infered_downgrade_to}":104,38-100@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_infered_downgrade_to3["{infered_downgrade_to}":104,38-100@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= C_isHoriz["{isHoriz}":104,28-35@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} <= {isHoriz}":104,38-100@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_infered_downgrade_to3["{infered_downgrade_to}":104,38-100@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to}":85,12-14@Board1.jif] <= I_isHoriz["{isHoriz}":104,28-35@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ infered_downgrade_to} <= {isHoriz}":104,38-100@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_o["{o}":78,54-70@Board1.jif] ⊔ C_p["{p}":78,25-41@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p}":85,12-14@Board1.jif] <= C_newShip["{newShip}":106,53-105@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p} <= {newShip}":106,53-105@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_o["{o}":78,54-70@Board1.jif] ⊔ I_p["{p}":78,25-41@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p}":85,12-14@Board1.jif] <= I_newShip["{newShip}":106,53-105@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ o ⊔ p} <= {newShip}":106,53-105@Board1.jif]
+
+(C_c["{c}":101,55-56@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{c ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":101,55-56@Board1.jif] <= C_newShip["{newShip}":106,53-105@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{c ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {newShip}":106,86-87@Board1.jif]
+(I_c["{c}":101,55-56@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{c ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":101,55-56@Board1.jif] <= I_newShip["{newShip}":106,53-105@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{c ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {newShip}":106,86-87@Board1.jif]
+
+(p1["p":101,32-33@Board1.jif] -> p1["p":101,32-33@Board1.jif])["(p -> *)":101,32-36@Board1.jif] == (p1["p":106,63-64@Board1.jif] -> p1["p":106,63-64@Board1.jif])["(p -> *)":106,63-67@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":106,86-87@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":101,38-52@Board1.jif] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":106,69-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":106,86-87@Board1.jif]
+
+(C_length["{length}":103,24-30@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{length ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":103,24-30@Board1.jif] <= (p1["p":106,63-64@Board1.jif] -> p1["p":106,63-64@Board1.jif])["(p -> *)":106,63-67@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{length ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(p -> *); (p <- *) ⊓ (o <- *)}":106,89-95@Board1.jif]
+(I_length["{length}":103,24-30@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{length ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":103,24-30@Board1.jif] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":106,69-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{length ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(p -> *); (p <- *) ⊓ (o <- *)}":106,89-95@Board1.jif]
+
+(C_isHoriz["{isHoriz}":104,28-35@Board1.jif] ⊔ C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{isHoriz ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":104,28-35@Board1.jif] <= (p1["p":106,63-64@Board1.jif] -> p1["p":106,63-64@Board1.jif])["(p -> *)":106,63-67@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{isHoriz ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(p -> *); (p <- *) ⊓ (o <- *)}":106,97-104@Board1.jif]
+(I_isHoriz["{isHoriz}":104,28-35@Board1.jif] ⊔ I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{isHoriz ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":104,28-35@Board1.jif] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":106,69-83@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{isHoriz ⊔ sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(p -> *); (p <- *) ⊓ (o <- *)}":106,97-104@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":85,12-14@Board1.jif] <= (*["*":29,11-72@Ship.jif] -> *["*":29,11-72@Ship.jif])["(* -> *)":29,11-72@Ship.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(* -> *)}":106,53-105@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":85,12-14@Board1.jif] <= (_["_":29,11-72@Ship.jif] <- _["_":29,11-72@Ship.jif])["(_ <- _)":29,11-72@Ship.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos} <= {(* -> *)}":106,53-105@Board1.jif]
+
+(p1["p":106,63-64@Board1.jif] -> p1["p":106,63-64@Board1.jif])["(p -> *)":106,63-67@Board1.jif] == (p1["p":106,26-27@Board1.jif] -> p1["p":106,26-27@Board1.jif])["(p -> *)":106,26-30@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":106,53-105@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":106,69-83@Board1.jif] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":106,32-46@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":106,53-105@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif] ⊔ C_newShip["{newShip}":106,53-105@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newShip}":85,12-14@Board1.jif] <= C_t["{t}":106,49-50@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newShip} <= {t}":106,53-105@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif] ⊔ I_newShip["{newShip}":106,53-105@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newShip}":85,12-14@Board1.jif] <= I_t["{t}":106,49-50@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos ⊔ newShip} <= {t}":106,53-105@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_ss["{ss}":95,30-32@Board1.jif] ⊔ C_pos["{pos}":97,41-44@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":85,12-14@Board1.jif] == C_downgrade_from3["{downgrade_from}":108,24-110,25@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos} == {downgrade_from}":108,24-110,25@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_ss["{ss}":95,30-32@Board1.jif] ⊔ I_pos["{pos}":97,41-44@Board1.jif])["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos}":85,12-14@Board1.jif] == I_downgrade_from3["{downgrade_from}":108,24-110,25@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ ss ⊔ pos} == {downgrade_from}":108,24-110,25@Board1.jif]
+
+(C_downgrade_from3["{downgrade_from}":108,24-110,25@Board1.jif] ⊓ (*["*":108,24-110,25@Board1.jif] -> *["*":108,24-110,25@Board1.jif])["(* -> *)":108,24-110,25@Board1.jif])["{{downgrade_from} ⊓ {(* -> *); (* <- *)}}":108,24-110,25@Board1.jif] <= (_["_":108,33-49@Board1.jif] -> _["_":108,33-49@Board1.jif])["(_ -> _)":108,33-49@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {(p <- *) ⊓ (o <- *)}":108,24-110,25@Board1.jif]
+(I_downgrade_from3["{downgrade_from}":108,24-110,25@Board1.jif] ⊓ (*["*":108,24-110,25@Board1.jif] <- *["*":108,24-110,25@Board1.jif])["(* <- *)":108,24-110,25@Board1.jif])["{{downgrade_from} ⊓ {(* -> *); (* <- *)}}":108,24-110,25@Board1.jif] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,34-48@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {(p <- *) ⊓ (o <- *)}":108,24-110,25@Board1.jif]
+
+(C_downgrade_from3["{downgrade_from}":108,24-110,25@Board1.jif] ⊓ (_["_":79,41-42@Board1.jif] -> _["_":79,41-42@Board1.jif])["(_ -> _)":79,41-42@Board1.jif] ⊓ (_["_":79,43-44@Board1.jif] -> _["_":79,43-44@Board1.jif])["(_ -> _)":79,43-44@Board1.jif])["{{downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":108,24-110,25@Board1.jif] <= (_["_":108,33-49@Board1.jif] -> _["_":108,33-49@Board1.jif])["(_ -> _)":108,33-49@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {(p <- *) ⊓ (o <- *)}":108,24-110,25@Board1.jif]
+(I_downgrade_from3["{downgrade_from}":108,24-110,25@Board1.jif] ⊓ (p1["p":79,41-42@Board1.jif] <- p1["p":79,41-42@Board1.jif])["(p <- *)":79,41-42@Board1.jif] ⊓ (o1["o":79,43-44@Board1.jif] <- o1["o":79,43-44@Board1.jif])["(o <- *)":79,43-44@Board1.jif])["{{downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}}":108,24-110,25@Board1.jif] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,34-48@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{downgrade_from} ⊓ {(p <- *)} ⊓ {(o <- *)}} <= {(p <- *) ⊓ (o <- *)}":108,24-110,25@Board1.jif]
+
+(C_t["{t}":106,49-50@Board1.jif] ⊔ C_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ (_["_":108,33-49@Board1.jif] -> _["_":108,33-49@Board1.jif])["(_ -> _)":108,33-49@Board1.jif])["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":106,49-50@Board1.jif] <= (p1["p":81,15-16@Board1.jif] -> p1["p":81,15-16@Board1.jif])["(p -> *)":81,15-19@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)} <= {(p -> *); (p <- *) ⊓ (o <- *)}":109,45-46@Board1.jif]
+(I_t["{t}":106,49-50@Board1.jif] ⊔ I_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,34-48@Board1.jif])["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":106,49-50@Board1.jif] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":81,21-35@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)} <= {(p -> *); (p <- *) ⊓ (o <- *)}":109,45-46@Board1.jif]
+
+(p1["p":106,26-27@Board1.jif] -> p1["p":106,26-27@Board1.jif])["(p -> *)":106,26-30@Board1.jif] == (p1["p":81,15-16@Board1.jif] -> p1["p":81,15-16@Board1.jif])["(p -> *)":81,15-19@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":109,45-46@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":106,32-46@Board1.jif] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":81,21-35@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":109,45-46@Board1.jif]
+
+(C_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ (_["_":108,33-49@Board1.jif] -> _["_":108,33-49@Board1.jif])["(_ -> _)":108,33-49@Board1.jif])["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":81,38-46@Board1.jif] <= (p1["p":81,15-16@Board1.jif] -> p1["p":81,15-16@Board1.jif])["(p -> *)":81,15-19@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)} <= {(p -> *); (p <- *) ⊓ (o <- *)}":109,28-47@Board1.jif]
+(I_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,34-48@Board1.jif])["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":81,38-46@Board1.jif] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":81,21-35@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)} <= {(p -> *); (p <- *) ⊓ (o <- *)}":109,28-47@Board1.jif]
+
+C_receiver2["{receiver}":109,28-47@Board1.jif] == (C_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ (_["_":108,33-49@Board1.jif] -> _["_":108,33-49@Board1.jif])["(_ -> _)":108,33-49@Board1.jif])["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":81,38-46@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{receiver} == {newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":109,28-47@Board1.jif]
+I_receiver2["{receiver}":109,28-47@Board1.jif] == (I_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,34-48@Board1.jif])["{newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":81,38-46@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{receiver} == {newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":109,28-47@Board1.jif]
+
+C_arg1label1["{arg1label}":109,45-46@Board1.jif] == (C_t["{t}":106,49-50@Board1.jif] ⊔ C_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ (_["_":108,33-49@Board1.jif] -> _["_":108,33-49@Board1.jif])["(_ -> _)":108,33-49@Board1.jif])["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":106,49-50@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{arg1label} == {t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":109,28-47@Board1.jif]
+I_arg1label1["{arg1label}":109,45-46@Board1.jif] == (I_t["{t}":106,49-50@Board1.jif] ⊔ I_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":108,34-48@Board1.jif])["{t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":106,49-50@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{arg1label} == {t ⊔ newBoard ⊔ (_ -> _); (p <- *) ⊓ (o <- *)}":109,28-47@Board1.jif]
+
+((p1["p":81,15-16@Board1.jif] -> p1["p":81,15-16@Board1.jif])["(p -> *)":81,15-19@Board1.jif] ⊔ C_newBoard1["{newBoard}":81,38-46@Board1.jif])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newBoard}":81,14-36@Board1.jif] <= C_impossible["{impossible}":112,27-62@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newBoard} <= {impossible}":112,27-62@Board1.jif]
+((((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":81,21-35@Board1.jif] ⊔ I_newBoard1["{newBoard}":81,38-46@Board1.jif])["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newBoard}":81,14-36@Board1.jif] <= I_impossible["{impossible}":112,27-62@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newBoard} <= {impossible}":112,27-62@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif])["{sz ⊔ for ⊔ i}":85,12-14@Board1.jif] <= C_i["{i}":86,17-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i} <= {i}":86,32-33@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif])["{sz ⊔ for ⊔ i}":85,12-14@Board1.jif] <= I_i["{i}":86,17-18@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i} <= {i}":86,32-33@Board1.jif]
+
+(C_sz["{sz}":85,12-14@Board1.jif] ⊔ C_for["{for}":86,8-31@Board1.jif] ⊔ C_i["{i}":86,17-18@Board1.jif] ⊔ C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{sz ⊔ for ⊔ i ⊔ caller_pc}":85,12-14@Board1.jif] <= C_for["{for}":86,8-31@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ caller_pc} <= {for}":86,8-31@Board1.jif]
+(I_sz["{sz}":85,12-14@Board1.jif] ⊔ I_for["{for}":86,8-31@Board1.jif] ⊔ I_i["{i}":86,17-18@Board1.jif] ⊔ I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{sz ⊔ for ⊔ i ⊔ caller_pc}":85,12-14@Board1.jif] <= I_for["{for}":86,8-31@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{sz ⊔ for ⊔ i ⊔ caller_pc} <= {for}":86,8-31@Board1.jif]
+
+(C_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ C_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{newBoard ⊔ caller_pc}":81,38-46@Board1.jif] <= (_["_":76,40-56@Board1.jif] -> _["_":76,40-56@Board1.jif])["(_ -> _)":76,40-56@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{newBoard ⊔ caller_pc} <= {(p <- *) ⊓ (o <- *)}":116,8-24@Board1.jif]
+(I_newBoard1["{newBoard}":81,38-46@Board1.jif] ⊔ I_caller_pc["{caller_pc}":76,11-77,38@Board1.jif])["{newBoard ⊔ caller_pc}":81,38-46@Board1.jif] <= (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":76,41-55@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{newBoard ⊔ caller_pc} <= {(p <- *) ⊓ (o <- *)}":116,8-24@Board1.jif]
+
+(p1["p":81,15-16@Board1.jif] -> p1["p":81,15-16@Board1.jif])["(p -> *)":81,15-19@Board1.jif] == (p1["p":76,18-19@Board1.jif] -> p1["p":76,18-19@Board1.jif])["(p -> *)":76,18-22@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":116,15-23@Board1.jif]
+(((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":81,21-35@Board1.jif] == (((p1 <- p1)) ⊓ ((o1 <- o1)))["(p <- *) ⊓ (o <- *)":76,24-38@Board1.jif] {(p1 -> p1) <= C_L;(p1 <- p1) <= I_L;C_L <= (p1 -> p1);I_L <= (p1 <- p1);C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(p -> *); (p <- *) ⊓ (o <- *)} == {(p -> *); (p <- *) ⊓ (o <- *)}":116,15-23@Board1.jif]
+

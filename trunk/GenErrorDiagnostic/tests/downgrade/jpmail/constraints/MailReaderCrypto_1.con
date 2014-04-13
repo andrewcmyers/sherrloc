@@ -1,0 +1,471 @@
+CONSTRUCTOR *pop.SocketL 0 //*pop.SocketL["{*pop.SocketL}":120,23-33@MailReaderCrypto.jif]
+CONSTRUCTOR * 0 //*["*":74,11-38@PolicyStore.jif]
+CONSTRUCTOR user 0 //user["{user}":558,30-46@MailReaderCrypto.jif]
+CONSTRUCTOR *msg.rcptLbl 0 //*msg.rcptLbl["{*msg.rcptLbl}":644,10-21@MailReaderCrypto.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR me 0 //@MailReaderCrypto.jif:577,21-23
+
+%%
+user <= (_ -> _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(_ -> _) <= (args);
+(args) <= (* -> *);
+(_ -> _) <= newMailReaderCrypto;
+newMailReaderCrypto <= (* -> *);
+(_ -> _) <= (pop ⊔ *pop.SocketL ⊔ me1 ⊔ SocketL);
+(pop ⊔ *pop.SocketL ⊔ me1 ⊔ SocketL) <= (* -> *);
+(_ -> _) <= for;
+for <= (* -> *);
+(_ -> _) <= (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs);
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs) <= (* -> *);
+(_ -> _) <= *pop.SocketL;
+*pop.SocketL <= (* -> *);
+(_ -> _) <= ((me -> me) ⊔ me1 ⊔ runtime);
+((me -> me) ⊔ me1 ⊔ runtime) <= (* -> *);
+(_ -> _) <= *;
+* <= (* -> *);
+(_ -> _) <= (numMsgs ⊔ args ⊔ me1);
+(numMsgs ⊔ args ⊔ me1) <= (* -> *);
+(_ -> _) <= (pop ⊔ args ⊔ me1);
+(pop ⊔ args ⊔ me1) <= (* -> *);
+(_ -> _) <= user;
+user <= (* -> *);
+(_ -> _) <= (*pop.SocketL ⊔ pop ⊔ numMsgs2 ⊔ for ⊔ i);
+(*pop.SocketL ⊔ pop ⊔ numMsgs2 ⊔ for ⊔ i) <= (* -> *);
+(_ -> _) <= (*pop.SocketL ⊔ pop);
+(*pop.SocketL ⊔ pop) <= (* -> *);
+(_ -> _) <= (server ⊔ args);
+(server ⊔ args) <= (* -> *);
+(_ -> _) <= e;
+e <= (* -> *);
+(_ -> _) <= (pw2 ⊔ args);
+(pw2 ⊔ args) <= (* -> *);
+(_ -> _) <= msg;
+msg <= (* -> *);
+(_ -> _) <= *msg.rcptLbl;
+*msg.rcptLbl <= (* -> *);
+(_ -> _) <= i;
+i <= (* -> *);
+(_ -> _) <= (outS ⊔ args);
+(outS ⊔ args) <= (* -> *);
+(_ -> _) <= numMsgs2;
+numMsgs2 <= (* -> *);
+(_ -> _) <= e1;
+e1 <= (* -> *);
+(_ -> _) <= (runtime ⊔ args);
+(runtime ⊔ args) <= (* -> *);
+(_ -> _) <= (args ⊔ newMailReaderCrypto);
+(args ⊔ newMailReaderCrypto) <= (* -> *);
+(_ -> _) <= numMsgs;
+numMsgs <= (* -> *);
+(_ -> _) <= (me1 ⊔ args);
+(me1 ⊔ args) <= (* -> *);
+(_ -> _) <= (mainP ⊔ args);
+(mainP ⊔ args) <= (* -> *);
+(_ -> _) <= (policy ⊔ args);
+(policy ⊔ args) <= (* -> *);
+(_ -> _) <= (mainPstr ⊔ args);
+(mainPstr ⊔ args) <= (* -> *);
+(_ -> _) <= ((me -> me) ⊔ *pop.SocketL ⊔ pop ⊔ me1 ⊔ SocketL);
+((me -> me) ⊔ *pop.SocketL ⊔ pop ⊔ me1 ⊔ SocketL) <= (* -> *);
+(_ -> _) <= (mainPstr ⊔ policy ⊔ args);
+(mainPstr ⊔ policy ⊔ args) <= (* -> *);
+(_ -> _) <= (pop ⊔ args);
+(pop ⊔ args) <= (* -> *);
+(_ -> _) <= (me1 ⊔ runtime ⊔ args);
+(me1 ⊔ runtime ⊔ args) <= (* -> *);
+(_ -> _) <= (myusername ⊔ args);
+(myusername ⊔ args) <= (* -> *);
+(_ -> _) <= (msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i);
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i) <= (* -> *);
+(_ -> _) <= mainPstr;
+mainPstr <= (* -> *);
+(_ -> _) <= (args ⊔ SocketP ⊔ pop ⊔ me1 ⊔ SocketL);
+(args ⊔ SocketP ⊔ pop ⊔ me1 ⊔ SocketL) <= (* -> *);
+(_ -> _) <= me1;
+me1 <= (* -> *);
+(_ -> _) <= runtime;
+runtime <= (* -> *);
+(_ -> _) <= e2;
+e2 <= (* -> *);
+(_ -> _) <= (msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1);
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1) <= (* -> *);
+(_ -> _) <= (numMsgs2 ⊔ for ⊔ i);
+(numMsgs2 ⊔ for ⊔ i) <= (* -> *);
+(_ -> _) <= outS;
+outS <= (* -> *);
+(_ -> _) <= e3;
+e3 <= (* -> *);
+(_ -> _) <= policy;
+policy <= (* -> *);
+(_ -> _) <= (i ⊔ pop ⊔ numMsgs2 ⊔ for);
+(i ⊔ pop ⊔ numMsgs2 ⊔ for) <= (* -> *);
+(_ -> _) <= (me -> me);
+(me -> me) <= (* -> *);
+(_ -> _) <= e4;
+e4 <= (* -> *);
+(_ -> _) <= mainP;
+mainP <= (* -> *);
+(_ -> _) <= e5;
+e5 <= (* -> *);
+(_ -> _) <= myusername;
+myusername <= (* -> *);
+(_ -> _) <= e6;
+e6 <= (* -> *);
+(_ -> _) <= pop;
+pop <= (* -> *);
+(_ -> _) <= ex;
+ex <= (* -> *);
+(_ -> _) <= e7;
+e7 <= (* -> *);
+(_ -> _) <= pw2;
+pw2 <= (* -> *);
+(_ -> _) <= (i ⊔ outS ⊔ numMsgs2 ⊔ for);
+(i ⊔ outS ⊔ numMsgs2 ⊔ for) <= (* -> *);
+(_ -> _) <= (*msg.rcptLbl ⊔ msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1);
+(*msg.rcptLbl ⊔ msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1) <= (* -> *);
+(_ -> _) <= server;
+server <= (* -> *);
+
+%%
+(_ -> _)["{}":558,18-27@MailReaderCrypto.jif] <= mainPstr["{mainPstr}":559,9-17@MailReaderCrypto.jif] {};["{} <= {mainPstr}":559,20-24@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= mainPstr["{mainPstr}":559,9-17@MailReaderCrypto.jif] {};["{args} <= {mainPstr}":561,3-11@MailReaderCrypto.jif]
+
+(args)["{args}":9,7-43@ArrayIndexOutOfBoundsException.jif] == e3["{e}":562,11-43@MailReaderCrypto.jif] {};["{args} == {e}":562,11-43@MailReaderCrypto.jif]
+
+e3["{e}":562,11-43@MailReaderCrypto.jif] <= mainPstr["{mainPstr}":559,9-17@MailReaderCrypto.jif] {};["{e} <= {mainPstr}":562,46-54@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= policy["{policy}":564,14-20@MailReaderCrypto.jif] {};["{args} <= {policy}":564,23-27@MailReaderCrypto.jif]
+
+user["{user}":558,30-46@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{user} <= {}":566,34-38@MailReaderCrypto.jif]
+
+(mainPstr ⊔ args)["{mainPstr; args}":559,9-17@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{mainPstr; args} <= {}":566,39-47@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{args} <= {}":566,12-48@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (_ -> _)["{}":] {};["{} <= {}":566,12-48@MailReaderCrypto.jif]
+
+arg1label["{arg1label}":566,34-38@MailReaderCrypto.jif] == user["{user}":558,30-46@MailReaderCrypto.jif] {};["{arg1label} == {user}":566,12-48@MailReaderCrypto.jif]
+
+arg2label["{arg2label}":566,39-47@MailReaderCrypto.jif] == (mainPstr ⊔ args)["{mainPstr; args}":559,9-17@MailReaderCrypto.jif] {};["{arg2label} == {mainPstr; args}":566,12-48@MailReaderCrypto.jif]
+
+user["{user}":558,30-46@MailReaderCrypto.jif] <= policy["{policy}":564,14-20@MailReaderCrypto.jif] {};["{user} <= {policy}":566,3-9@MailReaderCrypto.jif]
+
+(args)["{args}":9,7-30@SecurityException.jif] == e4["{e}":567,11-30@MailReaderCrypto.jif] {};["{args} == {e}":567,11-30@MailReaderCrypto.jif]
+
+(mainPstr ⊔ policy ⊔ args)["{mainPstr; policy; args}":559,9-17@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{mainPstr; policy; args} <= {}":569,59-67@MailReaderCrypto.jif]
+
+(policy ⊔ args)["{policy; args}":564,14-20@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{policy; args} <= {}":569,68-79@MailReaderCrypto.jif]
+
+(policy ⊔ args)["{policy; args}":564,14-20@MailReaderCrypto.jif] <= *["*":74,11-38@PolicyStore.jif] {};["{policy; args} <= *":569,39-80@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *["*":74,11-38@PolicyStore.jif] {};["{} <= *":569,39-80@MailReaderCrypto.jif]
+
+receiver["{receiver}":569,39-80@MailReaderCrypto.jif] == (policy ⊔ args)["{policy; args}":564,14-20@MailReaderCrypto.jif] {};["{receiver} == {policy; args}":569,39-80@MailReaderCrypto.jif]
+
+arg1label1["{arg1label}":569,59-67@MailReaderCrypto.jif] == (mainPstr ⊔ policy ⊔ args)["{mainPstr; policy; args}":559,9-17@MailReaderCrypto.jif] {};["{arg1label} == {mainPstr; policy; args}":569,39-80@MailReaderCrypto.jif]
+
+arg2label1["{arg2label}":569,68-79@MailReaderCrypto.jif] == (policy ⊔ args)["{policy; args}":564,14-20@MailReaderCrypto.jif] {};["{arg2label} == {policy; args}":569,39-80@MailReaderCrypto.jif]
+
+(args ⊔ policy)["{args; policy}":558,18-27@MailReaderCrypto.jif] <= mainP["{mainP}":569,12-17@MailReaderCrypto.jif] {};["{args; policy} <= {mainP}":569,21-87@MailReaderCrypto.jif]
+
+me1["{me}":570,20-22@MailReaderCrypto.jif] == (args)["{args}":558,18-27@MailReaderCrypto.jif] {};["{me} == {args}":570,20-22@MailReaderCrypto.jif]
+
+(mainP ⊔ args)["{mainP; args}":569,12-17@MailReaderCrypto.jif] <= me1["{me}":570,20-22@MailReaderCrypto.jif] {};["{mainP; args} <= {me}":570,25-30@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= runtime["{runtime}":572,26-33@MailReaderCrypto.jif] {};["{args} <= {runtime}":572,36-40@MailReaderCrypto.jif]
+
+(args ⊔ mainP)["{args; mainP}":558,18-27@MailReaderCrypto.jif] <= *["*":11,25-46@Runtime.jif] {};["{args; mainP} <= *":574,37-73@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *["*":11,25-46@Runtime.jif] {};["{} <= *":574,37-73@MailReaderCrypto.jif]
+
+(args ⊔ mainP)["{args; mainP}":11,25-46@Runtime.jif] <= runtime["{runtime}":572,26-33@MailReaderCrypto.jif] {};["{args; mainP} <= {runtime}":574,3-10@MailReaderCrypto.jif]
+
+(args ⊔ mainP)["{args; mainP}":9,7-30@SecurityException.jif] == e2["{e}":575,11-30@MailReaderCrypto.jif] {};["{args; mainP} == {e}":575,11-30@MailReaderCrypto.jif]
+
+outS["{outS}":577,26-30@MailReaderCrypto.jif] == (me -> me)["{(me -> me)}":577,20-25@MailReaderCrypto.jif] {};["{outS} == {(me -> me)}":577,26-30@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= outS["{outS}":577,26-30@MailReaderCrypto.jif] {};["{args} <= {outS}":577,33-37@MailReaderCrypto.jif]
+
+(me1 ⊔ runtime ⊔ args)["{me; runtime; args}":570,20-22@MailReaderCrypto.jif] <= *["*":25,49-56@Runtime.jif] {};["{me; runtime; args} <= *":579,29-43@MailReaderCrypto.jif]
+
+(runtime ⊔ args)["{runtime; args}":572,26-33@MailReaderCrypto.jif] <= *["*":25,18-48@Runtime.jif] {};["{runtime; args} <= *":579,14-44@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *["*":25,18-48@Runtime.jif] {};["{} <= *":579,14-44@MailReaderCrypto.jif]
+
+receiver1["{receiver}":579,14-44@MailReaderCrypto.jif] == (runtime ⊔ args)["{runtime; args}":572,26-33@MailReaderCrypto.jif] {};["{receiver} == {runtime; args}":579,14-44@MailReaderCrypto.jif]
+
+arg1label2["{arg1label}":579,29-43@MailReaderCrypto.jif] == (me1 ⊔ runtime ⊔ args)["{me; runtime; args}":570,20-22@MailReaderCrypto.jif] {};["{arg1label} == {me; runtime; args}":579,14-44@MailReaderCrypto.jif]
+
+((me -> me) ⊔ me1 ⊔ runtime)["{(me -> me); me; runtime}":558,18-27@MailReaderCrypto.jif] <= outS["{outS}":577,26-30@MailReaderCrypto.jif] {};["{(me -> me); me; runtime} <= {outS}":579,7-11@MailReaderCrypto.jif]
+
+(me -> me)["{(me -> me)}":579,38-43@MailReaderCrypto.jif] == (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{(me -> me)} == {(me -> me)}":579,7-44@MailReaderCrypto.jif]
+
+((me -> me) ⊔ me1 ⊔ runtime)["{(me -> me); me; runtime}":9,7-30@SecurityException.jif] == ex["{ex}":581,10-30@MailReaderCrypto.jif] {};["{(me -> me); me; runtime} == {ex}":581,10-30@MailReaderCrypto.jif]
+
+(args)["{args}":9,7-33@NullPointerException.jif] == e7["{e}":582,9-31@MailReaderCrypto.jif] {};["{args} == {e}":582,9-31@MailReaderCrypto.jif]
+
+(outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{outS; args} <= {(me -> me)}":585,16-65@MailReaderCrypto.jif]
+
+(outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{outS; args} <= {(me -> me)}":585,3-66@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{} <= {(me -> me)}":585,3-66@MailReaderCrypto.jif]
+
+receiver2["{receiver}":585,3-66@MailReaderCrypto.jif] == (outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] {};["{receiver} == {outS; args}":585,3-66@MailReaderCrypto.jif]
+
+arg1label3["{arg1label}":585,16-65@MailReaderCrypto.jif] == (outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] {};["{arg1label} == {outS; args}":585,3-66@MailReaderCrypto.jif]
+
+(outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{outS; args} <= {(me -> me)}":586,16-56@MailReaderCrypto.jif]
+
+(outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{outS; args} <= {(me -> me)}":586,3-57@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{} <= {(me -> me)}":586,3-57@MailReaderCrypto.jif]
+
+receiver3["{receiver}":586,3-57@MailReaderCrypto.jif] == (outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] {};["{receiver} == {outS; args}":586,3-57@MailReaderCrypto.jif]
+
+arg1label4["{arg1label}":586,16-56@MailReaderCrypto.jif] == (outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] {};["{arg1label} == {outS; args}":586,3-57@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":588,72-77@MailReaderCrypto.jif] {};["{args} <= {(me -> me)}":588,47-62@MailReaderCrypto.jif]
+
+(me1 ⊔ args)["{me; args}":570,20-22@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{me; args} <= {}":588,63-77@MailReaderCrypto.jif]
+
+(me1 ⊔ args)["{me; args}":570,20-22@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{me; args} <= {}":588,79-81@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":588,72-77@MailReaderCrypto.jif] {};["{args} <= {(me -> me)}":588,21-82@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":588,72-77@MailReaderCrypto.jif] {};["{} <= {(me -> me)}":588,21-82@MailReaderCrypto.jif]
+
+arg1label5["{arg1label}":588,47-62@MailReaderCrypto.jif] == (args)["{args}":558,18-27@MailReaderCrypto.jif] {};["{arg1label} == {args}":588,21-82@MailReaderCrypto.jif]
+
+arg2label2["{arg2label}":588,63-77@MailReaderCrypto.jif] == (me1 ⊔ args)["{me; args}":570,20-22@MailReaderCrypto.jif] {};["{arg2label} == {me; args}":588,21-82@MailReaderCrypto.jif]
+
+arg3label["{arg3label}":588,79-81@MailReaderCrypto.jif] == (me1 ⊔ args)["{me; args}":570,20-22@MailReaderCrypto.jif] {};["{arg3label} == {me; args}":588,21-82@MailReaderCrypto.jif]
+
+(me -> me)["{(me -> me)}":588,72-77@MailReaderCrypto.jif] <= pw2["{pw2}":588,15-18@MailReaderCrypto.jif] {};["{(me -> me)} <= {pw2}":588,21-82@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= server["{server}":597,9-15@MailReaderCrypto.jif] {};["{args} <= {server}":597,18-22@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= server["{server}":597,9-15@MailReaderCrypto.jif] {};["{args} <= {server}":599,3-9@MailReaderCrypto.jif]
+
+(args)["{args}":9,7-43@ArrayIndexOutOfBoundsException.jif] == e5["{e}":600,11-43@MailReaderCrypto.jif] {};["{args} == {e}":600,11-43@MailReaderCrypto.jif]
+
+e5["{e}":600,11-43@MailReaderCrypto.jif] <= server["{server}":597,9-15@MailReaderCrypto.jif] {};["{e} <= {server}":600,46-52@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= myusername["{myusername}":602,9-19@MailReaderCrypto.jif] {};["{args} <= {myusername}":602,22-26@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= myusername["{myusername}":602,9-19@MailReaderCrypto.jif] {};["{args} <= {myusername}":604,3-13@MailReaderCrypto.jif]
+
+(args)["{args}":9,7-43@ArrayIndexOutOfBoundsException.jif] == e6["{e}":605,11-43@MailReaderCrypto.jif] {};["{args} == {e}":605,11-43@MailReaderCrypto.jif]
+
+e6["{e}":605,11-43@MailReaderCrypto.jif] <= myusername["{myusername}":602,9-19@MailReaderCrypto.jif] {};["{e} <= {myusername}":605,46-56@MailReaderCrypto.jif]
+
+(me1 ⊔ args)["{me; args}":570,20-22@MailReaderCrypto.jif] <= newMailReaderCrypto["{newMailReaderCrypto}":608,6-609@MailReaderCrypto.jif] {};["{me; args} <= {newMailReaderCrypto}":608,6-609@MailReaderCrypto.jif]
+
+(server ⊔ args)["{server; args}":597,9-15@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{server; args} <= {}":608,31-37@MailReaderCrypto.jif]
+
+(myusername ⊔ args)["{myusername; args}":602,9-19@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{myusername; args} <= {}":608,39-49@MailReaderCrypto.jif]
+
+(pw2 ⊔ args)["{pw2; args}":588,15-18@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":92,67-75@MailReaderCrypto.jif] {};["{pw2; args} <= {(me -> me)}":608,51-54@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{args} <= {}":609,14-17@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{args} <= {}":609,19-24@MailReaderCrypto.jif]
+
+(policy ⊔ args)["{policy; args}":564,14-20@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{policy; args} <= {}":609,26-32@MailReaderCrypto.jif]
+
+(me1 ⊔ args)["{me; args}":570,20-22@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{me; args} <= {}":609,34-36@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":93,73-82@MailReaderCrypto.jif] {};["{args} <= {(me -> me)}":609,38-42@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{args} <= {}":608,6-609@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (_ -> _)["{}":] {};["{} <= {}":608,6-609@MailReaderCrypto.jif]
+
+(args ⊔ newMailReaderCrypto)["{args; newMailReaderCrypto}":92,4-93@MailReaderCrypto.jif] <= pop["{pop}":607,29-32@MailReaderCrypto.jif] {};["{args; newMailReaderCrypto} <= {pop}":608,6-609@MailReaderCrypto.jif]
+
+(outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{outS; args} <= {(me -> me)}":611,33-56@MailReaderCrypto.jif]
+
+(outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{outS; args} <= {(me -> me)}":611,20-57@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {};["{} <= {(me -> me)}":611,20-57@MailReaderCrypto.jif]
+
+receiver4["{receiver}":611,20-57@MailReaderCrypto.jif] == (outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] {};["{receiver} == {outS; args}":611,20-57@MailReaderCrypto.jif]
+
+arg1label6["{arg1label}":611,33-56@MailReaderCrypto.jif] == (outS ⊔ args)["{outS; args}":577,26-30@MailReaderCrypto.jif] {};["{arg1label} == {outS; args}":611,20-57@MailReaderCrypto.jif]
+
+numMsgs["{numMsgs}":613,12-19@MailReaderCrypto.jif] == (me -> me)["{(me -> me)}":613,6-11@MailReaderCrypto.jif] {};["{numMsgs} == {(me -> me)}":613,12-19@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= numMsgs["{numMsgs}":613,12-19@MailReaderCrypto.jif] {};["{args} <= {numMsgs}":613,22-23@MailReaderCrypto.jif]
+
+(pop ⊔ args ⊔ me1)["{pop; args; me}":607,29-32@MailReaderCrypto.jif] <= *pop.SocketL["{*pop.SocketL}":120,23-33@MailReaderCrypto.jif] {user1 >= me;};["{pop; args; me} <= {*pop.SocketL}":616,25-38@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *pop.SocketL["{*pop.SocketL}":120,23-33@MailReaderCrypto.jif] {user1 >= me;};["{} <= {*pop.SocketL}":616,25-38@MailReaderCrypto.jif]
+
+receiver5["{receiver}":616,25-38@MailReaderCrypto.jif] == (pop ⊔ args ⊔ me1)["{pop; args; me}":607,29-32@MailReaderCrypto.jif] {user1 >= me;};["{receiver} == {pop; args; me}":616,25-38@MailReaderCrypto.jif]
+
+(pop ⊔ *pop.SocketL ⊔ me1 ⊔ SocketL)["{pop; *pop.SocketL; me; SocketL}":607,29-32@MailReaderCrypto.jif] <= *pop.SocketL["{*pop.SocketL}":276,38-48@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{pop; *pop.SocketL; me; SocketL} <= {*pop.SocketL}":617,52-73@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *pop.SocketL["{*pop.SocketL}":276,38-48@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{} <= {*pop.SocketL}":617,52-73@MailReaderCrypto.jif]
+
+receiver6["{receiver}":617,52-73@MailReaderCrypto.jif] == (pop ⊔ *pop.SocketL ⊔ me1 ⊔ SocketL)["{pop; *pop.SocketL; me; SocketL}":607,29-32@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{receiver} == {pop; *pop.SocketL; me; SocketL}":617,52-73@MailReaderCrypto.jif]
+
+((me -> me) ⊔ *pop.SocketL ⊔ pop ⊔ me1 ⊔ SocketL)["{(me -> me); *pop.SocketL; pop; me; SocketL}":276,14-22@MailReaderCrypto.jif] <= numMsgs["{numMsgs}":613,12-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{(me -> me); *pop.SocketL; pop; me; SocketL} <= {numMsgs}":617,42-49@MailReaderCrypto.jif]
+
+(*pop.SocketL ⊔ pop ⊔ me1 ⊔ SocketL)["{*pop.SocketL; pop; me; SocketL}":9,7-24@IOException.jif] == e1["{e}":619,10-23@MailReaderCrypto.jif] {};["{*pop.SocketL; pop; me; SocketL} == {e}":619,10-23@MailReaderCrypto.jif]
+
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{outS; args; me; SocketL; pop; numMsgs} <= {(me -> me)}":623,22-43@MailReaderCrypto.jif]
+
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{outS; args; me; SocketL; pop; numMsgs} <= {(me -> me)}":623,9-44@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{} <= {(me -> me)}":623,9-44@MailReaderCrypto.jif]
+
+receiver7["{receiver}":623,9-44@MailReaderCrypto.jif] == (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{receiver} == {outS; args; me; SocketL; pop; numMsgs}":623,9-44@MailReaderCrypto.jif]
+
+arg1label7["{arg1label}":623,22-43@MailReaderCrypto.jif] == (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{arg1label} == {outS; args; me; SocketL; pop; numMsgs}":623,9-44@MailReaderCrypto.jif]
+
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{outS; args; me; SocketL; pop; numMsgs} <= {(me -> me)}":624,23-55@MailReaderCrypto.jif]
+
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{outS; args; me; SocketL; pop; numMsgs} <= {(me -> me)}":624,9-56@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{} <= {(me -> me)}":624,9-56@MailReaderCrypto.jif]
+
+receiver8["{receiver}":624,9-56@MailReaderCrypto.jif] == (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{receiver} == {outS; args; me; SocketL; pop; numMsgs}":624,9-56@MailReaderCrypto.jif]
+
+arg1label8["{arg1label}":624,23-55@MailReaderCrypto.jif] == (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{arg1label} == {outS; args; me; SocketL; pop; numMsgs}":624,9-56@MailReaderCrypto.jif]
+
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{outS; args; me; SocketL; pop; numMsgs} <= {(me -> me)}":627,22-59@MailReaderCrypto.jif]
+
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{outS; args; me; SocketL; pop; numMsgs} <= {(me -> me)}":627,9-60@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{} <= {(me -> me)}":627,9-60@MailReaderCrypto.jif]
+
+receiver9["{receiver}":627,9-60@MailReaderCrypto.jif] == (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{receiver} == {outS; args; me; SocketL; pop; numMsgs}":627,9-60@MailReaderCrypto.jif]
+
+arg1label9["{arg1label}":627,22-59@MailReaderCrypto.jif] == (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{arg1label} == {outS; args; me; SocketL; pop; numMsgs}":627,9-60@MailReaderCrypto.jif]
+
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{outS; args; me; SocketL; pop; numMsgs} <= {(me -> me)}":628,22-70@MailReaderCrypto.jif]
+
+(outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{outS; args; me; SocketL; pop; numMsgs} <= {(me -> me)}":628,9-71@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{} <= {(me -> me)}":628,9-71@MailReaderCrypto.jif]
+
+receiver10["{receiver}":628,9-71@MailReaderCrypto.jif] == (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{receiver} == {outS; args; me; SocketL; pop; numMsgs}":628,9-71@MailReaderCrypto.jif]
+
+arg1label10["{arg1label}":628,22-70@MailReaderCrypto.jif] == (outS ⊔ args ⊔ me1 ⊔ SocketL ⊔ pop ⊔ numMsgs)["{outS; args; me; SocketL; pop; numMsgs}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);};["{arg1label} == {outS; args; me; SocketL; pop; numMsgs}":628,9-71@MailReaderCrypto.jif]
+
+numMsgs2["{numMsgs2}":632,21-29@MailReaderCrypto.jif] == *pop.SocketL["{*pop.SocketL}":632,6-20@MailReaderCrypto.jif] {};["{numMsgs2} == {*pop.SocketL}":632,21-29@MailReaderCrypto.jif]
+
+(args)["{args}":558,18-27@MailReaderCrypto.jif] <= numMsgs2["{numMsgs2}":632,21-29@MailReaderCrypto.jif] {};["{args} <= {numMsgs2}":632,32-33@MailReaderCrypto.jif]
+
+(numMsgs ⊔ args ⊔ me1)["{numMsgs; args; me}":613,12-19@MailReaderCrypto.jif] <= numMsgs2["{numMsgs2}":632,21-29@MailReaderCrypto.jif] {user1 >= me;};["{numMsgs; args; me} <= {numMsgs2}":634,24-32@MailReaderCrypto.jif]
+
+(args ⊔ SocketP ⊔ pop ⊔ me1 ⊔ SocketL)["{args; SocketP; pop; me; SocketL}":558,18-27@MailReaderCrypto.jif] <= i["{i}":637,15-16@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{args; SocketP; pop; me; SocketL} <= {i}":637,19-20@MailReaderCrypto.jif]
+
+(i ⊔ outS ⊔ numMsgs2 ⊔ for)["{i; outS; numMsgs2; for}":637,15-16@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{i; outS; numMsgs2; for} <= {(me -> me)}":638,35-57@MailReaderCrypto.jif]
+
+(outS ⊔ numMsgs2 ⊔ for ⊔ i)["{outS; numMsgs2; for; i}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{outS; numMsgs2; for; i} <= {(me -> me)}":638,22-58@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{} <= {(me -> me)}":638,22-58@MailReaderCrypto.jif]
+
+receiver11["{receiver}":638,22-58@MailReaderCrypto.jif] == (outS ⊔ numMsgs2 ⊔ for ⊔ i)["{outS; numMsgs2; for; i}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{receiver} == {outS; numMsgs2; for; i}":638,22-58@MailReaderCrypto.jif]
+
+arg1label11["{arg1label}":638,35-57@MailReaderCrypto.jif] == (i ⊔ outS ⊔ numMsgs2 ⊔ for)["{i; outS; numMsgs2; for}":637,15-16@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{arg1label} == {i; outS; numMsgs2; for}":638,22-58@MailReaderCrypto.jif]
+
+msg["{msg}":639,26-29@MailReaderCrypto.jif] == (numMsgs2 ⊔ for ⊔ i)["{numMsgs2; for; i}":632,21-29@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{msg} == {numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif]
+
+(i ⊔ pop ⊔ numMsgs2 ⊔ for)["{i; pop; numMsgs2; for}":637,15-16@MailReaderCrypto.jif] <= *pop.SocketL["{*pop.SocketL}":294,65-75@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{i; pop; numMsgs2; for} <= {*pop.SocketL}":639,53-54@MailReaderCrypto.jif]
+
+(pop ⊔ numMsgs2 ⊔ for ⊔ i)["{pop; numMsgs2; for; i}":607,29-32@MailReaderCrypto.jif] <= *pop.SocketL["{*pop.SocketL}":294,51-61@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{pop; numMsgs2; for; i} <= {*pop.SocketL}":639,32-55@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *pop.SocketL["{*pop.SocketL}":294,51-61@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{} <= {*pop.SocketL}":639,32-55@MailReaderCrypto.jif]
+
+receiver12["{receiver}":639,32-55@MailReaderCrypto.jif] == (pop ⊔ numMsgs2 ⊔ for ⊔ i)["{pop; numMsgs2; for; i}":607,29-32@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{receiver} == {pop; numMsgs2; for; i}":639,32-55@MailReaderCrypto.jif]
+
+arg1label12["{arg1label}":639,53-54@MailReaderCrypto.jif] == (i ⊔ pop ⊔ numMsgs2 ⊔ for)["{i; pop; numMsgs2; for}":637,15-16@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{arg1label} == {i; pop; numMsgs2; for}":639,32-55@MailReaderCrypto.jif]
+
+(*pop.SocketL ⊔ pop ⊔ numMsgs2 ⊔ for ⊔ i)["{*pop.SocketL; pop; numMsgs2; for; i}":294,24-34@MailReaderCrypto.jif] <= msg["{msg}":639,26-29@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{*pop.SocketL; pop; numMsgs2; for; i} <= {msg}":639,32-55@MailReaderCrypto.jif]
+
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif] <= *["*":77,11-38@JPMailMessage.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{msg; outS; numMsgs2; for; i} <= *":642,30-50@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *["*":77,11-38@JPMailMessage.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{} <= *":642,30-50@MailReaderCrypto.jif]
+
+receiver13["{receiver}":642,30-50@MailReaderCrypto.jif] == (msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{receiver} == {msg; outS; numMsgs2; for; i}":642,30-50@MailReaderCrypto.jif]
+
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{msg; outS; numMsgs2; for; i} <= {(me -> me)}":642,19-50@MailReaderCrypto.jif]
+
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":77,11-38@JPMailMessage.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{msg; outS; numMsgs2; for; i} <= {(me -> me)}":642,6-51@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{} <= {(me -> me)}":642,6-51@MailReaderCrypto.jif]
+
+receiver14["{receiver}":642,6-51@MailReaderCrypto.jif] == (outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg)["{outS; numMsgs2; for; i; msg}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{receiver} == {outS; numMsgs2; for; i; msg}":642,6-51@MailReaderCrypto.jif]
+
+arg1label13["{arg1label}":642,19-50@MailReaderCrypto.jif] == (msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{arg1label} == {msg; outS; numMsgs2; for; i}":642,6-51@MailReaderCrypto.jif]
+
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif] <= *["*":81,11-34@JPMailMessage.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{msg; outS; numMsgs2; for; i} <= *":643,33-49@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *["*":81,11-34@JPMailMessage.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{} <= *":643,33-49@MailReaderCrypto.jif]
+
+receiver15["{receiver}":643,33-49@MailReaderCrypto.jif] == (msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{receiver} == {msg; outS; numMsgs2; for; i}":643,33-49@MailReaderCrypto.jif]
+
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{msg; outS; numMsgs2; for; i} <= {(me -> me)}":643,19-49@MailReaderCrypto.jif]
+
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":81,11-34@JPMailMessage.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{msg; outS; numMsgs2; for; i} <= {(me -> me)}":643,6-50@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{} <= {(me -> me)}":643,6-50@MailReaderCrypto.jif]
+
+receiver16["{receiver}":643,6-50@MailReaderCrypto.jif] == (outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg)["{outS; numMsgs2; for; i; msg}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{receiver} == {outS; numMsgs2; for; i; msg}":643,6-50@MailReaderCrypto.jif]
+
+arg1label14["{arg1label}":643,19-49@MailReaderCrypto.jif] == (msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i)["{msg; outS; numMsgs2; for; i}":639,26-29@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{arg1label} == {msg; outS; numMsgs2; for; i}":643,6-50@MailReaderCrypto.jif]
+
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1)["{msg; outS; numMsgs2; for; i; me}":639,26-29@MailReaderCrypto.jif] <= *["*":107,11-35@JPMailMessage.jif] {*pop.SocketL <= (me -> me);*msg.rcptLbl <= (me -> me);me >= pop.SocketP;};["{msg; outS; numMsgs2; for; i; me} <= *":644,54-67@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *["*":107,11-35@JPMailMessage.jif] {*pop.SocketL <= (me -> me);*msg.rcptLbl <= (me -> me);me >= pop.SocketP;};["{} <= *":644,54-67@MailReaderCrypto.jif]
+
+receiver17["{receiver}":644,54-67@MailReaderCrypto.jif] == (msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1)["{msg; outS; numMsgs2; for; i; me}":639,26-29@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);*msg.rcptLbl <= (me -> me);me >= pop.SocketP;};["{receiver} == {msg; outS; numMsgs2; for; i; me}":644,54-67@MailReaderCrypto.jif]
+
+(*msg.rcptLbl ⊔ msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1)["{*msg.rcptLbl; msg; outS; numMsgs2; for; i; me}":107,17-27@JPMailMessage.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);*msg.rcptLbl <= (me -> me);me >= pop.SocketP;};["{*msg.rcptLbl; msg; outS; numMsgs2; for; i; me} <= {(me -> me)}":644,54-67@MailReaderCrypto.jif]
+
+(msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1)["{msg; outS; numMsgs2; for; i; me}":107,11-35@JPMailMessage.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);*msg.rcptLbl <= (me -> me);me >= pop.SocketP;};["{msg; outS; numMsgs2; for; i; me} <= {(me -> me)}":644,41-68@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);*msg.rcptLbl <= (me -> me);me >= pop.SocketP;};["{} <= {(me -> me)}":644,41-68@MailReaderCrypto.jif]
+
+receiver18["{receiver}":644,41-68@MailReaderCrypto.jif] == (outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg ⊔ me1)["{outS; numMsgs2; for; i; msg; me}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);*msg.rcptLbl <= (me -> me);me >= pop.SocketP;};["{receiver} == {outS; numMsgs2; for; i; msg; me}":644,41-68@MailReaderCrypto.jif]
+
+arg1label15["{arg1label}":644,54-67@MailReaderCrypto.jif] == (*msg.rcptLbl ⊔ msg ⊔ outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ me1)["{*msg.rcptLbl; msg; outS; numMsgs2; for; i; me}":107,17-27@JPMailMessage.jif] {*pop.SocketL <= (me -> me);*msg.rcptLbl <= (me -> me);me >= pop.SocketP;};["{arg1label} == {*msg.rcptLbl; msg; outS; numMsgs2; for; i; me}":644,41-68@MailReaderCrypto.jif]
+
+(outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg ⊔ me1)["{outS; numMsgs2; for; i; msg; me}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{outS; numMsgs2; for; i; msg; me} <= {(me -> me)}":645,24-52@MailReaderCrypto.jif]
+
+(outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg ⊔ me1)["{outS; numMsgs2; for; i; msg; me}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{outS; numMsgs2; for; i; msg; me} <= {(me -> me)}":645,11-53@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{} <= {(me -> me)}":645,11-53@MailReaderCrypto.jif]
+
+receiver19["{receiver}":645,11-53@MailReaderCrypto.jif] == (outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg ⊔ me1)["{outS; numMsgs2; for; i; msg; me}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{receiver} == {outS; numMsgs2; for; i; msg; me}":645,11-53@MailReaderCrypto.jif]
+
+arg1label16["{arg1label}":645,24-52@MailReaderCrypto.jif] == (outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg ⊔ me1)["{outS; numMsgs2; for; i; msg; me}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{arg1label} == {outS; numMsgs2; for; i; msg; me}":645,11-53@MailReaderCrypto.jif]
+
+(outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg)["{outS; numMsgs2; for; i; msg}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{outS; numMsgs2; for; i; msg} <= {(me -> me)}":647,23-37@MailReaderCrypto.jif]
+
+(outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg)["{outS; numMsgs2; for; i; msg}":577,26-30@MailReaderCrypto.jif] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{outS; numMsgs2; for; i; msg} <= {(me -> me)}":647,10-38@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= (me -> me)["{(me -> me)}":577,14-19@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{} <= {(me -> me)}":647,10-38@MailReaderCrypto.jif]
+
+receiver20["{receiver}":647,10-38@MailReaderCrypto.jif] == (outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg)["{outS; numMsgs2; for; i; msg}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{receiver} == {outS; numMsgs2; for; i; msg}":647,10-38@MailReaderCrypto.jif]
+
+arg1label17["{arg1label}":647,23-37@MailReaderCrypto.jif] == (outS ⊔ numMsgs2 ⊔ for ⊔ i ⊔ msg)["{outS; numMsgs2; for; i; msg}":577,26-30@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{arg1label} == {outS; numMsgs2; for; i; msg}":647,10-38@MailReaderCrypto.jif]
+
+(numMsgs2 ⊔ for ⊔ i)["{numMsgs2; for; i}":632,21-29@MailReaderCrypto.jif] <= i["{i}":637,15-16@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{numMsgs2; for; i} <= {i}":637,37-38@MailReaderCrypto.jif]
+
+(numMsgs2 ⊔ for ⊔ i)["{numMsgs2; for; i}":632,21-29@MailReaderCrypto.jif] <= for["{for}":637,6-36@MailReaderCrypto.jif] {*pop.SocketL <= (me -> me);me >= pop.SocketP;};["{numMsgs2; for; i} <= {for}":637,6-36@MailReaderCrypto.jif]
+
+(pop ⊔ args)["{pop; args}":607,29-32@MailReaderCrypto.jif] <= *pop.SocketL["{*pop.SocketL}":226,21-31@MailReaderCrypto.jif] {};["{pop; args} <= {*pop.SocketL}":651,3-14@MailReaderCrypto.jif]
+
+(_ -> _)["{}":] <= *pop.SocketL["{*pop.SocketL}":226,21-31@MailReaderCrypto.jif] {};["{} <= {*pop.SocketL}":651,3-14@MailReaderCrypto.jif]
+
+receiver21["{receiver}":651,3-14@MailReaderCrypto.jif] == (pop ⊔ args)["{pop; args}":607,29-32@MailReaderCrypto.jif] {};["{receiver} == {pop; args}":651,3-14@MailReaderCrypto.jif]
+
+(*pop.SocketL ⊔ pop)["{*pop.SocketL; pop}":9,7-24@IOException.jif] == e["{e}":653,9-22@MailReaderCrypto.jif] {};["{*pop.SocketL; pop} == {e}":653,9-22@MailReaderCrypto.jif]
+
+(_ -> _)["{}":558,18-27@MailReaderCrypto.jif] <= (_ -> _)["{}":] {};["{} <= {}":558,18-27@MailReaderCrypto.jif]
+

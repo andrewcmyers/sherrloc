@@ -1,0 +1,32 @@
+package crypto;
+
+// For this to be useful, I think {L} and {this} should be equal.
+public class DeclassKeyClosure[principal P,label L] implements Closure[P,L] { 
+    final byte{P:}[]{P:} keyBits;
+
+    public DeclassKeyClosure(byte{P:}[]{P:} keyBits) {
+/*    		int{P:} len = keyBits == null ? 0 : keyBits.length;
+    		this.keyBits = new byte[len];
+    		try {
+    			for (int{P:} i = 0; i < len; i++)
+    				this.keyBits[i] = keyBits[i];
+    		} catch (ArrayIndexOutOfBoundsException ignore) {
+    		} catch (NullPointerException ignore) {}
+*/  
+    		this.keyBits = keyBits;
+    }
+
+    // the principals are owned by the Manager as they are stored in the Store
+    // this releases them to the public
+    public Object{this} invoke{L}() where caller (P) {
+		int{this} len = declassify(this.keyBits == null ? 0 : this.keyBits.length,{this});
+		final byte{L}[]{this} keyBits = new byte[len];
+		
+		try {
+			for (int i = 0; i < len; i++) 
+				keyBits[i] = declassify(this.keyBits[i],{L});
+		} catch (ArrayIndexOutOfBoundsException ignore) {
+		} catch (NullPointerException ignore) {}
+			return declassify(keyBits,{this});
+    }
+}

@@ -1,0 +1,25 @@
+package crypto;
+
+import java.security.Key;
+
+public class AESClosure[principal P,label L] implements Closure[P,L] { 
+    final byte{P:}[]{P:} plaintext; // should this be a String?
+    //final String{P:} plaintext;
+    final Key{P:} key;
+
+    public AESClosure(Key{P:} key, byte{P:}[]{P:} plaintext) {
+    		this.plaintext = plaintext;
+    		this.key = key;
+    		//super();
+    }
+
+    // This returns a Ciphertext
+    public Object{this} invoke{L}() where caller (P) {
+    		if (L <= new label{P:}) // bounds {this} to be less than {P:}
+    			//return declassify(AES[{P:}].encrypt(key,plaintext),{this});
+    			return AES[{P:}].encrypt(key,plaintext);
+    		else return null;
+    }
+}
+
+/* AESClosure.jif:17,11-30 */
