@@ -1,0 +1,40 @@
+CONSTRUCTOR * 0 //*["*":50,18-39@AES.jif]
+CONSTRUCTOR L 0 //L["{L}":18,10-11@AESClosure.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR P 0 //@AESClosure.jif:18,25-26
+
+%%
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(_ -> _) <= *;
+* <= (* -> *);
+(_ -> _) <= L;
+L <= (* -> *);
+(_ -> _) <= (this);
+(this) <= (* -> *);
+(_ -> _) <= (P -> P);
+(P -> P) <= (* -> *);
+(_ -> _) <= ((P -> P) ⊔ this);
+((P -> P) ⊔ this) <= (* -> *);
+
+%%
+((P -> P) ⊔ this)["{(P -> P); this}":8,13-17@AESClosure.jif] <= (P -> P)["{(P -> P)}":20,18-22@AESClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P); this} <= {(P -> P)}":20,32-35@AESClosure.jif]
+
+((P -> P) ⊔ this)["{(P -> P); this}":6,20-24@AESClosure.jif] <= (P -> P)["{(P -> P)}":20,18-22@AESClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P); this} <= {(P -> P)}":20,36-45@AESClosure.jif]
+
+(P -> P)["{(P -> P)}":20,18-22@AESClosure.jif] <= (P -> P)["{(P -> P)}":6,14-18@AESClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P)} <= {(P -> P)}":20,36-45@AESClosure.jif]
+
+(P -> P)["{(P -> P)}":6,14-18@AESClosure.jif] <= (P -> P)["{(P -> P)}":20,18-22@AESClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P)} <= {(P -> P)}":20,36-45@AESClosure.jif]
+
+(this)["{this}":18,25-26@AESClosure.jif] <= *["*":50,18-39@AES.jif] {this <= L;L <= (P -> P);};["{this} <= *":20,14-46@AESClosure.jif]
+
+L["{L}":17,30-33@AESClosure.jif] <= *["*":50,18-39@AES.jif] {this <= L;L <= (P -> P);};["{L} <= *":20,14-46@AESClosure.jif]
+
+arg1label["{arg1label}":20,32-35@AESClosure.jif] == ((P -> P) ⊔ this)["{(P -> P); this}":8,13-17@AESClosure.jif] {this <= L;L <= (P -> P);};["{arg1label} == {(P -> P); this}":20,14-46@AESClosure.jif]
+
+arg2label["{arg2label}":20,36-45@AESClosure.jif] == ((P -> P) ⊔ this)["{(P -> P); this}":6,20-24@AESClosure.jif] {this <= L;L <= (P -> P);};["{arg2label} == {(P -> P); this}":20,14-46@AESClosure.jif]
+
+(_ -> _)["{}":17,11-30@AESClosure.jif] <= (this)["{this}":17,11-30@AESClosure.jif] {this <= L;};["{} <= {this}":17,11-30@AESClosure.jif]
+
+(this ⊔ (P -> P))["{this; (P -> P)}":18,25-26@AESClosure.jif] <= (this)["{this}":5,7-23@AESClosure.jif] {this <= L;};["{this; (P -> P)} <= {this}":17,11-30@AESClosure.jif]
+

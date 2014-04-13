@@ -1,0 +1,28 @@
+package crypto;
+
+import java.security.Key;
+
+// Note: this declassifying encryption is deceptive, because the re-classification
+// will happen at the level of the private key which may not be the {P:} here.
+// One must be careful with this.  A more appropriate choice is RSASelfClosure (in the jifpol
+// distribution)
+// which ensures the private key and the data have the same label.
+public class RSAClosure[principal P,label L] implements Closure[P,L] { 
+    final byte{P:}[]{P:} plaintext; // should this be a String?
+    final Key{P:} key;
+
+    public RSAClosure(Key{P:} key, byte{P:}[]{P:} plaintext) {
+    		this.plaintext = plaintext;
+    		this.key = key;
+    }
+
+    // This returns a Ciphertext
+    public Object{this} invoke{L}() where caller (P) {
+    		if (L <= new label{P:}) // bounds {this} to be less than {P:}
+    			//return declassify(RSA[{P:}].encrypt(key,plaintext),{this});
+    			return RSA[{P:}].encrypt(key,plaintext);
+    		else return null;
+    }
+}
+
+/* 20,11-30 */

@@ -1,0 +1,21 @@
+package crypto;
+
+import java.security.Key;
+
+public class TripleDESClosure[principal P,label L] implements Closure[P,{P:}] { 
+    final byte{P:}[]{P:} plaintext; // should this be a String?
+    //final String{P:} plaintext;
+    final Key{P:} key;
+
+    public TripleDESClosure(Key{P:} key, byte{P:}[]{P:} plaintext) {
+    		this.plaintext = plaintext;
+    		this.key = key;
+    		//super();
+    }
+
+    // This returns a Ciphertext
+    public Object{this} invoke{P:}() where caller (P) {
+    		//return declassify(TripleDES[{P:}].encrypt(key,plaintext),{this});
+    		return TripleDES[{P:}].encrypt(key,plaintext);
+    }
+}

@@ -431,8 +431,16 @@ public class TestAll {
 	
 	@Test
 	public void testDowngrade () {
+		
+		// Tests from Battleship
 		testConstraint("tests/downgrade/Board1.con", "Board1.jif:85,17-41");
 		testConstraint("tests/downgrade/Board2.con", "Board2.jif:95,35-36");
+//		/*
+//		 * The following two examples produces a large suggest set since a lot
+//		 * of label variables are used on the unsatisfiable paths:
+//		 * 
+//		 * Source --> posX --> newCoordinate --> c --> newShip --> t --> error
+//		 */
 		testConstraint("tests/downgrade/Board3.con", "Board3.jif:99,31-36");
 		testConstraint("tests/downgrade/Board4.con", "Board4.jif:100,31-36");
 		testConstraint("tests/downgrade/Board5.con", "Board5.jif:103,33-42");
@@ -441,5 +449,21 @@ public class TestAll {
 		testConstraint("tests/downgrade/Player1.con", "Player1.jif:141,42-45");
 		testConstraint("tests/downgrade/Player2.con", "Player2.jif:142,42-45");
 		testConstraint("tests/downgrade/Player3.con", "Player3.jif:179,1-15");
+
+		// Tests from Auction, Main.jif does not compile
+		testConstraint("tests/downgrade/AirlineExample1.con", "AirlineExample1.jif:74,13-15");
+		// I don't understand the error reported by Jif, seems the constraint file is error-free
+//		testConstraint("tests/downgrade/AirlineExample2.con", "AirlineExample2.jif:71,51-57");
+		
+		// Tests from jpmail/jifcrypt
+		testConstraint("tests/downgrade/jpmail/constraints/AESClosure_1.con", "AESClosure.jif:17,11-30");
+		testConstraint("tests/downgrade/jpmail/constraints/DESClosure_1.con", "DESClosure.jif:27,11-30");
+		testConstraint("tests/downgrade/jpmail/constraints/MD5Closure_1.con", "MD5Closure.jif:18,27-36");
+		testConstraint("tests/downgrade/jpmail/constraints/RSAClosure_1.con", "RSAClosure.jif:20,11-30");
+		testConstraint("tests/downgrade/jpmail/constraints/TripleDESClosure_1.con", "TripleDESClosure.jif:17,11-30");
+		// RSA.jif is secure after removing all downgrades
+		
+		// Tests from jpmail
+		testConstraint("tests/downgrade/jpmail/constraints/MailReaderCrypto_1.con", "MailReaderCrypto.jif:634,24-32");
 	}
 }

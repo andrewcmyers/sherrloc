@@ -62,6 +62,13 @@ public class Node  {
 	}
     
     /**
+     * @param index Index of the node in graph
+     */
+    public void setIndex(int index) {
+		this.index = index;
+	}
+    
+    /**
      * @return Corresponding element in constraints
      */
     public Element getElement() {

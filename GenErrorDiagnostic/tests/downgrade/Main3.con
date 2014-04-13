@@ -1,0 +1,224 @@
+CONSTRUCTOR C_p 0 //C_p["{p}":5,52-63@Main3.jif]
+CONSTRUCTOR I_p 0 //I_p["{p}":5,52-63@Main3.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":5,24-33@Main3.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":5,24-33@Main3.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@sig-src/jif/runtime/Runtime.jif:15,35-40
+CONSTRUCTOR * 0 //@Main3.jif:19,82-83
+CONSTRUCTOR Dolores 0 //@null
+CONSTRUCTOR p1 0 //@Main3.jif:12,22-23
+
+%%
+C_p <= C_Main.provider;
+I_p <= I_Main.provider;
+C_caller_pc <= (_ -> _);
+I_caller_pc <= (* <- *);
+(_ -> _) <= C_p;
+C_p <= (* -> *);
+(* <- *) <= I_p;
+I_p <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= C_runtime;
+C_runtime <= (* -> *);
+(* <- *) <= I_runtime;
+I_runtime <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_out;
+C_out <= (* -> *);
+(* <- *) <= I_out;
+I_out <= (_ <- _);
+(_ -> _) <= C_out1;
+C_out1 <= (* -> *);
+(* <- *) <= I_out1;
+I_out1 <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (Dolores <- Dolores);
+(Dolores <- Dolores) <= (_ <- _);
+(_ -> _) <= C_SocialNetwork.provider;
+C_SocialNetwork.provider <= (* -> *);
+(* <- *) <= I_SocialNetwork.provider;
+I_SocialNetwork.provider <= (_ <- _);
+(_ -> _) <= C_e;
+C_e <= (* -> *);
+(* <- *) <= I_e;
+I_e <= (_ <- _);
+(_ -> _) <= C_e1;
+C_e1 <= (* -> *);
+(* <- *) <= I_e1;
+I_e1 <= (_ <- _);
+(_ -> _) <= C_out2;
+C_out2 <= (* -> *);
+(* <- *) <= I_out2;
+I_out2 <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (Dolores <- Dolores);
+(Dolores <- Dolores) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (* <- *);
+(* <- *) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_sn;
+C_sn <= (* -> *);
+(* <- *) <= I_sn;
+I_sn <= (_ <- _);
+(_ -> _) <= C_Main.provider;
+C_Main.provider <= (* -> *);
+(* <- *) <= I_Main.provider;
+I_Main.provider <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_newSocialNetwork;
+C_newSocialNetwork <= (* -> *);
+(* <- *) <= I_newSocialNetwork;
+I_newSocialNetwork <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from;
+C_infered_downgrade_from <= (* -> *);
+(* <- *) <= I_infered_downgrade_from;
+I_infered_downgrade_from <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to;
+C_infered_downgrade_to <= (* -> *);
+(* <- *) <= I_infered_downgrade_to;
+I_infered_downgrade_to <= (_ <- _);
+
+%%
+Dolores >= Dolores {};["Dolores actsfor Dolores":5,24-33]
+C_Main.provider["Main.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {};["Main.provider <= {(* -> *); (p <- p)}":7,14-23@Main3.jif]
+I_Main.provider["Main.provider":] <= (p1["p":7,21-22@Main3.jif] <- p1["p":7,21-22@Main3.jif])["(p <- p)":] {};["Main.provider <= {(* -> *); (p <- p)}":7,14-23@Main3.jif]
+
+(C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{caller_pc}":5,24-33@Main3.jif] <= C_out["{out}":10,17-20@Main3.jif] {};["{caller_pc} <= {out}":10,23-27@Main3.jif]
+(I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{caller_pc}":5,24-33@Main3.jif] <= I_out["{out}":10,17-20@Main3.jif] {};["{caller_pc} <= {out}":10,23-27@Main3.jif]
+
+C_caller_pc["{caller_pc}":5,24-33@Main3.jif] <= (*["*":15,25-51@Runtime.jif] -> *["*":15,25-51@Runtime.jif])["(* -> *)":15,25-51@Runtime.jif] {};["{caller_pc} <= {(* -> *)}":12,35-58@Main3.jif]
+I_caller_pc["{caller_pc}":5,24-33@Main3.jif] <= (_["_":15,25-51@Runtime.jif] <- _["_":15,25-51@Runtime.jif])["(_ <- _)":15,25-51@Runtime.jif] {};["{caller_pc} <= {(* -> *)}":12,35-58@Main3.jif]
+
+C_param_p_label["{param_p_label}":12,35-42@Main3.jif] == C_p["{p}":5,52-63@Main3.jif] {};["{param_p_label} == {p}":12,35-58@Main3.jif]
+I_param_p_label["{param_p_label}":12,35-42@Main3.jif] == I_p["{p}":5,52-63@Main3.jif] {};["{param_p_label} == {p}":12,35-58@Main3.jif]
+
+p1["p":12,22-23@Main3.jif] == p1["p":12,22-23@Main3.jif] {};["p equiv p":12,35-58]
+(_["_":15,35-40@Runtime.jif] -> _["_":15,35-40@Runtime.jif])["(_ -> _)":15,35-40@Runtime.jif] <= C_runtime["{runtime}":12,25-32@Main3.jif] {};["{(p <- *)} <= {runtime}":12,35-58@Main3.jif]
+(p1["p":12,35-42@Main3.jif] <- p1["p":12,35-42@Main3.jif])["(p <- *)":15,36-39@Runtime.jif] <= I_runtime["{runtime}":12,25-32@Main3.jif] {};["{(p <- *)} <= {runtime}":12,35-58@Main3.jif]
+
+(C_runtime["{runtime}":12,25-32@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{runtime ⊔ caller_pc}":12,25-32@Main3.jif] <= (*["*":39,51-58@Runtime.jif] -> *["*":39,51-58@Runtime.jif])["(* -> *)":39,51-58@Runtime.jif] {};["{runtime ⊔ caller_pc} <= {(* -> *)}":13,54-66@Main3.jif]
+(I_runtime["{runtime}":12,25-32@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{runtime ⊔ caller_pc}":12,25-32@Main3.jif] <= (_["_":39,51-58@Runtime.jif] <- _["_":39,51-58@Runtime.jif])["(_ <- _)":39,51-58@Runtime.jif] {};["{runtime ⊔ caller_pc} <= {(* -> *)}":13,54-66@Main3.jif]
+
+(C_runtime["{runtime}":12,25-32@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{runtime ⊔ caller_pc}":12,25-32@Main3.jif] <= (*["*":39,18-50@Runtime.jif] -> *["*":39,18-50@Runtime.jif])["(* -> *)":39,18-50@Runtime.jif] {};["{runtime ⊔ caller_pc} <= {(* -> *)}":13,39-67@Main3.jif]
+(I_runtime["{runtime}":12,25-32@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{runtime ⊔ caller_pc}":12,25-32@Main3.jif] <= (_["_":39,18-50@Runtime.jif] <- _["_":39,18-50@Runtime.jif])["(_ <- _)":39,18-50@Runtime.jif] {};["{runtime ⊔ caller_pc} <= {(* -> *)}":13,39-67@Main3.jif]
+
+C_receiver["{receiver}":13,39-67@Main3.jif] == (C_runtime["{runtime}":12,25-32@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{runtime ⊔ caller_pc}":12,25-32@Main3.jif] {};["{receiver} == {runtime ⊔ caller_pc}":13,39-67@Main3.jif]
+I_receiver["{receiver}":13,39-67@Main3.jif] == (I_runtime["{runtime}":12,25-32@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{runtime ⊔ caller_pc}":12,25-32@Main3.jif] {};["{receiver} == {runtime ⊔ caller_pc}":13,39-67@Main3.jif]
+
+C_arg1label["{arg1label}":13,54-66@Main3.jif] == (C_runtime["{runtime}":12,25-32@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{runtime ⊔ caller_pc}":12,25-32@Main3.jif] {};["{arg1label} == {runtime ⊔ caller_pc}":13,39-67@Main3.jif]
+I_arg1label["{arg1label}":13,54-66@Main3.jif] == (I_runtime["{runtime}":12,25-32@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{runtime ⊔ caller_pc}":12,25-32@Main3.jif] {};["{arg1label} == {runtime ⊔ caller_pc}":13,39-67@Main3.jif]
+
+((p1["p":12,22-23@Main3.jif] -> p1["p":12,22-23@Main3.jif])["(p -> *)":39,36-38@Runtime.jif] ⊔ C_runtime["{runtime}":12,25-32@Main3.jif])["{(p -> *); (_ <- _) ⊔ runtime}":39,35-43@Runtime.jif] <= C_out["{out}":10,17-20@Main3.jif] {};["{(p -> *); (_ <- _) ⊔ runtime} <= {out}":13,14-17@Main3.jif]
+((_["_":13,64-66@Main3.jif] <- _["_":13,64-66@Main3.jif])["(_ <- _)":13,64-66@Main3.jif] ⊔ I_runtime["{runtime}":12,25-32@Main3.jif])["{(p -> *); (_ <- _) ⊔ runtime}":39,35-43@Runtime.jif] <= I_out["{out}":10,17-20@Main3.jif] {};["{(p -> *); (_ <- _) ⊔ runtime} <= {out}":13,14-17@Main3.jif]
+
+(_["_":13,64-66@Main3.jif] -> _["_":13,64-66@Main3.jif])["(_ -> _)":13,64-66@Main3.jif] == (_["_":10,13-15@Main3.jif] -> _["_":10,13-15@Main3.jif])["(_ -> _)":10,13-15@Main3.jif] {};["{} == {}":13,14-67@Main3.jif]
+(_["_":13,64-66@Main3.jif] <- _["_":13,64-66@Main3.jif])["(_ <- _)":13,64-66@Main3.jif] == (_["_":10,13-15@Main3.jif] <- _["_":10,13-15@Main3.jif])["(_ <- _)":10,13-15@Main3.jif] {};["{} == {}":13,14-67@Main3.jif]
+
+((_["_":13,64-66@Main3.jif] -> _["_":13,64-66@Main3.jif])["(_ -> _)":13,64-66@Main3.jif] ⊔ C_runtime["{runtime}":12,25-32@Main3.jif])["{(_ -> _); (_ <- _) ⊔ runtime}":5,24-33@Main3.jif] <= C_e["{e}":15,17-36@Main3.jif] {};["{(_ -> _); (_ <- _) ⊔ runtime} <= {e}":15,17-36@Main3.jif]
+((_["_":13,64-66@Main3.jif] <- _["_":13,64-66@Main3.jif])["(_ <- _)":13,64-66@Main3.jif] ⊔ I_runtime["{runtime}":12,25-32@Main3.jif])["{(_ -> _); (_ <- _) ⊔ runtime}":5,24-33@Main3.jif] <= I_e["{e}":15,17-36@Main3.jif] {};["{(_ -> _); (_ <- _) ⊔ runtime} <= {e}":15,17-36@Main3.jif]
+
+C_infered_downgrade_from["{infered_downgrade_from}":19,33-112@Main3.jif] == (p1["p":19,58-59@Main3.jif] -> p1["p":19,58-59@Main3.jif])["(p -> *)":19,58-61@Main3.jif] {};["{infered_downgrade_from} == {(p -> *)}":19,33-112@Main3.jif]
+I_infered_downgrade_from["{infered_downgrade_from}":19,33-112@Main3.jif] == (_["_":19,63-64@Main3.jif] <- _["_":19,66-67@Main3.jif])["(_ <- _)":19,63-67@Main3.jif] {};["{infered_downgrade_from} == {(p -> *)}":19,33-112@Main3.jif]
+
+(p1["p":19,74-75@Main3.jif] -> p1["p":19,76-77@Main3.jif])["(p -> p)":19,74-77@Main3.jif] == C_infered_downgrade_to["{infered_downgrade_to}":19,33-112@Main3.jif] {};["{(p -> p); (p <- *)} == {infered_downgrade_to}":19,33-112@Main3.jif]
+(p1["p":19,79-80@Main3.jif] <- p1["p":19,79-80@Main3.jif])["(p <- *)":19,79-83@Main3.jif] == I_infered_downgrade_to["{infered_downgrade_to}":19,33-112@Main3.jif] {};["{(p -> p); (p <- *)} == {infered_downgrade_to}":19,33-112@Main3.jif]
+
+(C_out["{out}":10,17-20@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out ⊔ caller_pc}":10,17-20@Main3.jif] <= C_infered_downgrade_from["{infered_downgrade_from}":19,33-112@Main3.jif] {};["{out ⊔ caller_pc} <= {infered_downgrade_from}":19,33-112@Main3.jif]
+(I_out["{out}":10,17-20@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out ⊔ caller_pc}":10,17-20@Main3.jif] <= I_infered_downgrade_from["{infered_downgrade_from}":19,33-112@Main3.jif] {};["{out ⊔ caller_pc} <= {infered_downgrade_from}":19,33-112@Main3.jif]
+
+(C_infered_downgrade_from["{infered_downgrade_from}":19,33-112@Main3.jif] ⊓ (*["*":19,33-112@Main3.jif] -> *["*":19,33-112@Main3.jif])["(* -> *)":19,33-112@Main3.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":19,33-112@Main3.jif] <= C_infered_downgrade_to["{infered_downgrade_to}":19,33-112@Main3.jif] {};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":19,33-112@Main3.jif]
+(I_infered_downgrade_from["{infered_downgrade_from}":19,33-112@Main3.jif] ⊓ (*["*":19,33-112@Main3.jif] <- *["*":19,33-112@Main3.jif])["(* <- *)":19,33-112@Main3.jif])["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}}":19,33-112@Main3.jif] <= I_infered_downgrade_to["{infered_downgrade_to}":19,33-112@Main3.jif] {};["{{infered_downgrade_from} ⊓ {(* -> *); (* <- *)}} <= {infered_downgrade_to}":19,33-112@Main3.jif]
+
+(C_infered_downgrade_from["{infered_downgrade_from}":19,33-112@Main3.jif] ⊓ (_["_":] -> _["_":])["(_ -> _)":] ⊓ (_["_":7,21-22@Main3.jif] -> _["_":7,21-22@Main3.jif])["(_ -> _)":7,21-22@Main3.jif])["{{infered_downgrade_from} ⊓ {(Dolores <- *)} ⊓ {(p <- *)}}":19,33-112@Main3.jif] <= C_infered_downgrade_to["{infered_downgrade_to}":19,33-112@Main3.jif] {};["{{infered_downgrade_from} ⊓ {(Dolores <- *)} ⊓ {(p <- *)}} <= {infered_downgrade_to}":19,33-112@Main3.jif]
+(I_infered_downgrade_from["{infered_downgrade_from}":19,33-112@Main3.jif] ⊓ (Dolores["Dolores":] <- Dolores["Dolores":])["(Dolores <- *)":] ⊓ (p1["p":7,21-22@Main3.jif] <- p1["p":7,21-22@Main3.jif])["(p <- *)":7,21-22@Main3.jif])["{{infered_downgrade_from} ⊓ {(Dolores <- *)} ⊓ {(p <- *)}}":19,33-112@Main3.jif] <= I_infered_downgrade_to["{infered_downgrade_to}":19,33-112@Main3.jif] {};["{{infered_downgrade_from} ⊓ {(Dolores <- *)} ⊓ {(p <- *)}} <= {infered_downgrade_to}":19,33-112@Main3.jif]
+
+(_["_":10,13-15@Main3.jif] -> _["_":10,13-15@Main3.jif])["(_ -> _)":10,13-15@Main3.jif] == (_["_":19,22-24@Main3.jif] -> _["_":19,22-24@Main3.jif])["(_ -> _)":19,22-24@Main3.jif] {};["{} == {}":19,33-112@Main3.jif]
+(_["_":10,13-15@Main3.jif] <- _["_":10,13-15@Main3.jif])["(_ <- _)":10,13-15@Main3.jif] == (_["_":19,22-24@Main3.jif] <- _["_":19,22-24@Main3.jif])["(_ <- _)":19,22-24@Main3.jif] {};["{} == {}":19,33-112@Main3.jif]
+
+(C_caller_pc["{caller_pc}":5,24-33@Main3.jif] ⊔ C_infered_downgrade_to["{infered_downgrade_to}":19,33-112@Main3.jif])["{caller_pc ⊔ infered_downgrade_to}":5,24-33@Main3.jif] <= C_out1["{out1}":19,26-30@Main3.jif] {};["{caller_pc ⊔ infered_downgrade_to} <= {out1}":19,33-112@Main3.jif]
+(I_caller_pc["{caller_pc}":5,24-33@Main3.jif] ⊔ I_infered_downgrade_to["{infered_downgrade_to}":19,33-112@Main3.jif])["{caller_pc ⊔ infered_downgrade_to}":5,24-33@Main3.jif] <= I_out1["{out1}":19,26-30@Main3.jif] {};["{caller_pc ⊔ infered_downgrade_to} <= {out1}":19,33-112@Main3.jif]
+
+(_["_":19,22-24@Main3.jif] -> _["_":19,22-24@Main3.jif])["(_ -> _)":19,22-24@Main3.jif] == (_["_":20,22-24@Main3.jif] -> _["_":20,22-24@Main3.jif])["(_ -> _)":20,22-24@Main3.jif] {};["{} == {}":20,33-37@Main3.jif]
+(_["_":19,22-24@Main3.jif] <- _["_":19,22-24@Main3.jif])["(_ <- _)":19,22-24@Main3.jif] == (_["_":20,22-24@Main3.jif] <- _["_":20,22-24@Main3.jif])["(_ <- _)":20,22-24@Main3.jif] {};["{} == {}":20,33-37@Main3.jif]
+
+(C_out1["{out1}":19,26-30@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out1 ⊔ caller_pc}":19,26-30@Main3.jif] <= C_out2["{out2}":20,26-30@Main3.jif] {};["{out1 ⊔ caller_pc} <= {out2}":20,33-37@Main3.jif]
+(I_out1["{out1}":19,26-30@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out1 ⊔ caller_pc}":19,26-30@Main3.jif] <= I_out2["{out2}":20,26-30@Main3.jif] {};["{out1 ⊔ caller_pc} <= {out2}":20,33-37@Main3.jif]
+
+(C_out2["{out2}":20,26-30@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] <= (_["_":20,22-24@Main3.jif] -> _["_":20,22-24@Main3.jif])["(_ -> _)":20,22-24@Main3.jif] {};["{out2 ⊔ caller_pc} <= {}":23,20-37@Main3.jif]
+(I_out2["{out2}":20,26-30@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] <= (_["_":20,22-24@Main3.jif] <- _["_":20,22-24@Main3.jif])["(_ <- _)":20,22-24@Main3.jif] {};["{out2 ⊔ caller_pc} <= {}":23,20-37@Main3.jif]
+
+(C_out2["{out2}":20,26-30@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] <= (_["_":20,22-24@Main3.jif] -> _["_":20,22-24@Main3.jif])["(_ -> _)":20,22-24@Main3.jif] {};["{out2 ⊔ caller_pc} <= {}":23,7-38@Main3.jif]
+(I_out2["{out2}":20,26-30@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] <= (_["_":20,22-24@Main3.jif] <- _["_":20,22-24@Main3.jif])["(_ <- _)":20,22-24@Main3.jif] {};["{out2 ⊔ caller_pc} <= {}":23,7-38@Main3.jif]
+
+C_receiver1["{receiver}":23,7-38@Main3.jif] == (C_out2["{out2}":20,26-30@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] {};["{receiver} == {out2 ⊔ caller_pc}":23,7-38@Main3.jif]
+I_receiver1["{receiver}":23,7-38@Main3.jif] == (I_out2["{out2}":20,26-30@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] {};["{receiver} == {out2 ⊔ caller_pc}":23,7-38@Main3.jif]
+
+C_arg1label1["{arg1label}":23,20-37@Main3.jif] == (C_out2["{out2}":20,26-30@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] {};["{arg1label} == {out2 ⊔ caller_pc}":23,7-38@Main3.jif]
+I_arg1label1["{arg1label}":23,20-37@Main3.jif] == (I_out2["{out2}":20,26-30@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] {};["{arg1label} == {out2 ⊔ caller_pc}":23,7-38@Main3.jif]
+
+(C_out2["{out2}":20,26-30@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] <= C_e1["{e}":24,12-34@Main3.jif] {};["{out2 ⊔ caller_pc} <= {e}":24,12-34@Main3.jif]
+(I_out2["{out2}":20,26-30@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] <= I_e1["{e}":24,12-34@Main3.jif] {};["{out2 ⊔ caller_pc} <= {e}":24,12-34@Main3.jif]
+
+(Dolores⊔p1)["Dolores⊔p":27,31-63@Main3.jif] >= Dolores {};["Dolores⊔p actsfor Dolores":27,31-63]
+(C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{caller_pc}":5,24-33@Main3.jif] <= C_newSocialNetwork["{newSocialNetwork}":27,31-63@Main3.jif] {};["{caller_pc} <= {newSocialNetwork}":27,31-63@Main3.jif]
+(I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{caller_pc}":5,24-33@Main3.jif] <= I_newSocialNetwork["{newSocialNetwork}":27,31-63@Main3.jif] {};["{caller_pc} <= {newSocialNetwork}":27,31-63@Main3.jif]
+
+(C_out2["{out2}":20,26-30@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] <= (_["_":10,46-48@SocialNetwork.jif] -> _["_":10,46-48@SocialNetwork.jif])["(_ -> _)":10,46-48@SocialNetwork.jif] {};["{out2 ⊔ caller_pc} <= {}":27,58-62@Main3.jif]
+(I_out2["{out2}":20,26-30@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{out2 ⊔ caller_pc}":20,26-30@Main3.jif] <= (_["_":10,46-48@SocialNetwork.jif] <- _["_":10,46-48@SocialNetwork.jif])["(_ <- _)":10,46-48@SocialNetwork.jif] {};["{out2 ⊔ caller_pc} <= {}":27,58-62@Main3.jif]
+
+(_["_":20,22-24@Main3.jif] -> _["_":20,22-24@Main3.jif])["(_ -> _)":20,22-24@Main3.jif] == (_["_":10,43-45@SocialNetwork.jif] -> _["_":10,43-45@SocialNetwork.jif])["(_ -> _)":10,43-45@SocialNetwork.jif] {};["{} == {}":27,58-62@Main3.jif]
+(_["_":20,22-24@Main3.jif] <- _["_":20,22-24@Main3.jif])["(_ <- _)":20,22-24@Main3.jif] == (_["_":10,43-45@SocialNetwork.jif] <- _["_":10,43-45@SocialNetwork.jif])["(_ <- _)":10,43-45@SocialNetwork.jif] {};["{} == {}":27,58-62@Main3.jif]
+
+C_caller_pc["{caller_pc}":5,24-33@Main3.jif] <= (_["_":10,22-24@SocialNetwork.jif] -> _["_":10,22-24@SocialNetwork.jif])["(_ -> _)":10,22-24@SocialNetwork.jif] {};["{caller_pc} <= {}":27,31-63@Main3.jif]
+I_caller_pc["{caller_pc}":5,24-33@Main3.jif] <= (_["_":10,22-24@SocialNetwork.jif] <- _["_":10,22-24@SocialNetwork.jif])["(_ <- _)":10,22-24@SocialNetwork.jif] {};["{caller_pc} <= {}":27,31-63@Main3.jif]
+
+C_SocialNetwork.provider["SocialNetwork.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {};["SocialNetwork.provider <= {(* -> *); (Dolores <- Dolores)}":27,31-63@Main3.jif]
+I_SocialNetwork.provider["SocialNetwork.provider":] <= (Dolores["Dolores":] <- Dolores["Dolores":])["(Dolores <- Dolores)":] {};["SocialNetwork.provider <= {(* -> *); (Dolores <- Dolores)}":27,31-63@Main3.jif]
+
+C_SocialNetwork.provider["SocialNetwork.provider":] <= (_["_":5,46-54@SocialNetwork.jif] -> _["_":5,46-54@SocialNetwork.jif])["(_ -> _)":5,46-54@SocialNetwork.jif] {};["SocialNetwork.provider <= {(Dolores <- *)}":27,31-63@Main3.jif]
+I_SocialNetwork.provider["SocialNetwork.provider":] <= (Dolores["Dolores":] <- Dolores["Dolores":])["(Dolores <- *)":5,47-52@SocialNetwork.jif] {};["SocialNetwork.provider <= {(Dolores <- *)}":27,31-63@Main3.jif]
+
+Dolores == Dolores {};["Dolores equiv Dolores":27,31-63]
+(C_caller_pc["{caller_pc}":5,24-33@Main3.jif] ⊔ C_newSocialNetwork["{newSocialNetwork}":27,31-63@Main3.jif])["{caller_pc ⊔ newSocialNetwork}":5,24-33@Main3.jif] <= C_sn["{sn}":27,26-28@Main3.jif] {};["{caller_pc ⊔ newSocialNetwork} <= {sn}":27,31-63@Main3.jif]
+(I_caller_pc["{caller_pc}":5,24-33@Main3.jif] ⊔ I_newSocialNetwork["{newSocialNetwork}":27,31-63@Main3.jif])["{caller_pc ⊔ newSocialNetwork}":5,24-33@Main3.jif] <= I_sn["{sn}":27,26-28@Main3.jif] {};["{caller_pc ⊔ newSocialNetwork} <= {sn}":27,31-63@Main3.jif]
+
+(C_sn["{sn}":27,26-28@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{sn ⊔ caller_pc}":27,26-28@Main3.jif] <= (_["_":14,16-22@SocialNetwork.jif] -> _["_":14,16-22@SocialNetwork.jif])["(_ -> _)":14,16-22@SocialNetwork.jif] {};["{sn ⊔ caller_pc} <= {(Dolores <- *)}":28,3-10@Main3.jif]
+(I_sn["{sn}":27,26-28@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{sn ⊔ caller_pc}":27,26-28@Main3.jif] <= (Dolores["Dolores":] <- Dolores["Dolores":])["(Dolores <- *)":14,17-21@SocialNetwork.jif] {};["{sn ⊔ caller_pc} <= {(Dolores <- *)}":28,3-10@Main3.jif]
+
+C_SocialNetwork.provider["SocialNetwork.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {};["SocialNetwork.provider <= {(* -> *); (Dolores <- Dolores)}":28,3-10@Main3.jif]
+I_SocialNetwork.provider["SocialNetwork.provider":] <= (Dolores["Dolores":] <- Dolores["Dolores":])["(Dolores <- Dolores)":] {};["SocialNetwork.provider <= {(* -> *); (Dolores <- Dolores)}":28,3-10@Main3.jif]
+
+C_SocialNetwork.provider["SocialNetwork.provider":] <= (_["_":5,46-54@SocialNetwork.jif] -> _["_":5,46-54@SocialNetwork.jif])["(_ -> _)":5,46-54@SocialNetwork.jif] {};["SocialNetwork.provider <= {(Dolores <- *)}":28,3-10@Main3.jif]
+I_SocialNetwork.provider["SocialNetwork.provider":] <= (Dolores["Dolores":] <- Dolores["Dolores":])["(Dolores <- *)":5,47-52@SocialNetwork.jif] {};["SocialNetwork.provider <= {(Dolores <- *)}":28,3-10@Main3.jif]
+
+C_receiver2["{receiver}":28,3-10@Main3.jif] == (C_sn["{sn}":27,26-28@Main3.jif] ⊔ C_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{sn ⊔ caller_pc}":27,26-28@Main3.jif] {};["{receiver} == {sn ⊔ caller_pc}":28,3-10@Main3.jif]
+I_receiver2["{receiver}":28,3-10@Main3.jif] == (I_sn["{sn}":27,26-28@Main3.jif] ⊔ I_caller_pc["{caller_pc}":5,24-33@Main3.jif])["{sn ⊔ caller_pc}":27,26-28@Main3.jif] {};["{receiver} == {sn ⊔ caller_pc}":28,3-10@Main3.jif]
+

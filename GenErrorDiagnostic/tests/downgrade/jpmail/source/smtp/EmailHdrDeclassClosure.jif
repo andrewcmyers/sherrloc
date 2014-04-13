@@ -1,0 +1,19 @@
+package smtp;
+
+import pop3.JPMailMessage;
+
+public class EmailHdrDeclassClosure[principal P,label L] implements Closure[P,L] { 
+	final JPMailMessage{P:} msg;
+	
+	// must make sure we're not declassifying the body -- originalBody should be null
+    public EmailHdrDeclassClosure(JPMailMessage{P:} msg) {
+    		//this.msg = msg != null ? (msg.getOriginalBody() == null ? null : msg) : null;
+    		this.msg = msg;
+    }
+
+    // encrypt with public key and declassify iff rcptP <= P
+    public Object{this} invoke{L}() where caller (P) {
+		//return declassify(msg,{this});
+		return msg;
+    }
+}

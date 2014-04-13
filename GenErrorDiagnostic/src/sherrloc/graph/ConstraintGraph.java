@@ -21,6 +21,7 @@ import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Position;
 import sherrloc.constraint.ast.Relation;
+import sherrloc.constraint.ast.Variable;
 import sherrloc.util.StringUtil;
 
 /**
@@ -175,7 +176,83 @@ public class ConstraintGraph extends Graph {
                 }
             }
         }
+        doClustering();
         generated = true;
+    }
+    
+    /**
+	 * Combine two variables A and B if they show up in the following pattern:
+	 * in -- A -- B -- out
+	 */
+    private void doClustering () {
+    	// count the in-degree of each node
+    	int[] indeg = new int[allNodes.size()];
+    	
+    	for (Node n1 : allNodes) {
+    		for (Node n2 : allNodes) {
+    			if (getEdges(n1, n2) != null)
+    				indeg[n2.getIndex()] += getEdges(n1, n2).size();
+    		}
+    	}
+    	
+//    	System.out.println("Total " + allNodes.size() + " nodes before clustering");
+    	
+    	boolean modified;
+    	do {    	
+        	modified = false;
+        	Node from = null;
+    		List<Node> toRemove = new ArrayList<Node>();
+
+        	for (Node n1 : allNodes) {    		
+        		if (!(n1.getElement() instanceof Variable))
+        			continue;
+        		
+        		from = n1;
+        		Map<Node, Set<Edge>> outs = edges.get(n1);
+        		for (Node n2 : outs.keySet()) {
+        			if (n2.equals(n1) || !(n2.getElement() instanceof Variable))
+        				continue;
+					if (indeg[n2.getIndex()] == 1) {
+						toRemove.add(n2);
+						modified = true;
+					}
+				}
+    			for (Node n2 : toRemove) {
+    				// add outs of n2 to n1
+    				for (Node n3 : edges.get(n2).keySet()) {
+    					if (!edges.get(n1).containsKey(n3))
+    						edges.get(n1).put(n3, new HashSet<Edge>());
+    					for (Edge edge : edges.get(n2).get(n3)) {
+    						edge.from = n1;
+    						edges.get(n1).get(n3).add(edge);
+    					}
+    				}
+    			}
+        		if (modified)
+        			break;
+        	}
+        	for (Node node : toRemove) {
+        		allNodes.remove(node);
+        		edges.remove(node);
+				edges.get(from).remove(node);
+				for (Element ele : eleToNode.keySet()) {
+					if (eleToNode.get(ele).equals(node)) {
+	    				eleToNode.put(ele, from);		
+					}
+				}
+        	}
+    	}
+    	while (modified);
+    	    	
+//    	System.out.println("Total " + allNodes.size() + " nodes after clustering");
+    	
+    	// fix indices
+    	int count = 0;
+    	for (Node n : allNodes) {
+    		n.setIndex(count);
+    		count ++;
+    	}
+    	
     }
     
 	/**
