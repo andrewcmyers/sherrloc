@@ -1,0 +1,23 @@
+package smtp;
+
+public class EmailDisclaimerClosure[principal P,label L] implements Closure[P,L] { 
+    final String{P:} msgBodyWithDisclaimer; 
+
+    public EmailDisclaimerClosure(String{P:} msgBody) {
+    		this.msgBodyWithDisclaimer = msgBody + 
+    			"---DISCLAIMER---\n" +
+    			"This email and any files transmitted with it are confidential and intended solely for the use of the " +
+    			"individual or entity to whom they are addressed. If you have received this email in error please notify " +
+    			"the system manager. Please note that any views or opinions presented in this email are solely those of " +
+    			"the author and do not necessarily represent those of the company. Finally, the recipient should check this " + 
+    			"email and any attachments for the presence of viruses. The Management.";
+    }
+
+    // This returns a Ciphertext
+    public Object{this} invoke{L}() where caller (P) {
+    		if (L <= new label{P:}) // bounds {this} to be less than {P:}
+    			//return declassify(msgBodyWithDisclaimer,{this});
+    			return msgBodyWithDisclaimer;
+    		else return null;
+    }
+}

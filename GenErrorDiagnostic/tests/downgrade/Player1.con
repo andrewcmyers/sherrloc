@@ -1,0 +1,200 @@
+CONSTRUCTOR C_this 0 //C_this["{this}":26,0-12@Player1.jif]
+CONSTRUCTOR I_this 0 //I_this["{this}":26,0-12@Player1.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":120,11-42@Player1.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":120,11-42@Player1.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR _ 0 //@Player1.jif:120,73-74
+CONSTRUCTOR P 0 //@Player1.jif:26,50-51
+CONSTRUCTOR * 0 //@Player1.jif:120,73-74
+
+%%
+C_caller_pc <= (P -> P);
+I_caller_pc <= (P <- P);
+(_ -> _) <= C_newCoordinate;
+C_newCoordinate <= (* -> *);
+(* <- *) <= I_newCoordinate;
+I_newCoordinate <= (_ <- _);
+(_ -> _) <= C_newCoordinate1;
+C_newCoordinate1 <= (* -> *);
+(* <- *) <= I_newCoordinate1;
+I_newCoordinate1 <= (_ <- _);
+(_ -> _) <= (P -> P);
+(P -> P) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (P <- P);
+(P <- P) <= (_ <- _);
+(_ -> _) <= C_this;
+C_this <= (* -> *);
+(* <- *) <= I_this;
+I_this <= (_ <- _);
+(_ -> _) <= C_Player.provider;
+C_Player.provider <= (* -> *);
+(* <- *) <= I_Player.provider;
+I_Player.provider <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (* <- *);
+(* <- *) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (P -> P);
+(P -> P) <= (* -> *);
+(* <- *) <= (P <- P);
+(P <- P) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= ((P -> P) ⊔ C_c ⊔ C_this);
+((P -> P) ⊔ C_c ⊔ C_this) <= (* -> *);
+(* <- *) <= ((P <- P) ⊔ I_c ⊔ I_this);
+((P <- P) ⊔ I_c ⊔ I_this) <= (_ <- _);
+(_ -> _) <= C_direction;
+C_direction <= (* -> *);
+(* <- *) <= I_direction;
+I_direction <= (_ <- _);
+(_ -> _) <= C_newX;
+C_newX <= (* -> *);
+(* <- *) <= I_newX;
+I_newX <= (_ <- _);
+(_ -> _) <= C_c;
+C_c <= (* -> *);
+(* <- *) <= I_c;
+I_c <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_to;
+C_infered_downgrade_to <= (* -> *);
+(* <- *) <= I_infered_downgrade_to;
+I_infered_downgrade_to <= (_ <- _);
+(_ -> _) <= C_infered_downgrade_from;
+C_infered_downgrade_from <= (* -> *);
+(* <- *) <= I_infered_downgrade_from;
+I_infered_downgrade_from <= (_ <- _);
+(_ -> _) <= C_newY;
+C_newY <= (* -> *);
+(* <- *) <= I_newY;
+I_newY <= (_ <- _);
+(_ -> _) <= C_d;
+C_d <= (* -> *);
+(* <- *) <= I_d;
+I_d <= (_ <- _);
+(_ -> _) <= C_newCoordinate2;
+C_newCoordinate2 <= (* -> *);
+(* <- *) <= I_newCoordinate2;
+I_newCoordinate2 <= (_ <- _);
+
+%%
+P["P":26,50-51@Player1.jif] >= P["P":120,73-74@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["P actsfor P":120,11-42]
+(P["P":146,24-25@Player1.jif] -> P["P":146,24-25@Player1.jif])["(P -> *)":146,24-28@Player1.jif] == (P["P":126,13-14@Player1.jif] -> P["P":126,13-14@Player1.jif])["(P -> *)":126,13-17@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *)} == {(P -> *); (P <- *)}":126,30-44@Player1.jif]
+(P["P":146,30-31@Player1.jif] <- P["P":146,30-31@Player1.jif])["(P <- *)":146,30-34@Player1.jif] == (P["P":126,19-20@Player1.jif] <- P["P":126,19-20@Player1.jif])["(P <- *)":126,19-23@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *)} == {(P -> *); (P <- *)}":126,30-44@Player1.jif]
+
+((P["P":146,37-38@Player1.jif] -> P["P":146,37-38@Player1.jif])["(P -> *)":146,37-41@Player1.jif] ⊔ C_this["{this}":26,0-12@Player1.jif])["{(P -> *); (P <- *) ⊔ this}":146,36-48@Player1.jif] <= C_c["{c}":126,26-27@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *) ⊔ this} <= {c}":126,30-44@Player1.jif]
+((P["P":146,43-44@Player1.jif] <- P["P":146,43-44@Player1.jif])["(P <- *)":146,43-47@Player1.jif] ⊔ I_this["{this}":26,0-12@Player1.jif])["{(P -> *); (P <- *) ⊔ this}":146,36-48@Player1.jif] <= I_c["{c}":126,26-27@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *) ⊔ this} <= {c}":126,30-44@Player1.jif]
+
+(C_this["{this}":128,31-32@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif])["{this ⊔ caller_pc ⊔ c}":128,31-32@Player1.jif] <= C_newCoordinate["{newCoordinate}":128,9-42@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c} <= {newCoordinate}":128,9-42@Player1.jif]
+(I_this["{this}":128,31-32@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif])["{this ⊔ caller_pc ⊔ c}":128,31-32@Player1.jif] <= I_newCoordinate["{newCoordinate}":128,9-42@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c} <= {newCoordinate}":128,9-42@Player1.jif]
+
+(C_this["{this}":128,31-32@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif])["{this ⊔ caller_pc ⊔ c}":128,31-32@Player1.jif] <= ((P["P":128,25-26@Player1.jif] -> P["P":128,25-26@Player1.jif])["(P -> *)":128,25-29@Player1.jif] ⊔ C_newCoordinate["{newCoordinate}":128,9-42@Player1.jif])["{(P -> *); (P <- *) ⊔ newCoordinate}":18,25-33@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c} <= {(P -> *); (P <- *) ⊔ newCoordinate}":128,38-39@Player1.jif]
+(I_this["{this}":128,31-32@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif])["{this ⊔ caller_pc ⊔ c}":128,31-32@Player1.jif] <= ((P["P":128,31-32@Player1.jif] <- P["P":128,31-32@Player1.jif])["(P <- *)":128,31-35@Player1.jif] ⊔ I_newCoordinate["{newCoordinate}":128,9-42@Player1.jif])["{(P -> *); (P <- *) ⊔ newCoordinate}":18,25-33@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c} <= {(P -> *); (P <- *) ⊔ newCoordinate}":128,38-39@Player1.jif]
+
+(C_this["{this}":128,31-32@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif])["{this ⊔ caller_pc ⊔ c}":128,31-32@Player1.jif] <= ((P["P":128,25-26@Player1.jif] -> P["P":128,25-26@Player1.jif])["(P -> *)":128,25-29@Player1.jif] ⊔ C_newCoordinate["{newCoordinate}":128,9-42@Player1.jif])["{(P -> *); (P <- *) ⊔ newCoordinate}":18,40-48@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c} <= {(P -> *); (P <- *) ⊔ newCoordinate}":128,40-41@Player1.jif]
+(I_this["{this}":128,31-32@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif])["{this ⊔ caller_pc ⊔ c}":128,31-32@Player1.jif] <= ((P["P":128,31-32@Player1.jif] <- P["P":128,31-32@Player1.jif])["(P <- *)":128,31-35@Player1.jif] ⊔ I_newCoordinate["{newCoordinate}":128,9-42@Player1.jif])["{(P -> *); (P <- *) ⊔ newCoordinate}":18,40-48@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c} <= {(P -> *); (P <- *) ⊔ newCoordinate}":128,40-41@Player1.jif]
+
+(C_this["{this}":128,31-32@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif])["{this ⊔ caller_pc ⊔ c}":128,31-32@Player1.jif] <= (*["*":18,11-51@Coordinate.jif] -> *["*":18,11-51@Coordinate.jif])["(* -> *)":18,11-51@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c} <= {(* -> *)}":128,9-42@Player1.jif]
+(I_this["{this}":128,31-32@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif])["{this ⊔ caller_pc ⊔ c}":128,31-32@Player1.jif] <= (_["_":18,11-51@Coordinate.jif] <- _["_":18,11-51@Coordinate.jif])["(_ <- _)":18,11-51@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c} <= {(* -> *)}":128,9-42@Player1.jif]
+
+(C_this["{this}":128,31-32@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif] ⊔ C_newCoordinate["{newCoordinate}":128,9-42@Player1.jif])["{this ⊔ caller_pc ⊔ c ⊔ newCoordinate}":128,31-32@Player1.jif] <= C_c["{c}":126,26-27@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c ⊔ newCoordinate} <= {c}":128,5-6@Player1.jif]
+(I_this["{this}":128,31-32@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif] ⊔ I_newCoordinate["{newCoordinate}":128,9-42@Player1.jif])["{this ⊔ caller_pc ⊔ c ⊔ newCoordinate}":128,31-32@Player1.jif] <= I_c["{c}":126,26-27@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ c ⊔ newCoordinate} <= {c}":128,5-6@Player1.jif]
+
+(P["P":128,25-26@Player1.jif] -> P["P":128,25-26@Player1.jif])["(P -> *)":128,25-29@Player1.jif] == (P["P":126,13-14@Player1.jif] -> P["P":126,13-14@Player1.jif])["(P -> *)":126,13-17@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *)} == {(P -> *); (P <- *)}":128,5-42@Player1.jif]
+(P["P":128,31-32@Player1.jif] <- P["P":128,31-32@Player1.jif])["(P <- *)":128,31-35@Player1.jif] == (P["P":126,19-20@Player1.jif] <- P["P":126,19-20@Player1.jif])["(P <- *)":126,19-23@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *)} == {(P -> *); (P <- *)}":128,5-42@Player1.jif]
+
+((P["P":126,13-14@Player1.jif] -> P["P":126,13-14@Player1.jif])["(P -> *)":126,13-17@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif])["{(P -> *); (P <- *) ⊔ c}":120,11-42@Player1.jif] <= C_direction["{direction}":132,9-18@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *) ⊔ c} <= {direction}":132,23-40@Player1.jif]
+((P["P":126,19-20@Player1.jif] <- P["P":126,19-20@Player1.jif])["(P <- *)":126,19-23@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif])["{(P -> *); (P <- *) ⊔ c}":120,11-42@Player1.jif] <= I_direction["{direction}":132,9-18@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *) ⊔ c} <= {direction}":132,23-40@Player1.jif]
+
+(C_direction["{direction}":132,9-18@Player1.jif] ⊔ (P["P":126,13-14@Player1.jif] -> P["P":126,13-14@Player1.jif])["(P -> *)":126,13-17@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif])["{direction ⊔ (P -> *); (P <- *) ⊔ c}":132,9-18@Player1.jif] <= C_newX["{newX}":133,5-9@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{direction ⊔ (P -> *); (P <- *) ⊔ c} <= {newX}":133,12-33@Player1.jif]
+(I_direction["{direction}":132,9-18@Player1.jif] ⊔ (P["P":126,19-20@Player1.jif] <- P["P":126,19-20@Player1.jif])["(P <- *)":126,19-23@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif])["{direction ⊔ (P -> *); (P <- *) ⊔ c}":132,9-18@Player1.jif] <= I_newX["{newX}":133,5-9@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{direction ⊔ (P -> *); (P <- *) ⊔ c} <= {newX}":133,12-33@Player1.jif]
+
+(C_direction["{direction}":132,9-18@Player1.jif] ⊔ (P["P":126,13-14@Player1.jif] -> P["P":126,13-14@Player1.jif])["(P -> *)":126,13-17@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif])["{direction ⊔ (P -> *); (P <- *) ⊔ c}":132,9-18@Player1.jif] <= C_newY["{newY}":134,5-9@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{direction ⊔ (P -> *); (P <- *) ⊔ c} <= {newY}":134,12-33@Player1.jif]
+(I_direction["{direction}":132,9-18@Player1.jif] ⊔ (P["P":126,19-20@Player1.jif] <- P["P":126,19-20@Player1.jif])["(P <- *)":126,19-23@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif])["{direction ⊔ (P -> *); (P <- *) ⊔ c}":132,9-18@Player1.jif] <= I_newY["{newY}":134,5-9@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{direction ⊔ (P -> *); (P <- *) ⊔ c} <= {newY}":134,12-33@Player1.jif]
+
+(C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_newX["{newX}":133,5-9@Player1.jif])["{caller_pc ⊔ newX}":120,11-42@Player1.jif] <= C_newX["{newX}":133,5-9@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc ⊔ newX} <= {newX}":135,15-19@Player1.jif]
+(I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_newX["{newX}":133,5-9@Player1.jif])["{caller_pc ⊔ newX}":120,11-42@Player1.jif] <= I_newX["{newX}":133,5-9@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc ⊔ newX} <= {newX}":135,15-19@Player1.jif]
+
+(C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_newY["{newY}":134,5-9@Player1.jif])["{caller_pc ⊔ newY}":120,11-42@Player1.jif] <= C_newY["{newY}":134,5-9@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc ⊔ newY} <= {newY}":136,15-19@Player1.jif]
+(I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_newY["{newY}":134,5-9@Player1.jif])["{caller_pc ⊔ newY}":120,11-42@Player1.jif] <= I_newY["{newY}":134,5-9@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{caller_pc ⊔ newY} <= {newY}":136,15-19@Player1.jif]
+
+(C_this["{this}":137,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{this ⊔ caller_pc}":137,40-41@Player1.jif] <= C_newCoordinate1["{newCoordinate}":137,18-58@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {newCoordinate}":137,18-58@Player1.jif]
+(I_this["{this}":137,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{this ⊔ caller_pc}":137,40-41@Player1.jif] <= I_newCoordinate1["{newCoordinate}":137,18-58@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {newCoordinate}":137,18-58@Player1.jif]
+
+(C_newX["{newX}":133,5-9@Player1.jif] ⊔ C_this["{this}":137,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{newX ⊔ this ⊔ caller_pc}":133,5-9@Player1.jif] <= ((P["P":137,34-35@Player1.jif] -> P["P":137,34-35@Player1.jif])["(P -> *)":137,34-38@Player1.jif] ⊔ C_newCoordinate1["{newCoordinate}":137,18-58@Player1.jif])["{(P -> *); (P <- *) ⊔ newCoordinate}":18,25-33@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{newX ⊔ this ⊔ caller_pc} <= {(P -> *); (P <- *) ⊔ newCoordinate}":137,47-51@Player1.jif]
+(I_newX["{newX}":133,5-9@Player1.jif] ⊔ I_this["{this}":137,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{newX ⊔ this ⊔ caller_pc}":133,5-9@Player1.jif] <= ((P["P":137,40-41@Player1.jif] <- P["P":137,40-41@Player1.jif])["(P <- *)":137,40-44@Player1.jif] ⊔ I_newCoordinate1["{newCoordinate}":137,18-58@Player1.jif])["{(P -> *); (P <- *) ⊔ newCoordinate}":18,25-33@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{newX ⊔ this ⊔ caller_pc} <= {(P -> *); (P <- *) ⊔ newCoordinate}":137,47-51@Player1.jif]
+
+(C_newY["{newY}":134,5-9@Player1.jif] ⊔ C_this["{this}":137,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{newY ⊔ this ⊔ caller_pc}":134,5-9@Player1.jif] <= ((P["P":137,34-35@Player1.jif] -> P["P":137,34-35@Player1.jif])["(P -> *)":137,34-38@Player1.jif] ⊔ C_newCoordinate1["{newCoordinate}":137,18-58@Player1.jif])["{(P -> *); (P <- *) ⊔ newCoordinate}":18,40-48@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{newY ⊔ this ⊔ caller_pc} <= {(P -> *); (P <- *) ⊔ newCoordinate}":137,53-57@Player1.jif]
+(I_newY["{newY}":134,5-9@Player1.jif] ⊔ I_this["{this}":137,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{newY ⊔ this ⊔ caller_pc}":134,5-9@Player1.jif] <= ((P["P":137,40-41@Player1.jif] <- P["P":137,40-41@Player1.jif])["(P <- *)":137,40-44@Player1.jif] ⊔ I_newCoordinate1["{newCoordinate}":137,18-58@Player1.jif])["{(P -> *); (P <- *) ⊔ newCoordinate}":18,40-48@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{newY ⊔ this ⊔ caller_pc} <= {(P -> *); (P <- *) ⊔ newCoordinate}":137,53-57@Player1.jif]
+
+(C_this["{this}":137,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{this ⊔ caller_pc}":137,40-41@Player1.jif] <= (*["*":18,11-51@Coordinate.jif] -> *["*":18,11-51@Coordinate.jif])["(* -> *)":18,11-51@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {(* -> *)}":137,18-58@Player1.jif]
+(I_this["{this}":137,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{this ⊔ caller_pc}":137,40-41@Player1.jif] <= (_["_":18,11-51@Coordinate.jif] <- _["_":18,11-51@Coordinate.jif])["(_ <- _)":18,11-51@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {(* -> *)}":137,18-58@Player1.jif]
+
+(C_this["{this}":137,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_newCoordinate1["{newCoordinate}":137,18-58@Player1.jif])["{this ⊔ caller_pc ⊔ newCoordinate}":137,40-41@Player1.jif] <= (P["P":146,37-38@Player1.jif] -> P["P":146,37-38@Player1.jif])["(P -> *)":146,37-41@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ newCoordinate} <= {(P -> *); (P <- *)}":137,1-15@Player1.jif]
+(I_this["{this}":137,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_newCoordinate1["{newCoordinate}":137,18-58@Player1.jif])["{this ⊔ caller_pc ⊔ newCoordinate}":137,40-41@Player1.jif] <= (P["P":146,43-44@Player1.jif] <- P["P":146,43-44@Player1.jif])["(P <- *)":146,43-47@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ newCoordinate} <= {(P -> *); (P <- *)}":137,1-15@Player1.jif]
+
+C_Player.provider["Player.provider":] <= (P["P":146,37-38@Player1.jif] -> P["P":146,37-38@Player1.jif])["(P -> *)":146,37-41@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["Player.provider <= {(P -> *); (P <- *)}":137,1-15@Player1.jif]
+I_Player.provider["Player.provider":] <= (P["P":146,43-44@Player1.jif] <- P["P":146,43-44@Player1.jif])["(P <- *)":146,43-47@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["Player.provider <= {(P -> *); (P <- *)}":137,1-15@Player1.jif]
+
+(P["P":137,34-35@Player1.jif] -> P["P":137,34-35@Player1.jif])["(P -> *)":137,34-38@Player1.jif] == (P["P":146,24-25@Player1.jif] -> P["P":146,24-25@Player1.jif])["(P -> *)":146,24-28@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *)} == {(P -> *); (P <- *)}":137,1-58@Player1.jif]
+(P["P":137,40-41@Player1.jif] <- P["P":137,40-41@Player1.jif])["(P <- *)":137,40-44@Player1.jif] == (P["P":146,30-31@Player1.jif] <- P["P":146,30-31@Player1.jif])["(P <- *)":146,30-34@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *)} == {(P -> *); (P <- *)}":137,1-58@Player1.jif]
+
+(C_this["{this}":140,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{this ⊔ caller_pc}":140,40-41@Player1.jif] <= C_newCoordinate2["{newCoordinate}":140,24-142,47@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {newCoordinate}":140,24-142,47@Player1.jif]
+(I_this["{this}":140,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{this ⊔ caller_pc}":140,40-41@Player1.jif] <= I_newCoordinate2["{newCoordinate}":140,24-142,47@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {newCoordinate}":140,24-142,47@Player1.jif]
+
+C_infered_downgrade_from["{infered_downgrade_from}":142,7-46@Player1.jif] <= (P["P":142,24-25@Player1.jif] -> P["P":142,24-25@Player1.jif])["(P -> *)":142,24-28@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(P -> *); (P <- *)}":142,7-46@Player1.jif]
+I_infered_downgrade_from["{infered_downgrade_from}":142,7-46@Player1.jif] <= (P["P":142,30-31@Player1.jif] <- P["P":142,30-31@Player1.jif])["(P <- *)":142,30-34@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {(P -> *); (P <- *)}":142,7-46@Player1.jif]
+
+(((P["P":126,13-14@Player1.jif] -> P["P":126,13-14@Player1.jif])["(P -> *)":126,13-17@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif] ⊔ C_this["{this}":140,40-41@Player1.jif])["{(P -> *); (P <- *) ⊔ c ⊔ this}":126,12-24@Player1.jif] ⊓ (_["_":142,7-46@Player1.jif] -> _["_":142,7-46@Player1.jif])["(_ -> _)":142,7-46@Player1.jif])["{{(P -> *); (P <- *) ⊔ c ⊔ this} ⊓ {}}":126,12-24@Player1.jif] <= (C_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊓ (_["_":142,7-46@Player1.jif] -> _["_":142,7-46@Player1.jif])["(_ -> _)":142,7-46@Player1.jif])["{{infered_downgrade_to} ⊓ {}}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(P -> *); (P <- *) ⊔ c ⊔ this} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":142,7-46@Player1.jif]
+(((P["P":126,19-20@Player1.jif] <- P["P":126,19-20@Player1.jif])["(P <- *)":126,19-23@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif] ⊔ I_this["{this}":140,40-41@Player1.jif])["{(P -> *); (P <- *) ⊔ c ⊔ this}":126,12-24@Player1.jif] ⊓ (_["_":142,7-46@Player1.jif] <- _["_":142,7-46@Player1.jif])["(_ <- _)":142,7-46@Player1.jif])["{{(P -> *); (P <- *) ⊔ c ⊔ this} ⊓ {}}":126,12-24@Player1.jif] <= (I_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊓ (_["_":142,7-46@Player1.jif] <- _["_":142,7-46@Player1.jif])["(_ <- _)":142,7-46@Player1.jif])["{{infered_downgrade_to} ⊓ {}}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(P -> *); (P <- *) ⊔ c ⊔ this} ⊓ {}} <= {{infered_downgrade_to} ⊓ {}}":142,7-46@Player1.jif]
+
+(C_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊓ (_["_":142,7-46@Player1.jif] -> _["_":142,7-46@Player1.jif])["(_ -> _)":142,7-46@Player1.jif])["{{infered_downgrade_to} ⊓ {}}":142,7-46@Player1.jif] <= (_["_":142,39-45@Player1.jif] -> _["_":142,39-45@Player1.jif])["(_ -> _)":142,39-45@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(P <- *)}":142,7-46@Player1.jif]
+(I_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊓ (_["_":142,7-46@Player1.jif] <- _["_":142,7-46@Player1.jif])["(_ <- _)":142,7-46@Player1.jif])["{{infered_downgrade_to} ⊓ {}}":142,7-46@Player1.jif] <= (P["P":142,40-41@Player1.jif] <- P["P":142,40-41@Player1.jif])["(P <- *)":142,40-44@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{infered_downgrade_to} ⊓ {}} <= {(P <- *)}":142,7-46@Player1.jif]
+
+((_["_":142,39-45@Player1.jif] -> _["_":142,39-45@Player1.jif])["(_ -> _)":142,39-45@Player1.jif] ⊓ (*["*":142,7-46@Player1.jif] -> *["*":142,7-46@Player1.jif])["(* -> *)":142,7-46@Player1.jif])["{{(P <- *)} ⊓ {(* -> *); (* <- *)}}":142,39-45@Player1.jif] == (C_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊓ (*["*":142,7-46@Player1.jif] -> *["*":142,7-46@Player1.jif])["(* -> *)":142,7-46@Player1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(P <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":142,7-46@Player1.jif]
+((P["P":142,40-41@Player1.jif] <- P["P":142,40-41@Player1.jif])["(P <- *)":142,40-44@Player1.jif] ⊓ (*["*":142,7-46@Player1.jif] <- *["*":142,7-46@Player1.jif])["(* <- *)":142,7-46@Player1.jif])["{{(P <- *)} ⊓ {(* -> *); (* <- *)}}":142,39-45@Player1.jif] == (I_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊓ (*["*":142,7-46@Player1.jif] <- *["*":142,7-46@Player1.jif])["(* <- *)":142,7-46@Player1.jif])["{{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{{(P <- *)} ⊓ {(* -> *); (* <- *)}} == {{infered_downgrade_to} ⊓ {(* -> *); (* <- *)}}":142,7-46@Player1.jif]
+
+((P["P":126,13-14@Player1.jif] -> P["P":126,13-14@Player1.jif])["(P -> *)":126,13-17@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif] ⊔ C_this["{this}":140,40-41@Player1.jif])["{(P -> *); (P <- *) ⊔ c ⊔ this}":126,12-24@Player1.jif] <= C_infered_downgrade_from["{infered_downgrade_from}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *) ⊔ c ⊔ this} <= {infered_downgrade_from}":142,7-46@Player1.jif]
+((P["P":126,19-20@Player1.jif] <- P["P":126,19-20@Player1.jif])["(P <- *)":126,19-23@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif] ⊔ I_this["{this}":140,40-41@Player1.jif])["{(P -> *); (P <- *) ⊔ c ⊔ this}":126,12-24@Player1.jif] <= I_infered_downgrade_from["{infered_downgrade_from}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *) ⊔ c ⊔ this} <= {infered_downgrade_from}":142,7-46@Player1.jif]
+
+C_infered_downgrade_from["{infered_downgrade_from}":142,7-46@Player1.jif] <= (C_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊔ (*["*":142,7-46@Player1.jif] -> *["*":142,7-46@Player1.jif])["(* -> *)":142,7-46@Player1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":142,7-46@Player1.jif]
+I_infered_downgrade_from["{infered_downgrade_from}":142,7-46@Player1.jif] <= (I_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊔ (*["*":142,7-46@Player1.jif] <- *["*":142,7-46@Player1.jif])["(* <- *)":142,7-46@Player1.jif])["{infered_downgrade_to ⊔ (* -> *); (* <- *)}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (* -> *); (* <- *)}":142,7-46@Player1.jif]
+
+C_infered_downgrade_from["{infered_downgrade_from}":142,7-46@Player1.jif] <= (C_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊔ (P["P":120,73-74@Player1.jif] -> P["P":120,73-74@Player1.jif])["(P -> *)":120,73-74@Player1.jif])["{infered_downgrade_to ⊔ (P -> *); (_ <- _)}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (P -> *); (_ <- _)}":142,7-46@Player1.jif]
+I_infered_downgrade_from["{infered_downgrade_from}":142,7-46@Player1.jif] <= (I_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif] ⊔ (_["_":120,73-74@Player1.jif] <- _["_":120,73-74@Player1.jif])["(_ <- _)":120,73-74@Player1.jif])["{infered_downgrade_to ⊔ (P -> *); (_ <- _)}":142,7-46@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{infered_downgrade_from} <= {infered_downgrade_to ⊔ (P -> *); (_ <- _)}":142,7-46@Player1.jif]
+
+((P["P":126,13-14@Player1.jif] -> P["P":126,13-14@Player1.jif])["(P -> *)":126,13-17@Player1.jif] ⊔ C_c["{c}":126,26-27@Player1.jif] ⊔ C_this["{this}":140,40-41@Player1.jif])["{(P -> *); (P <- *) ⊔ c ⊔ this}":126,12-24@Player1.jif] <= ((_["_":140,39-45@Player1.jif] -> _["_":140,39-45@Player1.jif])["(_ -> _)":140,39-45@Player1.jif] ⊔ C_newCoordinate2["{newCoordinate}":140,24-142,47@Player1.jif])["{(_ -> _); (P <- *) ⊔ newCoordinate}":18,25-33@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *) ⊔ c ⊔ this} <= {(_ -> _); (P <- *) ⊔ newCoordinate}":141,42-45@Player1.jif]
+((P["P":126,19-20@Player1.jif] <- P["P":126,19-20@Player1.jif])["(P <- *)":126,19-23@Player1.jif] ⊔ I_c["{c}":126,26-27@Player1.jif] ⊔ I_this["{this}":140,40-41@Player1.jif])["{(P -> *); (P <- *) ⊔ c ⊔ this}":126,12-24@Player1.jif] <= ((P["P":140,40-41@Player1.jif] <- P["P":140,40-41@Player1.jif])["(P <- *)":140,40-44@Player1.jif] ⊔ I_newCoordinate2["{newCoordinate}":140,24-142,47@Player1.jif])["{(_ -> _); (P <- *) ⊔ newCoordinate}":18,25-33@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P -> *); (P <- *) ⊔ c ⊔ this} <= {(_ -> _); (P <- *) ⊔ newCoordinate}":141,42-45@Player1.jif]
+
+(C_this["{this}":140,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif])["{this ⊔ caller_pc ⊔ infered_downgrade_to}":140,40-41@Player1.jif] <= ((_["_":140,39-45@Player1.jif] -> _["_":140,39-45@Player1.jif])["(_ -> _)":140,39-45@Player1.jif] ⊔ C_newCoordinate2["{newCoordinate}":140,24-142,47@Player1.jif])["{(_ -> _); (P <- *) ⊔ newCoordinate}":18,40-48@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ infered_downgrade_to} <= {(_ -> _); (P <- *) ⊔ newCoordinate}":142,7-46@Player1.jif]
+(I_this["{this}":140,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_infered_downgrade_to["{infered_downgrade_to}":142,7-46@Player1.jif])["{this ⊔ caller_pc ⊔ infered_downgrade_to}":140,40-41@Player1.jif] <= ((P["P":140,40-41@Player1.jif] <- P["P":140,40-41@Player1.jif])["(P <- *)":140,40-44@Player1.jif] ⊔ I_newCoordinate2["{newCoordinate}":140,24-142,47@Player1.jif])["{(_ -> _); (P <- *) ⊔ newCoordinate}":18,40-48@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ infered_downgrade_to} <= {(_ -> _); (P <- *) ⊔ newCoordinate}":142,7-46@Player1.jif]
+
+(C_this["{this}":140,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{this ⊔ caller_pc}":140,40-41@Player1.jif] <= (*["*":18,11-51@Coordinate.jif] -> *["*":18,11-51@Coordinate.jif])["(* -> *)":18,11-51@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {(* -> *)}":140,24-142,47@Player1.jif]
+(I_this["{this}":140,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{this ⊔ caller_pc}":140,40-41@Player1.jif] <= (_["_":18,11-51@Coordinate.jif] <- _["_":18,11-51@Coordinate.jif])["(_ <- _)":18,11-51@Coordinate.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc} <= {(* -> *)}":140,24-142,47@Player1.jif]
+
+(_["_":140,39-45@Player1.jif] -> _["_":140,39-45@Player1.jif])["(_ -> _)":140,39-45@Player1.jif] == (_["_":140,12-18@Player1.jif] -> _["_":140,12-18@Player1.jif])["(_ -> _)":140,12-18@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P <- *)} == {(P <- *)}":140,24-142,47@Player1.jif]
+(P["P":140,40-41@Player1.jif] <- P["P":140,40-41@Player1.jif])["(P <- *)":140,40-44@Player1.jif] == (P["P":140,13-14@Player1.jif] <- P["P":140,13-14@Player1.jif])["(P <- *)":140,13-17@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P <- *)} == {(P <- *)}":140,24-142,47@Player1.jif]
+
+(C_this["{this}":140,40-41@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ C_newCoordinate2["{newCoordinate}":140,24-142,47@Player1.jif])["{this ⊔ caller_pc ⊔ newCoordinate}":140,40-41@Player1.jif] <= C_d["{d}":140,20-21@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ newCoordinate} <= {d}":140,24-142,47@Player1.jif]
+(I_this["{this}":140,40-41@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif] ⊔ I_newCoordinate2["{newCoordinate}":140,24-142,47@Player1.jif])["{this ⊔ caller_pc ⊔ newCoordinate}":140,40-41@Player1.jif] <= I_d["{d}":140,20-21@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{this ⊔ caller_pc ⊔ newCoordinate} <= {d}":140,24-142,47@Player1.jif]
+
+(C_d["{d}":140,20-21@Player1.jif] ⊔ C_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{d ⊔ caller_pc}":140,20-21@Player1.jif] <= C_caller_pc["{caller_pc}":120,11-42@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{d ⊔ caller_pc} <= {caller_pc}":144,1-10@Player1.jif]
+(I_d["{d}":140,20-21@Player1.jif] ⊔ I_caller_pc["{caller_pc}":120,11-42@Player1.jif])["{d ⊔ caller_pc}":140,20-21@Player1.jif] <= I_caller_pc["{caller_pc}":120,11-42@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{d ⊔ caller_pc} <= {caller_pc}":144,1-10@Player1.jif]
+
+(_["_":140,12-18@Player1.jif] -> _["_":140,12-18@Player1.jif])["(_ -> _)":140,12-18@Player1.jif] == (_["_":120,22-28@Player1.jif] -> _["_":120,22-28@Player1.jif])["(_ -> _)":120,22-28@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P <- *)} == {(P <- *)}":144,8-9@Player1.jif]
+(P["P":140,13-14@Player1.jif] <- P["P":140,13-14@Player1.jif])["(P <- *)":140,13-17@Player1.jif] == (P["P":120,23-24@Player1.jif] <- P["P":120,23-24@Player1.jif])["(P <- *)":120,23-27@Player1.jif] {C_this <= C_caller_pc;I_this <= I_caller_pc;};["{(P <- *)} == {(P <- *)}":144,8-9@Player1.jif]
+

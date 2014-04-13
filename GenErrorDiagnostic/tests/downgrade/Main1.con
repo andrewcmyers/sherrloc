@@ -1,0 +1,154 @@
+CONSTRUCTOR C_p 0 //C_p["{p}":18,31-33@Main1.jif]
+CONSTRUCTOR I_p 0 //I_p["{p}":18,31-33@Main1.jif]
+CONSTRUCTOR C_caller_pc 0 //C_caller_pc["{caller_pc}":17,24-33@Main1.jif]
+CONSTRUCTOR I_caller_pc 0 //I_caller_pc["{caller_pc}":17,24-33@Main1.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR Alice 0 //@null
+CONSTRUCTOR _ 0 //@BattleShip.jif:15,54-72
+CONSTRUCTOR Bob 0 //@null
+CONSTRUCTOR * 0 //@BattleShip.jif:15,59-60
+CONSTRUCTOR p1 0 //@Main1.jif:24,22-23
+
+%%
+C_p <= (_ -> _);
+I_p <= (_ <- _);
+C_caller_pc <= (_ -> _);
+I_caller_pc <= (((Alice <- Alice)) ⊓ ((Bob <- Bob)) ⊓ ((p1 <- p1)));
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (((Alice <- Alice)) ⊓ ((Bob <- Bob)));
+(((Alice <- Alice)) ⊓ ((Bob <- Bob))) <= (_ <- _);
+(_ -> _) <= C_p;
+C_p <= (* -> *);
+(* <- *) <= I_p;
+I_p <= (_ <- _);
+(_ -> _) <= C_runtime;
+C_runtime <= (* -> *);
+(* <- *) <= I_runtime;
+I_runtime <= (_ <- _);
+(_ -> _) <= C_newBattleShip;
+C_newBattleShip <= (* -> *);
+(* <- *) <= I_newBattleShip;
+I_newBattleShip <= (_ <- _);
+(_ -> _) <= C_out;
+C_out <= (* -> *);
+(* <- *) <= I_out;
+I_out <= (_ <- _);
+(_ -> _) <= C_out2;
+C_out2 <= (* -> *);
+(* <- *) <= I_out2;
+I_out2 <= (_ <- _);
+(_ -> _) <= C_e;
+C_e <= (* -> *);
+(* <- *) <= I_e;
+I_e <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= (* -> *);
+(* -> *) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+(_ -> _) <= C_Main.provider;
+C_Main.provider <= (* -> *);
+(* <- *) <= I_Main.provider;
+I_Main.provider <= (_ <- _);
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(* <- *) <= I_caller_pc;
+I_caller_pc <= (_ <- _);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(* <- *) <= (p1 <- p1);
+(p1 <- p1) <= (_ <- _);
+(_ -> _) <= (p1 -> p1);
+(p1 -> p1) <= (* -> *);
+(* <- *) <= (_ <- _);
+(_ <- _) <= (_ <- _);
+
+%%
+(Alice⊔Bob) >= Alice {};["Alice⊔Bob actsfor Alice":17,24-33]
+(Alice⊔Bob) >= Bob {};["Alice⊔Bob actsfor Bob":17,24-33]
+C_Main.provider["Main.provider":] <= (*["*":] -> *["*":])["(* -> *)":] {};["Main.provider <= {(* -> *); (p <- p)}":20,36-45@Main1.jif]
+I_Main.provider["Main.provider":] <= (p1["p":20,43-44@Main1.jif] <- p1["p":20,43-44@Main1.jif])["(p <- p)":] {};["Main.provider <= {(* -> *); (p <- p)}":20,36-45@Main1.jif]
+
+(C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{caller_pc}":17,24-33@Main1.jif] <= C_out["{out}":22,26-29@Main1.jif] {};["{caller_pc} <= {out}":22,32-36@Main1.jif]
+(I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{caller_pc}":17,24-33@Main1.jif] <= I_out["{out}":22,26-29@Main1.jif] {};["{caller_pc} <= {out}":22,32-36@Main1.jif]
+
+C_caller_pc["{caller_pc}":17,24-33@Main1.jif] <= (*["*":15,25-51@Runtime.jif] -> *["*":15,25-51@Runtime.jif])["(* -> *)":15,25-51@Runtime.jif] {};["{caller_pc} <= {(* -> *)}":24,35-58@Main1.jif]
+I_caller_pc["{caller_pc}":17,24-33@Main1.jif] <= (_["_":15,25-51@Runtime.jif] <- _["_":15,25-51@Runtime.jif])["(_ <- _)":15,25-51@Runtime.jif] {};["{caller_pc} <= {(* -> *)}":24,35-58@Main1.jif]
+
+C_param_p_label["{param_p_label}":24,35-42@Main1.jif] == (C_p["{p}":18,31-33@Main1.jif] ⊔ C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{p ⊔ caller_pc}":18,31-33@Main1.jif] {};["{param_p_label} == {p ⊔ caller_pc}":24,35-58@Main1.jif]
+I_param_p_label["{param_p_label}":24,35-42@Main1.jif] == (I_p["{p}":18,31-33@Main1.jif] ⊔ I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{p ⊔ caller_pc}":18,31-33@Main1.jif] {};["{param_p_label} == {p ⊔ caller_pc}":24,35-58@Main1.jif]
+
+p1["p":24,22-23@Main1.jif] == p1["p":24,22-23@Main1.jif] {};["p equiv p":24,35-58]
+(_["_":15,35-40@Runtime.jif] -> _["_":15,35-40@Runtime.jif])["(_ -> _)":15,35-40@Runtime.jif] <= C_runtime["{runtime}":24,25-32@Main1.jif] {};["{(p <- *)} <= {runtime}":24,35-58@Main1.jif]
+(p1["p":24,35-42@Main1.jif] <- p1["p":24,35-42@Main1.jif])["(p <- *)":15,36-39@Runtime.jif] <= I_runtime["{runtime}":24,25-32@Main1.jif] {};["{(p <- *)} <= {runtime}":24,35-58@Main1.jif]
+
+(C_runtime["{runtime}":24,25-32@Main1.jif] ⊔ C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{runtime ⊔ caller_pc}":24,25-32@Main1.jif] <= (*["*":39,51-58@Runtime.jif] -> *["*":39,51-58@Runtime.jif])["(* -> *)":39,51-58@Runtime.jif] {};["{runtime ⊔ caller_pc} <= {(* -> *)}":25,54-66@Main1.jif]
+(I_runtime["{runtime}":24,25-32@Main1.jif] ⊔ I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{runtime ⊔ caller_pc}":24,25-32@Main1.jif] <= (_["_":39,51-58@Runtime.jif] <- _["_":39,51-58@Runtime.jif])["(_ <- _)":39,51-58@Runtime.jif] {};["{runtime ⊔ caller_pc} <= {(* -> *)}":25,54-66@Main1.jif]
+
+(C_runtime["{runtime}":24,25-32@Main1.jif] ⊔ C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{runtime ⊔ caller_pc}":24,25-32@Main1.jif] <= (*["*":39,18-50@Runtime.jif] -> *["*":39,18-50@Runtime.jif])["(* -> *)":39,18-50@Runtime.jif] {};["{runtime ⊔ caller_pc} <= {(* -> *)}":25,39-67@Main1.jif]
+(I_runtime["{runtime}":24,25-32@Main1.jif] ⊔ I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{runtime ⊔ caller_pc}":24,25-32@Main1.jif] <= (_["_":39,18-50@Runtime.jif] <- _["_":39,18-50@Runtime.jif])["(_ <- _)":39,18-50@Runtime.jif] {};["{runtime ⊔ caller_pc} <= {(* -> *)}":25,39-67@Main1.jif]
+
+C_receiver["{receiver}":25,39-67@Main1.jif] == (C_runtime["{runtime}":24,25-32@Main1.jif] ⊔ C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{runtime ⊔ caller_pc}":24,25-32@Main1.jif] {};["{receiver} == {runtime ⊔ caller_pc}":25,39-67@Main1.jif]
+I_receiver["{receiver}":25,39-67@Main1.jif] == (I_runtime["{runtime}":24,25-32@Main1.jif] ⊔ I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{runtime ⊔ caller_pc}":24,25-32@Main1.jif] {};["{receiver} == {runtime ⊔ caller_pc}":25,39-67@Main1.jif]
+
+C_arg1label["{arg1label}":25,54-66@Main1.jif] == (C_runtime["{runtime}":24,25-32@Main1.jif] ⊔ C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{runtime ⊔ caller_pc}":24,25-32@Main1.jif] {};["{arg1label} == {runtime ⊔ caller_pc}":25,39-67@Main1.jif]
+I_arg1label["{arg1label}":25,54-66@Main1.jif] == (I_runtime["{runtime}":24,25-32@Main1.jif] ⊔ I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{runtime ⊔ caller_pc}":24,25-32@Main1.jif] {};["{arg1label} == {runtime ⊔ caller_pc}":25,39-67@Main1.jif]
+
+((p1["p":24,22-23@Main1.jif] -> p1["p":24,22-23@Main1.jif])["(p -> *)":39,36-38@Runtime.jif] ⊔ C_runtime["{runtime}":24,25-32@Main1.jif])["{(p -> *); (_ <- _) ⊔ runtime}":39,35-43@Runtime.jif] <= C_out["{out}":22,26-29@Main1.jif] {};["{(p -> *); (_ <- _) ⊔ runtime} <= {out}":25,14-17@Main1.jif]
+((_["_":25,64-66@Main1.jif] <- _["_":25,64-66@Main1.jif])["(_ <- _)":25,64-66@Main1.jif] ⊔ I_runtime["{runtime}":24,25-32@Main1.jif])["{(p -> *); (_ <- _) ⊔ runtime}":39,35-43@Runtime.jif] <= I_out["{out}":22,26-29@Main1.jif] {};["{(p -> *); (_ <- _) ⊔ runtime} <= {out}":25,14-17@Main1.jif]
+
+(_["_":25,64-66@Main1.jif] -> _["_":25,64-66@Main1.jif])["(_ -> _)":25,64-66@Main1.jif] == (_["_":22,22-24@Main1.jif] -> _["_":22,22-24@Main1.jif])["(_ -> _)":22,22-24@Main1.jif] {};["{} == {}":25,14-67@Main1.jif]
+(_["_":25,64-66@Main1.jif] <- _["_":25,64-66@Main1.jif])["(_ <- _)":25,64-66@Main1.jif] == (_["_":22,22-24@Main1.jif] <- _["_":22,22-24@Main1.jif])["(_ <- _)":22,22-24@Main1.jif] {};["{} == {}":25,14-67@Main1.jif]
+
+((_["_":25,64-66@Main1.jif] -> _["_":25,64-66@Main1.jif])["(_ -> _)":25,64-66@Main1.jif] ⊔ C_runtime["{runtime}":24,25-32@Main1.jif])["{(_ -> _); (_ <- _) ⊔ runtime}":17,24-33@Main1.jif] <= C_e["{e}":27,17-36@Main1.jif] {};["{(_ -> _); (_ <- _) ⊔ runtime} <= {e}":27,17-36@Main1.jif]
+((_["_":25,64-66@Main1.jif] <- _["_":25,64-66@Main1.jif])["(_ <- _)":25,64-66@Main1.jif] ⊔ I_runtime["{runtime}":24,25-32@Main1.jif])["{(_ -> _); (_ <- _) ⊔ runtime}":17,24-33@Main1.jif] <= I_e["{e}":27,17-36@Main1.jif] {};["{(_ -> _); (_ <- _) ⊔ runtime} <= {e}":27,17-36@Main1.jif]
+
+(_["_":22,22-24@Main1.jif] -> _["_":22,22-24@Main1.jif])["(_ -> _)":22,22-24@Main1.jif] == (_["_":33,22-24@Main1.jif] -> _["_":33,22-24@Main1.jif])["(_ -> _)":33,22-24@Main1.jif] {};["{} == {}":33,33-36@Main1.jif]
+(_["_":22,22-24@Main1.jif] <- _["_":22,22-24@Main1.jif])["(_ <- _)":22,22-24@Main1.jif] == (_["_":33,22-24@Main1.jif] <- _["_":33,22-24@Main1.jif])["(_ <- _)":33,22-24@Main1.jif] {};["{} == {}":33,33-36@Main1.jif]
+
+(C_out["{out}":22,26-29@Main1.jif] ⊔ C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{out ⊔ caller_pc}":22,26-29@Main1.jif] <= C_out2["{out2}":33,26-30@Main1.jif] {};["{out ⊔ caller_pc} <= {out2}":33,33-36@Main1.jif]
+(I_out["{out}":22,26-29@Main1.jif] ⊔ I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{out ⊔ caller_pc}":22,26-29@Main1.jif] <= I_out2["{out2}":33,26-30@Main1.jif] {};["{out ⊔ caller_pc} <= {out2}":33,33-36@Main1.jif]
+
+(Alice⊔Bob⊔p1)["Alice⊔Bob⊔p":37,10-38@Main1.jif] >= Alice {};["Alice⊔Bob⊔p actsfor Alice":37,10-38]
+(Alice⊔Bob⊔p1)["Alice⊔Bob⊔p":37,10-38@Main1.jif] >= Bob {};["Alice⊔Bob⊔p actsfor Bob":37,10-38]
+(C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{caller_pc}":17,24-33@Main1.jif] <= C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif] {};["{caller_pc} <= {newBattleShip}":37,10-38@Main1.jif]
+(I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{caller_pc}":17,24-33@Main1.jif] <= I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif] {};["{caller_pc} <= {newBattleShip}":37,10-38@Main1.jif]
+
+(C_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{caller_pc}":17,24-33@Main1.jif] <= C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif] {};["{caller_pc} <= {newBattleShip}":37,10-38@Main1.jif]
+(I_caller_pc["{caller_pc}":17,24-33@Main1.jif])["{caller_pc}":17,24-33@Main1.jif] <= I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif] {};["{caller_pc} <= {newBattleShip}":37,10-38@Main1.jif]
+
+C_caller_pc["{caller_pc}":17,24-33@Main1.jif] <= (*["*":7,0-16@BattleShip.jif] -> *["*":7,0-16@BattleShip.jif])["(* -> *)":7,0-16@BattleShip.jif] {};["{caller_pc} <= {(* -> *)}":37,10-38@Main1.jif]
+I_caller_pc["{caller_pc}":17,24-33@Main1.jif] <= (_["_":7,0-16@BattleShip.jif] <- _["_":7,0-16@BattleShip.jif])["(_ <- _)":7,0-16@BattleShip.jif] {};["{caller_pc} <= {(* -> *)}":37,10-38@Main1.jif]
+
+(C_out2["{out2}":33,26-30@Main1.jif] ⊔ C_caller_pc["{caller_pc}":17,24-33@Main1.jif] ⊔ C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{out2 ⊔ caller_pc ⊔ newBattleShip}":33,26-30@Main1.jif] <= (_["_":15,54-72@BattleShip.jif] -> _["_":15,54-72@BattleShip.jif])["(_ -> _)":15,54-72@BattleShip.jif] {};["{out2 ⊔ caller_pc ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":37,44-48@Main1.jif]
+(I_out2["{out2}":33,26-30@Main1.jif] ⊔ I_caller_pc["{caller_pc}":17,24-33@Main1.jif] ⊔ I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{out2 ⊔ caller_pc ⊔ newBattleShip}":33,26-30@Main1.jif] <= (((Alice <- Alice)) ⊓ ((Bob <- Bob)))["(Alice <- *) ⊓ (Bob <- *)":15,55-71@BattleShip.jif] {};["{out2 ⊔ caller_pc ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":37,44-48@Main1.jif]
+
+(_["_":33,22-24@Main1.jif] -> _["_":33,22-24@Main1.jif])["(_ -> _)":33,22-24@Main1.jif] == (_["_":15,51-53@BattleShip.jif] -> _["_":15,51-53@BattleShip.jif])["(_ -> _)":15,51-53@BattleShip.jif] {};["{} == {}":37,44-48@Main1.jif]
+(_["_":33,22-24@Main1.jif] <- _["_":33,22-24@Main1.jif])["(_ <- _)":33,22-24@Main1.jif] == (_["_":15,51-53@BattleShip.jif] <- _["_":15,51-53@BattleShip.jif])["(_ <- _)":15,51-53@BattleShip.jif] {};["{} == {}":37,44-48@Main1.jif]
+
+(C_caller_pc["{caller_pc}":17,24-33@Main1.jif] ⊔ C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{caller_pc ⊔ newBattleShip}":17,24-33@Main1.jif] <= (_["_":15,20-38@BattleShip.jif] -> _["_":15,20-38@BattleShip.jif])["(_ -> _)":15,20-38@BattleShip.jif] {};["{caller_pc ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":37,10-49@Main1.jif]
+(I_caller_pc["{caller_pc}":17,24-33@Main1.jif] ⊔ I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{caller_pc ⊔ newBattleShip}":17,24-33@Main1.jif] <= (((Alice <- Alice)) ⊓ ((Bob <- Bob)))["(Alice <- *) ⊓ (Bob <- *)":15,21-37@BattleShip.jif] {};["{caller_pc ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":37,10-49@Main1.jif]
+
+C_receiver1["{receiver}":37,10-49@Main1.jif] == (C_caller_pc["{caller_pc}":17,24-33@Main1.jif] ⊔ C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{caller_pc ⊔ newBattleShip}":17,24-33@Main1.jif] {};["{receiver} == {caller_pc ⊔ newBattleShip}":37,10-49@Main1.jif]
+I_receiver1["{receiver}":37,10-49@Main1.jif] == (I_caller_pc["{caller_pc}":17,24-33@Main1.jif] ⊔ I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{caller_pc ⊔ newBattleShip}":17,24-33@Main1.jif] {};["{receiver} == {caller_pc ⊔ newBattleShip}":37,10-49@Main1.jif]
+
+C_arg1label1["{arg1label}":37,44-48@Main1.jif] == (C_out2["{out2}":33,26-30@Main1.jif] ⊔ C_caller_pc["{caller_pc}":17,24-33@Main1.jif] ⊔ C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{out2 ⊔ caller_pc ⊔ newBattleShip}":33,26-30@Main1.jif] {};["{arg1label} == {out2 ⊔ caller_pc ⊔ newBattleShip}":37,10-49@Main1.jif]
+I_arg1label1["{arg1label}":37,44-48@Main1.jif] == (I_out2["{out2}":33,26-30@Main1.jif] ⊔ I_caller_pc["{caller_pc}":17,24-33@Main1.jif] ⊔ I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{out2 ⊔ caller_pc ⊔ newBattleShip}":33,26-30@Main1.jif] {};["{arg1label} == {out2 ⊔ caller_pc ⊔ newBattleShip}":37,10-49@Main1.jif]
+
+((_["_":16,57-75@BattleShip.jif] -> _["_":16,57-75@BattleShip.jif])["(_ -> _)":16,57-75@BattleShip.jif] ⊔ C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip}":16,57-75@BattleShip.jif] <= (_["_":18,54-76@Main1.jif] -> _["_":18,54-76@Main1.jif])["(_ -> _)":18,54-76@Main1.jif] {};["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":17,24-33@Main1.jif]
+((((Alice <- Alice)) ⊓ ((Bob <- Bob)))["(Alice <- *) ⊓ (Bob <- *)":16,58-74@BattleShip.jif] ⊔ I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip}":16,57-75@BattleShip.jif] <= (((Alice <- Alice)) ⊓ ((Bob <- Bob)))["(Alice <- *) ⊓ (Bob <- *)":18,55-75@Main1.jif] {};["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":17,24-33@Main1.jif]
+
+((_["_":16,57-75@BattleShip.jif] -> _["_":16,57-75@BattleShip.jif])["(_ -> _)":16,57-75@BattleShip.jif] ⊔ C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip}":16,57-75@BattleShip.jif] <= (_["_":18,54-76@Main1.jif] -> _["_":18,54-76@Main1.jif])["(_ -> _)":18,54-76@Main1.jif] {};["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":17,24-33@Main1.jif]
+((((Alice <- Alice)) ⊓ ((Bob <- Bob)))["(Alice <- *) ⊓ (Bob <- *)":16,58-74@BattleShip.jif] ⊔ I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip}":16,57-75@BattleShip.jif] <= (((Alice <- Alice)) ⊓ ((Bob <- Bob)))["(Alice <- *) ⊓ (Bob <- *)":18,55-75@Main1.jif] {};["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":17,24-33@Main1.jif]
+
+((_["_":16,57-75@BattleShip.jif] -> _["_":16,57-75@BattleShip.jif])["(_ -> _)":16,57-75@BattleShip.jif] ⊔ C_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip}":16,57-75@BattleShip.jif] <= (_["_":18,54-76@Main1.jif] -> _["_":18,54-76@Main1.jif])["(_ -> _)":18,54-76@Main1.jif] {};["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":17,24-33@Main1.jif]
+((((Alice <- Alice)) ⊓ ((Bob <- Bob)))["(Alice <- *) ⊓ (Bob <- *)":16,58-74@BattleShip.jif] ⊔ I_newBattleShip["{newBattleShip}":37,10-38@Main1.jif])["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip}":16,57-75@BattleShip.jif] <= (((Alice <- Alice)) ⊓ ((Bob <- Bob)))["(Alice <- *) ⊓ (Bob <- *)":18,55-75@Main1.jif] {};["{(_ -> _); (Alice <- *) ⊓ (Bob <- *) ⊔ newBattleShip} <= {(Alice <- *) ⊓ (Bob <- *)}":17,24-33@Main1.jif]
+

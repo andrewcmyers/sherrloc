@@ -1,0 +1,35 @@
+package crypto;
+
+import java.security.Key;
+
+//DeclassPrincipalClosure[P,L]{lb} = new DeclassPrincipalClosure[P,L](prin);
+//  this declassifies prin{P:} to {*lb} and has side-effects of L (could be <top>? at least 
+//  it's presumably lb).  This is convoluted, but because the return type has to be {this}
+//  it's not clear how to fix it with the current limitations on principals.
+//  it is presumed that P is a ManagerPrincipal, because he always 
+//  authorizes the DeclassPrincipalClosure
+
+// P is the manager of the PrincipalStore.
+// this will declassify to the security level of the Closure
+// not sure if that's a good solution
+public class DESClosure[principal P,label L] implements Closure[P,L] { 
+    final byte{P:}[]{P:} plaintext; // should this be a String?
+    //final String{P:} plaintext;
+    final Key{P:} key;
+
+    public DESClosure(Key{P:} key, byte{P:}[]{P:} plaintext) {
+    		this.plaintext = plaintext;
+    		this.key = key;
+    		//super();
+    }
+
+    // This returns a Ciphertext
+    public Object{this} invoke{L}() where caller (P) {
+    		if (L <= new label{P:}) // bounds {this} to be less than {P:}
+    			//return declassify(DES[{P:}].encrypt(key,plaintext),{this});
+				return DES[{P:}].encrypt(key,plaintext);
+    		else return null;
+    }
+}
+
+/* DESClosure.jif:27,11-30 */

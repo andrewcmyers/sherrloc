@@ -1,0 +1,321 @@
+package crypto;
+
+import java.io.ByteArrayOutputStream;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec; 
+import java.security.spec.X509EncodedKeySpec; 
+import java.security.InvalidKeyException;
+import java.security.KeyFactory; 
+import java.security.KeyPairGenerator;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.Key; 
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+// for testing purposes
+import java.io.PrintStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+//import policy.PolicyStore;
+//import policy.Policy;
+
+public class RSA [label L]// authority(DESprin)
+{
+	/**
+	 * returns a newly generated keypair for use in RSA encryption
+	 * @return an RSA KeyPair
+	 */
+    static public KeyPair{L} generateKeyPair() throws (NoSuchAlgorithmException)
+    {
+    		KeyPair keyPair = null;
+    		try {
+    			keyPair = KeyPairGenerator.getInstance("RSA",new org.bouncycastle.jce.provider.BouncyCastleProvider()).generateKeyPair();
+    		} catch (NullPointerException ignore) {} // thrown by getInstance()...
+    		return keyPair;
+    }
+
+    /**
+     * reads a public key from an InputStream in X.509 encoding and returns it
+     * @param InputStream with public key
+     * @return X.509 public key read in from @in
+     */
+	public static PublicKey{*lbl} getPublicKey{*lbl}(InputStream[{*lbl}]{*lbl} in,label{*lbl} lbl)
+	{
+		// read keys from file
+		final ByteArrayOutputStream[{*lbl}]{*lbl} pubKeyBaos = new ByteArrayOutputStream[{*lbl}]();
+		
+		X509EncodedKeySpec pubKeySpec = null;
+		int curByte = 0;
+		if (pubKeyBaos != null && in != null) {
+			try {
+				while ( (curByte = in.read()) != -1) {
+					pubKeyBaos.write(curByte);
+				}
+			} catch (IOException e) {
+			}
+		
+			pubKeySpec = new X509EncodedKeySpec(pubKeyBaos.toByteArray());
+			try {
+				pubKeyBaos.close();
+			} catch (IOException e) {
+			}
+		}
+				
+		PublicKey pubKey = null;
+		try {
+			pubKey = KeyFactory.getInstance("RSA",new org.bouncycastle.jce.provider.BouncyCastleProvider()).generatePublic(pubKeySpec);
+		} catch (InvalidKeySpecException e) {
+		} catch (NoSuchAlgorithmException e) {
+		} catch (NullPointerException ignore) { // thrown by getInstance(...).
+		}
+		
+		return pubKey;
+	}
+
+    /**
+     * reads a private key from an InputStream in PKCS8 encoding and returns it
+     * @param InputStream with private key
+     * @return PKCS8 private key read in from @in
+     */
+	public static PrivateKey{*lbl} getPrivateKey{*lbl}(InputStream[{*lbl}]{*lbl} in,label{*lbl} lbl)
+	{
+		// read keys from file
+		final ByteArrayOutputStream[{*lbl}]{*lbl} privKeyBaos = new ByteArrayOutputStream[{*lbl}]();
+		
+		int curByte = 0;
+		
+		PKCS8EncodedKeySpec privKeySpec = null;
+		if (privKeyBaos != null && in != null) {
+			try {
+				while ( (curByte = in.read()) != -1) {
+					privKeyBaos.write(curByte);
+				}
+			} catch (IOException e) {
+			}
+			
+			privKeySpec = new PKCS8EncodedKeySpec(privKeyBaos.toByteArray());
+			try {
+				privKeyBaos.close();
+			} catch (IOException e) {
+			}
+		}
+				
+		PrivateKey privKey = null;
+		try {
+			privKey = KeyFactory.getInstance("RSA",new org.bouncycastle.jce.provider.BouncyCastleProvider()).generatePrivate(privKeySpec);
+		} catch (InvalidKeySpecException e) {
+		} catch (NoSuchAlgorithmException e) {
+		} catch (NullPointerException ignore) {} // thrown if getInstance() returns null
+		
+		return privKey;
+	}
+
+    /** 
+     * encrypts a String using a previously generated DES Key
+     * @param key a previously generated DES Key (e.g. made with DES[P].getNewKey()
+     * @param s the String to encrypt
+     * @return a new Ciphertext object which contains both the key and the needed IV
+     */
+    static public Ciphertext{L} encrypt(Key{L} key, String{L} s)
+    //         throws (InvalidKeyException, IllegalBlockSizeException, NullPointerException,
+    //		 BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException)
+//	 where oneway(DESprin,P)
+    {
+		Ciphertext{L} ciphertext = null;
+	
+		try {
+		    final Cipher{L} rsaCipher_ = Cipher.getInstance("RSA/ECB/PKCS1Padding",new org.bouncycastle.jce.provider.BouncyCastleProvider());
+		    if (rsaCipher_ != null) { 
+		    		rsaCipher_.init(Cipher.ENCRYPT_MODE,key);
+		    
+			    final byte{L}[]{L} input = s.getBytes();
+			    final byte{L}[]{L} encrypted = rsaCipher_.doFinal(input);
+		    
+			    ciphertext = new Ciphertext(encrypted);
+		    }
+		}
+		catch (Exception e) {}
+
+		return ciphertext;
+    }
+
+    /** 
+     * encrypts a String using a previously generated DES Key
+     * @param key a previously generated DES Key (e.g. made with DES[P].getNewKey()
+     * @param s the String to encrypt
+     * @return a new Ciphertext object which contains both the key and the needed IV
+     */
+    static public Ciphertext{L} encrypt(Key{L} key, byte{L}[]{L} input)
+    //         throws (InvalidKeyException, IllegalBlockSizeException, NullPointerException,
+    //		 BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException)
+//	 where oneway(DESprin,P)
+    {
+		Ciphertext{L} ciphertext = null;
+	
+		try {
+		    final Cipher{L} rsaCipher_ = Cipher.getInstance("RSA/ECB/PKCS1Padding",new org.bouncycastle.jce.provider.BouncyCastleProvider());
+		    if (rsaCipher_ != null) { 
+		    		rsaCipher_.init(Cipher.ENCRYPT_MODE,key);
+		    
+//			    final byte{L}[]{L} input = s.getBytes();
+			    final byte{L}[]{L} encrypted = rsaCipher_.doFinal(input);
+		    
+			    ciphertext = new Ciphertext(encrypted);
+		    }
+		}
+		catch (Exception e) {}
+
+		return ciphertext;
+    }
+
+    /**
+     * Decrypts a Ciphertext given a Key, using the RSA algorithm
+     * @param key the correct (private) key for the given ciphertext
+     * @param ciph must be a Ciphertext (e.g., generated by RSA[P].encrypt)
+     * @return the plaintext corresponding to the ciphertext
+     */
+    static public String{L} decrypt(Key{L} key, Ciphertext{L} ciph) 
+	 throws (InvalidKeyException{L}, IllegalBlockSizeException, BadPaddingException, 
+		 NoSuchPaddingException, InvalidAlgorithmParameterException, 
+		 NoSuchAlgorithmException, NullPointerException, IllegalArgumentException)
+    {
+		Cipher{L} rsaCipher_ = Cipher.getInstance("RSA/ECB/PKCS1Padding",new org.bouncycastle.jce.provider.BouncyCastleProvider());
+	
+		rsaCipher_.init(Cipher.DECRYPT_MODE,key);//.getBytes()));
+		    
+		//byte{P:}[]{P:} encrypted = ciph.encText.getBytes();
+		String{L} output = new String(rsaCipher_.doFinal(ciph.encText));
+	
+		return output;
+    }
+    
+/*    static public void main{}(principal{} user, String[] args) where caller(user)
+    {
+		boolean getPwdFromUser = false;
+		jif.runtime.Runtime[user] runtime = null;
+	
+		try {
+		    runtime = jif.runtime.Runtime[user].getRuntime();
+		} catch (SecurityException e) {}
+		
+		final PrincipalStore{} mph = PrincipalStorePolicy.setupPolicy(user);
+	
+		//	if (user actsfor mgr)
+		//	    if (outS != null) outS.println("Mgr <= User");
+	
+		Principal bonoP = (mph != null) ? bonoP = mph.getPrincipal("bono",new label{}) : null;
+	
+		final principal{} bono = bonoP;
+	
+
+	 	if (user actsfor bono) {
+			BufferedReader[{user:}]{bono:} inS = null; 
+			PrintStream[{bono:}]{bono:} outS = null;
+		 	try{
+		 	    outS = runtime.stdout(new label{bono:});
+		 	}
+		 	catch (SecurityException ex) { should do something here}
+			catch (NullPointerException e) {}
+
+	 		try {
+	 			//inS = declassify(new BufferedReader[{user:}](new InputStreamReader[{user:}](runtime.stdin(new label{user:}))),{bono:});
+	 			inS = new BufferedReader[{user:}](new InputStreamReader[{user:}](runtime.stdin(new label{user:})));
+	 		}
+	 		catch (SecurityException ex) {}//if (outS != null) outS.println("Security exception thrown when opening input stream!");}
+	 		catch (NullPointerException e) {}
+
+	 		KeyPair{bono:} keyPair = null;
+	 		try {
+	 			keyPair = RSA[{bono:}].generateKeyPair();
+	 		} catch (NoSuchAlgorithmException ignore) {}
+	 		
+	 		// create keys and save them to files
+	 		if (outS != null) outS.println("Creating keys and writing to files.");
+	 		
+	 		String principalName = bonoP == null ? "default" : bonoP.name();
+	 		String pubKeyFile = principalName + ".pubkey";
+	 		String privKeyFile = principalName + ".privkey";
+		
+			// write out public key
+			FileOutputStream[{user:}]{user:} out = null;
+			try {
+				out = runtime.openFileWrite(pubKeyFile,false, new label{user:});
+			} catch (IOException ignore) {
+			} catch (SecurityException ignore) {
+			} catch (NullPointerException ignore) {}
+
+			try {
+				out.write(keyPair.getPublic().getEncoded());
+				out.close();
+			} catch (IOException e) {
+			} catch(NullPointerException ignore) {} // thrown if out == null
+	
+			// write out private key
+			try {
+				out = runtime.openFileWrite(privKeyFile,false, new label{user:});
+			} catch (IOException ignore) {
+			} catch (SecurityException ignore) {
+			} catch (NullPointerException ignore) {}
+
+			try {
+				out.write(keyPair.getPrivate().getEncoded());
+				out.close();
+			} catch (IOException e) {
+			} catch (NullPointerException ignore) {} // thrown if out == null or keyPair == null
+	 		
+	 		//////// Encryption/Decryption ////////
+	 		if (outS != null) outS.println("Beginning encryption phase...");
+	 		FileInputStream[{user:}] pubKeyIn = null;
+	 		FileInputStream[{user:}] privKeyIn = null;
+	 		
+	 		try {
+				pubKeyIn = runtime.openFileRead(pubKeyFile,new label{user:});
+				privKeyIn = runtime.openFileRead(privKeyFile,new label{user:});
+			} catch (IOException ignore) {
+			} catch (SecurityException ignore) {
+			} catch (NullPointerException ignore) {}
+	 		
+	 		//PublicKey{} pubKey = declassify(RSA[{bono:}].getPublicKey(pubKeyIn,new label{user:}),{});
+	 		PublicKey{} pubKey = RSA[{bono:}].getPublicKey(pubKeyIn,new label{user:});
+
+	 		//PrivateKey{bono:} privKey = declassify(RSA[{bono:}].getPrivateKey(privKeyIn,new label{user:}),{bono:});
+	 		PrivateKey{bono:} privKey = RSA[{bono:}].getPrivateKey(privKeyIn,new label{user:});
+	 		 
+	 		String{bono:} text = "Hello world!  This is my RSA program!!";
+	 		if (outS != null) outS.println("The original text: " + text);
+	 		byte{bono:}[]{bono:} plaintext = text.getBytes();
+			RSAClosure[bono,{}]{} rsaClo = new RSAClosure[bono,{}](pubKey,plaintext);
+			Ciphertext{} tmp = null;
+			try {
+				tmp = (Ciphertext)PrincipalUtil.authorize(bono,"bonoPassword",rsaClo,new label{}).invoke();
+			} catch (ClassCastException ex) {
+			} catch (NullPointerException ex) {}
+			final Ciphertext{} ciphertext = tmp;
+			if (outS != null) try {outS.println("The ciphertext: " + new String(ciphertext.encText));
+							 } catch (NullPointerException ignore) {}
+
+			try {
+				final String{bono:} decryptedText = RSA[{bono:}].decrypt(privKey,ciphertext); 
+		 		if (outS != null && decryptedText != null) outS.println("Decrypted text is: " + decryptedText);
+			} catch (Exception ignore) {}
+	 	}
+	 }
+*/}

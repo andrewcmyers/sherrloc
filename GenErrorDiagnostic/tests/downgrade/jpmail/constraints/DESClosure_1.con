@@ -1,0 +1,40 @@
+CONSTRUCTOR * 0 //*["*":53,18-39@DES.jif]
+CONSTRUCTOR L 0 //L["{L}":28,10-11@DESClosure.jif]
+CONSTRUCTOR this 0
+CONSTRUCTOR P 0 //@DESClosure.jif:28,25-26
+
+%%
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(_ -> _) <= *;
+* <= (* -> *);
+(_ -> _) <= L;
+L <= (* -> *);
+(_ -> _) <= (P -> P);
+(P -> P) <= (* -> *);
+(_ -> _) <= (this);
+(this) <= (* -> *);
+(_ -> _) <= ((P -> P) ⊔ this);
+((P -> P) ⊔ this) <= (* -> *);
+
+%%
+((P -> P) ⊔ this)["{(P -> P); this}":18,13-17@DESClosure.jif] <= (P -> P)["{(P -> P)}":30,15-19@DESClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P); this} <= {(P -> P)}":30,29-32@DESClosure.jif]
+
+((P -> P) ⊔ this)["{(P -> P); this}":16,20-24@DESClosure.jif] <= (P -> P)["{(P -> P)}":30,15-19@DESClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P); this} <= {(P -> P)}":30,33-42@DESClosure.jif]
+
+(P -> P)["{(P -> P)}":30,15-19@DESClosure.jif] <= (P -> P)["{(P -> P)}":16,14-18@DESClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P)} <= {(P -> P)}":30,33-42@DESClosure.jif]
+
+(P -> P)["{(P -> P)}":16,14-18@DESClosure.jif] <= (P -> P)["{(P -> P)}":30,15-19@DESClosure.jif] {this <= L;L <= (P -> P);};["{(P -> P)} <= {(P -> P)}":30,33-42@DESClosure.jif]
+
+(this)["{this}":28,25-26@DESClosure.jif] <= *["*":53,18-39@DES.jif] {this <= L;L <= (P -> P);};["{this} <= *":30,11-43@DESClosure.jif]
+
+L["{L}":27,30-33@DESClosure.jif] <= *["*":53,18-39@DES.jif] {this <= L;L <= (P -> P);};["{L} <= *":30,11-43@DESClosure.jif]
+
+arg1label["{arg1label}":30,29-32@DESClosure.jif] == ((P -> P) ⊔ this)["{(P -> P); this}":18,13-17@DESClosure.jif] {this <= L;L <= (P -> P);};["{arg1label} == {(P -> P); this}":30,11-43@DESClosure.jif]
+
+arg2label["{arg2label}":30,33-42@DESClosure.jif] == ((P -> P) ⊔ this)["{(P -> P); this}":16,20-24@DESClosure.jif] {this <= L;L <= (P -> P);};["{arg2label} == {(P -> P); this}":30,11-43@DESClosure.jif]
+
+(_ -> _)["{}":27,11-30@DESClosure.jif] <= (this)["{this}":27,11-30@DESClosure.jif] {this <= L;};["{} <= {this}":27,11-30@DESClosure.jif]
+
+(this ⊔ (P -> P))["{this; (P -> P)}":28,25-26@DESClosure.jif] <= (this)["{this}":15,7-23@DESClosure.jif] {this <= L;};["{this; (P -> P)} <= {this}":27,11-30@DESClosure.jif]
+

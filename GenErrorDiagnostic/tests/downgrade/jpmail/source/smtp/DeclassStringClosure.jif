@@ -1,0 +1,15 @@
+package smtp;
+
+public class DeclassStringClosure[principal P,label L] implements Closure[P,L] { 
+    final String{P:} str; 
+
+    public DeclassStringClosure(String{P:} str) {
+    		this.str = str;
+    }
+
+    // This returns a Ciphertext
+    public Object{this} invoke{L}() where caller (P) {
+    		//return declassify(this.str,{this});
+    		return this.str;
+    }
+}

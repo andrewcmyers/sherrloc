@@ -1,0 +1,52 @@
+CONSTRUCTOR this 0 //this["{this}":5,7-23@MD5Closure.jif]
+CONSTRUCTOR L 0 //L["{L}":16,30-33@MD5Closure.jif]
+CONSTRUCTOR * 0 //*["*":53,18-45@String.jif]
+CONSTRUCTOR this 0
+
+%%
+(_ -> _) <= this;
+this <= (* -> *);
+(_ -> _) <= (_ -> _);
+(_ -> _) <= (* -> *);
+(_ -> _) <= L;
+L <= (* -> *);
+(_ -> _) <= *;
+* <= (* -> *);
+(_ -> _) <= ((P -> P) ⊔ this);
+((P -> P) ⊔ this) <= (* -> *);
+(_ -> _) <= receiver;
+receiver <= (* -> *);
+(_ -> _) <= plaintxt;
+plaintxt <= (* -> *);
+(_ -> _) <= (plaintxt ⊔ this);
+(plaintxt ⊔ this) <= (* -> *);
+
+%%
+plaintxt["{plaintxt}":18,16-24@MD5Closure.jif] == (this)["{this}":16,11-30@MD5Closure.jif] {this <= L;};["{plaintxt} == {this}":18,16-24@MD5Closure.jif]
+
+((P -> P) ⊔ this)["{(P -> P); this}":6,16-20@MD5Closure.jif] <= plaintxt["{plaintxt}":18,16-24@MD5Closure.jif] {this <= L;};["{(P -> P); this} <= {plaintxt}":18,27-36@MD5Closure.jif]
+
+(plaintxt ⊔ this)["{plaintxt; this}":18,16-24@MD5Closure.jif] <= *["*":53,18-45@String.jif] {this <= L;};["{plaintxt; this} <= *":19,58-77@MD5Closure.jif]
+
+L["{L}":16,30-33@MD5Closure.jif] <= *["*":53,18-45@String.jif] {this <= L;};["{L} <= *":19,58-77@MD5Closure.jif]
+
+receiver["{receiver}":19,58-77@MD5Closure.jif] == (plaintxt ⊔ this)["{plaintxt; this}":18,16-24@MD5Closure.jif] {this <= L;};["{receiver} == {plaintxt; this}":19,58-77@MD5Closure.jif]
+
+(this ⊔ plaintxt)["{this; plaintxt}":5,7-23@MD5Closure.jif] <= (this)["{this}":5,7-23@MD5Closure.jif] {this <= L;};["{this; plaintxt} <= {this}":19,39-84@MD5Closure.jif]
+
+(this)["{this}":5,7-23@MD5Closure.jif] <= receiver["{receiver}":19,58-77@MD5Closure.jif] {this <= L;};["{this} <= {receiver}":19,39-84@MD5Closure.jif]
+
+receiver["{receiver}":19,58-77@MD5Closure.jif] <= (this)["{this}":5,7-23@MD5Closure.jif] {this <= L;};["{receiver} <= {this}":19,39-84@MD5Closure.jif]
+
+(this ⊔ plaintxt)["{this; plaintxt}":5,7-23@MD5Closure.jif] <= *["*":38,18-43@MessageDigest.jif] {this <= L;};["{this; plaintxt} <= *":19,27-86@MD5Closure.jif]
+
+L["{L}":16,30-33@MD5Closure.jif] <= *["*":38,18-43@MessageDigest.jif] {this <= L;};["{L} <= *":19,27-86@MD5Closure.jif]
+
+receiver1["{receiver}":19,27-86@MD5Closure.jif] == (this)["{this}":5,7-23@MD5Closure.jif] {this <= L;};["{receiver} == {this}":19,27-86@MD5Closure.jif]
+
+arg1label["{arg1label}":19,39-84@MD5Closure.jif] == (this ⊔ plaintxt)["{this; plaintxt}":5,7-23@MD5Closure.jif] {this <= L;};["{arg1label} == {this; plaintxt}":19,27-86@MD5Closure.jif]
+
+(_ -> _)["{}":16,11-30@MD5Closure.jif] <= (this)["{this}":16,11-30@MD5Closure.jif] {this <= L;};["{} <= {this}":16,11-30@MD5Closure.jif]
+
+(this)["{this}":16,11-30@MD5Closure.jif] <= (this)["{this}":5,7-23@MD5Closure.jif] {this <= L;};["{this} <= {this}":16,11-30@MD5Closure.jif]
+
