@@ -2,7 +2,6 @@ CONSTRUCTOR a 0
 CONSTRUCTOR b 0
 CONSTRUCTOR c 0
 
-%%
-
-%%
-a <= a join c;
+(a <- b) <= x;
+x <= y;
+y <= (a <- c);
