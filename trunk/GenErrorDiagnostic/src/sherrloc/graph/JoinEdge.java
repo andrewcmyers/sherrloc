@@ -22,7 +22,7 @@ public class JoinEdge extends Edge {
 	
 	@Override
 	public String toString() {
-		return "join";
+		return from + " <= " +to;
 	}
 	
 	@Override

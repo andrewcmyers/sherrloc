@@ -227,10 +227,10 @@ public class Hypothesis {
 		}
 
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
-			if (finder.getPath(graph.getNode(e1), graph.getNode(e2), false) != null)
+			if (finder.getPath(graph.getNode(e1), graph.getNode(e2), false).size()!=0)
 				return true;
 			for (Element e : graph.getAllElements()) {
-				if (finder.getPath(graph.getNode(e1), graph.getNode(e), false)!=null && leq(e, e2, false))
+				if (finder.getPath(graph.getNode(e1), graph.getNode(e), false).size()!=0 && leq(e, e2, false))
 					return true;
 			}
 		}

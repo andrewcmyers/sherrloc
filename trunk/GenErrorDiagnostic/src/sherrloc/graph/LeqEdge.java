@@ -13,8 +13,8 @@ public class LeqEdge extends ReductionEdge {
 	 * @param second
 	 *            End node
 	 */
-	public LeqEdge(Edge first, Edge second) {
-		super(first!=null?first:EmptyEdge.getInstance(), second!=null?second:EmptyEdge.getInstance());
+	public LeqEdge(Node from, Node to, int size) {
+		super(from, to, size);
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class LeqEdge extends ReductionEdge {
 
 	@Override
 	public Edge getReverse() {
-		return new LeqEdge(second.getReverse(), first.getReverse());
+		return new LeqEdge(to, from, size);
 	}
 }
