@@ -93,6 +93,14 @@ public class TestAll {
 	}
 	
 	@Test
+	public void unitTests () {
+		testAssumptions("tests/jif/cluster.con", "- a <= c;b <= c;\n");
+//		testAssumptions("tests/jif/join.con", "- b <= c;\n");
+//		testAssumptions("tests/jif/inte.con", "- b <= c;\n");
+//		testAssumptions("/home/zhdf/workspace/LemonTool/error.con", "- a <= b\n");
+	}
+	
+	@Test
 	public void testHypothesis () {
 		/* test for Jif constraint */
 		

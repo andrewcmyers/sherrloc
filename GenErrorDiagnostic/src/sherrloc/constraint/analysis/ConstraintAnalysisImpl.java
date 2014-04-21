@@ -3,7 +3,6 @@ package sherrloc.constraint.analysis;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
@@ -59,20 +58,14 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	public UnsatPaths genErrorPaths(ConstraintGraph graph) {
 		ArrayList<Node> startNodes = new ArrayList<Node>();
 		ArrayList<Node> endNodes = new ArrayList<Node>();
-		Set<Element> elements = graph.getAllElements();
 		UnsatPaths unsatPaths = new UnsatPaths();
 
-		if (DEBUG) {
-			System.out.println("Total nodes before path generaton: "
-					+ elements.size());
-		}
-
 		/** only search for informative paths */
-		for (Element element : elements) {
-			if (!(element instanceof JoinElement))
-				startNodes.add(graph.getNode(element));
-			if (!(element instanceof MeetElement))
-				endNodes.add(graph.getNode(element));
+		for (Node node : graph.getAllNodes()) {
+			if (!(node.getElement() instanceof JoinElement))
+				startNodes.add(node);
+			if (!(node.getElement() instanceof MeetElement))
+				endNodes.add(node);
 		}
 
 		if (DEBUG) {
@@ -96,10 +89,10 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				// avoid returning duplicated edges when only equalities are used
 				if (isSym && (start.getIndex() <= end.getIndex()))
 					continue;
-
+				
 				// test if a partial ordering can be inferred
 				List<Edge> l = finder.getPath(start, end, isVerbose);
-				if (l == null)
+				if (l.size() == 0)
 					continue;
 
 				// when recursion is not allowed, constraints such as "x = list x" is unsatisfiable

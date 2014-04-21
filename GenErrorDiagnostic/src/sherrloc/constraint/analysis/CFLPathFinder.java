@@ -3,17 +3,18 @@ package sherrloc.constraint.analysis;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import sherrloc.graph.ConstraintEdge;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.ConstructorEdge;
+import sherrloc.graph.DummyEdge;
 import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
-import sherrloc.graph.EmptyEdge;
 import sherrloc.graph.JoinEdge;
-import sherrloc.graph.LeftEdge;
-import sherrloc.graph.LeqEdge;
+import sherrloc.graph.LeqCondition;
+import sherrloc.graph.LeqRevCondition;
 import sherrloc.graph.MeetEdge;
 import sherrloc.graph.Node;
 import sherrloc.graph.ReductionEdge;
@@ -33,8 +34,7 @@ import sherrloc.graph.RightEdge;
  */
 abstract public class CFLPathFinder implements PathFinder {
 	/** Edges used in CFL-reachablity algorithm */
-	protected LeqEdge[][] leqPath;
-	protected Map<EdgeCondition, LeftEdge>[][] leftPath;
+	protected Map<EdgeCondition, List<Triple>>[][] nextHop;
 	// since the RIGHT edges are rare in a graph, and no right edges are
 	// inferred, using HashMap can be more memory efficient than arrays
 	protected Map<Integer, Map<Integer, List<RightEdge>>> rightPath;
@@ -43,6 +43,18 @@ abstract public class CFLPathFinder implements PathFinder {
 	protected boolean initialized = false;
 	protected final ConstraintGraph g;
 
+	public class Triple {
+		public Node start, end;
+		public EdgeCondition ty;
+		
+		public Triple(Node start, Node end, EdgeCondition type) {
+			this.start = start;
+			this.end = end;
+			this.ty = type;
+		}
+	}
+	
+	public enum EDGE_TYPE {LEQ, LEFT, RIGHT};
 	/**
 	 * @param graph
 	 *            A graph to be saturated
@@ -50,16 +62,14 @@ abstract public class CFLPathFinder implements PathFinder {
 	public CFLPathFinder(ConstraintGraph graph) {
 		g = graph;
 		int size = g.getAllNodes().size();
-		leqPath = new LeqEdge[size][size];
-		leftPath = new HashMap[size][size];
+		nextHop = new Map[size][size];
 		rightPath = new HashMap<Integer, Map<Integer, List<RightEdge>>>();
 		for (Node start : g.getAllNodes()) {
 			for (Node end : g.getAllNodes()) {
 				int sIndex = start.getIndex();
 				int eIndex = end.getIndex();
 
-				leqPath[sIndex][eIndex] = null;
-				leftPath[sIndex][eIndex] = new HashMap<EdgeCondition, LeftEdge>();
+				nextHop[sIndex][eIndex] = null;
 			}
 		}
 	}
@@ -70,8 +80,8 @@ abstract public class CFLPathFinder implements PathFinder {
 	 * @param edge
 	 *            An edge to be added
 	 */
-	abstract protected void addEdge(ReductionEdge edge);
-
+	abstract protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence);
+	
 	/**
 	 * Return all {@link RightEdge}s from <code>fIndex</code> to
 	 * <code>tIndex</code>
@@ -108,7 +118,7 @@ abstract public class CFLPathFinder implements PathFinder {
 		else
 			return false;
 	}
-
+	
 	/**
 	 * Convert all graph edges into {@link ReductionEdge}s
 	 */
@@ -119,14 +129,10 @@ abstract public class CFLPathFinder implements PathFinder {
 		for (Edge edge : edges) {
 			if (edge instanceof ConstraintEdge || edge instanceof MeetEdge
 					|| edge instanceof JoinEdge) {
-				addEdge(new LeqEdge(edge, EmptyEdge.getInstance()));
+				inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1, new ArrayList<Triple>());
 			} else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
-				if (e.getCondition().isReverse()) {
-					addEdge(new RightEdge(e.getCondition(), edge, EmptyEdge.getInstance()));
-				} else {
-					addEdge(new LeftEdge(e.getCondition(), edge, EmptyEdge.getInstance()));
-				}
+				inferEdge(edge.getFrom(), edge.getTo(), e.getCondition(), 1, new ArrayList<Triple>());
 			}
 		}
 	}
@@ -150,11 +156,9 @@ abstract public class CFLPathFinder implements PathFinder {
 				System.out.println("path_finding time: " + (endTime - startTime));
 		}
 
-		LeqEdge path = getLeqPath(start, end);
-		if (path != null)
-			return path.getEdges();
-		else
-			return null;
+		List<Edge> path = new ArrayList<Edge>();
+		getLeqPath(start, end, LeqCondition.getInstance(), path, false);
+		return path;
 	}
 
 	/**
@@ -166,11 +170,70 @@ abstract public class CFLPathFinder implements PathFinder {
 	 *            End node
 	 * @return An LEQ path
 	 */
-	protected LeqEdge getLeqPath(Node start, Node end) {
+	protected void getLeqPath(Node start, Node end, EdgeCondition ec, List<Edge> ret, boolean isRev) {
 		int sIndex = start.getIndex();
 		int eIndex = end.getIndex();
-
-		return leqPath[sIndex][eIndex];
+		if (ec instanceof LeqRevCondition) {
+			sIndex = end.getIndex();
+			eIndex = start.getIndex();
+			ec = LeqCondition.getInstance();
+			isRev = !isRev;
+		}
+		
+		if (ec instanceof LeqCondition && (nextHop[sIndex][eIndex] == null || !nextHop[sIndex][eIndex].containsKey(ec)))
+			return;
+		assert (nextHop[sIndex][eIndex] != null && nextHop[sIndex][eIndex].containsKey(ec));
+		
+		List<Triple> evis = nextHop[sIndex][eIndex].get(ec);
+			
+		// base condition
+		if (evis.isEmpty()) {
+			Edge current = null;
+			for (Edge edge : g.getEdges(start, end)) {
+				if (ec instanceof LeqCondition
+						&& (edge instanceof JoinEdge
+								|| edge instanceof MeetEdge || edge instanceof ConstraintEdge)) {
+					current = edge;
+				} else if (edge instanceof ConstructorEdge) {
+					ConstructorEdge ce = (ConstructorEdge) edge;
+					if (ce.getCondition().equals(ec))
+						current = edge;
+				}
+				if (current != null)
+					break;
+			}
+			assert (current != null);
+			if (isRev) {
+				current = current.getReverse();
+			}
+			ret.add(current);
+		}
+		else {
+			if (!isRev) {
+				Node prev = start;
+				for (Triple evidence : evis) {
+					if (!evidence.start.equals(prev))
+						ret.add(new DummyEdge(start, evidence.start));
+					getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
+					prev = evidence.end;
+				}
+				if (!prev.equals(end))
+					ret.add(new DummyEdge(prev, end));
+			}
+			else {
+				ListIterator<Triple> ite = evis.listIterator(evis.size());
+				Node prev = start;
+				while (ite.hasPrevious()) {
+					Triple evidence = ite.previous();
+					if (!evidence.start.equals(prev))
+						ret.add(new DummyEdge(start, evidence.start));
+					getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
+					prev = evidence.end;
+				}
+				if (!prev.equals(end))
+					ret.add(new DummyEdge(prev, end));
+			}
+		}
 	}
 
 	/**
