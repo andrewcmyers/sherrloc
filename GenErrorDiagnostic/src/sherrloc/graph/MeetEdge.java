@@ -22,7 +22,7 @@ public class MeetEdge extends Edge {
 		
 	@Override
 	public String toString() {
-		return "meet";
+		return from + " <= " +to;
 	}
 		
 	@Override

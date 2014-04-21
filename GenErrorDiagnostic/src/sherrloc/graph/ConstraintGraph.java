@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -176,75 +177,148 @@ public class ConstraintGraph extends Graph {
                 }
             }
         }
-        doClustering();
+//        removeTrivial();
+//        removeDominatedVariables();
         generated = true;
+    }
+    
+    /**
+     * Return a unique neighbor except prev, if such neighbor exists
+     * 
+     * @param current Current node
+     * @param prev Previous node to exclude
+     * @return A unique neighbor of current
+     */
+    private Set<Node> getNeighbors (Node current, Node prev) {
+    	Set<Node> neighbors = new HashSet<Node>(edges.get(current).keySet());
+    	neighbors.remove(current);
+    	neighbors.remove(prev);
+    	return neighbors;
+    }
+    
+    /**
+     * Sanity check
+     */
+    private void checkRemovedNodes () {
+    	for (Node node : allNodes) {
+    		if (!edges.containsKey(node)) {
+				throw new RuntimeException("an node in allNodes is removed from edges");
+    		}
+    		for (Node n2 : edges.get(node).keySet())
+    			if (!allNodes.contains(n2)) {
+    				throw new RuntimeException("Node "+node+" still has "+n2);
+    			}
+    	}
     }
     
     /**
 	 * Combine two variables A and B if they show up in the following pattern:
 	 * in -- A -- B -- out
 	 */
-    private void doClustering () {
-    	// count the in-degree of each node
-    	int[] indeg = new int[allNodes.size()];
-    	
+    private void removeDominatedVariables () {
+    	int nodesBefore = allNodes.size();
+
+    	int[] indeg = new int[nodesBefore];
     	for (Node n1 : allNodes) {
     		for (Node n2 : allNodes) {
-    			if (getEdges(n1, n2) != null)
+    			if (!n1.equals(n2) && getEdges(n1, n2) != null)
     				indeg[n2.getIndex()] += getEdges(n1, n2).size();
-    		}
+    			}
     	}
-    	
-//    	System.out.println("Total " + allNodes.size() + " nodes before clustering");
     	
     	boolean modified;
     	do {    	
+        	List<Node> chain = new ArrayList<Node>();
         	modified = false;
-        	Node from = null;
-    		List<Node> toRemove = new ArrayList<Node>();
-
+        	Node from=null;
+			
         	for (Node n1 : allNodes) {    		
-        		if (!(n1.getElement() instanceof Variable))
-        			continue;
-        		
+//        		if (!(n1.getElement() instanceof Variable))
+//        			continue;
+        		chain.clear();
         		from = n1;
+        		
         		Map<Node, Set<Edge>> outs = edges.get(n1);
         		for (Node n2 : outs.keySet()) {
-        			if (n2.equals(n1) || !(n2.getElement() instanceof Variable))
+					// identify a chain of variables n1 -- n2 --
+					// ... -- nm -- .. such that all of n1 to nm have at most 1
+					// unique neighbor besides the previous node and itself
+        			if (n2.equals(n1))
         				continue;
-					if (indeg[n2.getIndex()] == 1) {
-						toRemove.add(n2);
+        			
+					Node next = n2, prev = n1;
+					Set<Node> nodes = getNeighbors(next, prev);
+					while (/* nodes.size() <= 1 && */(next.getElement() instanceof Variable)
+							&& (indeg[next.getIndex()] == 1 || //false)) {
+							(indeg[next.getIndex()] == 2 && nodes.size() == 1 && 
+							edges.get(nodes.iterator().next()).containsKey(next)))) {
+						chain.add(next);
+						prev = next;
+						if (nodes.size() == 1)
+							next = nodes.iterator().next();
+						else
+							break;
+						nodes = getNeighbors(next, prev);
+					}
+
+					if (chain.size() > 0) {
 						modified = true;
+						break;
 					}
 				}
-    			for (Node n2 : toRemove) {
-    				// add outs of n2 to n1
-    				for (Node n3 : edges.get(n2).keySet()) {
-    					if (!edges.get(n1).containsKey(n3))
-    						edges.get(n1).put(n3, new HashSet<Edge>());
-    					for (Edge edge : edges.get(n2).get(n3)) {
-    						edge.from = n1;
-    						edges.get(n1).get(n3).add(edge);
-    					}
-    				}
-    			}
         		if (modified)
         			break;
         	}
-        	for (Node node : toRemove) {
-        		allNodes.remove(node);
-        		edges.remove(node);
-				edges.get(from).remove(node);
-				for (Element ele : eleToNode.keySet()) {
-					if (eleToNode.get(ele).equals(node)) {
-	    				eleToNode.put(ele, from);		
+
+        	// remove nodes
+        	if (chain.size() > 0) {
+        		Node last=chain.get(chain.size()-1);
+        		
+//        		for (Node node : chain) {
+//        			System.out.print(node+ "-->");
+//        		}
+//        		System.out.println("");
+
+				// fix edges from left to right
+				for (Node n2 : edges.get(last).keySet()) {
+					if (chain.contains(n2))
+						continue;
+					if (!edges.get(from).containsKey(n2))
+						edges.get(from).put(n2, new HashSet<Edge>());
+					for (Edge edge : edges.get(last).get(n2)) {
+						edge.from = from;
+						edges.get(from).get(n2).add(edge);
 					}
 				}
-        	}
+				
+				// fix edges from right to left
+				for (Node n2 : allNodes) {
+					if (!edges.get(n2).containsKey(last) || chain.contains(n2))
+						continue;
+					else {
+						if (!edges.get(n2).containsKey(from))
+							edges.get(n2).put(from, new HashSet<Edge>());
+						for (Edge edge : edges.get(n2).get(last)) {
+							edge.to = from;
+							edges.get(n2).get(from).add(edge);
+						}
+						edges.get(n2).remove(last);
+					}
+				}
+				
+				for (Node node : chain) {
+					allNodes.remove(node);
+					edges.remove(node);
+					edges.get(from).remove(node);
+    				for (Element ele : eleToNode.keySet()) {
+    					if (eleToNode.get(ele).equals(node)) {
+    	    				eleToNode.put(ele, from);		
+    					}
+    				}
+				}
+			}
     	}
     	while (modified);
-    	    	
-//    	System.out.println("Total " + allNodes.size() + " nodes after clustering");
     	
     	// fix indices
     	int count = 0;
@@ -253,6 +327,9 @@ public class ConstraintGraph extends Graph {
     		count ++;
     	}
     	
+    	int nodesAfter = allNodes.size();
+    	if (nodesAfter < nodesBefore)
+    		System.out.println("[Remove dominated] Reduced node size from " + nodesBefore + " to " + nodesAfter);
     }
     
 	/**
@@ -340,7 +417,7 @@ public class ConstraintGraph extends Graph {
     public Set<Element> getAllElements () {
      return eleToNode.keySet();	
     }
-    
+        
     /**
      * @return Global assumptions
      */

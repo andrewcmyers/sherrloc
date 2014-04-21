@@ -6,7 +6,7 @@ import sherrloc.constraint.analysis.CFLPathFinder;
  * A special edge representing nonterminal LEFT in CFG (see {@link CFLPathFinder}).
  */
 public class LeftEdge extends ReductionEdge {
-	private EdgeCondition cons;
+	final private EdgeCondition cons;
 
 	/**
 	 * @param cons
@@ -16,8 +16,8 @@ public class LeftEdge extends ReductionEdge {
 	 * @param second
 	 *            End node
 	 */
-	public LeftEdge(EdgeCondition cons, Edge first, Edge second) {
-		super(first, second);
+	public LeftEdge(Node from, Node to, int size, EdgeCondition cons) {
+		super(from, to, size);
 		this.cons = cons;
 	}
 
@@ -50,6 +50,6 @@ public class LeftEdge extends ReductionEdge {
 
 	@Override
 	public Edge getReverse() {
-		return new LeftEdge(cons, second.getReverse(), first.getReverse());
+		return new LeftEdge(to, from, size, cons);
 	}
 }
