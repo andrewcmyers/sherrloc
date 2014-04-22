@@ -95,6 +95,8 @@ public class TestAll {
 	@Test
 	public void unitTests () {
 		testAssumptions("tests/jif/cluster.con", "- a <= c;b <= c;\n");
+		testAssumptions("tests/jif/induction.con", "- A <= B;\n");		
+		testAssumptions("tests/jif/induction2.con", "- (P)->(P) <= C_caller_pc;\n");
 //		testAssumptions("tests/jif/join.con", "- b <= c;\n");
 //		testAssumptions("tests/jif/inte.con", "- b <= c;\n");
 //		testAssumptions("/home/zhdf/workspace/LemonTool/error.con", "- a <= b\n");
@@ -443,12 +445,12 @@ public class TestAll {
 		// Tests from Battleship
 		testConstraint("tests/downgrade/Board1.con", "Board1.jif:85,17-41");
 		testConstraint("tests/downgrade/Board2.con", "Board2.jif:95,35-36");
-//		/*
-//		 * The following two examples produces a large suggest set since a lot
-//		 * of label variables are used on the unsatisfiable paths:
-//		 * 
-//		 * Source --> posX --> newCoordinate --> c --> newShip --> t --> error
-//		 */
+		/*
+		 * The following two examples produces a large suggest set since a lot
+		 * of label variables are used on the unsatisfiable paths:
+		 * 
+		 * Source --> posX --> newCoordinate --> c --> newShip --> t --> error
+		 */
 		testConstraint("tests/downgrade/Board3.con", "Board3.jif:99,31-36");
 		testConstraint("tests/downgrade/Board4.con", "Board4.jif:100,31-36");
 		testConstraint("tests/downgrade/Board5.con", "Board5.jif:103,33-42");

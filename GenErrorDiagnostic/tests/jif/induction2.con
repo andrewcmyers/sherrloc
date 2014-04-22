@@ -1,0 +1,15 @@
+CONSTRUCTOR P 0
+CONSTRUCTOR C_caller_pc 0
+
+%%
+(_ -> _) <= C_caller_pc;
+C_caller_pc <= (* -> *);
+(_ -> _) <= C_newCoordinate;
+C_newCoordinate <= (* -> *);
+(_ -> _) <= (P -> P);
+(P -> P) <= (* -> *);
+
+%%
+(P -> P) <= ((_ -> _) ⊔ C_newCoordinate);
+C_newCoordinate <= d;
+(d ⊔ C_caller_pc) <= C_caller_pc;
