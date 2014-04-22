@@ -186,6 +186,7 @@ L1:       for my $loc1 (@loc1) {
             print_fail();
           }
           else {
+		print OUT $file."\n";
                 print OUT $toolret;
           }
         }
