@@ -45,6 +45,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 	/** other fields */
 	private int MAX = 100000;
 	private PriorityQueue<ReductionEdge> queue;
+	
+	/** optimazations */
+	private boolean StandardForm = true;
 		
 	/**
 	 * @param graph
@@ -74,6 +77,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 			}
 		}
 		initTables();
+		for (Node n : g.getAllNodes()) {
+			tryAddingExtraEdges(new LeqEdge(n, n, 0));
+		}
 	}
 	
 	/**
@@ -111,14 +117,15 @@ public class ShortestPathFinder extends CFLPathFinder {
 	}
 	
 	@Override
-	protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence) {		
+	protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence) {	
 		if (nextHop[start.getIndex()][end.getIndex()] == null)
 			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, List<Triple>>();
 		
 		nextHop[start.getIndex()][end.getIndex()].put(inferredType, evidence);
 		
 		if (inferredType instanceof LeqCondition) {
-			queue.offer(new LeqEdge(start, end, size));
+			if (!StandardForm || !(start.getElement() instanceof Variable) || inferredLR[start.getIndex()][end.getIndex()])
+				queue.offer(new LeqEdge(start, end, size));
 			shortestLEQ[start.getIndex()][end.getIndex()] = size;
 		}
 		else if (!inferredType.isReverse()) {
@@ -129,7 +136,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 		else {
 			RightEdge newedge = new RightEdge(start, end, size, inferredType);
-			queue.offer(newedge);
 			int fIndex = start.getIndex(), tIndex = end.getIndex();
 			if (!rightPath.containsKey(fIndex)) {
 				rightPath.put(fIndex, new HashMap<Integer, List<RightEdge>>());
@@ -189,8 +195,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 					List<Triple> evi = new ArrayList<Triple>();
 					evi.add(new Triple(from, mid, ec));
 					evi.add(new Triple(mid, to, ((RightEdge) e).cons));
-					inferEdge(from, to, LeqCondition.getInstance(), shortestLEQ[leftS][rightE], evi);
 					inferredLR[leftS][rightE] = true;
+					inferEdge(from, to, LeqCondition.getInstance(), shortestLEQ[leftS][rightE], evi);
 				}
 			}
 		}
@@ -260,7 +266,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 //			startTime = System.currentTimeMillis();
 			
 			if (edge instanceof LeqEdge)
-				tryAddingExtraEdges ((LeqEdge)edge, current_length);
+				tryAddingExtraEdges ((LeqEdge)edge);
 			
 			assert (current_length <= edge.getLength()) : "Error: got a smaller edge "+ current_length + " " + edge.getLength();
 			
@@ -284,19 +290,22 @@ public class ShortestPathFinder extends CFLPathFinder {
 						applyLeftRight(from, to, iNode, ec);
 
 					// LEFT = LEFT LEQ (this reduction is redundant)
-//					if (shortestLEQ[to.getIndex()][iNode.getIndex()]==1)
-//						applyLeftLeq(from, to, iNode, ec, ec.getVariance()==Variance.NEG);
+					if (StandardForm && (shortestLEQ[to.getIndex()][iNode.getIndex()]==1 || inferredLR[to.getIndex()][iNode.getIndex()]))
+						applyLeftLeq(from, to, iNode, ec, ec.getVariance()==Variance.NEG);
 				}
 				
 				if (edge instanceof LeqEdge) {
 					// LEQ = LEQ LEQ
-					if (shortestLEQ[iNode.getIndex()][from.getIndex()]==1 || inferredLR[iNode.getIndex()][from.getIndex()])
+					if (StandardForm && !(iNode.getElement() instanceof Variable))
+						applyLeqLeq(iNode, from, to);
+					else if (!StandardForm && (shortestLEQ[iNode.getIndex()][from.getIndex()]==1 
+							|| inferredLR[iNode.getIndex()][from.getIndex()]))
 						applyLeqLeq(iNode, from, to);
 	
 					// LEFT := LEFT LEQ
 					if (shortestLeft[iNode.getIndex()][from.getIndex()] != null) {
 						for (EdgeCondition ec : shortestLeft[iNode.getIndex()][from.getIndex()].keySet()) {
-							if (shortestLeft[iNode.getIndex()][from.getIndex()].get(ec)==1)
+							if (StandardForm || shortestLeft[iNode.getIndex()][from.getIndex()].get(ec)==1)
 								applyLeftLeq(iNode, from, to, ec, ec.getVariance()==Variance.NEG);
 						}
 					}
@@ -313,11 +322,13 @@ public class ShortestPathFinder extends CFLPathFinder {
      */
     private boolean isLeq (Node n1, Node n2) {
             if (shortestLEQ[n1.getIndex()][n2.getIndex()] != MAX)
-                    return true;
+                return true;
+            if (n1.equals(n2) || n1.getElement().isBottom() || n2.getElement().isTop())
+            	return true;
             if (g.getEnv() != null && !n1.getElement().trivialEnd() && !n2.getElement().trivialEnd()
                             && g.getEnv().leqApplyAssertions(
                                             n1.getElement().getBaseElement(), n2.getElement().getBaseElement())) {
-                    return true;
+                return true;
             }
             return false;
     }
@@ -326,7 +337,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * Given a newly discovered LeqEdge, this function tries to identify extra
 	 * LeqEdges by using the properties of meet, join and constructor
 	 */
-	private void tryAddingExtraEdges (LeqEdge edge, int count) {
+	private void tryAddingExtraEdges (LeqEdge edge) {
 		Node from = edge.getFrom();
 		Node to = edge.getTo();
 		
@@ -361,8 +372,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 							size ++;
 						}
 					}
-					inferEdge(candidate, meetnode, LeqCondition.getInstance(), size, evidences);
 					inferredLR[candIndex][meetIndex] = true;
+					inferEdge(candidate, meetnode, LeqCondition.getInstance(), size, evidences);
 				}
 			}
 		}
@@ -398,8 +409,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 							size++;
 						}
 					}
-					inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences);
 					inferredLR[joinIndex][candIndex] = true;
+					inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences);
 				}
 			}
 		}
@@ -449,8 +460,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 									size ++;
 								}
 							}
-							inferEdge(f, t, LeqCondition.getInstance(), size, evidences);
 							inferredLR[f.getIndex()][t.getIndex()] = true;
+							inferEdge(f, t, LeqCondition.getInstance(), size, evidences);
 						}
 					}
 				}
