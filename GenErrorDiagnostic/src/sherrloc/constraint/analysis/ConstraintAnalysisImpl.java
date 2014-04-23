@@ -51,7 +51,8 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	 * @return An constraint analysis algorithm
 	 */
 	private PathFinder getPathFinder(ConstraintGraph graph) {
-		return new ShortestPathFinder(graph);
+		return new ShortestPathFinder(graph, isVerbose);
+//		return new AllPathFinder(graph);
 	}
 
 	@Override
@@ -91,9 +92,9 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					continue;
 				
 				// test if a partial ordering can be inferred
-				List<Edge> l = finder.getPath(start, end, isVerbose);
-				if (l.size() == 0)
+				if (!finder.hasLeqEdge(start, end))
 					continue;
+				List<Edge> l = finder.getPath(start, end);
 
 				// when recursion is not allowed, constraints such as "x = list x" is unsatisfiable
 				if (!isRec && start.getIndex() != end.getIndex()) {

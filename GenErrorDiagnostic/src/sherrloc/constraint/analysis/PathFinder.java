@@ -28,5 +28,10 @@ public interface PathFinder {
 	 *         derivable from constraints along the path. Return null if no such
 	 *         path exists
 	 */
-	public List<Edge> getPath(Node start, Node end, boolean verbose);
+	public List<Edge> getPath(Node start, Node end);
+	
+	/**
+	 * @return True if an LEQ edge can be inferred on the end nodes
+	 */
+	public boolean hasLeqEdge (Node from, Node end);
 }

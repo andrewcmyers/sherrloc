@@ -34,7 +34,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 	
 	/** length of shortest paths */
 	private int[][] shortestLEQ;
-	private boolean[][] inferredLR;
 	private Map<EdgeCondition, Integer>[][] shortestLeft;
 	
 	/** Lookup tables to find enumerable elements from components. These tables are used to infer extra edges for join/meet/constructors */
@@ -53,7 +52,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * @param graph
 	 *            A graph to be saturated
 	 */
-	public ShortestPathFinder(ConstraintGraph graph) {
+	public ShortestPathFinder(ConstraintGraph graph, boolean verbose) {
 		super(graph);
 		/** initialize data structures */
 		int size = g.getAllNodes().size();
@@ -64,7 +63,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 					}
 				});
 		shortestLEQ = new int[size][size];
-		inferredLR = new boolean[size][size];
 		shortestLeft = new HashMap[size][size];
 		for (Node start : g.getAllNodes()) {
 			for (Node end : g.getAllNodes()) {
@@ -77,9 +75,15 @@ public class ShortestPathFinder extends CFLPathFinder {
 			}
 		}
 		initTables();
-		for (Node n : g.getAllNodes()) {
-			tryAddingExtraEdges(new LeqEdge(n, n, 0));
-		}
+//		for (Node n : g.getAllNodes()) {
+//			tryAddingExtraEdges(new LeqEdge(n, n, 0));
+//		}
+		long startTime = System.currentTimeMillis();
+		initialize();
+		saturation();
+		long endTime = System.currentTimeMillis();
+		if (verbose)
+			System.out.println("path_finding time: " + (endTime - startTime));
 	}
 	
 	/**
@@ -281,7 +285,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					continue;
 				if (edge instanceof LeqEdge) { 
 					// LEQ = LEQ LEQ
-					if (shortestLEQ[to.getIndex()][iNode.getIndex()]==1 || inferredLR[to.getIndex()][iNode.getIndex()])
+					if (inferredLR[to.getIndex()][iNode.getIndex()])
 						applyLeqLeq(from, to, iNode);
 				}
 				else if (edge instanceof LeftEdge) {
@@ -292,7 +296,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						applyLeftRight(from, to, iNode, ec);
 
 					// LEFT = LEFT LEQ (this reduction is redundant)
-					if (StandardForm && (shortestLEQ[to.getIndex()][iNode.getIndex()]==1 || inferredLR[to.getIndex()][iNode.getIndex()]))
+					if (StandardForm && inferredLR[to.getIndex()][iNode.getIndex()])
 						applyLeftLeq(from, to, iNode, ec, ec.getVariance()==Variance.NEG);
 				}
 				
@@ -300,8 +304,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					// LEQ = LEQ LEQ
 					if (StandardForm && !(iNode.getElement() instanceof Variable))
 						applyLeqLeq(iNode, from, to);
-					else if (!StandardForm && (shortestLEQ[iNode.getIndex()][from.getIndex()]==1 
-							|| inferredLR[iNode.getIndex()][from.getIndex()]))
+					else if (!StandardForm && inferredLR[iNode.getIndex()][from.getIndex()])
 						applyLeqLeq(iNode, from, to);
 	
 					// LEFT := LEFT LEQ
@@ -316,6 +319,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 //		System.out.println("Saturation is done");
 	}
+	
+	@Override
+	public boolean hasLeqEdge(Node from, Node end) {
+		if (from.equals(end))
+			return false;	// return false since these trivial paths are not interesting
+		return shortestLEQ[from.getIndex()][end.getIndex()] != MAX;
+	}
 
     /**
      * @param n1 Start node
@@ -323,7 +333,7 @@ public class ShortestPathFinder extends CFLPathFinder {
      * @return True if n1<=n2 can be inferred from constraint graph, or hypothesis
      */
     private boolean isLeq (Node n1, Node n2) {
-            if (shortestLEQ[n1.getIndex()][n2.getIndex()] != MAX)
+            if (hasLeqEdge(n1, n2))
                 return true;
             if (n1.equals(n2) || n1.getElement().isBottom() || n2.getElement().isTop())
             	return true;
