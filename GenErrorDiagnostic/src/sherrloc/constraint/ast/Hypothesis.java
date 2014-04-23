@@ -223,14 +223,14 @@ public class Hypothesis {
 			}
 			graph.generateGraph();
 
-			finder = new ShortestPathFinder(graph);
+			finder = new ShortestPathFinder(graph, false);
 		}
 
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
-			if (finder.getPath(graph.getNode(e1), graph.getNode(e2), false).size()!=0)
+			if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e2)))
 				return true;
 			for (Element e : graph.getAllElements()) {
-				if (finder.getPath(graph.getNode(e1), graph.getNode(e), false).size()!=0 && leq(e, e2, false))
+				if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e)) && leq(e, e2, false))
 					return true;
 			}
 		}

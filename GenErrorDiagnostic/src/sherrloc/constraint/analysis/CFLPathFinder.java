@@ -38,6 +38,7 @@ abstract public class CFLPathFinder implements PathFinder {
 	// since the RIGHT edges are rare in a graph, and no right edges are
 	// inferred, using HashMap can be more memory efficient than arrays
 	protected Map<Integer, Map<Integer, List<RightEdge>>> rightPath;
+	protected boolean[][] inferredLR;
 
 	/** other fields */
 	protected boolean initialized = false;
@@ -64,6 +65,7 @@ abstract public class CFLPathFinder implements PathFinder {
 		int size = g.getAllNodes().size();
 		nextHop = new Map[size][size];
 		rightPath = new HashMap<Integer, Map<Integer, List<RightEdge>>>();
+		inferredLR = new boolean[size][size];
 		for (Node start : g.getAllNodes()) {
 			for (Node end : g.getAllNodes()) {
 				int sIndex = start.getIndex();
@@ -122,16 +124,18 @@ abstract public class CFLPathFinder implements PathFinder {
 	/**
 	 * Convert all graph edges into {@link ReductionEdge}s
 	 */
-	private void initialize() {
+	protected void initialize() {
 
 		List<Edge> edges = g.getAllEdges();
 
 		for (Edge edge : edges) {
 			if (edge instanceof ConstraintEdge || edge instanceof MeetEdge
 					|| edge instanceof JoinEdge) {
+				inferredLR[edge.getFrom().getIndex()][edge.getTo().getIndex()] = true;
 				inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1, new ArrayList<Triple>());
 			} else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
+				inferredLR[edge.getFrom().getIndex()][edge.getTo().getIndex()] = true;
 				inferEdge(edge.getFrom(), edge.getTo(), e.getCondition(), 1, new ArrayList<Triple>());
 			}
 		}
@@ -145,17 +149,7 @@ abstract public class CFLPathFinder implements PathFinder {
 	 * @param verbose
 	 *            Set true to output saturation time
 	 */
-	public List<Edge> getPath(Node start, Node end, boolean verbose) {
-		if (!initialized) {
-			long startTime = System.currentTimeMillis();
-			initialize();
-			saturation();
-			initialized = true;
-			long endTime = System.currentTimeMillis();
-			if (verbose)
-				System.out.println("path_finding time: " + (endTime - startTime));
-		}
-
+	public List<Edge> getPath(Node start, Node end) {
 		List<Edge> path = new ArrayList<Edge>();
 		getLeqPath(start, end, LeqCondition.getInstance(), path, false);
 		return path;
