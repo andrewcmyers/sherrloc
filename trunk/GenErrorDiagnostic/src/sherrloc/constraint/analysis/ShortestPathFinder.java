@@ -75,9 +75,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 			}
 		}
 		initTables();
-//		for (Node n : g.getAllNodes()) {
-//			tryAddingExtraEdges(new LeqEdge(n, n, 0));
-//		}
+		for (Node n : g.getAllNodes()) {
+			tryAddingExtraEdges(new LeqEdge(n, n, 0));
+		}
 		long startTime = System.currentTimeMillis();
 		initialize();
 		saturation();
@@ -128,7 +128,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		nextHop[start.getIndex()][end.getIndex()].put(inferredType, evidence);
 		
 		if (inferredType instanceof LeqCondition) {
-			if (!StandardForm || !(start.getElement() instanceof Variable) || inferredLR[start.getIndex()][end.getIndex()])
+			if (!StandardForm || !(start.getElement() instanceof Variable))
 				queue.offer(new LeqEdge(start, end, size));
 			shortestLEQ[start.getIndex()][end.getIndex()] = size;
 		}
