@@ -84,7 +84,7 @@ public class ConstraintPath {
 		ret.add(first);
 		for (int k = 0; k < length(); k++) {
 			Edge edge = edges.get(k);
-			if (finder.getPath(first, edge.to, false) != null)
+			if (finder.getPath(first, edge.to) != null)
 				ret.add(edge.to);
 		}
 		return ret;
