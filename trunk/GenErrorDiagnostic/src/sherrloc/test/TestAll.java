@@ -93,7 +93,7 @@ public class TestAll {
 	}
 	
 	@Test
-	public void unitTests () {
+	public void regressionTests () {
 		testAssumptions("tests/jif/cluster.con", "- a <= c;b <= c;\n");
 		testAssumptions("tests/jif/induction.con", "- A <= B;\n");		
 		testAssumptions("tests/jif/induction2.con", "- (P)->(P) <= C_caller_pc;\n");
