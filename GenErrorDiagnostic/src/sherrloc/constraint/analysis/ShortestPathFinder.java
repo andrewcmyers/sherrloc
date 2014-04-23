@@ -159,6 +159,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 *            End node of the second LEQ edge
 	 */
 	private void applyLeqLeq (Node from, Node mid, Node to) {
+		if (from.equals(to))
+			return;
 		int sIndex = from.getIndex(), fIndex = mid.getIndex(), tIndex = to.getIndex();
 		if (shortestLEQ[sIndex][fIndex] + shortestLEQ[fIndex][tIndex] < shortestLEQ[sIndex][tIndex]) {
 			shortestLEQ[sIndex][tIndex] = shortestLEQ[sIndex][fIndex]
@@ -167,8 +169,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 			evi.add(new Triple(from, mid, LeqCondition.getInstance()));
 			evi.add(new Triple(mid, to, LeqCondition.getInstance()));
 			inferEdge(from, to, LeqCondition.getInstance(), shortestLEQ[sIndex][tIndex], evi);
-			if (nextHop[sIndex][fIndex]==null || nextHop[fIndex][tIndex]==null)
-				throw new RuntimeException("Invariant broken");
 		}
 	}
 		
@@ -277,6 +277,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 			Node to = edge.getTo();
 				
 			for (Node iNode : allNodes) {
+				if (iNode.equals(from) || iNode.equals(to))
+					continue;
 				if (edge instanceof LeqEdge) { 
 					// LEQ = LEQ LEQ
 					if (shortestLEQ[to.getIndex()][iNode.getIndex()]==1 || inferredLR[to.getIndex()][iNode.getIndex()])
