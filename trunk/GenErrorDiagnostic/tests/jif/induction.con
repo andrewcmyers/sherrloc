@@ -1,0 +1,13 @@
+CONSTRUCTOR list 1
+CONSTRUCTOR A 0
+CONSTRUCTOR B 0
+
+(list A) <= a;
+a <= (list b);
+b <= c;
+(list c) <= d;
+d <= e;
+(list e) <= f;
+f <= g;
+g <= (list h);
+h <= (list B);
