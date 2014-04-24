@@ -1,0 +1,10 @@
+CONSTRUCTOR a 0
+CONSTRUCTOR b 0
+CONSTRUCTOR c 0
+
+%%
+a <= b;
+b <= c;
+
+%%
+a <= c;

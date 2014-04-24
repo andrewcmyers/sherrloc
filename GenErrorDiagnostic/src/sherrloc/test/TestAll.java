@@ -94,10 +94,12 @@ public class TestAll {
 	
 	@Test
 	public void regressionTests () {
+		testErrorPaths("tests/jif/DashedPaths.con", false);
 		testAssumptions("tests/jif/cluster.con", "- a <= c;b <= c;\n");
 		testAssumptions("tests/jif/induction.con", "- A <= B;\n");		
 		testAssumptions("tests/jif/induction2.con", "- (P)->(P) <= C_caller_pc;\n");
-//		testAssumptions("tests/jif/join.con", "- b <= c;\n");
+		testAssumptions("tests/jif/join.con", "- (P)->(P) <= C_caller_pc;\n");
+		testAssumptions("tests/jif/meet.con", "- a <= b;a <= c;\n");
 //		testAssumptions("tests/jif/inte.con", "- b <= c;\n");
 //		testAssumptions("/home/zhdf/workspace/LemonTool/error.con", "- a <= b\n");
 	}

@@ -78,10 +78,10 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					+ startNodes.size() * endNodes.size());
 		}
 
-		PathFinder finder = getPathFinder(graph);
 		if (isVerbose)
 			System.out.println("graph_size: " + graph.getAllNodes().size());
-
+		PathFinder finder = getPathFinder(graph);
+		
 		for (Node start : startNodes) {
 			for (Node end : endNodes) {
 				Element e1 = start.getElement();

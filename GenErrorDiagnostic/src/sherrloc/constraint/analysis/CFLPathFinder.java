@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import sherrloc.constraint.ast.JoinElement;
+import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Variable;
 import sherrloc.graph.ConstraintEdge;
 import sherrloc.graph.ConstraintGraph;
@@ -184,21 +186,7 @@ abstract public class CFLPathFinder implements PathFinder {
 			
 		// base condition
 		if (evis.isEmpty()) {
-			Edge current = null;
-			for (Edge edge : g.getEdges(start, end)) {
-				if (ec instanceof LeqCondition
-						&& (edge instanceof JoinEdge
-								|| edge instanceof MeetEdge || edge instanceof ConstraintEdge)) {
-					current = edge;
-				} else if (edge instanceof ConstructorEdge) {
-					ConstructorEdge ce = (ConstructorEdge) edge;
-					if (ce.getCondition().equals(ec))
-						current = edge;
-				}
-				if (current != null)
-					break;
-			}
-			assert (current != null);
+			Edge current = getOriginalEdge(start, end, ec);
 			if (isRev) {
 				current = current.getReverse();
 			}
@@ -237,7 +225,26 @@ abstract public class CFLPathFinder implements PathFinder {
 	 */
 	abstract protected void saturation();
 	
-	protected boolean isDashedEdge (Node start) {
-		return !(start.getElement() instanceof Variable);
+	protected Edge getOriginalEdge (Node start, Node end, EdgeCondition type) {
+		if (g.getEdges(start, end)==null)
+			return null;
+		for (Edge edge : g.getEdges(start, end)) {
+			if (type instanceof LeqCondition
+					&& (edge instanceof JoinEdge
+							|| edge instanceof MeetEdge || edge instanceof ConstraintEdge)) {
+				return edge;
+			} else if (edge instanceof ConstructorEdge) {
+				ConstructorEdge ce = (ConstructorEdge) edge;
+				if (ce.getCondition().equals(type))
+					return edge;
+			}
+		}
+		return null;
+	}
+	
+	public static boolean isDashedEdge (Node start) {
+		boolean isJoin = start.getElement() instanceof JoinElement;
+		boolean isMeet = start.getElement() instanceof MeetElement;
+		return !start.getElement().trivialEnd() && !isJoin && !isMeet;
 	}
 }
