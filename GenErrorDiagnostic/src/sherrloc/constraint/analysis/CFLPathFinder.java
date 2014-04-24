@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import sherrloc.constraint.ast.Variable;
 import sherrloc.graph.ConstraintEdge;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.ConstructorEdge;
@@ -39,9 +40,9 @@ abstract public class CFLPathFinder implements PathFinder {
 	// inferred, using HashMap can be more memory efficient than arrays
 	protected Map<Integer, Map<Integer, List<RightEdge>>> rightPath;
 	protected boolean[][] inferredLR;
+	protected boolean[][] inferredLEFT;
 
 	/** other fields */
-	protected boolean initialized = false;
 	protected final ConstraintGraph g;
 
 	public class Triple {
@@ -66,6 +67,7 @@ abstract public class CFLPathFinder implements PathFinder {
 		nextHop = new Map[size][size];
 		rightPath = new HashMap<Integer, Map<Integer, List<RightEdge>>>();
 		inferredLR = new boolean[size][size];
+		inferredLEFT = new boolean[size][size];
 		for (Node start : g.getAllNodes()) {
 			for (Node end : g.getAllNodes()) {
 				int sIndex = start.getIndex();
@@ -82,7 +84,7 @@ abstract public class CFLPathFinder implements PathFinder {
 	 * @param edge
 	 *            An edge to be added
 	 */
-	abstract protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence);
+	abstract protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence, boolean isInit);
 	
 	/**
 	 * Return all {@link RightEdge}s from <code>fIndex</code> to
@@ -132,11 +134,11 @@ abstract public class CFLPathFinder implements PathFinder {
 			if (edge instanceof ConstraintEdge || edge instanceof MeetEdge
 					|| edge instanceof JoinEdge) {
 				inferredLR[edge.getFrom().getIndex()][edge.getTo().getIndex()] = true;
-				inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1, new ArrayList<Triple>());
+				inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1, new ArrayList<Triple>(), true);
 			} else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
-				inferredLR[edge.getFrom().getIndex()][edge.getTo().getIndex()] = true;
-				inferEdge(edge.getFrom(), edge.getTo(), e.getCondition(), 1, new ArrayList<Triple>());
+				inferredLEFT[edge.getFrom().getIndex()][edge.getTo().getIndex()] = true;
+				inferEdge(edge.getFrom(), edge.getTo(), e.getCondition(), 1, new ArrayList<Triple>(), true);
 			}
 		}
 	}
@@ -234,4 +236,8 @@ abstract public class CFLPathFinder implements PathFinder {
 	 * Saturate the constraint graph
 	 */
 	abstract protected void saturation();
+	
+	protected boolean isDashedEdge (Node start) {
+		return !(start.getElement() instanceof Variable);
+	}
 }
