@@ -14,6 +14,7 @@ import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Variable;
 import sherrloc.graph.ConstraintGraph;
+import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
 import sherrloc.graph.LeftEdge;
 import sherrloc.graph.LeqCondition;
@@ -44,17 +45,24 @@ public class ShortestPathFinder extends CFLPathFinder {
 	/** other fields */
 	private int MAX = 100000;
 	private PriorityQueue<ReductionEdge> queue;
+	private boolean DEBUG = false;
 	
 	/** optimazations */
-	private boolean StandardForm = true;
-		
+	private final static boolean USE_SF = true;
+	private boolean StandardForm;
+	
+	public ShortestPathFinder(ConstraintGraph graph, boolean verbose) {
+		this(graph, verbose, USE_SF);
+	}
+	
 	/**
 	 * @param graph
 	 *            A graph to be saturated
 	 */
-	public ShortestPathFinder(ConstraintGraph graph, boolean verbose) {
+	public ShortestPathFinder(ConstraintGraph graph, boolean verbose, boolean isStandardForm) {
 		super(graph);
 		/** initialize data structures */
+		StandardForm = isStandardForm;
 		int size = g.getAllNodes().size();
 		queue = new PriorityQueue<ReductionEdge>(
 				500, new Comparator<ReductionEdge>() {
@@ -149,6 +157,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 				rightPath.get(fIndex).put(tIndex, new ArrayList<RightEdge>());
 			}
 			rightPath.get(fIndex).get(tIndex).add(newedge);
+		}
+		
+		if (DEBUG) {
+			List<Edge> lst = new ArrayList<Edge>();
+			getLeqPath(start, end, inferredType, lst, false);
+			for (Edge e : lst)
+				System.out.print(e.getFrom() + " --> " + e.getTo());
+			System.out.println();
 		}
 	}	
 	
@@ -286,7 +302,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					continue;
 				if (edge instanceof LeqEdge) { 
 					// LEQ = LEQ LEQ
-					if ((!StandardForm || isDashedEdge(from))
+					if ((!StandardForm || (isDashedEdge(from) && !isDashedEdge(to)))
 							&& inferredLR[to.getIndex()][iNode.getIndex()])
 						applyLeqLeq(from, to, iNode);
 				}
@@ -304,7 +320,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				
 				if (edge instanceof LeqEdge) {
 					// LEQ = LEQ LEQ
-					if (StandardForm && isDashedEdge(iNode))
+					if (StandardForm && isDashedEdge(iNode) && !isDashedEdge(from))
 						applyLeqLeq(iNode, from, to);
 					else if (!StandardForm && inferredLR[iNode.getIndex()][from.getIndex()])
 						applyLeqLeq(iNode, from, to);
@@ -424,6 +440,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 						}
 					}
 					inferredLR[joinIndex][candIndex] = true;
+					if (joinnode.toString().contains("{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}")
+							&& to.toString().equals("{newCoordinate}Board3.jif:101,59-109"))
+						System.out.println("@@@@ Inferred an edge from "+joinnode+" to "+candidate);
 					inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences, false);
 				}
 			}
