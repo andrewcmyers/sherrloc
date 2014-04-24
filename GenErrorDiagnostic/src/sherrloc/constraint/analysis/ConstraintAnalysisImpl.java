@@ -52,7 +52,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	 */
 	private PathFinder getPathFinder(ConstraintGraph graph) {
 		return new ShortestPathFinder(graph, isVerbose);
-//		return new AllPathFinder(graph);
+//		return new AllPathFinder(graph, isVerbose);
 	}
 
 	@Override
