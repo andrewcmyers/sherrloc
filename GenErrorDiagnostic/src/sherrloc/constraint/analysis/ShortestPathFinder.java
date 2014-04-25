@@ -136,8 +136,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		nextHop[start.getIndex()][end.getIndex()].put(inferredType, evidence);
 		
 		if (inferredType instanceof LeqCondition) {
-			if (!StandardForm || isDashedEdge(start) || (!isInit &&
-					inferredLR[start.getIndex()][end.getIndex()]))
+//			if (!StandardForm || isDashedEdge(start) || (!isInit &&
+//					inferredLR[start.getIndex()][end.getIndex()]))
 				queue.offer(new LeqEdge(start, end, size));
 			shortestLEQ[start.getIndex()][end.getIndex()] = size;
 		}
@@ -302,7 +302,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					continue;
 				if (edge instanceof LeqEdge) { 
 					// LEQ = LEQ LEQ
-					if ((!StandardForm || (isDashedEdge(from) && !isDashedEdge(to)))
+					if ((!StandardForm || (isDashedEdge(from) && isSolidEdge(to)))
 							&& inferredLR[to.getIndex()][iNode.getIndex()])
 						applyLeqLeq(from, to, iNode);
 				}
@@ -320,7 +320,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				
 				if (edge instanceof LeqEdge) {
 					// LEQ = LEQ LEQ
-					if (StandardForm && isDashedEdge(iNode) && !isDashedEdge(from))
+					if (StandardForm && isDashedEdge(iNode) && isSolidEdge(from))
 						applyLeqLeq(iNode, from, to);
 					else if (!StandardForm && inferredLR[iNode.getIndex()][from.getIndex()])
 						applyLeqLeq(iNode, from, to);
@@ -440,9 +440,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 						}
 					}
 					inferredLR[joinIndex][candIndex] = true;
-					if (joinnode.toString().contains("{(p -> *); (p <- *) ⊓ (o <- *) ⊔ newCoordinate}")
-							&& to.toString().equals("{newCoordinate}Board3.jif:101,59-109"))
-						System.out.println("@@@@ Inferred an edge from "+joinnode+" to "+candidate);
 					inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences, false);
 				}
 			}
