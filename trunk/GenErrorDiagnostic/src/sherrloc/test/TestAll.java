@@ -100,6 +100,7 @@ public class TestAll {
 		testAssumptions("tests/jif/induction2.con", "- (P)->(P) <= C_caller_pc;\n");
 		testAssumptions("tests/jif/join.con", "- (P)->(P) <= C_caller_pc;\n");
 		testAssumptions("tests/jif/meet.con", "- a <= b;a <= c;\n");
+//		testAssumptions("tests/jif/extraEdges.con", "- b <= a;\n");
 //		testAssumptions("tests/jif/inte.con", "- b <= c;\n");
 //		testAssumptions("/home/zhdf/workspace/LemonTool/error.con", "- a <= b\n");
 	}
@@ -457,7 +458,7 @@ public class TestAll {
 		testConstraint("tests/downgrade/Board4.con", "Board4.jif:100,31-36");
 		testConstraint("tests/downgrade/Board5.con", "Board5.jif:103,33-42");
 		testConstraint("tests/downgrade/Board6.con", "Board6.jif:104,38-53");
-		testConstraint("tests/downgrade/Main1.con", "Main1.jif:33,33-36");
+		testConstraint("tests/downgrade/Main1.con", "Main1.jif:25,14-17"); // before version 491, the reported location was Main1.jif:33,33-36
 		testConstraint("tests/downgrade/Player1.con", "Player1.jif:141,42-45");
 		testConstraint("tests/downgrade/Player2.con", "Player2.jif:142,42-45");
 		testConstraint("tests/downgrade/Player3.con", "Player3.jif:179,1-15");
