@@ -244,7 +244,11 @@ abstract public class CFLPathFinder implements PathFinder {
 	
 	public static boolean isDashedEdge (Node start) {
 		boolean isJoin = start.getElement() instanceof JoinElement;
+		return !start.getElement().trivialEnd() && !isJoin;
+	}
+	
+	public static boolean isSolidEdge (Node start) {
 		boolean isMeet = start.getElement() instanceof MeetElement;
-		return !start.getElement().trivialEnd() && !isJoin && !isMeet;
+		return !isDashedEdge(start) || isMeet;
 	}
 }
