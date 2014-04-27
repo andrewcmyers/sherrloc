@@ -83,9 +83,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 			}
 		}
 		initTables();
-		for (Node n : g.getAllNodes()) {
-			tryAddingExtraEdges(new LeqEdge(n, n, 0));
-		}
 		long startTime = System.currentTimeMillis();
 		initialize();
 		saturation();
