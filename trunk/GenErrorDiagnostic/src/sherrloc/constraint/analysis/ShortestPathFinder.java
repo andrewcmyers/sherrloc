@@ -126,7 +126,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	}
 	
 	@Override
-	protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence, boolean isInit) {	
+	protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence, boolean isAtomic) {	
 		if (nextHop[start.getIndex()][end.getIndex()] == null)
 			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, List<Triple>>();
 		
@@ -137,6 +137,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 //					inferredLR[start.getIndex()][end.getIndex()]))
 				queue.offer(new LeqEdge(start, end, size));
 			shortestLEQ[start.getIndex()][end.getIndex()] = size;
+			if (isAtomic) {
+				addAtomicLeqEdge(start.getIndex(), end.getIndex());
+			}
 		}
 		else if (!inferredType.isReverse()) {
 			queue.offer(new LeftEdge(start, end, size, inferredType));
@@ -213,8 +216,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					List<Triple> evi = new ArrayList<Triple>();
 					evi.add(new Triple(from, mid, ec));
 					evi.add(new Triple(mid, to, ((RightEdge) e).cons));
-					inferredLR[leftS][rightE] = true;
-					inferEdge(from, to, LeqCondition.getInstance(), shortestLEQ[leftS][rightE], evi, false);
+					inferEdge(from, to, LeqCondition.getInstance(), shortestLEQ[leftS][rightE], evi, true);
 				}
 			}
 		}
@@ -300,7 +302,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				if (edge instanceof LeqEdge) { 
 					// LEQ = LEQ LEQ
 					if ((!StandardForm || (isDashedEdge(from) && isSolidEdge(to)))
-							&& inferredLR[to.getIndex()][iNode.getIndex()])
+							&& hasAtomicLeqEdge(to.getIndex(), iNode.getIndex()))
 						applyLeqLeq(from, to, iNode);
 				}
 				else if (edge instanceof LeftEdge) {
@@ -311,7 +313,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						applyLeftRight(from, to, iNode, ec);
 
 					// LEFT = LEFT LEQ (this reduction is redundant)
-					if (StandardForm && inferredLR[to.getIndex()][iNode.getIndex()])
+					if (StandardForm && hasAtomicLeqEdge(to.getIndex(), iNode.getIndex()))
 						applyLeftLeq(from, to, iNode, ec, ec.getVariance()==Variance.NEG);
 				}
 				
@@ -319,7 +321,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					// LEQ = LEQ LEQ
 					if (StandardForm && isDashedEdge(iNode) && isSolidEdge(from))
 						applyLeqLeq(iNode, from, to);
-					else if (!StandardForm && inferredLR[iNode.getIndex()][from.getIndex()])
+					else if (!StandardForm && hasAtomicLeqEdge(iNode.getIndex(), from.getIndex()))
 						applyLeqLeq(iNode, from, to);
 	
 					// LEFT := LEFT LEQ
@@ -399,8 +401,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							size ++;
 						}
 					}
-					inferredLR[candIndex][meetIndex] = true;
-					inferEdge(candidate, meetnode, LeqCondition.getInstance(), size, evidences, false);
+					inferEdge(candidate, meetnode, LeqCondition.getInstance(), size, evidences, true);
 				}
 			}
 		}
@@ -436,8 +437,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							size++;
 						}
 					}
-					inferredLR[joinIndex][candIndex] = true;
-					inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences, false);
+					inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences, true);
 				}
 			}
 		}
@@ -487,8 +487,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 									size ++;
 								}
 							}
-							inferredLR[f.getIndex()][t.getIndex()] = true;
-							inferEdge(f, t, LeqCondition.getInstance(), size, evidences, false);
+							inferEdge(f, t, LeqCondition.getInstance(), size, evidences, true);
 						}
 					}
 				}
