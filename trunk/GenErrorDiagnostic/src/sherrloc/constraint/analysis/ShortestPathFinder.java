@@ -50,19 +50,17 @@ public class ShortestPathFinder extends CFLPathFinder {
 	/** optimazations */
 	private final static boolean USE_SF = true;
 	private boolean StandardForm;
-	
-	public ShortestPathFinder(ConstraintGraph graph, boolean verbose) {
-		this(graph, verbose, USE_SF);
-	}
+	private boolean isHypo;
 	
 	/**
 	 * @param graph
 	 *            A graph to be saturated
 	 */
-	public ShortestPathFinder(ConstraintGraph graph, boolean verbose, boolean isStandardForm) {
+	public ShortestPathFinder(ConstraintGraph graph, boolean verbose, boolean isHypo) {
 		super(graph);
 		/** initialize data structures */
-		StandardForm = isStandardForm;
+		this.isHypo = isHypo;
+		StandardForm = USE_SF && !isHypo;
 		int size = g.getAllNodes().size();
 		queue = new PriorityQueue<ReductionEdge>(
 				500, new Comparator<ReductionEdge>() {
@@ -319,7 +317,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 				
 				if (edge instanceof LeqEdge) {
 					// LEQ = LEQ LEQ
-					if (StandardForm && isDashedEdge(iNode) && isSolidEdge(from))
+					if (StandardForm && isDashedEdge(iNode) && isSolidEdge(from)
+							&& hasAtomicLeqEdge(from.getIndex(), to.getIndex()))
 						applyLeqLeq(iNode, from, to);
 					else if (!StandardForm && hasAtomicLeqEdge(iNode.getIndex(), from.getIndex()))
 						applyLeqLeq(iNode, from, to);

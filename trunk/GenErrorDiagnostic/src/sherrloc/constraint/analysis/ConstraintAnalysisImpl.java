@@ -51,7 +51,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	 * @return An constraint analysis algorithm
 	 */
 	private PathFinder getPathFinder(ConstraintGraph graph) {
-		return new ShortestPathFinder(graph, isVerbose);
+		return new ShortestPathFinder(graph, isVerbose, false);
 //		return new AllPathFinder(graph, isVerbose);
 	}
 
