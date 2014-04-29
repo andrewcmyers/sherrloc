@@ -223,7 +223,7 @@ public class Hypothesis {
 			}
 			graph.generateGraph();
 
-			finder = new ShortestPathFinder(graph, false, false);
+			finder = new ShortestPathFinder(graph, false, true);
 		}
 
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
