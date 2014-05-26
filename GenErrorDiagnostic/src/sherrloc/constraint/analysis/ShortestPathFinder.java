@@ -290,13 +290,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 			
 			current_length = edge.getLength();
 									
-			// first, use the reduction edge as the left part of a reduction rule
 			Node from = edge.getFrom();
 			Node to = edge.getTo();
 				
 			for (Node iNode : allNodes) {
 				if (iNode.equals(from) || iNode.equals(to))
 					continue;
+				
+				// first, use the reduction edge as the left part of a reduction rule
 				if (edge instanceof LeqEdge) { 
 					// LEQ = LEQ LEQ
 					if ((!StandardForm || (isDashedEdge(from) && isSolidEdge(to)))
@@ -315,6 +316,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						applyLeftLeq(from, to, iNode, ec, ec.getVariance()==Variance.NEG);
 				}
 				
+				// second, use the reduction edge as the right part of a reduction rule
 				if (edge instanceof LeqEdge) {
 					// LEQ = LEQ LEQ
 					if (StandardForm && isDashedEdge(iNode) && isSolidEdge(from)
