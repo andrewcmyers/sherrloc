@@ -148,7 +148,8 @@ abstract public class CFLPathFinder implements PathFinder {
 		for (Edge edge : edges) {
 			if (edge instanceof ConstraintEdge || edge instanceof MeetEdge
 					|| edge instanceof JoinEdge) {
-				inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1, new ArrayList<Triple>(), true);
+				if (!edge.getFrom().equals(edge.getTo()))
+					inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1, new ArrayList<Triple>(), true);
 			} else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
 				inferEdge(edge.getFrom(), edge.getTo(), e.getCondition(), 1, new ArrayList<Triple>(), true);
