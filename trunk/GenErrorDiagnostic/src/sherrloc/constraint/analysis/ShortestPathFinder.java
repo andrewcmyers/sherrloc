@@ -3,17 +3,21 @@ package sherrloc.constraint.analysis;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import sherrloc.constraint.analysis.CFLPathFinder.Triple;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Variable;
 import sherrloc.graph.ConstraintGraph;
+import sherrloc.graph.DummyEdge;
 import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
 import sherrloc.graph.LeftEdge;
@@ -126,9 +130,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 	@Override
 	protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence, boolean isAtomic) {	
 		if (nextHop[start.getIndex()][end.getIndex()] == null)
-			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, List<Triple>>();
+			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, Set<List<Triple>>>();
 		
-		nextHop[start.getIndex()][end.getIndex()].put(inferredType, evidence);
+		if (!nextHop[start.getIndex()][end.getIndex()].containsKey(inferredType)) {
+			Set<List<Triple>> eset = new HashSet<List<Triple>>();
+			nextHop[start.getIndex()][end.getIndex()].put(inferredType, eset);
+		}
+		nextHop[start.getIndex()][end.getIndex()].get(inferredType).clear();
+		nextHop[start.getIndex()][end.getIndex()].get(inferredType).add(evidence);
 		
 		if (inferredType instanceof LeqCondition) {
 //			if (!StandardForm || isDashedEdge(start) || (!isInit &&
@@ -158,11 +167,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 		
 		if (DEBUG) {
-			List<Edge> lst = new ArrayList<Edge>();
-			getLeqPath(start, end, inferredType, lst, false);
-			for (Edge e : lst)
-				System.out.print(e.getFrom() + " --> " + e.getTo());
-			System.out.println();
+			Set<List<Edge>> eset = new HashSet<List<Edge>>();
+			getLeqPath(start, end, inferredType, eset, false);
+			for (List<Edge> lst : eset) {
+				for (Edge e : lst)
+					System.out.print(e.getFrom() + " --> " + e.getTo());
+				System.out.println();
+			}
 		}
 	}	
 	
