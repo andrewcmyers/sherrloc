@@ -1,0 +1,710 @@
+rn12
+rn13
+Tc2 (src)
+Tc3
+Adding instances:
+addFamInsts
+env2 []
+tcDeriving
+tcDeriving False
+tcDeriving 1 []
+Adding instances:
+Tc3b
+tcAmpMissingParentClassWarn/isInsts []
+tcAmpMissingParentClassWarn/isInsts []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Monad.join []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Applicative.<*> []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Applicative.pure []
+Tc4
+Tc4a
+env2 []
+Tc5
+env2 []
+------------------------------------------------
+Bindings for { [foo]
+Generalisation plan InferGen True True
+tcMatchesFun
+  foo
+  t_aIv
+tcGen
+tcBody t_aIv
+Non Application rule (+)
+Instantiating
+  + with [a_aII]
+         [Num a_aII]
+instCallConstraints [$dNum_aIJ]
+utype_defer
+  cobox_aIK
+  a_aII
+  t_aIv
+  a type equality a_aII ~ t_aIv
+  In the expression: 1 + True
+  In an equation for ‘foo’: foo = 1 + True
+tcPolyExprNC a_aII
+tcGen
+Instantiating
+  fromInteger with [a_aKQ]
+                   [Num a_aKQ]
+instCallConstraints [$dNum_aKR]
+utype_defer
+  cobox_aKS
+  Integer -> a_aKQ
+  Integer -> a_aII
+  a type equality Integer -> a_aKQ ~ Integer -> a_aII
+  In the first argument of ‘(+)’, namely ‘1’
+  In the expression: 1 + True
+  In an equation for ‘foo’: foo = 1 + True
+tcPolyExprNC a_aII
+tcGen
+utype_defer
+  cobox_aKT
+  Bool
+  a_aII
+  a type equality Bool ~ a_aII
+  In the second argument of ‘(+)’, namely ‘True’
+  In the expression: 1 + True
+simplifyInfer call
+  [(foo, t_aIv)]
+  WC {wc_flat = [W] $dNum_aIJ :: Num a_aII (CNonCanonical)
+                [W] cobox_aIK :: a_aII ~ t_aIv (CNonCanonical)
+                [W] $dNum_aKR :: Num a_aKQ (CNonCanonical)
+                [W] cobox_aKS :: (Integer -> a_aKQ)
+                                 ~ (Integer -> a_aII) (CNonCanonical)
+                [W] cobox_aKT :: Bool ~ a_aII (CNonCanonical)}
+simplifyInfer {
+  binds = [(foo, t_aIv)]
+  closed = True
+  apply_mr = True
+  (unzonked) wanted = WC {wc_flat = [W] $dNum_aIJ :: Num
+                                                       a_aII (CNonCanonical)
+                                    [W] cobox_aIK :: a_aII ~ t_aIv (CNonCanonical)
+                                    [W] $dNum_aKR :: Num a_aKQ (CNonCanonical)
+                                    [W] cobox_aKS :: (Integer -> a_aKQ)
+                                                     ~ (Integer -> a_aII) (CNonCanonical)
+                                    [W] cobox_aKT :: Bool ~ a_aII (CNonCanonical)}
+solveWantedsTcMWithEvBinds
+  wanted= WC {wc_flat = [W] $dNum_aIJ :: Num a_aII (CNonCanonical)
+                        [W] cobox_aIK :: a_aII ~ t_aIv (CNonCanonical)
+                        [W] $dNum_aKR :: Num a_aKQ (CNonCanonical)
+                        [W] cobox_aKS :: (Integer -> a_aKQ)
+                                         ~ (Integer -> a_aII) (CNonCanonical)
+                        [W] cobox_aKT :: Bool ~ a_aII (CNonCanonical)}
+solveWanteds {
+  WC {wc_flat = [W] $dNum_aIJ :: Num a_aII (CNonCanonical)
+                [W] cobox_aIK :: a_aII ~ t_aIv (CNonCanonical)
+                [W] $dNum_aKR :: Num a_aKQ (CNonCanonical)
+                [W] cobox_aKS :: (Integer -> a_aKQ)
+                                 ~ (Integer -> a_aII) (CNonCanonical)
+                [W] cobox_aKT :: Bool ~ a_aII (CNonCanonical)}
+solveFlats {
+Start solver pipeline {
+  work item =  [W] cobox_aIK :: a_aII ~ t_aIv (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] cobox_aIK :: a_aII ~ t_aIv (CNonCanonical)
+canonicalize (non-canonical)
+  [W] cobox_aIK :: a_aII ~ t_aIv (CNonCanonical)
+canEvNC:eq
+  a_aII
+  t_aIv
+can_eq_nc
+  [W] cobox_aIK :: a_aII ~ t_aIv
+  a_aII
+  a_aII
+  t_aIv
+  t_aIv
+canEqTyVar
+  a_aII
+  t_aIv
+  Not-swapped
+newWantedEvVar/cache miss [W] cobox_aKV :: t_aIv ~ a_aII
+setEvBind
+  ev = cobox_aIK
+  tm  = CO Sym cobox_aKV
+rewriteEqEvidence
+  [W] cobox_aIK :: a_aII ~ t_aIv
+  t_aIv
+  a_aII
+  Sym cobox_aKV
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] cobox_aKV :: t_aIv ~ a_aII (CTyEqCan)
+Sneaky unification:
+  Unifies: t_aIv := a_aII
+  Coercion: t_aIv ~ a_aII
+  Left Kind is: OpenKind
+  Right Kind is: *
+setWantedTyBind t_aIv := a_aII
+setEvBind
+  ev = cobox_aKV
+  tm  = CO <a_aII>_N
+kickOutRewritable
+  tv =  t_aIv
+  Kicked out = WorkList (eqs)   =  []
+               WorkList (funeqs)=  []
+               WorkList (rest)  =  []
+1[<C:0,F:0>] [W] cobox_aKV :: t_aIv ~ a_aII: Spontaneously solved
+end stage interact with inerts }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+Start solver pipeline {
+  work item =  [W] cobox_aKS :: (Integer -> a_aKQ)
+                                ~ (Integer -> a_aII) (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] cobox_aKS :: (Integer -> a_aKQ)
+                                 ~ (Integer -> a_aII) (CNonCanonical)
+canonicalize (non-canonical)
+  [W] cobox_aKS :: (Integer -> a_aKQ)
+                   ~ (Integer -> a_aII) (CNonCanonical)
+canEvNC:eq
+  Integer -> a_aKQ
+  Integer -> a_aII
+can_eq_nc
+  [W] cobox_aKS :: (Integer -> a_aKQ) ~ (Integer -> a_aII)
+  Integer -> a_aKQ
+  Integer -> a_aKQ
+  Integer -> a_aII
+  Integer -> a_aII
+newWantedEvVar/cache miss [W] cobox_aKW :: Integer ~ Integer
+newWantedEvVar/cache miss [W] cobox_aKX :: a_aKQ ~ a_aII
+setEvBind
+  ev = cobox_aKS
+  tm  = CO cobox_aKW -> cobox_aKX
+canEvNC:eq
+  Integer
+  Integer
+can_eq_nc
+  [W] cobox_aKW :: Integer ~ Integer
+  Integer
+  Integer
+  Integer
+  Integer
+setEvBind
+  ev = cobox_aKW
+  tm  = CO <Integer>_N
+end stage canonicalization }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+Start solver pipeline {
+  work item =  [W] cobox_aKX :: a_aKQ ~ a_aII (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] cobox_aKX :: a_aKQ ~ a_aII (CNonCanonical)
+canonicalize (non-canonical)
+  [W] cobox_aKX :: a_aKQ ~ a_aII (CNonCanonical)
+canEvNC:eq
+  a_aKQ
+  a_aII
+can_eq_nc
+  [W] cobox_aKX :: a_aKQ ~ a_aII
+  a_aKQ
+  a_aKQ
+  a_aII
+  a_aII
+canEqTyVar
+  a_aKQ
+  a_aII
+  Not-swapped
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] cobox_aKX :: a_aKQ ~ a_aII (CTyEqCan)
+Sneaky unification:
+  Unifies: a_aII := a_aKQ
+  Coercion: a_aII ~ a_aKQ
+  Left Kind is: *
+  Right Kind is: *
+setWantedTyBind a_aII := a_aKQ
+setEvBind
+  ev = cobox_aKX
+  tm  = CO <a_aKQ>_N
+kickOutRewritable
+  tv =  a_aII
+  Kicked out = WorkList (eqs)   =  []
+               WorkList (funeqs)=  []
+               WorkList (rest)  =  []
+3[<C:0,F:0>] [W] cobox_aKX :: a_aKQ ~ a_aII: Spontaneously solved
+end stage interact with inerts }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+Start solver pipeline {
+  work item =  [W] cobox_aKT :: Bool ~ a_aII (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] cobox_aKT :: Bool ~ a_aII (CNonCanonical)
+canonicalize (non-canonical)
+  [W] cobox_aKT :: Bool ~ a_aII (CNonCanonical)
+canEvNC:eq
+  Bool
+  a_aII
+can_eq_nc
+  [W] cobox_aKT :: Bool ~ a_aII
+  Bool
+  Bool
+  a_aII
+  a_aII
+canEqTyVar
+  a_aII
+  Bool
+  Is-swapped
+Following bound tyvar a_aII = a_aKQ
+newWantedEvVar/cache miss [W] cobox_aKY :: a_aKQ ~ Bool
+setEvBind
+  ev = cobox_aKT
+  tm  = CO Sym cobox_aKY
+rewriteEqEvidence
+  [W] cobox_aKT :: Bool ~ a_aII
+  a_aKQ
+  Bool
+  Sym cobox_aKY
+canEqTyVar2
+  a_aII
+  Bool
+  Is-swapped
+  a_aKQ
+  <a_aKQ>_N
+can_eq_nc
+  [W] cobox_aKY :: a_aKQ ~ Bool
+  a_aKQ
+  a_aKQ
+  Bool
+  Bool
+canEqTyVar
+  a_aKQ
+  Bool
+  Not-swapped
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] cobox_aKY :: a_aKQ ~ Bool (CTyEqCan)
+Sneaky unification:
+  Unifies: a_aKQ := Bool
+  Coercion: a_aKQ ~ Bool
+  Left Kind is: *
+  Right Kind is: *
+setWantedTyBind a_aKQ := Bool
+setEvBind
+  ev = cobox_aKY
+  tm  = CO <Bool>_N
+kickOutRewritable
+  tv =  a_aKQ
+  Kicked out = WorkList (eqs)   =  []
+               WorkList (funeqs)=  []
+               WorkList (rest)  =  []
+4[<C:0,F:0>] [W] cobox_aKY :: a_aKQ ~ Bool: Spontaneously solved
+end stage interact with inerts }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+Start solver pipeline {
+  work item =  [W] $dNum_aIJ :: Num a_aII (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] $dNum_aIJ :: Num a_aII (CNonCanonical)
+canonicalize (non-canonical)
+  [W] $dNum_aIJ :: Num a_aII (CNonCanonical)
+canEvNC:cls Num [a_aII]
+Following bound tyvar a_aII = a_aKQ
+Following bound tyvar a_aKQ = Bool
+canClass
+  [W] $dNum_aIJ :: Num a_aII Num [a_aII]
+  Num Bool
+  Just [W] $dNum_aIJ :: Num Bool
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+end stage interact with inerts }
+runStage top-level reactions {
+  workitem   =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+doTopReact [W] $dNum_aIJ :: Num Bool (CDictCan)
+matchClassInst
+  pred = Num Bool
+  inerts= Equalities:
+          Type-function equalities:
+          No-eqs: True
+          Dictionaries:
+          Irreds:
+          Insolubles = {}
+          Solved dicts 0
+          Solved funeqs 0
+  untouchables= 0
+matchClass not matching dict Num Bool
+end stage top-level reactions }
+5[<C:0,F:0>] [W] $dNum_aIJ :: Num Bool: Kept as inert
+End solver pipeline (not discharged) }
+  final_item =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+  inerts     =  Equalities:
+                Type-function equalities:
+                No-eqs: True
+                Dictionaries:
+                Irreds:
+                Insolubles = {}
+                Solved dicts 0
+                Solved funeqs 0
+insertInertItemTcS {
+  Trying to insert new inert item: [W] $dNum_aIJ :: Num
+                                                      Bool (CDictCan)
+insertInertItemTcS }
+Start solver pipeline {
+  work item =  [W] $dNum_aKR :: Num a_aKQ (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [W] $dNum_aIJ :: Num Bool (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] $dNum_aKR :: Num a_aKQ (CNonCanonical)
+canonicalize (non-canonical)
+  [W] $dNum_aKR :: Num a_aKQ (CNonCanonical)
+canEvNC:cls Num [a_aKQ]
+Following bound tyvar a_aKQ = Bool
+canClass
+  [W] $dNum_aKR :: Num a_aKQ Num [a_aKQ]
+  Num Bool
+  Just [W] $dNum_aKR :: Num Bool
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] $dNum_aKR :: Num Bool (CDictCan)
+setEvBind
+  ev = $dNum_aKR
+  tm  = $dNum_aIJ
+6[<C:0,F:0>] [W] $dNum_aKR :: Num Bool: Dict equal (keep)
+end stage interact with inerts }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [W] $dNum_aIJ :: Num Bool (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+solveFlats end } {}
+simpl_loop, iteration 1
+solveWanteds }
+  unsolved_flats   = {[W] $dNum_aIJ :: Num Bool (CDictCan)}
+  unsolved_implics = {}
+  current evbinds  = {cobox_aIK = CO Sym cobox_aKV,
+                      $dNum_aKR = $dNum_aIJ, cobox_aKS = CO cobox_aKW -> cobox_aKX,
+                      cobox_aKT = CO Sym cobox_aKY, cobox_aKV = CO <a_aII>_N,
+                      cobox_aKW = CO <Integer>_N, cobox_aKX = CO <a_aKQ>_N,
+                      cobox_aKY = CO <Bool>_N}
+  current tybinds  = (t_aIv, a_aII)
+                     (a_aII, a_aKQ)
+                     (a_aKQ, Bool)
+  final wc = WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CDictCan)}
+writeMetaTyVar t_aIv := a_aII
+writeMetaTyVar a_aII := a_aKQ
+writeMetaTyVar a_aKQ := Bool
+Constraint solver steps = 6
+Start solver pipeline {
+  work item =  [W] $dNum_aIJ :: Num Bool (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] $dNum_aIJ :: Num Bool (CNonCanonical)
+canonicalize (non-canonical)
+  [W] $dNum_aIJ :: Num Bool (CNonCanonical)
+canEvNC:cls Num [Bool]
+canClass
+  [W] $dNum_aIJ :: Num Bool Num [Bool]
+  Num Bool
+  Just [W] $dNum_aIJ :: Num Bool
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+end stage interact with inerts }
+runStage top-level reactions {
+  workitem   =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+doTopReact [W] $dNum_aIJ :: Num Bool (CDictCan)
+matchClassInst
+  pred = Num Bool
+  inerts= Equalities:
+          Type-function equalities:
+          No-eqs: True
+          Dictionaries:
+          Irreds:
+          Insolubles = {}
+          Solved dicts 0
+          Solved funeqs 0
+  untouchables= 0
+matchClass not matching dict Num Bool
+end stage top-level reactions }
+1[<C:0,F:0>] [W] $dNum_aIJ :: Num Bool: Kept as inert
+End solver pipeline (not discharged) }
+  final_item =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+  inerts     =  Equalities:
+                Type-function equalities:
+                No-eqs: True
+                Dictionaries:
+                Irreds:
+                Insolubles = {}
+                Solved dicts 0
+                Solved funeqs 0
+insertInertItemTcS {
+  Trying to insert new inert item: [W] $dNum_aIJ :: Num
+                                                      Bool (CDictCan)
+insertInertItemTcS }
+Constraint solver steps = 1
+simplifyWithApprox
+  quant_pred_candidates = [Num Bool]
+  gbl_tvs= []
+  zonked_tau_tvs= []
+  pbound = []
+  bbound = []
+  poly_qtvs = []
+  constrained_tvs = []
+  mr_bites = False
+  qtvs = []
+} simplifyInfer/no implication needed
+addInlinePrags
+  foo
+  []
+mkExport: check sig
+  foo
+  Bool
+  Bool
+u_tys 
+  untch 0
+  Bool ~ Bool
+  a type equality Bool ~ Bool
+u_tys yields no coercion
+simplifyTop { wanted =  WC {}
+solveWantedsTcMWithEvBinds wanted= WC {}
+solveWanteds { WC {}
+solveFlats {
+solveFlats end } {}
+simpl_loop, iteration 1
+solveWanteds }
+  unsolved_flats   = {}
+  unsolved_implics = {}
+  current evbinds  = {}
+  current tybinds  =
+  final wc = WC {}
+End simplifyTop }
+reportUnsolved {
+reportUnsolved }
+Binding:
+  <TopLevel>
+  [(foo, Bool)]
+csb2 [foo]
+} End of bindings for
+  [foo]
+  NonRecursive
+  foo Bool
+env2 [(foo, Identifier[foo::Bool, <TopLevel>])]
+Tc6
+env2 []
+Tc7
+End of tcVectDecls: LIE:
+  WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CNonCanonical)}
+Tc7a
+checkMain not Main Example
+Tc8
+simplifyTop {
+  wanted =  WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CNonCanonical)}
+solveWantedsTcMWithEvBinds
+  wanted= WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CNonCanonical)}
+solveWanteds {
+  WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CNonCanonical)}
+solveFlats {
+Start solver pipeline {
+  work item =  [W] $dNum_aIJ :: Num Bool (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] $dNum_aIJ :: Num Bool (CNonCanonical)
+canonicalize (non-canonical)
+  [W] $dNum_aIJ :: Num Bool (CNonCanonical)
+canEvNC:cls Num [Bool]
+canClass
+  [W] $dNum_aIJ :: Num Bool Num [Bool]
+  Num Bool
+  Just [W] $dNum_aIJ :: Num Bool
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+end stage interact with inerts }
+runStage top-level reactions {
+  workitem   =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+doTopReact [W] $dNum_aIJ :: Num Bool (CDictCan)
+matchClassInst
+  pred = Num Bool
+  inerts= Equalities:
+          Type-function equalities:
+          No-eqs: True
+          Dictionaries:
+          Irreds:
+          Insolubles = {}
+          Solved dicts 0
+          Solved funeqs 0
+  untouchables= 0
+matchClass not matching dict Num Bool
+end stage top-level reactions }
+1[<C:0,F:0>] [W] $dNum_aIJ :: Num Bool: Kept as inert
+End solver pipeline (not discharged) }
+  final_item =  [W] $dNum_aIJ :: Num Bool (CDictCan)
+  inerts     =  Equalities:
+                Type-function equalities:
+                No-eqs: True
+                Dictionaries:
+                Irreds:
+                Insolubles = {}
+                Solved dicts 0
+                Solved funeqs 0
+insertInertItemTcS {
+  Trying to insert new inert item: [W] $dNum_aIJ :: Num
+                                                      Bool (CDictCan)
+insertInertItemTcS }
+solveFlats end } {}
+simpl_loop, iteration 1
+solveWanteds }
+  unsolved_flats   = {[W] $dNum_aIJ :: Num Bool (CDictCan)}
+  unsolved_implics = {}
+  current evbinds  = {}
+  current tybinds  =
+  final wc = WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CDictCan)}
+applyDefaultingRules { 
+  wanteds = {[W] $dNum_aIJ :: Num Bool (CDictCan)}
+findDefaultableGroups
+  groups= []
+  info= ([Integer, Double], (False, False))
+applyDefaultingRules } []
+Constraint solver steps = 1
+End simplifyTop }
+reportUnsolved {
+reportUnsolved (before unflattening)
+  WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CNonCanonical)}
+reportUnsolved (after unflattening):
+  WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CNonCanonical)}
+reportFlats
+  Flats = {}
+  Suppress = False
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {}
+  Suppress = False
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {[W] $dNum_aIJ :: Num Bool (CNonCanonical)}
+  Suppress = False
+tryReporters { [[W] $dNum_aIJ :: Num Bool (CNonCanonical)]
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: yes Dicts [[W] $dNum_aIJ :: Num Bool (CNonCanonical)]
+relevantBindings [foo]
+mk_dict_err
+  [W] $dNum_aIJ :: Num Bool (CNonCanonical)
+  False
+Adding error:
+  p1.hs:3:9:
+      No instance for (Num Bool) arising from a use of ‘+’
+      In the expression: 1 + True
+      In an equation for ‘foo’: foo = 1 + True
+tryReporters }
+reportUnsolved }
+Tc9
+
+p1.hs:3:9:
+    No instance for (Num Bool) arising from a use of ‘+’
+    In the expression: 1 + True
+    In an equation for ‘foo’: foo = 1 + True
