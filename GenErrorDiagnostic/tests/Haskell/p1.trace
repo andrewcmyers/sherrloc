@@ -702,6 +702,8 @@ Adding error:
       In an equation for ‘foo’: foo = 1 + True
 tryReporters }
 reportUnsolved }
+originalCts (simplifyTop)
+  wanted =  WC {wc_flat = [W] $dNum_aIJ :: Num Bool (CNonCanonical)}
 Tc9
 
 p1.hs:3:9:

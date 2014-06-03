@@ -125,9 +125,9 @@ env2 [(a, Type variable ‘a’ = a)]
 env2 [(a, Type variable ‘a’ = a)]
 Adding instances:
   ShouldFail.$fFoo[] : instance [overlap ok] Foo [Int]
-                         -- Defined at tcfail121.hs:10:10
+                         -- Defined at p3.hs:11:10
   ShouldFail.$fFoo[]0 : instance [overlap ok] Foo a => Foo [a]
-                          -- Defined at tcfail121.hs:9:10
+                          -- Defined at p3.hs:10:10
 addFamInsts
 env2 []
 tcDeriving
@@ -456,7 +456,7 @@ tcInstMeth
   []
   {}
 Adding warning:
-  tcfail121.hs:10:10: Warning:
+  p3.hs:11:10: Warning:
       No explicit implementation for
         ‘op’
       In the instance declaration for ‘Foo [Int]’
@@ -467,7 +467,7 @@ tcInstMeth
   []
   {}
 Adding warning:
-  tcfail121.hs:9:10: Warning:
+  p3.hs:10:10: Warning:
       No explicit implementation for
         ‘op’
       In the instance declaration for ‘Foo [a]’
@@ -812,7 +812,7 @@ matchClassInst
 matchClass multiple matches, deferring choice
   dict Foo [a]
   matches [(instance [overlap ok] Foo a => Foo [a]
-              -- Defined at tcfail121.hs:9:10,
+              -- Defined at p3.hs:10:10,
             [Just a])]
 end stage top-level reactions }
 4[<C:0,F:0>] [W] $dFoo_aI9 :: Foo [a]: Kept as inert
@@ -1052,12 +1052,11 @@ tryReporters: no Implicit params
 tryReporters: no Irreds
 tryReporters: yes Dicts [[W] $dFoo_aI9 :: Foo [a] (CNonCanonical)]
 Adding error:
-  tcfail121.hs:13:9:
+  p3.hs:14:9:
       Overlapping instances for Foo [a] arising from a use of ‘op’
       Matching instances:
-        instance [overlap ok] Foo a => Foo [a]
-          -- Defined at tcfail121.hs:9:10
-        instance [overlap ok] Foo [Int] -- Defined at tcfail121.hs:10:10
+        instance [overlap ok] Foo a => Foo [a] -- Defined at p3.hs:10:10
+        instance [overlap ok] Foo [Int] -- Defined at p3.hs:11:10
       (The choice depends on the instantiation of ‘a’
        To pick the first instance above, use IncoherentInstances
        when compiling the other instance declarations)
@@ -1065,14 +1064,34 @@ Adding error:
       In an equation for ‘foo’: foo x = op x
 tryReporters }
 reportUnsolved }
+originalCts (simplifyTop)
+  wanted =  WC {wc_impl = Implic {Untouchables = 1
+                                  Skolems = a
+                                  Flatten-skolems =
+                                  No-eqs = False
+                                  Given = $dFoo_aI6 :: Foo a
+                                  Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                                                         [W] cobox_aIa :: a_aI8
+                                                                          ~ [a] (CNonCanonical)
+                                                         [W] cobox_aIb :: [a]
+                                                                          ~ a_aI8 (CNonCanonical)}
+                                  Binds = EvBindsVar<aIc>
+                                  the type signature for foo :: Foo a => [a] -> [a]}
+                          Implic {Untouchables = 1
+                                  Skolems = a
+                                  Flatten-skolems =
+                                  No-eqs = False
+                                  Given = $dFoo_aIh :: Foo a
+                                  Wanted = WC {}
+                                  Binds = EvBindsVar<aIi>
+                                  the instance declaration}}
 Tc9
 
-tcfail121.hs:13:9:
+p3.hs:14:9:
     Overlapping instances for Foo [a] arising from a use of ‘op’
     Matching instances:
-      instance [overlap ok] Foo a => Foo [a]
-        -- Defined at tcfail121.hs:9:10
-      instance [overlap ok] Foo [Int] -- Defined at tcfail121.hs:10:10
+      instance [overlap ok] Foo a => Foo [a] -- Defined at p3.hs:10:10
+      instance [overlap ok] Foo [Int] -- Defined at p3.hs:11:10
     (The choice depends on the instantiation of ‘a’
      To pick the first instance above, use IncoherentInstances
      when compiling the other instance declarations)
