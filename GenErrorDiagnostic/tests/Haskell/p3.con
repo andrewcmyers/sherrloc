@@ -1,0 +1,7 @@
+CONSTRUCTOR a 0
+CONSTRUCTOR Foo 0
+CONSTRUCTOR list 1  
+
+a_aI8 <= Foo {a <= Foo;};
+a_aI8 == (list a) {a <= Foo;};
+(list a) == a_aI8 {a <= Foo;};
