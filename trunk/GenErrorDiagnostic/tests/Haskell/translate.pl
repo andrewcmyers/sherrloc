@@ -186,16 +186,15 @@ sub output_sherrloc {
 }
 
 while (<TRACE>) {
-	# get the trace before GHC tries to solve the constraints
-	# if (/^simplifyTop {$/) {
-	if (/^solveWanteds {$/) {
-		print "Translating wanted constraints:\n";
-		my $next = <TRACE>;
-		@constraints = ();
-		@assumptions = ();
-		if ($next =~ /WC {/) {
-			trans_WC $next;
 
+	# get the original constraints that caused errors
+	if (/^originalCts/) {
+		my $next = <TRACE>;
+		if ($next =~ /WC \{/) {
+			@constraints = ();
+			@assumptions = ();
+			print "Translating wanted constraints:\n";
+			trans_WC $next;
 			# output translated constraints
 			print "Translated SHErrLoc constraints:\n";
 			foreach (@constraints) {
