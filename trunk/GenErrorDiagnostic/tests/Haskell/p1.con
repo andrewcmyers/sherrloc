@@ -1,0 +1,9 @@
+CONSTRUCTOR Num 0
+CONSTRUCTOR Integer 0
+CONSTRUCTOR Bool 0
+
+a_aII <= Num {};
+a_aII == t_aIv {};
+a_aKQ <= Num {};
+(Integer -> a_aKQ) == (Integer -> a_aII) {};
+Bool == a_aII {};

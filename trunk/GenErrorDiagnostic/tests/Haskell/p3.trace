@@ -1,0 +1,1080 @@
+rn12
+rn13
+Tc2 (src)
+Tc3
+kcTyClGroup
+  module ShouldFail
+  class Foo a where
+    op :: a -> a
+env2 []
+kcTyClGroup: initial kinds [(Foo, AThing k_apK -> Constraint)]
+env2 []
+tc_lhs_type:
+  a -> a
+  Expected kind ‘*’
+tc_lhs_type:
+  a
+  Expected a type
+lk1 a
+lk2 a AThing k_apK
+writeMetaTyVar k_apK := *
+tc_lhs_type:
+  a
+  Expected a type
+lk1 a
+lk2 a AThing k_apK
+Generalise kind
+  Foo
+  k_apK -> Constraint
+  []
+  * -> Constraint
+kcTyClGroup result [(Foo, * -> Constraint)]
+tcTyAndCl generalized kinds [(Foo, * -> Constraint)]
+tcTyAndCl-x
+  class Foo a where
+    op :: a -> a
+env2 []
+env2 [(a, Type variable ‘a’ = a)]
+tcClassSigs 1 Foo
+ClsSig 1 [op]
+tc_lhs_type:
+  a
+  Expected a type
+lk1 a
+lk2 a Type variable ‘a’ = a
+tc_lhs_type:
+  a
+  Expected a type
+lk1 a
+lk2 a Type variable ‘a’ = a
+tcCheckHsTypeAndGen a -> a
+ClsSig 2 [op]
+tcClassSigs 2 Foo
+tcClassDecl
+  []
+  [a]
+  []
+Starting validity check [Class ‘Foo’]
+class op type forall a. Foo a => a -> a a -> a
+checkValidType a -> a :: *
+checkValidType done a -> a :: *
+env2 []
+tc_lhs_type:
+  Foo
+  Expected kind ‘k_apQ’
+lk1 Foo
+lk2 Foo Class ‘Foo’
+writeMetaTyVar k_apQ := * -> Constraint
+tc_lhs_type:
+  [Int]
+  The first argument of ‘Foo’ should have kind ‘*’
+tc_lhs_type:
+  Int
+  Expected kind ‘*’
+lk1 Int
+lk2 Int Type constructor ‘Int’
+tcLocalInstDecl Foo [Int]
+env2 []
+env2 []
+env2 []
+tcHsTyVarBndrs {
+  Hs kind vars: []
+  Hs type vars: [a]
+  Kind vars: []
+  Type vars: [a]
+env2 [(a, Type variable ‘a’ = a)]
+tc_lhs_type:
+  Foo a
+  Expected a constraint
+tc_lhs_type:
+  Foo
+  Expected kind ‘k_apT’
+lk1 Foo
+lk2 Foo Class ‘Foo’
+writeMetaTyVar k_apT := * -> Constraint
+tc_lhs_type:
+  a
+  The first argument of ‘Foo’ should have kind ‘*’
+lk1 a
+lk2 a Type variable ‘a’ = a
+writeMetaTyVar k_apS := *
+tc_lhs_type:
+  Foo [a]
+  Expected a constraint
+tc_lhs_type:
+  Foo
+  Expected kind ‘k_apU’
+lk1 Foo
+lk2 Foo Class ‘Foo’
+writeMetaTyVar k_apU := * -> Constraint
+tc_lhs_type:
+  [a]
+  The first argument of ‘Foo’ should have kind ‘*’
+tc_lhs_type:
+  a
+  Expected kind ‘*’
+lk1 a
+lk2 a Type variable ‘a’ = a
+tcHsTyVarBndrs }
+  Hs kind vars: []
+  Hs type vars: [a]
+  Kind vars: []
+  Type vars: [a]
+tcLocalInstDecl Foo a => Foo [a]
+env2 [(a, Type variable ‘a’ = a)]
+env2 [(a, Type variable ‘a’ = a)]
+Adding instances:
+  ShouldFail.$fFoo[] : instance [overlap ok] Foo [Int]
+                         -- Defined at tcfail121.hs:10:10
+  ShouldFail.$fFoo[]0 : instance [overlap ok] Foo a => Foo [a]
+                          -- Defined at tcfail121.hs:9:10
+addFamInsts
+env2 []
+tcDeriving
+tcDeriving False
+tcDeriving 1 []
+Adding instances:
+Tc3b
+tcAmpMissingParentClassWarn/isInsts []
+tcAmpMissingParentClassWarn/isInsts []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Monad.join []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Applicative.<*> []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Applicative.pure []
+Tc4
+Tc4a
+env2 []
+Tc5
+env2 []
+tcHsTyVarBndrs {
+  Hs kind vars: []
+  Hs type vars: [a]
+  Kind vars: []
+  Type vars: [a]
+env2 [(a, Type variable ‘a’ = a)]
+tc_lhs_type:
+  Foo a
+  Expected a constraint
+tc_lhs_type:
+  Foo
+  Expected kind ‘k_aHV’
+lk1 Foo
+lk2 Foo Class ‘Foo’
+writeMetaTyVar k_aHV := * -> Constraint
+tc_lhs_type:
+  a
+  The first argument of ‘Foo’ should have kind ‘*’
+lk1 a
+lk2 a Type variable ‘a’ = a
+writeMetaTyVar k_aHU := *
+tc_lhs_type:
+  [a] -> [a]
+  Expected a type
+tc_lhs_type:
+  [a]
+  Expected a type
+tc_lhs_type:
+  a
+  Expected kind ‘*’
+lk1 a
+lk2 a Type variable ‘a’ = a
+tc_lhs_type:
+  [a]
+  Expected a type
+tc_lhs_type:
+  a
+  Expected kind ‘*’
+lk1 a
+lk2 a Type variable ‘a’ = a
+tcHsTyVarBndrs }
+  Hs kind vars: []
+  Hs type vars: [a]
+  Kind vars: []
+  Type vars: [a]
+tcCheckHsTypeAndGen Foo a => [a] -> [a]
+checkValidType forall a. Foo a => [a] -> [a] :: *
+Ambiguity check for forall a. Foo a => [a] -> [a]
+tcGen
+instCallConstraints [$dFoo_aI1]
+u_tys 
+  untch 1
+  [a_aHZ] -> [a_aHZ] ~ [a] -> [a]
+  a type equality [a_aHZ] -> [a_aHZ] ~ [a] -> [a]
+u_tys 
+  untch 1
+  [a_aHZ] ~ [a]
+  a type equality [a_aHZ] -> [a_aHZ] ~ [a] -> [a]
+u_tys 
+  untch 1
+  a_aHZ ~ a
+  a type equality [a_aHZ] -> [a_aHZ] ~ [a] -> [a]
+uUnfilledVars trying to unify * with *
+writeMetaTyVar a_aHZ := a
+u_tys yields no coercion
+u_tys yields no coercion
+u_tys 
+  untch 1
+  [a_aHZ] ~ [a]
+  a type equality [a_aHZ] -> [a_aHZ] ~ [a] -> [a]
+u_tys 
+  untch 1
+  a_aHZ ~ a
+  a type equality [a_aHZ] -> [a_aHZ] ~ [a] -> [a]
+u_tys yields no coercion
+u_tys yields no coercion
+u_tys yields no coercion
+simplifyAmbiguityCheck {
+  type =  forall a. Foo a => [a] -> [a]
+  wanted =  WC {wc_impl = Implic {Untouchables = 1
+                                  Skolems = a
+                                  Flatten-skolems =
+                                  No-eqs = False
+                                  Given = $dFoo_aHY :: Foo a
+                                  Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+                                  Binds = EvBindsVar<aI2>
+                                  the type signature for foo :: Foo a => [a] -> [a]}}
+solveWantedsTcMWithEvBinds
+  wanted= WC {wc_impl = Implic {Untouchables = 1
+                                Skolems = a
+                                Flatten-skolems =
+                                No-eqs = False
+                                Given = $dFoo_aHY :: Foo a
+                                Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+                                Binds = EvBindsVar<aI2>
+                                the type signature for foo :: Foo a => [a] -> [a]}}
+solveWanteds {
+  WC {wc_impl = Implic {Untouchables = 1
+                        Skolems = a
+                        Flatten-skolems =
+                        No-eqs = False
+                        Given = $dFoo_aHY :: Foo a
+                        Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+                        Binds = EvBindsVar<aI2>
+                        the type signature for foo :: Foo a => [a] -> [a]}}
+solveFlats {
+solveFlats end } {}
+simpl_loop, iteration 1
+solveNestedImplications starting {
+  original inerts =  Equalities:
+                     Type-function equalities:
+                     No-eqs: True
+                     Dictionaries:
+                     Irreds:
+                     Insolubles = {}
+                     Solved dicts 0
+                     Solved funeqs 0
+  thinner_inerts  =  Equalities:
+                     Type-function equalities:
+                     No-eqs: True
+                     Dictionaries:
+                     Irreds:
+                     Insolubles = {}
+                     Solved dicts 0
+                     Solved funeqs 0
+solveImplication {
+  Implic {Untouchables = 1
+          Skolems = a
+          Flatten-skolems =
+          No-eqs = False
+          Given = $dFoo_aHY :: Foo a
+          Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+          Binds = EvBindsVar<aI2>
+          the type signature for foo :: Foo a => [a] -> [a]}
+Start solver pipeline {
+  work item =  [G] $dFoo_aHY :: Foo a (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [G] $dFoo_aHY :: Foo a (CNonCanonical)
+canonicalize (non-canonical) [G] $dFoo_aHY :: Foo a (CNonCanonical)
+canEvNC:cls Foo [a]
+canClass
+  [G] $dFoo_aHY :: Foo a Foo [a]
+  Foo a
+  Just [G] $dFoo_aHY :: Foo a
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [G] $dFoo_aHY :: Foo a (CDictCan)
+end stage interact with inerts }
+runStage top-level reactions {
+  workitem   =  [G] $dFoo_aHY :: Foo a (CDictCan)
+doTopReact [G] $dFoo_aHY :: Foo a (CDictCan)
+end stage top-level reactions }
+1[<C:0,F:0>] [G] $dFoo_aHY :: Foo a: Kept as inert
+End solver pipeline (not discharged) }
+  final_item =  [G] $dFoo_aHY :: Foo a (CDictCan)
+  a
+  inerts     =  Equalities:
+                Type-function equalities:
+                No-eqs: True
+                Dictionaries:
+                Irreds:
+                Insolubles = {}
+                Solved dicts 0
+                Solved funeqs 0
+insertInertItemTcS {
+  Trying to insert new inert item: [G] $dFoo_aHY :: Foo a (CDictCan)
+insertInertItemTcS }
+solveWanteds {
+  WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+solveFlats {
+Start solver pipeline {
+  work item =  [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [G] $dFoo_aHY :: Foo a (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)
+canonicalize (non-canonical)
+  [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)
+canEvNC:cls Foo [a_aHZ]
+Following filled tyvar a_aHZ = a
+canClass
+  [W] $dFoo_aI1 :: Foo a_aHZ Foo [a_aHZ]
+  Foo a
+  Just [W] $dFoo_aI1 :: Foo a
+newSCWork/Derived impr_theta = []
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] $dFoo_aI1 :: Foo a (CDictCan)
+setEvBind
+  ev = $dFoo_aI1
+  tm  = $dFoo_aHY
+2[<C:0,F:0>] [W] $dFoo_aI1 :: Foo a: Dict equal (keep)
+end stage interact with inerts }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [G] $dFoo_aHY :: Foo a (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+solveFlats end } {}
+simpl_loop, iteration 1
+solveWanteds }
+  unsolved_flats   = {}
+  unsolved_implics = {}
+  current evbinds  = {$dFoo_aI1 = $dFoo_aHY}
+  current tybinds  =
+  final wc = WC {}
+floatEqualities
+  Flats = {}
+  Floated eqs = {}
+  Ty binds = []
+solveImplication end }
+  no_given_eqs = True
+  floated_eqs = {}
+  new_fsks = []
+  res_implic = {}
+  implication evbinds =  {}
+solveNestedImplications end }
+  all floated_eqs = {}
+  unsolved_implics = {}
+solveWanteds }
+  unsolved_flats   = {}
+  unsolved_implics = {}
+  current evbinds  = {}
+  current tybinds  =
+  final wc = WC {}
+Constraint solver steps = 2
+End simplifyAmbiguityCheck }
+reportUnsolved(ambig) {
+reportUnsolved(ambig) }
+Done ambiguity check for forall a. Foo a => [a] -> [a]
+checkValidType done forall a. Foo a => [a] -> [a] :: *
+env2
+  [(foo,
+    Identifier[foo::forall a. Foo a => [a] -> [a], <NotTopLevel>])]
+------------------------------------------------
+Bindings for { [foo]
+Generalisation plan
+  CheckGen foo :: Foo a => [a] -> [a]
+                  [Nothing]
+env2 []
+tcMonoBinds
+env2 []
+tcRhs: fun bind
+  foo
+  [a] -> [a]
+tcMatchesFun
+  foo
+  [a] -> [a]
+tcGen
+env2 [(x, Identifier[x::[a], <NotTopLevel>])]
+tcBody [a]
+Instantiating
+  op with [a_aI8]
+          [Foo a_aI8]
+instCallConstraints [$dFoo_aI9]
+utype_defer
+  cobox_aIa
+  a_aI8
+  [a]
+  a type equality a_aI8 ~ [a]
+  In the expression: op x
+  In an equation for ‘foo’: foo x = op x
+tcPolyExprNC a_aI8
+tcGen
+utype_defer
+  cobox_aIb
+  [a]
+  a_aI8
+  a type equality [a] ~ a_aI8
+  In the first argument of ‘op’, namely ‘x’
+  In the expression: op x
+addInlinePrags
+  foo
+  []
+csb2 [foo]
+} End of bindings for
+  [foo]
+  NonRecursive
+  foo forall a. Foo a => [a] -> [a]
+env2
+  [(foo, Identifier[foo::forall a. Foo a => [a] -> [a], <TopLevel>])]
+Tc6
+TIM2 [op :: a -> a]
+env2 [(a, Type variable ‘a’ = a)]
+env2 []
+env2 []
+tcInstMeth
+  []
+  {}
+Adding warning:
+  tcfail121.hs:10:10: Warning:
+      No explicit implementation for
+        ‘op’
+      In the instance declaration for ‘Foo [Int]’
+tc_def op
+tc_def: warn op
+env2 [(a, Type variable ‘a’ = a)]
+tcInstMeth
+  []
+  {}
+Adding warning:
+  tcfail121.hs:9:10: Warning:
+      No explicit implementation for
+        ‘op’
+      In the instance declaration for ‘Foo [a]’
+tc_def op
+tc_def: warn op
+Tc7
+End of tcVectDecls: LIE:
+  WC {wc_impl = Implic {Untouchables = 1
+                        Skolems = a
+                        Flatten-skolems =
+                        No-eqs = False
+                        Given = $dFoo_aI6 :: Foo a
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                                               [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+                                               [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+                        Binds = EvBindsVar<aIc>
+                        the type signature for foo :: Foo a => [a] -> [a]}
+                Implic {Untouchables = 1
+                        Skolems = a
+                        Flatten-skolems =
+                        No-eqs = False
+                        Given = $dFoo_aIh :: Foo a
+                        Wanted = WC {}
+                        Binds = EvBindsVar<aIi>
+                        the instance declaration}}
+Tc7a
+checkMain not Main ShouldFail
+Tc8
+simplifyTop {
+  wanted =  WC {wc_impl = Implic {Untouchables = 1
+                                  Skolems = a
+                                  Flatten-skolems =
+                                  No-eqs = False
+                                  Given = $dFoo_aI6 :: Foo a
+                                  Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                                                         [W] cobox_aIa :: a_aI8
+                                                                          ~ [a] (CNonCanonical)
+                                                         [W] cobox_aIb :: [a]
+                                                                          ~ a_aI8 (CNonCanonical)}
+                                  Binds = EvBindsVar<aIc>
+                                  the type signature for foo :: Foo a => [a] -> [a]}
+                          Implic {Untouchables = 1
+                                  Skolems = a
+                                  Flatten-skolems =
+                                  No-eqs = False
+                                  Given = $dFoo_aIh :: Foo a
+                                  Wanted = WC {}
+                                  Binds = EvBindsVar<aIi>
+                                  the instance declaration}}
+solveWantedsTcMWithEvBinds
+  wanted= WC {wc_impl = Implic {Untouchables = 1
+                                Skolems = a
+                                Flatten-skolems =
+                                No-eqs = False
+                                Given = $dFoo_aI6 :: Foo a
+                                Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                                                       [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+                                                       [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+                                Binds = EvBindsVar<aIc>
+                                the type signature for foo :: Foo a => [a] -> [a]}
+                        Implic {Untouchables = 1
+                                Skolems = a
+                                Flatten-skolems =
+                                No-eqs = False
+                                Given = $dFoo_aIh :: Foo a
+                                Wanted = WC {}
+                                Binds = EvBindsVar<aIi>
+                                the instance declaration}}
+solveWanteds {
+  WC {wc_impl = Implic {Untouchables = 1
+                        Skolems = a
+                        Flatten-skolems =
+                        No-eqs = False
+                        Given = $dFoo_aI6 :: Foo a
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                                               [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+                                               [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+                        Binds = EvBindsVar<aIc>
+                        the type signature for foo :: Foo a => [a] -> [a]}
+                Implic {Untouchables = 1
+                        Skolems = a
+                        Flatten-skolems =
+                        No-eqs = False
+                        Given = $dFoo_aIh :: Foo a
+                        Wanted = WC {}
+                        Binds = EvBindsVar<aIi>
+                        the instance declaration}}
+solveFlats {
+solveFlats end } {}
+simpl_loop, iteration 1
+solveNestedImplications starting {
+  original inerts =  Equalities:
+                     Type-function equalities:
+                     No-eqs: True
+                     Dictionaries:
+                     Irreds:
+                     Insolubles = {}
+                     Solved dicts 0
+                     Solved funeqs 0
+  thinner_inerts  =  Equalities:
+                     Type-function equalities:
+                     No-eqs: True
+                     Dictionaries:
+                     Irreds:
+                     Insolubles = {}
+                     Solved dicts 0
+                     Solved funeqs 0
+solveImplication {
+  Implic {Untouchables = 1
+          Skolems = a
+          Flatten-skolems =
+          No-eqs = False
+          Given = $dFoo_aI6 :: Foo a
+          Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                                 [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+                                 [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+          Binds = EvBindsVar<aIc>
+          the type signature for foo :: Foo a => [a] -> [a]}
+Start solver pipeline {
+  work item =  [G] $dFoo_aI6 :: Foo a (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [G] $dFoo_aI6 :: Foo a (CNonCanonical)
+canonicalize (non-canonical) [G] $dFoo_aI6 :: Foo a (CNonCanonical)
+canEvNC:cls Foo [a]
+canClass
+  [G] $dFoo_aI6 :: Foo a Foo [a]
+  Foo a
+  Just [G] $dFoo_aI6 :: Foo a
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [G] $dFoo_aI6 :: Foo a (CDictCan)
+end stage interact with inerts }
+runStage top-level reactions {
+  workitem   =  [G] $dFoo_aI6 :: Foo a (CDictCan)
+doTopReact [G] $dFoo_aI6 :: Foo a (CDictCan)
+end stage top-level reactions }
+1[<C:0,F:0>] [G] $dFoo_aI6 :: Foo a: Kept as inert
+End solver pipeline (not discharged) }
+  final_item =  [G] $dFoo_aI6 :: Foo a (CDictCan)
+  a
+  inerts     =  Equalities:
+                Type-function equalities:
+                No-eqs: True
+                Dictionaries:
+                Irreds:
+                Insolubles = {}
+                Solved dicts 0
+                Solved funeqs 0
+insertInertItemTcS {
+  Trying to insert new inert item: [G] $dFoo_aI6 :: Foo a (CDictCan)
+insertInertItemTcS }
+solveWanteds {
+  WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+                [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+solveFlats {
+Start solver pipeline {
+  work item =  [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+canonicalize (non-canonical)
+  [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+canEvNC:eq
+  a_aI8
+  [a]
+can_eq_nc
+  [W] cobox_aIa :: a_aI8 ~ [a]
+  a_aI8
+  a_aI8
+  [a]
+  [a]
+canEqTyVar
+  a_aI8
+  [a]
+  Not-swapped
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] cobox_aIa :: a_aI8 ~ [a] (CTyEqCan)
+Sneaky unification:
+  Unifies: a_aI8 := [a]
+  Coercion: a_aI8 ~ [a]
+  Left Kind is: *
+  Right Kind is: *
+setWantedTyBind a_aI8 := [a]
+setEvBind
+  ev = cobox_aIa
+  tm  = CO <[a]>_N
+kickOutRewritable
+  tv =  a_aI8
+  Kicked out = WorkList (eqs)   =  []
+               WorkList (funeqs)=  []
+               WorkList (rest)  =  []
+2[<C:0,F:0>] [W] cobox_aIa :: a_aI8 ~ [a]: Spontaneously solved
+end stage interact with inerts }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+Start solver pipeline {
+  work item =  [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)
+canonicalize (non-canonical)
+  [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)
+canEvNC:eq
+  [a]
+  a_aI8
+can_eq_nc
+  [W] cobox_aIb :: [a] ~ a_aI8
+  [a]
+  [a]
+  a_aI8
+  a_aI8
+canEqTyVar
+  a_aI8
+  [a]
+  Is-swapped
+Following bound tyvar a_aI8 = [a]
+newWantedEvVar/cache miss [W] cobox_aIn :: [a] ~ [a]
+setEvBind
+  ev = cobox_aIb
+  tm  = CO Sym cobox_aIn
+rewriteEqEvidence
+  [W] cobox_aIb :: [a] ~ a_aI8
+  [a]
+  [a]
+  Sym cobox_aIn
+canEqTyVar2
+  a_aI8
+  [a]
+  Is-swapped
+  [a]
+  <[a]>_N
+can_eq_nc
+  [W] cobox_aIn :: [a] ~ [a]
+  [a]
+  [a]
+  [a]
+  [a]
+newWantedEvVar/cache miss [W] cobox_aIo :: a ~ a
+setEvBind
+  ev = cobox_aIn
+  tm  = CO [cobox_aIo]_N
+canEvNC:eq
+  a
+  a
+can_eq_nc
+  [W] cobox_aIo :: a ~ a
+  a
+  a
+  a
+  a
+canEqTyVar
+  a
+  a
+  Not-swapped
+setEvBind
+  ev = cobox_aIo
+  tm  = CO <a>_N
+end stage canonicalization }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+Start solver pipeline {
+  work item =  [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+canonicalize (non-canonical)
+  [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+canEvNC:cls Foo [a_aI8]
+Following bound tyvar a_aI8 = [a]
+canClass
+  [W] $dFoo_aI9 :: Foo a_aI8 Foo [a_aI8]
+  Foo [a]
+  Just [W] $dFoo_aI9 :: Foo [a]
+newSCWork/Derived impr_theta = []
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+addFuNDepWork
+  inertItem = [G] $dFoo_aI6 :: Foo a (CDictCan)
+  workItem  = [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+  fundeps = []
+end stage interact with inerts }
+runStage top-level reactions {
+  workitem   =  [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+doTopReact [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+matchClassInst
+  pred = Foo [a]
+  inerts= Equalities:
+          Type-function equalities:
+          No-eqs: True
+          Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+          Irreds:
+          Insolubles = {}
+          Solved dicts 0
+          Solved funeqs 0
+  untouchables= 1
+matchClass multiple matches, deferring choice
+  dict Foo [a]
+  matches [(instance [overlap ok] Foo a => Foo [a]
+              -- Defined at tcfail121.hs:9:10,
+            [Just a])]
+end stage top-level reactions }
+4[<C:0,F:0>] [W] $dFoo_aI9 :: Foo [a]: Kept as inert
+End solver pipeline (not discharged) }
+  final_item =  [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+  a
+  inerts     =  Equalities:
+                Type-function equalities:
+                No-eqs: True
+                Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+                Irreds:
+                Insolubles = {}
+                Solved dicts 0
+                Solved funeqs 0
+insertInertItemTcS {
+  Trying to insert new inert item: [W] $dFoo_aI9 :: Foo
+                                                      [a] (CDictCan)
+insertInertItemTcS }
+solveFlats end } {}
+simpl_loop, iteration 1
+solveWanteds }
+  unsolved_flats   = {[W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+  unsolved_implics = {}
+  current evbinds  = {cobox_aIa = CO <[a]>_N,
+                      cobox_aIb = CO Sym cobox_aIn, cobox_aIn = CO [cobox_aIo]_N,
+                      cobox_aIo = CO <a>_N}
+  current tybinds  = (a_aI8, [a])
+  final wc = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+floatEqualities
+  Flats = {[W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+  Floated eqs = {}
+  Ty binds = [(aI8, (a_aI8, [a]))]
+solveImplication end }
+  no_given_eqs = True
+  floated_eqs = {}
+  new_fsks = []
+  res_implic = {Implic {Untouchables = 1
+                        Skolems = a
+                        Flatten-skolems =
+                        No-eqs = True
+                        Given = $dFoo_aI6 :: Foo a
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+                        Binds = EvBindsVar<aIc>
+                        the type signature for foo :: Foo a => [a] -> [a]}}
+  implication evbinds =  {}
+solveImplication {
+  Implic {Untouchables = 1
+          Skolems = a
+          Flatten-skolems =
+          No-eqs = False
+          Given = $dFoo_aIh :: Foo a
+          Wanted = WC {}
+          Binds = EvBindsVar<aIi>
+          the instance declaration}
+Start solver pipeline {
+  work item =  [G] $dFoo_aIh :: Foo a (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [G] $dFoo_aIh :: Foo a (CNonCanonical)
+canonicalize (non-canonical) [G] $dFoo_aIh :: Foo a (CNonCanonical)
+canEvNC:cls Foo [a]
+canClass
+  [G] $dFoo_aIh :: Foo a Foo [a]
+  Foo a
+  Just [G] $dFoo_aIh :: Foo a
+end stage canonicalization }
+runStage interact with inerts {
+  workitem   =  [G] $dFoo_aIh :: Foo a (CDictCan)
+end stage interact with inerts }
+runStage top-level reactions {
+  workitem   =  [G] $dFoo_aIh :: Foo a (CDictCan)
+doTopReact [G] $dFoo_aIh :: Foo a (CDictCan)
+end stage top-level reactions }
+5[<C:0,F:0>] [G] $dFoo_aIh :: Foo a: Kept as inert
+End solver pipeline (not discharged) }
+  final_item =  [G] $dFoo_aIh :: Foo a (CDictCan)
+  a
+  inerts     =  Equalities:
+                Type-function equalities:
+                No-eqs: True
+                Dictionaries:
+                Irreds:
+                Insolubles = {}
+                Solved dicts 0
+                Solved funeqs 0
+insertInertItemTcS {
+  Trying to insert new inert item: [G] $dFoo_aIh :: Foo a (CDictCan)
+insertInertItemTcS }
+solveWanteds { WC {}
+solveFlats {
+solveFlats end } {}
+simpl_loop, iteration 1
+solveWanteds }
+  unsolved_flats   = {}
+  unsolved_implics = {}
+  current evbinds  = {}
+  current tybinds  = (a_aI8, [a])
+  final wc = WC {}
+floatEqualities
+  Flats = {}
+  Floated eqs = {}
+  Ty binds = [(aI8, (a_aI8, [a]))]
+solveImplication end }
+  no_given_eqs = True
+  floated_eqs = {}
+  new_fsks = []
+  res_implic = {}
+  implication evbinds =  {}
+solveNestedImplications end }
+  all floated_eqs = {}
+  unsolved_implics = {Implic {Untouchables = 1
+                              Skolems = a
+                              Flatten-skolems =
+                              No-eqs = True
+                              Given = $dFoo_aI6 :: Foo a
+                              Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+                              Binds = EvBindsVar<aIc>
+                              the type signature for foo :: Foo a => [a] -> [a]}}
+solveWanteds }
+  unsolved_flats   = {}
+  unsolved_implics = {Implic {Untouchables = 1
+                              Skolems = a
+                              Flatten-skolems =
+                              No-eqs = True
+                              Given = $dFoo_aI6 :: Foo a
+                              Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+                              Binds = EvBindsVar<aIc>
+                              the type signature for foo :: Foo a => [a] -> [a]}}
+  current evbinds  = {}
+  current tybinds  = (a_aI8, [a])
+  final wc = WC {wc_impl = Implic {Untouchables = 1
+                                   Skolems = a
+                                   Flatten-skolems =
+                                   No-eqs = True
+                                   Given = $dFoo_aI6 :: Foo a
+                                   Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+                                   Binds = EvBindsVar<aIc>
+                                   the type signature for foo :: Foo a => [a] -> [a]}}
+writeMetaTyVar a_aI8 := [a]
+Constraint solver steps = 5
+End simplifyTop }
+reportUnsolved {
+reportUnsolved (before unflattening)
+  WC {wc_impl = Implic {Untouchables = 1
+                        Skolems = a
+                        Flatten-skolems =
+                        No-eqs = True
+                        Given = $dFoo_aI6 :: Foo a
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CNonCanonical)}
+                        Binds = EvBindsVar<aIc>
+                        the type signature for foo :: Foo a => [a] -> [a]}}
+reportUnsolved (after unflattening):
+  WC {wc_impl = Implic {Untouchables = 1
+                        Skolems = a
+                        Flatten-skolems =
+                        No-eqs = True
+                        Given = $dFoo_aI6 :: Foo a
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CNonCanonical)}
+                        Binds = EvBindsVar<aIc>
+                        the type signature for foo :: Foo a => [a] -> [a]}}
+reportFlats
+  Flats = {}
+  Suppress = False
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {}
+  Suppress = False
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {}
+  Suppress = False
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {}
+  Suppress = False
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {}
+  Suppress = False
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {[W] $dFoo_aI9 :: Foo [a] (CNonCanonical)}
+  Suppress = False
+tryReporters { [[W] $dFoo_aI9 :: Foo [a] (CNonCanonical)]
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: yes Dicts [[W] $dFoo_aI9 :: Foo [a] (CNonCanonical)]
+Adding error:
+  tcfail121.hs:13:9:
+      Overlapping instances for Foo [a] arising from a use of ‘op’
+      Matching instances:
+        instance [overlap ok] Foo a => Foo [a]
+          -- Defined at tcfail121.hs:9:10
+        instance [overlap ok] Foo [Int] -- Defined at tcfail121.hs:10:10
+      (The choice depends on the instantiation of ‘a’
+       To pick the first instance above, use IncoherentInstances
+       when compiling the other instance declarations)
+      In the expression: op x
+      In an equation for ‘foo’: foo x = op x
+tryReporters }
+reportUnsolved }
+Tc9
+
+tcfail121.hs:13:9:
+    Overlapping instances for Foo [a] arising from a use of ‘op’
+    Matching instances:
+      instance [overlap ok] Foo a => Foo [a]
+        -- Defined at tcfail121.hs:9:10
+      instance [overlap ok] Foo [Int] -- Defined at tcfail121.hs:10:10
+    (The choice depends on the instantiation of ‘a’
+     To pick the first instance above, use IncoherentInstances
+     when compiling the other instance declarations)
+    In the expression: op x
+    In an equation for ‘foo’: foo x = op x

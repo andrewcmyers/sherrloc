@@ -1,0 +1,253 @@
+rn12
+rn13
+Tc2 (src)
+Tc3
+kcTyClGroup
+  module Example
+  type family F a
+env2 []
+kcTyClGroup: initial kinds [(F, AThing * -> *)]
+Generalise kind
+  F
+  * -> *
+  []
+  * -> *
+kcTyClGroup result [(F, * -> *)]
+tcTyAndCl generalized kinds [(F, * -> *)]
+tcTyAndCl-x type family F a
+env2 []
+env2 [(a, Type variable ‘a’ = a)]
+open type family: F
+Starting validity check [Type constructor ‘F’]
+env2 []
+tcFamInstDecl F
+env2 []
+tcHsTyVarBndrs {
+  Hs kind vars: []
+  Hs type vars: []
+  Kind vars: []
+  Type vars: []
+env2 []
+tc_lhs_type:
+  Int
+  Expected kind ‘*’
+lk1 Int
+lk2 Int Type constructor ‘Int’
+tc_lhs_type:
+  Bool
+  The first argument of ‘F’ should have kind ‘*’
+lk1 Bool
+lk2 Bool Type constructor ‘Bool’
+tcHsTyVarBndrs }
+  Hs kind vars: []
+  Hs type vars: []
+  Kind vars: []
+  Type vars: []
+tcFamTyPats F
+env2 []
+tc_lhs_type:
+  Int
+  Expected kind ‘*’
+lk1 Int
+lk2 Int Type constructor ‘Int’
+tcTyFamInstEqn F []
+Adding instances:
+addLocalFamInst type instance F Bool -- Defined at p2.hs:5:1
+alfi
+  Example
+  False
+checkForConflicts
+  []
+  type instance F Bool -- Defined at p2.hs:5:1
+  ([], [])
+addFamInsts type instance F Bool -- Defined at p2.hs:5:1
+env2 []
+tcDeriving
+tcDeriving False
+tcDeriving 1 []
+Adding instances:
+Tc3b
+tcAmpMissingParentClassWarn/isInsts []
+tcAmpMissingParentClassWarn/isInsts []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Monad.join []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Applicative.<*> []
+tcAmpFunctionWarn/wouldBeImported
+tcAmpFunctionWarn/amp_prelude_functions Control.Applicative.pure []
+Tc4
+Tc4a
+env2 []
+Tc5
+tc_lhs_type:
+  F Bool
+  Expected a type
+tc_lhs_type:
+  F
+  Expected kind ‘k_aHF’
+lk1 F
+lk2 F Type constructor ‘F’
+writeMetaTyVar k_aHF := * -> *
+tc_lhs_type:
+  Bool
+  The first argument of ‘F’ should have kind ‘*’
+lk1 Bool
+lk2 Bool Type constructor ‘Bool’
+tc_lhs_type:
+  Int
+  Expected a type
+lk1 Int
+lk2 Int Type constructor ‘Int’
+tcCheckHsTypeAndGen F Bool -> Int
+checkValidType F Bool -> Int :: *
+checkValidType done F Bool -> Int :: *
+env2 [(foo, Identifier[foo::F Bool -> Int, <NotTopLevel>])]
+------------------------------------------------
+Bindings for { [foo]
+Generalisation plan
+  CheckGen foo :: F Bool -> Int
+                  []
+env2 []
+tcMonoBinds
+env2 []
+tcRhs: fun bind
+  foo
+  F Bool -> Int
+tcMatchesFun
+  foo
+  F Bool -> Int
+tcGen
+env2 [(n, Identifier[n::F Bool, <NotTopLevel>])]
+tcBody Int
+utype_defer
+  cobox_aHH
+  Bool
+  Int
+  a type equality Bool ~ Int
+  In the expression: True
+  In an equation for ‘foo’: foo n = True
+addInlinePrags
+  foo
+  []
+csb2 [foo]
+} End of bindings for
+  [foo]
+  NonRecursive
+  foo F Bool -> Int
+env2 [(foo, Identifier[foo::F Bool -> Int, <TopLevel>])]
+Tc6
+env2 []
+Tc7
+End of tcVectDecls: LIE:
+  WC {wc_flat = [W] cobox_aHH :: Bool ~ Int (CNonCanonical)}
+Tc7a
+checkMain not Main Example
+Tc8
+simplifyTop {
+  wanted =  WC {wc_flat = [W] cobox_aHH :: Bool
+                                           ~ Int (CNonCanonical)}
+solveWantedsTcMWithEvBinds
+  wanted= WC {wc_flat = [W] cobox_aHH :: Bool ~ Int (CNonCanonical)}
+solveWanteds {
+  WC {wc_flat = [W] cobox_aHH :: Bool ~ Int (CNonCanonical)}
+solveFlats {
+Start solver pipeline {
+  work item =  [W] cobox_aHH :: Bool ~ Int (CNonCanonical)
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {}
+               Solved dicts 0
+               Solved funeqs 0
+runStage canonicalization {
+  workitem   =  [W] cobox_aHH :: Bool ~ Int (CNonCanonical)
+canonicalize (non-canonical)
+  [W] cobox_aHH :: Bool ~ Int (CNonCanonical)
+canEvNC:eq
+  Bool
+  Int
+can_eq_nc
+  [W] cobox_aHH :: Bool ~ Int
+  Bool
+  Bool
+  Int
+  Int
+Emit insoluble [W] cobox_aHH :: Bool ~ Int (CNonCanonical)
+end stage canonicalization }
+End solver pipeline (discharged) }
+  inerts    =  Equalities:
+               Type-function equalities:
+               No-eqs: True
+               Dictionaries:
+               Irreds:
+               Insolubles = {[W] cobox_aHH :: Bool ~ Int (CNonCanonical)}
+               Solved dicts 0
+               Solved funeqs 0
+solveFlats end } {}
+simpl_loop, iteration 1
+solveWanteds }
+  unsolved_flats   = {}
+  unsolved_implics = {}
+  current evbinds  = {}
+  current tybinds  =
+  final wc = WC {wc_insol = [W] cobox_aHH :: Bool
+                                             ~ Int (CNonCanonical)}
+Constraint solver steps = 1
+End simplifyTop }
+reportUnsolved {
+reportUnsolved (before unflattening)
+  WC {wc_insol = [W] cobox_aHH :: Bool ~ Int (CNonCanonical)}
+reportUnsolved (after unflattening):
+  WC {wc_insol = [W] cobox_aHH :: Bool ~ Int (CNonCanonical)}
+reportFlats
+  Flats = {}
+  Suppress = False
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {[W] cobox_aHH :: Bool ~ Int (CNonCanonical)}
+  Suppress = False
+tryReporters { [[W] cobox_aHH :: Bool ~ Int (CNonCanonical)]
+tryReporters: yes
+  Utterly wrong [[W] cobox_aHH :: Bool ~ Int (CNonCanonical)]
+relevantBindings [n, foo]
+Adding error:
+  p2.hs:8:9:
+      Couldn't match expected type ‘Int’ with actual type ‘Bool’
+      In the expression: True
+      In an equation for ‘foo’: foo n = True
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportFlats
+  Flats = {}
+  Suppress = True
+tryReporters { []
+tryReporters: no Utterly wrong
+tryReporters: no Holes
+tryReporters: no Skolem equalities
+tryReporters: no Equalities
+tryReporters: no Implicit params
+tryReporters: no Irreds
+tryReporters: no Dicts
+tryReporters }
+reportUnsolved }
+Tc9
+
+p2.hs:8:9:
+    Couldn't match expected type ‘Int’ with actual type ‘Bool’
+    In the expression: True
+    In an equation for ‘foo’: foo n = True
