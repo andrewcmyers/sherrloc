@@ -8,7 +8,7 @@ import java.util.List;
  * of parameters
  */
 public class Constructor extends Element {
-	private final int arity;
+	private int arity;
 	private final boolean contraVariant;
 	
 	/**
@@ -28,6 +28,13 @@ public class Constructor extends Element {
 	 */
 	public int getArity () {
 		return arity;
+	}
+	
+	/**
+	 * Set arity of a constructor (used only in varMode, where constructors are inferred from the constraint file)
+	 */
+	public void setArity(int a) {
+		arity = a;
 	}
 	
 	/**
