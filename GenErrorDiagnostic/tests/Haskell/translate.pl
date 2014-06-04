@@ -1,28 +1,114 @@
 #!/usr/bin/perl
 
+package PlainCt;
+
+sub new {
+	my $type = shift;
+	my $ct = shift;
+	my $left, $right, $rel;
+
+	if ($ct =~ /(.*) ~ (.*)/) {
+		$left = $1;
+		$right = $2;
+		$rel = "==";
+	}	
+	elsif ($ct =~ /(.*) (.*)/) {	# type class constraints
+		$left = $2;
+		$right = $1;
+		$rel = "<=";
+	}
+	else {
+		die "Cannot translate constraint $ct";
+	}
+	
+	my $self = {
+		left => $left,
+		right => $right,
+		rel => $rel 
+	};
+
+	bless $self, $type;
+	return $self;
+}
+
+# translate a plain GCH constraint element to the SHErrLoc syntax
+sub to_sherrloc_ele {
+	my $ct = shift;
+	# [x] to (list x)
+	$ct =~ s/\[(.*)\]/(list $1)/g;
+	return $ct;
+}
+
+sub print {
+	my ($self) = @_;
+	my $ret = (to_sherrloc_ele ($self->{left}));
+	$ret .= " ".$self->{rel}." ";
+	$ret .= (to_sherrloc_ele ($self->{right}));
+	return $ret;
+}
+
+sub print_wLoc {
+	my ($self, $loc) = @_;
+	my $ret = (to_sherrloc_ele ($self->{left}));
+	$ret .= "[\"\":".$loc."]";
+	$ret .= " ".$self->{rel}." ";
+	$ret .= (to_sherrloc_ele ($self->{right}));
+	$ret .= "[\"\":$loc]";
+	return $ret;
+}
+
+package Constraint;
+
+sub new {
+	my $type = shift;
+	my $ct = new PlainCt(shift);
+
+	my $self = {
+		ct => $ct,
+		desc => shift,  # description
+		loc => shift,   # location in source code
+		hypo => shift   # hypothesis
+	};
+
+	# translate location format
+	if ($self->{loc} =~ /(.*):(.*):(.*)/) {
+		my $line = $2, $col = $3, $file = $1;
+		if ($col !~ /-/) {
+			$col = "$col-$col";
+		}
+		$self->{loc} = "$line,$col\@$file";
+	}
+	else {
+		die "Cannot translate location $self->{loc}";
+	}
+
+	bless $self, $type;
+	return $self;
+}
+
+
+sub print {
+	my ($self) = @_;
+        my $line = $self->{ct}->print_wLoc($self->{loc}); 
+	$line .= " {";
+	foreach (@{$self->{hypo}}) {
+		$line .= ($_)->print().";";
+	}	
+	$line .= "};"."[\"$self->{desc}\":$self->{loc}]"."\n";
+
+	print $line;
+}
+
+package main;
 
 sub syntax_error {
 	die "Unsupported constraint syntax: $_[0]";
 }
 
-sub parse {
-	my $temp;
-	print ;
-	if (/WC {/) {
-		$header = "WC";
-		$temp = m/WC {(.*)/;
-		print "WC { $temp\n";
-		trans_WC $temp;
-	}
-	else {
-		syntax_error $_;
-	}
-}
-
-my $tracefile;
-my @constaints = ();
-my @assumptions = ();
-my $temp_str; # a constraint may occupy multiple lines
+my $tracefile;          # GHC trace file
+my @constaints = ();    # collected constraints
+my @assumptions = ();   # collected assumptions
+my $prev_ct;            # a constraint may occupy multiple lines
 
 # get an input trace file from GHC
 if ( @ARGV > 0 )
@@ -35,25 +121,7 @@ else
   exit;
 }
 
-open (TRACE, "<$tracefile");
-
-# translate to SHErrLoc syntax
-sub to_sherrloc_ct {
-	$ct = shift;
-
-	if ($ct =~ /~/) {	# equality constraints
-		$ct =~ s/~/==/g; 	# ~ to ==
-	}
-	else { 	# type class constraints
-		$ct =~ m/(.*) (.*)/;
-		$ct = $2." <= ".$1;
-	}
-	# [x] to (list x)
-	$ct =~ s/\[(.*)\]/(list $1)/g;
-	return $ct;
-}
-
-my $prev_ct;
+open (TRACE, "<$tracefile") or die "$tracefile does not exist!";
 
 # translate one plain GHC constraint (potentially incomplete)
 sub trans_ct {
@@ -63,22 +131,14 @@ sub trans_ct {
 	if ($line eq "") { # avoid empty constraints
 		return;
 	}
-	if ($line =~ /[W]/) {
-		print "  Ct: $line\n";
-	}
-	else {
+	if ($line !~ /[W]/) {
 		$line = $prev_ct." ".$line;
-		print "  Ct: $line (append)\n";
 	}
 	# remove useless annotations, and attach assumptions
-	if ($line =~ m/:: (.*) \(CNonCanonical\)/) {
-		$line = to_sherrloc_ct ($1);
-		$line .= " {";
-		foreach (@assumptions) {
-			$line .= to_sherrloc_ct ($_).";";
-		}
-		$line .= "}";
-		push (@constraints, $line);
+	if ($line =~ m/:: (.*) \[\" (.*) \" (.*)\] \(CNonCanonical\)/) {
+		print "  Ct: $line\n";
+		# need to make sure pass in an array reference, instead of an array
+		push (@constraints, new Constraint($1, $2, $3, \@assumptions));
 	}
 	$prev_ct = $line;
 }
@@ -92,10 +152,10 @@ sub trans_as {
 
 	#remove useless annotations
 	if ($line =~ m/:: (.*)/) {
-		push (@assumptions, $1);
+		push (@assumptions, new PlainCt($1));
 	}
 	else {
-		die "Unrecognized assumption: $line\n";
+		die "Cannot translate assumption: $line\n";
 	}
 }
 
@@ -190,7 +250,11 @@ while (<TRACE>) {
 	# get the original constraints that caused errors
 	if (/^originalCts/) {
 		my $next = <TRACE>;
-		if ($next =~ /WC \{/) {
+		if ($next =~ /fvars =  \[(.*)\](.*)/) {
+			print "Free vars: $1\n";
+			if ($2 !~ /wanted =/) {
+				$next = <TRACE>;
+			}
 			@constraints = ();
 			@assumptions = ();
 			print "Translating wanted constraints:\n";
@@ -198,7 +262,7 @@ while (<TRACE>) {
 			# output translated constraints
 			print "Translated SHErrLoc constraints:\n";
 			foreach (@constraints) {
-				print $_.";\n";
+				$_->print();
 			}
 		}
 		else {
