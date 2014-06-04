@@ -39,6 +39,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 /* keywords */
 
 <YYINITIAL> "CONSTRUCTOR"           { return symbol(sym.CONSTRUCTOR); }
+<YYINITIAL> "VARIABLE"              { return symbol(sym.VARIABLE); }
 <YYINITIAL> "MEET"           		{ return symbol(sym.MEET); }
 <YYINITIAL> "meet"           		{ return symbol(sym.MEET); }
 <YYINITIAL> "\u2293" 				{ return symbol(sym.MEET); }        /* ⊓ */
