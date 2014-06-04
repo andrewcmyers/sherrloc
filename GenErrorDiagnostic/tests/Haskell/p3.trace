@@ -232,7 +232,8 @@ simplifyAmbiguityCheck {
                                   Flatten-skolems =
                                   No-eqs = False
                                   Given = $dFoo_aHY :: Foo a
-                                  Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+                                  Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo
+                                                                            a_aHZ [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CNonCanonical)}
                                   Binds = EvBindsVar<aI2>
                                   the type signature for foo :: Foo a => [a] -> [a]}}
 solveWantedsTcMWithEvBinds
@@ -241,7 +242,8 @@ solveWantedsTcMWithEvBinds
                                 Flatten-skolems =
                                 No-eqs = False
                                 Given = $dFoo_aHY :: Foo a
-                                Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+                                Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo
+                                                                          a_aHZ [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CNonCanonical)}
                                 Binds = EvBindsVar<aI2>
                                 the type signature for foo :: Foo a => [a] -> [a]}}
 solveWanteds {
@@ -250,7 +252,8 @@ solveWanteds {
                         Flatten-skolems =
                         No-eqs = False
                         Given = $dFoo_aHY :: Foo a
-                        Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+                        Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo
+                                                                  a_aHZ [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CNonCanonical)}
                         Binds = EvBindsVar<aI2>
                         the type signature for foo :: Foo a => [a] -> [a]}}
 solveFlats {
@@ -279,11 +282,14 @@ solveImplication {
           Flatten-skolems =
           No-eqs = False
           Given = $dFoo_aHY :: Foo a
-          Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+          Wanted = WC {wc_flat = [W] $dFoo_aI1 :: Foo
+                                                    a_aHZ [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CNonCanonical)}
           Binds = EvBindsVar<aI2>
           the type signature for foo :: Foo a => [a] -> [a]}
 Start solver pipeline {
-  work item =  [G] $dFoo_aHY :: Foo a (CNonCanonical)
+  work item =  [G] $dFoo_aHY :: Foo a [" the type signature for
+                                           foo :: Foo a =>
+                                                  [a] -> [a] " p3.hs:13:8-26] (CNonCanonical)
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
@@ -293,8 +299,12 @@ Start solver pipeline {
                Solved dicts 0
                Solved funeqs 0
 runStage canonicalization {
-  workitem   =  [G] $dFoo_aHY :: Foo a (CNonCanonical)
-canonicalize (non-canonical) [G] $dFoo_aHY :: Foo a (CNonCanonical)
+  workitem   =  [G] $dFoo_aHY :: Foo a [" the type signature for
+                                            foo :: Foo a =>
+                                                   [a] -> [a] " p3.hs:13:8-26] (CNonCanonical)
+canonicalize (non-canonical)
+  [G] $dFoo_aHY :: Foo a [" the type signature for
+                              foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CNonCanonical)
 canEvNC:cls Foo [a]
 canClass
   [G] $dFoo_aHY :: Foo a Foo [a]
@@ -302,15 +312,20 @@ canClass
   Just [G] $dFoo_aHY :: Foo a
 end stage canonicalization }
 runStage interact with inerts {
-  workitem   =  [G] $dFoo_aHY :: Foo a (CDictCan)
+  workitem   =  [G] $dFoo_aHY :: Foo a [" the type signature for
+                                            foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
 end stage interact with inerts }
 runStage top-level reactions {
-  workitem   =  [G] $dFoo_aHY :: Foo a (CDictCan)
-doTopReact [G] $dFoo_aHY :: Foo a (CDictCan)
+  workitem   =  [G] $dFoo_aHY :: Foo a [" the type signature for
+                                            foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
+doTopReact
+  [G] $dFoo_aHY :: Foo a [" the type signature for
+                              foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
 end stage top-level reactions }
 1[<C:0,F:0>] [G] $dFoo_aHY :: Foo a: Kept as inert
 End solver pipeline (not discharged) }
-  final_item =  [G] $dFoo_aHY :: Foo a (CDictCan)
+  final_item =  [G] $dFoo_aHY :: Foo a [" the type signature for
+                                            foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
   a
   inerts     =  Equalities:
                 Type-function equalities:
@@ -321,25 +336,36 @@ End solver pipeline (not discharged) }
                 Solved dicts 0
                 Solved funeqs 0
 insertInertItemTcS {
-  Trying to insert new inert item: [G] $dFoo_aHY :: Foo a (CDictCan)
+  Trying to insert new inert item: [G] $dFoo_aHY :: Foo
+                                                      a [" the type signature for
+                                                             foo :: Foo a =>
+                                                                    [a]
+                                                                    -> [a] " p3.hs:13:8-26] (CDictCan)
 insertInertItemTcS }
 solveWanteds {
-  WC {wc_flat = [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)}
+  WC {wc_flat = [W] $dFoo_aI1 :: Foo
+                                   a_aHZ [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CNonCanonical)}
 solveFlats {
 Start solver pipeline {
-  work item =  [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)
+  work item =  [W] $dFoo_aI1 :: Foo
+                                  a_aHZ [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CNonCanonical)
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
-               Dictionaries: [G] $dFoo_aHY :: Foo a (CDictCan)
+               Dictionaries: [G] $dFoo_aHY :: Foo a [" the type signature for
+                                                         foo :: Foo a =>
+                                                                [a]
+                                                                -> [a] " p3.hs:13:8-26] (CDictCan)
                Irreds:
                Insolubles = {}
                Solved dicts 0
                Solved funeqs 0
 runStage canonicalization {
-  workitem   =  [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)
+  workitem   =  [W] $dFoo_aI1 :: Foo
+                                   a_aHZ [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CNonCanonical)
 canonicalize (non-canonical)
-  [W] $dFoo_aI1 :: Foo a_aHZ (CNonCanonical)
+  [W] $dFoo_aI1 :: Foo
+                     a_aHZ [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CNonCanonical)
 canEvNC:cls Foo [a_aHZ]
 Following filled tyvar a_aHZ = a
 canClass
@@ -349,7 +375,8 @@ canClass
 newSCWork/Derived impr_theta = []
 end stage canonicalization }
 runStage interact with inerts {
-  workitem   =  [W] $dFoo_aI1 :: Foo a (CDictCan)
+  workitem   =  [W] $dFoo_aI1 :: Foo
+                                   a [" the ambiguity check for ‘foo’ " p3.hs:13:8-26] (CDictCan)
 setEvBind
   ev = $dFoo_aI1
   tm  = $dFoo_aHY
@@ -359,7 +386,10 @@ End solver pipeline (discharged) }
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
-               Dictionaries: [G] $dFoo_aHY :: Foo a (CDictCan)
+               Dictionaries: [G] $dFoo_aHY :: Foo a [" the type signature for
+                                                         foo :: Foo a =>
+                                                                [a]
+                                                                -> [a] " p3.hs:13:8-26] (CDictCan)
                Irreds:
                Insolubles = {}
                Solved dicts 0
@@ -480,9 +510,14 @@ End of tcVectDecls: LIE:
                         Flatten-skolems =
                         No-eqs = False
                         Given = $dFoo_aI6 :: Foo a
-                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
-                                               [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
-                                               [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                  a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
+                                               [W] cobox_aIa :: a_aI8 ~ [a] [" a type equality a_aI8
+                                                                                               ~
+                                                                                               [a] " p3.hs:14:9-12] (CNonCanonical)
+                                               [W] cobox_aIb :: [a] ~ a_aI8 [" a type equality [a]
+                                                                                               ~
+                                                                                               a_aI8 " p3.hs:14:12] (CNonCanonical)}
                         Binds = EvBindsVar<aIc>
                         the type signature for foo :: Foo a => [a] -> [a]}
                 Implic {Untouchables = 1
@@ -502,11 +537,16 @@ simplifyTop {
                                   Flatten-skolems =
                                   No-eqs = False
                                   Given = $dFoo_aI6 :: Foo a
-                                  Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                                  Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                            a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
                                                          [W] cobox_aIa :: a_aI8
-                                                                          ~ [a] (CNonCanonical)
+                                                                          ~ [a] [" a type equality a_aI8
+                                                                                                   ~
+                                                                                                   [a] " p3.hs:14:9-12] (CNonCanonical)
                                                          [W] cobox_aIb :: [a]
-                                                                          ~ a_aI8 (CNonCanonical)}
+                                                                          ~ a_aI8 [" a type equality [a]
+                                                                                                     ~
+                                                                                                     a_aI8 " p3.hs:14:12] (CNonCanonical)}
                                   Binds = EvBindsVar<aIc>
                                   the type signature for foo :: Foo a => [a] -> [a]}
                           Implic {Untouchables = 1
@@ -523,9 +563,16 @@ solveWantedsTcMWithEvBinds
                                 Flatten-skolems =
                                 No-eqs = False
                                 Given = $dFoo_aI6 :: Foo a
-                                Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
-                                                       [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
-                                                       [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+                                Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                          a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
+                                                       [W] cobox_aIa :: a_aI8
+                                                                        ~ [a] [" a type equality a_aI8
+                                                                                                 ~
+                                                                                                 [a] " p3.hs:14:9-12] (CNonCanonical)
+                                                       [W] cobox_aIb :: [a]
+                                                                        ~ a_aI8 [" a type equality [a]
+                                                                                                   ~
+                                                                                                   a_aI8 " p3.hs:14:12] (CNonCanonical)}
                                 Binds = EvBindsVar<aIc>
                                 the type signature for foo :: Foo a => [a] -> [a]}
                         Implic {Untouchables = 1
@@ -542,9 +589,14 @@ solveWanteds {
                         Flatten-skolems =
                         No-eqs = False
                         Given = $dFoo_aI6 :: Foo a
-                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
-                                               [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
-                                               [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                  a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
+                                               [W] cobox_aIa :: a_aI8 ~ [a] [" a type equality a_aI8
+                                                                                               ~
+                                                                                               [a] " p3.hs:14:9-12] (CNonCanonical)
+                                               [W] cobox_aIb :: [a] ~ a_aI8 [" a type equality [a]
+                                                                                               ~
+                                                                                               a_aI8 " p3.hs:14:12] (CNonCanonical)}
                         Binds = EvBindsVar<aIc>
                         the type signature for foo :: Foo a => [a] -> [a]}
                 Implic {Untouchables = 1
@@ -581,13 +633,20 @@ solveImplication {
           Flatten-skolems =
           No-eqs = False
           Given = $dFoo_aI6 :: Foo a
-          Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
-                                 [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
-                                 [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+          Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                    a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
+                                 [W] cobox_aIa :: a_aI8 ~ [a] [" a type equality a_aI8
+                                                                                 ~
+                                                                                 [a] " p3.hs:14:9-12] (CNonCanonical)
+                                 [W] cobox_aIb :: [a] ~ a_aI8 [" a type equality [a]
+                                                                                 ~
+                                                                                 a_aI8 " p3.hs:14:12] (CNonCanonical)}
           Binds = EvBindsVar<aIc>
           the type signature for foo :: Foo a => [a] -> [a]}
 Start solver pipeline {
-  work item =  [G] $dFoo_aI6 :: Foo a (CNonCanonical)
+  work item =  [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                           foo :: Foo a =>
+                                                  [a] -> [a] " p3.hs:13:8-26] (CNonCanonical)
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
@@ -597,8 +656,12 @@ Start solver pipeline {
                Solved dicts 0
                Solved funeqs 0
 runStage canonicalization {
-  workitem   =  [G] $dFoo_aI6 :: Foo a (CNonCanonical)
-canonicalize (non-canonical) [G] $dFoo_aI6 :: Foo a (CNonCanonical)
+  workitem   =  [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                            foo :: Foo a =>
+                                                   [a] -> [a] " p3.hs:13:8-26] (CNonCanonical)
+canonicalize (non-canonical)
+  [G] $dFoo_aI6 :: Foo a [" the type signature for
+                              foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CNonCanonical)
 canEvNC:cls Foo [a]
 canClass
   [G] $dFoo_aI6 :: Foo a Foo [a]
@@ -606,15 +669,20 @@ canClass
   Just [G] $dFoo_aI6 :: Foo a
 end stage canonicalization }
 runStage interact with inerts {
-  workitem   =  [G] $dFoo_aI6 :: Foo a (CDictCan)
+  workitem   =  [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                            foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
 end stage interact with inerts }
 runStage top-level reactions {
-  workitem   =  [G] $dFoo_aI6 :: Foo a (CDictCan)
-doTopReact [G] $dFoo_aI6 :: Foo a (CDictCan)
+  workitem   =  [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                            foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
+doTopReact
+  [G] $dFoo_aI6 :: Foo a [" the type signature for
+                              foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
 end stage top-level reactions }
 1[<C:0,F:0>] [G] $dFoo_aI6 :: Foo a: Kept as inert
 End solver pipeline (not discharged) }
-  final_item =  [G] $dFoo_aI6 :: Foo a (CDictCan)
+  final_item =  [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                            foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
   a
   inerts     =  Equalities:
                 Type-function equalities:
@@ -625,27 +693,45 @@ End solver pipeline (not discharged) }
                 Solved dicts 0
                 Solved funeqs 0
 insertInertItemTcS {
-  Trying to insert new inert item: [G] $dFoo_aI6 :: Foo a (CDictCan)
+  Trying to insert new inert item: [G] $dFoo_aI6 :: Foo
+                                                      a [" the type signature for
+                                                             foo :: Foo a =>
+                                                                    [a]
+                                                                    -> [a] " p3.hs:13:8-26] (CDictCan)
 insertInertItemTcS }
 solveWanteds {
-  WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
-                [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
-                [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)}
+  WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                   a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
+                [W] cobox_aIa :: a_aI8 ~ [a] [" a type equality a_aI8
+                                                                ~
+                                                                [a] " p3.hs:14:9-12] (CNonCanonical)
+                [W] cobox_aIb :: [a] ~ a_aI8 [" a type equality [a]
+                                                                ~
+                                                                a_aI8 " p3.hs:14:12] (CNonCanonical)}
 solveFlats {
 Start solver pipeline {
-  work item =  [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+  work item =  [W] cobox_aIa :: a_aI8 ~ [a] [" a type equality a_aI8
+                                                               ~
+                                                               [a] " p3.hs:14:9-12] (CNonCanonical)
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
-               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Dictionaries: [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                                         foo :: Foo a =>
+                                                                [a]
+                                                                -> [a] " p3.hs:13:8-26] (CDictCan)
                Irreds:
                Insolubles = {}
                Solved dicts 0
                Solved funeqs 0
 runStage canonicalization {
-  workitem   =  [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+  workitem   =  [W] cobox_aIa :: a_aI8 ~ [a] [" a type equality a_aI8
+                                                                ~
+                                                                [a] " p3.hs:14:9-12] (CNonCanonical)
 canonicalize (non-canonical)
-  [W] cobox_aIa :: a_aI8 ~ [a] (CNonCanonical)
+  [W] cobox_aIa :: a_aI8 ~ [a] [" a type equality a_aI8
+                                                  ~
+                                                  [a] " p3.hs:14:9-12] (CNonCanonical)
 canEvNC:eq
   a_aI8
   [a]
@@ -661,7 +747,9 @@ canEqTyVar
   Not-swapped
 end stage canonicalization }
 runStage interact with inerts {
-  workitem   =  [W] cobox_aIa :: a_aI8 ~ [a] (CTyEqCan)
+  workitem   =  [W] cobox_aIa :: a_aI8 ~ [a] [" a type equality a_aI8
+                                                                ~
+                                                                [a] " p3.hs:14:9-12] (CTyEqCan)
 Sneaky unification:
   Unifies: a_aI8 := [a]
   Coercion: a_aI8 ~ [a]
@@ -682,25 +770,37 @@ End solver pipeline (discharged) }
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
-               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Dictionaries: [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                                         foo :: Foo a =>
+                                                                [a]
+                                                                -> [a] " p3.hs:13:8-26] (CDictCan)
                Irreds:
                Insolubles = {}
                Solved dicts 0
                Solved funeqs 0
 Start solver pipeline {
-  work item =  [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)
+  work item =  [W] cobox_aIb :: [a] ~ a_aI8 [" a type equality [a]
+                                                               ~
+                                                               a_aI8 " p3.hs:14:12] (CNonCanonical)
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
-               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Dictionaries: [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                                         foo :: Foo a =>
+                                                                [a]
+                                                                -> [a] " p3.hs:13:8-26] (CDictCan)
                Irreds:
                Insolubles = {}
                Solved dicts 0
                Solved funeqs 0
 runStage canonicalization {
-  workitem   =  [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)
+  workitem   =  [W] cobox_aIb :: [a] ~ a_aI8 [" a type equality [a]
+                                                                ~
+                                                                a_aI8 " p3.hs:14:12] (CNonCanonical)
 canonicalize (non-canonical)
-  [W] cobox_aIb :: [a] ~ a_aI8 (CNonCanonical)
+  [W] cobox_aIb :: [a] ~ a_aI8 [" a type equality [a]
+                                                  ~
+                                                  a_aI8 " p3.hs:14:12] (CNonCanonical)
 canEvNC:eq
   [a]
   a_aI8
@@ -761,25 +861,34 @@ End solver pipeline (discharged) }
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
-               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Dictionaries: [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                                         foo :: Foo a =>
+                                                                [a]
+                                                                -> [a] " p3.hs:13:8-26] (CDictCan)
                Irreds:
                Insolubles = {}
                Solved dicts 0
                Solved funeqs 0
 Start solver pipeline {
-  work item =  [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+  work item =  [W] $dFoo_aI9 :: Foo
+                                  a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
-               Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+               Dictionaries: [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                                         foo :: Foo a =>
+                                                                [a]
+                                                                -> [a] " p3.hs:13:8-26] (CDictCan)
                Irreds:
                Insolubles = {}
                Solved dicts 0
                Solved funeqs 0
 runStage canonicalization {
-  workitem   =  [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+  workitem   =  [W] $dFoo_aI9 :: Foo
+                                   a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
 canonicalize (non-canonical)
-  [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+  [W] $dFoo_aI9 :: Foo
+                     a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
 canEvNC:cls Foo [a_aI8]
 Following bound tyvar a_aI8 = [a]
 canClass
@@ -789,21 +898,29 @@ canClass
 newSCWork/Derived impr_theta = []
 end stage canonicalization }
 runStage interact with inerts {
-  workitem   =  [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+  workitem   =  [W] $dFoo_aI9 :: Foo
+                                   [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)
 addFuNDepWork
-  inertItem = [G] $dFoo_aI6 :: Foo a (CDictCan)
-  workItem  = [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+  inertItem = [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                          foo :: Foo a => [a] -> [a] " p3.hs:13:8-26] (CDictCan)
+  workItem  = [W] $dFoo_aI9 :: Foo
+                                 [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)
   fundeps = []
 end stage interact with inerts }
 runStage top-level reactions {
-  workitem   =  [W] $dFoo_aI9 :: Foo [a] (CDictCan)
-doTopReact [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+  workitem   =  [W] $dFoo_aI9 :: Foo
+                                   [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)
+doTopReact
+  [W] $dFoo_aI9 :: Foo
+                     [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)
 matchClassInst
   pred = Foo [a]
   inerts= Equalities:
           Type-function equalities:
           No-eqs: True
-          Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+          Dictionaries: [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                                    foo :: Foo a =>
+                                                           [a] -> [a] " p3.hs:13:8-26] (CDictCan)
           Irreds:
           Insolubles = {}
           Solved dicts 0
@@ -817,32 +934,39 @@ matchClass multiple matches, deferring choice
 end stage top-level reactions }
 4[<C:0,F:0>] [W] $dFoo_aI9 :: Foo [a]: Kept as inert
 End solver pipeline (not discharged) }
-  final_item =  [W] $dFoo_aI9 :: Foo [a] (CDictCan)
+  final_item =  [W] $dFoo_aI9 :: Foo
+                                   [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)
   a
   inerts     =  Equalities:
                 Type-function equalities:
                 No-eqs: True
-                Dictionaries: [G] $dFoo_aI6 :: Foo a (CDictCan)
+                Dictionaries: [G] $dFoo_aI6 :: Foo a [" the type signature for
+                                                          foo :: Foo a =>
+                                                                 [a]
+                                                                 -> [a] " p3.hs:13:8-26] (CDictCan)
                 Irreds:
                 Insolubles = {}
                 Solved dicts 0
                 Solved funeqs 0
 insertInertItemTcS {
   Trying to insert new inert item: [W] $dFoo_aI9 :: Foo
-                                                      [a] (CDictCan)
+                                                      [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)
 insertInertItemTcS }
 solveFlats end } {}
 simpl_loop, iteration 1
 solveWanteds }
-  unsolved_flats   = {[W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+  unsolved_flats   = {[W] $dFoo_aI9 :: Foo
+                                         [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)}
   unsolved_implics = {}
   current evbinds  = {cobox_aIa = CO <[a]>_N,
                       cobox_aIb = CO Sym cobox_aIn, cobox_aIn = CO [cobox_aIo]_N,
                       cobox_aIo = CO <a>_N}
   current tybinds  = (a_aI8, [a])
-  final wc = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+  final wc = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                              [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)}
 floatEqualities
-  Flats = {[W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+  Flats = {[W] $dFoo_aI9 :: Foo
+                              [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)}
   Floated eqs = {}
   Ty binds = [(aI8, (a_aI8, [a]))]
 solveImplication end }
@@ -854,7 +978,8 @@ solveImplication end }
                         Flatten-skolems =
                         No-eqs = True
                         Given = $dFoo_aI6 :: Foo a
-                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                  [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)}
                         Binds = EvBindsVar<aIc>
                         the type signature for foo :: Foo a => [a] -> [a]}}
   implication evbinds =  {}
@@ -868,7 +993,8 @@ solveImplication {
           Binds = EvBindsVar<aIi>
           the instance declaration}
 Start solver pipeline {
-  work item =  [G] $dFoo_aIh :: Foo a (CNonCanonical)
+  work item =  [G] $dFoo_aIh :: Foo
+                                  a [" the instance declaration " p3.hs:10:10-25] (CNonCanonical)
   inerts    =  Equalities:
                Type-function equalities:
                No-eqs: True
@@ -878,8 +1004,11 @@ Start solver pipeline {
                Solved dicts 0
                Solved funeqs 0
 runStage canonicalization {
-  workitem   =  [G] $dFoo_aIh :: Foo a (CNonCanonical)
-canonicalize (non-canonical) [G] $dFoo_aIh :: Foo a (CNonCanonical)
+  workitem   =  [G] $dFoo_aIh :: Foo
+                                   a [" the instance declaration " p3.hs:10:10-25] (CNonCanonical)
+canonicalize (non-canonical)
+  [G] $dFoo_aIh :: Foo
+                     a [" the instance declaration " p3.hs:10:10-25] (CNonCanonical)
 canEvNC:cls Foo [a]
 canClass
   [G] $dFoo_aIh :: Foo a Foo [a]
@@ -887,15 +1016,20 @@ canClass
   Just [G] $dFoo_aIh :: Foo a
 end stage canonicalization }
 runStage interact with inerts {
-  workitem   =  [G] $dFoo_aIh :: Foo a (CDictCan)
+  workitem   =  [G] $dFoo_aIh :: Foo
+                                   a [" the instance declaration " p3.hs:10:10-25] (CDictCan)
 end stage interact with inerts }
 runStage top-level reactions {
-  workitem   =  [G] $dFoo_aIh :: Foo a (CDictCan)
-doTopReact [G] $dFoo_aIh :: Foo a (CDictCan)
+  workitem   =  [G] $dFoo_aIh :: Foo
+                                   a [" the instance declaration " p3.hs:10:10-25] (CDictCan)
+doTopReact
+  [G] $dFoo_aIh :: Foo
+                     a [" the instance declaration " p3.hs:10:10-25] (CDictCan)
 end stage top-level reactions }
 5[<C:0,F:0>] [G] $dFoo_aIh :: Foo a: Kept as inert
 End solver pipeline (not discharged) }
-  final_item =  [G] $dFoo_aIh :: Foo a (CDictCan)
+  final_item =  [G] $dFoo_aIh :: Foo
+                                   a [" the instance declaration " p3.hs:10:10-25] (CDictCan)
   a
   inerts     =  Equalities:
                 Type-function equalities:
@@ -906,7 +1040,8 @@ End solver pipeline (not discharged) }
                 Solved dicts 0
                 Solved funeqs 0
 insertInertItemTcS {
-  Trying to insert new inert item: [G] $dFoo_aIh :: Foo a (CDictCan)
+  Trying to insert new inert item: [G] $dFoo_aIh :: Foo
+                                                      a [" the instance declaration " p3.hs:10:10-25] (CDictCan)
 insertInertItemTcS }
 solveWanteds { WC {}
 solveFlats {
@@ -935,7 +1070,8 @@ solveNestedImplications end }
                               Flatten-skolems =
                               No-eqs = True
                               Given = $dFoo_aI6 :: Foo a
-                              Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+                              Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                        [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)}
                               Binds = EvBindsVar<aIc>
                               the type signature for foo :: Foo a => [a] -> [a]}}
 solveWanteds }
@@ -945,7 +1081,8 @@ solveWanteds }
                               Flatten-skolems =
                               No-eqs = True
                               Given = $dFoo_aI6 :: Foo a
-                              Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+                              Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                        [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)}
                               Binds = EvBindsVar<aIc>
                               the type signature for foo :: Foo a => [a] -> [a]}}
   current evbinds  = {}
@@ -955,7 +1092,8 @@ solveWanteds }
                                    Flatten-skolems =
                                    No-eqs = True
                                    Given = $dFoo_aI6 :: Foo a
-                                   Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CDictCan)}
+                                   Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                             [a] [" a use of ‘op’ " p3.hs:14:9-10] (CDictCan)}
                                    Binds = EvBindsVar<aIc>
                                    the type signature for foo :: Foo a => [a] -> [a]}}
 writeMetaTyVar a_aI8 := [a]
@@ -968,7 +1106,8 @@ reportUnsolved (before unflattening)
                         Flatten-skolems =
                         No-eqs = True
                         Given = $dFoo_aI6 :: Foo a
-                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CNonCanonical)}
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                  [a] [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)}
                         Binds = EvBindsVar<aIc>
                         the type signature for foo :: Foo a => [a] -> [a]}}
 reportUnsolved (after unflattening):
@@ -977,7 +1116,8 @@ reportUnsolved (after unflattening):
                         Flatten-skolems =
                         No-eqs = True
                         Given = $dFoo_aI6 :: Foo a
-                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo [a] (CNonCanonical)}
+                        Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                  [a] [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)}
                         Binds = EvBindsVar<aIc>
                         the type signature for foo :: Foo a => [a] -> [a]}}
 reportFlats
@@ -1041,16 +1181,21 @@ tryReporters: no Irreds
 tryReporters: no Dicts
 tryReporters }
 reportFlats
-  Flats = {[W] $dFoo_aI9 :: Foo [a] (CNonCanonical)}
+  Flats = {[W] $dFoo_aI9 :: Foo
+                              [a] [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)}
   Suppress = False
-tryReporters { [[W] $dFoo_aI9 :: Foo [a] (CNonCanonical)]
+tryReporters {
+  [[W] $dFoo_aI9 :: Foo
+                      [a] [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)]
 tryReporters: no Utterly wrong
 tryReporters: no Holes
 tryReporters: no Skolem equalities
 tryReporters: no Equalities
 tryReporters: no Implicit params
 tryReporters: no Irreds
-tryReporters: yes Dicts [[W] $dFoo_aI9 :: Foo [a] (CNonCanonical)]
+tryReporters: yes
+  Dicts [[W] $dFoo_aI9 :: Foo
+                            [a] [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)]
 Adding error:
   p3.hs:14:9:
       Overlapping instances for Foo [a] arising from a use of ‘op’
@@ -1065,16 +1210,22 @@ Adding error:
 tryReporters }
 reportUnsolved }
 originalCts (simplifyTop)
+  fvars =  [(aI8, a_aI8)]
   wanted =  WC {wc_impl = Implic {Untouchables = 1
                                   Skolems = a
                                   Flatten-skolems =
                                   No-eqs = False
                                   Given = $dFoo_aI6 :: Foo a
-                                  Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo a_aI8 (CNonCanonical)
+                                  Wanted = WC {wc_flat = [W] $dFoo_aI9 :: Foo
+                                                                            a_aI8 [" a use of ‘op’ " p3.hs:14:9-10] (CNonCanonical)
                                                          [W] cobox_aIa :: a_aI8
-                                                                          ~ [a] (CNonCanonical)
+                                                                          ~ [a] [" a type equality a_aI8
+                                                                                                   ~
+                                                                                                   [a] " p3.hs:14:9-12] (CNonCanonical)
                                                          [W] cobox_aIb :: [a]
-                                                                          ~ a_aI8 (CNonCanonical)}
+                                                                          ~ a_aI8 [" a type equality [a]
+                                                                                                     ~
+                                                                                                     a_aI8 " p3.hs:14:12] (CNonCanonical)}
                                   Binds = EvBindsVar<aIc>
                                   the type signature for foo :: Foo a => [a] -> [a]}
                           Implic {Untouchables = 1
