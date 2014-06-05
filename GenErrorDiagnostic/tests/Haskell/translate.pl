@@ -1,11 +1,12 @@
 #!/usr/bin/perl
+use strict;
 
 package PlainCt;
 
 sub new {
 	my $type = shift;
 	my $ct = shift;
-	my $left, $right, $rel;
+	my ($left, $right, $rel);
 
 	if ($ct =~ /(.*) ~ (.*)/) {
 		$left = $1;
@@ -42,7 +43,7 @@ sub to_sherrloc_ele {
 sub print {
 	my ($self) = @_;
 	my $ret = (to_sherrloc_ele ($self->{left}));
-	$ret .= " ".$self->{rel}." ";
+	$ret .= " $self->{rel} ";
 	$ret .= (to_sherrloc_ele ($self->{right}));
 	return $ret;
 }
@@ -50,8 +51,8 @@ sub print {
 sub print_wLoc {
 	my ($self, $loc) = @_;
 	my $ret = (to_sherrloc_ele ($self->{left}));
-	$ret .= "[\"\":".$loc."]";
-	$ret .= " ".$self->{rel}." ";
+	$ret .= "[\"\":$loc]";
+	$ret .= " $self->{rel} ";
 	$ret .= (to_sherrloc_ele ($self->{right}));
 	$ret .= "[\"\":$loc]";
 	return $ret;
@@ -62,25 +63,34 @@ package Constraint;
 sub new {
 	my $type = shift;
 	my $ct = new PlainCt(shift);
+	my $desc = shift;
+	my $loc = shift;
+	my $hypo = shift;
+	my @hypolist = ();
 
-	my $self = {
-		ct => $ct,
-		desc => shift,  # description
-		loc => shift,   # location in source code
-		hypo => shift   # hypothesis
-	};
+	foreach (@{$hypo}) {
+		push (@hypolist, $_);
+	}	
+
 
 	# translate location format
-	if ($self->{loc} =~ /(.*):(.*):(.*)/) {
-		my $line = $2, $col = $3, $file = $1;
+	if ($loc =~ /(.*):(.*):(.*)/) {
+		my ($line, $col, $file) = ($2, $3, $1);
 		if ($col !~ /-/) {
 			$col = "$col-$col";
 		}
-		$self->{loc} = "$line,$col\@$file";
+		$loc = "$line,$col\@$file";
 	}
 	else {
-		die "Cannot translate location $self->{loc}";
+		die "Cannot translate location $loc";
 	}
+
+	my $self = {
+		ct => $ct,
+		desc => $desc,      # description
+		loc => $loc,        # location in source code
+		hypo => \@hypolist   # hypothesis
+	};
 
 	bless $self, $type;
 	return $self;
@@ -94,9 +104,9 @@ sub print {
 	foreach (@{$self->{hypo}}) {
 		$line .= ($_)->print().";";
 	}	
-	$line .= "};"."[\"$self->{desc}\":$self->{loc}]"."\n";
+	$line .= "};[\"$self->{desc}\":$self->{loc}]\n";
 
-	print $line;
+	return $line;
 }
 
 package main;
@@ -106,7 +116,7 @@ sub syntax_error {
 }
 
 my $tracefile;          # GHC trace file
-my @constaints = ();    # collected constraints
+my @constraints = ();    # collected constraints
 my @assumptions = ();   # collected assumptions
 my $prev_ct;            # a constraint may occupy multiple lines
 
@@ -122,6 +132,8 @@ else
 }
 
 open (TRACE, "<$tracefile") or die "$tracefile does not exist!";
+my ($outfile) = $tracefile =~ /(.*)?\./;
+open (OUT, ">$outfile.con") or die "Cannot open output file $outfile.con!";
 
 # translate one plain GHC constraint (potentially incomplete)
 sub trans_ct {
@@ -241,17 +253,13 @@ sub trans_implic {
 	return $tail;
 }
 
-# output the constraints into SHErrLoc syntax
-sub output_sherrloc {
-}
-
 while (<TRACE>) {
 
 	# get the original constraints that caused errors
 	if (/^originalCts/) {
 		my $next = <TRACE>;
 		if ($next =~ /fvars =  \[(.*)\](.*)/) {
-			print "Free vars: $1\n";
+			my $vars = $1;
 			if ($2 !~ /wanted =/) {
 				$next = <TRACE>;
 			}
@@ -261,13 +269,24 @@ while (<TRACE>) {
 			trans_WC $next;
 			# output translated constraints
 			print "Translated SHErrLoc constraints:\n";
+			if ($vars =~ /\((.*)\)/) {
+				my @vars = split(',', $1);
+				foreach (@vars) {
+					print OUT ("VARIABLE $_\n");
+				}
+			}
+			print OUT "\n";
 			foreach (@constraints) {
-				$_->print();
+				print OUT ($_->print());
 			}
 		}
 		else {
 			syntax_error $next;
 		}
-		print "\n";
 	}
 }
+
+close TRACE;
+close OUT;
+
+system ("cat", "$outfile.con");
