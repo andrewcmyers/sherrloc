@@ -83,10 +83,8 @@ cons_spec 	::= declaration
 					constructors.put("*",  new Top(Position.EmptyPosition())); 
 			:} 
 				equations:l
-			{: for (String con : constructors.keySet()) {
-			       System.out.println("@@@"+con);
-			   }
-			   RESULT = new DiagnosisInput (env, l); :}
+			{: 
+			    RESULT = new DiagnosisInput (env, l); :}
 			;
 
 declaration  ::= constructors
