@@ -122,29 +122,12 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 	}
 	
-	/**
-	 * Record the evidence supporting the inference
-	 * 
-	 * @param startIdx Index of start node
-	 * @param endIdx Index of end node
-	 * @param type Inferred type
-	 * @param evidence Evidences supporting the inference
-	 */
-	protected void addNextHop (Node start, Node end, EdgeCondition type, List<Triple> evidence) {
-		nextHop[start.getIndex()][end.getIndex()].get(type).clear();
-		nextHop[start.getIndex()][end.getIndex()].get(type).add(evidence);
-	}
-	
 	@Override
 	protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence, boolean isAtomic) {	
 		if (nextHop[start.getIndex()][end.getIndex()] == null)
-			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, Set<List<Triple>>>();
+			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, List<Triple>>();
 		
-		if (!nextHop[start.getIndex()][end.getIndex()].containsKey(inferredType)) {
-			Set<List<Triple>> eset = new HashSet<List<Triple>>();
-			nextHop[start.getIndex()][end.getIndex()].put(inferredType, eset);
-		}
-		addNextHop(start, end, inferredType, evidence);
+		nextHop[start.getIndex()][end.getIndex()].put(inferredType, evidence);
 		
 		if (inferredType instanceof LeqCondition) {
 			queue.offer(new LeqEdge(start, end, size));
@@ -172,14 +155,11 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 		
 		if (DEBUG) {
-			System.out.print("(Atomic? "+isAtomic+")");
-			Set<List<Edge>> eset = new HashSet<List<Edge>>();
-			getLeqPath(start, end, inferredType, eset, false);
-			for (List<Edge> lst : eset) {
-				for (Edge e : lst)
-					System.out.print(e.getFrom() + " --> " + e.getTo());
-				System.out.println();
-			}
+			List<Edge> lst = new ArrayList<Edge>();
+			getLeqPath(start, end, inferredType, lst, false);
+			for (Edge e : lst)
+				System.out.print(e.getFrom() + " --> " + e.getTo());
+			System.out.println();
 		}
 	}	
 	
@@ -194,7 +174,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * @param tIndex
 	 *            End node of the second LEQ edge
 	 */
-	protected void applyLeqLeq (Node from, Node mid, Node to) {
+	private void applyLeqLeq (Node from, Node mid, Node to) {
 		if (from.equals(to))
 			return;
 		int sIndex = from.getIndex(), fIndex = mid.getIndex(), tIndex = to.getIndex();
@@ -223,7 +203,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * @param ec
 	 *            Edge condition ({@link EdgeCondition}) of the LEFT edge
 	 */
-	protected void applyLeftRight (Node from, Node mid, Node to, EdgeCondition ec) {
+	private void applyLeftRight (Node from, Node mid, Node to, EdgeCondition ec) {
 		int leftS = from.getIndex(), leftE = mid.getIndex(), rightE = to.getIndex();
 		if (ec != null && shortestLeft[leftS][leftE]!=null &&
 				hasRightEdges(leftE, rightE) && shortestLeft[leftS][leftE].get(ec) + 1 < shortestLEQ[leftS][rightE]) {
@@ -254,7 +234,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 *            Use the reverse of LEQ edge, since the negative LEQ edges are
 	 *            not explicitly represented in graph to save space
 	 */
-	protected void applyLeftLeq (Node from, Node mid , Node to , EdgeCondition ec, boolean useReverse) {
+	private void applyLeftLeq (Node from, Node mid , Node to , EdgeCondition ec, boolean useReverse) {
 		int leftS = from.getIndex(), leftE = mid.getIndex(), newE = to.getIndex();
 		int leqS = leftE, leqE = newE;
 		if (useReverse) {
@@ -346,7 +326,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	
 					// LEFT := LEFT LEQ
 					if (shortestLeft[iNode.getIndex()][from.getIndex()] != null
-							&& hasAtomicLeqEdge(from.getIndex(), to.getIndex())) {
+							&& (!StandardForm || hasAtomicLeqEdge(from.getIndex(), to.getIndex()))) {
 						for (EdgeCondition ec : shortestLeft[iNode.getIndex()][from.getIndex()].keySet()) {
 								applyLeftLeq(iNode, from, to, ec, ec.getVariance()==Variance.NEG);
 						}
