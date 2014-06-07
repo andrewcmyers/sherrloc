@@ -3,7 +3,6 @@ package sherrloc.constraint.analysis;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
@@ -53,7 +52,6 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	 */
 	private PathFinder getPathFinder(ConstraintGraph graph) {
 		return new ShortestPathFinder(graph, isVerbose, false);
-//		return new MultiPathFinder(graph, isVerbose, false);
 	}
 
 	@Override
@@ -96,8 +94,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				if (!finder.hasLeqEdge(start, end))
 					continue;
 				
-				Set<List<Edge>> ret = finder.getPath(start, end);
-				for (List<Edge> l : ret) { 
+				List<Edge> l = finder.getPath(start, end);
 
 				// when recursion is not allowed, constraints such as "x = list x" is unsatisfiable
 				if (!isRec && start.getIndex() != end.getIndex()) {
@@ -130,7 +127,6 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					}
 					unsatPaths.addUnsatPath(path);
 		    		path.setCause();
-				}
 				}
 			}
 		}
