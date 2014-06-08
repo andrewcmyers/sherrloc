@@ -16,6 +16,11 @@ import sherrloc.graph.ConstraintPath;
 public class EntityExplanationFinder extends HeuristicSearch {
     private HashMap<Entity, Set<ConstraintPath>> dep = new HashMap<Entity, Set<ConstraintPath>>();
     private RankingMetric metric;
+	// NOTE: different entities may belong to the same expression/constraint
+	// (e.g., confidentiality and integrity), we add a penalty of 0.5 for such case
+    // The usefulness of this tweak is still to be proven
+    private boolean dup_en = false;
+    private double increment = 1;
     
 	/**
 	 * @see #EntityExplanationFinder(UnsatPaths, Entity[], int, double, double). Use
@@ -23,9 +28,18 @@ public class EntityExplanationFinder extends HeuristicSearch {
 	 */
     public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates, int nSubopt) {
     	super (candidates, paths, nSubopt);
+		Set<String> candStr = new HashSet<String>();
     	for (Entity en : candidates) {
     		dep.put(en, mapsTo(en));
+			if (candStr.contains(en.toString())) {
+				dup_en = true;
+			}
+			else {
+				candStr.add(en.toString());
+			}
     	}
+    	if (dup_en)
+    		increment = 0.5;
     	metric = new RankingMetric();
     }
     
@@ -42,9 +56,18 @@ public class EntityExplanationFinder extends HeuristicSearch {
 	 */
     public EntityExplanationFinder(UnsatPaths paths, Entity[] candidates, int nSubopt, double C1, double C2) {
     	super (candidates, paths, nSubopt);
+		Set<String> candStr = new HashSet<String>();
     	for (Entity en : candidates) {
     		dep.put(en, mapsTo(en));
+			if (candStr.contains(en.toString())) {
+				dup_en = true;
+			}
+			else {
+				candStr.add(en.toString());
+			}
     	}
+    	if (dup_en)
+    		increment = 0.5;
     	metric = new RankingMetric(C1, C2);
     }
     	
@@ -82,10 +105,10 @@ public class EntityExplanationFinder extends HeuristicSearch {
 				}	
 			}
 			if (iscut) {
-				return 0.5;
+				return increment;
 			}
 		}
-		return 1;
+		return 2*increment;
     }
         
     @Override
@@ -110,13 +133,11 @@ public class EntityExplanationFinder extends HeuristicSearch {
 			succSum+=candidates[j].getSuccCount();
 		}
 		
-		// different entities may belong to the same expression/constraint
-		// (e.g., confidentiality and integrity), we add a penalty of 0.5 for such cases
 		Set<String> candStr = new HashSet<String>();
 		double size = 0;
 		for (int i : set) {
 			if (candStr.contains(candidates[i].toString())) {
-				size += 0.5;
+				size += increment;
 			}
 			else {
 				candStr.add(candidates[i].toString());
