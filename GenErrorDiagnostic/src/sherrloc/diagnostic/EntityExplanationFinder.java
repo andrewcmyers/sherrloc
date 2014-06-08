@@ -62,7 +62,7 @@ public class EntityExplanationFinder extends HeuristicSearch {
 	 *            The index of the next entity to search
 	 * @return An estimation of the "cost" of satisfying remaining paths
 	 */
-    public int Estimate(Collection<ConstraintPath> paths, int index) {
+    public double Estimate(Collection<ConstraintPath> paths, int index) {
         
 		if (paths.size()==0)
     		return 0;
@@ -82,10 +82,10 @@ public class EntityExplanationFinder extends HeuristicSearch {
 				}	
 			}
 			if (iscut) {
-				return 1;
+				return 0.5;
 			}
 		}
-		return 2;
+		return 1;
     }
         
     @Override
