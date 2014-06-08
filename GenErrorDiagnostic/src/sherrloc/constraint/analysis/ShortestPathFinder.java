@@ -325,9 +325,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 						applyLeqLeq(iNode, from, to);
 	
 					// LEFT := LEFT LEQ
-					if (shortestLeft[iNode.getIndex()][from.getIndex()] != null
-							&& (!StandardForm || hasAtomicLeqEdge(from.getIndex(), to.getIndex()))) {
+					if (shortestLeft[iNode.getIndex()][from.getIndex()] != null) {
+						// FIXME: it seems that it makes no difference to make
+						// sure either LEFT or LEQ is atomic. But it turns out a test program 
+						// STUDENT08/20060408-23:13:58 takes longer to run.
+//						&& (!StandardForm || hasAtomicLeqEdge(from.getIndex(), to.getIndex()))) {
 						for (EdgeCondition ec : shortestLeft[iNode.getIndex()][from.getIndex()].keySet()) {
+							if (shortestLeft[iNode.getIndex()][from.getIndex()].get(ec)==1)
 								applyLeftLeq(iNode, from, to, ec, ec.getVariance()==Variance.NEG);
 						}
 					}
