@@ -86,7 +86,7 @@ public abstract class HeuristicSearch {
     	PriorityQueue<SearchNode> queue = new PriorityQueue<SearchNode>(
     			100, new Comparator<SearchNode>() {
 					public int compare(SearchNode n1, SearchNode n2) {
-						return (int)(n1.est - n2.est);
+						return ((Double) n1.est).compareTo(n2.est);
 					}
 				});
     	
