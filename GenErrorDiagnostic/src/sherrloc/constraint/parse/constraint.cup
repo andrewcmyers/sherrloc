@@ -60,8 +60,7 @@ non terminal List<Element>		ele_pos_list, join_list, meet_list;
 non terminal Position           range, position;
 
 /* Precedences */
-precedence right ARROW, LARROW, MEET, JOIN;
-precedence left  COMMA;
+precedence left ARROW, LARROW, MEET, JOIN, COMMA;
 
 /* The grammar */
 cons_spec 	::= declaration 	
@@ -206,33 +205,33 @@ range		::= INTEGER_LITERAL:d1 COMMA INTEGER_LITERAL:d2 DASH INTEGER_LITERAL:d3
 			{:  RESULT = Position.EmptyPosition(); :}
 			;
             
-term     	::=  ele_pos:t1 ARROW ele_pos:t2
+term     	::=  term:t1 ARROW term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
 				RESULT = new ConstructorApplication (constructors.get("arrow"), l);
 			:}
 			|
-				ele_pos:t1 LARROW ele_pos:t2
+				term:t1 LARROW term:t2
 			{: 	List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
 				RESULT = new ConstructorApplication (constructors.get("larrow"), l);
 			:}
-			| ele_pos:t1 COMMA ele_pos:t2
+			| term:t1 COMMA term:t2
 			{: 	
 				List<Element> l = new ArrayList<Element>();
 				l.add(t1);
 				l.add(t2);  
 				RESULT = new ConstructorApplication (constructors.get("pair"), l); 
 			:}
-			| ele_pos:t1 JOIN join_list:l
+			| term:t1 JOIN join_list:l
 			{: 	
 				l.add(0,t1);
 				JoinElement e = new JoinElement (l);
 				RESULT =  e;
 			:}
-			| ele_pos:t1 MEET meet_list:l
+			| term:t1 MEET meet_list:l
 			{: 	
 				l.add(0,t1);
 				MeetElement e = new MeetElement (l);
@@ -259,12 +258,12 @@ term     	::=  ele_pos:t1 ARROW ele_pos:t2
 			:}
 			;
 		
-join_list    ::= join_list:l JOIN ele_pos:e
+join_list    ::= join_list:l JOIN term:e
 			{:
 			    l.add(e);
 			    RESULT = l;
 			:}
-			| ele_pos:e
+			| term:e
 			{: 
 			    List<Element> l = new ArrayList<Element>(); 
 			    l.add(e); 
@@ -272,12 +271,12 @@ join_list    ::= join_list:l JOIN ele_pos:e
 			:}
 			;
 			
-meet_list   ::= meet_list:l MEET ele_pos:e
+meet_list   ::= meet_list:l MEET term:e
 			{:
 			    l.add(e);
 			    RESULT = l;
 			:}
-			| ele_pos:e
+			| term:e
 			{: 
 			    List<Element> l = new ArrayList<Element>(); 
 			    l.add(e); 
