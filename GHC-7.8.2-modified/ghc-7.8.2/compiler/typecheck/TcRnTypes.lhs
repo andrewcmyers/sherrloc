@@ -1147,7 +1147,7 @@ isHoleCt _ = False
 
 \begin{code}
 instance Outputable Ct where
-  ppr ct = ppr (cc_ev ct) <+> parens (text ct_sort)
+  ppr ct = ppr (cc_ev ct) <+> brackets ((ct_orig) <+> (ct_loc)) <+> parens (text ct_sort)
          where ct_sort = case ct of
                            CTyEqCan {}      -> "CTyEqCan"
                            CFunEqCan {}     -> "CFunEqCan"
@@ -1155,6 +1155,8 @@ instance Outputable Ct where
                            CDictCan {}      -> "CDictCan"
                            CIrredEvCan {}   -> "CIrredEvCan"
                            CHoleCan {}      -> "CHoleCan"
+               ct_orig = text "\"" <+> ppr (ctLocOrigin (ctLoc ct)) <+> text "\""
+               ct_loc  = ppr (tcl_loc (ctLocEnv (ctLoc ct)))
 \end{code}
 
 \begin{code}
