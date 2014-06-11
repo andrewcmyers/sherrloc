@@ -1,0 +1,53 @@
+-- WARNING: ghc-bin.cabal is automatically generated from ghc-bin.cabal.in by
+-- ./configure.  Make sure you are editing ghc-bin.cabal.in, not ghc-bin.cabal.
+
+Name: ghc-bin
+Version: @ProjectVersion@
+Copyright: XXX
+-- License: XXX
+-- License-File: XXX
+Author: XXX
+Maintainer: glasgow-haskell-users@haskell.org
+Homepage: http://www.haskell.org/ghc/
+Synopsis: XXX
+Description:
+        XXX
+Category: XXX
+Data-Dir: ..
+Data-Files: settings
+Build-Type: Simple
+Cabal-Version: >= 1.2
+
+Flag ghci
+    Description: Build GHCi support.
+    Default: False
+    Manual: True
+
+Executable ghc
+    Main-Is: Main.hs
+    Build-Depends: base       >= 3   && < 5,
+                   array      >= 0.1 && < 0.6,
+                   bytestring >= 0.9 && < 0.11,
+                   directory  >= 1   && < 1.3,
+                   process    >= 1   && < 1.3,
+                   filepath   >= 1   && < 1.4,
+                   ghc
+    if os(windows)
+        Build-Depends: Win32
+    else
+        Build-Depends: unix
+
+    C-Sources: hschooks.c
+
+    GHC-Options: -Wall
+    if flag(ghci)
+        CPP-Options: -DGHCI
+        GHC-Options: -fno-warn-name-shadowing
+        Other-Modules: InteractiveUI, GhciMonad, GhciTags
+        Build-Depends: transformers, haskeline
+        Extensions: ForeignFunctionInterface,
+                    UnboxedTuples,
+                    FlexibleInstances,
+                    MagicHash
+
+    Extensions: CPP, PatternGuards, NondecreasingIndentation

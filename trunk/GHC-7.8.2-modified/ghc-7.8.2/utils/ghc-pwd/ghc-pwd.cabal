@@ -1,0 +1,18 @@
+Name: ghc-pwd
+Version: 0.1
+Copyright: XXX
+License: BSD3
+-- XXX License-File: LICENSE
+-- XXX Author:
+-- XXX Maintainer:
+Synopsis: XXX
+Description:
+	XXX
+build-type: Simple
+cabal-version: >=1.2
+
+Executable ghc-pwd
+    Main-Is: ghc-pwd.hs
+    Build-Depends: base       >= 3   && < 5,
+                   directory  >= 1   && < 1.3
+
