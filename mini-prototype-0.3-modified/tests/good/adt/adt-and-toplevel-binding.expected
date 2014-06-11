@@ -1,3 +1,0 @@
-val K: forall a. a -> t a
-val x: int
-

@@ -1,3 +1,0 @@
-type n : * =  O : n 
-
-let rec f (x : n) (y : n) =  (match x with  O => O end  : n)

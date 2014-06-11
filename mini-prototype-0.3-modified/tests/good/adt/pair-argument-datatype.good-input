@@ -1,3 +1,0 @@
-type pair : * -> * -> * =  D : forall a b. a * b -> (pair a b) 
-
-let f x =  match x with  (D (x,y)) => x end 

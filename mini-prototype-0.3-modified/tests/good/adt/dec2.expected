@@ -1,2 +1,0 @@
-val K: forall a. t a
-

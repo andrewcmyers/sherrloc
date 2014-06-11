@@ -1,1 +1,0 @@
-let forall a. f (x: a) = (x : a)
