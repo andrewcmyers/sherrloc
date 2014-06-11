@@ -481,7 +481,7 @@ non-exported generic functions.
 unifyType :: TcTauType -> TcTauType -> TcM TcCoercion
 -- Actual and expected types
 -- Returns a coercion : ty1 ~ ty2
-unifyType ty1 ty2 = uType origin ty1 ty2
+unifyType ty1 ty2 = uType_defer origin ty1 ty2
   where
     origin = TypeEqOrigin { uo_actual = ty1, uo_expected = ty2 }
 
