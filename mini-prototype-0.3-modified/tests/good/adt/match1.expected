@@ -1,3 +1,0 @@
-val K: t
-val f: t -> int
-

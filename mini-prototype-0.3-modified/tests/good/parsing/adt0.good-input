@@ -1,2 +1,0 @@
-type t : * = K : int -> t
-let x = K 0

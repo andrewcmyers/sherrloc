@@ -1,2 +1,0 @@
-val Eq: forall a b. eq a b
-

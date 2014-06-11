@@ -1,2 +1,0 @@
-val x: { l1: pre int ; l2: pre unit ; \ abs }
-

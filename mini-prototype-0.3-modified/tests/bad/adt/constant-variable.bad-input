@@ -1,3 +1,0 @@
-type t : * = K : t
-
-let forall t. f (x: t) = x

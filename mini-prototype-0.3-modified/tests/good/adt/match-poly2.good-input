@@ -1,3 +1,0 @@
-type t : * -> * =  K : forall a. a -> (t a) 
-
-let f x =  let (K z) =  x in z

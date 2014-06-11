@@ -1,3 +1,0 @@
-val K: { l: pre int ; \ abs } -> t
-val y: t
-
