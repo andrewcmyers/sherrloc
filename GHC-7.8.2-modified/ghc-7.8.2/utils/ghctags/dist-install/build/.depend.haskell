@@ -1,0 +1,35 @@
+# DO NOT DELETE: Beginning of Haskell dependencies
+utils/ghctags/dist-install/build/Main.dyn_o : utils/ghctags/Main.hs
+$(eval $(call hi-rule,utils/ghctags/dist-install/build/Main.dyn_hi  : %hi: %o  utils/ghctags/Main.hs))
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/containers/dist-install/build/Data/Map.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/containers/dist-install/build/Data/Map.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/base/dist-install/build/Data/Traversable.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/base/dist-install/build/Data/List.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/base/dist-install/build/System/IO.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/base/dist-install/build/System/Exit.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/base/dist-install/build/System/Console/GetOpt.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/base/dist-install/build/System/Environment.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/base/dist-install/build/Control/Monad.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/Cabal/Cabal/dist-install/build/Distribution/Verbosity.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/Cabal/Cabal/dist-install/build/Distribution/Simple/LocalBuildInfo.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/Cabal/Cabal/dist-install/build/Distribution/PackageDescription.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/Cabal/Cabal/dist-install/build/Distribution/Simple/Program/GHC.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/Cabal/Cabal/dist-install/build/Distribution/Simple/Compiler.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/Cabal/Cabal/dist-install/build/Distribution/Simple/Configure.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/Cabal/Cabal/dist-install/build/Distribution/Simple/GHC.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/SrcLoc.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/MonadUtils.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/FastString.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/Exception.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/Bag.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/DynFlags.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/Panic.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/Name.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/HscTypes.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/DriverPhases.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/Digraph.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/HscTypes.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : compiler/stage2/build/GHC.dyn_hi
+utils/ghctags/dist-install/build/Main.dyn_o : libraries/base/dist-install/build/Prelude.dyn_hi
+# DO NOT DELETE: End of Haskell dependencies
+utils/ghctags_dist-install_depfile_haskell_EXISTS = YES
