@@ -65,6 +65,10 @@ simplifyTop wanteds
        ; binds2 <- reportUnsolved zonked_final_wc
        ; traceTc "reportUnsolved }" empty
 
+       ; unless (isEmptyWC zonked_final_wc)
+         (traceTc "originalCts (simplifyTop)" (text "fvars = " <+> ppr (tyVarsOfWC wanteds) 
+              $$ text "wanted = " <+> ppr wanteds))
+
        ; return (binds1 `unionBags` binds2) }
 
 simpl_top :: WantedConstraints -> TcS WantedConstraints
@@ -174,6 +178,10 @@ simplifyAmbiguityCheck ty wanteds
                 (discardResult (reportUnsolved zonked_final_wc))
        ; traceTc "reportUnsolved(ambig) }" empty
 
+       ; unless (isEmptyWC zonked_final_wc)
+         (traceTc "originalCts (simplifyAmbiguityCheck)" (text "fvars = " <+> ppr (tyVarsOfWC wanteds) 
+              $$ text "wanted = " <+> ppr wanteds))
+
        ; return () }
 
 ------------------
@@ -197,6 +205,10 @@ simplifyDefault theta
          -- constraints are zonked. So Precondition of reportUnsolved
          -- is true.
        ; traceTc "reportUnsolved }" empty
+
+       ; unless (isEmptyWC unsolved)
+         (traceTc "originalCts (simplifyDefault)" (text "fvars = " <+> ppr (tyVarsOfWC (mkFlatWC wanted)) 
+              $$ text "wanted = " <+> ppr (mkFlatWC wanted)))
 
        ; return () }
 \end{code}
