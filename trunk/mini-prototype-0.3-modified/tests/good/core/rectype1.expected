@@ -1,2 +1,0 @@
-val x: forall a. a = a -> a
-

@@ -1,3 +1,0 @@
-type t : * =  K : {l : (pre int); \abs} -> t 
-
-let y =  (K { l =  0} ) 

@@ -7,7 +7,7 @@ then
 fi
 if test -z "$real_web"
 then
-    real_web=$WEBHOST:$dir
+    real_web=zhangdf@$WEBHOST:$dir
 fi
 svn update
 rsync "$@" -truvlC --exclude '*.cfg'					      \

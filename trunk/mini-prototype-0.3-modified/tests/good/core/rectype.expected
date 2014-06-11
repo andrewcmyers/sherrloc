@@ -1,2 +1,0 @@
-val f: forall a b. a -> (b = a -> b)
-

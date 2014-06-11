@@ -1,4 +1,0 @@
-val Cons: forall a. a -> list a -> list a
-val Nil: forall a. list a
-val f: forall a. list a -> int
-

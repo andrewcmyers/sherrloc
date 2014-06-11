@@ -1,3 +1,0 @@
-type t : * = K : unit -> t
-let g (x: int) = x
-let f x = match x with K y => g y end

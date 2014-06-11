@@ -1,3 +1,0 @@
-val f: t -> unit
-val g: (f -> unit) -> unit
-

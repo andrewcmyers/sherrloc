@@ -1,8 +1,0 @@
-let x =  { } 
-
-let y =  x.l <- 1
-
-let z =  y.m <- ()
-
-let w =  z.l <- ()
-
