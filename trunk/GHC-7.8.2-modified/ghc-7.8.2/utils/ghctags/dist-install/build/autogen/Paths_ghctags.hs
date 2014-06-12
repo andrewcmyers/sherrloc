@@ -18,8 +18,8 @@ version = Version {versionBranch = [0,1], versionTags = []}
 bindir, libdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "/usr/local/bin"
-libdir     = "/usr/local/lib/x86_64-linux-ghc-7.8.2/ghctags-0.1"
-datadir    = "/usr/local/share/x86_64-linux-ghc-7.8.2/ghctags-0.1"
+libdir     = "/usr/local/lib/i386-linux-ghc-7.8.2/ghctags-0.1"
+datadir    = "/usr/local/share/i386-linux-ghc-7.8.2/ghctags-0.1"
 libexecdir = "/usr/local/libexec"
 sysconfdir = "/usr/local/etc"
 
