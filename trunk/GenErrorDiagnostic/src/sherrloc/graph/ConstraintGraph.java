@@ -231,8 +231,8 @@ public class ConstraintGraph extends Graph {
         	Node from=null;
 			
         	for (Node n1 : allNodes) {    		
-        		if (!(n1.getElement() instanceof Variable))
-        			continue;
+//        		if (!(n1.getElement() instanceof Variable))
+//        			continue;
         		chain.clear();
         		from = n1;
         		
@@ -247,9 +247,9 @@ public class ConstraintGraph extends Graph {
 					Node next = n2, prev = n1;
 					Set<Node> nodes = getNeighbors(next, prev);
 					while (/* nodes.size() <= 1 && */(next.getElement() instanceof Variable)
-							&& (indeg[next.getIndex()] == 1 || false)) {
-//							(indeg[next.getIndex()] == 2 && nodes.size() == 1 && 
-//							edges.get(nodes.iterator().next()).containsKey(next)))) {
+							&& (indeg[next.getIndex()] == 1 || //false)) {
+							(indeg[next.getIndex()] == 2 && nodes.size() == 1 && 
+							edges.get(nodes.iterator().next()).containsKey(next)))) {
 						chain.add(next);
 						prev = next;
 						if (nodes.size() == 1)
