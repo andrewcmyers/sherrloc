@@ -13,13 +13,20 @@ sub new {
 		$right = $2;
 		$rel = "==";
 	}	
-	elsif ($ct =~ /(.*) (.*)/) {	# type class constraints
-		$left = $2;
-		$right = $1;
-		$rel = "<=";
-	}
 	else {
-		die "Cannot translate constraint $ct";
+		my @tys = split(' ', $ct);
+		if (scalar @tys > 1) {  # type class constraints: class ty1 ty2 .. tyn
+			$right = shift @tys; 
+			$left = "(cons_".(scalar @tys);
+			foreach (@tys) {
+				$left .= " $_";     # rewrite to (cons_n ty1 ty2 .. tyn) <= class
+			}
+			$left .= ")";
+			$rel = "<=";
+		}
+		else {
+			die "Cannot translate constraint $ct";
+		}
 	}
 	
 	my $self = {
@@ -258,9 +265,11 @@ while (<TRACE>) {
 	# get the original constraints that caused errors
 	if (/^originalCts/) {
 		my $next = <TRACE>;
-		if ($next =~ /fvars =  \[(.*)\](.*)/) {
+		if ($next =~ /fvars =  (.*)/) {
 			my $vars = $1;
-			if ($2 !~ /wanted =/) {
+			$next = <TRACE>;
+			while ($next !~ /wanted =/) {
+				$vars .= " $next";
 				$next = <TRACE>;
 			}
 			@constraints = ();
@@ -269,11 +278,9 @@ while (<TRACE>) {
 			trans_WC $next;
 			# output translated constraints
 			print "Translated SHErrLoc constraints:\n";
-			if ($vars =~ /\((.*)\)/) {
-				my @vars = split(',', $1);
-				foreach (@vars) {
-					print OUT ("VARIABLE $_\n");
-				}
+			my @vars = $vars =~ /\([^,]*, ([^,]*)\)/g;
+			foreach (@vars) {
+				print OUT ("VARIABLE $_\n");
 			}
 			print OUT "\n";
 			foreach (@constraints) {
