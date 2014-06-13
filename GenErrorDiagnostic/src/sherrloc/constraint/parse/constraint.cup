@@ -18,6 +18,7 @@ import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.Constructor;
 import sherrloc.constraint.ast.ConstructorApplication;
+import sherrloc.constraint.ast.VariableApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.JoinElement;
@@ -244,16 +245,21 @@ term     	::=  term:t1 ARROW term:t2
 			        RESULT = e;
 			    }
 			    else {
-			        if (!(e instanceof Constructor))
-			            throw new Error("\""+e+"\"" + " is not a constructor");
-			        Constructor c = (Constructor) e;
-			        if (varMode && constructors.get(c.getName()).getArity() == 0) {   // need to infer the arity of constructors
-			            c.setArity(l.size());
-			            constructors.get(c.getName()).setArity(l.size());
-                    }
-				    if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
+			        if (!(e instanceof Constructor) && !(e instanceof Variable))
+			            throw new Error("\""+e+"\"" + " is neither a constructor, or a variable");
+			        if (e instanceof Constructor) {
+			            Constructor c = (Constructor) e;
+			            if (varMode && constructors.get(c.getName()).getArity() == 0) {   // need to infer the arity of constructors
+			                c.setArity(l.size());
+			                constructors.get(c.getName()).setArity(l.size());
+			            }
+				        if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
-			        RESULT = new ConstructorApplication (c, l);
+			            RESULT = new ConstructorApplication (c, l);
+			        }
+			        else {
+			            RESULT = new VariableApplication ((Variable)e, l);
+			        }
 			    } 
 			:}
 			;

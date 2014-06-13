@@ -1,6 +1,8 @@
 package sherrloc.graph;
 
 import sherrloc.constraint.ast.Constructor;
+import sherrloc.constraint.ast.Element;
+import sherrloc.constraint.ast.Variable;
 
 
 /**
@@ -8,14 +10,14 @@ import sherrloc.constraint.ast.Constructor;
  * constructor, index of the parameter, and variance.
  */
 public class EdgeCondition {
-	private final Constructor con;
+	private final Element con;
 	private final int index;
 	private final boolean reverse;
 	private final Variance variance;
 	
 	/**
 	 * @param con
-	 *            The constructor the constructed edge represents
+	 *            The concrete constructor being applied to
 	 * @param index
 	 *            The index of the parameter, in the constructor, that the edge
 	 *            is connecting to
@@ -32,6 +34,24 @@ public class EdgeCondition {
 	}
 	
 	/**
+	 * @param var
+	 *            The constructor variable to be applied to
+	 * @param index
+	 *            The index of the parameter, in the constructor, that the edge
+	 *            is connecting to
+	 * @param reverse
+	 *            True if the edge is from constructor to a parameter
+	 * @param v
+	 *            Variance of the parameter
+	 */
+	public EdgeCondition(Variable var, int index, boolean reverse, Variance v) {
+		this.con = var;
+		this.index = index;
+		this.reverse = reverse;
+		this.variance = v;
+	}
+	
+	/**
 	 * @return True if the edge is from constructor to a parameter
 	 */
 	public boolean isReverse () {
@@ -42,7 +62,10 @@ public class EdgeCondition {
 	 * @return A {@link EdgeCondition} that matches this condition
 	 */
 	public EdgeCondition getMatch () {
-		return new EdgeCondition(con, index, !reverse, variance);
+		if (con instanceof Constructor)
+			return new EdgeCondition((Constructor)con, index, !reverse, variance);
+		else 
+			return new EdgeCondition((Variable)con, index, !reverse, variance);
 	}
 	
 	/**
@@ -78,7 +101,7 @@ public class EdgeCondition {
 	/**
 	 * Return true if the current condition matches the parameter. That is, if
 	 * <UL>
-	 * <LI>They have the same constructor
+	 * <LI>They have the same constructor, or at least one of them is a variable
 	 * <LI>They have the same index
 	 * <LI>Only one of them is reverse
 	 * </UL>
@@ -89,7 +112,14 @@ public class EdgeCondition {
 	 * @return True if current condition matches parameter
 	 */
 	public boolean matches (EdgeCondition c) {
-		return (con.equals(c.con) && index==c.index && logicXOR(reverse,c.reverse) && variance==c.variance);
+		boolean sameCons = false;
+		if (con instanceof Variable || c.con instanceof Variable )
+			sameCons = true;
+		else {
+			// both constructors are concrete
+			sameCons = con.equals(c.con);
+		}
+		return (sameCons && index==c.index && logicXOR(reverse,c.reverse) && variance==c.variance);
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package sherrloc.graph;
 
+import sherrloc.constraint.ast.Variable;
+
 /**
  * A singleton class that represents the empty condition on LEQ edges
  */
@@ -7,7 +9,7 @@ public class LeqRevCondition extends EdgeCondition {
 	private static LeqRevCondition instance = null;
 	
 	private LeqRevCondition() {
-		super(null, 0, false, null);
+		super(new Variable(""), 0, false, null);
 	}
 	
 	public static LeqRevCondition getInstance () {

@@ -100,6 +100,7 @@ public class TestAll {
 		testAssumptions("tests/jif/induction2.con", "- (P)->(P) <= C_caller_pc;\n");
 		testAssumptions("tests/jif/join.con", "- (P)->(P) <= C_caller_pc;\n");
 		testAssumptions("tests/jif/meet.con", "- a <= b;a <= c;\n");
+		testAssumptions("tests/jif/varconstructor.con", "- INT <= BOOL;\n");
 //		testAssumptions("tests/jif/extraEdges.con", "- b <= a;\n");
 //		testAssumptions("tests/jif/inte.con", "- b <= c;\n");
 //		testAssumptions("/home/zhdf/workspace/LemonTool/error.con", "- a <= b\n");
