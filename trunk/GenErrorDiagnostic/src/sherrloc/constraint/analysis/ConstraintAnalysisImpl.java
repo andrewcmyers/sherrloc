@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import sherrloc.constraint.ast.ConstructorApplication;
+import sherrloc.constraint.ast.Application;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.JoinElement;
@@ -98,8 +98,8 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 
 				// when recursion is not allowed, constraints such as "x = list x" is unsatisfiable
 				if (!isRec && start.getIndex() != end.getIndex()) {
-					if ((e1 instanceof ConstructorApplication && e1.getVars().contains(e2))
-					 || (e2 instanceof ConstructorApplication && e2.getVars().contains(e1))) {
+					if ((e1 instanceof Application && e1.getVars().contains(e2))
+					 || (e2 instanceof Application && e2.getVars().contains(e1))) {
 						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
 						unsatPaths.addUnsatPath(path);
 						continue;
