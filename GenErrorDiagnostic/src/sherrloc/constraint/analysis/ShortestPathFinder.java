@@ -3,12 +3,13 @@ package sherrloc.constraint.analysis;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import sherrloc.constraint.ast.Application;
+import sherrloc.constraint.ast.Constructor;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.JoinElement;
@@ -111,6 +112,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 					meetElements.get(toadd).add(n);
 				}
 			} else if (element instanceof ConstructorApplication) {
+				// notice that we only need to infer extra edges for concrete
+				// constructors, so there is no need to collect VariableApplication
 				ConstructorApplication ce = (ConstructorApplication) element;
 				for (Element ele : ce.getElements()) {
 					Node toadd = g.getNode(ele);

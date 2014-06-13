@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import sherrloc.constraint.ast.Application;
 import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
@@ -22,6 +23,7 @@ import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Position;
 import sherrloc.constraint.ast.Relation;
 import sherrloc.constraint.ast.Variable;
+import sherrloc.constraint.ast.VariableApplication;
 import sherrloc.util.StringUtil;
 
 /**
@@ -167,11 +169,17 @@ public class ConstraintGraph extends Graph {
                     else if (e instanceof JoinElement) {
                     	addEdge(new JoinEdge(compnode, currentnode));
                     }
-                    else if (e instanceof ConstructorApplication){
-                    	ConstructorApplication ce = (ConstructorApplication)e;
-                    	Variance variance = ce.getCons().isContraVariant()?Variance.NEG:Variance.POS;
-                    	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, false, variance), compnode, currentnode));
-                    	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)e).getCons(), index, true, variance), currentnode, compnode));
+                    else if (e instanceof Application){
+                    	Application ae = (Application)e;
+                    	Variance variance = ae.isContraVariant()?Variance.NEG:Variance.POS;
+                    	if (ae instanceof ConstructorApplication) {
+                        	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)ae).getCons(), index, false, variance), compnode, currentnode));
+                        	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)ae).getCons(), index, true, variance), currentnode, compnode));
+                    	}
+                    	else if (ae instanceof VariableApplication) {
+                    		addEdge(new ConstructorEdge(new EdgeCondition(((VariableApplication)ae).getCons(), index, false, variance), compnode, currentnode));
+                    		addEdge(new ConstructorEdge(new EdgeCondition(((VariableApplication)ae).getCons(), index, true, variance), currentnode, compnode));
+                    	}
                     }
                 }
             }

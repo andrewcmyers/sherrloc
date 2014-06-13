@@ -7,7 +7,7 @@ import java.util.List;
  * This class represents an application of a {@link Constructor}, possibly with
  * no parameters (e.g., list int, int)
  */
-public class ConstructorApplication extends EnumerableElement {
+public class ConstructorApplication extends Application {
 	private final Constructor cons;
 	
 	/**
@@ -99,5 +99,10 @@ public class ConstructorApplication extends EnumerableElement {
 			baseElements.add(e.getBaseElement());
 		}
 		return new ConstructorApplication((Constructor)cons.getBaseElement(), baseElements) ;
+	}
+	
+	@Override
+	public boolean isContraVariant() {
+		return cons.isContraVariant();
 	}
 }
