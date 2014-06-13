@@ -44,7 +44,8 @@ sub to_sherrloc_ele {
 	my $ct = shift;
 	# [x] to (list x)
 	$ct =~ s/\[(.*)\]/(list $1)/g;
-	return $ct;
+	$ct =~ s/\(\)/EMPTY/g;
+	return "($ct)";
 }
 
 sub print {
