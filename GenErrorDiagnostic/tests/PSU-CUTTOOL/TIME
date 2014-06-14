@@ -1,0 +1,11 @@
+                  no simp                                 simp graph
+             graph size         saturation time         graph size          saturation time
+log             4851               114831                  2491                 27911
+
+mailReader      7025               898091                  3796                147413 
+
+mailSender     11185               XXXXXX                  6257                XXXXXX
+
+poker          10605               XXXXXX                  4829                613871 
+
+
