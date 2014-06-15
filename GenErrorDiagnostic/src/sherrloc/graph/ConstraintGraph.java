@@ -195,10 +195,27 @@ public class ConstraintGraph extends Graph {
      * @param prev Previous node to exclude
      * @return A unique neighbor of current
      */
-    private Set<Node> getNeighbors (Node current, Node prev) {
-    	Set<Node> neighbors = new HashSet<Node>(edges.get(current).keySet());
+    private List<Node> getNewOutNodes (Node current, Node prev, List<Node> chain) {
+    	if (edges.get(current) == null)
+    		return new ArrayList<Node>();
+    	List<Node> neighbors = new ArrayList<Node>(edges.get(current).keySet());
     	neighbors.remove(current);
     	neighbors.remove(prev);
+    	for (Node n : chain)
+    		neighbors.remove(n);
+    	return neighbors;
+    }
+    
+    private List<Node> getNewInNodes (Node current, Node prev, List<Node> chain, List<Node> outs, Set<Node>[] indeg) {
+    	if (indeg[current.getIndex()].size() == 0)
+    		return new ArrayList<Node>();
+    	List<Node> neighbors = new ArrayList<Node>(indeg[current.getIndex()]);
+    	neighbors.remove(prev);
+    	neighbors.remove(current);
+    	for (Node n : chain)
+    		neighbors.remove(n);
+    	for (Node n : outs)
+    		neighbors.remove(n);
     	return neighbors;
     }
     
@@ -224,11 +241,13 @@ public class ConstraintGraph extends Graph {
     private void removeDominatedVariables () {
     	int nodesBefore = allNodes.size();
 
-    	int[] indeg = new int[nodesBefore];
+    	Set<Node>[] indeg = new Set[nodesBefore];
+    	for (int i=0; i<nodesBefore; i++)
+    		indeg[i] = new HashSet<Node>();
     	for (Node n1 : allNodes) {
     		for (Node n2 : allNodes) {
     			if (!n1.equals(n2) && getEdges(n1, n2) != null)
-    				indeg[n2.getIndex()] += getEdges(n1, n2).size();
+    				indeg[n2.getIndex()].add(n1);
     			}
     	}
     	
@@ -244,6 +263,9 @@ public class ConstraintGraph extends Graph {
         		chain.clear();
         		from = n1;
         		
+//        		if (indeg[n1.getIndex()].size()==1)
+//        			continue;
+        		
         		Map<Node, Set<Edge>> outs = edges.get(n1);
         		for (Node n2 : outs.keySet()) {
 					// identify a chain of variables n1 -- n2 --
@@ -253,18 +275,23 @@ public class ConstraintGraph extends Graph {
         				continue;
         			
 					Node next = n2, prev = n1;
-					Set<Node> nodes = getNeighbors(next, prev);
-					while (/* nodes.size() <= 1 && */(next.getElement() instanceof Variable)
-							&& (indeg[next.getIndex()] == 1 || //false)) {
-							(indeg[next.getIndex()] == 2 && nodes.size() == 1 && 
-							edges.get(nodes.iterator().next()).containsKey(next)))) {
+					List<Node> outNodes = getNewOutNodes(next, prev, chain);
+					List<Node> inNodes = getNewInNodes(next, prev, chain, outNodes, indeg);
+					while ( outNodes.size() <= 1 && (next.getElement() instanceof Variable)
+							&& inNodes.isEmpty()) {
+//							&& (indeg[next.getIndex()].size() == 1 || //false)) {
+//							(indeg[next.getIndex()].size() == 2 && outNodes.size() == 1 && 
+//							edges.get(outNodes.get(0)).containsKey(next)))) {
+						if (!inNodes.isEmpty())
+							System.err.println(indeg[next.getIndex()].size()+": "+inNodes.get(0) + ", "+prev+" "+next);
 						chain.add(next);
 						prev = next;
-						if (nodes.size() == 1)
-							next = nodes.iterator().next();
+						if (outNodes.size() == 1)
+							next = outNodes.get(0);
 						else
 							break;
-						nodes = getNeighbors(next, prev);
+						outNodes = getNewOutNodes(next, prev, chain);
+						inNodes = getNewInNodes(next, prev, chain, outNodes, indeg);
 					}
 
 					if (chain.size() > 0) {
@@ -294,12 +321,14 @@ public class ConstraintGraph extends Graph {
 					for (Edge edge : edges.get(last).get(n2)) {
 						edge.from = from;
 						edges.get(from).get(n2).add(edge);
+						indeg[n2.getIndex()].remove(last);
+						indeg[n2.getIndex()].add(from);
 					}
 				}
 				
 				// fix edges from right to left
-				for (Node n2 : allNodes) {
-					if (!edges.get(n2).containsKey(last) || chain.contains(n2))
+				for (Node n2 : indeg[last.getIndex()]) {
+					if (/*!edges.get(n2).containsKey(last) ||*/ chain.contains(n2))
 						continue;
 					else {
 						if (!edges.get(n2).containsKey(from))
@@ -307,6 +336,7 @@ public class ConstraintGraph extends Graph {
 						for (Edge edge : edges.get(n2).get(last)) {
 							edge.to = from;
 							edges.get(n2).get(from).add(edge);
+							indeg[from.getIndex()].add(n2);
 						}
 						edges.get(n2).remove(last);
 					}
@@ -316,6 +346,7 @@ public class ConstraintGraph extends Graph {
 					allNodes.remove(node);
 					edges.remove(node);
 					edges.get(from).remove(node);
+					indeg[from.getIndex()].remove(node);
     				for (Element ele : eleToNode.keySet()) {
     					if (eleToNode.get(ele).equals(node)) {
     	    				eleToNode.put(ele, from);		
