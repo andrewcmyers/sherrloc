@@ -43,7 +43,10 @@ public class ConstraintGraph extends Graph {
     private Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
     private int varCounter = 0;
     private boolean isSymmetric=true;
-
+    
+	/** Optimizations */
+	private final boolean USE_OPT = false;
+	
 	/**
 	 * @param env
 	 *            Global assumptions
@@ -52,7 +55,7 @@ public class ConstraintGraph extends Graph {
 	 */
     public ConstraintGraph (Hypothesis env, Set<Constraint> constraints) {
         this(env);
-		/**
+    	/**
 		 * generate the simple links from the constraints. handle constructors,
 		 * meet and join later
 		 */
@@ -108,10 +111,10 @@ public class ConstraintGraph extends Graph {
 		Node source = getNode(cons.getFirstElement());
 		Node to = getNode(cons.getSecondElement());
 
-		addEdge(new ConstraintEdge(cons, source, to));
+		addLeqEdge(new ConstraintEdge(cons, source, to));
 
 		if (cons.getRelation() == Relation.EQ)
-			addEdge(new ConstraintEdge(cons, to, source));
+			addLeqEdge(new ConstraintEdge(cons, to, source));
 		else
 			isSymmetric = false;
     }
@@ -164,27 +167,28 @@ public class ConstraintGraph extends Graph {
                         workingList.add(element);
                     
                     if (e instanceof MeetElement) {
-                    	addEdge(new MeetEdge(currentnode, compnode));
+                    	addLeqEdge(new MeetEdge(currentnode, compnode));
                     }
                     else if (e instanceof JoinElement) {
-                    	addEdge(new JoinEdge(compnode, currentnode));
+                    	addLeqEdge(new JoinEdge(compnode, currentnode));
                     }
                     else if (e instanceof Application){
                     	Application ae = (Application)e;
                     	Variance variance = ae.isContraVariant()?Variance.NEG:Variance.POS;
                     	if (ae instanceof ConstructorApplication) {
-                        	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)ae).getCons(), index, false, variance), compnode, currentnode));
-                        	addEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)ae).getCons(), index, true, variance), currentnode, compnode));
+                        	addConEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)ae).getCons(), index, false, variance), compnode, currentnode));
+                        	addConEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)ae).getCons(), index, true, variance), currentnode, compnode));
                     	}
                     	else if (ae instanceof VariableApplication) {
-                    		addEdge(new ConstructorEdge(new EdgeCondition(((VariableApplication)ae).getCons(), index, false, variance), compnode, currentnode));
-                    		addEdge(new ConstructorEdge(new EdgeCondition(((VariableApplication)ae).getCons(), index, true, variance), currentnode, compnode));
+                    		addConEdge(new ConstructorEdge(new EdgeCondition(((VariableApplication)ae).getCons(), index, false, variance), compnode, currentnode));
+                    		addConEdge(new ConstructorEdge(new EdgeCondition(((VariableApplication)ae).getCons(), index, true, variance), currentnode, compnode));
                     	}
                     }
                 }
             }
         }
-//        removeDominatedVariables();
+        if (USE_OPT)
+        	removeDominatedVariables();
         generated = true;
     }
     
@@ -196,9 +200,9 @@ public class ConstraintGraph extends Graph {
      * @return A unique neighbor of current
      */
     private List<Node> getNewOutNodes (Node current, Node prev, List<Node> chain) {
-    	if (edges.get(current) == null)
+    	if (leqEdges.get(current) == null)
     		return new ArrayList<Node>();
-    	List<Node> neighbors = new ArrayList<Node>(edges.get(current).keySet());
+    	List<Node> neighbors = new ArrayList<Node>(leqEdges.get(current).keySet());
     	neighbors.remove(current);
     	neighbors.remove(prev);
     	for (Node n : chain)
@@ -206,10 +210,10 @@ public class ConstraintGraph extends Graph {
     	return neighbors;
     }
     
-    private List<Node> getNewInNodes (Node current, Node prev, List<Node> chain, List<Node> outs, Set<Node>[] indeg) {
-    	if (indeg[current.getIndex()].size() == 0)
+    private List<Node> getNewInNodes (Node current, Node prev, List<Node> chain, List<Node> outs, Set<Node> indeg) {
+    	if (indeg.size() == 0)
     		return new ArrayList<Node>();
-    	List<Node> neighbors = new ArrayList<Node>(indeg[current.getIndex()]);
+    	List<Node> neighbors = new ArrayList<Node>(indeg);
     	neighbors.remove(prev);
     	neighbors.remove(current);
     	for (Node n : chain)
@@ -224,14 +228,53 @@ public class ConstraintGraph extends Graph {
      */
     private void checkRemovedNodes () {
     	for (Node node : allNodes) {
-    		if (!edges.containsKey(node)) {
+    		if (!leqEdges.containsKey(node)) {
 				throw new RuntimeException("an node in allNodes is removed from edges");
     		}
-    		for (Node n2 : edges.get(node).keySet())
+    		for (Node n2 : leqEdges.get(node).keySet())
     			if (!allNodes.contains(n2)) {
     				throw new RuntimeException("Node "+node+" still has "+n2);
     			}
     	}
+    }
+    
+    /**
+	 * A node n is entry only iff 1. there is only one out edge 2. there are two
+	 * out edges, and both of the out nodes are in the innodes
+	 * 
+	 * @param n
+	 * @return
+	 */
+    private boolean entryOnly (Node n, Set<Node> innodes) {
+    	if (leqEdges.get(n).size() == 1)
+    		return true;
+    	if (leqEdges.get(n).size() == 2) {
+    		for (Node in : innodes) {
+    			if (!leqEdges.get(n).keySet().contains(in))
+    				return false;
+    		}
+    		return true;
+    	}
+    	return false;
+    }
+    
+    /**
+	 * A node n is entry only iff 1. there is only no in edge other than that
+	 * already in chain 2. there is one in edge, other than that in chain, and
+	 * it's the only way out
+	 * 
+	 * @param n
+	 * @return
+	 */
+    private boolean exitOnly (Node n, List<Node> chain, List<Node> innodes) {
+    	if (innodes.size() == 0)
+    		return true;
+    	if (innodes.size() == 1) {
+    		Node from = innodes.iterator().next();
+    		if (getNewOutNodes(n, from, chain).isEmpty())
+    			return true;
+    	}
+    	return false;
     }
     
     /**
@@ -242,59 +285,77 @@ public class ConstraintGraph extends Graph {
     	int nodesBefore = allNodes.size();
 
     	Set<Node>[] indeg = new Set[nodesBefore];
-    	for (int i=0; i<nodesBefore; i++)
+    	Set<Node>[] incon = new Set[nodesBefore];
+    	for (int i=0; i<nodesBefore; i++) {
     		indeg[i] = new HashSet<Node>();
+    		incon[i] = new HashSet<Node>();
+    	}
     	for (Node n1 : allNodes) {
     		for (Node n2 : allNodes) {
-    			if (!n1.equals(n2) && getEdges(n1, n2) != null)
+    			if (!n1.equals(n2) && hasLeqEdge(n1, n2))
     				indeg[n2.getIndex()].add(n1);
-    			}
+    			if (!n1.equals(n2) && hasConEdge(n1, n2))
+					incon[n2.getIndex()].add(n1);
+			}
     	}
     	
     	boolean modified;
     	do {    	
         	List<Node> chain = new ArrayList<Node>();
         	modified = false;
-        	Node from=null;
 			
-        	for (Node n1 : allNodes) {    		
-//        		if (!(n1.getElement() instanceof Variable))
-//        			continue;
-        		chain.clear();
-        		from = n1;
+        	for (Node n1 : allNodes) {    	
+				// the first node must be "entrance only", meaning that either
+				// it has a single out edge, edge to the next node in chain, or
+        		// it has two out edges, and one of them is the only way to get in
+        		if (!(n1.getElement() instanceof Variable))
+        			continue;
+        		
+        		if (!entryOnly(n1, indeg[n1.getIndex()]) || !incon[n1.getIndex()].isEmpty() 
+						|| !conEdges.get(n1).keySet().isEmpty())
+        			continue;
         		
 //        		if (indeg[n1.getIndex()].size()==1)
 //        			continue;
         		
-        		Map<Node, Set<Edge>> outs = edges.get(n1);
+        		Map<Node, Edge> outs = leqEdges.get(n1);
         		for (Node n2 : outs.keySet()) {
 					// identify a chain of variables n1 -- n2 --
 					// ... -- nm -- .. such that all of n1 to nm have at most 1
 					// unique neighbor besides the previous node and itself
         			if (n2.equals(n1))
         				continue;
-        			
+            		chain.clear();
+            		chain.add(n1);
+
 					Node next = n2, prev = n1;
 					List<Node> outNodes = getNewOutNodes(next, prev, chain);
-					List<Node> inNodes = getNewInNodes(next, prev, chain, outNodes, indeg);
+					if (outNodes.size()>1)
+						continue;
+					List<Node> inNodes = getNewInNodes(next, prev, chain, outNodes, indeg[next.getIndex()]);
 					while ( outNodes.size() <= 1 && (next.getElement() instanceof Variable)
-							&& inNodes.isEmpty()) {
+							&& (chain.isEmpty() || inNodes.isEmpty()) && incon[next.getIndex()].isEmpty() 
+							&& conEdges.get(next).keySet().isEmpty()) {
 //							&& (indeg[next.getIndex()].size() == 1 || //false)) {
 //							(indeg[next.getIndex()].size() == 2 && outNodes.size() == 1 && 
 //							edges.get(outNodes.get(0)).containsKey(next)))) {
-						if (!inNodes.isEmpty())
-							System.err.println(indeg[next.getIndex()].size()+": "+inNodes.get(0) + ", "+prev+" "+next);
 						chain.add(next);
 						prev = next;
 						if (outNodes.size() == 1)
 							next = outNodes.get(0);
-						else
+						else {
 							break;
+						}
 						outNodes = getNewOutNodes(next, prev, chain);
-						inNodes = getNewInNodes(next, prev, chain, outNodes, indeg);
+						inNodes = getNewInNodes(next, prev, chain, outNodes, indeg[next.getIndex()]);
 					}
+					// the last node should have no incoming edges except that from the chain
+					if (outNodes.size() != 0 && exitOnly(next, chain, inNodes)
+							&& incon[next.getIndex()].isEmpty() 
+							&& conEdges.get(next).keySet().isEmpty())
+						chain.add(next);
 
-					if (chain.size() > 0) {
+					if (chain.size() > 1) {
 						modified = true;
 						break;
 					}
@@ -304,55 +365,14 @@ public class ConstraintGraph extends Graph {
         	}
 
         	// remove nodes
-        	if (chain.size() > 0) {
-        		Node last=chain.get(chain.size()-1);
-        		
+        	if (chain.size() > 1) {
+//        		Node last=chain.get(chain.size()-1);
 //        		for (Node node : chain) {
-//        			System.out.print(node+ "-->");
+//        			System.out.print(node.getElement().toDetailString()+ "-->");
 //        		}
 //        		System.out.println("");
-
-				// fix edges from left to right
-				for (Node n2 : edges.get(last).keySet()) {
-					if (chain.contains(n2))
-						continue;
-					if (!edges.get(from).containsKey(n2))
-						edges.get(from).put(n2, new HashSet<Edge>());
-					for (Edge edge : edges.get(last).get(n2)) {
-						edge.from = from;
-						edges.get(from).get(n2).add(edge);
-						indeg[n2.getIndex()].remove(last);
-						indeg[n2.getIndex()].add(from);
-					}
-				}
-				
-				// fix edges from right to left
-				for (Node n2 : indeg[last.getIndex()]) {
-					if (/*!edges.get(n2).containsKey(last) ||*/ chain.contains(n2))
-						continue;
-					else {
-						if (!edges.get(n2).containsKey(from))
-							edges.get(n2).put(from, new HashSet<Edge>());
-						for (Edge edge : edges.get(n2).get(last)) {
-							edge.to = from;
-							edges.get(n2).get(from).add(edge);
-							indeg[from.getIndex()].add(n2);
-						}
-						edges.get(n2).remove(last);
-					}
-				}
-				
-				for (Node node : chain) {
-					allNodes.remove(node);
-					edges.remove(node);
-					edges.get(from).remove(node);
-					indeg[from.getIndex()].remove(node);
-    				for (Element ele : eleToNode.keySet()) {
-    					if (eleToNode.get(ele).equals(node)) {
-    	    				eleToNode.put(ele, from);		
-    					}
-    				}
-				}
+        		collapse(chain, indeg, eleToNode);
+//				checkRemovedNodes();
 			}
     	}
     	while (modified);
@@ -379,8 +399,8 @@ public class ConstraintGraph extends Graph {
 	 */
     private String printLinkToDotString (Node node) {
         String ret = "";
-        Map<Node, Set<Edge>> neighbors = getNeighbors(node);
-        for (Node n : neighbors.keySet()) {
+        Set<Node> neighbors = getNeighbors(node);
+        for (Node n : neighbors) {
 			for (Edge edge : getEdges(node, n)) {
 				if (n.shouldPrint()) {
 					if (edge.isDirected())
