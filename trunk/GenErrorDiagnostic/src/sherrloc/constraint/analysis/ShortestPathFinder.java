@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import sherrloc.constraint.ast.Application;
-import sherrloc.constraint.ast.Constructor;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.JoinElement;
