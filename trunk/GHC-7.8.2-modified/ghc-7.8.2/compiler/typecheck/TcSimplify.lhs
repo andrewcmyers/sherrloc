@@ -18,6 +18,7 @@ import TcSMonad as TcS
 import TcInteract
 import Kind     ( isKind, defaultKind_maybe )
 import Inst
+import FamInst
 import FunDeps  ( growThetaTyVars )
 import Type     ( classifyPredType, PredTree(..), getClassPredTys_maybe )
 import Class    ( Class )
@@ -49,6 +50,16 @@ import TrieMap () -- DV: for now
 *********************************************************************************
 
 \begin{code}
+-- Dump free variables, axioms, and wanted constraints for SHErrLoc
+dump_failed_cts proc_name wanteds
+  = do { (instEnv1, instEnv2) <- Inst.tcGetInstEnvs
+       ; traceTc "InstEnvs (External)" $ ppr instEnv1
+       ; traceTc "InstEnvs (Internal)" $ ppr instEnv2
+       ; (famEnv1, famEnv2) <- FamInst.tcGetFamInstEnvs
+       ; traceTc "famInstEnvs (External)" $ ppr famEnv1
+       ; traceTc "famInstEnvs (Internal)" $ ppr famEnv2
+       ; traceTc ("originalCts ("++proc_name++")") (text "fvars = " <+> ppr (tyVarsOfWC wanteds) $$ text "wanted = " <+> ppr wanteds) }
+
 simplifyTop :: WantedConstraints -> TcM (Bag EvBind)
 -- Simplify top-level constraints
 -- Usually these will be implications,
@@ -66,8 +77,7 @@ simplifyTop wanteds
        ; traceTc "reportUnsolved }" empty
 
        ; unless (isEmptyWC zonked_final_wc)
-         (traceTc "originalCts (simplifyTop)" (text "fvars = " <+> ppr (tyVarsOfWC wanteds) 
-              $$ text "wanted = " <+> ppr wanteds))
+         (dump_failed_cts "simplifyTop" wanteds)
 
        ; return (binds1 `unionBags` binds2) }
 
@@ -179,8 +189,7 @@ simplifyAmbiguityCheck ty wanteds
        ; traceTc "reportUnsolved(ambig) }" empty
 
        ; unless (isEmptyWC zonked_final_wc)
-         (traceTc "originalCts (simplifyAmbiguityCheck)" (text "fvars = " <+> ppr (tyVarsOfWC wanteds) 
-              $$ text "wanted = " <+> ppr wanteds))
+         (dump_failed_cts "simplifyAmbiguityCheck" wanteds)
 
        ; return () }
 
@@ -207,8 +216,7 @@ simplifyDefault theta
        ; traceTc "reportUnsolved }" empty
 
        ; unless (isEmptyWC unsolved)
-         (traceTc "originalCts (simplifyDefault)" (text "fvars = " <+> ppr (tyVarsOfWC (mkFlatWC wanted)) 
-              $$ text "wanted = " <+> ppr (mkFlatWC wanted)))
+         (dump_failed_cts "simplifyDefault" (mkFlatWC wanted))
 
        ; return () }
 \end{code}
