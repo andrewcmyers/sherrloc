@@ -1,6 +1,5 @@
-VARIABLE aI8
-VARIABLE  a_aI8
+VARIABLE a_ahT
 
-a_aI8["":14,9-10@p3.hs] <= Foo["":14,9-10@p3.hs] {a <= Foo;};["a use of ‘op’":14,9-10@p3.hs]
-a_aI8["":14,9-12@p3.hs] == (list a)["":14,9-12@p3.hs] {a <= Foo;};["a type equality a_aI8 ~ [a]":14,9-12@p3.hs]
-(list a)["":14,12-12@p3.hs] == a_aI8["":14,12-12@p3.hs] {a <= Foo;};["a type equality [a] ~ a_aI8":14,12-12@p3.hs]
+(a_ahT)["":14,9-10@p3.hs] <= (Foo)["":14,9-10@p3.hs] {(a) <= (Foo);};["a use of ‘op’":14,9-10@p3.hs]
+(a_ahT)["":14,9-12@p3.hs] == ((list a))["":14,9-12@p3.hs] {(a) <= (Foo);};["a type equality a_ahT ~ [a]":14,9-12@p3.hs]
+((list a))["":14,12-12@p3.hs] == (a_ahT)["":14,12-12@p3.hs] {(a) <= (Foo);};["a type equality [a] ~ a_ahT":14,12-12@p3.hs]

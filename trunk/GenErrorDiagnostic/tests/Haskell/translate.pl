@@ -16,12 +16,17 @@ sub new {
 	else {
 		my @tys = split(' ', $ct);
 		if (scalar @tys > 1) {  # type class constraints: class ty1 ty2 .. tyn
-			$right = shift @tys; 
-			$left = "(cons_".(scalar @tys);
-			foreach (@tys) {
-				$left .= " $_";     # rewrite to (cons_n ty1 ty2 .. tyn) <= class
+			$right = shift @tys; 	# class name
+			# for multi-parameter type classes, we need an constructor to collect elements
+			if (scalar @tys > 1) {
+				$left = "cons_".(scalar @tys);
+				foreach (@tys) {
+					$left .= " $_";     # rewrite to (cons_n ty1 ty2 .. tyn) <= class
+				}
 			}
-			$left .= ")";
+			else {
+				$left = shift @tys;
+			}
 			$rel = "<=";
 		}
 		else {
