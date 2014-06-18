@@ -1,5 +1,69 @@
 VARIABLE a_ahT
 
+
+%%
+((list )) <= (Control.Applicative.Alternative);
+(GHC.Conc.Sync.STM) <= (Control.Applicative.Alternative);
+(Text.ParserCombinators.ReadPrec.ReadPrec) <= (Control.Applicative.Alternative);
+(Text.ParserCombinators.ReadP.ReadP) <= (Control.Applicative.Alternative);
+(Maybe) <= (Control.Applicative.Alternative);
+(GHC.Types.Word) <= (Enum);
+(Float) <= (Enum);
+(Double) <= (Enum);
+(Float) <= (Floating);
+(Double) <= (Floating);
+(Float) <= (Fractional);
+(Double) <= (Fractional);
+(GHC.Types.Word) <= (Integral);
+(Integer) <= (Integral);
+(Int) <= (Integral);
+((list )) <= (Monad);
+(IO) <= (Monad);
+(Control.Applicative.ZipList) <= (Functor);
+((list )) <= (Functor);
+(IO) <= (Functor);
+(Float) <= (Num);
+(Double) <= (Num);
+(GHC.Types.Word) <= (Real);
+(Integer) <= (Real);
+(Int) <= (Real);
+(Float) <= (Real);
+(Double) <= (Real);
+(Float) <= (RealFloat);
+(Double) <= (RealFloat);
+(Float) <= (RealFrac);
+(Double) <= (RealFrac);
+(Float) <= (Show);
+(Double) <= (Show);
+(Control.Applicative.Applicative) <= (Data.Typeable.Internal.Typeable);
+(Control.Applicative.Alternative) <= (Data.Typeable.Internal.Typeable);
+((list )) <= (Control.Monad.MonadPlus);
+(Maybe) <= (Control.Monad.MonadPlus);
+((list )) <= (Control.Applicative.Applicative);
+(Control.Applicative.ZipList) <= (Control.Applicative.Applicative);
+(GHC.Conc.Sync.STM) <= (Control.Applicative.Applicative);
+(Text.ParserCombinators.ReadPrec.ReadPrec) <= (Control.Applicative.Applicative);
+(Text.ParserCombinators.ReadP.ReadP) <= (Control.Applicative.Applicative);
+(Data.Proxy.Proxy) <= (Control.Applicative.Applicative);
+(Maybe) <= (Control.Applicative.Applicative);
+(IO) <= (Control.Applicative.Applicative);
+(Control.Applicative.ZipList) <= (GHC.Generics.Generic1);
+(Control.Applicative.D1ZipList) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1WrappedMonad) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1WrappedArrow) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1Const) <= (GHC.Generics.Datatype);
+(Control.Applicative.C1_0ZipList) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0WrappedMonad) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0WrappedArrow) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0Const) <= (GHC.Generics.Constructor);
+(Control.Applicative.S1_0_0ZipList) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0WrappedMonad) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0WrappedArrow) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0Const) <= (GHC.Generics.Selector);
+((list Int)) <= (Foo);
+
+
+%%
 (a_ahT)["":14,9-10@p3.hs] <= (Foo)["":14,9-10@p3.hs] {(a) <= (Foo);};["a use of ‘op’":14,9-10@p3.hs]
 (a_ahT)["":14,9-12@p3.hs] == ((list a))["":14,9-12@p3.hs] {(a) <= (Foo);};["a type equality a_ahT ~ [a]":14,9-12@p3.hs]
 ((list a))["":14,12-12@p3.hs] == (a_ahT)["":14,12-12@p3.hs] {(a) <= (Foo);};["a type equality [a] ~ a_ahT":14,12-12@p3.hs]

@@ -821,7 +821,7 @@ Adding error:
       In an equation for ‘foo’: foo = 1 + True
 tryReporters }
 reportUnsolved }
-InstEnvs (External)
+InstEnvs (External) {
   instance Control.Applicative.Alternative []
     -- Defined in ‘Control.Applicative’
   instance Control.Monad.MonadPlus m =>
@@ -1018,549 +1018,553 @@ InstEnvs (External)
   instance Data.Monoid.Monoid a =>
            Data.Monoid.Monoid (Control.Applicative.Const a b)
     -- Defined in ‘Control.Applicative’
-InstEnvs (Internal)
-famInstEnvs (External)
+End InstEnvs }
+InstEnvs (Internal) {
+End InstEnvs }
+famInstEnvs (External) {
   type GHC.Generics.Rep Char
-    == GHC.Generics.D1
-         GHC.Generics.D_Char
-         (GHC.Generics.C1
-            GHC.Generics.C_Char
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 Char)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D_Char
+        (GHC.Generics.C1
+           GHC.Generics.C_Char
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 Char)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep Double
-    == GHC.Generics.D1
-         GHC.Generics.D_Double
-         (GHC.Generics.C1
-            GHC.Generics.C_Double
-            (GHC.Generics.S1
-               GHC.Generics.NoSelector (GHC.Generics.Rec0 Double)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D_Double
+        (GHC.Generics.C1
+           GHC.Generics.C_Double
+           (GHC.Generics.S1
+              GHC.Generics.NoSelector (GHC.Generics.Rec0 Double)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep Float
-    == GHC.Generics.D1
-         GHC.Generics.D_Float
-         (GHC.Generics.C1
-            GHC.Generics.C_Float
-            (GHC.Generics.S1
-               GHC.Generics.NoSelector (GHC.Generics.Rec0 Float)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D_Float
+        (GHC.Generics.C1
+           GHC.Generics.C_Float
+           (GHC.Generics.S1
+              GHC.Generics.NoSelector (GHC.Generics.Rec0 Float)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep Int
-    == GHC.Generics.D1
-         GHC.Generics.D_Int
-         (GHC.Generics.C1
-            GHC.Generics.C_Int
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 Int)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D_Int
+        (GHC.Generics.C1
+           GHC.Generics.C_Int
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 Int)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (Data.Proxy.Proxy t)
-    == GHC.Generics.D1
-         GHC.Generics.D1Proxy
-         (GHC.Generics.C1 GHC.Generics.C1_0Proxy GHC.Generics.U1)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Proxy
+        (GHC.Generics.C1 GHC.Generics.C1_0Proxy GHC.Generics.U1)
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (a, b, c, d, e, f, g)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,,,,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,,,,,)
-            ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-              GHC.Generics.:*: (GHC.Generics.S1
-                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
-                                GHC.Generics.:*: GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 c)))
-             GHC.Generics.:*: ((GHC.Generics.S1
-                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
-                                GHC.Generics.:*: GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 e))
-                               GHC.Generics.:*: (GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 f)
-                                                 GHC.Generics.:*: GHC.Generics.S1
-                                                                    GHC.Generics.NoSelector
-                                                                    (GHC.Generics.Rec0 g)))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,,,,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,,,,,)
+           ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+             GHC.Generics.:*: (GHC.Generics.S1
+                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
+                               GHC.Generics.:*: GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 c)))
+            GHC.Generics.:*: ((GHC.Generics.S1
+                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
+                               GHC.Generics.:*: GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 e))
+                              GHC.Generics.:*: (GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 f)
+                                                GHC.Generics.:*: GHC.Generics.S1
+                                                                   GHC.Generics.NoSelector
+                                                                   (GHC.Generics.Rec0 g)))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (a, b, c, d, e, f)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,,,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,,,,)
-            ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-              GHC.Generics.:*: (GHC.Generics.S1
-                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
-                                GHC.Generics.:*: GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 c)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,,,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,,,,)
+           ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
              GHC.Generics.:*: (GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
-                               GHC.Generics.:*: (GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 e)
-                                                 GHC.Generics.:*: GHC.Generics.S1
-                                                                    GHC.Generics.NoSelector
-                                                                    (GHC.Generics.Rec0 f)))))
+                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
+                               GHC.Generics.:*: GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 c)))
+            GHC.Generics.:*: (GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
+                              GHC.Generics.:*: (GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 e)
+                                                GHC.Generics.:*: GHC.Generics.S1
+                                                                   GHC.Generics.NoSelector
+                                                                   (GHC.Generics.Rec0 f)))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (a, b, c, d, e)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,,,)
-            ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-              GHC.Generics.:*: GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 b))
-             GHC.Generics.:*: (GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 c)
-                               GHC.Generics.:*: (GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
-                                                 GHC.Generics.:*: GHC.Generics.S1
-                                                                    GHC.Generics.NoSelector
-                                                                    (GHC.Generics.Rec0 e)))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,,,)
+           ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+             GHC.Generics.:*: GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 b))
+            GHC.Generics.:*: (GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 c)
+                              GHC.Generics.:*: (GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
+                                                GHC.Generics.:*: GHC.Generics.S1
+                                                                   GHC.Generics.NoSelector
+                                                                   (GHC.Generics.Rec0 e)))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (a, b, c, d)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,,)
-            ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-              GHC.Generics.:*: GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 b))
-             GHC.Generics.:*: (GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 c)
-                               GHC.Generics.:*: GHC.Generics.S1
-                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 d))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,,)
+           ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+             GHC.Generics.:*: GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 b))
+            GHC.Generics.:*: (GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 c)
+                              GHC.Generics.:*: GHC.Generics.S1
+                                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 d))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (a, b, c)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,)
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-             GHC.Generics.:*: (GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
-                               GHC.Generics.:*: GHC.Generics.S1
-                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 c))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,)
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+            GHC.Generics.:*: (GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
+                              GHC.Generics.:*: GHC.Generics.S1
+                                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 c))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (a, b)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,)
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-             GHC.Generics.:*: GHC.Generics.S1
-                                GHC.Generics.NoSelector (GHC.Generics.Rec0 b)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,)
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+            GHC.Generics.:*: GHC.Generics.S1
+                               GHC.Generics.NoSelector (GHC.Generics.Rec0 b)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep ()
-    == GHC.Generics.D1
-         GHC.Generics.D1()
-         (GHC.Generics.C1 GHC.Generics.C1_0() GHC.Generics.U1)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1()
+        (GHC.Generics.C1 GHC.Generics.C1_0() GHC.Generics.U1)
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep Ordering
-    == GHC.Generics.D1
-         GHC.Generics.D1Ordering
-         (GHC.Generics.C1 GHC.Generics.C1_0Ordering GHC.Generics.U1
-          GHC.Generics.:+: (GHC.Generics.C1
-                              GHC.Generics.C1_1Ordering GHC.Generics.U1
-                            GHC.Generics.:+: GHC.Generics.C1
-                                               GHC.Generics.C1_2Ordering GHC.Generics.U1))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Ordering
+        (GHC.Generics.C1 GHC.Generics.C1_0Ordering GHC.Generics.U1
+         GHC.Generics.:+: (GHC.Generics.C1
+                             GHC.Generics.C1_1Ordering GHC.Generics.U1
+                           GHC.Generics.:+: GHC.Generics.C1
+                                              GHC.Generics.C1_2Ordering GHC.Generics.U1))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep Bool
-    == GHC.Generics.D1
-         GHC.Generics.D1Bool
-         (GHC.Generics.C1 GHC.Generics.C1_0Bool GHC.Generics.U1
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1Bool GHC.Generics.U1)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Bool
+        (GHC.Generics.C1 GHC.Generics.C1_0Bool GHC.Generics.U1
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1Bool GHC.Generics.U1)
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (Either a b)
-    == GHC.Generics.D1
-         GHC.Generics.D1Either
-         (GHC.Generics.C1
-            GHC.Generics.C1_0Either
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a))
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1Either
-                             (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 b)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Either
+        (GHC.Generics.C1
+           GHC.Generics.C1_0Either
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a))
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1Either
+                            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 b)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (Maybe a)
-    == GHC.Generics.D1
-         GHC.Generics.D1Maybe
-         (GHC.Generics.C1 GHC.Generics.C1_0Maybe GHC.Generics.U1
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1Maybe
-                             (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Maybe
+        (GHC.Generics.C1 GHC.Generics.C1_0Maybe GHC.Generics.U1
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1Maybe
+                            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep [a]
-    == GHC.Generics.D1
-         GHC.Generics.D1[]
-         (GHC.Generics.C1 GHC.Generics.C1_0[] GHC.Generics.U1
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1[]
-                             (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-                              GHC.Generics.:*: GHC.Generics.S1
-                                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 [a])))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1[]
+        (GHC.Generics.C1 GHC.Generics.C1_0[] GHC.Generics.U1
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1[]
+                            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+                             GHC.Generics.:*: GHC.Generics.S1
+                                                GHC.Generics.NoSelector (GHC.Generics.Rec0 [a])))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (GHC.Generics.U1 p)
-    == GHC.Generics.D1
-         GHC.Generics.D1U1
-         (GHC.Generics.C1 GHC.Generics.C1_0U1 GHC.Generics.U1)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1U1
+        (GHC.Generics.C1 GHC.Generics.C1_0U1 GHC.Generics.U1)
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (GHC.Generics.Par1 p)
-    == GHC.Generics.D1
-         GHC.Generics.D1Par1
-         (GHC.Generics.C1
-            GHC.Generics.C1_0Par1
-            (GHC.Generics.S1 GHC.Generics.S1_0_0Par1 (GHC.Generics.Rec0 p)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Par1
+        (GHC.Generics.C1
+           GHC.Generics.C1_0Par1
+           (GHC.Generics.S1 GHC.Generics.S1_0_0Par1 (GHC.Generics.Rec0 p)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (GHC.Generics.Rec1 f p)
-    == GHC.Generics.D1
-         GHC.Generics.D1Rec1
-         (GHC.Generics.C1
-            GHC.Generics.C1_0Rec1
-            (GHC.Generics.S1
-               GHC.Generics.S1_0_0Rec1 (GHC.Generics.Rec0 (f p))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Rec1
+        (GHC.Generics.C1
+           GHC.Generics.C1_0Rec1
+           (GHC.Generics.S1
+              GHC.Generics.S1_0_0Rec1 (GHC.Generics.Rec0 (f p))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (GHC.Generics.K1 i c p)
-    == GHC.Generics.D1
-         GHC.Generics.D1K1
-         (GHC.Generics.C1
-            GHC.Generics.C1_0K1
-            (GHC.Generics.S1 GHC.Generics.S1_0_0K1 (GHC.Generics.Rec0 c)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1K1
+        (GHC.Generics.C1
+           GHC.Generics.C1_0K1
+           (GHC.Generics.S1 GHC.Generics.S1_0_0K1 (GHC.Generics.Rec0 c)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (GHC.Generics.M1 i c f p)
-    == GHC.Generics.D1
-         GHC.Generics.D1M1
-         (GHC.Generics.C1
-            GHC.Generics.C1_0M1
-            (GHC.Generics.S1 GHC.Generics.S1_0_0M1 (GHC.Generics.Rec0 (f p))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1M1
+        (GHC.Generics.C1
+           GHC.Generics.C1_0M1
+           (GHC.Generics.S1 GHC.Generics.S1_0_0M1 (GHC.Generics.Rec0 (f p))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep ((GHC.Generics.:+:) f g p)
-    == GHC.Generics.D1
-         GHC.Generics.D1:+:
-         (GHC.Generics.C1
-            GHC.Generics.C1_0:+:
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 (f p)))
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1:+:
-                             (GHC.Generics.S1
-                                GHC.Generics.NoSelector (GHC.Generics.Rec0 (g p))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1:+:
+        (GHC.Generics.C1
+           GHC.Generics.C1_0:+:
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 (f p)))
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1:+:
+                            (GHC.Generics.S1
+                               GHC.Generics.NoSelector (GHC.Generics.Rec0 (g p))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep ((GHC.Generics.:*:) f g p)
-    == GHC.Generics.D1
-         GHC.Generics.D1:*:
-         (GHC.Generics.C1
-            GHC.Generics.C1_0:*:
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 (f p))
-             GHC.Generics.:*: GHC.Generics.S1
-                                GHC.Generics.NoSelector (GHC.Generics.Rec0 (g p))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1:*:
+        (GHC.Generics.C1
+           GHC.Generics.C1_0:*:
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 (f p))
+            GHC.Generics.:*: GHC.Generics.S1
+                               GHC.Generics.NoSelector (GHC.Generics.Rec0 (g p))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep ((GHC.Generics.:.:) f g p)
-    == GHC.Generics.D1
-         GHC.Generics.D1:.:
-         (GHC.Generics.C1
-            GHC.Generics.C1_0:.:
-            (GHC.Generics.S1
-               GHC.Generics.S1_0_0:.: (GHC.Generics.Rec0 (f (g p)))))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1:.:
+        (GHC.Generics.C1
+           GHC.Generics.C1_0:.:
+           (GHC.Generics.S1
+              GHC.Generics.S1_0_0:.: (GHC.Generics.Rec0 (f (g p)))))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep GHC.Generics.Associativity
-    == GHC.Generics.D1
-         GHC.Generics.D1Associativity
-         (GHC.Generics.C1 GHC.Generics.C1_0Associativity GHC.Generics.U1
-          GHC.Generics.:+: (GHC.Generics.C1
-                              GHC.Generics.C1_1Associativity GHC.Generics.U1
-                            GHC.Generics.:+: GHC.Generics.C1
-                                               GHC.Generics.C1_2Associativity GHC.Generics.U1))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Associativity
+        (GHC.Generics.C1 GHC.Generics.C1_0Associativity GHC.Generics.U1
+         GHC.Generics.:+: (GHC.Generics.C1
+                             GHC.Generics.C1_1Associativity GHC.Generics.U1
+                           GHC.Generics.:+: GHC.Generics.C1
+                                              GHC.Generics.C1_2Associativity GHC.Generics.U1))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep GHC.Generics.Fixity
-    == GHC.Generics.D1
-         GHC.Generics.D1Fixity
-         (GHC.Generics.C1 GHC.Generics.C1_0Fixity GHC.Generics.U1
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1Fixity
-                             (GHC.Generics.S1
-                                GHC.Generics.NoSelector
-                                (GHC.Generics.Rec0 GHC.Generics.Associativity)
-                              GHC.Generics.:*: GHC.Generics.S1
-                                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 Int)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Fixity
+        (GHC.Generics.C1 GHC.Generics.C1_0Fixity GHC.Generics.U1
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1Fixity
+                            (GHC.Generics.S1
+                               GHC.Generics.NoSelector
+                               (GHC.Generics.Rec0 GHC.Generics.Associativity)
+                             GHC.Generics.:*: GHC.Generics.S1
+                                                GHC.Generics.NoSelector (GHC.Generics.Rec0 Int)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep GHC.Generics.Arity
-    == GHC.Generics.D1
-         GHC.Generics.D1Arity
-         (GHC.Generics.C1 GHC.Generics.C1_0Arity GHC.Generics.U1
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1Arity
-                             (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 Int)))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Arity
+        (GHC.Generics.C1 GHC.Generics.C1_0Arity GHC.Generics.U1
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1Arity
+                            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 Int)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep (Data.Monoid.Dual a)
-    == GHC.Generics.D1
-         Data.Monoid.D1Dual
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Dual
-            (GHC.Generics.S1 Data.Monoid.S1_0_0Dual (GHC.Generics.Rec0 a)))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Dual
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Dual
+           (GHC.Generics.S1 Data.Monoid.S1_0_0Dual (GHC.Generics.Rec0 a)))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep (Data.Monoid.Endo a)
-    == GHC.Generics.D1
-         Data.Monoid.D1Endo
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Endo
-            (GHC.Generics.S1
-               Data.Monoid.S1_0_0Endo (GHC.Generics.Rec0 (a -> a))))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Endo
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Endo
+           (GHC.Generics.S1
+              Data.Monoid.S1_0_0Endo (GHC.Generics.Rec0 (a -> a))))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep Data.Monoid.All
-    == GHC.Generics.D1
-         Data.Monoid.D1All
-         (GHC.Generics.C1
-            Data.Monoid.C1_0All
-            (GHC.Generics.S1 Data.Monoid.S1_0_0All (GHC.Generics.Rec0 Bool)))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1All
+        (GHC.Generics.C1
+           Data.Monoid.C1_0All
+           (GHC.Generics.S1 Data.Monoid.S1_0_0All (GHC.Generics.Rec0 Bool)))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep Data.Monoid.Any
-    == GHC.Generics.D1
-         Data.Monoid.D1Any
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Any
-            (GHC.Generics.S1 Data.Monoid.S1_0_0Any (GHC.Generics.Rec0 Bool)))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Any
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Any
+           (GHC.Generics.S1 Data.Monoid.S1_0_0Any (GHC.Generics.Rec0 Bool)))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep (Data.Monoid.Sum a)
-    == GHC.Generics.D1
-         Data.Monoid.D1Sum
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Sum
-            (GHC.Generics.S1 Data.Monoid.S1_0_0Sum (GHC.Generics.Rec0 a)))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Sum
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Sum
+           (GHC.Generics.S1 Data.Monoid.S1_0_0Sum (GHC.Generics.Rec0 a)))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep (Data.Monoid.Product a)
-    == GHC.Generics.D1
-         Data.Monoid.D1Product
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Product
-            (GHC.Generics.S1 Data.Monoid.S1_0_0Product (GHC.Generics.Rec0 a)))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Product
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Product
+           (GHC.Generics.S1 Data.Monoid.S1_0_0Product (GHC.Generics.Rec0 a)))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep (Data.Monoid.First a)
-    == GHC.Generics.D1
-         Data.Monoid.D1First
-         (GHC.Generics.C1
-            Data.Monoid.C1_0First
-            (GHC.Generics.S1
-               Data.Monoid.S1_0_0First (GHC.Generics.Rec0 (Maybe a))))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1First
+        (GHC.Generics.C1
+           Data.Monoid.C1_0First
+           (GHC.Generics.S1
+              Data.Monoid.S1_0_0First (GHC.Generics.Rec0 (Maybe a))))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep (Data.Monoid.Last a)
-    == GHC.Generics.D1
-         Data.Monoid.D1Last
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Last
-            (GHC.Generics.S1
-               Data.Monoid.S1_0_0Last (GHC.Generics.Rec0 (Maybe a))))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Last
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Last
+           (GHC.Generics.S1
+              Data.Monoid.S1_0_0Last (GHC.Generics.Rec0 (Maybe a))))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep (Control.Applicative.Const a b)
-    == GHC.Generics.D1
-         Control.Applicative.D1Const
-         (GHC.Generics.C1
-            Control.Applicative.C1_0Const
-            (GHC.Generics.S1
-               Control.Applicative.S1_0_0Const (GHC.Generics.Rec0 a)))
+    ~ GHC.Generics.D1
+        Control.Applicative.D1Const
+        (GHC.Generics.C1
+           Control.Applicative.C1_0Const
+           (GHC.Generics.S1
+              Control.Applicative.S1_0_0Const (GHC.Generics.Rec0 a)))
     -- Defined in ‘Control.Applicative’
   type GHC.Generics.Rep (Control.Applicative.WrappedMonad m a)
-    == GHC.Generics.D1
-         Control.Applicative.D1WrappedMonad
-         (GHC.Generics.C1
-            Control.Applicative.C1_0WrappedMonad
-            (GHC.Generics.S1
-               Control.Applicative.S1_0_0WrappedMonad (GHC.Generics.Rec0 (m a))))
+    ~ GHC.Generics.D1
+        Control.Applicative.D1WrappedMonad
+        (GHC.Generics.C1
+           Control.Applicative.C1_0WrappedMonad
+           (GHC.Generics.S1
+              Control.Applicative.S1_0_0WrappedMonad (GHC.Generics.Rec0 (m a))))
     -- Defined in ‘Control.Applicative’
   type GHC.Generics.Rep (Control.Applicative.WrappedArrow a b c)
-    == GHC.Generics.D1
-         Control.Applicative.D1WrappedArrow
-         (GHC.Generics.C1
-            Control.Applicative.C1_0WrappedArrow
-            (GHC.Generics.S1
-               Control.Applicative.S1_0_0WrappedArrow
-               (GHC.Generics.Rec0 (a b c))))
+    ~ GHC.Generics.D1
+        Control.Applicative.D1WrappedArrow
+        (GHC.Generics.C1
+           Control.Applicative.C1_0WrappedArrow
+           (GHC.Generics.S1
+              Control.Applicative.S1_0_0WrappedArrow
+              (GHC.Generics.Rec0 (a b c))))
     -- Defined in ‘Control.Applicative’
   type GHC.Generics.Rep (Control.Applicative.ZipList a)
-    == GHC.Generics.D1
-         Control.Applicative.D1ZipList
-         (GHC.Generics.C1
-            Control.Applicative.C1_0ZipList
-            (GHC.Generics.S1
-               Control.Applicative.S1_0_0ZipList (GHC.Generics.Rec0 [a])))
+    ~ GHC.Generics.D1
+        Control.Applicative.D1ZipList
+        (GHC.Generics.C1
+           Control.Applicative.C1_0ZipList
+           (GHC.Generics.S1
+              Control.Applicative.S1_0_0ZipList (GHC.Generics.Rec0 [a])))
     -- Defined in ‘Control.Applicative’
   type GHC.Generics.Rep1 ((,,,,,,) a b c d e f)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,,,,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,,,,,)
-            ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-              GHC.Generics.:*: (GHC.Generics.S1
-                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
-                                GHC.Generics.:*: GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 c)))
-             GHC.Generics.:*: ((GHC.Generics.S1
-                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
-                                GHC.Generics.:*: GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 e))
-                               GHC.Generics.:*: (GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 f)
-                                                 GHC.Generics.:*: GHC.Generics.S1
-                                                                    GHC.Generics.NoSelector
-                                                                    GHC.Generics.Par1))))
-    -- Defined in ‘GHC.Generics’
-  type GHC.Generics.Rep1 ((,,,,,) a b c d e)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,,,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,,,,)
-            ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-              GHC.Generics.:*: (GHC.Generics.S1
-                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
-                                GHC.Generics.:*: GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 c)))
-             GHC.Generics.:*: (GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
-                               GHC.Generics.:*: (GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 e)
-                                                 GHC.Generics.:*: GHC.Generics.S1
-                                                                    GHC.Generics.NoSelector
-                                                                    GHC.Generics.Par1))))
-    -- Defined in ‘GHC.Generics’
-  type GHC.Generics.Rep1 ((,,,,) a b c d)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,,,)
-            ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-              GHC.Generics.:*: GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 b))
-             GHC.Generics.:*: (GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 c)
-                               GHC.Generics.:*: (GHC.Generics.S1
-                                                   GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
-                                                 GHC.Generics.:*: GHC.Generics.S1
-                                                                    GHC.Generics.NoSelector
-                                                                    GHC.Generics.Par1))))
-    -- Defined in ‘GHC.Generics’
-  type GHC.Generics.Rep1 ((,,,) a b c)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,,)
-            ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-              GHC.Generics.:*: GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 b))
-             GHC.Generics.:*: (GHC.Generics.S1
-                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 c)
-                               GHC.Generics.:*: GHC.Generics.S1
-                                                  GHC.Generics.NoSelector GHC.Generics.Par1)))
-    -- Defined in ‘GHC.Generics’
-  type GHC.Generics.Rep1 ((,,) a b)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,,)
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,,,,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,,,,,)
+           ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
              GHC.Generics.:*: (GHC.Generics.S1
                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
                                GHC.Generics.:*: GHC.Generics.S1
-                                                  GHC.Generics.NoSelector GHC.Generics.Par1)))
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 c)))
+            GHC.Generics.:*: ((GHC.Generics.S1
+                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
+                               GHC.Generics.:*: GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 e))
+                              GHC.Generics.:*: (GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 f)
+                                                GHC.Generics.:*: GHC.Generics.S1
+                                                                   GHC.Generics.NoSelector
+                                                                   GHC.Generics.Par1))))
+    -- Defined in ‘GHC.Generics’
+  type GHC.Generics.Rep1 ((,,,,,) a b c d e)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,,,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,,,,)
+           ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+             GHC.Generics.:*: (GHC.Generics.S1
+                                 GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
+                               GHC.Generics.:*: GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 c)))
+            GHC.Generics.:*: (GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
+                              GHC.Generics.:*: (GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 e)
+                                                GHC.Generics.:*: GHC.Generics.S1
+                                                                   GHC.Generics.NoSelector
+                                                                   GHC.Generics.Par1))))
+    -- Defined in ‘GHC.Generics’
+  type GHC.Generics.Rep1 ((,,,,) a b c d)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,,,)
+           ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+             GHC.Generics.:*: GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 b))
+            GHC.Generics.:*: (GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 c)
+                              GHC.Generics.:*: (GHC.Generics.S1
+                                                  GHC.Generics.NoSelector (GHC.Generics.Rec0 d)
+                                                GHC.Generics.:*: GHC.Generics.S1
+                                                                   GHC.Generics.NoSelector
+                                                                   GHC.Generics.Par1))))
+    -- Defined in ‘GHC.Generics’
+  type GHC.Generics.Rep1 ((,,,) a b c)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,,)
+           ((GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+             GHC.Generics.:*: GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 b))
+            GHC.Generics.:*: (GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 c)
+                              GHC.Generics.:*: GHC.Generics.S1
+                                                 GHC.Generics.NoSelector GHC.Generics.Par1)))
+    -- Defined in ‘GHC.Generics’
+  type GHC.Generics.Rep1 ((,,) a b)
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,,)
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+            GHC.Generics.:*: (GHC.Generics.S1
+                                GHC.Generics.NoSelector (GHC.Generics.Rec0 b)
+                              GHC.Generics.:*: GHC.Generics.S1
+                                                 GHC.Generics.NoSelector GHC.Generics.Par1)))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep1 ((,) a)
-    == GHC.Generics.D1
-         GHC.Generics.D1(,)
-         (GHC.Generics.C1
-            GHC.Generics.C1_0(,)
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
-             GHC.Generics.:*: GHC.Generics.S1
-                                GHC.Generics.NoSelector GHC.Generics.Par1))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1(,)
+        (GHC.Generics.C1
+           GHC.Generics.C1_0(,)
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a)
+            GHC.Generics.:*: GHC.Generics.S1
+                               GHC.Generics.NoSelector GHC.Generics.Par1))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep1 (Either a)
-    == GHC.Generics.D1
-         GHC.Generics.D1Either
-         (GHC.Generics.C1
-            GHC.Generics.C1_0Either
-            (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a))
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1Either
-                             (GHC.Generics.S1 GHC.Generics.NoSelector GHC.Generics.Par1))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Either
+        (GHC.Generics.C1
+           GHC.Generics.C1_0Either
+           (GHC.Generics.S1 GHC.Generics.NoSelector (GHC.Generics.Rec0 a))
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1Either
+                            (GHC.Generics.S1 GHC.Generics.NoSelector GHC.Generics.Par1))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep1 Maybe
-    == GHC.Generics.D1
-         GHC.Generics.D1Maybe
-         (GHC.Generics.C1 GHC.Generics.C1_0Maybe GHC.Generics.U1
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1Maybe
-                             (GHC.Generics.S1 GHC.Generics.NoSelector GHC.Generics.Par1))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1Maybe
+        (GHC.Generics.C1 GHC.Generics.C1_0Maybe GHC.Generics.U1
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1Maybe
+                            (GHC.Generics.S1 GHC.Generics.NoSelector GHC.Generics.Par1))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep1 []
-    == GHC.Generics.D1
-         GHC.Generics.D1[]
-         (GHC.Generics.C1 GHC.Generics.C1_0[] GHC.Generics.U1
-          GHC.Generics.:+: GHC.Generics.C1
-                             GHC.Generics.C1_1[]
-                             (GHC.Generics.S1 GHC.Generics.NoSelector GHC.Generics.Par1
-                              GHC.Generics.:*: GHC.Generics.S1
-                                                 GHC.Generics.NoSelector (GHC.Generics.Rec1 [])))
+    ~ GHC.Generics.D1
+        GHC.Generics.D1[]
+        (GHC.Generics.C1 GHC.Generics.C1_0[] GHC.Generics.U1
+         GHC.Generics.:+: GHC.Generics.C1
+                            GHC.Generics.C1_1[]
+                            (GHC.Generics.S1 GHC.Generics.NoSelector GHC.Generics.Par1
+                             GHC.Generics.:*: GHC.Generics.S1
+                                                GHC.Generics.NoSelector (GHC.Generics.Rec1 [])))
     -- Defined in ‘GHC.Generics’
   type GHC.Generics.Rep1 Data.Monoid.Dual
-    == GHC.Generics.D1
-         Data.Monoid.D1Dual
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Dual
-            (GHC.Generics.S1 Data.Monoid.S1_0_0Dual GHC.Generics.Par1))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Dual
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Dual
+           (GHC.Generics.S1 Data.Monoid.S1_0_0Dual GHC.Generics.Par1))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep1 Data.Monoid.Sum
-    == GHC.Generics.D1
-         Data.Monoid.D1Sum
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Sum
-            (GHC.Generics.S1 Data.Monoid.S1_0_0Sum GHC.Generics.Par1))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Sum
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Sum
+           (GHC.Generics.S1 Data.Monoid.S1_0_0Sum GHC.Generics.Par1))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep1 Data.Monoid.Product
-    == GHC.Generics.D1
-         Data.Monoid.D1Product
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Product
-            (GHC.Generics.S1 Data.Monoid.S1_0_0Product GHC.Generics.Par1))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Product
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Product
+           (GHC.Generics.S1 Data.Monoid.S1_0_0Product GHC.Generics.Par1))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep1 Data.Monoid.First
-    == GHC.Generics.D1
-         Data.Monoid.D1First
-         (GHC.Generics.C1
-            Data.Monoid.C1_0First
-            (GHC.Generics.S1
-               Data.Monoid.S1_0_0First (GHC.Generics.Rec1 Maybe)))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1First
+        (GHC.Generics.C1
+           Data.Monoid.C1_0First
+           (GHC.Generics.S1
+              Data.Monoid.S1_0_0First (GHC.Generics.Rec1 Maybe)))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep1 Data.Monoid.Last
-    == GHC.Generics.D1
-         Data.Monoid.D1Last
-         (GHC.Generics.C1
-            Data.Monoid.C1_0Last
-            (GHC.Generics.S1 Data.Monoid.S1_0_0Last (GHC.Generics.Rec1 Maybe)))
+    ~ GHC.Generics.D1
+        Data.Monoid.D1Last
+        (GHC.Generics.C1
+           Data.Monoid.C1_0Last
+           (GHC.Generics.S1 Data.Monoid.S1_0_0Last (GHC.Generics.Rec1 Maybe)))
     -- Defined in ‘Data.Monoid’
   type GHC.Generics.Rep1 (Control.Applicative.Const a)
-    == GHC.Generics.D1
-         Control.Applicative.D1Const
-         (GHC.Generics.C1
-            Control.Applicative.C1_0Const
-            (GHC.Generics.S1
-               Control.Applicative.S1_0_0Const (GHC.Generics.Rec0 a)))
+    ~ GHC.Generics.D1
+        Control.Applicative.D1Const
+        (GHC.Generics.C1
+           Control.Applicative.C1_0Const
+           (GHC.Generics.S1
+              Control.Applicative.S1_0_0Const (GHC.Generics.Rec0 a)))
     -- Defined in ‘Control.Applicative’
   type GHC.Generics.Rep1 (Control.Applicative.WrappedMonad m)
-    == GHC.Generics.D1
-         Control.Applicative.D1WrappedMonad
-         (GHC.Generics.C1
-            Control.Applicative.C1_0WrappedMonad
-            (GHC.Generics.S1
-               Control.Applicative.S1_0_0WrappedMonad (GHC.Generics.Rec1 m)))
+    ~ GHC.Generics.D1
+        Control.Applicative.D1WrappedMonad
+        (GHC.Generics.C1
+           Control.Applicative.C1_0WrappedMonad
+           (GHC.Generics.S1
+              Control.Applicative.S1_0_0WrappedMonad (GHC.Generics.Rec1 m)))
     -- Defined in ‘Control.Applicative’
   type GHC.Generics.Rep1 (Control.Applicative.WrappedArrow a b)
-    == GHC.Generics.D1
-         Control.Applicative.D1WrappedArrow
-         (GHC.Generics.C1
-            Control.Applicative.C1_0WrappedArrow
-            (GHC.Generics.S1
-               Control.Applicative.S1_0_0WrappedArrow (GHC.Generics.Rec1 (a b))))
+    ~ GHC.Generics.D1
+        Control.Applicative.D1WrappedArrow
+        (GHC.Generics.C1
+           Control.Applicative.C1_0WrappedArrow
+           (GHC.Generics.S1
+              Control.Applicative.S1_0_0WrappedArrow (GHC.Generics.Rec1 (a b))))
     -- Defined in ‘Control.Applicative’
   type GHC.Generics.Rep1 Control.Applicative.ZipList
-    == GHC.Generics.D1
-         Control.Applicative.D1ZipList
-         (GHC.Generics.C1
-            Control.Applicative.C1_0ZipList
-            (GHC.Generics.S1
-               Control.Applicative.S1_0_0ZipList (GHC.Generics.Rec1 [])))
+    ~ GHC.Generics.D1
+        Control.Applicative.D1ZipList
+        (GHC.Generics.C1
+           Control.Applicative.C1_0ZipList
+           (GHC.Generics.S1
+              Control.Applicative.S1_0_0ZipList (GHC.Generics.Rec1 [])))
     -- Defined in ‘Control.Applicative’
   type instance a Data.Type.Equality.== b
-    == Data.Either.EqEither a b
+    ~ Data.Either.EqEither a b
     -- Defined in ‘Data.Either’
-famInstEnvs (Internal)
+End famInstEnvs }
+famInstEnvs (Internal) {
+End famInstEnvs }
 originalCts (simplifyTop)
   fvars =  []
   wanted =  WC {wc_flat = [W] $dNum_ahZ :: Num
