@@ -18,7 +18,9 @@ import TcSMonad as TcS
 import TcInteract
 import Kind     ( isKind, defaultKind_maybe )
 import Inst
+import InstEnv
 import FamInst
+import FamInstEnv
 import FunDeps  ( growThetaTyVars )
 import Type     ( classifyPredType, PredTree(..), getClassPredTys_maybe )
 import Class    ( Class )
@@ -53,12 +55,23 @@ import TrieMap () -- DV: for now
 -- Dump free variables, axioms, and wanted constraints for SHErrLoc
 dump_failed_cts proc_name wanteds
   = do { (instEnv1, instEnv2) <- Inst.tcGetInstEnvs
-       ; traceTc "InstEnvs (External)" $ ppr instEnv1
-       ; traceTc "InstEnvs (Internal)" $ ppr instEnv2
+       ; traceTc "InstEnvs (External) {" $ vcat (map ppr $ instEnvElts instEnv1)
+       ; traceTc "End InstEnvs }" empty
+       ; traceTc "InstEnvs (Internal) {" $ vcat (map ppr $ instEnvElts instEnv2)
        ; (famEnv1, famEnv2) <- FamInst.tcGetFamInstEnvs
-       ; traceTc "famInstEnvs (External)" $ ppr famEnv1
-       ; traceTc "famInstEnvs (Internal)" $ ppr famEnv2
+       ; traceTc "End InstEnvs }" empty
+
+       ; traceTc "famInstEnvs (External) {" $ vcat (map pprFamInstCts $ (famInstEnvElts famEnv1))
+       ; traceTc "End famInstEnvs }" empty
+       ; traceTc "famInstEnvs (Internal) {" $ vcat (map pprFamInstCts $ (famInstEnvElts famEnv2))
+       ; traceTc "End famInstEnvs }" empty
+
        ; traceTc ("originalCts ("++proc_name++")") (text "fvars = " <+> ppr (tyVarsOfWC wanteds) $$ text "wanted = " <+> ppr wanteds) }
+  where
+    pprFamInstCts famInst
+      = hang (pprFamInstHdr famInst)
+           2 (vcat [ ptext (sLit "~") <+> ppr (famInstRHS famInst)
+               , ptext (sLit "--") <+> pprDefinedAt (getName famInst)])
 
 simplifyTop :: WantedConstraints -> TcM (Bag EvBind)
 -- Simplify top-level constraints
