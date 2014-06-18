@@ -7,14 +7,33 @@ sub new {
 	my $type = shift;
 	my $ct = shift;
 	my ($left, $right, $rel);
-
+	$ct =~ s/\R//g; # remove line breaks
+	
 	if ($ct =~ /(.*) ~ (.*)/) {
 		$left = $1;
 		$right = $2;
 		$rel = "==";
 	}	
 	else {
-		my @tys = split(' ', $ct);
+		my @tys = ();
+		my $paracount = 0;
+		my $parsed = "";
+		foreach my $byte (split //, $ct) {
+			if ($byte eq '(') { $paracount ++;}
+			elsif ($byte eq ')') { $paracount --;}
+			if ($paracount eq 0 and $byte eq ' ') {
+				if ($parsed =~ /.+/) {
+					push (@tys, $parsed);
+				}
+				$parsed = "";
+			}
+			else {
+				$parsed .= $byte;
+			}
+		}
+		if ($parsed =~ /.+/) {	push (@tys, $parsed);}
+
+		#@tys = split(' ', $ct);
 		if (scalar @tys > 1) {  # type class constraints: class ty1 ty2 .. tyn
 			$right = shift @tys; 	# class name
 			# for multi-parameter type classes, we need an constructor to collect elements
@@ -129,8 +148,9 @@ sub syntax_error {
 }
 
 my $tracefile;          # GHC trace file
-my @constraints = ();    # collected constraints
+my @constraints = ();   # collected constraints
 my @assumptions = ();   # collected assumptions
+my @axioms = ();        # collected axioms
 my $prev_ct;            # a constraint may occupy multiple lines
 
 # get an input trace file from GHC
@@ -186,6 +206,7 @@ sub trans_as {
 
 sub trans_WC;
 sub trans_implic;
+sub trans_AXIOM;
 
 # only need to translate wc_flat, and wc_impl
 sub trans_WC {
@@ -266,7 +287,45 @@ sub trans_implic {
 	return $tail;
 }
 
+sub isTrivialAxiom {
+	my $ct = shift;
+	if ($ct =~ /=>/) {
+		return 0;
+	}
+	if ($ct =~ /[( ][a-z][ )]/) {
+		return 0;
+	}
+	return 1;
+}
+
+# translate axioms
+sub trans_AXIOM {
+	my $line = shift;
+	my $ct = "";
+	while ($line !~ /^End .*InstEnvs \}/) {
+		$line =~ s/(.*instance) //g;
+		$line =~ s/(\[overlap ok\])//g;
+		if ($line =~ /(.*) -- Defined /) {
+			$ct .= $1;
+			if (isTrivialAxiom $ct) {
+				push (@axioms, new PlainCt($ct));
+			}
+			$ct = "";
+		}
+		else {	# collect the constraint
+			$ct .= $line;
+		}
+		$line = <TRACE>;
+	}
+}
+
+@axioms = ();
 while (<TRACE>) {
+	# translate axioms
+	if (/^InstEnvs \(.*\) \{/ or /^famInstEnvs \(Internal\) \{/) { # only handle internal type families for now
+		my $next = <TRACE>;
+		trans_AXIOM $next;
+	}
 
 	# get the original constraints that caused errors
 	if (/^originalCts/) {
@@ -288,7 +347,11 @@ while (<TRACE>) {
 			foreach (@vars) {
 				print OUT ("VARIABLE $_\n");
 			}
-			print OUT "\n";
+			print OUT "\n\n%%\n";
+			foreach (@axioms) {
+				print OUT $_->print().";\n";
+			}
+			print OUT "\n\n%%\n";
 			foreach (@constraints) {
 				print OUT ($_->print());
 			}
