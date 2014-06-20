@@ -344,28 +344,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 	
 	@Override
 	public boolean hasLeqEdge(Node from, Node end) {
-		if (from.equals(end))
-			return false;	// return false since these trivial paths are not interesting
-		return shortestLEQ[from.getIndex()][end.getIndex()] != MAX;
+		return from.getElement().isBottom() || end.getElement().isTop() 
+				|| shortestLEQ[from.getIndex()][end.getIndex()] != MAX;
 	}
-
-    /**
-     * @param n1 Start node
-     * @param n2 End node
-     * @return True if n1<=n2 can be inferred from constraint graph, or hypothesis
-     */
-    private boolean isLeq (Node n1, Node n2) {
-            if (hasLeqEdge(n1, n2))
-                return true;
-            if (n1.equals(n2) || n1.getElement().isBottom() || n2.getElement().isTop())
-            	return true;
-            if (g.getEnv() != null && !n1.getElement().trivialEnd() && !n2.getElement().trivialEnd()
-                            && g.getEnv().leqApplyAssertions(
-                                            n1.getElement().getBaseElement(), n2.getElement().getBaseElement())) {
-                return true;
-            }
-            return false;
-    }
 	
 	/**
 	 * Given a newly discovered LeqEdge, this function tries to identify extra
@@ -385,10 +366,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 				int meetIndex = meetnode.getIndex();
 				boolean success = true;
 				
-				if (isLeq(candidate, meetnode) || candIndex == meetIndex)
+				if (hasLeqEdge(candidate, meetnode) || candIndex == meetIndex)
 					continue;
 				for (Element e : me.getElements()) {
-					if (!isLeq(candidate, g.getNode(e))) {
+					if (!hasLeqEdge(candidate, g.getNode(e))) {
 						success = false;
 						break;
 					}
@@ -421,10 +402,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 				int joinIndex = joinnode.getIndex();
 				boolean success = true;
 
-				if (isLeq(joinnode, candidate) || joinIndex == candIndex)
+				if (hasLeqEdge(joinnode, candidate) || joinIndex == candIndex)
 					continue;
 				for (Element e : je.getElements()) {
-					if (!isLeq(g.getNode(e), candidate)) {
+					if (!hasLeqEdge(g.getNode(e), candidate)) {
 						success = false;
 						break;
 					}
@@ -463,7 +444,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						f = cnTo;
 					}
 					
-					if (isLeq(f, t) || f.getIndex() == t.getIndex())
+					if (hasLeqEdge(f, t) || f.getIndex() == t.getIndex())
 						continue;
 	
 					if (ce1.getCons().equals(ce2.getCons())) {
@@ -473,7 +454,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						for (int i = 0; i < ce1.getCons().getArity(); i++) {
 							Element e1 = ce1.getElements().get(i);
 							Element e2 = ce2.getElements().get(i);
-							if (!isLeq(g.getNode(e1), g.getNode(e2)) || e1 instanceof Variable || e2 instanceof Variable) {
+							if (!hasLeqEdge(g.getNode(e1), g.getNode(e2)) || e1 instanceof Variable || e2 instanceof Variable) {
 								success = false;
 								break;
 							}

@@ -13,25 +13,19 @@ import sherrloc.graph.ConstraintGraph;
  */
 public class Hypothesis {
 	private Set<Inequality> assertions;
+	private Set<Element> elmts;			// elements whose relation is of interest
 	private ConstraintGraph graph;
 	private PathFinder finder = null;
-	private Hypothesis parent = null; // used to reduce shared environments
+	private Hypothesis parent = null; 	// used to reduce shared environments
 										// (e.g., to store global assumptions)
+	private boolean USE_GRAPH = false;	// set true to use hypothesis graph to infer provable relations
 
 	/**
 	 * Construct an empty hypothesis
 	 */
 	public Hypothesis() {
 		assertions = new HashSet<Inequality>();
-		graph = new ConstraintGraph(null);
-	}
-
-	/**
-	 * @param s
-	 *            A set of inequalities
-	 */
-	public Hypothesis(Set<Inequality> s) {
-		assertions = s;
+		elmts = new HashSet<Element>();
 		graph = new ConstraintGraph(null);
 	}
 
@@ -43,6 +37,15 @@ public class Hypothesis {
 	 */
 	public void addInequality(Inequality ieq) {
 		assertions.add(ieq.baseInequality());
+	}
+	
+	/**
+	 * @param s
+	 *            A set of inequalities
+	 */
+	public void addElements (Set<Element> elements) {
+		for (Element elm : elements)
+			elmts.add(elm.getBaseElement());
 	}
 
 	/**
@@ -56,6 +59,7 @@ public class Hypothesis {
 			parent = e;
 		} else {
 			assertions.addAll(e.getInequalities());
+			elmts.addAll(e.elmts);
 		}
 	}
 
@@ -101,7 +105,7 @@ public class Hypothesis {
 	 * @return True if <code>p1 <= p2</code>
 	 */
 	public boolean leq(Element p1, Element p2) {
-		return leq(p1, p2, true);
+		return leq(p1, p2, true);		
 	}
 	
 	
@@ -109,6 +113,29 @@ public class Hypothesis {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
 		
+		if (USE_GRAPH) {
+			if (e1.equals(e2))
+				return true;
+
+			if (e1.isBottom() || e2.isTop())
+				return true;
+
+			if (e1 instanceof Variable || e2 instanceof Variable) {
+				return true;
+			}
+
+			if (e1 instanceof ConstructorApplication
+					&& e2 instanceof ConstructorApplication) {
+				if (((ConstructorApplication) e1).getCons().equals(
+						((ConstructorApplication) e2).getCons()) && (e1.hasVars() || e2.hasVars()))
+					return true;
+			}
+
+			if (rec && leqApplyAssertions(e1, e2))
+				return true;
+			return false;
+		}
+		else {
 		// simple cases
 		if (e1.equals(e2))
 			return true;
@@ -189,6 +216,7 @@ public class Hypothesis {
 		}
 
 		return false;
+		}
 	}
 
 	/**
@@ -204,6 +232,20 @@ public class Hypothesis {
 			return ret;
 		}
 	}
+	
+	/**
+	 * @return All elements in the hypothesis
+	 */
+	public Set<Element> getElements() {
+		if (parent == null)
+			return elmts;
+		else {
+			Set<Element> ret = new HashSet<Element>();
+			ret.addAll(elmts);
+			ret.addAll(parent.getElements());
+			return ret;
+		}
+	}
 
 	/**
 	 * Saturate a hypothesis graph to test if <code>e1<=e2</code> can be
@@ -215,20 +257,33 @@ public class Hypothesis {
 	 *            Element on RHS
 	 * @return True if <code>e1 <= e2</code> can be inferred from the hypothesis
 	 */
-	public boolean leqApplyAssertions(Element e1, Element e2) {
+	private boolean leqApplyAssertions(Element e1, Element e2) {
 
 		if (finder == null) {
 			for (Inequality c : getInequalities()) {
 				graph.addOneInequality(c);
 			}
+			if (USE_GRAPH) {
+				for (Element e : getElements()) {
+					graph.getNode(e); // create new node when necessary
+				}
+			}
 			graph.generateGraph();
-
 			finder = new ShortestPathFinder(graph, false, true);
 		}
 
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 			if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e2)))
 				return true;
+			/**
+			 * The following loop is NOT used for transitivity. The reason is
+			 * that constructors in Jif may be a synonym (e.g., pc_label).
+			 * Looking a step before allows using assumption such as
+			 * pc_label <= .. -> .. to show the relation.
+			 * 
+			 * A better way is to expand such labels to l_o -> l_r, so that 
+			 * the following tweak is not necessary
+			 */
 			for (Element e : graph.getAllElements()) {
 				if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e)) && leq(e, e2, false))
 					return true;
@@ -253,14 +308,10 @@ public class Hypothesis {
 	public boolean equals(Object obj) {
 		if (obj instanceof Hypothesis) {
 			Hypothesis other = (Hypothesis) obj;
-			for (Inequality cons : assertions) {
-				if (!other.assertions.contains(cons))
-					return false;
-			}
-
-			for (Inequality cons : other.assertions) {
-				if (!assertions.contains(cons))
-					return false;
+			if (parent != null && other.parent != null)
+				return parent.equals(other.parent) && assertions.equals(other.assertions);
+			else if (parent == null && other.parent == null ) {
+				return assertions.equals(other.assertions);
 			}
 		}
 		return true;
@@ -268,10 +319,10 @@ public class Hypothesis {
 
 	@Override
 	public int hashCode() {
-		int ret = 0;
-		for (Inequality cons : assertions)
-			ret += cons.hashCode();
-		return ret;
+		if (parent == null)
+			return assertions.hashCode();
+		else
+			return parent.hashCode() * 511 + assertions.hashCode();
 	}
 
 }
