@@ -189,6 +189,9 @@ public class ConstraintGraph extends Graph {
         }
         if (USE_OPT)
         	removeDominatedVariables();
+        // add base elements to the hypothesis graph
+        if (env != null)
+        	env.addElements(getAllElements());
         generated = true;
     }
     

@@ -1,6 +1,5 @@
 package sherrloc.diagnostic.explanation;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import sherrloc.constraint.ast.Hypothesis;
@@ -12,15 +11,16 @@ import sherrloc.graph.ConstraintPath;
  */
 public class HypothesisEntity extends Entity {
 	final private Inequality ieq;
-	/** reuse saturated hypothesis graph for better performance */
-	private Map<Hypothesis, Hypothesis> cachedEnv = new HashMap<Hypothesis, Hypothesis>();	
+	private Map<Hypothesis, Hypothesis> cachedEnv;	
 	
 	/**
 	 * @param ieq An inequality
+	 * @param cachedEnv: reuse saturated hypothesis graph for better performance
 	 */
-	public HypothesisEntity(Inequality ieq) {
+	public HypothesisEntity(Inequality ieq, Map<Hypothesis, Hypothesis> cachedEnv) {
 		super(0);
 		this.ieq = ieq;
+		this.cachedEnv = cachedEnv;
 	}
 	
 	@Override

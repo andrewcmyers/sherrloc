@@ -1,9 +1,11 @@
 package sherrloc.diagnostic;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import sherrloc.constraint.ast.Element;
+import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.diagnostic.explanation.Entity;
 import sherrloc.diagnostic.explanation.ExprEntity;
 import sherrloc.diagnostic.explanation.HypothesisEntity;
@@ -17,6 +19,8 @@ import sherrloc.graph.Node;
  * its simplicity, the result is still useful since this approach is automatic.
  */
 public class UnifiedExplanationInfer extends InferenceEngine {
+	// reuse saturated hypothesis graph for better performance
+	private Map<Hypothesis, Hypothesis> cachedEnv;
 
 	/**
 	 * @param paths
@@ -31,7 +35,7 @@ public class UnifiedExplanationInfer extends InferenceEngine {
     	Set<Entity> cand = new HashSet<Entity>();
 
     	for (ConstraintPath path : paths.getPaths())
-    		cand.add(new HypothesisEntity(path.getMinHypo()));
+    		cand.add(new HypothesisEntity(path.getMinHypo(), cachedEnv));
 
 		for (ConstraintPath path : paths.getPaths()) {
 			for (Node n : path.getAllNodes()) {
