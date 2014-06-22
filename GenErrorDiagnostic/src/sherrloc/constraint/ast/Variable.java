@@ -2,6 +2,7 @@ package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import sherrloc.util.StringUtil;
 
@@ -27,6 +28,11 @@ public class Variable extends Element {
 	@Override
 	public boolean hasVars() {
 		return true;
+	}
+	
+	@Override
+	public boolean hasQVars() {
+		return false;
 	}
 	
 	@Override
@@ -69,6 +75,16 @@ public class Variable extends Element {
 	
 	@Override
 	public Element getBaseElement() {
+		return this;
+	}
+	
+	@Override
+	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
+		return equals(e);
+	}
+	
+	@Override
+	public Element subst(Map<QuantifiedVariable, Element> map) {
 		return this;
 	}
 }

@@ -47,6 +47,8 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 <YYINITIAL> "join"           		{ return symbol(sym.JOIN); }
 <YYINITIAL> "\u2294" 				{ return symbol(sym.JOIN); }        /* ⊔ */
 <YYINITIAL> "%%"					{ return symbol(sym.SEPERATION); }
+<YYINITIAL> "FORALL"                { return symbol(sym.FORALL); }
+<YYINITIAL> "forall"                { return symbol(sym.FORALL); }
 
 
 <YYINITIAL> {
@@ -65,8 +67,10 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	"<-"						   { return symbol(sym.LARROW); }
   	";"    						   { return symbol(sym.SEMICOLON); }
   	","							   { return symbol(sym.COMMA); }
+  	"."                            { return symbol(sym.DOT); }
   	":"							   { return symbol(sym.COLON); }
   	"@"							   { return symbol(sym.AT); }
+  	"=>"                           { return symbol(sym.IMPLIES); }
   	
   	/* parentheses */
   	"("    						   { return symbol(sym.LPAREN); }

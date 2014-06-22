@@ -2,6 +2,7 @@ package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A constraint element with parameters, such as constructor applications, join
@@ -135,6 +136,14 @@ public abstract class EnumerableElement extends Element {
 				return true;
 		return false;
 	}
+	
+	@Override
+	public boolean hasQVars() {
+		for (Element e : elements)
+			if (e.hasQVars())
+				return true;
+		return false;
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -162,5 +171,34 @@ public abstract class EnumerableElement extends Element {
 			ret += e.hashCode();
 		}
 		return ret+pos.hashCode();
+	}
+	
+	@Override
+	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
+		if (e instanceof EnumerableElement) {
+			EnumerableElement ee = (EnumerableElement) e;
+			if (ee.getElements().size() == elements.size()) {
+				for (int i = 0; i < elements.size(); i++) {
+					if (!elements.get(i)
+							.unifyWith(ee.getElements().get(i), map))
+						return false;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Get a new list of elements where quantified variables are all substituted 
+	 * @param map
+	 * @return
+	 */
+	protected List<Element> substElements(Map<QuantifiedVariable, Element> map) {
+		List<Element> ret = new ArrayList<Element>();
+		for (int i = 0; i < elements.size(); i++) {
+			ret.add(elements.get(i).subst(map));
+		}
+		return ret;
 	}
 }

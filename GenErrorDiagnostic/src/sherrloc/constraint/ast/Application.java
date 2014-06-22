@@ -1,6 +1,7 @@
 package sherrloc.constraint.ast;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents an application to a constructor, possibly with no

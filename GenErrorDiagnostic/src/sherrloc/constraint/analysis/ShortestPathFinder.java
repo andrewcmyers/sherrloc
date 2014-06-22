@@ -8,10 +8,13 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import sherrloc.constraint.ast.Axiom;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
+import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
+import sherrloc.constraint.ast.QuantifiedVariable;
 import sherrloc.constraint.ast.Variable;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Edge;
@@ -85,6 +88,11 @@ public class ShortestPathFinder extends CFLPathFinder {
 		long endTime = System.currentTimeMillis();
 		if (verbose)
 			System.out.println("path_finding time: " + (endTime - startTime));
+	}
+	
+	@Override
+	public ConstraintGraph getGraph() {
+		return g;
 	}
 	
 	/**
@@ -349,12 +357,44 @@ public class ShortestPathFinder extends CFLPathFinder {
 	}
 	
 	/**
+	 * Try to apply axioms that might utilized the newly added LeqEdge edge to
+	 * infer new edges in the graph
+	 */
+	private void applyAxioms (LeqEdge edge) {
+		for (Axiom rule : g.getRules()) {
+			if (!rule.mayMatch(edge))
+				continue;
+			List<Map<QuantifiedVariable, Element>> maps = new ArrayList<Map<QuantifiedVariable, Element>>();
+			maps.add(new HashMap<QuantifiedVariable, Element>());	// add an empty substitution
+			if (!rule.findMatches(this, maps))
+				return;
+			// apply all substitutions along the unification to conclusion
+			for (Map<QuantifiedVariable, Element> map : maps) {
+				List<Inequality> lst = rule.substRHS(map);
+				for (Inequality ieq : lst) {
+					if (g.hasElement(ieq.getFirstElement())
+							&& g.hasElement(ieq.getSecondElement())) {
+						Node from = g.getNode(ieq.getFirstElement());
+						Node to = g.getNode(ieq.getSecondElement());
+						if (!hasLeqEdge(from, to)) {
+							inferEdge(from, to, LeqCondition.getInstance(), 1,
+									new ArrayList<Triple>(), true);
+						}
+					}
+				}
+		}
+		}
+	}
+	
+	/**
 	 * Given a newly discovered LeqEdge, this function tries to identify extra
 	 * LeqEdges by using the properties of meet, join and constructor
 	 */
 	private void tryAddingExtraEdges (LeqEdge edge) {
 		Node from = edge.getFrom();
 		Node to = edge.getTo();
+		
+		applyAxioms(edge);
 		
 		// if node "to" is an element of a meet label, add an leq edge from node
 		// "from" to the meet element if it flows into all components

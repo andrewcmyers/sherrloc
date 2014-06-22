@@ -2,6 +2,7 @@ package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A constructor (e.g., list(1), pair(2)) has a name, an arity and the variance
@@ -82,6 +83,11 @@ public class Constructor extends Element {
 	}
 	
 	@Override
+	public boolean hasQVars() {
+		return false;
+	}
+	
+	@Override
 	/**
 	 * Same constructor used at different positions are treated as different elements to improve the precision of error diagnosis
 	 */
@@ -122,4 +128,14 @@ public class Constructor extends Element {
 	public Element getBaseElement() {
 		return new Constructor(name, arity, contraVariant, Position.EmptyPosition());
 	}	
+	
+	@Override
+	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
+		return equals(e);
+	}
+	
+	@Override
+	public Element subst(Map<QuantifiedVariable, Element> map) {
+		return this;
+	}
 }
