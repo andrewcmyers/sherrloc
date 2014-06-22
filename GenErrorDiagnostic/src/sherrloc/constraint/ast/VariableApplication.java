@@ -2,6 +2,7 @@ package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents an application of a {@link Variable}, possibly with
@@ -77,6 +78,11 @@ public class VariableApplication extends Application {
 	public boolean trivialEnd() {
 		return true;
 	}
+	
+	@Override
+	public boolean hasQVars() {
+		return var.hasQVars() || super.hasQVars();
+	}
 		
 	@Override
 	public Element getBaseElement() {
@@ -90,5 +96,30 @@ public class VariableApplication extends Application {
 	@Override
 	public boolean isContraVariant() {
 		return false;
+	}
+	
+	@Override
+	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
+		if (e instanceof Application) {
+			if (e instanceof ConstructorApplication && !var.unifyWith(((ConstructorApplication)e).getCons(), map))
+				return false;
+			if (e instanceof VariableApplication && !var.unifyWith(((VariableApplication)e).getCons(), map))
+				return false;
+			return super.unifyWith(e, map);
+		}
+		return false;
+	}
+	
+	@Override
+	public Element subst(Map<QuantifiedVariable, Element> map) {
+		Element cons = var.subst(map);
+		if (cons instanceof Constructor)
+			return new ConstructorApplication((Constructor)cons, substElements(map));
+		else if (cons instanceof Variable)
+			return new VariableApplication((Variable) cons, substElements(map));
+		else {
+			System.err.println("Cannot apply to "+cons);
+			return this;
+		}
 	}
 }

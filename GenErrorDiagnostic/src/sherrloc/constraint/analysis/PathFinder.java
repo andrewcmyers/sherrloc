@@ -1,8 +1,8 @@
 package sherrloc.constraint.analysis;
 
 import java.util.List;
-import java.util.Set;
 
+import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Edge;
 import sherrloc.graph.Node;
 
@@ -35,4 +35,9 @@ public interface PathFinder {
 	 * @return True if an LEQ edge can be inferred on the end nodes
 	 */
 	public boolean hasLeqEdge (Node from, Node end);
+	
+	/**
+	 * @return Constraint graph to be saturated
+	 */
+	public ConstraintGraph getGraph ();
 }

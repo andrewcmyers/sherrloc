@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import sherrloc.constraint.ast.Application;
+import sherrloc.constraint.ast.Axiom;
 import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
@@ -36,6 +37,7 @@ import sherrloc.util.StringUtil;
  */
 public class ConstraintGraph extends Graph {
 	private Hypothesis env;
+	private List<Axiom> rules;
     
     private Set<String> files;                                          // source codes involved, only used for DOT files
     private boolean generated;                                   		// if the graph has been generated already, just reuse it
@@ -62,6 +64,7 @@ public class ConstraintGraph extends Graph {
 		for (Constraint cons : constraints) {
 			addOneConstraint(cons);
 		}
+		rules = new ArrayList<Axiom>();
     }
     
     /**
@@ -71,6 +74,7 @@ public class ConstraintGraph extends Graph {
         this.env = env;
     	this.files = new HashSet<String>();
         this.generated = false;
+        this.rules = new ArrayList<Axiom>();
     }
                 
 	/**
@@ -128,6 +132,22 @@ public class ConstraintGraph extends Graph {
     public void addOneInequality (Inequality ieq) {
     	addOneConstraint(new Constraint(ieq, null, Position.EmptyPosition()));
     }
+    
+    /**
+     * Add a list of implication rules
+     * 
+     * @param lst
+     */
+    public void addRules (List<Axiom> lst) {
+    	rules.addAll(lst);
+    }
+    
+    /**
+     * @return A list of implication rules
+     */
+    public List<Axiom> getRules() {
+		return rules;
+	}
     
 	/**
 	 * Generate a constraint graph from constraints

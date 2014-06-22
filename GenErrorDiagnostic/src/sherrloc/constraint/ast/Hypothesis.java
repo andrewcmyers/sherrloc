@@ -1,5 +1,6 @@
 package sherrloc.constraint.ast;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,18 +14,20 @@ import sherrloc.graph.ConstraintGraph;
  */
 public class Hypothesis {
 	private Set<Inequality> assertions;
+	private List<Axiom> axioms;
 	private Set<Element> elmts;			// elements whose relation is of interest
 	private ConstraintGraph graph;
 	private PathFinder finder = null;
 	private Hypothesis parent = null; 	// used to reduce shared environments
 										// (e.g., to store global assumptions)
-	private boolean USE_GRAPH = false;	// set true to use hypothesis graph to infer provable relations
+	private boolean USE_GRAPH = true;	// set true to use hypothesis graph to infer provable relations
 
 	/**
 	 * Construct an empty hypothesis
 	 */
 	public Hypothesis() {
 		assertions = new HashSet<Inequality>();
+		axioms = new ArrayList<Axiom>();
 		elmts = new HashSet<Element>();
 		graph = new ConstraintGraph(null);
 	}
@@ -37,6 +40,16 @@ public class Hypothesis {
 	 */
 	public void addInequality(Inequality ieq) {
 		assertions.add(ieq.baseInequality());
+	}
+	
+	/**
+	 * Add an axiom to the hypothesis
+	 * 
+	 * @param axiom
+	 *            An axiom to be added
+	 */
+	public void addAxiom (Axiom axiom) {
+		axioms.add(axiom);
 	}
 	
 	/**
@@ -60,6 +73,7 @@ public class Hypothesis {
 		} else {
 			assertions.addAll(e.getInequalities());
 			elmts.addAll(e.elmts);
+			axioms.addAll(e.axioms);
 		}
 	}
 
@@ -246,6 +260,20 @@ public class Hypothesis {
 			return ret;
 		}
 	}
+	
+	/**
+	 * @return All axioms in the hypothesis
+	 */
+	public List<Axiom> getAxioms() {
+		if (parent == null)
+			return axioms;
+		else {
+			List<Axiom> ret = new ArrayList<Axiom>();
+			ret.addAll(axioms);
+			ret.addAll(parent.getAxioms());
+			return ret;
+		}
+	}
 
 	/**
 	 * Saturate a hypothesis graph to test if <code>e1<=e2</code> can be
@@ -263,6 +291,7 @@ public class Hypothesis {
 			for (Inequality c : getInequalities()) {
 				graph.addOneInequality(c);
 			}
+			graph.addRules(getAxioms());
 			if (USE_GRAPH) {
 				for (Element e : getElements()) {
 					graph.getNode(e); // create new node when necessary
