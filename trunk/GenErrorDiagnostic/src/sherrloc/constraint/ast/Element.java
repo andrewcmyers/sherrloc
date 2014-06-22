@@ -1,6 +1,7 @@
 package sherrloc.constraint.ast;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Constraint element
@@ -97,6 +98,11 @@ public abstract class Element {
 	 * @return True if the element contains a constraint variable.
 	 */
 	abstract public boolean hasVars ();
+	
+	/**
+	 * @return True if the element contains a quantified variable.
+	 */
+	abstract public boolean hasQVars ();
 				
 	/**
 	 * @return True if this is the bottom element in lattice.
@@ -116,4 +122,30 @@ public abstract class Element {
 	 * the same base element, where the position is set to empty.
 	 */
 	abstract public Element getBaseElement();
+	
+	/**
+	 * Try to unify the current element with a quantified-variable-free element
+	 * e, by substituting quantified variables to elements without quantified
+	 * variables.
+	 * 
+	 * @param e
+	 *            The element to be unified with
+	 * @param map
+	 *            Substitutions made so far; when the unification succeeds, the
+	 *            new substitution introduced by the current unification is
+	 *            added to map
+	 * @return True if the unification succeeds, substitution is stored in map.
+	 *         Return false if the unification fails
+	 */
+	abstract public boolean unifyWith (Element e, Map<QuantifiedVariable, Element> map);
+	
+	/**
+	 * Substitute all quantified variables w.r.t. map
+	 * 
+	 * @param map
+	 *            A map from quantified variables to (quantified-variable-free)
+	 *            elements
+	 * @return A new element where all quantified variables are substituted
+	 */
+	abstract public Element subst (Map<QuantifiedVariable, Element> map);
 }

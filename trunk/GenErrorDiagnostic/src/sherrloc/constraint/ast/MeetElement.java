@@ -2,6 +2,7 @@ package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Meet of constraint elements
@@ -104,5 +105,21 @@ public class MeetElement extends EnumerableElement {
 			baseElements.add(e.getBaseElement());
 		}
 		return new MeetElement(baseElements);
+	}
+	
+	/**
+	 * TODO: this implementation only considers one way of unifying meet elements
+	 */
+	@Override
+	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
+		if (e instanceof MeetElement) {
+			return super.unifyWith(e, map);
+		}
+		return false;
+	}
+	
+	@Override
+	public Element subst(Map<QuantifiedVariable, Element> map) {
+		return new MeetElement(substElements(map));
 	}
 }

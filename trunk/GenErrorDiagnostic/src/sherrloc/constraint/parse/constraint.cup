@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import sherrloc.constraint.ast.Axiom;
 import sherrloc.constraint.ast.Bottom;
 import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.Inequality;
@@ -26,12 +27,14 @@ import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Relation;
 import sherrloc.constraint.ast.Top;
 import sherrloc.constraint.ast.Variable;
+import sherrloc.constraint.ast.QuantifiedVariable;
 import sherrloc.constraint.ast.Position;
 import sherrloc.diagnostic.DiagnosisInput;
 
 action code {: 
 				public Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
 				Map<String, Variable> variables = new HashMap<String, Variable>(); 
+				Map<String, QuantifiedVariable> qvars = new HashMap<String, QuantifiedVariable>();
 				Hypothesis env = new Hypothesis();
 				boolean varMode = false; // there are two modes of declaring constraint variables and constructors: varMode=true, when variables are 
 				                         // declared and constructors are inferred; varMode = false, when constructors (and arities) are declared
@@ -40,9 +43,12 @@ action code {:
 /* Terminals (tokens returned by the scanner). */
 terminal 			SEPERATION;
 terminal            CONSTRUCTOR, VARIABLE;
-terminal            EQ, LEQ, GEQ, SEMICOLON, ARROW, LARROW, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, JOIN, MEET, DASH, COLON, AT, LBRACE, RBRACE;
+terminal            EQ, LEQ, GEQ;
+terminal            ARROW, LARROW, JOIN, MEET;
+terminal            SEMICOLON, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, DOT, DASH, COLON, AT, LBRACE, RBRACE;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
+terminal            FORALL, IMPLIES;
 
 /* Non terminals */
 non terminal DiagnosisInput     cons_spec;
@@ -50,10 +56,11 @@ non terminal Constraint         equation;
 non terminal Set<Constraint>	equations;
 non terminal Inequality         inequality;
 non terminal Set<Inequality>    inequalities;
+non terminal List<QuantifiedVariable> var_list;
 non terminal Hypothesis 		env;
 non terminal 					declaration, constructors, constructor;
 non terminal                    variables, variable;
-non terminal				    assumptions;
+non terminal				    assumptions, assumption;
 non terminal Element			term, element, ele_pos;
 non terminal String           	id;
 non terminal Integer			arity;
@@ -117,17 +124,34 @@ id        	::= IDENTIFIER:s
 arity		::= INTEGER_LITERAL:a
 			{: RESULT = a; :};
 			
-assumptions ::= assumptions inequality:ie SEMICOLON
+assumptions ::= assumptions assumption
+            | assumption
+            ;
+            
+assumption  ::= FORALL var_list:lst DOT inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
+            {: env.addAxiom(new Axiom(lst, ie1, ie2)); qvars.clear(); :}
+            |   FORALL DOT inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
+            {: env.addAxiom(new Axiom(new ArrayList<QuantifiedVariable>(), ie1, ie2)); :}
+            |   inequality:ie SEMICOLON
             {: env.addInequality(ie); :}
-            | 
-            inequality:ie SEMICOLON
-            {: env.addInequality(ie); :}
+            ;
+            
+var_list    ::= var_list:lst COMMA IDENTIFIER:s
+            {: QuantifiedVariable qv = new QuantifiedVariable(s);
+               lst.add(qv);
+               qvars.put(s, qv); 
+               RESULT = lst; :}
+            | IDENTIFIER:s
+            {: List<QuantifiedVariable> lst = new ArrayList<QuantifiedVariable>(); 
+               QuantifiedVariable qv = new QuantifiedVariable(s);
+               lst.add(qv); 
+               qvars.put(s, qv);
+               RESULT = lst; :}
             ;
 
 inequalities ::= inequalities:s inequality:ie SEMICOLON
             {: s.add(ie); RESULT = s; :}
-            | 
-            inequality:ie SEMICOLON
+            | inequality:ie SEMICOLON
             {: Set<Inequality> set = new HashSet<Inequality>(); set.add(ie); RESULT = set; :}
             ;
                       
@@ -314,14 +338,17 @@ ele_pos ::= element:e1 position:p
 element		::= IDENTIFIER:s
 			{: 	
 			    Element e;
-				if (constructors.containsKey(s)) {
+			    if (qvars.containsKey(s)) {
+			        e = qvars.get(s);
+			    }
+				else if (constructors.containsKey(s)) {
 					e = constructors.get(s).clone();
 				} 
 				else if (varMode && !(variables.containsKey(s))) {
 				    e = new Constructor(s, 0, false, Position.EmptyPosition());
 				    constructors.put(s, (Constructor)e);
 				}
-			   	else {
+				else {
 			   		if (!(variables.containsKey(s)))
 			   			variables.put (s, new Variable(s));
 			   		e = variables.get(s);

@@ -2,6 +2,7 @@ package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents an application of a {@link Constructor}, possibly with
@@ -104,5 +105,21 @@ public class ConstructorApplication extends Application {
 	@Override
 	public boolean isContraVariant() {
 		return cons.isContraVariant();
+	}
+	
+	@Override
+	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
+		if (e instanceof ConstructorApplication) {
+			ConstructorApplication ca = (ConstructorApplication) e;
+			if (!cons.unifyWith(ca.getCons(), map))
+				return false;
+			return super.unifyWith(e, map);
+		}
+		return false;
+	}
+	
+	@Override
+	public Element subst(Map<QuantifiedVariable, Element> map) {
+		return new ConstructorApplication(cons, substElements(map));
 	}
 }

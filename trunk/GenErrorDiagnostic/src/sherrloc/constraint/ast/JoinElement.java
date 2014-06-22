@@ -2,6 +2,7 @@ package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Join of constraint elements
@@ -105,4 +106,20 @@ public class JoinElement extends EnumerableElement {
 		}
 		return new JoinElement(baseElements);
 	}	
+	
+	/**
+	 * TODO: this implementation only considers one way of unifying join elements
+	 */
+	@Override
+	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
+		if (e instanceof JoinElement) {
+			return super.unifyWith(e, map);
+		}
+		return false;
+	}
+	
+	@Override
+	public Element subst(Map<QuantifiedVariable, Element> map) {
+		return new JoinElement(substElements(map));
+	}
 }
