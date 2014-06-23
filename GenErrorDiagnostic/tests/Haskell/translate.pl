@@ -90,6 +90,62 @@ sub print_wLoc {
 	return $ret;
 }
 
+package Axiom;
+
+sub new {
+	my $type = shift;
+	my $qvars = shift;
+	my $premise = shift; 
+	my $conclusion = shift; 
+	my @qvarlist = ();
+	my @premiselist = ();
+	my @conclusionlist = ();
+
+	foreach (@{$qvars}) {
+		push (@qvarlist, $_);
+	}
+
+	foreach (@{$premise}) {
+		push (@premiselist, $_);
+	}	
+
+	foreach (@{$conclusion}) {
+		push (@conclusionlist, $_);
+	}	
+
+	my $self = {
+		qvars => \@qvarlist,   # quantified vars
+		premise => \@premiselist,
+		conclusion => \@conclusionlist
+	};
+
+	bless $self, $type;
+	return $self;
+}	
+
+sub print {
+	my ($self) = @_;
+	my $line;
+	if (scalar @{$self->{premise}} != 0 or scalar @{$self->{qvars}} != 0) {
+		$line .= "forall ";
+	}
+	if (scalar @{$self->{qvars}} != 0) {
+		$line .= join(' , ', @{$self->{qvars}});
+		$line .= " . ";
+	}
+
+	$line .= join('; and ', @{$self->{premise}});
+	if (scalar @{$self->{premise}} != 0) {
+		$line .= ";";
+	}
+	$line .= " => ";
+	$line .= join('; and ', @{$self->{conclusion}});
+	if (scalar @{$self->{conclusion}} != 0) {
+		$line .= ";";
+	}
+	return $line;
+}
+
 package Constraint;
 
 sub new {
@@ -287,15 +343,42 @@ sub trans_implic {
 	return $tail;
 }
 
-sub isTrivialAxiom {
+sub _transAxiom {
 	my $ct = shift;
-	if ($ct =~ /=>/) {
-		return 0;
+	$ct =~ s/\R//g; # remove line breaks
+	my @qvars = ($ct =~ /[( ]([a-z])[ )]/g);
+	# remove duplicated declarations
+	my %vhash = ();
+	foreach (@qvars) {
+		$vhash{$_} = 1;
 	}
-	if ($ct =~ /[( ][a-z][ )]/) {
-		return 0;
+	@qvars = keys %vhash;
+	my @premise = ();
+	my @conclusion = ();
+	if (scalar @qvars == 0 and $ct !~ /=>/) {
+		# trivial axiom
+		return new PlainCt($ct);
 	}
-	return 1;
+	else {
+		# parse an axiom
+		if (($ct =~ /(.*)=>(.*)/)) {
+			my $lhs = $1;
+			$ct = $2;
+
+			if ($lhs =~ m/\((.*)\)/) {
+				$lhs = $1;
+			}	
+			if ($lhs =~ /,/) {
+				@premise = split (',', $lhs);
+			}
+			else {
+				@premise = ($lhs);
+			}
+		}
+		# assume there is only one conclusion
+		@conclusion = ($ct);
+		return new Axiom(\@qvars, \@premise, \@conclusion);
+	}
 }
 
 # translate axioms
@@ -307,9 +390,7 @@ sub trans_AXIOM {
 		$line =~ s/(\[overlap ok\])//g;
 		if ($line =~ /(.*) -- Defined /) {
 			$ct .= $1;
-			if (isTrivialAxiom $ct) {
-				push (@axioms, new PlainCt($ct));
-			}
+			push (@axioms, _transAxiom($ct));
 			$ct = "";
 		}
 		else {	# collect the constraint
