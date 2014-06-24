@@ -48,7 +48,7 @@ terminal            ARROW, LARROW, JOIN, MEET;
 terminal            SEMICOLON, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, DOT, DASH, COLON, AT, LBRACE, RBRACE;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
-terminal            FORALL, IMPLIES;
+terminal            AXIOM, IMPLIES;
 
 /* Non terminals */
 non terminal DiagnosisInput     cons_spec;
@@ -128,10 +128,12 @@ assumptions ::= assumptions assumption
             | assumption
             ;
             
-assumption  ::= FORALL var_list:lst DOT inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
+assumption  ::= AXIOM var_list:lst DOT inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
             {: env.addAxiom(new Axiom(lst, ie1, ie2)); qvars.clear(); :}
-            |   FORALL DOT inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
+            |   AXIOM inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
             {: env.addAxiom(new Axiom(new ArrayList<QuantifiedVariable>(), ie1, ie2)); :}
+            |   AXIOM var_list:lst DOT inequalities:ie SEMICOLON
+            {: env.addAxiom(new Axiom(lst, new HashSet<Inequality>(), ie)); qvars.clear(); :}
             |   inequality:ie SEMICOLON
             {: env.addInequality(ie); :}
             ;
@@ -277,8 +279,11 @@ term     	::=  term:t1 ARROW term:t2
 			                c.setArity(l.size());
 			                constructors.get(c.getName()).setArity(l.size());
 			            }
-				        if (c.getArity() != l.size()) throw new Error("Constructor "+c+" takes wrong number of parameters: "+
+				        /*if (c.getArity() > l.size()) 
+				            System.out.println ("Constraints contain partial application: constructor "+c+" takes wrong number of parameters: "+
 			   						"expecting "+c.getArity()+" getting "+l.size());
+			   			else*/ if (c.getArity() < l.size())
+			   			    c.setArity(l.size());
 			            RESULT = new ConstructorApplication (c, l);
 			        }
 			        else {
