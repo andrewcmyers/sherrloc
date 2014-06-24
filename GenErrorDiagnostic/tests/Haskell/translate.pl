@@ -66,8 +66,10 @@ sub new {
 # translate a plain GCH constraint element to the SHErrLoc syntax
 sub to_sherrloc_ele {
 	my $ct = shift;
+	# [[x]] to (list (list x))
 	# [x] to (list x)
-	$ct =~ s/\[(.*)\]/(list $1)/g;
+	$ct =~ s/\[\[([^\]]*)\]\]/(list (list $1))/g;
+	$ct =~ s/\[([^\]]*)\]/(list $1)/g;
 	$ct =~ s/\(\)/EMPTY/g;
 	return "($ct)";
 }
@@ -127,19 +129,19 @@ sub print {
 	my ($self) = @_;
 	my $line;
 	if (scalar @{$self->{premise}} != 0 or scalar @{$self->{qvars}} != 0) {
-		$line .= "forall ";
+		$line .= "axiom ";
 	}
 	if (scalar @{$self->{qvars}} != 0) {
 		$line .= join(' , ', @{$self->{qvars}});
 		$line .= " . ";
 	}
 
-	$line .= join('; and ', @{$self->{premise}});
+	$line .= join('; ', map {($_)->print()} @{$self->{premise}});
 	if (scalar @{$self->{premise}} != 0) {
 		$line .= ";";
+		$line .= " => ";
 	}
-	$line .= " => ";
-	$line .= join('; and ', @{$self->{conclusion}});
+	$line .= join('; ', map {($_)->print()} @{$self->{conclusion}});
 	if (scalar @{$self->{conclusion}} != 0) {
 		$line .= ";";
 	}
@@ -168,6 +170,9 @@ sub new {
 			$col = "$col-$col";
 		}
 		$loc = "$line,$col\@$file";
+	}
+	elsif ($loc =~ /(.*):\((.*),(.*)\)-\((.*),(.*)\)/) {
+		$loc = "$2,$3-$4,$5\@$1";
 	}
 	else {
 		die "Cannot translate location $loc";
@@ -345,7 +350,10 @@ sub trans_implic {
 
 sub _transAxiom {
 	my $ct = shift;
+	# print "@@@@ translating $ct\n";
 	$ct =~ s/\R//g; # remove line breaks
+	$ct =~ s/\(->\)/arrow/g; # replace (->) by "arrow"
+	$ct =~ s/\(,\)/pair/g;   # replace (,) by "pair"
 	my @qvars = ($ct =~ /[( ]([a-z])[ )]/g);
 	# remove duplicated declarations
 	my %vhash = ();
@@ -369,14 +377,18 @@ sub _transAxiom {
 				$lhs = $1;
 			}	
 			if ($lhs =~ /,/) {
-				@premise = split (',', $lhs);
+				foreach (split (',', $lhs)) {
+					push (@premise, new PlainCt($_));
+				}
 			}
 			else {
-				@premise = ($lhs);
+				push (@premise, new PlainCt($lhs));
 			}
 		}
 		# assume there is only one conclusion
-		@conclusion = ($ct);
+		@conclusion = new PlainCt($ct);
+		my $axiom = new Axiom(\@qvars, \@premise, \@conclusion);
+		# print "---> ".($axiom)->print()."\n";
 		return new Axiom(\@qvars, \@premise, \@conclusion);
 	}
 }
