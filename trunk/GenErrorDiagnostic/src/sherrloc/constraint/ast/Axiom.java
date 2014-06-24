@@ -17,12 +17,12 @@ import sherrloc.graph.Node;
  */
 public class Axiom {
 	List<QuantifiedVariable> qvars;		// quantified variables
-	Set<Inequality> promise;
+	Set<Inequality> premise;
 	Set<Inequality> conclusion;
 	
 	public Axiom(List<QuantifiedVariable> vars, Set<Inequality> ieq1, Set<Inequality> ieq2) {
 		qvars = vars;
-		promise = ieq1;
+		premise = ieq1;
 		conclusion = ieq2;
 	}
 	
@@ -30,8 +30,8 @@ public class Axiom {
 		qvars.add(v);
 	}
 	
-	public void addPromise (Inequality ieq) {
-		promise.add(ieq);
+	public void addPremise (Inequality ieq) {
+		premise.add(ieq);
 	}
 	
 	public void addConclusion (Inequality ieq) {
@@ -49,7 +49,7 @@ public class Axiom {
 			sb.append(". ");
 		}
 		int count = 1;
-		for (Inequality ieq : promise) {
+		for (Inequality ieq : premise) {
 			if (count > 1)
 				sb.append(" ∧ ");
 			sb.append(ieq);
@@ -72,7 +72,7 @@ public class Axiom {
 	 * @return True if edge matches at least one promise of the axiom
 	 */
 	public boolean mayMatch (LeqEdge edge) {
-		for (Inequality ieq : promise) {
+		for (Inequality ieq : premise) {
 			Map<QuantifiedVariable, Element> map1 = new HashMap<QuantifiedVariable, Element>();
 			Map<QuantifiedVariable, Element> map2 = new HashMap<QuantifiedVariable, Element>();
 			if (ieq.e1.unifyWith(edge.getFrom().getElement(), map1) && 
@@ -101,7 +101,7 @@ public class Axiom {
 		Set<Node> nodes = finder.getGraph().getAllNodes();
 
 		// try to unify one promise at one time
-		for (Inequality ieq : promise) {
+		for (Inequality ieq : premise) {
 			List<Map<QuantifiedVariable, Element>> ret = new ArrayList<Map<QuantifiedVariable,Element>>();
 			while (!maps.isEmpty()) {
 				Map<QuantifiedVariable, Element> map = maps.remove(0);
