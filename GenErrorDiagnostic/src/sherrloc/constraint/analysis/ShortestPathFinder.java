@@ -9,6 +9,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import sherrloc.constraint.ast.Axiom;
+import sherrloc.constraint.ast.Axiom.EdgeMatch;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Inequality;
@@ -364,25 +365,17 @@ public class ShortestPathFinder extends CFLPathFinder {
 		for (Axiom rule : g.getRules()) {
 			if (!rule.mayMatch(edge))
 				continue;
-			List<Map<QuantifiedVariable, Element>> maps = new ArrayList<Map<QuantifiedVariable, Element>>();
-			maps.add(new HashMap<QuantifiedVariable, Element>());	// add an empty substitution
-			if (!rule.findMatches(this, maps))
-				return;
+			List<Map<QuantifiedVariable, Element>> maps = rule.findMatchesInPremise(this);
 			// apply all substitutions along the unification to conclusion
-			for (Map<QuantifiedVariable, Element> map : maps) {
-				List<Inequality> lst = rule.substRHS(map);
-				for (Inequality ieq : lst) {
-					if (g.hasElement(ieq.getFirstElement())
-							&& g.hasElement(ieq.getSecondElement())) {
-						Node from = g.getNode(ieq.getFirstElement());
-						Node to = g.getNode(ieq.getSecondElement());
-						if (!hasLeqEdge(from, to)) {
-							inferEdge(from, to, LeqCondition.getInstance(), 1,
-									new ArrayList<Triple>(), true);
-						}
+			for (Inequality ieq : rule.getConclusion()) {
+				List<EdgeMatch> emlst = rule.findMatches (ieq.getFirstElement(), ieq.getSecondElement(), this, maps);
+				for (EdgeMatch em : emlst) {
+					if (!hasLeqEdge(em.n1, em.n2)) {
+						inferEdge(em.n1, em.n2, LeqCondition.getInstance(), 1,
+								new ArrayList<Triple>(), true);
 					}
 				}
-		}
+			}
 		}
 	}
 	
