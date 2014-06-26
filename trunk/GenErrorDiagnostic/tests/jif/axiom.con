@@ -1,0 +1,24 @@
+CONSTRUCTOR A1 0
+CONSTRUCTOR A2 0
+CONSTRUCTOR B 0
+CONSTRUCTOR C 0
+CONSTRUCTOR D 0
+CONSTRUCTOR E 0
+CONSTRUCTOR list 1
+
+%%
+AXIOM x . x <= B; => (list x) <= B;;
+AXIOM x . x <= B; x <= D; => (list x) <= E;;
+AXIOM x . x <= B; => B <= C;;
+A1 <= B;
+A2 <= B;
+A2 <= D;
+
+%%
+(list A1) <= x1; // list A1 <= B can be inferred from axioms
+x1 <= B;
+(list A2) <= x2; // list A2 <= E can be inferred from axioms
+x2 <= E;
+A1 <= x3;    // A <= C can be inferred from axioms
+x3 <= C;
+A1 <= E;
