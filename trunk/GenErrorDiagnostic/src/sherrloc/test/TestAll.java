@@ -102,7 +102,7 @@ public class TestAll {
 		testAssumptions("tests/jif/meet.con", "- a <= b;a <= c;\n");
 		testAssumptions("tests/jif/varconstructor.con", "- INT <= BOOL;\n");
 		testAssumptions("tests/jif/axiom.con", "- A1 <= E;\n");
-//		testErrorPaths("tests/jif/axiom2.con", false);
+		testAssumptions("tests/jif/axiom2.con", "- list (A) <= C;\n" );
 //		testAssumptions("tests/jif/extraEdges.con", "- b <= a;\n");
 //		testAssumptions("tests/jif/inte.con", "- b <= c;\n");
 //		testAssumptions("/home/zhdf/workspace/LemonTool/error.con", "- a <= b\n");
