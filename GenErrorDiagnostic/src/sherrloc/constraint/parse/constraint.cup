@@ -131,7 +131,7 @@ assumptions ::= assumptions assumption
 assumption  ::= AXIOM var_list:lst DOT inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
             {: env.addAxiom(new Axiom(lst, ie1, ie2)); qvars.clear(); :}
             |   AXIOM inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
-            {: env.addAxiom(new Axiom(new ArrayList<QuantifiedVariable>(), ie1, ie2)); :}
+            {: env.addAxiom(new Axiom(new ArrayList<QuantifiedVariable>(), ie1, ie2)); qvars.clear(); :}
             |   AXIOM var_list:lst DOT inequalities:ie SEMICOLON
             {: env.addAxiom(new Axiom(lst, new HashSet<Inequality>(), ie)); qvars.clear(); :}
             |   inequality:ie SEMICOLON
