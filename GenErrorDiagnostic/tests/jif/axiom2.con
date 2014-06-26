@@ -1,0 +1,10 @@
+CONSTRUCTOR A 0
+CONSTRUCTOR B 0
+CONSTRUCTOR list 1
+
+%%
+AXIOM x . x <= B;;
+
+%%
+(list A) <= x1; // list A <= B can be inferred from axioms
+x1 <= B;
