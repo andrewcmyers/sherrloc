@@ -1,0 +1,5 @@
+CONSTRUCTOR CHAR 0
+CONSTRUCTOR list 1
+
+(((list x) -> (list x) -> (list x))) == (y -> z);
+z == (list CHAR);
