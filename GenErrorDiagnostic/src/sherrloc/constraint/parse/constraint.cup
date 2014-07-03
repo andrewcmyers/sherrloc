@@ -68,7 +68,8 @@ non terminal List<Element>		ele_pos_list, join_list, meet_list;
 non terminal Position           range, position;
 
 /* Precedences */
-precedence left ARROW, LARROW, MEET, JOIN, COMMA;
+precedence right ARROW, LARROW, MEET, JOIN;
+precedence left COMMA;
 
 /* The grammar */
 cons_spec 	::= declaration 	
