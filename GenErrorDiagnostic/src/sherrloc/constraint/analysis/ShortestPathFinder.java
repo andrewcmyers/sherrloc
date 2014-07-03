@@ -52,7 +52,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	private boolean DEBUG = false;
 	
 	/** optimazations */
-	private final static boolean USE_SF = true;
+	private final static boolean USE_SF = false;
 	private boolean StandardForm;
 	
 	/**
