@@ -237,7 +237,7 @@ sub trans_ct {
 	if ($line eq "") { # avoid empty constraints
 		return;
 	}
-	if ($line !~ /[W]/) {
+	if ($line !~ /\[W\]/) {
 		$line = $prev_ct." ".$line;
 	}
 	# remove useless annotations, and attach assumptions
@@ -275,7 +275,7 @@ sub trans_WC {
 	my $tail;
 	my $end = 0;
 
-	#print "(WC) parsing $line";
+	#print "(WC) parsing $line\n";
 
 	if ($line =~ /Implic \{(.*)/) {
 		$tail = trans_implic $1;
@@ -287,6 +287,9 @@ sub trans_WC {
 			$tail = $2;
 		}
 		if ($line =~ /wc_flat = (.*)/) {
+			trans_ct $1;
+		}
+		elsif ($line =~ /wc_insol = (.*)/) {
 			trans_ct $1;
 		}
 		else {
