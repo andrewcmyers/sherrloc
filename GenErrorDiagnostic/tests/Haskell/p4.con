@@ -5,24 +5,26 @@ VARIABLE i_ar6
 VARIABLE e_ar7
 VARIABLE a_ar8
 VARIABLE a_au2
-VARIABLE t_auT
-VARIABLE t_auX
-VARIABLE a_auY
-VARIABLE a_ax0
-VARIABLE t_ax4
-VARIABLE t_ax5
-VARIABLE t_ax6
-VARIABLE m_ax9
-VARIABLE a_axb
-VARIABLE b_axc
-VARIABLE a_axy
-VARIABLE i_axz
-VARIABLE e_axA
-VARIABLE m_axB
-VARIABLE b_axC
-VARIABLE m_axJ
-VARIABLE a_axL
-VARIABLE t_axP
+VARIABLE t_auG
+VARIABLE a_auI
+VARIABLE t_auM
+VARIABLE t_auQ
+VARIABLE a_auR
+VARIABLE a_awT
+VARIABLE t_awX
+VARIABLE t_awY
+VARIABLE t_awZ
+VARIABLE m_ax2
+VARIABLE a_ax4
+VARIABLE b_ax5
+VARIABLE a_axr
+VARIABLE i_axs
+VARIABLE e_axt
+VARIABLE m_axu
+VARIABLE b_axv
+VARIABLE m_axC
+VARIABLE a_axE
+VARIABLE t_axI
 
 
 %%
@@ -337,27 +339,29 @@ axiom a . (a) <= (Data.Monoid.Monoid); => ((Control.Applicative.Const a b)) <= (
 (i_ar6)["":25,18-29@p4.hs] <= (GHC.Arr.Ix)["":25,18-29@p4.hs] {};["a use of ‘listArray’":25,18-29@p4.hs]
 (((i_ar6, i_ar6) -> (list e_ar7) -> a_ar8 i_ar6 e_ar7))["":25,18-29@p4.hs] == (((Int, Int) -> (list Double) -> FlatVector))["":25,18-29@p4.hs] {};["a type equality (i_ar6, i_ar6) -> [e_ar7] -> a_ar8 i_ar6 e_ar7 ~ (Int, Int) -> [Double] -> FlatVector":25,18-29@p4.hs]
 (a_au2)["":13,21-21@p4.hs] <= (Num)["":13,21-21@p4.hs] {};["the literal ‘1’":13,21-21@p4.hs]
-((list a_au2))["":16,61-62@p4.hs] == ((list t_auT))["":16,61-62@p4.hs] {};["a type equality [a_au2] ~ [t_auT]":16,61-62@p4.hs]
+(Int)["":14,21-29@p4.hs] == (t_auG)["":14,21-29@p4.hs] {};["a type equality Int ~ t_auG":14,21-29@p4.hs]
+((list a_au2))["":14,28-29@p4.hs] == ((list a_auI))["":14,28-29@p4.hs] {};["a type equality [a_au2] ~ [a_auI]":14,28-29@p4.hs]
+((list a_au2))["":16,61-62@p4.hs] == ((list t_auM))["":16,61-62@p4.hs] {};["a type equality [a_au2] ~ [t_auM]":16,61-62@p4.hs]
 (FlatVector)["":16,23-56@p4.hs] == (FlatVector)["":16,23-56@p4.hs] {};["a type equality FlatVector ~ FlatVector":16,23-56@p4.hs]
-(t_auT)["":16,41-41@p4.hs] == (Int)["":16,41-41@p4.hs] {};["a type equality t_auT ~ Int":16,41-41@p4.hs]
-(a_auY)["":16,51-51@p4.hs] <= (Num)["":16,51-51@p4.hs] {};["the literal ‘1’":16,51-51@p4.hs]
-((Integer -> a_auY))["":16,51-51@p4.hs] == ((Integer -> t_auX))["":16,51-51@p4.hs] {};["a type equality Integer -> a_auY ~ Integer -> t_auX":16,51-51@p4.hs]
-(t_auT)["":16,54-54@p4.hs] == (t_auX)["":16,54-54@p4.hs] {};["a type equality t_auT ~ t_auX":16,54-54@p4.hs]
-(t_auX)["":16,50-55@p4.hs] <= (Enum)["":16,50-55@p4.hs] {};["the arithmetic sequence ‘1 .. s’":16,50-55@p4.hs]
-(Vector a_ax0)["":18,21-43@p4.hs] == (Vector FlatVector)["":18,21-43@p4.hs] {};["a type equality Vector a_ax0 ~ Vector FlatVector":18,21-43@p4.hs]
-(Int)["":18,35-37@p4.hs] == (Int)["":18,35-37@p4.hs] {};["a type equality Int ~ Int":18,35-37@p4.hs]
-((list FlatVector))["":18,40-43@p4.hs] == ((list a_ax0))["":18,40-43@p4.hs] {};["a type equality [FlatVector] ~ [a_ax0]":18,40-43@p4.hs]
-(m_ax9)["":19,11-23@p4.hs] <= (Monad)["":19,11-23@p4.hs] {};["a do statement":19,11-23@p4.hs]
-((m_ax9 a_axb -> (a_axb -> m_ax9 b_axc) -> m_ax9 b_axc))["":19,11-23@p4.hs] == ((t_ax4 -> (t_ax5 -> t_ax6) -> IO EMPTY))["":19,11-23@p4.hs] {};["a type equality m_ax9 a_axb -> (a_axb -> m_ax9 b_axc) -> m_ax9 b_axc ~ t_ax4 -> (t_ax5 -> t_ax6) -> IO ()":19,11-23@p4.hs]
-(i_axz)["":19,16-19@p4.hs] <= (GHC.Arr.Ix)["":19,16-19@p4.hs] {};["a use of ‘thaw’":19,16-19@p4.hs]
-(cons_2 a_axy e_axA)["":19,16-19@p4.hs] <= (Data.Array.Base.IArray)["":19,16-19@p4.hs] {};["a use of ‘thaw’":19,16-19@p4.hs]
-(cons_3 b_axC e_axA m_axB)["":19,16-19@p4.hs] <= (Data.Array.Base.MArray)["":19,16-19@p4.hs] {};["a use of ‘thaw’":19,16-19@p4.hs]
-(m_axB (b_axC i_axz e_axA))["":19,16-23@p4.hs] == (t_ax4)["":19,16-23@p4.hs] {};["a type equality m_axB (b_axC i_axz e_axA) ~ t_ax4":19,16-23@p4.hs]
-(Vector FlatVector)["":19,21-23@p4.hs] == (a_axy i_axz e_axA)["":19,21-23@p4.hs] {};["a type equality Vector FlatVector ~ a_axy i_axz e_axA":19,21-23@p4.hs]
-(m_axJ)["":20,11-16@p4.hs] <= (Monad)["":20,11-16@p4.hs] {};["a use of ‘return’":20,11-16@p4.hs]
-(m_axJ a_axL)["":20,11-19@p4.hs] == (t_ax6)["":20,11-19@p4.hs] {};["a type equality m_axJ a_axL ~ t_ax6":20,11-19@p4.hs]
-(EMPTY)["":20,18-19@p4.hs] == (a_axL)["":20,18-19@p4.hs] {};["a type equality () ~ a_axL":20,18-19@p4.hs]
-(IO EMPTY)["":13,1-1@p4.hs] == (IO t_axP)["":13,1-1@p4.hs] {};["a type equality IO () ~ IO t_axP":13,1-1@p4.hs]
+(t_auM)["":16,41-41@p4.hs] == (Int)["":16,41-41@p4.hs] {};["a type equality t_auM ~ Int":16,41-41@p4.hs]
+(a_auR)["":16,51-51@p4.hs] <= (Num)["":16,51-51@p4.hs] {};["the literal ‘1’":16,51-51@p4.hs]
+((Integer -> a_auR))["":16,51-51@p4.hs] == ((Integer -> t_auQ))["":16,51-51@p4.hs] {};["a type equality Integer -> a_auR ~ Integer -> t_auQ":16,51-51@p4.hs]
+(t_auM)["":16,54-54@p4.hs] == (t_auQ)["":16,54-54@p4.hs] {};["a type equality t_auM ~ t_auQ":16,54-54@p4.hs]
+(t_auQ)["":16,50-55@p4.hs] <= (Enum)["":16,50-55@p4.hs] {};["the arithmetic sequence ‘1 .. s’":16,50-55@p4.hs]
+(Vector a_awT)["":18,21-43@p4.hs] == (Vector FlatVector)["":18,21-43@p4.hs] {};["a type equality Vector a_awT ~ Vector FlatVector":18,21-43@p4.hs]
+(t_auG)["":18,35-37@p4.hs] == (Int)["":18,35-37@p4.hs] {};["a type equality t_auG ~ Int":18,35-37@p4.hs]
+((list FlatVector))["":18,40-43@p4.hs] == ((list a_awT))["":18,40-43@p4.hs] {};["a type equality [FlatVector] ~ [a_awT]":18,40-43@p4.hs]
+(m_ax2)["":19,11-23@p4.hs] <= (Monad)["":19,11-23@p4.hs] {};["a do statement":19,11-23@p4.hs]
+((m_ax2 a_ax4 -> (a_ax4 -> m_ax2 b_ax5) -> m_ax2 b_ax5))["":19,11-23@p4.hs] == ((t_awX -> (t_awY -> t_awZ) -> IO EMPTY))["":19,11-23@p4.hs] {};["a type equality m_ax2 a_ax4 -> (a_ax4 -> m_ax2 b_ax5) -> m_ax2 b_ax5 ~ t_awX -> (t_awY -> t_awZ) -> IO ()":19,11-23@p4.hs]
+(i_axs)["":19,16-19@p4.hs] <= (GHC.Arr.Ix)["":19,16-19@p4.hs] {};["a use of ‘thaw’":19,16-19@p4.hs]
+(cons_2 a_axr e_axt)["":19,16-19@p4.hs] <= (Data.Array.Base.IArray)["":19,16-19@p4.hs] {};["a use of ‘thaw’":19,16-19@p4.hs]
+(cons_3 b_axv e_axt m_axu)["":19,16-19@p4.hs] <= (Data.Array.Base.MArray)["":19,16-19@p4.hs] {};["a use of ‘thaw’":19,16-19@p4.hs]
+(m_axu (b_axv i_axs e_axt))["":19,16-23@p4.hs] == (t_awX)["":19,16-23@p4.hs] {};["a type equality m_axu (b_axv i_axs e_axt) ~ t_awX":19,16-23@p4.hs]
+(Vector FlatVector)["":19,21-23@p4.hs] == (a_axr i_axs e_axt)["":19,21-23@p4.hs] {};["a type equality Vector FlatVector ~ a_axr i_axs e_axt":19,21-23@p4.hs]
+(m_axC)["":20,11-16@p4.hs] <= (Monad)["":20,11-16@p4.hs] {};["a use of ‘return’":20,11-16@p4.hs]
+(m_axC a_axE)["":20,11-19@p4.hs] == (t_awZ)["":20,11-19@p4.hs] {};["a type equality m_axC a_axE ~ t_awZ":20,11-19@p4.hs]
+(EMPTY)["":20,18-19@p4.hs] == (a_axE)["":20,18-19@p4.hs] {};["a type equality () ~ a_axE":20,18-19@p4.hs]
+(IO EMPTY)["":13,1-1@p4.hs] == (IO t_axI)["":13,1-1@p4.hs] {};["a type equality IO () ~ IO t_axI":13,1-1@p4.hs]
 (cons_2 a_ar0 e_aqZ)["":30,14-25@p4.hs] <= (Data.Array.Base.IArray)["":30,14-25@p4.hs] {};["a use of ‘listArray’":30,14-25@p4.hs]
 (i_aqY)["":30,14-25@p4.hs] <= (GHC.Arr.Ix)["":30,14-25@p4.hs] {};["a use of ‘listArray’":30,14-25@p4.hs]
 (((i_aqY, i_aqY) -> (list e_aqZ) -> a_ar0 i_aqY e_aqZ))["":30,14-25@p4.hs] == (((Int, Int) -> (list a) -> Vector a))["":30,14-25@p4.hs] {};["a type equality (i_aqY, i_aqY) -> [e_aqZ] -> a_ar0 i_aqY e_aqZ ~ (Int, Int) -> [a] -> Vector a":30,14-25@p4.hs]

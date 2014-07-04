@@ -4,7 +4,7 @@ print "Start generating constraints for all examples\n";
 
 $ghchome="/home/zhdf/workspace/GHC-7.8.2-modified/ghc-7.8.2/bin/";
 $ghc = $ghchome."ghc";
-$opt="-ddump-tc-trace";
+$opt="-ddump-tc-trace -XMonoLocalBinds";
 
 # the map from file name to generated graph name
 # this is required since one file may generate 
@@ -17,6 +17,7 @@ $opt="-ddump-tc-trace";
 	"p3",
 	"p4",
 	"p5",
+	"p6",
 );
 
 foreach (@progs) {
