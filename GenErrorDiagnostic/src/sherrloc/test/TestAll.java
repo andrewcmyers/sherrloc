@@ -104,7 +104,7 @@ public class TestAll {
 		testAssumptions("tests/jif/axiom.con", "- A1 <= E;\n");
 		testAssumptions("tests/jif/axiom2.con", "- list (A) <= C;\n" );
 		testAssumptions("tests/jif/associativity.con", "- (list (x))->(list (x)) <= list (CHAR);\n" );
-//		testAssumptions("tests/jif/extraEdges.con", "- b <= a;\n");
+		testAssumptions("tests/jif/extraEdges.con", "- b <= a;\n");
 //		testAssumptions("tests/jif/inte.con", "- b <= c;\n");
 //		testAssumptions("/home/zhdf/workspace/LemonTool/error.con", "- a <= b\n");
 	}
