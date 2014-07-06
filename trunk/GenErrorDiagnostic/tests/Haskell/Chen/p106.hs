@@ -2,8 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: body of the first alternative doesn't have right type
-fail3 p [] = p + p                                      
-fail3 p (h:t) = if p True then [h] else t
+-- Problem: there are several ways to fix the program. No oracle given.                
+f6 x = if x > 3 then x else 1.1                        
 
--- 7,32-34 
+-- Type safe in Haskell

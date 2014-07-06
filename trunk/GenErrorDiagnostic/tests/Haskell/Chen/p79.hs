@@ -2,7 +2,11 @@ module Example where
 
 import Data.Char
 
--- Problem: False should be something of Int
-v50 = (\x->x+3) (if True then False else 1)                               
+-- Problem: x should be [x]
+split xs = case xs of                                               
+    [] -> ([],[])
+    [x] -> (x,[])
+    (x:y:zs) -> let (xs, ys) = split zs
+                in (x:xs, y:ys)
 
--- 6,31-35
+-- 8,13-13

@@ -2,10 +2,11 @@ module Example where
 
 import Data.Char
 
--- Problem: the annotation should be [Char] -> Int
-len :: [Int] -> Int                                   
-len ls = len' 0 ls
-    where len' n [] = n
-          lengths n (_:xs) = len' (n+1) xs       
-v81 = len "abc"          
--- 6,8-12
+-- Problem: True in the second line should be of type Int
+v75 = \a b -> ((if True then a else b, \c -> b c),            
+              (b ((\x y -> y) 3 True), a 2 + 4 ))
+
+-------------------
+-- Debugging Type Errors
+
+-- 7,33-36

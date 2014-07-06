@@ -2,8 +2,8 @@ module Example where
 
 import Data.Char
 
--- Problem: y e should be e y 
-f c = if c then \ g x -> g x                                        
-           else \ e y -> y e
+-- Problem: [] should be 0
+sumLengths [] = []                                                  
+sumLengths (xs:xss) = length xs + sumLengths xss
 
--- 7,26-28
+-- 6,17-18

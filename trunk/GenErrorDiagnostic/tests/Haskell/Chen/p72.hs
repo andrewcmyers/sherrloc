@@ -2,10 +2,10 @@ module Example where
 
 import Data.Char
 
--- Problem: [xs] should be xs
-merge [] ys = ys                                                    
-merge xs [] = [xs]
-merge (x:xs) (y:ys) | x < y = [x] ++ merge xs (y:ys)
-                    | otherwise = [y] ++ merge (x:xs) ys
+-- Problem: pop requires a pair while push returns a list
+idStack stk = pop (push undefined stk)                              
+push top stk = (top:stk)
+pop (top,stk) = stk
+empty = []
 
--- 7,15-18
+-- 6,15-38  7,16-24

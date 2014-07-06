@@ -1,3 +1,17 @@
+AllExamples.hs contains all of the 121 Haskell programs provided by Chen and
+Erwig, used in their POPL paper. I've added the error locations, as described
+by text in this benchmark when available, to automate the evaluation.
+
+The script "seperate_files.pl" separates the 121 programs into their own files
+(from p1 to p121). Then we can run "runtest.pl" to evaluate the quality of
+reported error locations.
+
+The script "combine_files.pl" is used to generate AllExamples.hs with newly
+updated error locations.
+
+
+Some issues in the rest files:
+
 p106 doesn't seem to be a good test, 
 fail3 p [] = p + p                                      ^M
 fail3 p (h:t) = if p True then [h] else t^M

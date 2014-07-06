@@ -2,7 +2,7 @@
 
 print "Start generating separate files for all examples\n";
 
-my $examples = "Examples.hs";	
+my $examples = "AllExamples.hs";	
 
 open (FILE, "<$examples") or die "$examples does not exist!";
 

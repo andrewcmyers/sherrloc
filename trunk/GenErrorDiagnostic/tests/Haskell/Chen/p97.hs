@@ -2,7 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: the variable t has type [a] should be of type a
-m f (h:t) = f h : [f t]                                   
+-- Problem: there are several ways to fix the program. No oracle given.                
+v62 = \x -> if x > 0 then x else 0.0 -x                       
 
--- 6,22-22
+-- Type safe in Haskell

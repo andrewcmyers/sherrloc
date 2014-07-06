@@ -2,8 +2,8 @@ module Example where
 
 import Data.Char
 
--- Problem: ++ should be +                               
-f5 0 n = []
-f5 m n = m ++ n : (f5 (m-1) n)
-
--- Type safe in Haskell
+-- Problem: there are several ways to fix the program. No oracle given.                
+v67 = \z -> let x = z                                         
+            in (let y = z 1 in x True)
+      
+-- 7,27-27

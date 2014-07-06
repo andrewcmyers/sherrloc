@@ -2,10 +2,9 @@ module Example where
 
 import Data.Char
 
--- Problem: x in the first line should be [x]
-insert x [] = x                                                     
-insert x (y:ys) 
-    | x > y = y : insert x ys
-    | otherwise = x : y : ys
+-- Problem: "abc" and toLower should be swapped
+map2 f [] = []                                                      
+map2 f (x:xs) = f x : map2 xs
+test = map2 "abc" toLower
 
--- 6,15-15
+-- 8,13-25
