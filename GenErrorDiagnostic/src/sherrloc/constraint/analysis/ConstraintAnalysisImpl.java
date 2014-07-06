@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import sherrloc.constraint.ast.Application;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.JoinElement;
@@ -81,6 +80,43 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 			System.out.println("graph_size: " + graph.getAllNodes().size());
 		PathFinder finder = getPathFinder(graph);
 		
+		if (!isRec) {
+		for (Node node : graph.getAllNodes()) {
+			// when recursion is not allowed, constraints such as "x = list x" is unsatisfiable
+			if (finder.hasLeftEdge(node, node)) {
+				List<List<Edge>> paths = finder.getLeftPaths(node, node);
+				for (List<Edge> l : paths) {
+					ConstraintPath path = new ConstraintPath(l, finder,
+							graph.getEnv(), cachedEnv);
+					unsatPaths.addUnsatPath(path);
+				}
+				continue;
+			}
+			// go one step ahead
+			else {
+				for (Node m : graph.getAllNodes()) {
+					if (finder.hasLeftEdge(node, m) && finder.hasLeftEdge(m, node)) {
+						List<List<Edge>> paths = finder.getLeftPaths(node, m);
+						for (List<Edge> l1 : paths) {
+							for (List<Edge> l2 : finder.getLeftPaths(m, node)) {
+								List<Edge> lst = new ArrayList<Edge>();
+								lst.addAll(l1);
+								lst.addAll(l2);
+								ConstraintPath path = new ConstraintPath(lst, finder, graph.getEnv(), cachedEnv);
+								unsatPaths.addUnsatPath(path);
+								if (DEBUG) {
+									System.out.println("****** Infinite path ******");
+									System.out.println(path);
+								}
+							}
+						}
+					}
+				}
+			}
+			// TODO: need to generalize the algorithm to more general cases
+		}
+		}
+		
 		for (Node start : startNodes) {
 			for (Node end : endNodes) {
 				Element e1 = start.getElement();
@@ -95,16 +131,6 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					continue;
 				
 				List<Edge> l = finder.getPath(start, end);
-
-				// when recursion is not allowed, constraints such as "x = list x" is unsatisfiable
-				if (!isRec && start.getIndex() != end.getIndex()) {
-					if ((e1 instanceof Application && e1.getVars().contains(e2))
-					 || (e2 instanceof Application && e2.getVars().contains(e1))) {
-						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
-						unsatPaths.addUnsatPath(path);
-						continue;
-					}
-				}
 
 				// ignore trivial cases
 				if (e1.trivialEnd() || e2.trivialEnd()) {
