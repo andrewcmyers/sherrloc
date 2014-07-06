@@ -1,0 +1,3 @@
+CONSTRUCTOR Int 0
+
+x == (Int -> x);

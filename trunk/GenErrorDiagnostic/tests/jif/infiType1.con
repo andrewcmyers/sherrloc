@@ -1,0 +1,20 @@
+// we can infer g -> h == b -> c, and hence a == b -> c.
+// since b -> c == e -> f and a == d, d == e -> f
+// d == i, e == i -> j, hence i == (i->j) -> f
+// In conclusion, the following constraints entails an infinite type
+// However, the infinite type currently cannot be detected in constraint 
+// graph, since the graph looks like:
+// i LEQ (e -> f) <- LEFT - f
+//          ^
+//          |------- LEFT - e  LEQ (i -> j)
+// However, the recursion test in ConstraintAnalysisImpl.java only detects 
+// recursions with patter x LEQ (x->*). Hence, more principled detection is required
+CONSTRUCTOR Int 0
+
+x == (a -> b -> c);
+x == (d -> e -> f);
+a == (g -> h);
+g == b;
+h == c;
+e == (i -> j);
+d == i;
