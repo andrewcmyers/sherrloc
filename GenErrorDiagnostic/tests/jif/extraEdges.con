@@ -1,0 +1,6 @@
+CONSTRUCTOR a 0
+CONSTRUCTOR b 0
+CONSTRUCTOR c 0
+
+x["{x}":5,7-8] <= a["{a}":2,2-3];
+b["{b}":3,7-8] <= (a["{a}":1,2-3] ⊔ x["{x}":5,7-8]);
