@@ -2,8 +2,11 @@ module Example where
 
 import Data.Char
 
--- Problem: [] should be 0
-sumLengths [] = []                                                  
-sumLengths (xs:xss) = length xs + sumLengths xss
+-- Problem: there are several ways to fix the program. No oracle given.            
+f x = if x then x + 1 else x                     
 
--- 6,17-18
+
+-------------------------------------
+-- Type inference and type error diagnosis                             
+
+-- 6,10-10

@@ -2,14 +2,11 @@ module Example where
 
 import Data.Char
 
--- Problem: v should be of type Bool
-f [] = False                                            
-f [v] = v
-f (h1:h2:t) = h1 `gt` h2
-gt :: Int -> Int -> Bool
-gt = undefined
+-- Problem: there are several ways to fix the program. No oracle given.                
+f (c:cs) (i:is) = if i > 0 then f cs is                
+                           else f is (c:[2.2])
 
 -------------------
--- Unification source-tracking with application to diagnosis of type inference
+-- Helping students understand polymorphic type errors
 
--- 7,9-9
+-- Type safe in Haskell

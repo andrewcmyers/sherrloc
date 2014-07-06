@@ -2,10 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: there are several ways to fix the program. No oracle given.                
-v80 = \f g a -> (f a, f 1, g a, g True)
+-- Problem: the condition b should of type Bool
+v74 = \a -> ( \b -> if b then b else a) True + 3              
 
---------------------
--- Typehope: There is hope for your type erros              
-
--- 6,25-25 6,35-38
+-- 6,24-24

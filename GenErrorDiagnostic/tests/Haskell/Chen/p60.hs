@@ -2,11 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: there are several ways to fix the program. No oracle given.            
-f x = if x then x + 1 else x                     
+-- Problem: [1 .. 5] and ((>10) . (^2)) should be swapped
+v30 = map [1 .. 5] ((>10) . (^2))
 
-
--------------------------------------
--- Type inference and type error diagnosis                             
-
--- 6,10-10
+-- 6,11-33

@@ -7,7 +7,7 @@ my $examples = "AllExamples.hs";
 open (FILE, ">$examples") or die "$examples does not exist!";
 
 my $count = 1;
-while ($count <= 119) {
+while ($count <= 121) {
         open (OUT, "<p$count.hs") or die "p$count.hs does not exist!";
 
 	while (<OUT>) {
@@ -15,6 +15,10 @@ while ($count <= 119) {
 		if ($line !~ "module Example where" and $line !~ "import Data.Char") {
 			print FILE $line;
 		}
+                else {
+                        # eat the empty line
+                        $line = <OUT>;
+                }
 	}	
 	close OUT;
 	$count ++;

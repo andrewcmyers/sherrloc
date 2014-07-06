@@ -2,11 +2,11 @@ module Example where
 
 import Data.Char
 
--- Problem: True in the second line should be of type Int
-v75 = \a b -> ((if True then a else b, \c -> b c),            
-              (b ((\x y -> y) 3 True), a 2 + 4 ))
+-- Problem: there are several ways to fix the program. No oracle given.                
+v73 = \ f g x -> if f ( g x) then let v = f x in g v
+                             else let z = g x in z + 1
 
 -------------------
--- Debugging Type Errors
+-- explaining type errors in polymorphic languages
 
--- 7,33-36
+-- 7,50-54  6,45-45

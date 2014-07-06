@@ -2,7 +2,11 @@ module Example where
 
 import Data.Char
 
--- Problem: the condition x should be something like isLower x 
-f x = (if x then (toUpper x) else (toLower x))                      
+-- Problem: x should be [x]
+split xs = case xs of                                               
+            [] -> ([],[])
+            [x] -> ([], x)
+            (x:y:zs) -> let (xs, ys) = split zs
+                        in (x:xs, y:ys)
 
--- 6,11-11
+-- 8,25-25

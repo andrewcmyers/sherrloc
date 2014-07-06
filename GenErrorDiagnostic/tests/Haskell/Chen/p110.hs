@@ -2,7 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: there are several ways to fix the program. No oracle given.                
-v691 = \x -> (x + 1 ) (if x then x + 1 else x - 2.2)           
+-- Problem: == should of type Int -> Int -> Int
+fac n = if n == 0 then 1 else n * fac (n == 1)          
 
--- 6,27-27
+-- 6,39-46

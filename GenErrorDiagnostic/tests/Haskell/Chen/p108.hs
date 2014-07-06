@@ -2,7 +2,8 @@ module Example where
 
 import Data.Char
 
--- Problem: == should of type Int -> Int -> Int
-fac n = if n == 0 then 1 else n * fac (n == 1)          
+-- Problem: body of the first alternative doesn't have right type
+fail3 p [] = p + p                                      
+fail3 p (h:t) = if p True then [h] else t
 
--- 6,39-46
+-- 7,32-34 

@@ -2,11 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: x should be [x]
-split xs = case xs of                                               
-            [] -> ([],[])
-            [x] -> ([], x)
-            (x:y:zs) -> let (xs, ys) = split zs
-                        in (x:xs, y:ys)
+-- Problem: 0 and xs should be swapped
+f xs = 0 !! xs                                    
 
--- 8,25-25
+-- Type safe in Haskell

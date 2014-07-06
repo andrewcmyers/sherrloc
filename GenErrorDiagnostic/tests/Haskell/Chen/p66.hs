@@ -2,9 +2,8 @@ module Example where
 
 import Data.Char
 
--- Problem: True should be something of type Char -> a
-map1 f [] = []                                                       
-map1 f (x:xs) = f x : map1 f xs
-test = map1 True ['a','b','c']
+-- Problem: y e should be e y 
+f c = if c then \ g x -> g x                                        
+           else \ e y -> y e
 
--- 8,13-16 
+-- 7,26-28

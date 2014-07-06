@@ -2,7 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: there are several ways to fix the program. No oracle given.            
-idEq = \ x -> x == [x]
+-- Problem: the condition x should be something like isLower x 
+f x = (if x then (toUpper x) else (toLower x))                      
 
--- 6,15-15  6,20-22 
+-- 6,11-11

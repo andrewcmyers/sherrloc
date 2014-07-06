@@ -2,7 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: x in the list should be of type Int
-v63 = \x a -> (x a, x 2, [x, 2])                              
-             
--- 6,27-27
+-- Problem: there are several ways to fix the program. No oracle given.                
+v61 = \x -> if x then succ x else 2                           
+
+-- 6,35-35  6,23-28

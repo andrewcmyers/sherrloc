@@ -2,10 +2,9 @@ module Example where
 
 import Data.Char
 
--- Problem: first not should be of type Int -> Int, second not should
--- be of type Bool -> Int
-ff x = if True then not x else x + 1                                 
-gg x = if True then not x else 2
-v55 = ff 3 + gg True
+-- Problem: 2 should of type Bool
+v = let h = if True then (\f-> f (f 2))                             
+                    else (\g-> g (g True))
+    in h not
 
--- 7,21-25  8,21-25
+-- 6,37-37
