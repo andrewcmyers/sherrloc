@@ -22,9 +22,7 @@ public interface PathFinder {
 	 *            Node on LHS
 	 * @param end
 	 *            Node on RHS
-	 * @param verbose
-	 *            True when collecting data for evaluation
-	 * 
+
 	 * @return A constraint path such that <code>start <= end</code> is
 	 *         derivable from constraints along the path. Return null if no such
 	 *         path exists
@@ -35,6 +33,27 @@ public interface PathFinder {
 	 * @return True if an LEQ edge can be inferred on the end nodes
 	 */
 	public boolean hasLeqEdge (Node from, Node end);
+	
+	/**
+	 * @return True if an LEFT edge can be inferred on the end nodes
+	 */
+	public boolean hasLeftEdge (Node from, Node end);
+	
+	/**
+	 * Return all paths in the constraint graph, when there a LEFT edge on
+	 * <code>start</code> and <code>end</code> is derivable from all constraints
+	 * along the returned paths
+	 * 
+	 * @param start
+	 *            Node on LHS
+	 * @param end
+	 *            Node on RHS
+	 * 
+	 * @return Constraint paths such that <code>start LEFT end</code> is
+	 *         derivable from constraints along the paths. Empty if no such
+	 *         path exists
+	 */
+	public List<List<Edge>> getLeftPaths(Node start, Node end);
 	
 	/**
 	 * @return Constraint graph to be saturated
