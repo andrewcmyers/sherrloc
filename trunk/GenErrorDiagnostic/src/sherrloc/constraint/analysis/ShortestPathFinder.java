@@ -16,7 +16,6 @@ import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.QuantifiedVariable;
-import sherrloc.constraint.ast.Variable;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
@@ -140,6 +139,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 		nextHop[start.getIndex()][end.getIndex()].put(inferredType, evidence);
 		
 		if (inferredType instanceof LeqCondition) {
+			if (start.equals(end))
+				return;
 			queue.offer(new LeqEdge(start, end, size));
 			shortestLEQ[start.getIndex()][end.getIndex()] = size;
 			if (isAtomic) {
@@ -303,8 +304,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 			Node to = edge.getTo();
 				
 			for (Node iNode : allNodes) {
-				if (iNode.equals(from) || iNode.equals(to))
-					continue;
+//				if (iNode.equals(from) || iNode.equals(to))
+//					continue;
 				
 				// first, use the reduction edge as the left part of a reduction rule
 				if (edge instanceof LeqEdge) { 
@@ -356,6 +357,34 @@ public class ShortestPathFinder extends CFLPathFinder {
 		return from.getElement().isBottom() || end.getElement().isTop() 
 				|| from.getElement().equals(end.getElement()) 
 				|| shortestLEQ[from.getIndex()][end.getIndex()] != MAX;
+	}
+	
+	@Override
+	public boolean hasLeftEdge(Node from, Node end) {
+		if (shortestLeft[from.getIndex()][end.getIndex()] == null ||
+				shortestLeft[from.getIndex()][end.getIndex()].isEmpty())
+			return false;
+		else
+			return true;
+	}
+	
+	/**
+	 * Return a path in the constraint graph so that a LEFT edge on
+	 * <code>start, end</code> can be derived from constraints along the path.
+	 * Return null when no such path exits
+	 */
+	public List<List<Edge>> getLeftPaths(Node start, Node end) {
+		List<List<Edge>> paths = new ArrayList<List<Edge>>();
+		if (!hasLeftEdge(start, end))
+			return new ArrayList<List<Edge>>();
+		else {
+			for (EdgeCondition con : shortestLeft[start.getIndex()][end.getIndex()].keySet()) {
+				List<Edge> lst = new ArrayList<Edge>();
+				getLeqPath(start, end, con, lst, false);
+				paths.add(lst);
+			}
+		}
+		return paths;
 	}
 	
 	/**
@@ -488,7 +517,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						for (int i = 0; i < ce1.getCons().getArity(); i++) {
 							Element e1 = ce1.getElements().get(i);
 							Element e2 = ce2.getElements().get(i);
-							if (!hasLeqEdge(g.getNode(e1), g.getNode(e2)) || e1 instanceof Variable || e2 instanceof Variable) {
+							if (!hasLeqEdge(g.getNode(e1), g.getNode(e2))) {
 								success = false;
 								break;
 							}

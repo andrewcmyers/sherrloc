@@ -17,6 +17,7 @@ import sherrloc.graph.DummyEdge;
 import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
 import sherrloc.graph.JoinEdge;
+import sherrloc.graph.LeftEdge;
 import sherrloc.graph.LeqCondition;
 import sherrloc.graph.LeqRevCondition;
 import sherrloc.graph.MeetEdge;
@@ -146,10 +147,7 @@ abstract public class CFLPathFinder implements PathFinder {
 	/**
 	 * Return a path in the constraint graph so that a partial ordering on
 	 * <code>start, end</code> can be derived from constraints along the path.
-	 * Return null when no such path exits
-	 * 
-	 * @param verbose
-	 *            Set true to output saturation time
+	 * Return null when no such path exits 
 	 */
 	public List<Edge> getPath(Node start, Node end) {
 		List<Edge> path = new ArrayList<Edge>();
