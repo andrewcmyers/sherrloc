@@ -167,7 +167,19 @@ open OUT, ">$outfile" or die "oped failed : $outfile\n";
 OUT->autoflush(1);
 
 foreach my $file (@files) {
-      if ($file =~ /\.hs$/ and $file ne "AllExamples.hs" ) {
+      if ($file =~ /\.hs$/ and $file ne "AllExamples.hs" and $file ne "Class.hs") {
+        open IN, "<$file";
+        my $noOra = 0;
+        while (<IN>) {
+                if (/No oracle given./) {
+                        $noOra = 1;
+                }
+        }
+        close IN;
+        # skip the files without oracle 
+        if ($noOra) {
+                next;
+        }
         my ($prefix) = $file =~ m/(.+)\.hs$/;
         print (substr $file, 0, $prettylen);
         print ": ";
