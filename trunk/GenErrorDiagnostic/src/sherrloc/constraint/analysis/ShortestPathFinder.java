@@ -354,6 +354,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	@Override
 	public boolean hasLeqEdge(Node from, Node end) {
 		return from.getElement().isBottom() || end.getElement().isTop() 
+				|| from.getElement().equals(end.getElement()) 
 				|| shortestLEQ[from.getIndex()][end.getIndex()] != MAX;
 	}
 	
