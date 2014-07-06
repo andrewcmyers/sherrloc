@@ -130,6 +130,11 @@ sub print_safe {
   print colored("type safe", 'yellow'), "\n";
 }
 
+sub print_parsing {
+  print colored("parsing error", 'yellow'), "\n";
+}
+
+
 sub print_unsound {
   print colored("SHErrLoc is unsound", 'yellow'), "\n";
 }
@@ -162,13 +167,17 @@ open OUT, ">$outfile" or die "oped failed : $outfile\n";
 OUT->autoflush(1);
 
 foreach my $file (@files) {
-      if ($file =~ /\.hs$/ and $file ne "Examples.hs" ) {
+      if ($file =~ /\.hs$/ and $file ne "AllExamples.hs" ) {
         my ($prefix) = $file =~ m/(.+)\.hs$/;
         print (substr $file, 0, $prettylen);
         print ": ";
         my $cause = causeLocations($file);
         if ($cause =~ m/Type safe in Haskell/) {
 	    print_safe();
+	    next;
+ 	}
+        if ($cause =~ m/Parsing error/) {
+	    print_parsing();
 	    next;
  	}
         my @loc1 = parse ($cause);

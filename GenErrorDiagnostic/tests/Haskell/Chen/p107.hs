@@ -2,8 +2,9 @@ module Example where
 
 import Data.Char
 
--- Problem: [0.0] should be 0.0
-f 1 x = [0.0]                                          
-f n x = n*x + f (n-1) x
+-- Problem: ++ should be +
+f4 [] = []                                              
+f4 (0 : t) = f4 t
+f4 (h : t) = h/2.0 ++ f4 t
 
 -- Type safe in Haskell

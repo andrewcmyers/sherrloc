@@ -2,11 +2,13 @@ module Example where
 
 import Data.Char
 
--- Problem: x should be [x]
-split xs = case xs of                                               
-    [] -> ([],[])
-    [x] -> (x,[])
-    (x:y:zs) -> let (xs, ys) = split zs
-                in (x:xs, y:ys)
+-- Problem: ++ should be :
+rever = rev []                                                      
+    where rev rs [] = rs
+          rev rs (x:xs) = rev (x++rs) xs
+v42 = rever [1,2,3]
 
--- 8,13-13
+---------------------
+-- Better Type Error Messages Through Lazy Typings
+
+-- 8,33-34

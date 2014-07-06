@@ -2,11 +2,10 @@ module Example where
 
 import Data.Char
 
--- Problem: there are several ways to fix the program. No oracle given.                
--- DZ: added the defnition of "plus"
-plus :: Int -> Int -> Int
-plus = (+)
+-- Problem: [xs] should be xs
+merge [] ys = ys                                                    
+merge xs [] = [xs]
+merge (x:xs) (y:ys) | x < y = [x] ++ merge xs (y:ys)
+                    | otherwise = [y] ++ merge (x:xs) ys
 
-v41 = \a -> plus ((\b -> if b then b else a) True, 3)
-
--- 10,18-53
+-- 7,15-18

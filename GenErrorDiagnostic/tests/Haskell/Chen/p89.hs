@@ -2,10 +2,16 @@ module Example where
 
 import Data.Char
 
--- Problem: second == should have type Int -> Int -> Int
-fac n = if n ==0 then 1 else n * fac (n==1)             
+-- Problem: 1 should be of type [Int]
+f x = case x of                                                     
+    0 -> [0]
+    1 -> 1
+fib x = case x of
+    0 -> f x
+    1 -> f x
+    n -> head (f x)
 
------------
--- type error reporting in the hindley milner system
+------------
+-- Discriminative Sum Types Locate the Source of Type Errors
 
--- 6,39-42
+-- Type safe in Haskell

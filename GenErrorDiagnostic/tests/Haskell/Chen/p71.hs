@@ -2,11 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: biggest should of type Int, rather than [Int] -> Int
-normalise xs = scale biggest xs                                   
-scale x ns = map (/x) ns
-biggest (x:xs) = max x xs
-            where max x [] = x
-                  max x (y:ys) | y > x = max y ys
+-- Problem: there are several ways to fix the program. No oracle given.            
+f g x y = (g (if x then x else y), g "abc")
 
--- Type safe in Haskell
+-- 6,25-25  6,38-42

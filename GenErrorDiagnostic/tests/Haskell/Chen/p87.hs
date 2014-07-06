@@ -2,16 +2,15 @@ module Example where
 
 import Data.Char
 
--- Problem: 1 should be of type [Int]
-f x = case x of                                                     
+-- Problem: [0] should be 0 and True should of type Int
+f x = case x of                                                           
     0 -> [0]
     1 -> 1
+plus :: Int -> Int -> Int
+plus = (+)
 fib x = case x of
     0 -> f x
-    1 -> f x
-    n -> head (f x)
+    1 -> True
+    n -> fib (n-1) `plus` fib (n-2)
 
-------------
--- Discriminative Sum Types Locate the Source of Type Errors
-
--- Type safe in Haskell
+-- 7,10-12

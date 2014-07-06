@@ -3,6 +3,7 @@ module Example where
 import Data.Char
 
 -- Problem: there are several ways to fix the program. No oracle given.                
-f x = if x then x+1 else x                              
+m f [] = []                                             
+m f (x:xs) = f xs : m f x
 
--- 6,10-10
+-- 7,25-25

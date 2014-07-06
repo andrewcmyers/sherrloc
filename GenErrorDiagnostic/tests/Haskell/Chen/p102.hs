@@ -2,7 +2,8 @@ module Example where
 
 import Data.Char
 
--- Problem: t and y should be swapped
-v68 = \f y (h:t) -> t y                                       
-
--- 6,21-23
+-- Problem: last u should be of type a where a is the argument type of x 
+v66 = \x -> let f = \y -> y x                                 
+            in f (\z -> z) (f (\u -> u))
+      
+-- 7,28-40

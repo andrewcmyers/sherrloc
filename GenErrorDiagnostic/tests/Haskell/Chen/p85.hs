@@ -2,15 +2,8 @@ module Example where
 
 import Data.Char
 
--- Problem: [0] should be 0 and True should of type Int
-f x = case x of                                                           
-    0 -> [0]
-    1 -> 1
-plus :: Int -> Int -> Int
-plus = (+)
-fib x = case x of
-    0 -> f x
-    1 -> True
-    n -> fib (n-1) `plus` fib (n-2)
+-- Problem: 2 should be Bool or True should be Int
+h = if True then (\f-> f (f 2))                                     
+            else (\g-> g (g True))
 
--- 7,10-12
+-- 6,29-29  7,29-32

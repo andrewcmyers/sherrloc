@@ -2,12 +2,8 @@ module Example where
 
 import Data.Char
 
--- Problem: True should be of type Char -> a
-map' f [] = []                                          
-map' f (x:xs) = f x ++ map' f xs
-test = map True ['a','b','c']
+-- Problem: + should be ++
+sumLengths [] = []
+sumLengths (xs:xss) = xs + sumLengths xss        
 
------------
--- yj.phd.pdf
-
--- 8,12-15
+-- Type safe in Haskell

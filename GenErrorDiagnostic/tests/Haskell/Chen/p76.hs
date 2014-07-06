@@ -2,15 +2,11 @@ module Example where
 
 import Data.Char
 
--- Problem: [0] should be 0
-f x = case x of                                                     
-    0 -> [0]
-    1 -> 1
+-- Problem: there are several ways to fix the program. No oracle given.                
+-- DZ: added the defnition of "plus"
 plus :: Int -> Int -> Int
 plus = (+)
-fib x = case x of
-    0 -> f x
-    1 -> f x
-    n -> fib (n-1) `plus` fib (n-2)
 
--- 7,10-12
+v41 = \a -> plus ((\b -> if b then b else a) True, 3)
+
+-- 10,18-53

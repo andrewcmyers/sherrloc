@@ -2,7 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: there are several ways to fix the program. No oracle given.                
-v62 = \x -> if x > 0 then x else 0.0 -x                       
+-- Problem: 3 should be of type Bool
+v60 = \f y x -> f (y x) (y 3) (not x)                         
 
--- Type safe in Haskell
+-- 6,28-28

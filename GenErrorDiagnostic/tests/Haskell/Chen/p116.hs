@@ -2,7 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: the condition b should of type Bool
-v74 = \a -> ( \b -> if b then b else a) True + 3              
+-- Problem: there are several ways to fix the program. No oracle given.                
+f x = if x then x+1 else x                              
 
--- 6,24-24
+-- 6,10-10

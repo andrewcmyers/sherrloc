@@ -2,7 +2,7 @@ module Example where
 
 import Data.Char
 
--- Problem: ord should be something has argument type Bool
-f x ys = ord (if x then x else null ys == x)                        
+-- Problem: there are several ways to fix the program. No oracle given.            
+idEq = \ x -> x == [x]
 
--- 6,10-12
+-- 6,15-15  6,20-22 

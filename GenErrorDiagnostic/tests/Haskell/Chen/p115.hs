@@ -2,11 +2,14 @@ module Example where
 
 import Data.Char
 
--- Problem: there are several ways to fix the program. No oracle given.                
-v73 = \ f g x -> if f ( g x) then let v = f x in g v
-                             else let z = g x in z + 1
+-- Problem: v should be of type Bool
+f [] = False                                            
+f [v] = v
+f (h1:h2:t) = h1 `gt` h2
+gt :: Int -> Int -> Bool
+gt = undefined
 
 -------------------
--- explaining type errors in polymorphic languages
+-- Unification source-tracking with application to diagnosis of type inference
 
--- 7,50-54  6,45-45
+-- 7,9-9

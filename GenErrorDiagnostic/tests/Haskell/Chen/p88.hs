@@ -2,10 +2,10 @@ module Example where
 
 import Data.Char
 
--- Problem: there are several ways to fix the program. No oracle given.                
-v56 = (\f -> f 1) (\y -> if y then 1 else 0)                           
+-- Problem: first not should be of type Int -> Int, second not should
+-- be of type Bool -> Int
+ff x = if True then not x else x + 1                                 
+gg x = if True then not x else 2
+v55 = ff 3 + gg True
 
-----------
--- Proofs about a Folklore Let-Polymorphic Type Inference Algorithm
-
--- 6,16-16
+-- 7,21-25  8,21-25

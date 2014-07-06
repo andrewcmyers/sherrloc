@@ -2,9 +2,15 @@ module Example where
 
 import Data.Char
 
--- Problem: "abc" and toLower should be swapped
-map2 f [] = []                                                      
-map2 f (x:xs) = f x : map2 xs
-test = map2 "abc" toLower
+-- Problem: [0] should be 0
+f x = case x of                                                     
+    0 -> [0]
+    1 -> 1
+plus :: Int -> Int -> Int
+plus = (+)
+fib x = case x of
+    0 -> f x
+    1 -> f x
+    n -> fib (n-1) `plus` fib (n-2)
 
--- 8,13-25
+-- 7,10-12

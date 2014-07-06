@@ -2,9 +2,10 @@ module Example where
 
 import Data.Char
 
--- Problem: [] should be 0
-sum' [] = []                                            
-sum' (x:xs) = x `plus` sum' xs
-plus = (+) :: Int -> Int -> Int
+-- Problem: second == should have type Int -> Int -> Int
+fac n = if n ==0 then 1 else n * fac (n==1)             
 
--- 6,11-12
+-----------
+-- type error reporting in the hindley milner system
+
+-- 6,39-42
