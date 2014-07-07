@@ -23,6 +23,8 @@ p19, seems there is only one way to fix the program
 test = xs : "def"^M
        where xs = "abc"^M
 
-p67, an wrong entity is blame due the to way constraints are generated 
+p67, an wrong entity is blamed due the to way constraints are generated 
 
-p9 should reveal the unsoundness of SHErrLoc
+p9 and p37 appeared to reveal the unsoundness of SHErrLoc, when it diagnoses on
+the simplified constraints. But it successfully identifies errors when more
+information is dumped from GHC.
