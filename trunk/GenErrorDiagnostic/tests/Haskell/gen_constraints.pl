@@ -15,6 +15,7 @@ $opt="-ddump-tc-trace -fno-code -c";
 	"family",
 	"overlapping",
 	"unsoundness",
+	"polymorphism",
 	"p4",
 );
 
