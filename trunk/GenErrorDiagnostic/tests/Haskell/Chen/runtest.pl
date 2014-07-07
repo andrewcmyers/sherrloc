@@ -2,8 +2,10 @@
 
 use Cwd;
 my $dirname = getcwd;
-my $ghc = "$dirname/../../../../GHC-7.8.2-modified/ghc-7.8.2/inplace/bin/";
-my $ghcopt = "-ddump-tc-trace -fno-code -c";
+my $ghc_modified = "$dirname/../../../../GHC-7.8.2-modified/ghc-7.8.2/inplace/bin/";
+my $ghcopt = "-fno-code -c";
+my $dumpopt = "-ddump-tc-trace";
+my $ghc = "ghc";
 my $translator = "$dirname/../translate.pl";
 my $diagnostic = "$dirname/../../../sherrloc";
 my $mlfile;
@@ -76,7 +78,9 @@ sub parse {
 }
 
 my $top_rank_size;
-my $total_size = 0;
+my %total_size;
+$total_size{'SHErrLoc'} = 0;
+$total_size{'GHC'} = 0;
 
 # read the diagnostic location results
 sub diagnoseLocations {
@@ -86,17 +90,34 @@ sub diagnoseLocations {
   if (-e ($prefix.".con")) {
   }
   else {
-    `$ghc/ghc-stage1 $ghcopt $mlfile >/dev/null 2>$prefix.trace`;
+    `$ghc_modified/ghc-stage1 $dumpopt $ghcopt $mlfile >/dev/null 2>$prefix.trace`;
     `perl $translator $prefix.trace`;
   }
   my $str = `$diagnostic -c -v $prefix.con 2>&1`;
-  unlink ("error.con");
   for(split /^/, $str) {
     if (/^top_rank_size:/) {
       ($top_rank_size) = $_ =~ m/^top_rank_size: (.+)/;
-      $total_size += $top_rank_size;
+      $total_size{'SHErrLoc'} += $top_rank_size;
     }
   }
+  return $str; 
+}
+
+# read the location results from unmodified GHC
+sub ghcLocations {
+  $mlfile = shift;
+  my ($prefix) = $mlfile =~ m/(.+)\.hs$/;
+  `$ghc $ghcopt $mlfile >/dev/null 2>$prefix.ghc`;
+  open GHC_REPORT, '<', "$prefix.ghc" or die "file not found!";
+  my $str = "";
+  my ($line, $column);
+  for(<GHC_REPORT>) {
+    if (/^$prefix.hs:(\d+):(\d+):/) {
+        ($line, $column) = ($1, $2);
+        $str .= "$line,$column-$column ";
+    }
+  }
+  $total_size{'GHC'} += 1;
   return $str; 
 }
 
@@ -112,34 +133,37 @@ sub causeLocations {
   return $last_line; 
 }
 
-my $succ_counter = 0;
-my $fail_counter = 0;
+my %succ_counter;
+my %fail_counter;
+$succ_counter{'SHErrLoc'} = 0;
+$succ_counter{'GHC'} = 0;
+$fail_counter{'SHErrLoc'} = 0;
+$fail_counter{'GHC'} = 0;
 
 sub print_ok {
-  $succ_counter ++;
-  print colored("ok", 'green'), "\n";
+  my $name = shift;
+  my $size = shift;
+  $succ_counter{$name} ++;
+  print colored("\tok size=$size", 'green');
 }
 
 sub print_fail {
-  $fail_counter ++;
-  print colored("fail ($fail_counter)", 'red'), "\n";
-  cleanup();
+  my $name = shift;
+  $fail_counter{$name} ++;
+  print colored("\tfail ($fail_counter{$name})", 'red');
 }
 
 sub print_safe {
-  print colored("type safe", 'yellow'), "\n";
+  print colored("\ttype safe", 'yellow'), "\n";
 }
 
 sub print_parsing {
-  print colored("parsing error", 'yellow'), "\n";
+  print colored("\tparsing error", 'yellow'), "\n";
 }
 
 
 sub print_unsound {
-  print colored("SHErrLoc is unsound", 'yellow'), "\n";
-}
-
-sub cleanup () {
+  print colored("\tSHErrLoc is unsound", 'yellow'), "\n";
 }
 
 # open my $fh, '<', $Name or die "file not found!";
@@ -166,6 +190,8 @@ if (($#ARGV == 0) && ($ARGV[0] eq "clean")) {
 open OUT, ">$outfile" or die "oped failed : $outfile\n";
 OUT->autoflush(1);
 
+my $filename_length = 10; # for pretty print
+
 foreach my $file (@files) {
       if ($file =~ /\.hs$/ and $file ne "AllExamples.hs" and $file ne "Class.hs") {
         open IN, "<$file";
@@ -182,7 +208,8 @@ foreach my $file (@files) {
         }
         my ($prefix) = $file =~ m/(.+)\.hs$/;
         print (substr $file, 0, $prettylen);
-        print ": ";
+        print ":";
+        print ' ' x ($filename_length-length($file));
         my $cause = causeLocations($file);
         if ($cause =~ m/Type safe in Haskell/) {
 	    print_safe();
@@ -193,6 +220,8 @@ foreach my $file (@files) {
 	    next;
  	}
         my @loc1 = parse ($cause);
+        
+        # test the correctness of SHErrLoc 
         my $toolret = diagnoseLocations($file);
 	if ($toolret =~ m/No errors were found/) {
 	    print_unsound();
@@ -203,8 +232,7 @@ foreach my $file (@files) {
 L1:     for my $loc1 (@loc1) {
           for my $loc2 (@loc2) {
             if ($loc1->contains ($loc2)) {
-              print "$top_rank_size "; 
-              print_ok();
+              print_ok('SHErrLoc', $top_rank_size);
               $succ = 1;
               last L1;
             }
@@ -212,12 +240,31 @@ L1:     for my $loc1 (@loc1) {
         }
         if ($succ == 0) {
           # remove cmo files
-          print_fail();
+          print_fail('SHErrLoc');
         }
         else {
 	  print OUT $file."\n";
           print OUT $toolret;
   	} 
+
+        # test the correctness of GHC
+        my $ghcret = ghcLocations($file);
+        my @loc3 = parse ($ghcret);
+        $succ = 0;
+L1:     for my $loc1 (@loc1) {
+          for my $loc3 (@loc3) {
+            if ($loc1->contains ($loc3)) {
+              print_ok('GHC', 1); # GHC only return one suggestion per error
+              $succ = 1;
+              last L1;
+            }
+          }
+        }
+        if ($succ == 0) {
+          # remove cmo files
+          print_fail('GHC');
+        }
+        print "\n";
     }
 }
 
@@ -229,8 +276,11 @@ L1:     for my $loc1 (@loc1) {
 #    }
 #}
 
-print OUT (($succ_counter+$fail_counter) . " programs evaluated. " . ($fail_counter) . " of them fails.\n");
-print OUT "Average top rank size is: " . ($total_size/($succ_counter+$fail_counter)) . "\n";
+for my $name ('SHErrLoc', 'GHC') {
+    print OUT "$name:\n";
+    print OUT (($succ_counter{$name}+$fail_counter{$name}) . " programs evaluated. " . ($fail_counter{$name}) . " of them fails.\n");
+    print OUT "Average top rank size is: " . ($total_size{$name}/($succ_counter{$name}+$fail_counter{$name})) . "\n";
+}
 close OUT;
 
 =comment
