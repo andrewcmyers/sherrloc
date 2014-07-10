@@ -8,6 +8,7 @@ my $dumpopt = "-ddump-tc-trace";
 my $ghc = "ghc";
 my $translator = "$dirname/../translate.pl";
 my $diagnostic = "$dirname/../../../sherrloc";
+my $sherrlocopt = "-c -v";
 my $mlfile;
 my $outfile = "data";
 
@@ -65,13 +66,11 @@ sub parse {
     push(@locs, $loc);
   }
   if ( $str =~ /java.lang.OutOfMemoryError/ ) {
-    cleanup();
     return @locs;
   }
   elsif ((scalar @locs) == 0) {
     print "parse error";
     print $str;
-    cleanup();
     exit 0;
   }
   return @locs;
@@ -93,7 +92,7 @@ sub diagnoseLocations {
     `$ghc_modified/ghc-stage1 $dumpopt $ghcopt $mlfile >/dev/null 2>$prefix.trace`;
     `perl $translator $prefix.trace`;
   }
-  my $str = `$diagnostic -c -v $prefix.con 2>&1`;
+  my $str = `$diagnostic $sherrlocopt $prefix.con 2>&1`;
   for(split /^/, $str) {
     if (/^top_rank_size:/) {
       ($top_rank_size) = $_ =~ m/^top_rank_size: (.+)/;
@@ -180,7 +179,7 @@ my @files = <*>;
 # clean up all cmo files.
 if (($#ARGV == 0) && ($ARGV[0] eq "clean")) {
   foreach my $file (@files) {
-      if ($file =~ /\.trace$/) {
+      if ($file =~ /\.trace$/ or $file =~ /\.con$/) {
           unlink ($file);
       }
   }
