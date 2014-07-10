@@ -35,16 +35,21 @@ sub new {
 
 		#@tys = split(' ', $ct);
 		if (scalar @tys > 1) {  # type class constraints: class ty1 ty2 .. tyn
-			$right = shift @tys; 	# class name
+			my $right_name = shift @tys; 	# class name
 			# for multi-parameter type classes, we need an constructor to collect elements
 			if (scalar @tys > 1) {
 				$left = "cons_".(scalar @tys);
+                                $right = "cons_".(scalar @tys);
+                                my $count = 1;
 				foreach (@tys) {
 					$left .= " $_";     # rewrite to (cons_n ty1 ty2 .. tyn) <= class
+                                        $right .= " $right_name$count";
+                                        $count++;
 				}
 			}
 			else {
 				$left = shift @tys;
+                                $right = $right_name;
 			}
 			$rel = "<=";
 		}
