@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import sherrloc.graph.Variance;
+
 /**
  * This class represents an application of a {@link Constructor}, possibly with
  * no parameters (e.g., list int, int)
@@ -66,9 +68,11 @@ public class ConstructorApplication extends Application {
 	@Override
 	public boolean isTop() {
 		for (Element e : elements) {
-			if (!cons.isContraVariant() && !e.isTop())
+			if (cons.getVariance().equals(Variance.POS) && !e.isTop())
 				return false;
-			if (cons.isContraVariant() && !e.isBottom())
+			if (cons.getVariance().equals(Variance.NEG) && !e.isBottom())
+				return false;
+			if (cons.getVariance().equals(Variance.NONE))
 				return false;
 		}
 		return true;
@@ -80,9 +84,11 @@ public class ConstructorApplication extends Application {
 	@Override
 	public boolean isBottom() {
 		for (Element e : elements) {
-			if (!cons.isContraVariant() && !e.isBottom())
+			if (cons.getVariance().equals(Variance.POS) && !e.isBottom())
 				return false;
-			if (cons.isContraVariant() && !e.isTop())
+			if (cons.getVariance().equals(Variance.NEG) && !e.isTop())
+				return false;
+			if (cons.getVariance().equals(Variance.NONE))
 				return false;
 		}
 		return true;
@@ -103,8 +109,8 @@ public class ConstructorApplication extends Application {
 	}
 	
 	@Override
-	public boolean isContraVariant() {
-		return cons.isContraVariant();
+	public Variance getVariance() {
+		return cons.getVariance();
 	}
 	
 	@Override

@@ -1,7 +1,8 @@
 package sherrloc.constraint.ast;
 
 import java.util.List;
-import java.util.Map;
+
+import sherrloc.graph.Variance;
 
 /**
  * This class represents an application to a constructor, possibly with no
@@ -19,5 +20,5 @@ public abstract class Application extends EnumerableElement {
 	/**
 	 * @return True if the parameters are contravariant
 	 */
-	public abstract boolean isContraVariant();
+	public abstract Variance getVariance();
 }

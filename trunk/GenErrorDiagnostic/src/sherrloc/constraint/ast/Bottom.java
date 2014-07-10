@@ -1,5 +1,7 @@
 package sherrloc.constraint.ast;
 
+import sherrloc.graph.Variance;
+
 /**
  * The bottom element in a lattice
  */
@@ -9,7 +11,7 @@ public class Bottom extends Constructor {
 	 * @param p Position of the element in source code
 	 */
 	public Bottom(Position p) {
-		super("⊥", 0, false, p);
+		super("⊥", 0, Variance.POS, p);
 	}
 	
 	@Override
