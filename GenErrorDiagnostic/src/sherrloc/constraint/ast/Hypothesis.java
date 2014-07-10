@@ -8,6 +8,7 @@ import java.util.Set;
 import sherrloc.constraint.analysis.PathFinder;
 import sherrloc.constraint.analysis.ShortestPathFinder;
 import sherrloc.graph.ConstraintGraph;
+import sherrloc.graph.Variance;
 
 /**
  * Hypothesis consists a conjunction of inequalities
@@ -187,12 +188,13 @@ public class Hypothesis {
 				&& e2 instanceof ConstructorApplication) {
 			List<Element> l1 = ((ConstructorApplication) e1).elements;
 			List<Element> l2 = ((ConstructorApplication) e2).elements;
-			boolean contravariant = ((ConstructorApplication) e1).getCons()
-					.isContraVariant();
+			Variance variance = ((ConstructorApplication) e1).getCons().getVariance();
 			for (int i = 0; i < l1.size(); i++) {
-				if (!contravariant && !leq(l1.get(i), l2.get(i)))
+				if (variance.equals(Variance.POS) && !leq(l1.get(i), l2.get(i)))
 					return false;
-				else if (contravariant && !leq(l2.get(i), l1.get(i)))
+				else if (variance.equals(Variance.NEG) && !leq(l2.get(i), l1.get(i)))
+					return false;
+				else if (variance.equals(Variance.NONE) && (!leq(l2.get(i), l1.get(i)) || !leq(l1.get(i), l2.get(i))))
 					return false;
 			}
 			return true;

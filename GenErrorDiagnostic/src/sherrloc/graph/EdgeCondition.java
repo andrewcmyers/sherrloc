@@ -119,7 +119,7 @@ public class EdgeCondition {
 			// both constructors are concrete
 			sameCons = con.equals(c.con);
 		}
-		return (sameCons && index==c.index && logicXOR(reverse,c.reverse) && variance==c.variance);
+		return (sameCons && index==c.index && logicXOR(reverse,c.reverse));
 	}
 	
 	/**

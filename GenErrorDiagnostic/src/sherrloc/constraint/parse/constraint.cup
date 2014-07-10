@@ -30,6 +30,7 @@ import sherrloc.constraint.ast.Variable;
 import sherrloc.constraint.ast.QuantifiedVariable;
 import sherrloc.constraint.ast.Position;
 import sherrloc.diagnostic.DiagnosisInput;
+import sherrloc.graph.Variance;
 
 action code {: 
 				public Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
@@ -74,9 +75,9 @@ precedence left COMMA;
 /* The grammar */
 cons_spec 	::= declaration 	
 			{: 
-					constructors.put("arrow", new Constructor("arrow", 2, false, Position.EmptyPosition()));
-					constructors.put("larrow", new Constructor("larrow", 2, true, Position.EmptyPosition()));
-					constructors.put("pair",  new Constructor("pair", 2, false, Position.EmptyPosition()));
+					constructors.put("arrow", new Constructor("arrow", 2, Variance.POS, Position.EmptyPosition()));
+					constructors.put("larrow", new Constructor("larrow", 2, Variance.NEG, Position.EmptyPosition()));
+					constructors.put("pair",  new Constructor("pair", 2, Variance.POS, Position.EmptyPosition()));
 					constructors.put("_",  new Bottom(Position.EmptyPosition())); 
 					constructors.put("*",  new Top(Position.EmptyPosition())); 
 			:} 
@@ -84,9 +85,9 @@ cons_spec 	::= declaration
 			{: RESULT = new DiagnosisInput (env, l); :}			
 			| 	declaration 
 			{: 
-					constructors.put("arrow", new Constructor("arrow", 2, false, Position.EmptyPosition()));
-					constructors.put("larrow", new Constructor("larrow", 2, true, Position.EmptyPosition()));
-					constructors.put("pair",  new Constructor("pair", 2, false, Position.EmptyPosition())); 
+					constructors.put("arrow", new Constructor("arrow", 2, Variance.POS, Position.EmptyPosition()));
+					constructors.put("larrow", new Constructor("larrow", 2, Variance.NEG, Position.EmptyPosition()));
+					constructors.put("pair",  new Constructor("pair", 2, Variance.POS, Position.EmptyPosition())); 
 					constructors.put("_",  new Bottom(Position.EmptyPosition())); 
 					constructors.put("*",  new Top(Position.EmptyPosition())); 
 			:} 
@@ -106,7 +107,7 @@ constructors ::= constructors constructor
 			| constructor;
 			
 constructor  ::= CONSTRUCTOR id:s arity:a
-			{: constructors.put( s, new Constructor(s, a, false, Position.EmptyPosition())); :}
+			{: constructors.put( s, new Constructor(s, a, Variance.POS, Position.EmptyPosition())); :}
 			;
 			
 variables ::= variables variable
@@ -351,7 +352,7 @@ element		::= IDENTIFIER:s
 					e = constructors.get(s).clone();
 				} 
 				else if (varMode && !(variables.containsKey(s))) {
-				    e = new Constructor(s, 0, false, Position.EmptyPosition());
+				    e = new Constructor(s, 0, Variance.POS, Position.EmptyPosition());
 				    constructors.put(s, (Constructor)e);
 				}
 				else {

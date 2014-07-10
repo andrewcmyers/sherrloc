@@ -194,12 +194,12 @@ public class ConstraintGraph extends Graph {
                     }
                     else if (e instanceof Application){
                     	Application ae = (Application)e;
-                    	Variance variance = ae.isContraVariant()?Variance.NEG:Variance.POS;
-                    	if (ae instanceof ConstructorApplication) {
+                    	Variance variance = ae.getVariance();
+                    	if (ae instanceof ConstructorApplication && !ae.getVariance().equals(Variance.NONE)) {
                         	addConEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)ae).getCons(), index, false, variance), compnode, currentnode));
                         	addConEdge(new ConstructorEdge(new EdgeCondition(((ConstructorApplication)ae).getCons(), index, true, variance), currentnode, compnode));
                     	}
-                    	else if (ae instanceof VariableApplication) {
+                    	else if (ae instanceof VariableApplication && !ae.getVariance().equals(Variance.NONE)) {
                     		addConEdge(new ConstructorEdge(new EdgeCondition(((VariableApplication)ae).getCons(), index, false, variance), compnode, currentnode));
                     		addConEdge(new ConstructorEdge(new EdgeCondition(((VariableApplication)ae).getCons(), index, true, variance), currentnode, compnode));
                     	}
