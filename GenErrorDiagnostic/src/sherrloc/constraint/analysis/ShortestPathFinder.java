@@ -499,18 +499,25 @@ public class ShortestPathFinder extends CFLPathFinder {
 					// make sure this is "ce1", not the swapped one when the constructor is contravariant
 					ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement(); 
 					ConstructorApplication ce2 = (ConstructorApplication) cnTo.getElement();
-
-					Node f = cnFrom;
-					Node t = cnTo;
-					if (ce1.getCons().isContraVariant()) {
-						t = cnFrom;
-						f = cnTo;
-					}
 					
-					if (hasLeqEdge(f, t) || f.getIndex() == t.getIndex())
+					if (!ce1.getCons().equals(ce2.getCons()))
 						continue;
-	
-					if (ce1.getCons().equals(ce2.getCons())) {
+					
+					// depending on the variance of the parameters, we need to
+					// infer an edge from cnFrom to cnTo (covariant), cnTo to cnFrom
+					// (contravariant), or both (invariant)
+					boolean ltor = false, rtol = false;
+					if (ce1.getCons().getVariance().equals(Variance.POS))
+						ltor = true;
+					else if (ce1.getCons().getVariance().equals(Variance.NEG))
+						rtol = true;
+					else if (ce1.getCons().getVariance().equals(Variance.NONE)) {
+						ltor = true;
+						rtol = true;
+					} 
+
+					// only infer new edges when none already exists
+					if ( (ltor && !hasLeqEdge(cnFrom, cnTo)) || (rtol && !hasLeqEdge(cnTo, cnFrom)) ) {
 						// check if all elements flows into another constructor
 						boolean success = true;
 
@@ -521,7 +528,15 @@ public class ShortestPathFinder extends CFLPathFinder {
 								success = false;
 								break;
 							}
+							// test the other direction for invariant parameters
+							if (ce1.getCons().getVariance().equals(Variance.NONE)) {
+								if (!hasLeqEdge(g.getNode(e2), g.getNode(e1))) {
+									success = false;
+									break;
+								}
+							}
 						}
+												
 						if (success) {
 							List<Triple> evidences = new ArrayList<Triple>();
 							int size=0;
@@ -536,7 +551,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 									size ++;
 								}
 							}
-							inferEdge(f, t, LeqCondition.getInstance(), size, evidences, true);
+							if (ltor && !hasLeqEdge(cnFrom, cnTo))
+								inferEdge(cnFrom, cnTo, LeqCondition.getInstance(), size, evidences, true);
+							if (rtol && !hasLeqEdge(cnTo, cnFrom))
+								inferEdge(cnTo, cnFrom, LeqCondition.getInstance(), size, evidences, true);
 						}
 					}
 				}

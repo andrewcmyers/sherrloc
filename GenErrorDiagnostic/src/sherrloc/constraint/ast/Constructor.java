@@ -4,24 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import sherrloc.graph.Variance;
+
 /**
  * A constructor (e.g., list(1), pair(2)) has a name, an arity and the variance
  * of parameters
  */
 public class Constructor extends Element {
 	private int arity;
-	private final boolean contraVariant;
+	private final Variance variance;
 	
 	/**
 	 * @param name Constructor name
 	 * @param arity Arity of the constructor
-	 * @param contravariant False if all parameters are covariant; true if all parameters are contravariant
+	 * @param variance The variance of all parameters
 	 * @param p Position of the element in source code
 	 */
-	public Constructor(String name, int arity, boolean contravariant, Position p) {
+	public Constructor(String name, int arity, Variance variance, Position p) {
 		super(name, p);
 		this.arity = arity;
-		this.contraVariant = contravariant;
+		this.variance = variance;
 	}
 	
 	/**
@@ -39,12 +41,11 @@ public class Constructor extends Element {
 	}
 	
 	/**
-	 * @return False if all parameters are covariant; true if all parameters are
-	 *         contravariant (all parameters must have the same variance in the
-	 *         current implementation)
+	 * @return Return the variance of all parameters (all parameters must have
+	 *         the same variance in the current implementation)
 	 */
-	public boolean isContraVariant() {
-		return contraVariant;
+	public Variance getVariance () {
+		return variance;
 	}
 	
 	@Override
@@ -94,19 +95,19 @@ public class Constructor extends Element {
 	public boolean equals(Object o) {
 		if (o instanceof Constructor) {
 			Constructor c = (Constructor)o;
-			return arity==c.arity && this.name.equals(c.name) && this.contraVariant==c.contraVariant && this.pos.equals(c.pos);
+			return arity==c.arity && this.name.equals(c.name) && this.variance ==c.variance && this.pos.equals(c.pos);
 		}
 		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return arity * 85751 + name.hashCode()*1913 + pos.hashCode()*3 + (this.contraVariant?1:0);
+		return arity * 85751 + name.hashCode()*1913 + pos.hashCode()*3 + (this.variance.hashCode());
 	}
 		
 	@Override
 	public Constructor clone ( ) {
-		return new Constructor(name, arity, contraVariant, pos);
+		return new Constructor(name, arity, variance, pos);
 	}
 	
 	@Override
@@ -126,7 +127,7 @@ public class Constructor extends Element {
 	
 	@Override
 	public Element getBaseElement() {
-		return new Constructor(name, arity, contraVariant, Position.EmptyPosition());
+		return new Constructor(name, arity, variance, Position.EmptyPosition());
 	}	
 	
 	@Override

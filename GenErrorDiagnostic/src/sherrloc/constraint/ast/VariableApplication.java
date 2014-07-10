@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import sherrloc.graph.Variance;
+
 /**
  * This class represents an application of a {@link Variable}, possibly with
  * no parameters (e.g., x int, x)
@@ -94,8 +96,8 @@ public class VariableApplication extends Application {
 	}
 	
 	@Override
-	public boolean isContraVariant() {
-		return false;
+	public Variance getVariance() {
+		return Variance.POS;
 	}
 	
 	@Override
