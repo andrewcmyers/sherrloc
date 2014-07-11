@@ -524,7 +524,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 						for (int i = 0; i < ce1.getCons().getArity(); i++) {
 							Element e1 = ce1.getElements().get(i);
 							Element e2 = ce2.getElements().get(i);
-							if (!hasLeqEdge(g.getNode(e1), g.getNode(e2))) {
+							/* it seems we shouldn't test if e1 and e2 are Variables. But it breaks 2 ocaml test cases. Need to justify this change */
+							if (!hasLeqEdge(g.getNode(e1), g.getNode(e2)) /*|| e1 instanceof Variable || e2 instanceof Variable*/) {
 								success = false;
 								break;
 							}

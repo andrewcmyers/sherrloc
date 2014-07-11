@@ -153,7 +153,7 @@ public class Axiom {
 		for (Inequality ieq : premise) {
 			List<EdgeMatch> lst = findMatches(ieq.e1, ieq.e2, finder, maps);
 			for (EdgeMatch match : lst) {
-				if (finder.hasLeqEdge(match.n1, match.n2)) {
+				if (match.n1.getElement() instanceof Variable || match.n2.getElement() instanceof Variable || finder.hasLeqEdge(match.n1, match.n2)) {
 					maps.add(match.map);
 				}
 			}

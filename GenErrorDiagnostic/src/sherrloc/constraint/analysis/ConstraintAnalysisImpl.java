@@ -89,6 +89,10 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					ConstraintPath path = new ConstraintPath(l, finder,
 							graph.getEnv(), cachedEnv);
 					unsatPaths.addUnsatPath(path);
+					if (DEBUG) {
+						System.out.println("****** Infinite path ******");
+						System.out.println(path);
+					}
 				}
 				continue;
 			}
