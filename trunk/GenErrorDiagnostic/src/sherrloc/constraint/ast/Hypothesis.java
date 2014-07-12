@@ -1,6 +1,7 @@
 package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class Hypothesis {
 	private Hypothesis parent = null; 	// used to reduce shared environments
 										// (e.g., to store global assumptions)
 	private boolean USE_GRAPH = true;	// set true to use hypothesis graph to infer provable relations
+	private Set<Function> functions;
 
 	/**
 	 * Construct an empty hypothesis
@@ -31,6 +33,7 @@ public class Hypothesis {
 		axioms = new ArrayList<Axiom>();
 		elmts = new HashSet<Element>();
 		graph = new ConstraintGraph(null);
+		functions = new HashSet<Function>();
 	}
 
 	/**
@@ -40,7 +43,10 @@ public class Hypothesis {
 	 *            An inequality to be added
 	 */
 	public void addInequality(Inequality ieq) {
-		assertions.add(ieq.baseInequality());
+		Inequality toadd = ieq.baseInequality();
+		assertions.add(toadd);
+		elmts.add(toadd.e1);
+		elmts.add(toadd.e2);
 	}
 	
 	/**
@@ -77,6 +83,16 @@ public class Hypothesis {
 			axioms.addAll(e.axioms);
 		}
 	}
+	
+	/**
+	 * Add all functions to the environment
+	 * 
+	 * @param functions
+	 *            A set of functions
+	 */
+	public void addFunctions (Collection<Function> functions) {
+		this.functions.addAll(functions);
+	}
 
 	/**
 	 * Return a fresh hypothesis where an inequality <code>e1 <= e2</code> is
@@ -96,7 +112,7 @@ public class Hypothesis {
 				e2.getBaseElement(), Relation.LEQ));
 		return h;
 	}
-
+	
 	/**
 	 * @return A string of all inequalities in hypothesis
 	 */
@@ -276,6 +292,20 @@ public class Hypothesis {
 			return ret;
 		}
 	}
+	
+	/**
+	 * @return All functions in the hypothesis
+	 */
+	public Set<Function> getFunctions() {
+		if (parent == null)
+			return functions;
+		else {
+			Set<Function> ret = new HashSet<Function>();
+			ret.addAll(functions);
+			ret.addAll(parent.getFunctions());
+			return ret;
+		}
+	}
 
 	/**
 	 * Saturate a hypothesis graph to test if <code>e1<=e2</code> can be
@@ -289,6 +319,7 @@ public class Hypothesis {
 	 */
 	private boolean leqApplyAssertions(Element e1, Element e2) {
 
+		Set<Function> funcs = getFunctions();
 		if (finder == null) {
 			for (Inequality c : getInequalities()) {
 				graph.addOneInequality(c);
@@ -297,6 +328,33 @@ public class Hypothesis {
 			if (USE_GRAPH) {
 				for (Element e : getElements()) {
 					graph.getNode(e); // create new node when necessary
+				}
+				// create function applications infer more relations
+				for (Function f : funcs) {
+					if (f.getArity() == 1) {
+						for (Element e : getElements()) {
+							if (! (e instanceof FunctionApplication)) {
+								List<Element> lst = new ArrayList<Element>();
+								lst.add(e);
+								graph.getNode(new FunctionApplication(f, lst));
+							}
+						}
+					}
+					else if (f.getArity() == 2) {
+						for (Element ele1 : getElements()) {
+							for (Element ele2 : getElements()) {
+							if (!(ele1 instanceof FunctionApplication) && !(ele2 instanceof FunctionApplication)) {							
+								List<Element> lst = new ArrayList<Element>();
+								lst.add(ele1);
+								lst.add(ele2);
+								graph.getNode(new FunctionApplication(f, lst));
+							}
+						}
+						}
+					}
+					else {
+						System.out.println("Warning: maynot handle functions with more than 2 parameters correctly");
+					}
 				}
 			}
 			graph.generateGraph();

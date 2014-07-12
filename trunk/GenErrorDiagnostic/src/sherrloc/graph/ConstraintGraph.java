@@ -17,6 +17,7 @@ import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.EnumerableElement;
+import sherrloc.constraint.ast.Function;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.JoinElement;
