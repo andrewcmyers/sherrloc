@@ -8,14 +8,17 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import sherrloc.constraint.ast.Application;
 import sherrloc.constraint.ast.Axiom;
 import sherrloc.constraint.ast.Axiom.EdgeMatch;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
+import sherrloc.constraint.ast.FunctionApplication;
 import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.QuantifiedVariable;
+import sherrloc.constraint.ast.Relation;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
@@ -117,11 +120,11 @@ public class ShortestPathFinder extends CFLPathFinder {
 						meetElements.put(toadd, new ArrayList<Node>());
 					meetElements.get(toadd).add(n);
 				}
-			} else if (element instanceof ConstructorApplication) {
+			} else if (element instanceof ConstructorApplication || element instanceof FunctionApplication) {
 				// notice that we only need to infer extra edges for concrete
-				// constructors, so there is no need to collect VariableApplication
-				ConstructorApplication ce = (ConstructorApplication) element;
-				for (Element ele : ce.getElements()) {
+				// constructors and functions, so there is no need to collect VariableApplication
+				Application app = (Application) element;
+				for (Element ele : app.getElements()) {
 					Node toadd = g.getNode(ele);
 					if (!consElements.containsKey(toadd))
 						consElements.put(toadd, new ArrayList<Node>());
@@ -400,10 +403,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 			for (Inequality ieq : rule.getConclusion()) {
 				List<EdgeMatch> emlst = rule.findMatches (ieq.getFirstElement(), ieq.getSecondElement(), this, maps);
 				for (EdgeMatch em : emlst) {
-					if (!hasLeqEdge(em.n1, em.n2)) {
-						inferEdge(em.n1, em.n2, LeqCondition.getInstance(), 1,
-								new ArrayList<Triple>(), true);
-					}
+					if (!hasLeqEdge(em.n1, em.n2))
+						inferEdge(em.n1, em.n2, LeqCondition.getInstance(), 1, new ArrayList<Triple>(), true);
+					if (ieq.getRelation() == Relation.EQ && !hasLeqEdge(em.n2, em.n1))
+							inferEdge(em.n2, em.n1, LeqCondition.getInstance(), 1, new ArrayList<Triple>(), true);
 				}
 			}
 		}
@@ -497,21 +500,35 @@ public class ShortestPathFinder extends CFLPathFinder {
 			for (Node cnFrom : consElements.get(from)) {
 				for (Node cnTo : consElements.get(to)) {
 					// make sure this is "ce1", not the swapped one when the constructor is contravariant
-					ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement(); 
-					ConstructorApplication ce2 = (ConstructorApplication) cnTo.getElement();
-					
-					if (!ce1.getCons().equals(ce2.getCons()))
+					// the elements can either be ConstructorApplication, or FunctionApplication
+					int arity;
+					Variance variance;
+					if (cnFrom.getElement() instanceof ConstructorApplication && cnTo.getElement() instanceof ConstructorApplication) {
+						ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement();
+						arity = ce1.getCons().getArity();
+						if (!ce1.getCons().equals(((ConstructorApplication)cnTo.getElement()).getCons()))
+							continue;
+					}
+					else if (cnFrom.getElement() instanceof FunctionApplication && cnTo.getElement() instanceof FunctionApplication) {
+						FunctionApplication fe1 = (FunctionApplication) cnFrom.getElement();
+						arity = fe1.getFunc().getArity();
+						if (!fe1.getFunc().equals(((FunctionApplication)cnTo.getElement()).getFunc()))
+							continue;
+					}
+					else
 						continue;
 					
+					Application ce1 = (Application) cnFrom.getElement();
+					Application ce2 = (Application) cnTo.getElement();
 					// depending on the variance of the parameters, we need to
 					// infer an edge from cnFrom to cnTo (covariant), cnTo to cnFrom
 					// (contravariant), or both (invariant)
 					boolean ltor = false, rtol = false;
-					if (ce1.getCons().getVariance().equals(Variance.POS))
+					if (ce1.getVariance().equals(Variance.POS))
 						ltor = true;
-					else if (ce1.getCons().getVariance().equals(Variance.NEG))
+					else if (ce1.getVariance().equals(Variance.NEG))
 						rtol = true;
-					else if (ce1.getCons().getVariance().equals(Variance.NONE)) {
+					else if (ce1.getVariance().equals(Variance.NONE)) {
 						ltor = true;
 						rtol = true;
 					} 
@@ -521,7 +538,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						// check if all elements flows into another constructor
 						boolean success = true;
 
-						for (int i = 0; i < ce1.getCons().getArity(); i++) {
+						for (int i = 0; i < arity; i++) {
 							Element e1 = ce1.getElements().get(i);
 							Element e2 = ce2.getElements().get(i);
 							/* it seems we shouldn't test if e1 and e2 are Variables. But it breaks 2 ocaml test cases. Need to justify this change */
@@ -530,7 +547,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 								break;
 							}
 							// test the other direction for invariant parameters
-							if (ce1.getCons().getVariance().equals(Variance.NONE)) {
+							if (ce1.getVariance().equals(Variance.NONE)) {
 								if (!hasLeqEdge(g.getNode(e2), g.getNode(e1))) {
 									success = false;
 									break;
@@ -541,7 +558,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						if (success) {
 							List<Triple> evidences = new ArrayList<Triple>();
 							int size=0;
-							for (int i = 0; i < ce1.getCons().getArity(); i++) {
+							for (int i = 0; i < arity; i++) {
 								Element e1 = ce1.getElements().get(i);
 								Element e2 = ce2.getElements().get(i);
 								if (shortestLEQ[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()] < MAX) {
