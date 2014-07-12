@@ -1,0 +1,15 @@
+// this is the flatten constraints of example family2.con
+FUNCTION F 1
+FUNCTION G 1
+CONSTRUCTOR Int 0
+CONSTRUCTOR Bool 0
+CONSTRUCTOR list 1
+CONSTRUCTOR a 0
+CONSTRUCTOR b 0
+
+%%
+AXIOM x . (G (list (x))) == Bool;;
+(F (list (Int))) == Int;
+
+%%
+(G a) == Bool {a == (list b); b == (F a);};
