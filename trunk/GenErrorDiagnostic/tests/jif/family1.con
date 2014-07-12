@@ -1,0 +1,11 @@
+// this example should fail, since we cannot unify Int with Bool
+FUNCTION F 1
+CONSTRUCTOR Int 0
+CONSTRUCTOR Bool 0
+
+%%
+(F Int) == Int;
+(F Bool) == Bool;
+
+%%
+(F Int) == (F Bool);
