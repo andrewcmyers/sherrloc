@@ -1,0 +1,14 @@
+// this subtle example comes from the OutsideIn(X) paper, on page 54
+FUNCTION F 1
+FUNCTION G 1
+CONSTRUCTOR Int 0
+CONSTRUCTOR Bool 0
+CONSTRUCTOR list 1
+CONSTRUCTOR a 0
+
+%%
+AXIOM x . (G (list (x))) == Bool;;
+(F (list (Int))) == Int;
+
+%%
+(G a) == Bool {a == (list (F a));};
