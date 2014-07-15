@@ -122,4 +122,15 @@ public class JoinElement extends EnumerableElement {
 	public Element subst(Map<QuantifiedVariable, Element> map) {
 		return new JoinElement(substElements(map));
 	}
+	
+	/**
+	 * TODO: this implementation only considers one way of unifying join elements
+	 */
+	@Override
+	public boolean matches(Element e, Map<Variable, Element> map) {
+		if (e instanceof JoinElement) {
+			return super.matches(e, map);
+		}
+		return false;
+	}
 }

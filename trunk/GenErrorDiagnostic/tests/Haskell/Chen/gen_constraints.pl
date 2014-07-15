@@ -14,6 +14,10 @@ while (my $file = readdir(DIR)) {
 		`$ghc $opt p$1.hs 2> p$1.trace`;
 		`perl ../translate.pl p$1.trace`;
 	}
+        elsif ($file =~ /s(.*)\.hs/) {
+		`$ghc $opt s$1.hs 2> s$1.trace`;
+		`perl ../translate.pl s$1.trace`;
+	}
 }
 
 print "done!\n";

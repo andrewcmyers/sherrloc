@@ -128,4 +128,15 @@ public class ConstructorApplication extends Application {
 	public Element subst(Map<QuantifiedVariable, Element> map) {
 		return new ConstructorApplication(cons, substElements(map));
 	}
+	
+	@Override
+	public boolean matches(Element e, Map<Variable, Element> map) {
+		if (e instanceof ConstructorApplication) {
+			ConstructorApplication ca = (ConstructorApplication) e;
+			if (!cons.matches(ca.getCons(), map))
+				return false;
+			return super.matches(e, map);
+		}
+		return false;
+	}
 }

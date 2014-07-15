@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import sherrloc.constraint.analysis.Evidence;
 import sherrloc.constraint.analysis.PathFinder;
 import sherrloc.graph.ConstraintGraph;
+import sherrloc.graph.LeqCondition;
 import sherrloc.graph.LeqEdge;
 import sherrloc.graph.Node;
 
@@ -46,6 +48,18 @@ public class Axiom {
 			this.n1 = n1;
 			this.n2 = n2;
 			this.map = map;
+		}
+	}
+	
+	public class PremiseMatch {
+		public Map<QuantifiedVariable, Element> map;
+		public int size;
+		public List<Evidence> evidences;
+		
+		public PremiseMatch(Map<QuantifiedVariable, Element> map, int size, List<Evidence> evis) {
+			this.map = map;
+			this.size = size;
+			this.evidences = evis;
 		}
 	}
 	
@@ -113,8 +127,8 @@ public class Axiom {
 	}
 		
 	/**
-	 * Return true if all inequalities in the promise are applicable to in a
-	 * constraint graph. Update substitutions made in the unification when
+	 * Return all edges in the graph whose end nodes can potentially be unified
+	 * with e1 and e2. Update substitutions made in the unification when
 	 * necessary.
 	 * 
 	 * @param finder
@@ -122,44 +136,58 @@ public class Axiom {
 	 *            inferred from axioms
 	 * @param maps
 	 *            All possible substitutions so far
-	 * @return True if all inequalities in the promise present in the saturated
-	 *         graph. Parameter maps is updated to remove infeasible
+	 * @return All edges in the graph whose end nodes can potentially be unified
+	 *         with e1 and e2. Parameter maps is updated to remove infeasible
 	 *         substitutions, and make new substitutions for the axiom when
 	 *         necessary
 	 */
-	public List<EdgeMatch> findMatches (Element e1, Element e2, PathFinder finder, List<Map<QuantifiedVariable, Element>> maps) {		
+	public List<EdgeMatch> findMatches (Element e1, Element e2, PathFinder finder, Map<QuantifiedVariable, Element> map) {		
 		// try to unify one promise at one time
 		List<EdgeMatch> ret = new ArrayList<EdgeMatch>();
 
-		while (!maps.isEmpty()) {
-			Map<QuantifiedVariable, Element> map = maps.remove(0);
-
-			List<NodeMatch> match1 = matchOneNode(e1, map, finder.getGraph());
-			// get a pair of nodes, and see if they matches the promise
-			for (NodeMatch m1 : match1) {
-				List<NodeMatch> match2 = matchOneNode(e2, m1.map, finder.getGraph());
-				for (NodeMatch m2 : match2) {
-						ret.add(new EdgeMatch(m1.n, m2.n, m2.map));
-				}
+		List<NodeMatch> match1 = matchOneNode(e1, map, finder.getGraph());
+		// get a pair of nodes, and see if they matches the promise
+		for (NodeMatch m1 : match1) {
+			List<NodeMatch> match2 = matchOneNode(e2, m1.map, finder.getGraph());
+			for (NodeMatch m2 : match2) {
+				ret.add(new EdgeMatch(m1.n, m2.n, m2.map));
 			}
 		}
 		return ret;
 	}
 	
-	public List<Map<QuantifiedVariable, Element>> findMatchesInPremise (PathFinder finder) {		
-		List<Map<QuantifiedVariable, Element>> maps = new ArrayList<Map<QuantifiedVariable, Element>>();
-		maps.add(new HashMap<QuantifiedVariable, Element>()); // add an empty
+	public List<PremiseMatch> findMatchesInPremise (PathFinder finder) {		
+		List<PremiseMatch> matches = new ArrayList<PremiseMatch>();
+		
+		matches.add(new PremiseMatch(new HashMap<QuantifiedVariable, Element>(), 0, new ArrayList<Evidence>())); // add an empty
 																// substitution
 		for (Inequality ieq : premise) {
-			List<EdgeMatch> lst = findMatches(ieq.e1, ieq.e2, finder, maps);
-			for (EdgeMatch match : lst) {
-				if (match.n1.getElement() instanceof Variable || match.n2.getElement() instanceof Variable || finder.hasLeqEdge(match.n1, match.n2)) {
-					maps.add(match.map);
+			List<PremiseMatch> newmatches = new ArrayList<PremiseMatch>();
+			while (!matches.isEmpty()) {
+				PremiseMatch pmatch = matches.remove(0);
+				List<EdgeMatch> lst = findMatches(ieq.e1, ieq.e2, finder, pmatch.map);
+
+				for (EdgeMatch match : lst) {
+					Node n1 = match.n1, n2 = match.n2;
+					int size = pmatch.size;
+					List<Evidence> evidences = new ArrayList<Evidence>(pmatch.evidences); 	// track evidences that lead to the inference
+					if ((finder.hasLeqEdge(n1, n2) && (ieq.r != Relation.EQ || finder.hasLeqEdge(n2, n1)))) {
+						if (finder.hasLeqEdge(n1, n2)) {
+							size += finder.leqEdgeLength(n1, n2);
+							evidences.add(new Evidence(n1, n2, LeqCondition.getInstance()));
+						}
+						if (ieq.r == Relation.EQ && finder.hasLeqEdge(n2, n1)) {
+							size += finder.leqEdgeLength(n2, n1);
+							evidences.add(new Evidence(n2, n1, LeqCondition.getInstance()));
+						}
+						newmatches.add(new PremiseMatch(match.map, size, evidences));
+					}
 				}
 			}
+			matches = newmatches;
 		}
 		
-		return maps;
+		return matches;
 	}
 	
 	/**

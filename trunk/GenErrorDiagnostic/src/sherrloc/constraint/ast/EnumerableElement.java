@@ -201,4 +201,20 @@ public abstract class EnumerableElement extends Element {
 		}
 		return ret;
 	}
+	
+	@Override
+	public boolean matches(Element e, Map<Variable, Element> map) {
+		if (e instanceof EnumerableElement) {
+			EnumerableElement ee = (EnumerableElement) e;
+			if (ee.getElements().size() == elements.size()) {
+				for (int i = 0; i < elements.size(); i++) {
+					if (!elements.get(i)
+							.matches(ee.getElements().get(i), map))
+						return false;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
 }
