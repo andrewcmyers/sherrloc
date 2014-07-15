@@ -22,7 +22,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private boolean isSym;
 	private boolean isVerbose;
 	private boolean isRec;
-	private boolean DEBUG = true;
+	private boolean DEBUG = false;
 
 	/** Reuse saturated hypothesis graph when possible */
 	private HashMap<Hypothesis, Hypothesis> cachedEnv;
