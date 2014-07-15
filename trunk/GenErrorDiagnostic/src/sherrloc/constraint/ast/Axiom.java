@@ -204,9 +204,9 @@ public class Axiom {
 		List<NodeMatch> ret = new ArrayList<NodeMatch>();
 
 		if (!e.hasQVars()) {
-			// simple case, just find a matching node
-			if (g.hasElement(e)) {
-				ret.add(new NodeMatch(g.getNode(e),m));
+			for (Node node : g.getAllNodes()) {
+				if (node.getElement().getBaseElement().equals(e.getBaseElement()))
+					ret.add(new NodeMatch(node,m));
 			}
 		} else {
 			// complex case. Need to try all nodes in the graph

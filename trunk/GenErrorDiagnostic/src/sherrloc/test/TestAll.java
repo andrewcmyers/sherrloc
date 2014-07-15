@@ -94,17 +94,18 @@ public class TestAll {
 	
 	@Test
 	public void regressionTests () {
-		testErrorPaths("tests/jif/DashedPaths.con", false);
-		testAssumptions("tests/jif/cluster.con", "- a <= c;a <= d;b <= c;b <= d;\n");
-		testAssumptions("tests/jif/induction.con", "- A <= B;\n");		
-		testAssumptions("tests/jif/induction2.con", "- (P)->(P) <= C_caller_pc;\n");
-		testAssumptions("tests/jif/join.con", "- (P)->(P) <= C_caller_pc;\n");
-		testAssumptions("tests/jif/meet.con", "- a <= b;a <= c;\n");
-		testAssumptions("tests/jif/varconstructor.con", "- INT <= BOOL;\n");
-		testAssumptions("tests/jif/consofvar.con", "- CON2 (x2) <= INT;\n");
-		testAssumptions("tests/jif/axiom.con", "- A1 <= E;\n");
-		testAssumptions("tests/jif/axiom2.con", "- list (A) <= C;\n" );
-		testAssumptions("tests/jif/axiom3.con", "- Bool <= Char;Bool <= Collects2;Char <= Bool;Char <= Collects2;\n");
+//		testErrorPaths("tests/jif/DashedPaths.con", false);
+//		testAssumptions("tests/jif/cluster.con", "- a <= c;a <= d;b <= c;b <= d;\n");
+//		testAssumptions("tests/jif/induction.con", "- A <= B;\n");		
+//		testAssumptions("tests/jif/induction2.con", "- (P)->(P) <= C_caller_pc;\n");
+//		testAssumptions("tests/jif/join.con", "- (P)->(P) <= C_caller_pc;\n");
+//		testAssumptions("tests/jif/meet.con", "- a <= b;a <= c;\n");
+//		testAssumptions("tests/jif/varconstructor.con", "- INT <= BOOL;\n");
+//		testAssumptions("tests/jif/consofvar.con", "- CON2 (x2) <= INT;\n");
+//		testAssumptions("tests/jif/axiom.con", "- A1 <= E;\n");
+//		testAssumptions("tests/jif/axiom2.con", "- list (A) <= C;\n" );
+//		testAssumptions("tests/jif/axiom3.con", "- Bool <= Char;Bool <= Collects2;Char <= Bool;Char <= Collects2;\n");		
+		testAssumptions("tests/jif/axiom4.con", "- Bool <= Char;Char <= Bool;\n");
 		testAssumptions("tests/jif/associativity.con", "- (list (x))->(list (x)) <= list (CHAR);\n" );
 		testAssumptions("tests/jif/extraEdges.con", "- b <= a;\n");
 		testErrorPaths("tests/jif/infiType1.con", true);
