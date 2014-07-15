@@ -1,0 +1,20 @@
+VARIABLE m
+VARIABLE o
+VARIABLE p
+VARIABLE s
+VARIABLE t
+VARIABLE x
+VARIABLE y
+
+%%
+(cons_2 Bool Bool) <= (G);
+axiom a, b, c, d . c == d; (cons_2 a c) <= G; (cons_2 b d) <= G; => a == b;;
+
+
+%%
+(Bool)["":13,6-20@s2.hs] == (o)["":13,6-20@s2.hs] {};["a type equality Bool ~ m":13,6-20@s2.hs]
+(cons_2 o x)["":13,11-11@s2.hs] <= (G)["":13,11-11@s2.hs] {};["a use of ‘g’":13,11-11@s2.hs]
+(p)["":13,11-19@s2.hs] == (Bool)["":13,11-19@s2.hs] {};["a type equality p ~ Bool":13,11-19@s2.hs]
+(cons_2 s x)["":13,14-14@s2.hs] <= (G)["":13,14-14@s2.hs] {};["a use of ‘g’":13,14-14@s2.hs]
+(t)["":13,14-18@s2.hs] == (o)["":13,14-18@s2.hs] {};["a type equality t ~ o":13,14-18@s2.hs]
+(Char)["":13,16-18@s2.hs] == (s)["":13,16-18@s2.hs] {};["a type equality Char ~ s":13,16-18@s2.hs]

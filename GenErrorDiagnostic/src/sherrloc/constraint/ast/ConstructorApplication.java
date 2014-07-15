@@ -115,6 +115,8 @@ public class ConstructorApplication extends Application {
 	
 	@Override
 	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
+		if (e instanceof VariableApplication)
+			return e.unifyWith(this, map);
 		if (e instanceof ConstructorApplication) {
 			ConstructorApplication ca = (ConstructorApplication) e;
 			if (!cons.unifyWith(ca.getCons(), map))
@@ -131,6 +133,8 @@ public class ConstructorApplication extends Application {
 	
 	@Override
 	public boolean matches(Element e, Map<Variable, Element> map) {
+		if (e instanceof VariableApplication)
+			return e.matches(this, map);
 		if (e instanceof ConstructorApplication) {
 			ConstructorApplication ca = (ConstructorApplication) e;
 			if (!cons.matches(ca.getCons(), map))

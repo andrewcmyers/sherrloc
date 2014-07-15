@@ -132,7 +132,9 @@ public class Constructor extends Element {
 	
 	@Override
 	public boolean unifyWith(Element e, Map<QuantifiedVariable, Element> map) {
-		return equals(e);
+		if (e instanceof QuantifiedVariable)
+			return e.unifyWith(this, map);
+		else return equals(e);
 	}
 	
 	@Override
@@ -142,6 +144,8 @@ public class Constructor extends Element {
 	
 	@Override
 	public boolean matches(Element e, Map<Variable, Element> map) {
-		return equals(e);
+		if (e instanceof Variable)
+			return e.matches(this, map);
+		else return equals(e);
 	}
 }
