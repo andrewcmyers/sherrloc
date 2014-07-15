@@ -128,4 +128,9 @@ public class Function extends Element {
 	public Element subst(Map<QuantifiedVariable, Element> map) {
 		return this;
 	}
+	
+	@Override
+	public boolean matches(Element e, Map<Variable, Element> map) {
+		return equals(e);
+	}
 }

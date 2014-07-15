@@ -1,7 +1,9 @@
 package sherrloc.diagnostic;
 
+import java.util.List;
 import java.util.Set;
 
+import sherrloc.constraint.ast.Axiom;
 import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.Hypothesis;
 
@@ -11,6 +13,7 @@ import sherrloc.constraint.ast.Hypothesis;
 public class DiagnosisInput {
 	private Hypothesis env;
 	private Set<Constraint> constraints;
+	private List<Axiom> axioms;
 
 	/**
 	 * @param env
@@ -18,9 +21,10 @@ public class DiagnosisInput {
 	 * @param cons
 	 *            A set of constraints
 	 */
-	public DiagnosisInput(Hypothesis env, Set<Constraint> cons) {
+	public DiagnosisInput(Hypothesis env, Set<Constraint> cons, List<Axiom> axioms) {
 		this.env = env;
 		constraints = cons;
+		this.axioms = axioms;
 	}
 
 	/**
@@ -35,5 +39,12 @@ public class DiagnosisInput {
 	 */
 	public Set<Constraint> getConstraints() {
 		return constraints;
+	}
+	
+	/**
+	 * @return A list (global) axioms in the input file
+	 */
+	public List<Axiom> getAxioms() {
+		return axioms;
 	}
 }

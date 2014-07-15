@@ -87,4 +87,16 @@ public class Variable extends Element {
 	public Element subst(Map<QuantifiedVariable, Element> map) {
 		return this;
 	}
+	
+	@Override
+	public boolean matches(Element e, Map<Variable, Element> map) {
+		if (map.containsKey(this))
+			return map.get(this).matches(e, map);
+		else {
+			if (e.getVars().contains(this))
+				return false;
+			map.put(this, e);
+			return true;
+		}
+	}
 }

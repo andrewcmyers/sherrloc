@@ -35,8 +35,9 @@ import sherrloc.diagnostic.DiagnosisInput;
 import sherrloc.graph.Variance;
 
 action code {: 
-				public Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
-				public Map<String, Function> functions = new HashMap<String, Function>( );
+				Map<String, Constructor> constructors = new HashMap<String, Constructor>( );
+				Map<String, Function> functions = new HashMap<String, Function>( );
+				List<Axiom> axioms = new ArrayList<Axiom>( );
 				Map<String, Variable> variables = new HashMap<String, Variable>(); 
 				Map<String, QuantifiedVariable> qvars = new HashMap<String, QuantifiedVariable>();
 				Hypothesis env = new Hypothesis();
@@ -86,7 +87,8 @@ cons_spec 	::= declaration
 				SEPERATION assumptions SEPERATION equations:l
 			{: 
 			    env.addFunctions(functions.values());
-			    RESULT = new DiagnosisInput (env, l); :}			
+			    env.addAxioms(axioms);
+			    RESULT = new DiagnosisInput (env, l, axioms); :}			
 			| 	declaration 
 			{: 
 					constructors.put("arrow", new Constructor("arrow", 2, Variance.POS, Position.EmptyPosition()));
@@ -98,7 +100,8 @@ cons_spec 	::= declaration
 				equations:l
 			{: 
 			    env.addFunctions(functions.values());
-			    RESULT = new DiagnosisInput (env, l); :}
+			    env.addAxioms(axioms);
+			    RESULT = new DiagnosisInput (env, l, axioms); :}
 			;
 
 declaration  ::= declarations
@@ -142,11 +145,11 @@ assumptions ::= assumptions assumption
             ;
             
 assumption  ::= AXIOM var_list:lst DOT inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
-            {: env.addAxiom(new Axiom(lst, ie1, ie2)); qvars.clear(); :}
+            {: axioms.add(new Axiom(lst, ie1, ie2)); qvars.clear(); :}
             |   AXIOM inequalities:ie1 IMPLIES inequalities:ie2 SEMICOLON
-            {: env.addAxiom(new Axiom(new ArrayList<QuantifiedVariable>(), ie1, ie2)); qvars.clear(); :}
+            {: axioms.add(new Axiom(new ArrayList<QuantifiedVariable>(), ie1, ie2)); qvars.clear(); :}
             |   AXIOM var_list:lst DOT inequalities:ie SEMICOLON
-            {: env.addAxiom(new Axiom(lst, new HashSet<Inequality>(), ie)); qvars.clear(); :}
+            {: axioms.add(new Axiom(lst, new HashSet<Inequality>(), ie)); qvars.clear(); :}
             |   inequality:ie SEMICOLON
             {: env.addInequality(ie); :}
             ;

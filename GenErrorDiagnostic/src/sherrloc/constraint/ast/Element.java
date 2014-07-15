@@ -148,4 +148,19 @@ public abstract class Element {
 	 * @return A new element where all quantified variables are substituted
 	 */
 	abstract public Element subst (Map<QuantifiedVariable, Element> map);
+	
+	/**
+	 * Test if the current element can be unified with e, by substituting
+	 * variables, assuming both elements are quantified-variable-free.
+	 * 
+	 * @param e
+	 *            The element to be unified with
+	 * @param map
+	 *            Substitutions made so far; when the unification succeeds, the
+	 *            new substitution introduced by the current unification is
+	 *            added to map
+	 * @return True if the unification succeeds, substitution is stored in map.
+	 *         Return false if the unification fails
+	 */
+	abstract public boolean matches (Element e, Map<Variable, Element> map);
 }

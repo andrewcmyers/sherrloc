@@ -2,6 +2,7 @@ CONSTRUCTOR this 0 //this["{this}":5,7-23@MD5Closure.jif]
 CONSTRUCTOR L 0 //L["{L}":16,30-33@MD5Closure.jif]
 CONSTRUCTOR * 0 //*["*":53,18-45@String.jif]
 CONSTRUCTOR this 0
+CONSTRUCTOR P 0
 
 %%
 (_ -> _) <= this;

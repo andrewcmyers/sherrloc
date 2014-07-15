@@ -52,7 +52,7 @@ public class ErrorDiagnosis implements PrettyPrinter {
 	    parser p = new parser(new GrmLexer(new InputStreamReader(new FileInputStream(option.getConsFile()), "UTF-8")));
 	    DiagnosisInput result = (DiagnosisInput) p.parse().value;
 
-	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints());
+	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), result.getAxioms());
 	    graph.generateGraph();
 	    ErrorDiagnosis ret = new ErrorDiagnosis(graph, option);
 	    return ret;
