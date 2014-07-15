@@ -39,25 +39,14 @@ import sherrloc.graph.RightEdge;
  */
 abstract public class CFLPathFinder implements PathFinder {
 	/** Edges used in CFL-reachablity algorithm */
-	protected Map<EdgeCondition, List<Triple>>[][] nextHop;
+	protected Map<EdgeCondition, List<Evidence>>[][] nextHop;
 	// since the RIGHT edges are rare in a graph, and no right edges are
 	// inferred, using HashMap can be more memory efficient than arrays
 	protected Map<Integer, Map<Integer, List<RightEdge>>> rightPath;
 	private Map<Integer, Set<Integer>> inferredLR;
 
 	/** other fields */
-	protected final ConstraintGraph g;
-
-	public class Triple {
-		public Node start, end;
-		public EdgeCondition ty;
-		
-		public Triple(Node start, Node end, EdgeCondition type) {
-			this.start = start;
-			this.end = end;
-			this.ty = type;
-		}
-	}
+	protected final ConstraintGraph g;	
 	
 	public enum EDGE_TYPE {LEQ, LEFT, RIGHT};
 	/**
@@ -86,7 +75,7 @@ abstract public class CFLPathFinder implements PathFinder {
 	 * @param edge
 	 *            An edge to be added
 	 */
-	abstract protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence, boolean isInit);
+	abstract protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Evidence> evidence, boolean isInit);
 	
 	/**
 	 * Return all {@link RightEdge}s from <code>fIndex</code> to
@@ -136,10 +125,10 @@ abstract public class CFLPathFinder implements PathFinder {
 			if (edge instanceof ConstraintEdge || edge instanceof MeetEdge
 					|| edge instanceof JoinEdge) {
 				if (!edge.getFrom().equals(edge.getTo()))
-					inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1, new ArrayList<Triple>(), true);
+					inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1, new ArrayList<Evidence>(), true);
 			} else if (edge instanceof ConstructorEdge) {
 				ConstructorEdge e = (ConstructorEdge) edge;
-				inferEdge(edge.getFrom(), edge.getTo(), e.getCondition(), 1, new ArrayList<Triple>(), true);
+				inferEdge(edge.getFrom(), edge.getTo(), e.getCondition(), 1, new ArrayList<Evidence>(), true);
 			}
 		}
 	}
@@ -178,19 +167,21 @@ abstract public class CFLPathFinder implements PathFinder {
 			return;
 		assert (nextHop[sIndex][eIndex] != null && nextHop[sIndex][eIndex].containsKey(ec));
 		
-		List<Triple> evis = nextHop[sIndex][eIndex].get(ec);
+		List<Evidence> evis = nextHop[sIndex][eIndex].get(ec);
 		// base condition
 		if (evis.isEmpty()) {
 			Edge current = getOriginalEdge(start, end, ec);
-			if (isRev) {
-				current = current.getReverse();
+			if (current != null) {
+				if (isRev) {
+					current = current.getReverse();
+				}
+				ret.add(current);
 			}
-			ret.add(current);
 		}
 		else {
 			if (!isRev) {
 				Node prev = start;
-				for (Triple evidence : evis) {
+				for (Evidence evidence : evis) {
 					if (!evidence.start.equals(prev))
 						ret.add(new DummyEdge(start, evidence.start));
 					getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
@@ -200,10 +191,10 @@ abstract public class CFLPathFinder implements PathFinder {
 					ret.add(new DummyEdge(prev, end));
 			}
 			else {
-				ListIterator<Triple> ite = evis.listIterator(evis.size());
+				ListIterator<Evidence> ite = evis.listIterator(evis.size());
 				Node prev = start;
 				while (ite.hasPrevious()) {
-					Triple evidence = ite.previous();
+					Evidence evidence = ite.previous();
 					if (!evidence.start.equals(prev))
 						ret.add(new DummyEdge(start, evidence.start));
 					getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);

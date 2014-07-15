@@ -35,6 +35,11 @@ public interface PathFinder {
 	public boolean hasLeqEdge (Node from, Node end);
 	
 	/**
+	 * @return Length of an LEQ edge inferred on the end nodes
+	 */
+	public int leqEdgeLength (Node from, Node end);
+	
+	/**
 	 * @return True if an LEFT edge can be inferred on the end nodes
 	 */
 	public boolean hasLeftEdge (Node from, Node end);

@@ -56,8 +56,8 @@ public class ConstraintGraph extends Graph {
 	 * @param constraints
 	 *            Constraints
 	 */
-    public ConstraintGraph (Hypothesis env, Set<Constraint> constraints) {
-        this(env);
+    public ConstraintGraph (Hypothesis env, Set<Constraint> constraints, List<Axiom> axioms) {
+        this(env, axioms);
     	/**
 		 * generate the simple links from the constraints. handle constructors,
 		 * meet and join later
@@ -65,17 +65,16 @@ public class ConstraintGraph extends Graph {
 		for (Constraint cons : constraints) {
 			addOneConstraint(cons);
 		}
-		rules = new ArrayList<Axiom>();
     }
     
     /**
      * See {@link #ConstraintGraph(Hypothesis, Set)}
      */
-    public ConstraintGraph (Hypothesis env) {
+    public ConstraintGraph (Hypothesis env, List<Axiom> axioms) {
         this.env = env;
     	this.files = new HashSet<String>();
         this.generated = false;
-        this.rules = new ArrayList<Axiom>();
+        this.rules = axioms;
     }
                 
 	/**
@@ -134,14 +133,14 @@ public class ConstraintGraph extends Graph {
     	addOneConstraint(new Constraint(ieq, null, Position.EmptyPosition()));
     }
     
-    /**
-     * Add a list of implication rules
-     * 
-     * @param lst
-     */
-    public void addRules (List<Axiom> lst) {
-    	rules.addAll(lst);
-    }
+	/**
+	 * Add a list of implication rules
+	 * 
+	 * @param lst A list of implication rules to be added
+	 */
+	public void addRules(List<Axiom> lst) {
+		rules.addAll(lst);
+	}
     
     /**
      * @return A list of implication rules

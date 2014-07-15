@@ -11,13 +11,13 @@ import java.util.Set;
 import sherrloc.constraint.ast.Application;
 import sherrloc.constraint.ast.Axiom;
 import sherrloc.constraint.ast.Axiom.EdgeMatch;
+import sherrloc.constraint.ast.Axiom.PremiseMatch;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.FunctionApplication;
 import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
-import sherrloc.constraint.ast.QuantifiedVariable;
 import sherrloc.constraint.ast.Relation;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Edge;
@@ -135,9 +135,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 	}
 	
 	@Override
-	protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Triple> evidence, boolean isAtomic) {	
+	protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size, List<Evidence> evidence, boolean isAtomic) {	
 		if (nextHop[start.getIndex()][end.getIndex()] == null)
-			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, List<Triple>>();
+			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, List<Evidence>>();
 		
 		nextHop[start.getIndex()][end.getIndex()].put(inferredType, evidence);
 		
@@ -197,9 +197,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 //				System.out.println("Got a smaller edge");
 			shortestLEQ[sIndex][tIndex] = shortestLEQ[sIndex][fIndex]
 					+ shortestLEQ[fIndex][tIndex];
-			List<Triple> evi = new ArrayList<Triple>();
-			evi.add(new Triple(from, mid, LeqCondition.getInstance()));
-			evi.add(new Triple(mid, to, LeqCondition.getInstance()));
+			List<Evidence> evi = new ArrayList<Evidence>();
+			evi.add(new Evidence(from, mid, LeqCondition.getInstance()));
+			evi.add(new Evidence(mid, to, LeqCondition.getInstance()));
 			inferEdge(from, to, LeqCondition.getInstance(), shortestLEQ[sIndex][tIndex], evi, false);
 		}
 	}
@@ -224,9 +224,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 			for (RightEdge e : getRightEdges(leftE, rightE)) {
 				if (e != null && ec.matches(((RightEdge) e).cons)) {
 					shortestLEQ[leftS][rightE] = shortestLeft[leftS][leftE].get(ec) + 1;
-					List<Triple> evi = new ArrayList<Triple>();
-					evi.add(new Triple(from, mid, ec));
-					evi.add(new Triple(mid, to, ((RightEdge) e).cons));
+					List<Evidence> evi = new ArrayList<Evidence>();
+					evi.add(new Evidence(from, mid, ec));
+					evi.add(new Evidence(mid, to, ((RightEdge) e).cons));
 					inferEdge(from, to, LeqCondition.getInstance(), shortestLEQ[leftS][rightE], evi, true);
 				}
 			}
@@ -263,12 +263,12 @@ public class ShortestPathFinder extends CFLPathFinder {
 				if (shortestLeft[leftS][newE] == null)
 					shortestLeft[leftS][newE] = new HashMap<EdgeCondition, Integer>();
 				shortestLeft[leftS][newE].put(ec, shortestLeft[leftS][leftE].get(ec) + shortestLEQ[leqS][leqE]);
-				List<Triple> evi = new ArrayList<Triple>();
-				evi.add(new Triple(from, mid, ec));
+				List<Evidence> evi = new ArrayList<Evidence>();
+				evi.add(new Evidence(from, mid, ec));
 				if (!useReverse)
-					evi.add(new Triple(mid, to, LeqCondition.getInstance()));
+					evi.add(new Evidence(mid, to, LeqCondition.getInstance()));
 				else
-					evi.add(new Triple(mid, to, LeqRevCondition.getInstance()));
+					evi.add(new Evidence(mid, to, LeqRevCondition.getInstance()));
 				inferEdge(from, to, ec, shortestLeft[leftS][newE].get(ec), evi, false);
 		}
 	}	
@@ -363,6 +363,16 @@ public class ShortestPathFinder extends CFLPathFinder {
 	}
 	
 	@Override
+	public int leqEdgeLength(Node from, Node end) {
+		if (from.getElement().isBottom() || end.getElement().isTop())
+			return 1;
+		else if (from.getElement().equals(end.getElement()))
+			return 0;
+		else
+			return shortestLEQ[from.getIndex()][end.getIndex()];
+	}
+	
+	@Override
 	public boolean hasLeftEdge(Node from, Node end) {
 		if (shortestLeft[from.getIndex()][end.getIndex()] == null ||
 				shortestLeft[from.getIndex()][end.getIndex()].isEmpty())
@@ -398,16 +408,19 @@ public class ShortestPathFinder extends CFLPathFinder {
 		for (Axiom rule : g.getRules()) {
 			if (!rule.mayMatch(edge))
 				continue;
-			List<Map<QuantifiedVariable, Element>> maps = rule.findMatchesInPremise(this);
+			List<PremiseMatch> pmatches = rule.findMatchesInPremise(this);
+			
+			for (PremiseMatch pmatch : pmatches) {
 			// apply all substitutions along the unification to conclusion
 			for (Inequality ieq : rule.getConclusion()) {
-				List<EdgeMatch> emlst = rule.findMatches (ieq.getFirstElement(), ieq.getSecondElement(), this, maps);
+				List<EdgeMatch> emlst = rule.findMatches (ieq.getFirstElement(), ieq.getSecondElement(), this, pmatch.map);
 				for (EdgeMatch em : emlst) {
-					if (!hasLeqEdge(em.n1, em.n2))
-						inferEdge(em.n1, em.n2, LeqCondition.getInstance(), 1, new ArrayList<Triple>(), true);
-					if (ieq.getRelation() == Relation.EQ && !hasLeqEdge(em.n2, em.n1))
-							inferEdge(em.n2, em.n1, LeqCondition.getInstance(), 1, new ArrayList<Triple>(), true);
+					if (pmatch.size < shortestLEQ[em.n1.getIndex()][em.n2.getIndex()])
+						inferEdge(em.n1, em.n2, LeqCondition.getInstance(), pmatch.size, pmatch.evidences, true);
+					if (ieq.getRelation() == Relation.EQ && pmatch.size < shortestLEQ[em.n2.getIndex()][em.n1.getIndex()])
+						inferEdge(em.n2, em.n1, LeqCondition.getInstance(), pmatch.size, pmatch.evidences, true);
 				}
+			}
 			}
 		}
 	}
@@ -441,13 +454,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 					}
 				}
 				if (success) {
-					List<Triple> evidences = new ArrayList<Triple>();
+					List<Evidence> evidences = new ArrayList<Evidence>();
 					int size = 0;
 					for (Element e : me.getElements()) {
 						int eleIndex = g.getNode(e).getIndex();
 						if (shortestLEQ[candIndex][eleIndex] < MAX) {
 							size += shortestLEQ[candIndex][eleIndex];
-							evidences.add(new Triple(candidate, g.getNode(e), LeqCondition.getInstance()));
+							evidences.add(new Evidence(candidate, g.getNode(e), LeqCondition.getInstance()));
 						}
 						else {
 							size ++;
@@ -477,13 +490,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 					}
 				}
 				if (success) {
-					List<Triple> evidences = new ArrayList<Triple>();
+					List<Evidence> evidences = new ArrayList<Evidence>();
 					int size = 0;
 					for (Element e : je.getElements()) {
 						int eleIndex = g.getNode(e).getIndex();
 						if (shortestLEQ[eleIndex][candIndex] < MAX) {
 							size += shortestLEQ[eleIndex][candIndex];
-							evidences.add(new Triple(g.getNode(e), candidate, LeqCondition.getInstance()));
+							evidences.add(new Evidence(g.getNode(e), candidate, LeqCondition.getInstance()));
 						}
 						else {
 							size++;
@@ -502,7 +515,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 					// make sure this is "ce1", not the swapped one when the constructor is contravariant
 					// the elements can either be ConstructorApplication, or FunctionApplication
 					int arity;
-					Variance variance;
 					if (cnFrom.getElement() instanceof ConstructorApplication && cnTo.getElement() instanceof ConstructorApplication) {
 						ConstructorApplication ce1 = (ConstructorApplication) cnFrom.getElement();
 						arity = ce1.getCons().getArity();
@@ -556,14 +568,14 @@ public class ShortestPathFinder extends CFLPathFinder {
 						}
 												
 						if (success) {
-							List<Triple> evidences = new ArrayList<Triple>();
+							List<Evidence> evidences = new ArrayList<Evidence>();
 							int size=0;
 							for (int i = 0; i < arity; i++) {
 								Element e1 = ce1.getElements().get(i);
 								Element e2 = ce2.getElements().get(i);
 								if (shortestLEQ[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()] < MAX) {
 									size += shortestLEQ[g.getNode(e1).getIndex()][g.getNode(e2).getIndex()];
-									evidences.add(new Triple(g.getNode(e1), g.getNode(e2), LeqCondition.getInstance()));
+									evidences.add(new Evidence(g.getNode(e1), g.getNode(e2), LeqCondition.getInstance()));
 								}
 								else {
 									size ++;

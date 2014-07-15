@@ -2,13 +2,16 @@ package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import sherrloc.constraint.analysis.PathFinder;
 import sherrloc.constraint.analysis.ShortestPathFinder;
 import sherrloc.graph.ConstraintGraph;
+import sherrloc.graph.Node;
 import sherrloc.graph.Variance;
 
 /**
@@ -18,7 +21,7 @@ public class Hypothesis {
 	private Set<Inequality> assertions;
 	private List<Axiom> axioms;
 	private Set<Element> elmts;			// elements whose relation is of interest
-	private ConstraintGraph graph;
+	private ConstraintGraph graph = null;
 	private PathFinder finder = null;
 	private Hypothesis parent = null; 	// used to reduce shared environments
 										// (e.g., to store global assumptions)
@@ -29,10 +32,16 @@ public class Hypothesis {
 	 * Construct an empty hypothesis
 	 */
 	public Hypothesis() {
+		this(new ArrayList<Axiom>());
+	}
+	
+	/**
+	 * Construct an empty hypothesis
+	 */
+	public Hypothesis(List<Axiom> axioms) {
 		assertions = new HashSet<Inequality>();
-		axioms = new ArrayList<Axiom>();
+		this.axioms = axioms;
 		elmts = new HashSet<Element>();
-		graph = new ConstraintGraph(null);
 		functions = new HashSet<Function>();
 	}
 
@@ -50,13 +59,13 @@ public class Hypothesis {
 	}
 	
 	/**
-	 * Add an axiom to the hypothesis
+	 * Add axioms to the hypothesis
 	 * 
 	 * @param axiom
-	 *            An axiom to be added
+	 *            Axioms to be added
 	 */
-	public void addAxiom (Axiom axiom) {
-		axioms.add(axiom);
+	public void addAxioms(List<Axiom> axioms) {
+		this.axioms.addAll(axioms);
 	}
 	
 	/**
@@ -321,10 +330,10 @@ public class Hypothesis {
 
 		Set<Function> funcs = getFunctions();
 		if (finder == null) {
+			graph = new ConstraintGraph (null, getAxioms());
 			for (Inequality c : getInequalities()) {
 				graph.addOneInequality(c);
 			}
-			graph.addRules(getAxioms());
 			if (USE_GRAPH) {
 				for (Element e : getElements()) {
 					graph.getNode(e); // create new node when necessary
@@ -376,6 +385,33 @@ public class Hypothesis {
 			for (Element e : graph.getAllElements()) {
 				if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e)) && leq(e, e2, false))
 					return true;
+			}
+			
+			/**
+			 * Since we are actually testing the satisfiability of the relation
+			 * e1 <= e2, it is possible that the relation is satisfiable, though
+			 * the relation is not derivable from the hypotheses. For instance,
+			 * consider type-class constraints: list x <= Ord, with hypothesis
+			 * \forall a . a <= Ord; => (list a) <= Ord and Int <= Ord;;
+			 * 
+			 * We cannot *derive* that list x <= Ord, since x is a variable. But
+			 * it's apparently satisfiable when x = Int.
+			 * 
+			 * So here, we try to unify e1 and e2 with nodes in the constraint
+			 * graph to test satisfiability
+			 */
+			if (e1.hasVars() || e2.hasVars()) {
+				for (Node n1 : graph.getAllNodes()) {
+					for (Node n2 : graph.getAllNodes()) {
+						if (!finder.hasLeqEdge(n1, n2))
+							continue;
+						Map<Variable, Element> map = new HashMap<Variable, Element>();
+						if (e1.matches(n1.getElement(), map)) {
+							if (e2.matches(n2.getElement(), map))
+								return true;
+						}
+					}
+				}
 			}
 		}
 		return false;

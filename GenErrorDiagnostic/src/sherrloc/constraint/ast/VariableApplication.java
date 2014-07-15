@@ -124,4 +124,16 @@ public class VariableApplication extends Application {
 			return this;
 		}
 	}
+	
+	@Override
+	public boolean matches (Element e, Map<Variable, Element> map) {
+		if (e instanceof Application) {
+			if (e instanceof ConstructorApplication && !var.matches(((ConstructorApplication)e).getCons(), map))
+				return false;
+			if (e instanceof VariableApplication && !var.matches(((VariableApplication)e).getCons(), map))
+				return false;
+			return super.matches(e, map);
+		}
+		return false;
+	}
 }

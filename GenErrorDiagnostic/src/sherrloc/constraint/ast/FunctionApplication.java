@@ -103,4 +103,15 @@ public class FunctionApplication extends Application {
 	public Element subst(Map<QuantifiedVariable, Element> map) {
 		return new FunctionApplication(func, substElements(map));
 	}
+	
+	@Override
+	public boolean matches(Element e, Map<Variable, Element> map) {
+		if (e instanceof FunctionApplication) {
+			FunctionApplication fa = (FunctionApplication) e;
+			if (!func.matches(fa.func, map))
+				return false;
+			return super.matches(e, map);
+		}
+		return false;
+	}
 }

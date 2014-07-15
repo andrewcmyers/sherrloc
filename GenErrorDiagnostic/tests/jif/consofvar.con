@@ -1,0 +1,10 @@
+CONSTRUCTOR CON1 1
+CONSTRUCTOR CON2 1
+CONSTRUCTOR INT 0
+
+%%
+(CON1 INT) <= INT;
+
+%%
+(CON1 x1) <= INT;   /* satisfiable */
+(CON2 x2) <= INT;   /* unsatisfiable */
