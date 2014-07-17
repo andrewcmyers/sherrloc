@@ -1,0 +1,21 @@
+VARIABLE v
+VARIABLE w
+VARIABLE x
+VARIABLE z
+VARIABLE A
+VARIABLE E
+VARIABLE F
+
+%%
+AXIOM a, b, c, d . a == b; (cons_2 a c) <= (cons_2 Collects1 Collects2); (cons_2 b d) <= (cons_2 Collects1 Collects2); => c == d;;
+
+
+%%
+(v) == ((w -> x));
+(cons_2 z A) <= (cons_2 Collects1 Collects2);
+(z) == (x);
+(Char) == (A);
+(cons_2 E F) <= (cons_2 Collects1 Collects2);
+(E) == (z);
+(Bool) == (F);
+(w) == (E);

@@ -1,0 +1,11 @@
+CONSTRUCTOR list 1
+CONSTRUCTOR INT 0
+CONSTRUCTOR Ord 0
+CONSTRUCTOR BOOL 0
+
+%%
+(list INT) <= Ord;
+
+%%
+(list x1) <= Ord;   /* satisfiable */
+x1 == BOOL;         /* should fail */
