@@ -4,8 +4,10 @@ CONSTRUCTOR Ord 0
 CONSTRUCTOR BOOL 0
 
 %%
-(list INT) <= Ord;
+(list (list INT)) <= Ord;
 
 %%
 (list x1) <= Ord;   /* satisfiable */
-x1 == BOOL;         /* should fail */
+x1 == y1;
+y1 == (list z1);
+z1 == BOOL;         /* should fail */
