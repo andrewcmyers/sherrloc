@@ -21,4 +21,9 @@ public abstract class Application extends EnumerableElement {
 	 * @return True if the parameters are contravariant
 	 */
 	public abstract Variance getVariance();
+	
+	/**
+	 * Return a new application where e1 is replaced with e2
+	 */
+	public abstract Application replace (Element e1, Element e2);
 }

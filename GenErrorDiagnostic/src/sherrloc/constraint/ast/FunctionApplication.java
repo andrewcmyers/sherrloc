@@ -114,4 +114,20 @@ public class FunctionApplication extends Application {
 		}
 		return false;
 	}
+	
+	@Override
+	public Application replace(Element e1, Element e2) {
+		List<Element> eles =  new ArrayList<Element>();
+		for (Element e : elements) {
+			if (e.equals(e1))
+				eles.add(e2);
+			else if (e instanceof Application) {
+				Application app = (Application) e;
+				eles.add(app.replace(e1, e2));
+			}
+			else
+				eles.add(e);
+		}
+		return new FunctionApplication(func, eles) ;
+	}
 }
