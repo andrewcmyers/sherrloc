@@ -2,15 +2,20 @@ package sherrloc.constraint.analysis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import sherrloc.constraint.ast.Application;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
+import sherrloc.constraint.ast.Variable;
 import sherrloc.diagnostic.UnsatPaths;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.ConstraintPath;
+import sherrloc.graph.DummyEdge;
 import sherrloc.graph.Edge;
 import sherrloc.graph.Node;
 
@@ -123,9 +128,6 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 		
 		for (Node start : startNodes) {
 			for (Node end : endNodes) {
-				Element e1 = start.getElement();
-				Element e2 = end.getElement();
-
 				// avoid returning duplicated edges when only equalities are used
 				if (isSym && (start.getIndex() <= end.getIndex()))
 					continue;
@@ -135,32 +137,63 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					continue;
 				
 				List<Edge> l = finder.getPath(start, end);
-
-				// ignore trivial cases
-				if (e1.trivialEnd() || e2.trivialEnd()) {
-					continue;
-				}
-
-				// less interesting paths
-				if (e1.isBottom() || e2.isTop())
-					continue;
-
-				ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
-
-				if (path.isSatPath()) {
-					path.incSuccCounter();
-					continue;
-				} else if (path.isUnsatPath()) {
-					if (DEBUG) {
-						System.out.println("****** Unsatisfiable path ******");
-						System.out.println(path);
-					}
-					unsatPaths.addUnsatPath(path);
-		    		path.setCause();
-				}
+				testConsistency(start.getElement(), end.getElement(), l, graph, finder, unsatPaths);
 			}
 		}
 
 		return unsatPaths;
+	}
+	
+	void testConsistency (Element e1, Element e2, List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
+		// ignore trivial cases
+		if (e1.trivialEnd() || e2.trivialEnd()) {
+			return;
+		}
+
+		// less interesting paths
+		if (e1.isBottom() || e2.isTop())
+			return;
+
+		ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
+
+		if (path.isSatPath()) {
+			path.incSuccCounter();
+			// need to replace variable elements to identify more potential failures
+//			expandGraph(e1, e2, l, graph, finder, unsatPaths);
+			return;
+		} else if (path.isUnsatPath()) {
+			if (DEBUG) {
+				System.out.println("****** Unsatisfiable path ******");
+				System.out.println(path);
+			}
+			unsatPaths.addUnsatPath(path);
+    		path.setCause();
+		}
+	}
+	
+	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
+		if (e1.hasVars() && e1 instanceof Application) {
+			Application app = (Application) e1;
+			for (Variable var : e1.getVars()) {
+				Node varnode = graph.getNode(var);
+				for (Node n : graph.getNeighbors(varnode)) {
+					if (finder.hasLeqEdge(varnode, n)) {
+						Element newfrom = app.replace(var, n.getElement());
+						if (!graph.hasElement(newfrom)) {
+							List<Edge> edgessofar = new ArrayList<Edge>();
+							Set<Element> eset = new HashSet<Element>();
+							eset.add(newfrom);
+							graph.getEnv().addElements(eset);
+							edgessofar.add(new DummyEdge(
+									graph.getNode(newfrom), varnode));
+							edgessofar.addAll(l);
+							edgessofar.add(new DummyEdge(n, graph.getNode(e2)));
+							testConsistency(newfrom, e2, edgessofar, graph,
+									finder, unsatPaths);
+						}
+					}
+				}
+			}
+		}
 	}
 }
