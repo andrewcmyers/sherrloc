@@ -70,11 +70,23 @@ public class Hypothesis {
 	
 	/**
 	 * @param s
-	 *            A set of inequalities
+	 *            A set of elements
 	 */
 	public void addElements (Set<Element> elements) {
-		for (Element elm : elements)
-			elmts.add(elm.getBaseElement());
+		for (Element ele : elements) {
+			addElement(ele);
+		}
+	}
+	
+	/**
+	 * @param ele
+	 *            One element
+	 */
+	public void addElement (Element ele) {
+		if (parent == null)
+			elmts.add(ele.getBaseElement());
+		else
+			parent.addElement(ele.getBaseElement());
 	}
 
 	/**
