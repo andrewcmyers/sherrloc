@@ -64,6 +64,9 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 		ArrayList<Node> endNodes = new ArrayList<Node>();
 		UnsatPaths unsatPaths = new UnsatPaths();
 
+		// saturate constraint graph
+		PathFinder finder = getPathFinder(graph);
+		
 		/** only search for informative paths */
 		for (Node node : graph.getAllNodes()) {
 			if (!(node.getElement() instanceof JoinElement))
@@ -83,7 +86,6 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 
 		if (isVerbose)
 			System.out.println("graph_size: " + graph.getAllNodes().size());
-		PathFinder finder = getPathFinder(graph);
 		
 		if (!isRec) {
 		for (Node node : graph.getAllNodes()) {
@@ -172,7 +174,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	}
 	
 	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
-		if (e1.hasVars() && e1 instanceof Application) {
+		if (e1.hasVars() && e1 instanceof Application && !(e2 instanceof Application)) {
 			Application app = (Application) e1;
 			for (Variable var : e1.getVars()) {
 				Node varnode = graph.getNode(var);

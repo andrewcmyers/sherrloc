@@ -111,6 +111,7 @@ public class TestAll {
 		testAssumptions("tests/jif/extraEdges.con", "- b <= a;\n");
 		testErrorPaths("tests/jif/infiType1.con", true);
 		testErrorPaths("tests/jif/infiType2.con", true);
+		testErrorPaths("tests/jif/infiType3.con", true);
 		testErrorPaths("tests/jif/family.con", false);		
 		testErrorPaths("tests/jif/family1.con", true);
 		testErrorPaths("tests/jif/family2.con", false);

@@ -74,14 +74,12 @@ public class ShortestPathFinder extends CFLPathFinder {
 				});
 		shortestLEQ = new int[size][size];
 		shortestLeft = new HashMap[size][size];
-		for (Node start : g.getAllNodes()) {
-			for (Node end : g.getAllNodes()) {
-				int sIndex = start.getIndex();
-				int eIndex = end.getIndex();
-				if (sIndex == eIndex)
-					shortestLEQ[sIndex][eIndex] = 0;
+		for (int i=0; i<size; i++) {
+			for (int j=0; j<size; j++) {
+				if (i == j)
+					shortestLEQ[i][j] = 0;
 				else
-					shortestLEQ[sIndex][eIndex] = MAX;
+					shortestLEQ[i][j] = MAX;
 			}
 		}
 		initTables();
@@ -509,7 +507,42 @@ public class ShortestPathFinder extends CFLPathFinder {
 		
 		// if node "from" and "to" belong to same constructor, check if this new
 		// link enables a leq relation on the constructor application
-		if (consElements.containsKey(from) && consElements.containsKey(to)) {
+		if (consElements.containsKey(from) || consElements.containsKey(to)) {
+			boolean expandGraph = false; // g.getEnv()!=null;
+			if (consElements.containsKey(from) && expandGraph) {	// only expand the constraint graph, not the hypothesis graph
+			for (Node cnFrom : consElements.get(from)) {
+				if (cnFrom.getElement() instanceof ConstructorApplication) {
+					ConstructorApplication app = (ConstructorApplication) cnFrom.getElement();
+					Element newto = app.replace(from.getElement(), to.getElement());
+					if (!g.hasElement(newto)) {
+						Node newnode = g.getNode(newto);
+						g.getEnv().addElement(newto);
+						if (!consElements.containsKey(to))
+							consElements.put(to, new ArrayList<Node>());
+						consElements.get(to).add(newnode);
+					}
+					
+				}
+			}
+			}
+			if (consElements.containsKey(to) && expandGraph) {     // only expand the constraint graph, not the hypothesis graph
+			for (Node cnTo : consElements.get(to)) {
+				if (cnTo.getElement() instanceof ConstructorApplication) {
+					ConstructorApplication app = (ConstructorApplication) cnTo.getElement();
+					Element newfrom = app.replace(to.getElement(), from.getElement());
+					if (!g.hasElement(newfrom)) {
+						Node newnode = g.getNode(newfrom);
+						if (g.getEnv()!=null)
+							g.getEnv().addElement(newfrom);
+						if (!consElements.containsKey(from))
+							consElements.put(from, new ArrayList<Node>());
+						consElements.get(from).add(newnode);
+					}
+				}
+			}
+			}
+			if (!consElements.containsKey(from) || !consElements.containsKey(to))
+				return;
 			for (Node cnFrom : consElements.get(from)) {
 				for (Node cnTo : consElements.get(to)) {
 					// make sure this is "ce1", not the swapped one when the constructor is contravariant
