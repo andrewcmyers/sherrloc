@@ -1,0 +1,4 @@
+CONSTRUCTOR list 1
+
+x == (list x);
+x == (list Bool);
