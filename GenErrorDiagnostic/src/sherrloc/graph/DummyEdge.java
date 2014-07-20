@@ -11,15 +11,16 @@ import sherrloc.constraint.ast.Inequality;
  * main purpose is to make the inferred path start/end at the right node
  */
 public class DummyEdge extends Edge {
-
+	boolean isLeft;
 	/**
 	 * @param from
 	 *            Start node
 	 * @param to
 	 *            End node
 	 */
-	public DummyEdge(Node from, Node to) {
+	public DummyEdge(Node from, Node to, boolean isLeft) {
 		super(from, to);
+		this.isLeft = isLeft;
 	}
 
 	@Override
@@ -44,6 +45,6 @@ public class DummyEdge extends Edge {
 
 	@Override
 	public Edge getReverse() {
-		return new DummyEdge(to, from);
+		return new DummyEdge(to, from, !isLeft);
 	}
 }
