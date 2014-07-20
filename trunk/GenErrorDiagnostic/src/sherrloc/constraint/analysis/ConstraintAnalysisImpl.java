@@ -158,19 +158,21 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 
 		ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
 
-		if (path.isSatPath()) {
-			path.incSuccCounter();
-			// need to replace variable elements to identify more potential failures
-//			expandGraph(e1, e2, l, graph, finder, unsatPaths);
-			return;
-		} else if (path.isUnsatPath()) {
-			if (DEBUG) {
-				System.out.println("****** Unsatisfiable path ******");
-				System.out.println(path);
+		if (path.isInformative() && path.isSatPath()) {
+				path.incSuccCounter();
+				// need to replace variable elements to identify more potential
+				// failures
+				expandGraph(e1, e2, l, graph, finder, unsatPaths);
+				return;
+			} else if (path.isUnsatPath()) {
+				if (DEBUG) {
+					System.out.println("****** Unsatisfiable path ******");
+					System.out.println(path);
+				}
+				unsatPaths.addUnsatPath(path);
+				path.setCause();
 			}
-			unsatPaths.addUnsatPath(path);
-    		path.setCause();
-		}
+		
 	}
 	
 	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
@@ -187,9 +189,9 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 							eset.add(newfrom);
 							graph.getEnv().addElements(eset);
 							edgessofar.add(new DummyEdge(
-									graph.getNode(newfrom), varnode));
+									graph.getNode(newfrom), varnode, true));
 							edgessofar.addAll(l);
-							edgessofar.add(new DummyEdge(n, graph.getNode(e2)));
+							edgessofar.add(new DummyEdge(n, graph.getNode(e2), false));
 							testConsistency(newfrom, e2, edgessofar, graph,
 									finder, unsatPaths);
 						}
