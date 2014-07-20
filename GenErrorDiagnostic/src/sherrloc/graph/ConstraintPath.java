@@ -92,12 +92,12 @@ public class ConstraintPath {
 	}
 
 	/**
-	 * A satisfiable path is one where all LEQ relations on nodes are provable
+	 * A satisfiable path is one where all LEQ relations on nodes are satisfiable
 	 * whenever there is an LEQ edge on them
 	 * 
 	 * @return True if the constraint path is a satisfiable path
 	 */
-	public boolean isSatPath() {
+	public boolean isInformative() {
 		if (edges.size() == 0)
 			return false;
 
@@ -113,6 +113,9 @@ public class ConstraintPath {
 		if (!hasEqu)
 			return false;
 
+		// we'd like to eliminate apparent dependencies on the satisfiability of paths
+		// 1. An path using unsat path is not informative
+		// 2. If the hypothesis *derives* A->B and B->C, the path from A->C is ignored
 		Stack<Element> leqElements = new Stack<Element>();
 		Stack<EdgeCondition> conditions = new Stack<EdgeCondition>();
 		int length = 0;
@@ -123,6 +126,17 @@ public class ConstraintPath {
 			Edge edge = edges.get(k);
 			Element eto = edge.to.getElement();
 			boolean needCmp = !eto.trivialEnd();
+			
+			if (edge instanceof DummyEdge) {
+				boolean isLeft = ((DummyEdge) edge).isLeft;				
+				if (isLeft) {
+					leqElements.push(eto);
+				}
+				else {
+					leqElements.pop();
+				}
+				continue;
+			}
 			
 			if (edge instanceof ConstructorEdge) {
 				ConstructorEdge cedge = (ConstructorEdge) edge;
@@ -137,7 +151,7 @@ public class ConstraintPath {
 				}
 			}
 			if (needCmp) {
-				if (conditions.size() == 0) {
+				if (conditions.size() == 0 && !eto.hasVars()) {
 					if (length > 0)
 						return false;
 					else
@@ -145,16 +159,26 @@ public class ConstraintPath {
 				}
 
 				if (!leqElements.empty()
-						&& !assumption.leq(leqElements.peek(), eto))
+						&& !assumption.leq(leqElements.peek(), eto)
+						&& !(leqElements.peek().equals(getFirstElement()) && eto.equals(getLastElement())))
 					return false;
-				else {
+				else if (!eto.hasVars()){
 					leqElements.pop();
 					leqElements.push(eto);
 				}
 			}
 		}
-
 		return true;
+	}
+	
+	/**
+	 * @return True if the relation on end nodes start <= end is satisfiable
+	 */
+	public boolean isSatPath() {
+		if (edges.size() == 0)
+			return false;
+
+		return assumption.leq(getFirst().getElement(), getLast().getElement());
 	}
 
 	/**
@@ -244,6 +268,8 @@ public class ConstraintPath {
 		processedNodes.add(leftmost.toString());
 		for (int k = 0; k < length(); k++) {
 			Edge edge = edges.get(k);
+			if (edge instanceof DummyEdge)
+				continue;
 			if (!processedEdges.contains(edge)) {
 				edge.incNumSuccCounter();
 				processedEdges.add(edge.toString());
