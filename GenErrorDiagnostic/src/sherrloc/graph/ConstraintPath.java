@@ -268,8 +268,6 @@ public class ConstraintPath {
 		processedNodes.add(leftmost.toString());
 		for (int k = 0; k < length(); k++) {
 			Edge edge = edges.get(k);
-			if (edge instanceof DummyEdge)
-				continue;
 			if (!processedEdges.contains(edge)) {
 				edge.incNumSuccCounter();
 				processedEdges.add(edge.toString());

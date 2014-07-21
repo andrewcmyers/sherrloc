@@ -1,0 +1,11 @@
+CONSTRUCTOR Int 0
+CONSTRUCTOR Eq 0
+CONSTRUCTOR list 1
+
+%%
+Int <= Eq;
+axiom a . a <= Eq; => (list a) <= Eq;;
+
+%%
+x == Int;
+(list x) <= Eq;
