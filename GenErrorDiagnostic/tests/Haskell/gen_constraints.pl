@@ -13,6 +13,7 @@ $opt="-ddump-tc-trace -fno-code -c";
 # the following files with util files in reversion 3141
 @progs = (
 	"family",
+        "family1",
 	"overlapping",
 	"unsoundness",
 	"polymorphism",
