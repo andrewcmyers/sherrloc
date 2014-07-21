@@ -185,9 +185,12 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 							List<Edge> edgessofar = new ArrayList<Edge>();
 							graph.getEnv().addElement(newfrom);
 							edgessofar.add(new DummyEdge(
-									graph.getNode(newfrom), varnode, true));
+									graph.getNode(newfrom), graph.getNode(e1), true));
 							edgessofar.addAll(l);
 							edgessofar.add(new DummyEdge(n, graph.getNode(e2), false));
+							edgessofar.add(new DummyEdge(graph.getNode(e2), varnode, true));
+							edgessofar.addAll(finder.getPath(varnode, n));
+							edgessofar.add(new DummyEdge(n, graph.getNode(e2), true));
 							testConsistency(newfrom, e2, edgessofar, graph,
 									finder, unsatPaths);
 						}

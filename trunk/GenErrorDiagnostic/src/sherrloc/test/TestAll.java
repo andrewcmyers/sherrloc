@@ -107,6 +107,7 @@ public class TestAll {
 		testAssumptions("tests/jif/axiom2.con", "- list (A) <= C;\n" );
 		testAssumptions("tests/jif/axiom3.con", "- Bool <= Char;Bool <= Collects2;Char <= Bool;Char <= Collects2;\n");		
 		testAssumptions("tests/jif/axiom4.con", "- Bool <= Char;Char <= Bool;cons_2 (Char) (x) <= G;\n");
+//		testErrorPaths("tests/jif/axiom5.con", false);
 		testAssumptions("tests/jif/associativity.con", "- (list (x))->(list (x)) <= list (CHAR);\n" );
 		testAssumptions("tests/jif/extraEdges.con", "- b <= a;\n");
 		testErrorPaths("tests/jif/infiType1.con", true);
