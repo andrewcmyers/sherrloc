@@ -398,30 +398,30 @@ public class Hypothesis {
 				if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e)) && leq(e, e2, false))
 					return true;
 			}
-			
-			/**
-			 * Since we are actually testing the satisfiability of the relation
-			 * e1 <= e2, it is possible that the relation is satisfiable, though
-			 * the relation is not derivable from the hypotheses. For instance,
-			 * consider type-class constraints: list x <= Ord, with hypothesis
-			 * \forall a . a <= Ord; => (list a) <= Ord and Int <= Ord;;
-			 * 
-			 * We cannot *derive* that list x <= Ord, since x is a variable. But
-			 * it's apparently satisfiable when x = Int.
-			 * 
-			 * So here, we try to unify e1 and e2 with nodes in the constraint
-			 * graph to test satisfiability
-			 */
-			if (e1.hasVars() || e2.hasVars()) {
-				for (Node n1 : graph.getAllNodes()) {
-					for (Node n2 : graph.getAllNodes()) {
-						if (!finder.hasLeqEdge(n1, n2))
-							continue;
-						Map<Variable, Element> map = new HashMap<Variable, Element>();
-						if (e1.matches(n1.getElement(), map)) {
-							if (e2.matches(n2.getElement(), map))
-								return true;
-						}
+		}
+		
+		/**
+		 * Since we are actually testing the satisfiability of the relation e1
+		 * <= e2, it is possible that the relation is satisfiable, though the
+		 * relation is not derivable from the hypotheses. For instance, consider
+		 * type-class constraints: list x <= Ord, with hypothesis \forall a . a
+		 * <= Ord; => (list a) <= Ord and Int <= Ord;;
+		 * 
+		 * We cannot *derive* that list x <= Ord, since x is a variable. But
+		 * it's apparently satisfiable when x = Int.
+		 * 
+		 * So here, we try to unify e1 and e2 with nodes in the constraint graph
+		 * to test satisfiability
+		 */
+		if (e1.hasVars() || e2.hasVars()) {
+			for (Node n1 : graph.getAllNodes()) {
+				for (Node n2 : graph.getAllNodes()) {
+					if (!finder.hasLeqEdge(n1, n2))
+						continue;
+					Map<Variable, Element> map = new HashMap<Variable, Element>();
+					if (e1.matches(n1.getElement(), map)) {
+						if (e2.matches(n2.getElement(), map))
+							return true;
 					}
 				}
 			}

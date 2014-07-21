@@ -2,9 +2,7 @@ package sherrloc.constraint.analysis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import sherrloc.constraint.ast.Application;
 import sherrloc.constraint.ast.Element;
@@ -185,9 +183,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 						Element newfrom = app.replace(var, n.getElement());
 						if (!graph.hasElement(newfrom)) {
 							List<Edge> edgessofar = new ArrayList<Edge>();
-							Set<Element> eset = new HashSet<Element>();
-							eset.add(newfrom);
-							graph.getEnv().addElements(eset);
+							graph.getEnv().addElement(newfrom);
 							edgessofar.add(new DummyEdge(
 									graph.getNode(newfrom), varnode, true));
 							edgessofar.addAll(l);
