@@ -1,0 +1,8 @@
+Compiling ./group1/2003-02-13@12:06:51:827/Bouke.hs
+(3,34): Type error in infix application
+ expression       : n - 1
+ operator         : -
+   type           : Int     -> Int -> Int    
+   does not match : [[Int]] -> Int -> [[Int]]
+
+Compilation failed with 1 error
