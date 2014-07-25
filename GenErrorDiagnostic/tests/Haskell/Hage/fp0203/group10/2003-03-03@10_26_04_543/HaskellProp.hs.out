@@ -1,0 +1,10 @@
+Compiling ./group10/2003-03-03@10:26:04:543/HaskellProp.hs
+(38,37): Type error in application
+ expression       : alleVariabelen p
+ function         : alleVariabelen
+   type           : Prop -> Bedeling
+ 1st argument     : p
+   type           : [Prop]
+   does not match : Prop  
+
+Compilation failed with 1 error
