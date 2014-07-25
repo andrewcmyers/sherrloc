@@ -1,0 +1,16 @@
+elemBy        :: (a -> a -> Bool) -> a -> [a] -> Bool
+elemBy = undefined
+eqMaybe = undefined
+eqTuple2 = undefined
+eqList        :: (a -> a -> Bool) -> [a] -> [a] -> Bool
+eqList = undefined
+eqString      :: String -> String -> Bool 
+eqString = undefined
+eqBool      :: Bool -> Bool -> Bool 
+eqBool = undefined
+showInt       :: Int -> String
+showInt = undefined
+showBool       :: Bool -> String
+showBool = undefined
+chr = undefined
+ord = undefined

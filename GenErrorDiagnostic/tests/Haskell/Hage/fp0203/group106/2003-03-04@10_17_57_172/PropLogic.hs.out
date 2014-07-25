@@ -1,0 +1,12 @@
+Compiling ./group106/2003-03-04@10:17:57:172/PropLogic.hs
+(145,1): Type error in pattern of function binding
+ pattern          : []
+   type           : [a] 
+   does not match : Prop
+
+(145,13): Type error in right hand side
+ term             : []
+   type           : [a] 
+   does not match : Prop
+
+Compilation failed with 2 errors
