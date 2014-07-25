@@ -217,6 +217,8 @@ my $tracefile;          # GHC trace file
 my @constraints = ();   # collected constraints
 my @assumptions = ();   # collected assumptions
 my @axioms = ();        # collected axioms
+my @synonyms = ();      # collected synonyms
+my @functions = ();     # collected functions
 my $prev_ct;            # a constraint may occupy multiple lines
 
 # get an input trace file from GHC
@@ -422,7 +424,14 @@ sub trans_AXIOM {
 
 @axioms = ();
 while (<TRACE>) {
-	# translate axioms
+        # collect synonyms 
+        if (/^  type (.*) = (.*)/) {
+                my $pct = new PlainCt("$1 ~ $2");
+                push (@synonyms, $pct->print());
+                push (@functions, "$1 0");
+        }
+	
+        # translate axioms
 	if (/^InstEnvs \(.*\) \{/ or /^famInstEnvs \(Internal\) \{/) { # only handle internal type families for now
 		my $next = <TRACE>;
 		trans_AXIOM $next;
@@ -448,10 +457,19 @@ while (<TRACE>) {
 			foreach (@vars) {
 				print OUT ("VARIABLE $_\n");
 			}
+			foreach (@functions) {
+				print OUT ("FUNCTION $_\n");
+			}
+
 			print OUT "\n\n%%\n";
 			foreach (@axioms) {
 				print OUT $_->print().";\n";
 			}
+			foreach (@synonyms) {
+				print OUT $_.";\n";
+			}
+			print OUT "String == (list Char);\n";
+
 			print OUT "\n\n%%\n";
 			foreach (@constraints) {
 				print OUT ($_->print());
