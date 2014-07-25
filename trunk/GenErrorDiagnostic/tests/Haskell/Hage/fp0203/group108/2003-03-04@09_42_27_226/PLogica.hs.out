@@ -1,0 +1,10 @@
+Compiling ./group108/2003-03-04@09:42:27:226/PLogica.hs
+(14,25): Type error in application
+ expression       : varErAf x
+ function         : varErAf
+   type           : Prop -> String
+ 1st argument     : x
+   type           : String
+   does not match : Prop  
+
+Compilation failed with 1 error

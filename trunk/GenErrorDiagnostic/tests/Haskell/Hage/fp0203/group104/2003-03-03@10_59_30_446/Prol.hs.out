@@ -1,0 +1,27 @@
+Maybe is up to date
+List is up to date
+Compiling ./group104/2003-03-03@10:59:30:446/Prol.hs
+(19,34): Type error in application
+ expression       : evalueer x bd
+ function         : evalueer
+   type           : Prop -> Bedeling -> Bool
+ 1st argument     : x
+   type           : [Prop]
+   does not match : Prop  
+
+(21,1): Type error in pattern of function binding
+ pattern          : (Of x : xs)
+   type           : [Prop]
+   does not match : Prop  
+
+(21,34): Type error in application
+ expression       : evalueer x bd
+ function         : evalueer
+   type           : Prop -> Bedeling -> Bool
+ 1st argument     : x
+   type           : [Prop]
+   does not match : Prop  
+
+(...)
+
+Compilation failed with 4 errors

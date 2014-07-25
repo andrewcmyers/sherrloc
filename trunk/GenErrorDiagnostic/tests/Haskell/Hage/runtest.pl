@@ -220,7 +220,7 @@ foreach my $group (@groups) {
                 next;
         }
         my ($prefix) = $file =~ m/(.+)\.hs$/;
-        print (substr $file, 0, $prettylen);
+        print (substr $group, 0, $prettylen);
         print ":";
         print ' ' x ($filename_length-length($file));
         my $cause = causeLocations($file);
