@@ -135,4 +135,3 @@ kleurCel (r,g,b) = DubbelTag "TD" [("BGCOLOR",color r g b)] []
 
 -- kleurRij :: [(Int, Int, Int)] -> [HTML]
 -- 130,34-37 
-

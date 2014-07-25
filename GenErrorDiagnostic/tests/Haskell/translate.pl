@@ -73,8 +73,8 @@ sub to_sherrloc_ele {
 	my $ct = shift;
 	# [[x]] to (list (list x))
 	# [x] to (list x)
-	$ct =~ s/\[\[([^\]]*)\]\]/(list (list $1))/g;
-	$ct =~ s/\[([^\]]*)\]/(list $1)/g;
+	$ct =~ s/\[\[([^\]]*)\]\]/(list (list ($1)))/g;
+	$ct =~ s/\[([^\]]*)\]/(list ($1))/g;
 	$ct =~ s/\(\)/EMPTY/g;
 	return "($ct)";
 }
