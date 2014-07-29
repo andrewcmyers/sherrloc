@@ -82,16 +82,16 @@ abstract public class CFLPathFinder implements PathFinder {
 	 * Return all {@link RightEdge}s from <code>fIndex</code> to
 	 * <code>tIndex</code>
 	 * 
-	 * @param fIndex
+	 * @param start
 	 *            Start node
-	 * @param tIndex
+	 * @param end
 	 *            End node
-	 * @return All {@link RightEdge}s from <code>fIndex</code> to
-	 *         <code>tIndex</code>
+	 * @return All {@link RightEdge}s from <code>start</code> to
+	 *         <code>end</code>
 	 */
-	protected List<RightEdge> getRightEdges(int fIndex, int tIndex) {
-		if (hasRightEdges(fIndex, tIndex)) {
-			return rightPath.get(fIndex).get(tIndex);
+	protected List<RightEdge> getRightEdges(Node start, Node end) {
+		if (hasRightEdges(start, end)) {
+			return rightPath.get(start.getIndex()).get(end.getIndex());
 		} else
 			return new ArrayList<RightEdge>();
 	}
@@ -100,15 +100,15 @@ abstract public class CFLPathFinder implements PathFinder {
 	 * Return true if there is at least one {@link RightEdge} from
 	 * <code>fIndex</code> to <code>tIndex</code>
 	 * 
-	 * @param fIndex
+	 * @param start
 	 *            Start node
-	 * @param tIndex
+	 * @param end
 	 *            End node
 	 * @return True if there is at least one {@link RightEdge} from
-	 *         <code>fIndex</code> to <code>tIndex</code>
+	 *         <code>start</code> to <code>end</code>
 	 */
-	protected boolean hasRightEdges(int fIndex, int tIndex) {
-		if (rightPath.containsKey(fIndex) && rightPath.get(fIndex).containsKey(tIndex)) {
+	protected boolean hasRightEdges(Node start, Node end) {
+		if (rightPath.containsKey(start.getIndex()) && rightPath.get(start.getIndex()).containsKey(end.getIndex())) {
 			return true;
 		} 
 		else
