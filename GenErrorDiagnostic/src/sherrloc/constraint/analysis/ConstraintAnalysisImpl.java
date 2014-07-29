@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import sherrloc.constraint.ast.Application;
+import sherrloc.constraint.ast.Constructor;
+import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.JoinElement;
@@ -26,6 +28,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private boolean isVerbose;
 	private boolean isRec;
 	private boolean DEBUG = false;
+	private boolean PASSIVE = true;
 
 	/** Reuse saturated hypothesis graph when possible */
 	private HashMap<Hypothesis, Hypothesis> cachedEnv;
@@ -160,9 +163,12 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				path.incSuccCounter();
 				// need to replace variable elements to identify more potential
 				// failures
-				expandGraph(e1, e2, l, graph, finder, unsatPaths);
+				if (PASSIVE)
+					expandGraph(e1, e2, l, graph, finder, unsatPaths);
 				return;
 			} else if (path.isUnsatPath()) {
+				if (isVerbose)
+					System.out.println("Cannot unify "+path.getFirstElement()+" with "+path.getLastElement());
 				if (DEBUG) {
 					System.out.println("****** Unsatisfiable path ******");
 					System.out.println(path);
@@ -174,13 +180,15 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	}
 	
 	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
-		if (e1.hasVars() && e1 instanceof Application && !(e2 instanceof Application)) {
-			Application app = (Application) e1;
+		if ((e1.hasVars() || e2.hasVars()) && e1 instanceof ConstructorApplication && e2 instanceof Constructor) {
+			ConstructorApplication app1 = (ConstructorApplication) e1;
+			if (app1.getCons().equals(e2))
+				return;
 			for (Variable var : e1.getVars()) {
 				Node varnode = graph.getNode(var);
 				for (Node n : graph.getNeighbors(varnode)) {
 					if (finder.hasLeqEdge(varnode, n)) {
-						Element newfrom = app.replace(var, n.getElement());
+						Element newfrom = app1.replace(var, n.getElement());
 						if (!graph.hasElement(newfrom)) {
 							List<Edge> edgessofar = new ArrayList<Edge>();
 							graph.getEnv().addElement(newfrom);
