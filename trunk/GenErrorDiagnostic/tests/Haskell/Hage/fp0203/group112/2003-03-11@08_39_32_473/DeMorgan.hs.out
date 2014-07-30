@@ -1,0 +1,28 @@
+Maybe is up to date
+List is up to date
+Compiling ./group112/2003-03-11@08:39:32:473/DeMorgan.hs
+(87,29): Type error in application
+ expression       : deMorgan x
+ term             : deMorgan
+   type           : Prop   -> Prop  
+   does not match : [Prop] -> a -> b
+ probable fix     : remove first argument
+
+(88,23): Type error in application
+ expression       : Of (map (deMorgan x))
+ function         : Of
+   type           : [Prop] -> Prop
+ 1st argument     : (map (deMorgan x))
+   type           : [a] -> [b]
+   does not match : [Prop]    
+
+(88,29): Type error in application
+ expression       : deMorgan x
+ term             : deMorgan
+   type           : Prop   -> Prop  
+   does not match : [Prop] -> a -> b
+ probable fix     : remove first argument
+
+(...)
+
+Compilation failed with 4 errors

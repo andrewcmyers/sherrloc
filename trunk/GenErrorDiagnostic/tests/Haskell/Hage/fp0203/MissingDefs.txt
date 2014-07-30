@@ -14,3 +14,6 @@ showBool       :: Bool -> String
 showBool = undefined
 chr = undefined
 ord = undefined
+
+Group11 is skipped since the only file that has type errors is OK in
+GHC
