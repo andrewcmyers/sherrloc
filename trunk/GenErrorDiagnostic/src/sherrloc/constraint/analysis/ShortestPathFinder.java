@@ -55,7 +55,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	private int MAX = 100000;
 	private PriorityQueue<ReductionEdge> queue;
 	private boolean DEBUG = false;
-	private boolean ACTIVE = false;
+	private boolean ACTIVE = true;
 	
 	/** optimizations */
 	private final static boolean USE_SF = false;
@@ -70,7 +70,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		super(graph);
 		/** initialize data structures */
 		standardForm = USE_SF && !isHypo;
-		actively_expanding = ACTIVE ;//&& isHypo;
+		actively_expanding = ACTIVE && isHypo;
 		queue = new PriorityQueue<ReductionEdge>(
 				500, new Comparator<ReductionEdge>() {
 					public int compare(ReductionEdge o1, ReductionEdge o2) {
@@ -509,7 +509,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 							size ++;
 						}
 					}
-					inferEdge(candidate, meetnode, LeqCondition.getInstance(), size, evidences, true);
+					if (!hasLeqEdge(candidate, meetnode))
+						inferEdge(candidate, meetnode, LeqCondition.getInstance(), size, evidences, true);
 				}
 			}
 		}
@@ -544,7 +545,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 							size++;
 						}
 					}
-					inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences, true);
+					if (!hasLeqEdge(joinnode, candidate))
+						inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences, true);
 				}
 			}
 		}
@@ -559,7 +561,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					Application app = (Application) cnFrom.getElement();
 					Element newto = app.replace(from.getElement(), to.getElement());
 					if (!g.hasElement(newto)) {
-						Node newnode = g.getNode(newto);
+						Node newnode = g.getNode(newto, true);
 						if (g.getEnv()!=null)
 							g.getEnv().addElement(newto);
 						if (!consElements.containsKey(to))
@@ -576,7 +578,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					Application app = (Application) cnTo.getElement();
 					Element newfrom = app.replace(to.getElement(), from.getElement());
 					if (!g.hasElement(newfrom)) {
-						Node newnode = g.getNode(newfrom);
+						Node newnode = g.getNode(newfrom, true);
 						if (g.getEnv()!=null)
 							g.getEnv().addElement(newfrom);
 						if (!consElements.containsKey(from))
