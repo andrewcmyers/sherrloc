@@ -1,4 +1,5 @@
 CONSTRUCTOR Int 0
+CONSTRUCTOR Bool 0
 CONSTRUCTOR Eq 0
 CONSTRUCTOR list 1
 
@@ -8,4 +9,6 @@ axiom a . a <= Eq; => (list a) <= Eq;;
 
 %%
 x == Int;
-(list x) <= Eq;
+(list x) <= Eq;  /* should pass */
+y == Bool;
+(list y) <= Eq;  /* should fail */
