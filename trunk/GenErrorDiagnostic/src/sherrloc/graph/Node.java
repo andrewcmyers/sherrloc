@@ -11,6 +11,7 @@ public class Node  {
     private Element element;
     private boolean shouldprint;
     private boolean iscause;
+    private boolean isGray;
           
 	/**
 	 * @param index
@@ -19,10 +20,21 @@ public class Node  {
 	 *            An element that the constructed node represents
 	 */
     public Node(int index, Element element) {
+        this(index, element, false);
+    }
+    
+    /**
+	 * @param index
+	 *            Index of all nodes in graph. Used to quickly retrieve a node
+	 * @param element
+	 *            An element that the constructed node represents
+	 */
+    public Node(int index, Element element, boolean isGray) {
         shouldprint = false;
         iscause = false;
         this.index = index;
         this.element = element;
+        this.isGray = isGray;
     }
         
 	/**
@@ -97,6 +109,13 @@ public class Node  {
     public String getUid () {
     	return "v"+index;
     }
+    
+    /**
+    * @return True if the nodes is created during graph saturation
+     */
+    public boolean isGray() {
+		return isGray;
+	}
     
     /**
      * @return Node representation in DOT format

@@ -45,7 +45,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 //	private Map<EdgeCondition, Integer>[][] shortestLeft;
 	private Map<Integer, Map<Integer, Integer>> shortestLEQ;
 	private Map<Integer, Map<Integer, Map<EdgeCondition, Integer>>> shortestLeft;
-	private Set<Node> grayElement = new HashSet<Node>();
 	
 	/** Lookup tables to find enumerable elements from components. These tables are used to infer extra edges for join/meet/constructors */
 	private Map<Node, List<Node>>   joinElements = new HashMap<Node, List<Node>>();
@@ -413,11 +412,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 			return false;
 	}
 	
-	@Override
-	public boolean isGrayNode(Node n) {
-		return grayElement.contains(n);
-	}
-	
 	/**
 	 * Return a path in the constraint graph so that a LEFT edge on
 	 * <code>start, end</code> can be derived from constraints along the path.
@@ -457,12 +451,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 				boolean needExpansion = actively_expanding && !e1.hasQVars() && !e2.hasQVars() && pmatch.noGrayNodes && (g.hasElement(e1) || g.hasElement(e2));
 				if (needExpansion) {
 					if (!g.hasElement(e1)) {
-						Node newnode = g.getNode(e1);
-						grayElement.add(newnode);
+						g.getNode(e1, true);
 					}
 					if (!g.hasElement(e2)) {
-						Node newnode = g.getNode(e2);
-						grayElement.add(newnode);
+						g.getNode(e2, true);
 					}
 				}
 				List<EdgeMatch> emlst = rule.findMatches (ieq.getFirstElement(), ieq.getSecondElement(), this, pmatch.map);
@@ -560,17 +552,16 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// if node "from" and "to" belong to same constructor, check if this new
 		// link enables a leq relation on the constructor application
 		if (consElements.containsKey(from) || consElements.containsKey(to)) {
-			boolean expand = !grayElement.contains(from) && !grayElement.contains(to) && actively_expanding;
+			boolean expand = !from.isGray() && !to.isGray() && actively_expanding;
 			if (consElements.containsKey(from) && expand) {	// need to expand both constraint graph and hypothesis graph
 			for (Node cnFrom : consElements.get(from)) {
-				if (!grayElement.contains(cnFrom)) {
+				if (!cnFrom.isGray()) {
 					Application app = (Application) cnFrom.getElement();
 					Element newto = app.replace(from.getElement(), to.getElement());
 					if (!g.hasElement(newto)) {
 						Node newnode = g.getNode(newto);
 						if (g.getEnv()!=null)
 							g.getEnv().addElement(newto);
-						grayElement.add(newnode);
 						if (!consElements.containsKey(to))
 							consElements.put(to, new ArrayList<Node>());
 						consElements.get(to).add(newnode);
@@ -581,14 +572,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 			}
 			if (consElements.containsKey(to) && expand) {     // need to expand both constraint graph and hypothesis graph
 			for (Node cnTo : consElements.get(to)) {
-				if (!grayElement.contains(cnTo)) {
+				if (!cnTo.isGray()) {
 					Application app = (Application) cnTo.getElement();
 					Element newfrom = app.replace(to.getElement(), from.getElement());
 					if (!g.hasElement(newfrom)) {
 						Node newnode = g.getNode(newfrom);
 						if (g.getEnv()!=null)
 							g.getEnv().addElement(newfrom);
-						grayElement.add(newnode);
 						if (!consElements.containsKey(from))
 							consElements.put(from, new ArrayList<Node>());
 						consElements.get(from).add(newnode);
