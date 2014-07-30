@@ -139,14 +139,14 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					continue;
 				
 				List<Edge> l = finder.getPath(start, end);
-				testConsistency(start.getElement(), end.getElement(), l, graph, finder, unsatPaths);
+				testConsistency(start.getElement(), end.getElement(), l, graph, finder, unsatPaths, false);
 			}
 		}
 
 		return unsatPaths;
 	}
 	
-	void testConsistency (Element e1, Element e2, List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
+	void testConsistency (Element e1, Element e2, List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths, boolean rec) {
 		// ignore trivial cases
 		if (e1.trivialEnd() || e2.trivialEnd()) {
 			return;
@@ -159,7 +159,8 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 		ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
 
 		if (path.isInformative() && path.isSatPath()) {
-				path.incSuccCounter();
+				if (!rec)
+					path.incSuccCounter();
 				// need to replace variable elements to identify more potential
 				// failures
 				if (PASSIVE)
@@ -199,7 +200,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 							edgessofar.addAll(finder.getPath(varnode, n));
 							edgessofar.add(new DummyEdge(n, graph.getNode(e2), true));
 							testConsistency(newfrom, e2, edgessofar, graph,
-									finder, unsatPaths);
+									finder, unsatPaths, true);
 						}
 					}
 				}

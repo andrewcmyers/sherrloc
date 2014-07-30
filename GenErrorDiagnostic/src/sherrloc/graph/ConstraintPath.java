@@ -104,11 +104,15 @@ public class ConstraintPath {
 		// at least one of the edges should be equation edge, since otherwise,
 		// the path is not informative
 		boolean hasEqu = false;
+		if (getFirst().isGray())
+			return false;
 		for (Edge e : edges) {
 			if (e instanceof ConstraintEdge) {
 				hasEqu = true;
 				break;
 			}
+			if (e.getTo().isGray())
+				return false;
 		}
 		if (!hasEqu)
 			return false;
