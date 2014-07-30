@@ -64,4 +64,10 @@ public interface PathFinder {
 	 * @return Constraint graph to be saturated
 	 */
 	public ConstraintGraph getGraph ();
+
+	/**
+	 * @param n
+	 * @return True if Node n is added during graph saturation
+	 */
+	public boolean isGrayNode(Node n);
 }

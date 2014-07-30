@@ -40,7 +40,7 @@ import sherrloc.graph.RightEdge;
  */
 abstract public class CFLPathFinder implements PathFinder {
 	/** Edges used in CFL-reachablity algorithm */
-	protected Map<EdgeCondition, List<Evidence>>[][] nextHop;
+	protected Map<Integer, Map<Integer, Map<EdgeCondition, List<Evidence>>>> nextHop;
 	// since the RIGHT edges are rare in a graph, and no right edges are
 	// inferred, using HashMap can be more memory efficient than arrays
 	protected Map<Integer, Map<Integer, List<RightEdge>>> rightPath;
@@ -56,18 +56,17 @@ abstract public class CFLPathFinder implements PathFinder {
 	 */
 	public CFLPathFinder(ConstraintGraph graph) {
 		g = graph;
-		int size = g.getAllNodes().size();
-		nextHop = new Map[size][size];
+		nextHop = new HashMap<Integer, Map<Integer, Map<EdgeCondition, List<Evidence>>>>();
 		rightPath = new HashMap<Integer, Map<Integer, List<RightEdge>>>();
 		inferredLR = new HashMap<Integer, Set<Integer>>();
-		for (Node start : g.getAllNodes()) {
-			for (Node end : g.getAllNodes()) {
-				int sIndex = start.getIndex();
-				int eIndex = end.getIndex();
-
-				nextHop[sIndex][eIndex] = null;
-			}
-		}
+//		for (Node start : g.getAllNodes()) {
+//			for (Node end : g.getAllNodes()) {
+//				int sIndex = start.getIndex();
+//				int eIndex = end.getIndex();
+//
+//				nextHop[sIndex][eIndex] = null;
+//			}
+//		}
 	}
 
 	/**
@@ -115,6 +114,26 @@ abstract public class CFLPathFinder implements PathFinder {
 			return false;
 	}
 	
+	protected void addNextHop (Node start, Node end, EdgeCondition inferredType, List<Evidence> evidence) {
+		if (!nextHop.containsKey(start.getIndex()))
+			nextHop.put(start.getIndex(), new HashMap<Integer, Map<EdgeCondition, List<Evidence>>>());
+		if (!nextHop.get(start.getIndex()).containsKey(end.getIndex()))
+			nextHop.get(start.getIndex()).put(end.getIndex(), new HashMap<EdgeCondition, List<Evidence>>());
+		nextHop.get(start.getIndex()).get(end.getIndex()).put(inferredType, evidence);
+	}
+	
+	protected boolean hasNextHop (Node start, Node end, EdgeCondition inferredType) {
+		if (nextHop.containsKey(start.getIndex()) && nextHop.get(start.getIndex()).containsKey(end.getIndex())
+			&& nextHop.get(start.getIndex()).get(end.getIndex()).containsKey(inferredType))
+			return true;
+		else
+			return false;
+	}
+	
+	protected List<Evidence> getNextHop (Node start, Node end, EdgeCondition inferredType) {
+		return nextHop.get(start.getIndex()).get(end.getIndex()).get(inferredType);
+	}
+	
 	/**
 	 * Convert all graph edges into {@link ReductionEdge}s
 	 */
@@ -155,20 +174,23 @@ abstract public class CFLPathFinder implements PathFinder {
 	 * @return An LEQ path
 	 */
 	protected void getLeqPath(Node start, Node end, EdgeCondition ec, List<Edge> ret, boolean isRev) {
-		int sIndex = start.getIndex();
-		int eIndex = end.getIndex();
+//		int sIndex = start.getIndex();
+//		int eIndex = end.getIndex();
 		if (ec instanceof LeqRevCondition) {
-			sIndex = end.getIndex();
-			eIndex = start.getIndex();
+//			sIndex = end.getIndex();
+//			eIndex = start.getIndex();
+			Node tmp = start;
+			start = end;
+			end = tmp;
 			ec = LeqCondition.getInstance();
 			isRev = !isRev;
 		}
 		
-		if (ec instanceof LeqCondition && (nextHop[sIndex][eIndex] == null || !nextHop[sIndex][eIndex].containsKey(ec)))
+		if (ec instanceof LeqCondition && !hasNextHop(start, end, ec))
 			return;
-		assert (nextHop[sIndex][eIndex] != null && nextHop[sIndex][eIndex].containsKey(ec));
+//		assert (nextHop[sIndex][eIndex] != null && nextHop[sIndex][eIndex].containsKey(ec));
 		
-		List<Evidence> evis = nextHop[sIndex][eIndex].get(ec);
+		List<Evidence> evis = getNextHop(start, end, ec);
 		// base condition
 		if (evis.isEmpty()) {
 			Edge current = getOriginalEdge(start, end, ec);
