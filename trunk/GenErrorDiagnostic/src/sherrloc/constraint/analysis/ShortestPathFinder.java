@@ -3,6 +3,7 @@ package sherrloc.constraint.analysis;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -40,8 +41,11 @@ import sherrloc.graph.Variance;
 public class ShortestPathFinder extends CFLPathFinder {
 	
 	/** length of shortest paths */
-	private int[][] shortestLEQ;
-	private Map<EdgeCondition, Integer>[][] shortestLeft;
+//	private int[][] shortestLEQ;
+//	private Map<EdgeCondition, Integer>[][] shortestLeft;
+	private Map<Integer, Map<Integer, Integer>> shortestLEQ;
+	private Map<Integer, Map<Integer, Map<EdgeCondition, Integer>>> shortestLeft;
+	private Set<Node> grayElement = new HashSet<Node>();
 	
 	/** Lookup tables to find enumerable elements from components. These tables are used to infer extra edges for join/meet/constructors */
 	private Map<Node, List<Node>>   joinElements = new HashMap<Node, List<Node>>();
@@ -52,10 +56,12 @@ public class ShortestPathFinder extends CFLPathFinder {
 	private int MAX = 100000;
 	private PriorityQueue<ReductionEdge> queue;
 	private boolean DEBUG = false;
+	private boolean ACTIVE = false;
 	
 	/** optimizations */
 	private final static boolean USE_SF = false;
-	private boolean StandardForm;
+	private boolean standardForm;
+	private boolean actively_expanding;
 	
 	/**
 	 * @param graph
@@ -64,24 +70,24 @@ public class ShortestPathFinder extends CFLPathFinder {
 	public ShortestPathFinder(ConstraintGraph graph, boolean verbose, boolean isHypo) {
 		super(graph);
 		/** initialize data structures */
-		StandardForm = USE_SF && !isHypo;
-		int size = g.getAllNodes().size();
+		standardForm = USE_SF && !isHypo;
+		actively_expanding = ACTIVE ;//&& isHypo;
 		queue = new PriorityQueue<ReductionEdge>(
 				500, new Comparator<ReductionEdge>() {
 					public int compare(ReductionEdge o1, ReductionEdge o2) {
 						return o1.getLength() - o2.getLength();
 					}
 				});
-		shortestLEQ = new int[size][size];
-		shortestLeft = new HashMap[size][size];
-		for (int i=0; i<size; i++) {
-			for (int j=0; j<size; j++) {
-				if (i == j)
-					shortestLEQ[i][j] = 0;
-				else
-					shortestLEQ[i][j] = MAX;
-			}
-		}
+		shortestLEQ = new HashMap<Integer, Map<Integer, Integer>>();
+		shortestLeft = new HashMap<Integer, Map<Integer, Map<EdgeCondition, Integer>>>();
+//		for (int i=0; i<size; i++) {
+//			for (int j=0; j<size; j++) {
+//				if (i == j)
+//					shortestLEQ[i][j] = 0;
+//				else
+//					shortestLEQ[i][j] = MAX;
+//			}
+//		}
 		initTables();
 		long startTime = System.currentTimeMillis();
 		initialize();
@@ -132,35 +138,39 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 	}
 	
-	private void addNextHop (Node start, Node end, EdgeCondition inferredType, List<Evidence> evidence) {
-		if (nextHop[start.getIndex()][end.getIndex()] == null)
-			nextHop[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, List<Evidence>>();
-		
-		nextHop[start.getIndex()][end.getIndex()].put(inferredType, evidence);
-	}
-	
 	private int getShortestLeq (Node start, Node end) {
-		return shortestLEQ[start.getIndex()][end.getIndex()];
+		if (shortestLEQ.containsKey(start.getIndex()) && shortestLEQ.get(start.getIndex()).containsKey(end.getIndex()))
+			return shortestLEQ.get(start.getIndex()).get(end.getIndex());
+		else
+			return MAX;
+//		return shortestLEQ[start.getIndex()][end.getIndex()];
 	}
 	
 	private void setShortestLeq (Node start, Node end, int size) {
-		shortestLEQ[start.getIndex()][end.getIndex()] = size;
+		if (!shortestLEQ.containsKey(start.getIndex()))
+			shortestLEQ.put(start.getIndex(), new HashMap<Integer, Integer>());
+		shortestLEQ.get(start.getIndex()).put(end.getIndex(), size);
 	}
 	
 	// assume hasLeft(start, end)
 	private int getShortestLeft (Node start, Node end, EdgeCondition inferredType) {
-		return shortestLeft[start.getIndex()][end.getIndex()].get(inferredType);
+		return shortestLeft.get(start.getIndex()).get(end.getIndex()).get(inferredType);
 	}
 	
 	private boolean hasShortestLeft (Node start, Node end, EdgeCondition inferredType) {
-		return shortestLeft[start.getIndex()][end.getIndex()]!=null 
-				&& shortestLeft[start.getIndex()][end.getIndex()].containsKey(inferredType);
+		if (shortestLeft.containsKey(start.getIndex()) && shortestLeft.get(start.getIndex()).containsKey(end.getIndex()) 
+				&& shortestLeft.get(start.getIndex()).get(end.getIndex()).containsKey(inferredType))
+			return true;
+		else
+			return false;
 	}
 	
 	private void setShortestLeft (Node start, Node end, EdgeCondition inferredType, int size) {
-		if (shortestLeft[start.getIndex()][end.getIndex()] == null)
-			shortestLeft[start.getIndex()][end.getIndex()] = new HashMap<EdgeCondition, Integer>();
-		shortestLeft[start.getIndex()][end.getIndex()].put(inferredType, size);
+		if (!shortestLeft.containsKey(start.getIndex()))
+			shortestLeft.put(start.getIndex(), new HashMap<Integer, Map<EdgeCondition, Integer>>());
+		if (!shortestLeft.get(start.getIndex()).containsKey(end.getIndex()))
+			shortestLeft.get(start.getIndex()).put(end.getIndex(), new HashMap<EdgeCondition, Integer>());
+		shortestLeft.get(start.getIndex()).get(end.getIndex()).put(inferredType, size);
 	}
 	
 	@Override
@@ -335,7 +345,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 				// first, use the reduction edge as the left part of a reduction rule
 				if (edge instanceof LeqEdge) { 
 					// LEQ = LEQ LEQ
-					if ((!StandardForm || (isDashedEdge(from) && isSolidEdge(to)))
+					if ((!standardForm || (isDashedEdge(from) && isSolidEdge(to)))
 							&& hasAtomicLeqEdge(to.getIndex(), iNode.getIndex()))
 						applyLeqLeq(from, to, iNode);
 				}
@@ -347,17 +357,17 @@ public class ShortestPathFinder extends CFLPathFinder {
 						applyLeftRight(from, to, iNode, ec);
 
 					// LEFT = LEFT LEQ (this reduction is redundant)
-					if (StandardForm && hasAtomicLeqEdge(to.getIndex(), iNode.getIndex()))
+					if (standardForm && hasAtomicLeqEdge(to.getIndex(), iNode.getIndex()))
 						applyLeftLeq(from, to, iNode, ec, ec.getVariance()==Variance.NEG);
 				}
 				
 				// second, use the reduction edge as the right part of a reduction rule
 				if (edge instanceof LeqEdge) {
 					// LEQ = LEQ LEQ
-					if (StandardForm && isDashedEdge(iNode) && isSolidEdge(from)
+					if (standardForm && isDashedEdge(iNode) && isSolidEdge(from)
 							&& hasAtomicLeqEdge(from.getIndex(), to.getIndex()))
 						applyLeqLeq(iNode, from, to);
-					else if (!StandardForm && hasAtomicLeqEdge(iNode.getIndex(), from.getIndex()))
+					else if (!standardForm && hasAtomicLeqEdge(iNode.getIndex(), from.getIndex()))
 						applyLeqLeq(iNode, from, to);
 	
 					// LEFT := LEFT LEQ
@@ -366,7 +376,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						// sure either LEFT or LEQ is atomic. But it turns out a test program 
 						// STUDENT08/20060408-23:13:58 takes longer to run.
 //						&& (!StandardForm || hasAtomicLeqEdge(from.getIndex(), to.getIndex()))) {
-						for (EdgeCondition ec : shortestLeft[iNode.getIndex()][from.getIndex()].keySet()) {
+						for (EdgeCondition ec : shortestLeft.get(iNode.getIndex()).get(from.getIndex()).keySet()) {
 							if (getShortestLeft(iNode, from, ec)==1)
 								applyLeftLeq(iNode, from, to, ec, ec.getVariance()==Variance.NEG);
 						}
@@ -395,12 +405,17 @@ public class ShortestPathFinder extends CFLPathFinder {
 	}
 	
 	@Override
-	public boolean hasLeftEdge(Node from, Node end) {
-		if (shortestLeft[from.getIndex()][end.getIndex()] == null ||
-				shortestLeft[from.getIndex()][end.getIndex()].isEmpty())
-			return false;
-		else
+	public boolean hasLeftEdge(Node from, Node to) {
+		if (shortestLeft.containsKey(from.getIndex()) && shortestLeft.get(from.getIndex()).containsKey(to.getIndex())
+				&& !shortestLeft.get(from.getIndex()).get(to.getIndex()).isEmpty())
 			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public boolean isGrayNode(Node n) {
+		return grayElement.contains(n);
 	}
 	
 	/**
@@ -413,7 +428,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		if (!hasLeftEdge(start, end))
 			return new ArrayList<List<Edge>>();
 		else {
-			for (EdgeCondition con : shortestLeft[start.getIndex()][end.getIndex()].keySet()) {
+			for (EdgeCondition con : shortestLeft.get(start.getIndex()).get(end.getIndex()).keySet()) {
 				List<Edge> lst = new ArrayList<Edge>();
 				getLeqPath(start, end, con, lst, false);
 				paths.add(lst);
@@ -435,6 +450,21 @@ public class ShortestPathFinder extends CFLPathFinder {
 			for (PremiseMatch pmatch : pmatches) {
 			// apply all substitutions along the unification to conclusion
 			for (Inequality ieq : rule.getConclusion()) {
+				Element e1 = ieq.getFirstElement().subst(pmatch.map);
+				Element e2 = ieq.getSecondElement().subst(pmatch.map);
+				
+				// expand new graph nodes when necessary
+				boolean needExpansion = actively_expanding && !e1.hasQVars() && !e2.hasQVars() && pmatch.noGrayNodes && (g.hasElement(e1) || g.hasElement(e2));
+				if (needExpansion) {
+					if (!g.hasElement(e1)) {
+						Node newnode = g.getNode(e1);
+						grayElement.add(newnode);
+					}
+					if (!g.hasElement(e2)) {
+						Node newnode = g.getNode(e2);
+						grayElement.add(newnode);
+					}
+				}
 				List<EdgeMatch> emlst = rule.findMatches (ieq.getFirstElement(), ieq.getSecondElement(), this, pmatch.map);
 				for (EdgeMatch em : emlst) {
 					if (pmatch.size < getShortestLeq(em.n1, em.n2))
@@ -530,15 +560,17 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// if node "from" and "to" belong to same constructor, check if this new
 		// link enables a leq relation on the constructor application
 		if (consElements.containsKey(from) || consElements.containsKey(to)) {
-			boolean expandGraph = false; // g.getEnv()!=null;
-			if (consElements.containsKey(from) && expandGraph) {	// only expand the constraint graph, not the hypothesis graph
+			boolean expand = !grayElement.contains(from) && !grayElement.contains(to) && actively_expanding;
+			if (consElements.containsKey(from) && expand) {	// need to expand both constraint graph and hypothesis graph
 			for (Node cnFrom : consElements.get(from)) {
-				if (cnFrom.getElement() instanceof ConstructorApplication) {
-					ConstructorApplication app = (ConstructorApplication) cnFrom.getElement();
+				if (!grayElement.contains(cnFrom)) {
+					Application app = (Application) cnFrom.getElement();
 					Element newto = app.replace(from.getElement(), to.getElement());
 					if (!g.hasElement(newto)) {
 						Node newnode = g.getNode(newto);
-						g.getEnv().addElement(newto);
+						if (g.getEnv()!=null)
+							g.getEnv().addElement(newto);
+						grayElement.add(newnode);
 						if (!consElements.containsKey(to))
 							consElements.put(to, new ArrayList<Node>());
 						consElements.get(to).add(newnode);
@@ -547,15 +579,16 @@ public class ShortestPathFinder extends CFLPathFinder {
 				}
 			}
 			}
-			if (consElements.containsKey(to) && expandGraph) {     // only expand the constraint graph, not the hypothesis graph
+			if (consElements.containsKey(to) && expand) {     // need to expand both constraint graph and hypothesis graph
 			for (Node cnTo : consElements.get(to)) {
-				if (cnTo.getElement() instanceof ConstructorApplication) {
-					ConstructorApplication app = (ConstructorApplication) cnTo.getElement();
+				if (!grayElement.contains(cnTo)) {
+					Application app = (Application) cnTo.getElement();
 					Element newfrom = app.replace(to.getElement(), from.getElement());
 					if (!g.hasElement(newfrom)) {
 						Node newnode = g.getNode(newfrom);
 						if (g.getEnv()!=null)
 							g.getEnv().addElement(newfrom);
+						grayElement.add(newnode);
 						if (!consElements.containsKey(from))
 							consElements.put(from, new ArrayList<Node>());
 						consElements.get(from).add(newnode);

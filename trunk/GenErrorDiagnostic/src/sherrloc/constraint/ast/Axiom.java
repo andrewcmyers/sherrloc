@@ -55,11 +55,13 @@ public class Axiom {
 		public Map<QuantifiedVariable, Element> map;
 		public int size;
 		public List<Evidence> evidences;
+		public boolean noGrayNodes;
 		
-		public PremiseMatch(Map<QuantifiedVariable, Element> map, int size, List<Evidence> evis) {
+		public PremiseMatch(Map<QuantifiedVariable, Element> map, int size, List<Evidence> evis, boolean noGrayNodes) {
 			this.map = map;
 			this.size = size;
 			this.evidences = evis;
+			this.noGrayNodes = noGrayNodes;
 		}
 	}
 	
@@ -159,16 +161,18 @@ public class Axiom {
 	public List<PremiseMatch> findMatchesInPremise (PathFinder finder) {		
 		List<PremiseMatch> matches = new ArrayList<PremiseMatch>();
 		
-		matches.add(new PremiseMatch(new HashMap<QuantifiedVariable, Element>(), 0, new ArrayList<Evidence>())); // add an empty
+		matches.add(new PremiseMatch(new HashMap<QuantifiedVariable, Element>(), 0, new ArrayList<Evidence>(), true)); // add an empty
 																// substitution
 		for (Inequality ieq : premise) {
 			List<PremiseMatch> newmatches = new ArrayList<PremiseMatch>();
 			while (!matches.isEmpty()) {
 				PremiseMatch pmatch = matches.remove(0);
 				List<EdgeMatch> lst = findMatches(ieq.e1, ieq.e2, finder, pmatch.map);
+				boolean noGray = pmatch.noGrayNodes;
 
 				for (EdgeMatch match : lst) {
 					Node n1 = match.n1, n2 = match.n2;
+					boolean noGrayNodes = noGray && !finder.isGrayNode(n1) && !finder.isGrayNode(n2);
 					int size = pmatch.size;
 					List<Evidence> evidences = new ArrayList<Evidence>(pmatch.evidences); 	// track evidences that lead to the inference
 					if ((finder.hasLeqEdge(n1, n2) && (ieq.r != Relation.EQ || finder.hasLeqEdge(n2, n1)))) {
@@ -180,7 +184,7 @@ public class Axiom {
 							size += finder.leqEdgeLength(n2, n1);
 							evidences.add(new Evidence(n2, n1, LeqCondition.getInstance()));
 						}
-						newmatches.add(new PremiseMatch(match.map, size, evidences));
+						newmatches.add(new PremiseMatch(match.map, size, evidences, noGrayNodes));
 					}
 				}
 			}
