@@ -1,0 +1,11 @@
+// example from OutsideIn(x) paper, page 63
+CONSTRUCTOR Int 0
+CONSTRUCTOR a 0
+FUNCTION F 1
+
+%%
+(F a) == Int;
+(F a) == a;
+
+%%
+(F Int) == a;
