@@ -86,8 +86,22 @@ public class ConstraintGraph extends Graph {
 	 * @return A node representing <code>e</code>
 	 */
     public Node getNode (Element e) {
+    	return getNode(e, false);
+    }
+    
+    /**
+	 * Lookup a node representing element <code>e</code> in graph. Create a
+	 * fresh node if no such node exists
+	 * 
+	 * @param e
+	 *            Element to find
+	 * @param isGray
+	 *            True if the node is created during graph saturation
+	 * @return A node representing <code>e</code>
+	 */
+    public Node getNode (Element e, boolean isGray) {
     	if (! eleToNode.containsKey(e)) {
-            Node n = new Node (varCounter, e);
+            Node n = new Node (varCounter, e, isGray);
             addNode(n);
             varCounter++;
             eleToNode.put(e, n);

@@ -204,29 +204,42 @@ abstract public class CFLPathFinder implements PathFinder {
 		else {
 			if (!isRev) {
 				// Given a set of evidences evi1 ... evin, we need to construct a path:
-				// start --dummyL-- evi1.start ---- evi1.end --dummyR-- start
-				//		 --dummyL--	evi2.start ---- evi2.end --dummyR-- start
+				// start --dummyL-- evi1.start ---- evi1.end --dummyR-- evi2.start
+				//		 --dummyL--	evi2.start ---- evi2.end --dummyR-- evi3.start
 				//       ... 
 				//       --dummyL --evin.start ---- evin.end --dummyR-- end
 				for (int i=0; i<evis.size(); i++) {
 					Evidence evidence = evis.get(i);
-					ret.add(new DummyEdge(start, evidence.start, true));
-					getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
-					if (i<evis.size()-1)
-						ret.add(new DummyEdge(evidence.end, start, false));
+					Node next;
+					if (i < evis.size() - 1)
+						next = evis.get(i+1).start;
 					else
-						ret.add(new DummyEdge(evidence.end, end, false));
+						next = end;
+					boolean needDummy = !start.equals(evidence.start) || !next.equals(evidence.end);
+					if (needDummy)
+						ret.add(new DummyEdge(start, evidence.start, true));
+					getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
+					if (needDummy)
+						ret.add(new DummyEdge(evidence.end, next, false));
+					start = evidence.end;
 				}
 			}
 			else {
 				for (int i=evis.size()-1; i>=0; i--) {
 					Evidence evidence = evis.get(i);
-					ret.add(new DummyEdge(start, evidence.start, true));
-					getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
-					if (i>0)
-						ret.add(new DummyEdge(evidence.end, start, false));
+					Node next;
+					if (i > 0)
+						next = evis.get(i-1).start;
 					else
-						ret.add(new DummyEdge(evidence.end, end, false));
+						next = end;
+					boolean needDummy = !start.equals(evidence.start) || !next.equals(evidence.end);
+					if (needDummy)
+						ret.add(new DummyEdge(start, evidence.start, true));
+					getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
+					if (needDummy) {
+						ret.add(new DummyEdge(evidence.end, next, false));
+					}
+					start = evidence.end;
 				}
 			}
 		}

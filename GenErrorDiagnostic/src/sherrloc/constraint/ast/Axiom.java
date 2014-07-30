@@ -172,7 +172,7 @@ public class Axiom {
 
 				for (EdgeMatch match : lst) {
 					Node n1 = match.n1, n2 = match.n2;
-					boolean noGrayNodes = noGray && !finder.isGrayNode(n1) && !finder.isGrayNode(n2);
+					boolean noGrayNodes = noGray && !n1.isGray() && !n2.isGray();
 					int size = pmatch.size;
 					List<Evidence> evidences = new ArrayList<Evidence>(pmatch.evidences); 	// track evidences that lead to the inference
 					if ((finder.hasLeqEdge(n1, n2) && (ieq.r != Relation.EQ || finder.hasLeqEdge(n2, n1)))) {
