@@ -18,6 +18,7 @@ $opt="-ddump-tc-trace -fno-code -c";
 	"unsoundness",
 	"polymorphism",
 	"p4",
+        "signature",
 );
 
 foreach (@progs) {
