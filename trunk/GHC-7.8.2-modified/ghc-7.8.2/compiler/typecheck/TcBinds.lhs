@@ -1287,7 +1287,7 @@ decideGeneralisationPlan dflags type_env bndr_names lbinds sig_fn
   | strict_pat_binds                                 = NoGen
   | Just (lbind, sig) <- one_funbind_with_sig lbinds = CheckGen lbind sig
   | mono_local_binds                                 = NoGen
-  | otherwise                                        = InferGen mono_restriction closed_flag
+  | otherwise                                        = NoGen --InferGen mono_restriction closed_flag
 
   where
     bndr_set = mkNameSet bndr_names
