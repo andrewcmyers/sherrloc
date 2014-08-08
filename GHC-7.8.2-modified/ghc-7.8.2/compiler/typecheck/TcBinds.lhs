@@ -541,7 +541,10 @@ tcPolyCheck rec_tc prag_fn
                         , abs_exports = [export], abs_binds = binds' }
              closed | isEmptyVarSet (tyVarsOfType (idType poly_id)) = TopLevel
                     | otherwise                                     = NotTopLevel
-       ; return (unitBag (origin, abs_bind), [poly_id], closed) }
+       ; -- emit a constraint new_ty ~ idType poly_id, and set new_ty as the type of poly_id
+       ; new_ty <- newFlexiTyVarTy (typeKind (idType poly_id))
+       ; unifyType (idType poly_id) new_ty
+       ; return (unitBag (origin, abs_bind), [setIdType poly_id new_ty], closed) }
 
 ------------------
 tcPolyInfer 
