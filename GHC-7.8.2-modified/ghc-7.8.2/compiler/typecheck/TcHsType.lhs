@@ -183,7 +183,10 @@ tcHsSigTypeNC ctxt (L loc hs_ty)
           -- Zonk to expose kind information to checkValidType
         ; ty <- zonkSigType ty
         ; checkValidType ctxt ty
-        ; return ty }
+          -- create a new type variable for the signature for better error message
+        ; new_ty <- newFlexiTyVarTy (typeKind ty)
+        ; _ <- unifyType ty new_ty
+        ; return new_ty }
 
 -----------------
 tcHsInstHead :: UserTypeCtxt -> LHsType Name -> TcM ([TyVar], ThetaType, Class, [Type])
