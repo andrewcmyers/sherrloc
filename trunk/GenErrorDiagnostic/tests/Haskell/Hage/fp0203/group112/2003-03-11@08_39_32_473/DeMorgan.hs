@@ -14,7 +14,7 @@ elemBy        :: (a -> a -> Bool) -> a -> [a] -> Bool
 elemBy = undefined
 eqString      :: String -> String -> Bool 
 eqString = undefined
- :: Prop -> Bedeling -> Bool
+evalueer :: Prop -> Bedeling -> Bool
 evalueer (Bool b) _ = b
 evalueer (Var s) bed | elemBy eqString s bed = True
                      | otherwise = False

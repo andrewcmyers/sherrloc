@@ -3,7 +3,9 @@ module HTML(module HTML, module Pretty) where
 import Pretty
 elemBy        :: (a -> a -> Bool) -> a -> [a] -> Bool
 elemBy = undefined
+eqMaybe :: (a -> a -> Bool) -> (Maybe a) -> (Maybe a) -> Bool
 eqMaybe = undefined
+eqTuple2 :: (a -> a -> Bool) -> (b -> b -> Bool) -> ((a,b) -> (a,b) -> Bool)
 eqTuple2 = undefined
 eqList        :: (a -> a -> Bool) -> [a] -> [a] -> Bool
 eqList = undefined
@@ -43,8 +45,6 @@ del buiten binnen lijst = (takeWhile (not.eqString buiten) lijst) ++
            where dels = filter (not.eqString binnen)
                         (takeWhile (not.eqString ('/':buiten))
                         (dropWhile (not.eqString buiten) lijst))
-
-
 
 
 
