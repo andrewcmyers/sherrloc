@@ -68,13 +68,25 @@ sub new {
 	return $self;
 }
 
+# translate a potentially nested list in the form of [...] to list (...)
+sub transList {
+	my $str = shift;
+	if ($str =~ m/([^\[]*)\[(.*)/) { # match first [
+		my $pre = $1;
+		my $parsed = transList ($2); # potentially nested lists
+	 	# match the first ]
+		$parsed =~ m/([^\]]*)\](.*)/;
+		return ("$pre(list $1)$2");	
+	}
+	else {
+		return $str;
+	}
+}
+
 # translate a plain GCH constraint element to the SHErrLoc syntax
 sub to_sherrloc_ele {
 	my $ct = shift;
-	# [[x]] to (list (list x))
-	# [x] to (list x)
-	$ct =~ s/\[\[([^\]]*)\]\]/(list (list ($1)))/g;
-	$ct =~ s/\[([^\]]*)\]/(list ($1))/g;
+	$ct = transList $ct; # translate lists
 	$ct =~ s/\(\)/EMPTY/g;
 	return "($ct)";
 }
@@ -428,7 +440,9 @@ while (<TRACE>) {
         if (/^  type (.*) = (.*)/) {
                 my $pct = new PlainCt("$1 ~ $2");
                 push (@synonyms, $pct->print());
-                push (@functions, "$1 0");
+                my @synstr = split(' ', $1);
+		my $size = scalar @synstr - 1;
+                push (@functions, "@synstr[0] $size");
         }
 	
         # translate axioms
@@ -460,6 +474,7 @@ while (<TRACE>) {
 			foreach (@functions) {
 				print OUT ("FUNCTION $_\n");
 			}
+			print OUT ("FUNCTION String 0");
 
 			print OUT "\n\n%%\n";
 			foreach (@axioms) {
