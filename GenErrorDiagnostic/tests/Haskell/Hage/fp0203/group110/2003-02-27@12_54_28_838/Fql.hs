@@ -2,11 +2,11 @@ module Fql(module List, module Fql) where
 import Data.List
 
 type Table = [[String]]
-
 eqString      :: String -> String -> Bool 
 eqString = undefined
 eqBool      :: Bool -> Bool -> Bool 
 eqBool = undefined
+index :: Int -> [a] -> a
 index = undefined
 
 compilers :: Table

@@ -7,6 +7,7 @@ eqString      :: String -> String -> Bool
 eqString = undefined
 showBool       :: Bool -> String
 showBool = undefined
+ordString :: String -> String -> Ordering
 ordString = undefined
 test1::Prop
 test2::Prop
@@ -16,7 +17,6 @@ test5::Prop
 test6::Prop
 test7::Prop
 test8::Prop
-
 test1 = En [Var "p", Var "q"]
 test2 = (Of [En [Var "p",Var "q"], Var "r"])
 test3 = Of [Var "p", Niet (Var "p")]

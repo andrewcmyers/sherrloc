@@ -86,12 +86,12 @@ sub diagnoseLocations {
   $mlfile = shift;
   # avoid to generate a trace if it's already there
   my ($prefix) = $mlfile =~ m/(.+)\.hs$/;
-  if (-e ($prefix.".con")) {
-  }
-  else {
+  #if (-e ($prefix.".con")) {
+  #}
+  #else {
     `$ghc_modified/ghc-stage1 $dumpopt $ghcopt $mlfile >/dev/null 2>$prefix.trace`;
     `perl $translator $prefix.trace`;
-  }
+  #}
   my $str = `$diagnostic $sherrlocopt $prefix.con 2>&1`;
   for(split /^/, $str) {
     if (/^top_rank_size:/) {

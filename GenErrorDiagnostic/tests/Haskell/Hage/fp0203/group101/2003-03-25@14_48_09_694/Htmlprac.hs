@@ -1,6 +1,7 @@
 module Htmlprac(module Pretty, module Htmlprac) where
 import GHC.Base
 import Pretty
+eqMaybe :: (a -> a -> Bool) -> (Maybe a) -> (Maybe a) -> Bool
 eqMaybe = undefined
 
 data HTML
@@ -9,7 +10,6 @@ data HTML
  | DubbelTag String [Attribute] [HTML]
 
 type Attribute = (String, String)
-
 
 
 
