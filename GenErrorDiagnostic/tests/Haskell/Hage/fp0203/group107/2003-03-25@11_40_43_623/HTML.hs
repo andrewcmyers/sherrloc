@@ -7,6 +7,7 @@ data HTML = Tekst String
           | Dubbel Tag [HTML]
 eqString      :: String -> String -> Bool 
 eqString = undefined
+chr :: Int -> Char
 chr = undefined
 type Tag = (Naam,[Attribute])
 type Naam = String
@@ -14,7 +15,6 @@ type Attribute = (Arg,Waarde)
 type Arg = String
 type Waarde = String
 type Requirement = (String, String)
-
 validate :: [Requirement] -> HTML -> Maybe Requirement
 
 validate [] _ = Nothing

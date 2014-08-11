@@ -1,19 +1,37 @@
 elemBy        :: (a -> a -> Bool) -> a -> [a] -> Bool
 elemBy = undefined
+
+eqMaybe :: (a -> a -> Bool) -> (Maybe a) -> (Maybe a) -> Bool
 eqMaybe = undefined
+
+eqTuple2 :: (a -> a -> Bool) -> (b -> b -> Bool) -> ((a,b) -> (a,b) -> Bool)
 eqTuple2 = undefined
+
 eqList        :: (a -> a -> Bool) -> [a] -> [a] -> Bool
 eqList = undefined
+
 eqString      :: String -> String -> Bool 
 eqString = undefined
+
 eqBool      :: Bool -> Bool -> Bool 
 eqBool = undefined
+
 showInt       :: Int -> String
 showInt = undefined
+
 showBool       :: Bool -> String
 showBool = undefined
+
+index :: Int -> [a] -> a
+index = undefined
+
+chr :: Int -> Char
 chr = undefined
+ord :: Char -> Int
 ord = undefined
+
+ordString :: String -> String -> Ordering
+ordString = undefined
 
 Group11 is skipped since the only file that has type errors is OK in
 GHC

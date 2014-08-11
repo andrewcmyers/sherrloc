@@ -3,7 +3,9 @@ import Pretty
 
 eqString      :: String -> String -> Bool 
 eqString = undefined
+chr :: Int -> Char
 chr = undefined
+ord :: Char -> Int
 ord = undefined
 data HTML = Text String
           | TagSimp String [Attrib]
@@ -23,14 +25,12 @@ validate []         _    = Nothing
 validate (req:reqs) html | not (validateH req "" html) = Just req
                          | otherwise                   = validate reqs html
 
-
 validateH :: Requirement -> String -> HTML -> Bool
 validateH     _                _    (Text _         )     = True
 validateH     (rparT, rchildT) parT (TagSimp tag _  )     | eqString rchildT tag && not (eqString rparT parT) = False
                                                           | otherwise                                         = True
 validateH req@(rparT, rchildT) parT (TagComp tag _ htmls) | eqString rchildT tag && not (eqString rparT parT) = False
                                                           | otherwise      = all (validateH req tag) htmls
-
 
 
 

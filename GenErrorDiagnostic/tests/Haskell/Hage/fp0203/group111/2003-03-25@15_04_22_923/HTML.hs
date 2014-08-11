@@ -5,8 +5,8 @@ showInt       :: Int -> String
 showInt = undefined
 eqString      :: String -> String -> Bool 
 eqString = undefined
+chr :: Int -> Char
 chr = undefined
-
 data HTML
  = Tekst String
  | Enkel String [Attribute]
