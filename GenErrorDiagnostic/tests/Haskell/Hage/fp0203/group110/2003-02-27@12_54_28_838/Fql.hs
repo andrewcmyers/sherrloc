@@ -121,5 +121,5 @@ titels tabel = [(vak 0 y tabel)|y <- [0..((aantalKolommen tabel)- 1)]]
 
 test inputString = findIndices (eqBool True) [(map (eqString inputString) (titels locaties))]
 
--- missing [] around (map (eqString inputString) (titels tabel))
--- 118,56-98
+-- extra [] around (map (eqString inputString) (titels locaties))
+-- 122,47-92
