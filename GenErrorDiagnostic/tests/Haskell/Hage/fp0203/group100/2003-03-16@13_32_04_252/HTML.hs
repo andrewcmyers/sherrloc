@@ -29,4 +29,4 @@ test (DubbelTag "LI" _ (x:xs)) | (vergelijk x False) || (test DubbelTag "LI" [] 
 vergelijk (DubbelTag "UL" _ _) False = True
 
 -- () is missing for "DubbelTag "LI" [] xs"
--- 22,63-82
+-- 22,58-82
