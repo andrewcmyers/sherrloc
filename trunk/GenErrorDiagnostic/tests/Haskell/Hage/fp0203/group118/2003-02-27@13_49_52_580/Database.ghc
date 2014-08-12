@@ -1,0 +1,16 @@
+
+Database.hs:31:15:
+    Couldn't match expected type `[String]'
+                with actual type `[a0] -> [b0]'
+    In the return type of a call of `map'
+    Probable cause: `map' is applied to too few arguments
+    In the expression: map (concat x ++ [""])
+    In an equation for `megablaat':
+        megablaat x = map (concat x ++ [""])
+
+Database.hs:31:20:
+    Couldn't match expected type `a0 -> b0' with actual type `[String]'
+    In the first argument of `map', namely `(concat x ++ [""])'
+    In the expression: map (concat x ++ [""])
+    In an equation for `megablaat':
+        megablaat x = map (concat x ++ [""])

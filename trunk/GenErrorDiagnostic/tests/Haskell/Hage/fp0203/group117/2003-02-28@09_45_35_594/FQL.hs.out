@@ -1,0 +1,12 @@
+Maybe is up to date
+List is up to date
+Compiling ./group117/2003-02-28@09:45:35:594/FQL.hs
+(79,75): Type error in application
+ expression       : colno (head table) string
+ function         : colno
+   type           : [String] -> [String] -> Int
+ 2nd argument     : string
+   type           : String  
+   does not match : [String]
+
+Compilation failed with 1 error
