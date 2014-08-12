@@ -1,0 +1,8 @@
+Can't find module 'Pretty'
+Import chain: 
+	Practicum3 imports Pretty
+Search path:
+	./group21/2003-03-25@14:13:27:176/
+	.
+	/usr/local/helium/lib
+

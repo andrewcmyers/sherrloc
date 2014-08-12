@@ -1,0 +1,13 @@
+Compiling ./group116/2003-02-21@10:30:32:483/Practium1.hs
+(34,18): Type error in application
+ expression       : map length firstColumn n
+ term             : map
+   type           : (a   -> b  )
+                    -> [a]                     
+                    -> [b]                
+   does not match : ([c] -> Int)
+                    -> ([[String]] -> [String])
+                    -> [[String]] -> [Int]
+ probable fix     : remove second argument
+
+Compilation failed with 1 error

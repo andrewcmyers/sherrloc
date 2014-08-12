@@ -1,0 +1,602 @@
+VARIABLE t_alB
+VARIABLE t_alC
+VARIABLE t_alD
+VARIABLE t_alH
+VARIABLE t_alI
+VARIABLE t_alJ
+VARIABLE t_alK
+VARIABLE t_alL
+VARIABLE t_alR
+VARIABLE t_alS
+VARIABLE t_alT
+VARIABLE t_alX
+VARIABLE t_alY
+VARIABLE t_alZ
+VARIABLE t_am0
+VARIABLE t_am5
+VARIABLE t_am6
+VARIABLE t_am7
+VARIABLE t_am8
+VARIABLE t_amd
+VARIABLE t_ame
+VARIABLE t_amf
+VARIABLE t_amg
+VARIABLE t_aml
+VARIABLE t_amm
+VARIABLE t_amn
+VARIABLE t_amr
+VARIABLE t_ams
+VARIABLE t_amt
+VARIABLE t_amx
+VARIABLE t_amy
+VARIABLE t_amz
+VARIABLE t_amD
+VARIABLE t_amE
+VARIABLE t_amF
+VARIABLE t_amJ
+VARIABLE t_amK
+VARIABLE t_amN
+VARIABLE t_amO
+VARIABLE t_amR
+VARIABLE t_amS
+VARIABLE t_amV
+VARIABLE t_amW
+VARIABLE t_amZ
+VARIABLE t_an1
+VARIABLE t_an3
+VARIABLE t_an4
+VARIABLE t_an5
+VARIABLE t_ana
+VARIABLE t_anc
+VARIABLE t_ane
+VARIABLE a_ang
+VARIABLE t_anj
+VARIABLE a_ank
+VARIABLE a_anq
+VARIABLE b_anr
+VARIABLE c_ans
+VARIABLE a_anv
+VARIABLE a_anx
+VARIABLE a_anB
+VARIABLE a_anF
+VARIABLE b_anG
+VARIABLE a_anJ
+VARIABLE a_anN
+VARIABLE a_anQ
+VARIABLE a_anS
+VARIABLE t_anX
+VARIABLE t_anY
+VARIABLE a_ao2
+VARIABLE a_ao8
+VARIABLE t_aof
+VARIABLE t_aog
+VARIABLE t_aoh
+VARIABLE t_aoi
+VARIABLE a_aok
+VARIABLE a_aoo
+VARIABLE a_aor
+VARIABLE a_aov
+VARIABLE a_aoy
+VARIABLE a_aoA
+VARIABLE a_aoC
+VARIABLE b_aoD
+VARIABLE c_aoE
+VARIABLE a_aoL
+VARIABLE b_aoM
+VARIABLE b_aoR
+VARIABLE c_aoS
+VARIABLE a_aoT
+VARIABLE a_arY
+VARIABLE a_as1
+VARIABLE b_as2
+VARIABLE a_as4
+VARIABLE a_as7
+VARIABLE a_asb
+VARIABLE b_asc
+VARIABLE t_asj
+VARIABLE t_asm
+VARIABLE a_asp
+VARIABLE b_asq
+VARIABLE a_ass
+VARIABLE a_asu
+VARIABLE a_asx
+VARIABLE a_asE
+VARIABLE a_asH
+VARIABLE a_asK
+VARIABLE a_asN
+VARIABLE a_asQ
+VARIABLE a_asT
+VARIABLE b_asY
+VARIABLE c_asZ
+VARIABLE a_at0
+VARIABLE t_at5
+VARIABLE t_at7
+VARIABLE t_atc
+VARIABLE t_ath
+VARIABLE t_atm
+VARIABLE t_atr
+VARIABLE t_atw
+VARIABLE t_atB
+VARIABLE t_atH
+VARIABLE t_atJ
+VARIABLE t_atN
+VARIABLE t_atR
+VARIABLE t_atV
+VARIABLE t_atZ
+VARIABLE t_au3
+VARIABLE t_au7
+VARIABLE t_aub
+VARIABLE t_auf
+VARIABLE a_auk
+VARIABLE t_aun
+VARIABLE a_auq
+VARIABLE b_aur
+VARIABLE a_awC
+VARIABLE a_awG
+VARIABLE a_awJ
+VARIABLE a_awQ
+VARIABLE b_awR
+VARIABLE t_awU
+VARIABLE a_ax0
+VARIABLE a_ax2
+VARIABLE b_ax3
+VARIABLE a_ax5
+VARIABLE a_ax7
+VARIABLE a_axb
+VARIABLE a_axg
+VARIABLE a_axi
+VARIABLE a_axn
+VARIABLE a_axs
+VARIABLE a_axw
+VARIABLE a_axz
+VARIABLE a_axD
+VARIABLE t_axL
+VARIABLE a_axM
+VARIABLE a_axQ
+VARIABLE a_axT
+VARIABLE a_axW
+VARIABLE a_axY
+VARIABLE t_ay1
+VARIABLE a_ay3
+VARIABLE a_ay6
+VARIABLE a_ay9
+VARIABLE b_aya
+VARIABLE a_ayc
+VARIABLE a_aye
+VARIABLE a_ayj
+VARIABLE a_ayl
+VARIABLE a_ayp
+FUNCTION Table 0
+FUNCTION String 0
+
+%%
+((list )) <= (Control.Applicative.Alternative);
+axiom m . (m) <= (Control.Monad.MonadPlus); => ((Control.Applicative.WrappedMonad m)) <= (Control.Applicative.Alternative);;
+axiom a . (a) <= (Control.Arrow.ArrowZero); (a) <= (Control.Arrow.ArrowPlus); => ((Control.Applicative.WrappedArrow a b)) <= (Control.Applicative.Alternative);;
+(GHC.Conc.Sync.STM) <= (Control.Applicative.Alternative);
+(Text.ParserCombinators.ReadPrec.ReadPrec) <= (Control.Applicative.Alternative);
+(Text.ParserCombinators.ReadP.ReadP) <= (Control.Applicative.Alternative);
+(Maybe) <= (Control.Applicative.Alternative);
+axiom a . (a) <= (Control.Arrow.ArrowPlus); => ((Control.Arrow.ArrowMonad a)) <= (Control.Applicative.Alternative);;
+(GHC.Types.Word) <= (Enum);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Enum);;
+(Float) <= (Enum);
+(Double) <= (Enum);
+(Integer) <= (Eq);
+axiom a . (a) <= (Eq); => ((list a)) <= (Eq);;
+(GHC.Types.Word) <= (Eq);
+(Ordering) <= (Eq);
+(Int) <= (Eq);
+(Float) <= (Eq);
+(Double) <= (Eq);
+(Char) <= (Eq);
+(Bool) <= (Eq);
+axiom o . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); (h) <= (Eq); (i) <= (Eq); (j) <= (Eq); (k) <= (Eq); (l) <= (Eq); (m) <= (Eq); (n) <= (Eq); (o) <= (Eq); => ((a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)) <= (Eq);;
+axiom n . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); (h) <= (Eq); (i) <= (Eq); (j) <= (Eq); (k) <= (Eq); (l) <= (Eq); (m) <= (Eq); (n) <= (Eq); => ((a, b, c, d, e, f, g, h, i, j, k, l, m, n)) <= (Eq);;
+axiom m . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); (h) <= (Eq); (i) <= (Eq); (j) <= (Eq); (k) <= (Eq); (l) <= (Eq); (m) <= (Eq); => ((a, b, c, d, e, f, g, h, i, j, k, l, m)) <= (Eq);;
+axiom l . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); (h) <= (Eq); (i) <= (Eq); (j) <= (Eq); (k) <= (Eq); (l) <= (Eq); => ((a, b, c, d, e, f, g, h, i, j, k, l)) <= (Eq);;
+axiom k . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); (h) <= (Eq); (i) <= (Eq); (j) <= (Eq); (k) <= (Eq); => ((a, b, c, d, e, f, g, h, i, j, k)) <= (Eq);;
+axiom j . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); (h) <= (Eq); (i) <= (Eq); (j) <= (Eq); => ((a, b, c, d, e, f, g, h, i, j)) <= (Eq);;
+axiom i . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); (h) <= (Eq); (i) <= (Eq); => ((a, b, c, d, e, f, g, h, i)) <= (Eq);;
+axiom h . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); (h) <= (Eq); => ((a, b, c, d, e, f, g, h)) <= (Eq);;
+axiom g . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); (g) <= (Eq); => ((a, b, c, d, e, f, g)) <= (Eq);;
+axiom f . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); (f) <= (Eq); => ((a, b, c, d, e, f)) <= (Eq);;
+axiom e . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); (e) <= (Eq); => ((a, b, c, d, e)) <= (Eq);;
+axiom d . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); (d) <= (Eq); => ((a, b, c, d)) <= (Eq);;
+axiom c . (a) <= (Eq); (b) <= (Eq); (c) <= (Eq); => ((a, b, c)) <= (Eq);;
+axiom b . (a) <= (Eq); (b) <= (Eq); => ((a, b)) <= (Eq);;
+(EMPTY) <= (Eq);
+axiom a . (a) <= (Eq); => ((Control.Applicative.ZipList a)) <= (Eq);;
+axiom a . (a) <= (Eq); => ((GHC.Real.Ratio a)) <= (Eq);;
+(Float) <= (Floating);
+(Double) <= (Floating);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Fractional);;
+(Float) <= (Fractional);
+(Double) <= (Fractional);
+(GHC.Types.Word) <= (Integral);
+(Integer) <= (Integral);
+(Int) <= (Integral);
+axiom m . (m) <= (Monad); => ((Control.Applicative.WrappedMonad m)) <= (Monad);;
+((list )) <= (Monad);
+(IO) <= (Monad);
+axiom r . ((arrow r)) <= (Monad);;
+(Control.Applicative.ZipList) <= (Functor);
+axiom m . (m) <= (Monad); => ((Control.Applicative.WrappedMonad m)) <= (Functor);;
+axiom a . (a) <= (Control.Arrow.Arrow); => ((Control.Applicative.WrappedArrow a b)) <= (Functor);;
+axiom m . ((Control.Applicative.Const m)) <= (Functor);;
+((list )) <= (Functor);
+(IO) <= (Functor);
+axiom r . ((arrow r)) <= (Functor);;
+axiom a . ((pair a)) <= (Functor);;
+(GHC.Types.Word) <= (Num);
+(Integer) <= (Num);
+(Int) <= (Num);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Num);;
+(Float) <= (Num);
+(Double) <= (Num);
+(Integer) <= (Ord);
+axiom a . (a) <= (Ord); => ((list a)) <= (Ord);;
+(GHC.Types.Word) <= (Ord);
+(Ordering) <= (Ord);
+(Int) <= (Ord);
+(Float) <= (Ord);
+(Double) <= (Ord);
+(Char) <= (Ord);
+(Bool) <= (Ord);
+axiom o . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); (h) <= (Ord); (i) <= (Ord); (j) <= (Ord); (k) <= (Ord); (l) <= (Ord); (m) <= (Ord); (n) <= (Ord); (o) <= (Ord); => ((a, b, c, d, e, f, g, h, i, j, k, l, m, n, o)) <= (Ord);;
+axiom n . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); (h) <= (Ord); (i) <= (Ord); (j) <= (Ord); (k) <= (Ord); (l) <= (Ord); (m) <= (Ord); (n) <= (Ord); => ((a, b, c, d, e, f, g, h, i, j, k, l, m, n)) <= (Ord);;
+axiom m . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); (h) <= (Ord); (i) <= (Ord); (j) <= (Ord); (k) <= (Ord); (l) <= (Ord); (m) <= (Ord); => ((a, b, c, d, e, f, g, h, i, j, k, l, m)) <= (Ord);;
+axiom l . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); (h) <= (Ord); (i) <= (Ord); (j) <= (Ord); (k) <= (Ord); (l) <= (Ord); => ((a, b, c, d, e, f, g, h, i, j, k, l)) <= (Ord);;
+axiom k . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); (h) <= (Ord); (i) <= (Ord); (j) <= (Ord); (k) <= (Ord); => ((a, b, c, d, e, f, g, h, i, j, k)) <= (Ord);;
+axiom j . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); (h) <= (Ord); (i) <= (Ord); (j) <= (Ord); => ((a, b, c, d, e, f, g, h, i, j)) <= (Ord);;
+axiom i . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); (h) <= (Ord); (i) <= (Ord); => ((a, b, c, d, e, f, g, h, i)) <= (Ord);;
+axiom h . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); (h) <= (Ord); => ((a, b, c, d, e, f, g, h)) <= (Ord);;
+axiom g . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); (g) <= (Ord); => ((a, b, c, d, e, f, g)) <= (Ord);;
+axiom f . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); (f) <= (Ord); => ((a, b, c, d, e, f)) <= (Ord);;
+axiom e . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); (e) <= (Ord); => ((a, b, c, d, e)) <= (Ord);;
+axiom d . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); (d) <= (Ord); => ((a, b, c, d)) <= (Ord);;
+axiom c . (a) <= (Ord); (b) <= (Ord); (c) <= (Ord); => ((a, b, c)) <= (Ord);;
+axiom b . (a) <= (Ord); (b) <= (Ord); => ((a, b)) <= (Ord);;
+(EMPTY) <= (Ord);
+axiom a . (a) <= (Ord); => ((Control.Applicative.ZipList a)) <= (Ord);;
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Ord);;
+axiom a . (a) <= (Read); => ((Control.Applicative.ZipList a)) <= (Read);;
+(GHC.Types.Word) <= (Real);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Real);;
+(Integer) <= (Real);
+(Int) <= (Real);
+(Float) <= (Real);
+(Double) <= (Real);
+(Float) <= (RealFloat);
+(Double) <= (RealFloat);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (RealFrac);;
+(Float) <= (RealFrac);
+(Double) <= (RealFrac);
+axiom a . (a) <= (Show); => ((Control.Applicative.ZipList a)) <= (Show);;
+axiom a . (a) <= (Integral); (a) <= (Show); => ((GHC.Real.Ratio a)) <= (Show);;
+(Float) <= (Show);
+(Double) <= (Show);
+(Control.Applicative.Applicative) <= (Data.Typeable.Internal.Typeable);
+(Control.Applicative.Alternative) <= (Data.Typeable.Internal.Typeable);
+((list )) <= (Control.Monad.MonadPlus);
+(Maybe) <= (Control.Monad.MonadPlus);
+((list )) <= (Control.Applicative.Applicative);
+(Control.Applicative.ZipList) <= (Control.Applicative.Applicative);
+axiom m . (m) <= (Monad); => ((Control.Applicative.WrappedMonad m)) <= (Control.Applicative.Applicative);;
+axiom a . (a) <= (Control.Arrow.Arrow); => ((Control.Applicative.WrappedArrow a b)) <= (Control.Applicative.Applicative);;
+(GHC.Conc.Sync.STM) <= (Control.Applicative.Applicative);
+axiom s . ((GHC.ST.ST s)) <= (Control.Applicative.Applicative);;
+axiom s . ((base:Control.Monad.ST.Lazy.Imp.ST s)) <= (Control.Applicative.Applicative);;
+(Text.ParserCombinators.ReadPrec.ReadPrec) <= (Control.Applicative.Applicative);
+(Text.ParserCombinators.ReadP.ReadP) <= (Control.Applicative.Applicative);
+(Data.Proxy.Proxy) <= (Control.Applicative.Applicative);
+(Maybe) <= (Control.Applicative.Applicative);
+(IO) <= (Control.Applicative.Applicative);
+axiom e . ((Either e)) <= (Control.Applicative.Applicative);;
+axiom m . (m) <= (Data.Monoid.Monoid); => ((Control.Applicative.Const m)) <= (Control.Applicative.Applicative);;
+axiom a . (a) <= (Control.Arrow.Arrow); => ((Control.Arrow.ArrowMonad a)) <= (Control.Applicative.Applicative);;
+axiom a . ((arrow a)) <= (Control.Applicative.Applicative);;
+axiom a . (a) <= (Data.Monoid.Monoid); => ((pair a)) <= (Control.Applicative.Applicative);;
+axiom a . ((Control.Applicative.ZipList a)) <= (GHC.Generics.Generic);;
+axiom m . ((Control.Applicative.WrappedMonad m a)) <= (GHC.Generics.Generic);;
+axiom c , a . ((Control.Applicative.WrappedArrow a b c)) <= (GHC.Generics.Generic);;
+axiom a . ((Control.Applicative.Const a b)) <= (GHC.Generics.Generic);;
+(Control.Applicative.ZipList) <= (GHC.Generics.Generic1);
+axiom m . ((Control.Applicative.WrappedMonad m)) <= (GHC.Generics.Generic1);;
+axiom a . ((Control.Applicative.WrappedArrow a b)) <= (GHC.Generics.Generic1);;
+axiom a . ((Control.Applicative.Const a)) <= (GHC.Generics.Generic1);;
+(Control.Applicative.D1ZipList) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1WrappedMonad) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1WrappedArrow) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1Const) <= (GHC.Generics.Datatype);
+(Control.Applicative.C1_0ZipList) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0WrappedMonad) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0WrappedArrow) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0Const) <= (GHC.Generics.Constructor);
+(Control.Applicative.S1_0_0ZipList) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0WrappedMonad) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0WrappedArrow) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0Const) <= (GHC.Generics.Selector);
+axiom a . (a) <= (Data.Monoid.Monoid); => ((Control.Applicative.Const a b)) <= (Data.Monoid.Monoid);;
+(Table) == ((list (list String)));
+String == (list Char);
+
+
+%%
+(Table)["":109,17-39@FQL.hs] == (t_alB)["":109,17-39@FQL.hs] {};["a type equality Table ~ t_alB":109,17-39@FQL.hs]
+(Table)["":109,17-39@FQL.hs] == (t_alC)["":109,17-39@FQL.hs] {};["a type equality Table ~ t_alC":109,17-39@FQL.hs]
+(Table)["":109,17-39@FQL.hs] == (t_alD)["":109,17-39@FQL.hs] {};["a type equality Table ~ t_alD":109,17-39@FQL.hs]
+(Table)["":104,13-49@FQL.hs] == (t_alH)["":104,13-49@FQL.hs] {};["a type equality Table ~ t_alH":104,13-49@FQL.hs]
+(Table)["":104,13-49@FQL.hs] == (t_alI)["":104,13-49@FQL.hs] {};["a type equality Table ~ t_alI":104,13-49@FQL.hs]
+(Int)["":104,13-49@FQL.hs] == (t_alJ)["":104,13-49@FQL.hs] {};["a type equality Int ~ t_alJ":104,13-49@FQL.hs]
+(Int)["":104,13-49@FQL.hs] == (t_alK)["":104,13-49@FQL.hs] {};["a type equality Int ~ t_alK":104,13-49@FQL.hs]
+(Table)["":104,13-49@FQL.hs] == (t_alL)["":104,13-49@FQL.hs] {};["a type equality Table ~ t_alL":104,13-49@FQL.hs]
+(Table)["":96,9-31@FQL.hs] == (t_alR)["":96,9-31@FQL.hs] {};["a type equality Table ~ t_alR":96,9-31@FQL.hs]
+(Table)["":96,9-31@FQL.hs] == (t_alS)["":96,9-31@FQL.hs] {};["a type equality Table ~ t_alS":96,9-31@FQL.hs]
+(Table)["":96,9-31@FQL.hs] == (t_alT)["":96,9-31@FQL.hs] {};["a type equality Table ~ t_alT":96,9-31@FQL.hs]
+(Int)["":89,12-54@FQL.hs] == (t_alX)["":89,12-54@FQL.hs] {};["a type equality Int ~ t_alX":89,12-54@FQL.hs]
+((String -> Bool))["":89,12-54@FQL.hs] == (t_alY)["":89,12-54@FQL.hs] {};["a type equality String -> Bool ~ t_alY":89,12-54@FQL.hs]
+((list String))["":89,12-54@FQL.hs] == (t_alZ)["":89,12-54@FQL.hs] {};["a type equality [String] ~ t_alZ":89,12-54@FQL.hs]
+(Bool)["":89,12-54@FQL.hs] == (t_am0)["":89,12-54@FQL.hs] {};["a type equality Bool ~ t_am0":89,12-54@FQL.hs]
+(Int)["":85,15-55@FQL.hs] == (t_am5)["":85,15-55@FQL.hs] {};["a type equality Int ~ t_am5":85,15-55@FQL.hs]
+((String -> Bool))["":85,15-55@FQL.hs] == (t_am6)["":85,15-55@FQL.hs] {};["a type equality String -> Bool ~ t_am6":85,15-55@FQL.hs]
+(Table)["":85,15-55@FQL.hs] == (t_am7)["":85,15-55@FQL.hs] {};["a type equality Table ~ t_am7":85,15-55@FQL.hs]
+(Table)["":85,15-55@FQL.hs] == (t_am8)["":85,15-55@FQL.hs] {};["a type equality Table ~ t_am8":85,15-55@FQL.hs]
+(String)["":78,11-54@FQL.hs] == (t_amd)["":78,11-54@FQL.hs] {};["a type equality String ~ t_amd":78,11-54@FQL.hs]
+((String -> Bool))["":78,11-54@FQL.hs] == (t_ame)["":78,11-54@FQL.hs] {};["a type equality String -> Bool ~ t_ame":78,11-54@FQL.hs]
+(Table)["":78,11-54@FQL.hs] == (t_amf)["":78,11-54@FQL.hs] {};["a type equality Table ~ t_amf":78,11-54@FQL.hs]
+(Table)["":78,11-54@FQL.hs] == (t_amg)["":78,11-54@FQL.hs] {};["a type equality Table ~ t_amg":78,11-54@FQL.hs]
+((list String))["":70,10-36@FQL.hs] == (t_aml)["":70,10-36@FQL.hs] {};["a type equality [String] ~ t_aml":70,10-36@FQL.hs]
+((list String))["":70,10-36@FQL.hs] == (t_amm)["":70,10-36@FQL.hs] {};["a type equality [String] ~ t_amm":70,10-36@FQL.hs]
+(Int)["":70,10-36@FQL.hs] == (t_amn)["":70,10-36@FQL.hs] {};["a type equality Int ~ t_amn":70,10-36@FQL.hs]
+((list String))["":65,20-48@FQL.hs] == (t_amr)["":65,20-48@FQL.hs] {};["a type equality [String] ~ t_amr":65,20-48@FQL.hs]
+((list String))["":65,20-48@FQL.hs] == (t_ams)["":65,20-48@FQL.hs] {};["a type equality [String] ~ t_ams":65,20-48@FQL.hs]
+((list Int))["":65,20-48@FQL.hs] == (t_amt)["":65,20-48@FQL.hs] {};["a type equality [Int] ~ t_amt":65,20-48@FQL.hs]
+((list String))["":60,12-37@FQL.hs] == (t_amx)["":60,12-37@FQL.hs] {};["a type equality [String] ~ t_amx":60,12-37@FQL.hs]
+(Table)["":60,12-37@FQL.hs] == (t_amy)["":60,12-37@FQL.hs] {};["a type equality Table ~ t_amy":60,12-37@FQL.hs]
+(Table)["":60,12-37@FQL.hs] == (t_amz)["":60,12-37@FQL.hs] {};["a type equality Table ~ t_amz":60,12-37@FQL.hs]
+((list Int))["":53,15-41@FQL.hs] == (t_amD)["":53,15-41@FQL.hs] {};["a type equality [Int] ~ t_amD":53,15-41@FQL.hs]
+((list String))["":53,15-41@FQL.hs] == (t_amE)["":53,15-41@FQL.hs] {};["a type equality [String] ~ t_amE":53,15-41@FQL.hs]
+(String)["":53,15-41@FQL.hs] == (t_amF)["":53,15-41@FQL.hs] {};["a type equality String ~ t_amF":53,15-41@FQL.hs]
+(Table)["":49,17-33@FQL.hs] == (t_amJ)["":49,17-33@FQL.hs] {};["a type equality Table ~ t_amJ":49,17-33@FQL.hs]
+((list String))["":49,17-33@FQL.hs] == (t_amK)["":49,17-33@FQL.hs] {};["a type equality [String] ~ t_amK":49,17-33@FQL.hs]
+(Table)["":44,17-30@FQL.hs] == (t_amN)["":44,17-30@FQL.hs] {};["a type equality Table ~ t_amN":44,17-30@FQL.hs]
+((list Int))["":44,17-30@FQL.hs] == (t_amO)["":44,17-30@FQL.hs] {};["a type equality [Int] ~ t_amO":44,17-30@FQL.hs]
+(Table)["":37,21-37@FQL.hs] == (t_amR)["":37,21-37@FQL.hs] {};["a type equality Table ~ t_amR":37,21-37@FQL.hs]
+((list String))["":37,21-37@FQL.hs] == (t_amS)["":37,21-37@FQL.hs] {};["a type equality [String] ~ t_amS":37,21-37@FQL.hs]
+(Table)["":33,15-29@FQL.hs] == (t_amV)["":33,15-29@FQL.hs] {};["a type equality Table ~ t_amV":33,15-29@FQL.hs]
+(String)["":33,15-29@FQL.hs] == (t_amW)["":33,15-29@FQL.hs] {};["a type equality String ~ t_amW":33,15-29@FQL.hs]
+(Table)["":20,13-17@FQL.hs] == (t_amZ)["":20,13-17@FQL.hs] {};["a type equality Table ~ t_amZ":20,13-17@FQL.hs]
+(Table)["":7,14-18@FQL.hs] == (t_an1)["":7,14-18@FQL.hs] {};["a type equality Table ~ t_an1":7,14-18@FQL.hs]
+(String)["":5,18-41@FQL.hs] == (t_an3)["":5,18-41@FQL.hs] {};["a type equality String ~ t_an3":5,18-41@FQL.hs]
+(String)["":5,18-41@FQL.hs] == (t_an4)["":5,18-41@FQL.hs] {};["a type equality String ~ t_an4":5,18-41@FQL.hs]
+(Bool)["":5,18-41@FQL.hs] == (t_an5)["":5,18-41@FQL.hs] {};["a type equality Bool ~ t_an5":5,18-41@FQL.hs]
+((list t_ana))["":110,15-18@FQL.hs] == (t_alB)["":110,15-18@FQL.hs] {};["a type equality [t_ana] ~ t_alB":110,15-18@FQL.hs]
+((list t_anc))["":110,22-25@FQL.hs] == (t_alC)["":110,22-25@FQL.hs] {};["a type equality [t_anc] ~ t_alC":110,22-25@FQL.hs]
+(Int)["":112,40-48@FQL.hs] == (t_ane)["":112,40-48@FQL.hs] {};["a type equality Int ~ t_ane":112,40-48@FQL.hs]
+((list t_anc))["":112,47-48@FQL.hs] == ((list a_ang))["":112,47-48@FQL.hs] {};["a type equality [t_anc] ~ [a_ang]":112,47-48@FQL.hs]
+(Int)["":111,40-48@FQL.hs] == (t_anj)["":111,40-48@FQL.hs] {};["a type equality Int ~ t_anj":111,40-48@FQL.hs]
+((list t_ana))["":111,47-48@FQL.hs] == ((list a_ank))["":111,47-48@FQL.hs] {};["a type equality [t_ana] ~ [a_ank]":111,47-48@FQL.hs]
+((list c_ans))["":110,30-107@FQL.hs] == (t_alD)["":110,30-107@FQL.hs] {};["a type equality [c_ans] ~ t_alD":110,30-107@FQL.hs]
+(((list a_anv) -> (list a_anv) -> (list a_anv)))["":110,38-41@FQL.hs] == ((a_anq -> b_anr -> c_ans))["":110,38-41@FQL.hs] {};["a type equality [a_anv] -> [a_anv] -> [a_anv] ~ a_anq -> b_anr -> c_ans":110,38-41@FQL.hs]
+((list a_anx))["":110,44-76@FQL.hs] == ((list a_anq))["":110,44-76@FQL.hs] {};["a type equality [a_anx] ~ [a_anq]":110,44-76@FQL.hs]
+(t_ana)["":110,44-44@FQL.hs] == (a_anx)["":110,44-44@FQL.hs] {};["a type equality t_ana ~ a_anx":110,44-44@FQL.hs]
+((list a_anB))["":110,47-75@FQL.hs] == ((list a_anx))["":110,47-75@FQL.hs] {};["a type equality [a_anB] ~ [a_anx]":110,47-75@FQL.hs]
+((list b_anG))["":110,55-74@FQL.hs] == ((list (list a_anB)))["":110,55-74@FQL.hs] {};["a type equality [b_anG] ~ [[a_anB]]":110,55-74@FQL.hs]
+((a_anJ -> (list a_anJ)))["":110,60-70@FQL.hs] == ((a_anF -> b_anG))["":110,60-70@FQL.hs] {};["a type equality a_anJ -> [a_anJ] ~ a_anF -> b_anG":110,60-70@FQL.hs]
+(t_ane)["":110,70-70@FQL.hs] == (Int)["":110,70-70@FQL.hs] {};["a type equality t_ane ~ Int":110,70-70@FQL.hs]
+((list t_ana))["":110,73-74@FQL.hs] == ((list a_anF))["":110,73-74@FQL.hs] {};["a type equality [t_ana] ~ [a_anF]":110,73-74@FQL.hs]
+((list a_anN))["":110,80-106@FQL.hs] == ((list b_anr))["":110,80-106@FQL.hs] {};["a type equality [a_anN] ~ [b_anr]":110,80-106@FQL.hs]
+(t_anc)["":110,80-80@FQL.hs] == (a_anN)["":110,80-80@FQL.hs] {};["a type equality t_anc ~ a_anN":110,80-80@FQL.hs]
+((list a_anQ))["":110,83-105@FQL.hs] == ((list a_anN))["":110,83-105@FQL.hs] {};["a type equality [a_anQ] ~ [a_anN]":110,83-105@FQL.hs]
+((list a_anS))["":110,91-104@FQL.hs] == ((list (list a_anQ)))["":110,91-104@FQL.hs] {};["a type equality [a_anS] ~ [[a_anQ]]":110,91-104@FQL.hs]
+(t_anj)["":110,101-101@FQL.hs] == (Int)["":110,101-101@FQL.hs] {};["a type equality t_anj ~ Int":110,101-101@FQL.hs]
+((list t_anc))["":110,103-104@FQL.hs] == (a_anS)["":110,103-104@FQL.hs] {};["a type equality [t_anc] ~ a_anS":110,103-104@FQL.hs]
+(t_alY)["":90,28-48@FQL.hs] == ((t_anX -> t_anY))["":90,28-48@FQL.hs] {};["a type equality t_alY ~ t_anX -> t_anY":90,28-48@FQL.hs]
+(t_anY)["":90,28-48@FQL.hs] == (t_am0)["":90,28-48@FQL.hs] {};["a type equality t_anY ~ t_am0":90,28-48@FQL.hs]
+(a_ao2)["":90,34-47@FQL.hs] == (t_anX)["":90,34-47@FQL.hs] {};["a type equality a_ao2 ~ t_anX":90,34-47@FQL.hs]
+(t_alZ)["":90,34-37@FQL.hs] == ((list a_ao2))["":90,34-37@FQL.hs] {};["a type equality t_alZ ~ [a_ao2]":90,34-37@FQL.hs]
+(t_alX)["":90,42-47@FQL.hs] == (Int)["":90,42-47@FQL.hs] {};["a type equality t_alX ~ Int":90,42-47@FQL.hs]
+((list a_ao8))["":86,32-65@FQL.hs] == (t_am8)["":86,32-65@FQL.hs] {};["a type equality [a_ao8] ~ t_am8":86,32-65@FQL.hs]
+((t_alZ -> t_am0))["":86,40-58@FQL.hs] == ((a_ao8 -> Bool))["":86,40-58@FQL.hs] {};["a type equality t_alZ -> t_am0 ~ a_ao8 -> Bool":86,40-58@FQL.hs]
+(t_am5)["":86,48-53@FQL.hs] == (t_alX)["":86,48-53@FQL.hs] {};["a type equality t_am5 ~ t_alX":86,48-53@FQL.hs]
+(t_am6)["":86,55-58@FQL.hs] == (t_alY)["":86,55-58@FQL.hs] {};["a type equality t_am6 ~ t_alY":86,55-58@FQL.hs]
+(t_am7)["":86,61-65@FQL.hs] == ((list a_ao8))["":86,61-65@FQL.hs] {};["a type equality t_am7 ~ [a_ao8]":86,61-65@FQL.hs]
+(t_aof)["":56,27-76@FQL.hs] == ((t_aog -> t_aoh -> t_aoi))["":56,27-76@FQL.hs] {};["a type equality t_aof ~ t_aog -> t_aoh -> t_aoi":56,27-76@FQL.hs]
+((list a_aok))["":56,42-76@FQL.hs] == (t_aoi)["":56,42-76@FQL.hs] {};["a type equality [a_aok] ~ t_aoi":56,42-76@FQL.hs]
+((list Char))["":56,42-44@FQL.hs] == ((list a_aok))["":56,42-44@FQL.hs] {};["a type equality [Char] ~ [a_aok]":56,42-44@FQL.hs]
+((list a_aoo))["":56,49-76@FQL.hs] == ((list a_aok))["":56,49-76@FQL.hs] {};["a type equality [a_aoo] ~ [a_aok]":56,49-76@FQL.hs]
+(t_aog)["":56,54-56@FQL.hs] == (Int)["":56,54-56@FQL.hs] {};["a type equality t_aog ~ Int":56,54-56@FQL.hs]
+((list a_aor))["":56,59-75@FQL.hs] == ((list a_aoo))["":56,59-75@FQL.hs] {};["a type equality [a_aor] ~ [a_aoo]":56,59-75@FQL.hs]
+(t_aoh)["":56,59-61@FQL.hs] == ((list a_aor))["":56,59-61@FQL.hs] {};["a type equality t_aoh ~ [a_aor]":56,59-61@FQL.hs]
+((list a_aov))["":56,66-75@FQL.hs] == ((list a_aor))["":56,66-75@FQL.hs] {};["a type equality [a_aov] ~ [a_aor]":56,66-75@FQL.hs]
+(Char)["":56,73-75@FQL.hs] == (a_aov)["":56,73-75@FQL.hs] {};["a type equality Char ~ a_aov":56,73-75@FQL.hs]
+((list a_aoy))["":54,21-55@FQL.hs] == (t_amF)["":54,21-55@FQL.hs] {};["a type equality [a_aoy] ~ t_amF":54,21-55@FQL.hs]
+((list a_aoA))["":54,21-48@FQL.hs] == ((list a_aoy))["":54,21-48@FQL.hs] {};["a type equality [a_aoA] ~ [a_aoy]":54,21-48@FQL.hs]
+((list c_aoE))["":54,29-47@FQL.hs] == ((list (list a_aoA)))["":54,29-47@FQL.hs] {};["a type equality [c_aoE] ~ [[a_aoA]]":54,29-47@FQL.hs]
+(t_aof)["":54,37-40@FQL.hs] == ((a_aoC -> b_aoD -> c_aoE))["":54,37-40@FQL.hs] {};["a type equality t_aof ~ a_aoC -> b_aoD -> c_aoE":54,37-40@FQL.hs]
+(t_amD)["":54,42-43@FQL.hs] == ((list a_aoC))["":54,42-43@FQL.hs] {};["a type equality t_amD ~ [a_aoC]":54,42-43@FQL.hs]
+(t_amE)["":54,45-47@FQL.hs] == ((list b_aoD))["":54,45-47@FQL.hs] {};["a type equality t_amE ~ [b_aoD]":54,45-47@FQL.hs]
+((list Char))["":54,53-55@FQL.hs] == ((list a_aoy))["":54,53-55@FQL.hs] {};["a type equality [Char] ~ [a_aoy]":54,53-55@FQL.hs]
+((list b_aoM))["":45,22-63@FQL.hs] == (t_amO)["":45,22-63@FQL.hs] {};["a type equality [b_aoM] ~ t_amO":45,22-63@FQL.hs]
+((a_aoT -> c_aoS))["":45,27-44@FQL.hs] == ((a_aoL -> b_aoM))["":45,27-44@FQL.hs] {};["a type equality a_aoT -> c_aoS ~ a_aoL -> b_aoM":45,27-44@FQL.hs]
+(a_arY)["":45,27-33@FQL.hs] <= (Ord)["":45,27-33@FQL.hs] {};["a use of ‘maximum’":45,27-33@FQL.hs]
+(((list a_arY) -> a_arY))["":45,27-33@FQL.hs] == ((b_aoR -> c_aoS))["":45,27-33@FQL.hs] {};["a type equality [a_arY] -> a_arY ~ b_aoR -> c_aoS":45,27-33@FQL.hs]
+(((list a_as1) -> (list b_as2)))["":45,35-44@FQL.hs] == ((a_aoT -> b_aoR))["":45,35-44@FQL.hs] {};["a type equality [a_as1] -> [b_as2] ~ a_aoT -> b_aoR":45,35-44@FQL.hs]
+(((list a_as4) -> Int))["":45,39-44@FQL.hs] == ((a_as1 -> b_as2))["":45,39-44@FQL.hs] {};["a type equality [a_as4] -> Int ~ a_as1 -> b_as2":45,39-44@FQL.hs]
+((list (list a_as7)))["":45,48-62@FQL.hs] == ((list a_aoL))["":45,48-62@FQL.hs] {};["a type equality [[a_as7]] ~ [a_aoL]":45,48-62@FQL.hs]
+(t_amN)["":45,58-62@FQL.hs] == ((list (list a_as7)))["":45,58-62@FQL.hs] {};["a type equality t_amN ~ [[a_as7]]":45,58-62@FQL.hs]
+((list b_asc))["":50,22-64@FQL.hs] == (t_amK)["":50,22-64@FQL.hs] {};["a type equality [b_asc] ~ t_amK":50,22-64@FQL.hs]
+((t_amE -> t_amF))["":50,27-57@FQL.hs] == ((a_asb -> b_asc))["":50,27-57@FQL.hs] {};["a type equality t_amE -> t_amF ~ a_asb -> b_asc":50,27-57@FQL.hs]
+(t_amO)["":50,39-56@FQL.hs] == (t_amD)["":50,39-56@FQL.hs] {};["a type equality t_amO ~ t_amD":50,39-56@FQL.hs]
+(t_amJ)["":50,52-56@FQL.hs] == (t_amN)["":50,52-56@FQL.hs] {};["a type equality t_amJ ~ t_amN":50,52-56@FQL.hs]
+(t_amJ)["":50,60-64@FQL.hs] == ((list a_asb))["":50,60-64@FQL.hs] {};["a type equality t_amJ ~ [a_asb]":50,60-64@FQL.hs]
+(t_amK)["":40,37-54@FQL.hs] == (t_asj)["":40,37-54@FQL.hs] {};["a type equality t_amK ~ t_asj":40,37-54@FQL.hs]
+(t_amR)["":40,50-54@FQL.hs] == (t_amJ)["":40,50-54@FQL.hs] {};["a type equality t_amR ~ t_amJ":40,50-54@FQL.hs]
+(b_asq)["":39,38-104@FQL.hs] == (t_asm)["":39,38-104@FQL.hs] {};["a type equality b_asq ~ t_asm":39,38-104@FQL.hs]
+(((list a_ass) -> (list a_ass)))["":39,50-78@FQL.hs] == ((b_asq -> b_asq))["":39,50-78@FQL.hs] {};["a type equality [a_ass] -> [a_ass] ~ b_asq -> b_asq":39,50-78@FQL.hs]
+((list a_asu))["":39,56-77@FQL.hs] == ((list a_ass))["":39,56-77@FQL.hs] {};["a type equality [a_asu] ~ [a_ass]":39,56-77@FQL.hs]
+((list Char))["":39,56-58@FQL.hs] == ((list a_asu))["":39,56-58@FQL.hs] {};["a type equality [Char] ~ [a_asu]":39,56-58@FQL.hs]
+((list a_asx))["":39,63-77@FQL.hs] == ((list a_asu))["":39,63-77@FQL.hs] {};["a type equality [a_asx] ~ [a_asu]":39,63-77@FQL.hs]
+(a_asp)["":39,73-73@FQL.hs] == (Int)["":39,73-73@FQL.hs] {};["a type equality a_asp ~ Int":39,73-73@FQL.hs]
+(Char)["":39,75-77@FQL.hs] == (a_asx)["":39,75-77@FQL.hs] {};["a type equality Char ~ a_asx":39,75-77@FQL.hs]
+((list Char))["":39,81-83@FQL.hs] == (b_asq)["":39,81-83@FQL.hs] {};["a type equality [Char] ~ b_asq":39,81-83@FQL.hs]
+(t_amO)["":39,86-103@FQL.hs] == ((list a_asp))["":39,86-103@FQL.hs] {};["a type equality t_amO ~ [a_asp]":39,86-103@FQL.hs]
+(t_amR)["":39,99-103@FQL.hs] == (t_amN)["":39,99-103@FQL.hs] {};["a type equality t_amR ~ t_amN":39,99-103@FQL.hs]
+((list a_asE))["":38,26-65@FQL.hs] == (t_amS)["":38,26-65@FQL.hs] {};["a type equality [a_asE] ~ t_amS":38,26-65@FQL.hs]
+(t_asm)["":38,26-28@FQL.hs] == (a_asE)["":38,26-28@FQL.hs] {};["a type equality t_asm ~ a_asE":38,26-28@FQL.hs]
+((list a_asH))["":38,32-65@FQL.hs] == ((list a_asE))["":38,32-65@FQL.hs] {};["a type equality [a_asH] ~ [a_asE]":38,32-65@FQL.hs]
+(a_asK)["":38,32-39@FQL.hs] == (a_asH)["":38,32-39@FQL.hs] {};["a type equality a_asK ~ a_asH":38,32-39@FQL.hs]
+(t_asj)["":38,37-38@FQL.hs] == ((list a_asK))["":38,37-38@FQL.hs] {};["a type equality t_asj ~ [a_asK]":38,37-38@FQL.hs]
+((list a_asN))["":38,43-65@FQL.hs] == ((list a_asH))["":38,43-65@FQL.hs] {};["a type equality [a_asN] ~ [a_asH]":38,43-65@FQL.hs]
+(t_asm)["":38,43-45@FQL.hs] == (a_asN)["":38,43-45@FQL.hs] {};["a type equality t_asm ~ a_asN":38,43-45@FQL.hs]
+((list a_asQ))["":38,49-65@FQL.hs] == ((list a_asN))["":38,49-65@FQL.hs] {};["a type equality [a_asQ] ~ [a_asN]":38,49-65@FQL.hs]
+((list a_asT))["":38,49-56@FQL.hs] == ((list a_asQ))["":38,49-56@FQL.hs] {};["a type equality [a_asT] ~ [a_asQ]":38,49-56@FQL.hs]
+(t_asj)["":38,54-55@FQL.hs] == ((list a_asT))["":38,54-55@FQL.hs] {};["a type equality t_asj ~ [a_asT]":38,54-55@FQL.hs]
+(t_asm)["":38,62-64@FQL.hs] == (a_asQ)["":38,62-64@FQL.hs] {};["a type equality t_asm ~ a_asQ":38,62-64@FQL.hs]
+((a_at0 -> c_asZ))["":34,14-37@FQL.hs] == ((t_amV -> t_amW))["":34,14-37@FQL.hs] {};["a type equality a_at0 -> c_asZ ~ t_amV -> t_amW":34,14-37@FQL.hs]
+(((list String) -> String))["":34,14-20@FQL.hs] == ((b_asY -> c_asZ))["":34,14-20@FQL.hs] {};["a type equality [String] -> String ~ b_asY -> c_asZ":34,14-20@FQL.hs]
+((t_amR -> t_amS))["":34,22-37@FQL.hs] == ((a_at0 -> b_asY))["":34,22-37@FQL.hs] {};["a type equality t_amR -> t_amS ~ a_at0 -> b_asY":34,22-37@FQL.hs]
+((list t_at5))["":22,3-29,3@FQL.hs] == (t_amZ)["":22,3-29,3@FQL.hs] {};["a type equality [t_at5] ~ t_amZ":22,3-29,3@FQL.hs]
+((list t_at7))["":22,5-44@FQL.hs] == (t_at5)["":22,5-44@FQL.hs] {};["a type equality [t_at7] ~ t_at5":22,5-44@FQL.hs]
+((list Char))["":22,6-27@FQL.hs] == (t_at7)["":22,6-27@FQL.hs] {};["a type equality [Char] ~ t_at7":22,6-27@FQL.hs]
+((list Char))["":22,30-35@FQL.hs] == (t_at7)["":22,30-35@FQL.hs] {};["a type equality [Char] ~ t_at7":22,30-35@FQL.hs]
+((list Char))["":22,38-43@FQL.hs] == (t_at7)["":22,38-43@FQL.hs] {};["a type equality [Char] ~ t_at7":22,38-43@FQL.hs]
+((list t_atc))["":23,5-56@FQL.hs] == (t_at5)["":23,5-56@FQL.hs] {};["a type equality [t_atc] ~ t_at5":23,5-56@FQL.hs]
+((list Char))["":23,6-31@FQL.hs] == (t_atc)["":23,6-31@FQL.hs] {};["a type equality [Char] ~ t_atc":23,6-31@FQL.hs]
+((list Char))["":23,34-44@FQL.hs] == (t_atc)["":23,34-44@FQL.hs] {};["a type equality [Char] ~ t_atc":23,34-44@FQL.hs]
+((list Char))["":23,47-55@FQL.hs] == (t_atc)["":23,47-55@FQL.hs] {};["a type equality [Char] ~ t_atc":23,47-55@FQL.hs]
+((list t_ath))["":24,5-46@FQL.hs] == (t_at5)["":24,5-46@FQL.hs] {};["a type equality [t_ath] ~ t_at5":24,5-46@FQL.hs]
+((list Char))["":24,6-25@FQL.hs] == (t_ath)["":24,6-25@FQL.hs] {};["a type equality [Char] ~ t_ath":24,6-25@FQL.hs]
+((list Char))["":24,28-37@FQL.hs] == (t_ath)["":24,28-37@FQL.hs] {};["a type equality [Char] ~ t_ath":24,28-37@FQL.hs]
+((list Char))["":24,40-45@FQL.hs] == (t_ath)["":24,40-45@FQL.hs] {};["a type equality [Char] ~ t_ath":24,40-45@FQL.hs]
+((list t_atm))["":25,5-51@FQL.hs] == (t_at5)["":25,5-51@FQL.hs] {};["a type equality [t_atm] ~ t_at5":25,5-51@FQL.hs]
+((list Char))["":25,6-25@FQL.hs] == (t_atm)["":25,6-25@FQL.hs] {};["a type equality [Char] ~ t_atm":25,6-25@FQL.hs]
+((list Char))["":25,28-37@FQL.hs] == (t_atm)["":25,28-37@FQL.hs] {};["a type equality [Char] ~ t_atm":25,28-37@FQL.hs]
+((list Char))["":25,40-50@FQL.hs] == (t_atm)["":25,40-50@FQL.hs] {};["a type equality [Char] ~ t_atm":25,40-50@FQL.hs]
+((list t_atr))["":26,5-59@FQL.hs] == (t_at5)["":26,5-59@FQL.hs] {};["a type equality [t_atr] ~ t_at5":26,5-59@FQL.hs]
+((list Char))["":26,6-25@FQL.hs] == (t_atr)["":26,6-25@FQL.hs] {};["a type equality [Char] ~ t_atr":26,6-25@FQL.hs]
+((list Char))["":26,28-45@FQL.hs] == (t_atr)["":26,28-45@FQL.hs] {};["a type equality [Char] ~ t_atr":26,28-45@FQL.hs]
+((list Char))["":26,48-58@FQL.hs] == (t_atr)["":26,48-58@FQL.hs] {};["a type equality [Char] ~ t_atr":26,48-58@FQL.hs]
+((list t_atw))["":27,5-66@FQL.hs] == (t_at5)["":27,5-66@FQL.hs] {};["a type equality [t_atw] ~ t_at5":27,5-66@FQL.hs]
+((list Char))["":27,6-32@FQL.hs] == (t_atw)["":27,6-32@FQL.hs] {};["a type equality [Char] ~ t_atw":27,6-32@FQL.hs]
+((list Char))["":27,35-52@FQL.hs] == (t_atw)["":27,35-52@FQL.hs] {};["a type equality [Char] ~ t_atw":27,35-52@FQL.hs]
+((list Char))["":27,55-65@FQL.hs] == (t_atw)["":27,55-65@FQL.hs] {};["a type equality [Char] ~ t_atw":27,55-65@FQL.hs]
+((list t_atB))["":28,5-63@FQL.hs] == (t_at5)["":28,5-63@FQL.hs] {};["a type equality [t_atB] ~ t_at5":28,5-63@FQL.hs]
+((list Char))["":28,6-40@FQL.hs] == (t_atB)["":28,6-40@FQL.hs] {};["a type equality [Char] ~ t_atB":28,6-40@FQL.hs]
+((list Char))["":28,43-50@FQL.hs] == (t_atB)["":28,43-50@FQL.hs] {};["a type equality [Char] ~ t_atB":28,43-50@FQL.hs]
+((list Char))["":28,53-62@FQL.hs] == (t_atB)["":28,53-62@FQL.hs] {};["a type equality [Char] ~ t_atB":28,53-62@FQL.hs]
+((list t_atH))["":9,3-18,3@FQL.hs] == (t_an1)["":9,3-18,3@FQL.hs] {};["a type equality [t_atH] ~ t_an1":9,3-18,3@FQL.hs]
+((list t_atJ))["":9,5-40@FQL.hs] == (t_atH)["":9,5-40@FQL.hs] {};["a type equality [t_atJ] ~ t_atH":9,5-40@FQL.hs]
+((list Char))["":9,6-15@FQL.hs] == (t_atJ)["":9,6-15@FQL.hs] {};["a type equality [Char] ~ t_atJ":9,6-15@FQL.hs]
+((list Char))["":9,18-39@FQL.hs] == (t_atJ)["":9,18-39@FQL.hs] {};["a type equality [Char] ~ t_atJ":9,18-39@FQL.hs]
+((list t_atN))["":10,5-42@FQL.hs] == (t_atH)["":10,5-42@FQL.hs] {};["a type equality [t_atN] ~ t_atH":10,5-42@FQL.hs]
+((list Char))["":10,6-13@FQL.hs] == (t_atN)["":10,6-13@FQL.hs] {};["a type equality [Char] ~ t_atN":10,6-13@FQL.hs]
+((list Char))["":10,16-41@FQL.hs] == (t_atN)["":10,16-41@FQL.hs] {};["a type equality [Char] ~ t_atN":10,16-41@FQL.hs]
+((list t_atR))["":11,5-33@FQL.hs] == (t_atH)["":11,5-33@FQL.hs] {};["a type equality [t_atR] ~ t_atH":11,5-33@FQL.hs]
+((list Char))["":11,6-10@FQL.hs] == (t_atR)["":11,6-10@FQL.hs] {};["a type equality [Char] ~ t_atR":11,6-10@FQL.hs]
+((list Char))["":11,13-32@FQL.hs] == (t_atR)["":11,13-32@FQL.hs] {};["a type equality [Char] ~ t_atR":11,13-32@FQL.hs]
+((list t_atV))["":12,5-33@FQL.hs] == (t_atH)["":12,5-33@FQL.hs] {};["a type equality [t_atV] ~ t_atH":12,5-33@FQL.hs]
+((list Char))["":12,6-10@FQL.hs] == (t_atV)["":12,6-10@FQL.hs] {};["a type equality [Char] ~ t_atV":12,6-10@FQL.hs]
+((list Char))["":12,13-32@FQL.hs] == (t_atV)["":12,13-32@FQL.hs] {};["a type equality [Char] ~ t_atV":12,13-32@FQL.hs]
+((list t_atZ))["":13,5-34@FQL.hs] == (t_atH)["":13,5-34@FQL.hs] {};["a type equality [t_atZ] ~ t_atH":13,5-34@FQL.hs]
+((list Char))["":13,6-11@FQL.hs] == (t_atZ)["":13,6-11@FQL.hs] {};["a type equality [Char] ~ t_atZ":13,6-11@FQL.hs]
+((list Char))["":13,14-33@FQL.hs] == (t_atZ)["":13,14-33@FQL.hs] {};["a type equality [Char] ~ t_atZ":13,14-33@FQL.hs]
+((list t_au3))["":14,5-38@FQL.hs] == (t_atH)["":14,5-38@FQL.hs] {};["a type equality [t_au3] ~ t_atH":14,5-38@FQL.hs]
+((list Char))["":14,6-15@FQL.hs] == (t_au3)["":14,6-15@FQL.hs] {};["a type equality [Char] ~ t_au3":14,6-15@FQL.hs]
+((list Char))["":14,18-37@FQL.hs] == (t_au3)["":14,18-37@FQL.hs] {};["a type equality [Char] ~ t_au3":14,18-37@FQL.hs]
+((list t_au7))["":15,5-46@FQL.hs] == (t_atH)["":15,5-46@FQL.hs] {};["a type equality [t_au7] ~ t_atH":15,5-46@FQL.hs]
+((list Char))["":15,6-16@FQL.hs] == (t_au7)["":15,6-16@FQL.hs] {};["a type equality [Char] ~ t_au7":15,6-16@FQL.hs]
+((list Char))["":15,19-45@FQL.hs] == (t_au7)["":15,19-45@FQL.hs] {};["a type equality [Char] ~ t_au7":15,19-45@FQL.hs]
+((list t_aub))["":16,5-54@FQL.hs] == (t_atH)["":16,5-54@FQL.hs] {};["a type equality [t_aub] ~ t_atH":16,5-54@FQL.hs]
+((list Char))["":16,6-16@FQL.hs] == (t_aub)["":16,6-16@FQL.hs] {};["a type equality [Char] ~ t_aub":16,6-16@FQL.hs]
+((list Char))["":16,19-53@FQL.hs] == (t_aub)["":16,19-53@FQL.hs] {};["a type equality [Char] ~ t_aub":16,19-53@FQL.hs]
+((list t_auf))["":17,5-48@FQL.hs] == (t_atH)["":17,5-48@FQL.hs] {};["a type equality [t_auf] ~ t_atH":17,5-48@FQL.hs]
+((list Char))["":17,6-10@FQL.hs] == (t_auf)["":17,6-10@FQL.hs] {};["a type equality [Char] ~ t_auf":17,6-10@FQL.hs]
+((list Char))["":17,13-47@FQL.hs] == (t_auf)["":17,13-47@FQL.hs] {};["a type equality [Char] ~ t_auf":17,13-47@FQL.hs]
+(a_auk)["":6,12-20@FQL.hs] == ((t_an3 -> t_an4 -> t_an5))["":6,12-20@FQL.hs] {};["a type equality a_auk ~ t_an3 -> t_an4 -> t_an5":6,12-20@FQL.hs]
+((list t_aun))["":71,13-18@FQL.hs] == (t_amm)["":71,13-18@FQL.hs] {};["a type equality [t_aun] ~ t_amm":71,13-18@FQL.hs]
+(Bool)["":71,23-49@FQL.hs] == (Bool)["":71,23-49@FQL.hs] {};["a type equality Bool ~ Bool":71,23-49@FQL.hs]
+((list b_aur))["":71,27-48@FQL.hs] == ((list Bool))["":71,27-48@FQL.hs] {};["a type equality [b_aur] ~ [Bool]":71,27-48@FQL.hs]
+((t_an4 -> t_an5))["":71,32-42@FQL.hs] == ((a_auq -> b_aur))["":71,32-42@FQL.hs] {};["a type equality t_an4 -> t_an5 ~ a_auq -> b_aur":71,32-42@FQL.hs]
+(t_aun)["":71,41-42@FQL.hs] == (t_an3)["":71,41-42@FQL.hs] {};["a type equality t_aun ~ t_an3":71,41-42@FQL.hs]
+(t_aml)["":71,45-48@FQL.hs] == ((list a_auq))["":71,45-48@FQL.hs] {};["a type equality t_aml ~ [a_auq]":71,45-48@FQL.hs]
+(a_awC)["":71,53-53@FQL.hs] <= (Num)["":71,53-53@FQL.hs] {};["the literal ‘0’":71,53-53@FQL.hs]
+((Integer -> a_awC))["":71,53-53@FQL.hs] == ((Integer -> t_amn))["":71,53-53@FQL.hs] {};["a type equality Integer -> a_awC ~ Integer -> t_amn":71,53-53@FQL.hs]
+(Bool)["":72,23-31@FQL.hs] == (Bool)["":72,23-31@FQL.hs] {};["a type equality Bool ~ Bool":72,23-31@FQL.hs]
+(a_awG)["":72,55-55@FQL.hs] <= (Num)["":72,55-55@FQL.hs] {};["a use of ‘+’":72,55-55@FQL.hs]
+(a_awG)["":72,53-70@FQL.hs] == (t_amn)["":72,53-70@FQL.hs] {};["a type equality a_awG ~ t_amn":72,53-70@FQL.hs]
+(a_awJ)["":72,53-53@FQL.hs] <= (Num)["":72,53-53@FQL.hs] {};["the literal ‘1’":72,53-53@FQL.hs]
+((Integer -> a_awJ))["":72,53-53@FQL.hs] == ((Integer -> a_awG))["":72,53-53@FQL.hs] {};["a type equality Integer -> a_awJ ~ Integer -> a_awG":72,53-53@FQL.hs]
+(t_amn)["":72,57-70@FQL.hs] == (a_awG)["":72,57-70@FQL.hs] {};["a type equality t_amn ~ a_awG":72,57-70@FQL.hs]
+(t_aml)["":72,63-66@FQL.hs] == (t_aml)["":72,63-66@FQL.hs] {};["a type equality t_aml ~ t_aml":72,63-66@FQL.hs]
+((list t_aun))["":72,68-70@FQL.hs] == (t_amm)["":72,68-70@FQL.hs] {};["a type equality [t_aun] ~ t_amm":72,68-70@FQL.hs]
+((list b_awR))["":66,34-68@FQL.hs] == (t_amt)["":66,34-68@FQL.hs] {};["a type equality [b_awR] ~ t_amt":66,34-68@FQL.hs]
+(t_amn)["":66,44-62@FQL.hs] == (b_awR)["":66,44-62@FQL.hs] {};["a type equality t_amn ~ b_awR":66,44-62@FQL.hs]
+((list t_awU))["":66,50-52@FQL.hs] == (t_aml)["":66,50-52@FQL.hs] {};["a type equality [t_awU] ~ t_aml":66,50-52@FQL.hs]
+(a_awQ)["":66,51-51@FQL.hs] == (t_awU)["":66,51-51@FQL.hs] {};["a type equality a_awQ ~ t_awU":66,51-51@FQL.hs]
+(t_amr)["":66,54-62@FQL.hs] == (t_amm)["":66,54-62@FQL.hs] {};["a type equality t_amr ~ t_amm":66,54-62@FQL.hs]
+(t_ams)["":66,65-68@FQL.hs] == ((list a_awQ))["":66,65-68@FQL.hs] {};["a type equality t_ams ~ [a_awQ]":66,65-68@FQL.hs]
+((list (list a_ax0)))["":61,23-96@FQL.hs] == (t_amz)["":61,23-96@FQL.hs] {};["a type equality [[a_ax0]] ~ t_amz":61,23-96@FQL.hs]
+((list b_ax3))["":61,34-95@FQL.hs] == ((list (list a_ax0)))["":61,34-95@FQL.hs] {};["a type equality [b_ax3] ~ [[a_ax0]]":61,34-95@FQL.hs]
+((Int -> a_ax5))["":61,39-58@FQL.hs] == ((a_ax2 -> b_ax3))["":61,39-58@FQL.hs] {};["a type equality Int -> a_ax5 ~ a_ax2 -> b_ax3":61,39-58@FQL.hs]
+((list (list a_ax7)))["":61,40-54@FQL.hs] == ((list a_ax5))["":61,40-54@FQL.hs] {};["a type equality [[a_ax7]] ~ [a_ax5]":61,40-54@FQL.hs]
+(t_amy)["":61,50-54@FQL.hs] == ((list (list a_ax7)))["":61,50-54@FQL.hs] {};["a type equality t_amy ~ [[a_ax7]]":61,50-54@FQL.hs]
+(t_amt)["":61,62-94@FQL.hs] == ((list a_ax2))["":61,62-94@FQL.hs] {};["a type equality t_amt ~ [a_ax2]":61,62-94@FQL.hs]
+(a_axb)["":61,79-88@FQL.hs] == (t_amr)["":61,79-88@FQL.hs] {};["a type equality a_axb ~ t_amr":61,79-88@FQL.hs]
+(t_amy)["":61,84-88@FQL.hs] == ((list a_axb))["":61,84-88@FQL.hs] {};["a type equality t_amy ~ [a_axb]":61,84-88@FQL.hs]
+(t_amx)["":61,91-94@FQL.hs] == (t_ams)["":61,91-94@FQL.hs] {};["a type equality t_amx ~ t_ams":61,91-94@FQL.hs]
+((list a_axg))["":79,28-100@FQL.hs] == (t_amg)["":79,28-100@FQL.hs] {};["a type equality [a_axg] ~ t_amg":79,28-100@FQL.hs]
+(a_axi)["":79,29-38@FQL.hs] == (a_axg)["":79,29-38@FQL.hs] {};["a type equality a_axi ~ a_axg":79,29-38@FQL.hs]
+(t_amf)["":79,34-38@FQL.hs] == ((list a_axi))["":79,34-38@FQL.hs] {};["a type equality t_amf ~ [a_axi]":79,34-38@FQL.hs]
+(t_am8)["":79,44-99@FQL.hs] == ((list a_axg))["":79,44-99@FQL.hs] {};["a type equality t_am8 ~ [a_axg]":79,44-99@FQL.hs]
+(t_amn)["":79,56-80@FQL.hs] == (t_am5)["":79,56-80@FQL.hs] {};["a type equality t_amn ~ t_am5":79,56-80@FQL.hs]
+(a_axn)["":79,63-72@FQL.hs] == (t_aml)["":79,63-72@FQL.hs] {};["a type equality a_axn ~ t_aml":79,63-72@FQL.hs]
+(t_amf)["":79,68-72@FQL.hs] == ((list a_axn))["":79,68-72@FQL.hs] {};["a type equality t_amf ~ [a_axn]":79,68-72@FQL.hs]
+(t_amd)["":79,75-80@FQL.hs] == (t_amm)["":79,75-80@FQL.hs] {};["a type equality t_amd ~ t_amm":79,75-80@FQL.hs]
+(t_ame)["":79,83-86@FQL.hs] == (t_am6)["":79,83-86@FQL.hs] {};["a type equality t_ame ~ t_am6":79,83-86@FQL.hs]
+((list a_axs))["":79,89-98@FQL.hs] == (t_am7)["":79,89-98@FQL.hs] {};["a type equality [a_axs] ~ t_am7":79,89-98@FQL.hs]
+(t_amf)["":79,94-98@FQL.hs] == ((list a_axs))["":79,94-98@FQL.hs] {};["a type equality t_amf ~ [a_axs]":79,94-98@FQL.hs]
+((list a_axw))["":105,27-88@FQL.hs] == (t_alL)["":105,27-88@FQL.hs] {};["a type equality [a_axw] ~ t_alL":105,27-88@FQL.hs]
+(t_an5)["":105,40-61@FQL.hs] == (Bool)["":105,40-61@FQL.hs] {};["a type equality t_an5 ~ Bool":105,40-61@FQL.hs]
+(a_axz)["":105,50-53@FQL.hs] == (t_an3)["":105,50-53@FQL.hs] {};["a type equality a_axz ~ t_an3":105,50-53@FQL.hs]
+(a_axw)["":105,50-50@FQL.hs] == ((list a_axz))["":105,50-50@FQL.hs] {};["a type equality a_axw ~ [a_axz]":105,50-50@FQL.hs]
+(t_alJ)["":105,53-53@FQL.hs] == (Int)["":105,53-53@FQL.hs] {};["a type equality t_alJ ~ Int":105,53-53@FQL.hs]
+(a_axD)["":105,57-60@FQL.hs] == (t_an4)["":105,57-60@FQL.hs] {};["a type equality a_axD ~ t_an4":105,57-60@FQL.hs]
+(a_axw)["":105,57-57@FQL.hs] == ((list a_axD))["":105,57-57@FQL.hs] {};["a type equality a_axw ~ [a_axD]":105,57-57@FQL.hs]
+(t_alK)["":105,60-60@FQL.hs] == (Int)["":105,60-60@FQL.hs] {};["a type equality t_alK ~ Int":105,60-60@FQL.hs]
+(t_alD)["":105,65-87@FQL.hs] == ((list a_axw))["":105,65-87@FQL.hs] {};["a type equality t_alD ~ [a_axw]":105,65-87@FQL.hs]
+(t_alH)["":105,78-81@FQL.hs] == (t_alB)["":105,78-81@FQL.hs] {};["a type equality t_alH ~ t_alB":105,78-81@FQL.hs]
+(t_alI)["":105,83-87@FQL.hs] == (t_alC)["":105,83-87@FQL.hs] {};["a type equality t_alI ~ t_alC":105,83-87@FQL.hs]
+(a_axM)["":99,62-62@FQL.hs] <= (Num)["":99,62-62@FQL.hs] {};["a use of ‘+’":99,62-62@FQL.hs]
+(a_axM)["":99,30-81@FQL.hs] == (t_axL)["":99,30-81@FQL.hs] {};["a type equality a_axM ~ t_axL":99,30-81@FQL.hs]
+(t_amn)["":99,30-60@FQL.hs] == (a_axM)["":99,30-60@FQL.hs] {};["a type equality t_amn ~ a_axM":99,30-60@FQL.hs]
+(a_axQ)["":99,37-45@FQL.hs] == (t_aml)["":99,37-45@FQL.hs] {};["a type equality a_axQ ~ t_aml":99,37-45@FQL.hs]
+(t_alR)["":99,42-45@FQL.hs] == ((list a_axQ))["":99,42-45@FQL.hs] {};["a type equality t_alR ~ [a_axQ]":99,42-45@FQL.hs]
+(a_axT)["":99,50-59@FQL.hs] == (t_amm)["":99,50-59@FQL.hs] {};["a type equality a_axT ~ t_amm":99,50-59@FQL.hs]
+(t_alS)["":99,55-59@FQL.hs] == ((list a_axT))["":99,55-59@FQL.hs] {};["a type equality t_alS ~ [a_axT]":99,55-59@FQL.hs]
+(Int)["":99,64-81@FQL.hs] == (a_axM)["":99,64-81@FQL.hs] {};["a type equality Int ~ a_axM":99,64-81@FQL.hs]
+(a_axY)["":99,72-80@FQL.hs] == ((list a_axW))["":99,72-80@FQL.hs] {};["a type equality a_axY ~ [a_axW]":99,72-80@FQL.hs]
+(t_alR)["":99,77-80@FQL.hs] == ((list a_axY))["":99,77-80@FQL.hs] {};["a type equality t_alR ~ [a_axY]":99,77-80@FQL.hs]
+(t_amn)["":98,30-59@FQL.hs] == (t_ay1)["":98,30-59@FQL.hs] {};["a type equality t_amn ~ t_ay1":98,30-59@FQL.hs]
+(a_ay3)["":98,37-46@FQL.hs] == (t_aml)["":98,37-46@FQL.hs] {};["a type equality a_ay3 ~ t_aml":98,37-46@FQL.hs]
+(t_alS)["":98,42-46@FQL.hs] == ((list a_ay3))["":98,42-46@FQL.hs] {};["a type equality t_alS ~ [a_ay3]":98,42-46@FQL.hs]
+(a_ay6)["":98,50-58@FQL.hs] == (t_amm)["":98,50-58@FQL.hs] {};["a type equality a_ay6 ~ t_amm":98,50-58@FQL.hs]
+(t_alR)["":98,55-58@FQL.hs] == ((list a_ay6))["":98,55-58@FQL.hs] {};["a type equality t_alR ~ [a_ay6]":98,55-58@FQL.hs]
+((list b_aya))["":97,20-82@FQL.hs] == (t_alT)["":97,20-82@FQL.hs] {};["a type equality [b_aya] ~ t_alT":97,20-82@FQL.hs]
+((list a_ayc))["":97,30-55@FQL.hs] == (b_aya)["":97,30-55@FQL.hs] {};["a type equality [a_ayc] ~ b_aya":97,30-55@FQL.hs]
+((list a_aye))["":97,30-37@FQL.hs] == ((list a_ayc))["":97,30-37@FQL.hs] {};["a type equality [a_aye] ~ [a_ayc]":97,30-37@FQL.hs]
+(t_axL)["":97,35-35@FQL.hs] == (Int)["":97,35-35@FQL.hs] {};["a type equality t_axL ~ Int":97,35-35@FQL.hs]
+(a_ay9)["":97,37-37@FQL.hs] == ((list a_aye))["":97,37-37@FQL.hs] {};["a type equality a_ay9 ~ [a_aye]":97,37-37@FQL.hs]
+((list a_ayj))["":97,43-54@FQL.hs] == ((list a_ayc))["":97,43-54@FQL.hs] {};["a type equality [a_ayj] ~ [a_ayc]":97,43-54@FQL.hs]
+(a_ayl)["":97,50-50@FQL.hs] <= (Num)["":97,50-50@FQL.hs] {};["a use of ‘+’":97,50-50@FQL.hs]
+(a_ayl)["":97,49-51@FQL.hs] == (Int)["":97,49-51@FQL.hs] {};["a type equality a_ayl ~ Int":97,49-51@FQL.hs]
+(t_axL)["":97,49-49@FQL.hs] == (a_ayl)["":97,49-49@FQL.hs] {};["a type equality t_axL ~ a_ayl":97,49-49@FQL.hs]
+(a_ayp)["":97,51-51@FQL.hs] <= (Num)["":97,51-51@FQL.hs] {};["the literal ‘1’":97,51-51@FQL.hs]
+((Integer -> a_ayp))["":97,51-51@FQL.hs] == ((Integer -> a_ayl))["":97,51-51@FQL.hs] {};["a type equality Integer -> a_ayp ~ Integer -> a_ayl":97,51-51@FQL.hs]
+(a_ay9)["":97,54-54@FQL.hs] == ((list a_ayj))["":97,54-54@FQL.hs] {};["a type equality a_ay9 ~ [a_ayj]":97,54-54@FQL.hs]
+(t_alL)["":97,59-81@FQL.hs] == ((list a_ay9))["":97,59-81@FQL.hs] {};["a type equality t_alL ~ [a_ay9]":97,59-81@FQL.hs]
+(t_alR)["":97,68-71@FQL.hs] == (t_alH)["":97,68-71@FQL.hs] {};["a type equality t_alR ~ t_alH":97,68-71@FQL.hs]
+(t_alS)["":97,73-77@FQL.hs] == (t_alI)["":97,73-77@FQL.hs] {};["a type equality t_alS ~ t_alI":97,73-77@FQL.hs]
+(t_ay1)["":97,79-79@FQL.hs] == (t_alJ)["":97,79-79@FQL.hs] {};["a type equality t_ay1 ~ t_alJ":97,79-79@FQL.hs]
+(t_axL)["":97,81-81@FQL.hs] == (t_alK)["":97,81-81@FQL.hs] {};["a type equality t_axL ~ t_alK":97,81-81@FQL.hs]

@@ -1,0 +1,219 @@
+VARIABLE t_aih
+VARIABLE t_aii
+VARIABLE t_ail
+VARIABLE t_aim
+VARIABLE t_aip
+VARIABLE t_aiq
+VARIABLE t_ait
+VARIABLE t_aiv
+VARIABLE a_aiA
+VARIABLE b_aiB
+VARIABLE a_aiE
+VARIABLE a_aiI
+VARIABLE b_aiJ
+VARIABLE t_aiK
+VARIABLE t_aiL
+VARIABLE a_aiP
+VARIABLE a_aiV
+VARIABLE a_aiZ
+VARIABLE t_aj3
+VARIABLE t_aj5
+VARIABLE t_aja
+VARIABLE t_ajf
+VARIABLE t_ajk
+VARIABLE t_ajp
+VARIABLE t_aju
+VARIABLE t_ajz
+VARIABLE t_ajF
+VARIABLE t_ajH
+VARIABLE t_ajL
+VARIABLE t_ajP
+VARIABLE t_ajT
+VARIABLE t_ajX
+VARIABLE t_ak1
+VARIABLE t_ak5
+VARIABLE t_ak9
+VARIABLE t_akd
+FUNCTION Table 0
+FUNCTION String 0
+
+%%
+((list )) <= (Control.Applicative.Alternative);
+axiom m . (m) <= (Control.Monad.MonadPlus); => ((Control.Applicative.WrappedMonad m)) <= (Control.Applicative.Alternative);;
+axiom a . (a) <= (Control.Arrow.ArrowZero); (a) <= (Control.Arrow.ArrowPlus); => ((Control.Applicative.WrappedArrow a b)) <= (Control.Applicative.Alternative);;
+(GHC.Conc.Sync.STM) <= (Control.Applicative.Alternative);
+(Text.ParserCombinators.ReadPrec.ReadPrec) <= (Control.Applicative.Alternative);
+(Text.ParserCombinators.ReadP.ReadP) <= (Control.Applicative.Alternative);
+(Maybe) <= (Control.Applicative.Alternative);
+axiom a . (a) <= (Control.Arrow.ArrowPlus); => ((Control.Arrow.ArrowMonad a)) <= (Control.Applicative.Alternative);;
+(GHC.Types.Word) <= (Enum);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Enum);;
+(Float) <= (Enum);
+(Double) <= (Enum);
+axiom a . (a) <= (Eq); => ((Control.Applicative.ZipList a)) <= (Eq);;
+axiom a . (a) <= (Eq); => ((GHC.Real.Ratio a)) <= (Eq);;
+(Float) <= (Floating);
+(Double) <= (Floating);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Fractional);;
+(Float) <= (Fractional);
+(Double) <= (Fractional);
+(GHC.Types.Word) <= (Integral);
+(Integer) <= (Integral);
+(Int) <= (Integral);
+axiom m . (m) <= (Monad); => ((Control.Applicative.WrappedMonad m)) <= (Monad);;
+((list )) <= (Monad);
+(IO) <= (Monad);
+axiom r . ((arrow r)) <= (Monad);;
+(Control.Applicative.ZipList) <= (Functor);
+axiom m . (m) <= (Monad); => ((Control.Applicative.WrappedMonad m)) <= (Functor);;
+axiom a . (a) <= (Control.Arrow.Arrow); => ((Control.Applicative.WrappedArrow a b)) <= (Functor);;
+axiom m . ((Control.Applicative.Const m)) <= (Functor);;
+((list )) <= (Functor);
+(IO) <= (Functor);
+axiom r . ((arrow r)) <= (Functor);;
+axiom a . ((pair a)) <= (Functor);;
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Num);;
+(Float) <= (Num);
+(Double) <= (Num);
+axiom a . (a) <= (Ord); => ((Control.Applicative.ZipList a)) <= (Ord);;
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Ord);;
+axiom a . (a) <= (Read); => ((Control.Applicative.ZipList a)) <= (Read);;
+(GHC.Types.Word) <= (Real);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (Real);;
+(Integer) <= (Real);
+(Int) <= (Real);
+(Float) <= (Real);
+(Double) <= (Real);
+(Float) <= (RealFloat);
+(Double) <= (RealFloat);
+axiom a . (a) <= (Integral); => ((GHC.Real.Ratio a)) <= (RealFrac);;
+(Float) <= (RealFrac);
+(Double) <= (RealFrac);
+axiom a . (a) <= (Show); => ((Control.Applicative.ZipList a)) <= (Show);;
+axiom a . (a) <= (Integral); (a) <= (Show); => ((GHC.Real.Ratio a)) <= (Show);;
+(Float) <= (Show);
+(Double) <= (Show);
+(Control.Applicative.Applicative) <= (Data.Typeable.Internal.Typeable);
+(Control.Applicative.Alternative) <= (Data.Typeable.Internal.Typeable);
+((list )) <= (Control.Monad.MonadPlus);
+(Maybe) <= (Control.Monad.MonadPlus);
+((list )) <= (Control.Applicative.Applicative);
+(Control.Applicative.ZipList) <= (Control.Applicative.Applicative);
+axiom m . (m) <= (Monad); => ((Control.Applicative.WrappedMonad m)) <= (Control.Applicative.Applicative);;
+axiom a . (a) <= (Control.Arrow.Arrow); => ((Control.Applicative.WrappedArrow a b)) <= (Control.Applicative.Applicative);;
+(GHC.Conc.Sync.STM) <= (Control.Applicative.Applicative);
+axiom s . ((GHC.ST.ST s)) <= (Control.Applicative.Applicative);;
+axiom s . ((base:Control.Monad.ST.Lazy.Imp.ST s)) <= (Control.Applicative.Applicative);;
+(Text.ParserCombinators.ReadPrec.ReadPrec) <= (Control.Applicative.Applicative);
+(Text.ParserCombinators.ReadP.ReadP) <= (Control.Applicative.Applicative);
+(Data.Proxy.Proxy) <= (Control.Applicative.Applicative);
+(Maybe) <= (Control.Applicative.Applicative);
+(IO) <= (Control.Applicative.Applicative);
+axiom e . ((Either e)) <= (Control.Applicative.Applicative);;
+axiom m . (m) <= (Data.Monoid.Monoid); => ((Control.Applicative.Const m)) <= (Control.Applicative.Applicative);;
+axiom a . (a) <= (Control.Arrow.Arrow); => ((Control.Arrow.ArrowMonad a)) <= (Control.Applicative.Applicative);;
+axiom a . ((arrow a)) <= (Control.Applicative.Applicative);;
+axiom a . (a) <= (Data.Monoid.Monoid); => ((pair a)) <= (Control.Applicative.Applicative);;
+axiom a . ((Control.Applicative.ZipList a)) <= (GHC.Generics.Generic);;
+axiom m . ((Control.Applicative.WrappedMonad m a)) <= (GHC.Generics.Generic);;
+axiom c , a . ((Control.Applicative.WrappedArrow a b c)) <= (GHC.Generics.Generic);;
+axiom a . ((Control.Applicative.Const a b)) <= (GHC.Generics.Generic);;
+(Control.Applicative.ZipList) <= (GHC.Generics.Generic1);
+axiom m . ((Control.Applicative.WrappedMonad m)) <= (GHC.Generics.Generic1);;
+axiom a . ((Control.Applicative.WrappedArrow a b)) <= (GHC.Generics.Generic1);;
+axiom a . ((Control.Applicative.Const a)) <= (GHC.Generics.Generic1);;
+(Control.Applicative.D1ZipList) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1WrappedMonad) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1WrappedArrow) <= (GHC.Generics.Datatype);
+(Control.Applicative.D1Const) <= (GHC.Generics.Datatype);
+(Control.Applicative.C1_0ZipList) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0WrappedMonad) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0WrappedArrow) <= (GHC.Generics.Constructor);
+(Control.Applicative.C1_0Const) <= (GHC.Generics.Constructor);
+(Control.Applicative.S1_0_0ZipList) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0WrappedMonad) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0WrappedArrow) <= (GHC.Generics.Selector);
+(Control.Applicative.S1_0_0Const) <= (GHC.Generics.Selector);
+axiom a . (a) <= (Data.Monoid.Monoid); => ((Control.Applicative.Const a b)) <= (Data.Monoid.Monoid);;
+(Table) == ((list (list String)));
+String == (list Char);
+
+
+%%
+((list (list String)))["":33,17-35@Practium1.hs] == (t_aih)["":33,17-35@Practium1.hs] {};["a type equality [[String]] ~ t_aih":33,17-35@Practium1.hs]
+((list Int))["":33,17-35@Practium1.hs] == (t_aii)["":33,17-35@Practium1.hs] {};["a type equality [Int] ~ t_aii":33,17-35@Practium1.hs]
+((list (list String)))["":30,16-37@Practium1.hs] == (t_ail)["":30,16-37@Practium1.hs] {};["a type equality [[String]] ~ t_ail":30,16-37@Practium1.hs]
+((list String))["":30,16-37@Practium1.hs] == (t_aim)["":30,16-37@Practium1.hs] {};["a type equality [String] ~ t_aim":30,16-37@Practium1.hs]
+(Int)["":27,11-23@Practium1.hs] == (t_aip)["":27,11-23@Practium1.hs] {};["a type equality Int ~ t_aip":27,11-23@Practium1.hs]
+((list Char))["":27,11-23@Practium1.hs] == (t_aiq)["":27,11-23@Practium1.hs] {};["a type equality [Char] ~ t_aiq":27,11-23@Practium1.hs]
+(Table)["":16,13-17@Practium1.hs] == (t_ait)["":16,13-17@Practium1.hs] {};["a type equality Table ~ t_ait":16,13-17@Practium1.hs]
+(Table)["":3,14-18@Practium1.hs] == (t_aiv)["":3,14-18@Practium1.hs] {};["a type equality Table ~ t_aiv":3,14-18@Practium1.hs]
+((list b_aiB))["":31,18-28@Practium1.hs] == (t_aim)["":31,18-28@Practium1.hs] {};["a type equality [b_aiB] ~ t_aim":31,18-28@Practium1.hs]
+(((list a_aiE) -> a_aiE))["":31,22-25@Practium1.hs] == ((a_aiA -> b_aiB))["":31,22-25@Practium1.hs] {};["a type equality [a_aiE] -> a_aiE ~ a_aiA -> b_aiB":31,22-25@Practium1.hs]
+(t_ail)["":31,27-28@Practium1.hs] == ((list a_aiA))["":31,27-28@Practium1.hs] {};["a type equality t_ail ~ [a_aiA]":31,27-28@Practium1.hs]
+((list b_aiJ))["":34,18-41@Practium1.hs] == ((t_aiK -> t_aiL))["":34,18-41@Practium1.hs] {};["a type equality [b_aiJ] ~ t_aiK -> t_aiL":34,18-41@Practium1.hs]
+(t_aiL)["":34,18-41@Practium1.hs] == (t_aii)["":34,18-41@Practium1.hs] {};["a type equality t_aiL ~ t_aii":34,18-41@Practium1.hs]
+(((list a_aiP) -> Int))["":34,22-27@Practium1.hs] == ((a_aiI -> b_aiJ))["":34,22-27@Practium1.hs] {};["a type equality [a_aiP] -> Int ~ a_aiI -> b_aiJ":34,22-27@Practium1.hs]
+((t_ail -> t_aim))["":34,29-39@Practium1.hs] == ((list a_aiI))["":34,29-39@Practium1.hs] {};["a type equality t_ail -> t_aim ~ [a_aiI]":34,29-39@Practium1.hs]
+(t_aih)["":34,41-41@Practium1.hs] == (t_aiK)["":34,41-41@Practium1.hs] {};["a type equality t_aih ~ t_aiK":34,41-41@Practium1.hs]
+((list a_aiV))["":28,12-30@Practium1.hs] == (t_aiq)["":28,12-30@Practium1.hs] {};["a type equality [a_aiV] ~ t_aiq":28,12-30@Practium1.hs]
+(t_aip)["":28,17-17@Practium1.hs] == (Int)["":28,17-17@Practium1.hs] {};["a type equality t_aip ~ Int":28,17-17@Practium1.hs]
+((list a_aiZ))["":28,20-29@Practium1.hs] == ((list a_aiV))["":28,20-29@Practium1.hs] {};["a type equality [a_aiZ] ~ [a_aiV]":28,20-29@Practium1.hs]
+(Char)["":28,27-29@Practium1.hs] == (a_aiZ)["":28,27-29@Practium1.hs] {};["a type equality Char ~ a_aiZ":28,27-29@Practium1.hs]
+((list t_aj3))["":18,3-25,3@Practium1.hs] == (t_ait)["":18,3-25,3@Practium1.hs] {};["a type equality [t_aj3] ~ t_ait":18,3-25,3@Practium1.hs]
+((list t_aj5))["":18,5-44@Practium1.hs] == (t_aj3)["":18,5-44@Practium1.hs] {};["a type equality [t_aj5] ~ t_aj3":18,5-44@Practium1.hs]
+((list Char))["":18,6-27@Practium1.hs] == (t_aj5)["":18,6-27@Practium1.hs] {};["a type equality [Char] ~ t_aj5":18,6-27@Practium1.hs]
+((list Char))["":18,30-35@Practium1.hs] == (t_aj5)["":18,30-35@Practium1.hs] {};["a type equality [Char] ~ t_aj5":18,30-35@Practium1.hs]
+((list Char))["":18,38-43@Practium1.hs] == (t_aj5)["":18,38-43@Practium1.hs] {};["a type equality [Char] ~ t_aj5":18,38-43@Practium1.hs]
+((list t_aja))["":19,5-56@Practium1.hs] == (t_aj3)["":19,5-56@Practium1.hs] {};["a type equality [t_aja] ~ t_aj3":19,5-56@Practium1.hs]
+((list Char))["":19,6-31@Practium1.hs] == (t_aja)["":19,6-31@Practium1.hs] {};["a type equality [Char] ~ t_aja":19,6-31@Practium1.hs]
+((list Char))["":19,34-44@Practium1.hs] == (t_aja)["":19,34-44@Practium1.hs] {};["a type equality [Char] ~ t_aja":19,34-44@Practium1.hs]
+((list Char))["":19,47-55@Practium1.hs] == (t_aja)["":19,47-55@Practium1.hs] {};["a type equality [Char] ~ t_aja":19,47-55@Practium1.hs]
+((list t_ajf))["":20,5-46@Practium1.hs] == (t_aj3)["":20,5-46@Practium1.hs] {};["a type equality [t_ajf] ~ t_aj3":20,5-46@Practium1.hs]
+((list Char))["":20,6-25@Practium1.hs] == (t_ajf)["":20,6-25@Practium1.hs] {};["a type equality [Char] ~ t_ajf":20,6-25@Practium1.hs]
+((list Char))["":20,28-37@Practium1.hs] == (t_ajf)["":20,28-37@Practium1.hs] {};["a type equality [Char] ~ t_ajf":20,28-37@Practium1.hs]
+((list Char))["":20,40-45@Practium1.hs] == (t_ajf)["":20,40-45@Practium1.hs] {};["a type equality [Char] ~ t_ajf":20,40-45@Practium1.hs]
+((list t_ajk))["":21,5-51@Practium1.hs] == (t_aj3)["":21,5-51@Practium1.hs] {};["a type equality [t_ajk] ~ t_aj3":21,5-51@Practium1.hs]
+((list Char))["":21,6-25@Practium1.hs] == (t_ajk)["":21,6-25@Practium1.hs] {};["a type equality [Char] ~ t_ajk":21,6-25@Practium1.hs]
+((list Char))["":21,28-37@Practium1.hs] == (t_ajk)["":21,28-37@Practium1.hs] {};["a type equality [Char] ~ t_ajk":21,28-37@Practium1.hs]
+((list Char))["":21,40-50@Practium1.hs] == (t_ajk)["":21,40-50@Practium1.hs] {};["a type equality [Char] ~ t_ajk":21,40-50@Practium1.hs]
+((list t_ajp))["":22,5-59@Practium1.hs] == (t_aj3)["":22,5-59@Practium1.hs] {};["a type equality [t_ajp] ~ t_aj3":22,5-59@Practium1.hs]
+((list Char))["":22,6-25@Practium1.hs] == (t_ajp)["":22,6-25@Practium1.hs] {};["a type equality [Char] ~ t_ajp":22,6-25@Practium1.hs]
+((list Char))["":22,28-45@Practium1.hs] == (t_ajp)["":22,28-45@Practium1.hs] {};["a type equality [Char] ~ t_ajp":22,28-45@Practium1.hs]
+((list Char))["":22,48-58@Practium1.hs] == (t_ajp)["":22,48-58@Practium1.hs] {};["a type equality [Char] ~ t_ajp":22,48-58@Practium1.hs]
+((list t_aju))["":23,5-66@Practium1.hs] == (t_aj3)["":23,5-66@Practium1.hs] {};["a type equality [t_aju] ~ t_aj3":23,5-66@Practium1.hs]
+((list Char))["":23,6-32@Practium1.hs] == (t_aju)["":23,6-32@Practium1.hs] {};["a type equality [Char] ~ t_aju":23,6-32@Practium1.hs]
+((list Char))["":23,35-52@Practium1.hs] == (t_aju)["":23,35-52@Practium1.hs] {};["a type equality [Char] ~ t_aju":23,35-52@Practium1.hs]
+((list Char))["":23,55-65@Practium1.hs] == (t_aju)["":23,55-65@Practium1.hs] {};["a type equality [Char] ~ t_aju":23,55-65@Practium1.hs]
+((list t_ajz))["":24,5-63@Practium1.hs] == (t_aj3)["":24,5-63@Practium1.hs] {};["a type equality [t_ajz] ~ t_aj3":24,5-63@Practium1.hs]
+((list Char))["":24,6-40@Practium1.hs] == (t_ajz)["":24,6-40@Practium1.hs] {};["a type equality [Char] ~ t_ajz":24,6-40@Practium1.hs]
+((list Char))["":24,43-50@Practium1.hs] == (t_ajz)["":24,43-50@Practium1.hs] {};["a type equality [Char] ~ t_ajz":24,43-50@Practium1.hs]
+((list Char))["":24,53-62@Practium1.hs] == (t_ajz)["":24,53-62@Practium1.hs] {};["a type equality [Char] ~ t_ajz":24,53-62@Practium1.hs]
+((list t_ajF))["":5,3-14,3@Practium1.hs] == (t_aiv)["":5,3-14,3@Practium1.hs] {};["a type equality [t_ajF] ~ t_aiv":5,3-14,3@Practium1.hs]
+((list t_ajH))["":5,5-40@Practium1.hs] == (t_ajF)["":5,5-40@Practium1.hs] {};["a type equality [t_ajH] ~ t_ajF":5,5-40@Practium1.hs]
+((list Char))["":5,6-15@Practium1.hs] == (t_ajH)["":5,6-15@Practium1.hs] {};["a type equality [Char] ~ t_ajH":5,6-15@Practium1.hs]
+((list Char))["":5,18-39@Practium1.hs] == (t_ajH)["":5,18-39@Practium1.hs] {};["a type equality [Char] ~ t_ajH":5,18-39@Practium1.hs]
+((list t_ajL))["":6,5-42@Practium1.hs] == (t_ajF)["":6,5-42@Practium1.hs] {};["a type equality [t_ajL] ~ t_ajF":6,5-42@Practium1.hs]
+((list Char))["":6,6-13@Practium1.hs] == (t_ajL)["":6,6-13@Practium1.hs] {};["a type equality [Char] ~ t_ajL":6,6-13@Practium1.hs]
+((list Char))["":6,16-41@Practium1.hs] == (t_ajL)["":6,16-41@Practium1.hs] {};["a type equality [Char] ~ t_ajL":6,16-41@Practium1.hs]
+((list t_ajP))["":7,5-33@Practium1.hs] == (t_ajF)["":7,5-33@Practium1.hs] {};["a type equality [t_ajP] ~ t_ajF":7,5-33@Practium1.hs]
+((list Char))["":7,6-10@Practium1.hs] == (t_ajP)["":7,6-10@Practium1.hs] {};["a type equality [Char] ~ t_ajP":7,6-10@Practium1.hs]
+((list Char))["":7,13-32@Practium1.hs] == (t_ajP)["":7,13-32@Practium1.hs] {};["a type equality [Char] ~ t_ajP":7,13-32@Practium1.hs]
+((list t_ajT))["":8,5-33@Practium1.hs] == (t_ajF)["":8,5-33@Practium1.hs] {};["a type equality [t_ajT] ~ t_ajF":8,5-33@Practium1.hs]
+((list Char))["":8,6-10@Practium1.hs] == (t_ajT)["":8,6-10@Practium1.hs] {};["a type equality [Char] ~ t_ajT":8,6-10@Practium1.hs]
+((list Char))["":8,13-32@Practium1.hs] == (t_ajT)["":8,13-32@Practium1.hs] {};["a type equality [Char] ~ t_ajT":8,13-32@Practium1.hs]
+((list t_ajX))["":9,5-34@Practium1.hs] == (t_ajF)["":9,5-34@Practium1.hs] {};["a type equality [t_ajX] ~ t_ajF":9,5-34@Practium1.hs]
+((list Char))["":9,6-11@Practium1.hs] == (t_ajX)["":9,6-11@Practium1.hs] {};["a type equality [Char] ~ t_ajX":9,6-11@Practium1.hs]
+((list Char))["":9,14-33@Practium1.hs] == (t_ajX)["":9,14-33@Practium1.hs] {};["a type equality [Char] ~ t_ajX":9,14-33@Practium1.hs]
+((list t_ak1))["":10,5-38@Practium1.hs] == (t_ajF)["":10,5-38@Practium1.hs] {};["a type equality [t_ak1] ~ t_ajF":10,5-38@Practium1.hs]
+((list Char))["":10,6-15@Practium1.hs] == (t_ak1)["":10,6-15@Practium1.hs] {};["a type equality [Char] ~ t_ak1":10,6-15@Practium1.hs]
+((list Char))["":10,18-37@Practium1.hs] == (t_ak1)["":10,18-37@Practium1.hs] {};["a type equality [Char] ~ t_ak1":10,18-37@Practium1.hs]
+((list t_ak5))["":11,5-46@Practium1.hs] == (t_ajF)["":11,5-46@Practium1.hs] {};["a type equality [t_ak5] ~ t_ajF":11,5-46@Practium1.hs]
+((list Char))["":11,6-16@Practium1.hs] == (t_ak5)["":11,6-16@Practium1.hs] {};["a type equality [Char] ~ t_ak5":11,6-16@Practium1.hs]
+((list Char))["":11,19-45@Practium1.hs] == (t_ak5)["":11,19-45@Practium1.hs] {};["a type equality [Char] ~ t_ak5":11,19-45@Practium1.hs]
+((list t_ak9))["":12,5-54@Practium1.hs] == (t_ajF)["":12,5-54@Practium1.hs] {};["a type equality [t_ak9] ~ t_ajF":12,5-54@Practium1.hs]
+((list Char))["":12,6-16@Practium1.hs] == (t_ak9)["":12,6-16@Practium1.hs] {};["a type equality [Char] ~ t_ak9":12,6-16@Practium1.hs]
+((list Char))["":12,19-53@Practium1.hs] == (t_ak9)["":12,19-53@Practium1.hs] {};["a type equality [Char] ~ t_ak9":12,19-53@Practium1.hs]
+((list t_akd))["":13,5-48@Practium1.hs] == (t_ajF)["":13,5-48@Practium1.hs] {};["a type equality [t_akd] ~ t_ajF":13,5-48@Practium1.hs]
+((list Char))["":13,6-10@Practium1.hs] == (t_akd)["":13,6-10@Practium1.hs] {};["a type equality [Char] ~ t_akd":13,6-10@Practium1.hs]
+((list Char))["":13,13-47@Practium1.hs] == (t_akd)["":13,13-47@Practium1.hs] {};["a type equality [Char] ~ t_akd":13,13-47@Practium1.hs]

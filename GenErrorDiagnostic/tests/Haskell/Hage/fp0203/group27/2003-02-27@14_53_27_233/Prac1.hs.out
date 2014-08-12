@@ -1,0 +1,10 @@
+Maybe is up to date
+List is up to date
+Compiling ./group27/2003-02-27@14:53:27:233/Prac1.hs
+(143,6): Warning: Variable "x" is not used
+(129,23): Type error in variable
+ expression       : gelijk2
+   type           : [String] -> [String] -> String
+   expected type  : [String] -> [String] -> Int   
+
+Compilation failed with 1 error
