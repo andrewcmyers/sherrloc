@@ -1,0 +1,10 @@
+Maybe is up to date
+List is up to date
+Compiling ./group2/2003-03-10@11:35:14:888/Practicum2.hs
+(82,36): Type error in application
+ expression       : Niet proplijst
+ term             : Niet
+   type           : Prop   -> Prop  
+   does not match : [Prop] -> [Prop]
+
+Compilation failed with 1 error

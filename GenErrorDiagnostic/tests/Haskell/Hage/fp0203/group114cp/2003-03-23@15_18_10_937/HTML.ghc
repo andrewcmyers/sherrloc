@@ -1,0 +1,8 @@
+
+HTML.hs:51:37:
+    Couldn't match type `Char' with `[Char]'
+    Expected type: Doc
+      Actual type: String
+    In the return type of a call of `unwords'
+    In the second argument of `(<|>)', namely `unwords attributen'
+    In the expression: tekst " " <|> unwords attributen

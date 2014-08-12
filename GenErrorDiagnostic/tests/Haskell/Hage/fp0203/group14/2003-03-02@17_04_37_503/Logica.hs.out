@@ -1,0 +1,9 @@
+Compiling ./group14/2003-03-02@17:04:37:503/Logica.hs
+(66,25): Type error in application
+ expression       : evalueer (Var prop)
+ term             : evalueer
+   type           : Prop -> Bedeling -> Bool
+   does not match : Prop -> Bool            
+ probable fix     : insert a second argument
+
+Compilation failed with 1 error
