@@ -11,6 +11,8 @@ import sherrloc.constraint.analysis.PathFinder;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.Inequality;
+import sherrloc.constraint.ast.JoinElement;
+import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Relation;
 
 /**
@@ -118,26 +120,30 @@ public class ConstraintPath {
 			return false;
 
 		// we'd like to eliminate apparent dependencies on the satisfiability of paths
-		// 1. An path using unsat path is not informative
+		// 1. Any path that uses unsat path is not informative
 		// 2. If the hypothesis *derives* A->B and B->C, the path from A->C is ignored
 		Stack<Element> leqElements = new Stack<Element>();
 		Stack<EdgeCondition> conditions = new Stack<EdgeCondition>();
 		int length = 0;
+		int nestedDummy = 0;
 		Element first = getFirstElement();
 		leqElements.push(first);
 
 		for (int k = 0; k < edges.size(); k++) {
 			Edge edge = edges.get(k);
 			Element eto = edge.to.getElement();
-			boolean needCmp = !eto.trivialEnd();
+			boolean needCmp = !eto.trivialEnd() && !(eto instanceof MeetElement)
+					&& !(eto instanceof JoinElement);
 			
 			if (edge instanceof DummyEdge) {
 				boolean isLeft = ((DummyEdge) edge).isLeft;				
 				if (isLeft) {
 					leqElements.push(eto);
+					nestedDummy ++;
 				}
 				else {
 					leqElements.pop();
+					nestedDummy --;
 				}
 				continue;
 			}
@@ -155,7 +161,8 @@ public class ConstraintPath {
 				}
 			}
 			if (needCmp) {
-				if (conditions.size() == 0 && !eto.hasVars()) {
+				if (conditions.size() == 0 
+						&& nestedDummy==0 && !eto.hasVars()) {
 					if (length > 0)
 						return false;
 					else
@@ -181,6 +188,11 @@ public class ConstraintPath {
 	public boolean isSatPath() {
 		if (edges.size() == 0)
 			return false;
+		
+		for (Edge e : edges) {
+			if (e instanceof DummyEdge)
+				return false;
+		}
 
 		return assumption.leq(getFirst().getElement(), getLast().getElement());
 	}

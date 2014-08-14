@@ -553,7 +553,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 		
 		// if node "from" and "to" belong to same constructor, check if this new
 		// link enables a leq relation on the constructor application
-		if (consElements.containsKey(from) || consElements.containsKey(to)) {
+		if (actively_expanding && (consElements.containsKey(from) || consElements.containsKey(to))) {
 			boolean expand = !from.isGray() && !to.isGray() && actively_expanding;
 			if (consElements.containsKey(from) && expand) {	// need to expand both constraint graph and hypothesis graph
 			for (Node cnFrom : consElements.get(from)) {
