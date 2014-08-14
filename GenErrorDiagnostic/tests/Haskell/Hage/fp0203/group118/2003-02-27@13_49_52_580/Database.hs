@@ -31,4 +31,4 @@ megablaat :: Table -> [String]
 megablaat x = map (concat x ++ ["\n"])
 
 -- map should be deleted
--- 31,15-17
+-- 31,15-38
