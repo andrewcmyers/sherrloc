@@ -179,10 +179,28 @@ my @groups= <$topdir/*>;
 
 # clean up all cmo files.
 if (($#ARGV == 0) && ($ARGV[0] eq "clean")) {
-  foreach my $file (@groups) {
-      if ($file =~ /\.trace$/ or $file =~ /\.con$/) {
-          unlink ($file);
-      }
+  foreach my $group (@groups) {
+    if (-d $group) {
+        next if $group eq "." or $group eq "..";
+        my @subdirs = <$group/*>;
+        foreach my $subdir (@subdirs) {
+          chdir $subdir;
+          my @files = <*>;
+          my $file;
+          foreach my $subfile (@files) {
+              if ($subfile =~ /(.*)\.out$/) {
+                  $file = $1;
+                  last;
+              }
+          }
+          open IN, "<$file";
+          my ($prefix) = $file =~ m/(.+)\.hs$/;
+          unlink ("$prefix.con");
+          unlink ("$prefix.trace");
+          unlink ("$prefix.ghc");
+          chdir "../../..";
+       }
+    }
   }
   exit 0;
 }

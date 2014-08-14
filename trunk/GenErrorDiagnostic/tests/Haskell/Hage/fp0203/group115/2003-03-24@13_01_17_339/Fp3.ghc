@@ -1,9 +1,0 @@
-
-Fp3.hs:69:49:
-    Couldn't match type `[Attributen]' with `(String, String)'
-    Expected type: Attributen
-      Actual type: [Attributen]
-    In the return type of a call of `convertAttributes'
-    In the expression: convertAttributes color
-    In the second argument of `DubbelTag', namely
-      `[convertAttributes color]'
