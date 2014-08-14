@@ -158,15 +158,8 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 
 		ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
 
-		if (path.isInformative() && path.isSatPath()) {
-				if (!rec)
-					path.incSuccCounter();
-				// need to replace variable elements to identify more potential
-				// failures
-				if (PASSIVE)
-					expandGraph(e1, e2, l, graph, finder, unsatPaths);
-				return;
-			} else if (path.isUnsatPath()) {
+		if (path.isInformative()) {
+			if (path.isUnsatPath()) {
 				if (isVerbose)
 					System.out.println("Cannot unify "+path.getFirstElement()+" with "+path.getLastElement());
 				if (DEBUG) {
@@ -176,7 +169,16 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				unsatPaths.addUnsatPath(path);
 				path.setCause();
 			}
-		
+			else {
+				if (path.isSatPath()) {
+					if (!rec)
+						path.incSuccCounter();
+				} 
+				if (PASSIVE) {
+					expandGraph(e1, e2, l, graph, finder, unsatPaths);
+				}
+			}
+		}
 	}
 	
 	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
