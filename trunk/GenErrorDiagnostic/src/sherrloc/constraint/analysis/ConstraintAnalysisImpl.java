@@ -63,6 +63,9 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 		ArrayList<Node> startNodes = new ArrayList<Node>();
 		ArrayList<Node> endNodes = new ArrayList<Node>();
 		UnsatPaths unsatPaths = new UnsatPaths();
+		
+		if (isVerbose)
+			System.out.println("graph_size: " + graph.getAllNodes().size());
 
 		// saturate constraint graph
 		PathFinder finder = getPathFinder(graph);
@@ -83,9 +86,6 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 			System.out.println("Total comparison required: "
 					+ startNodes.size() * endNodes.size());
 		}
-
-		if (isVerbose)
-			System.out.println("graph_size: " + graph.getAllNodes().size());
 		
 		if (!isRec) {
 		for (Node node : graph.getAllNodes()) {
