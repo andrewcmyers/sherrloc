@@ -1,0 +1,18 @@
+Compiling ./group47/2003-03-07@14:39:11:195/PL.hs
+(23,78): Type error in infix application
+ expression       : evalueer p bedeling : evalueer (Of ps) bedeling
+ operator         : :
+   type           : a -> [a] -> [a]
+ right operand    : evalueer (Of ps) bedeling
+   type           : Bool
+   does not match : [a] 
+
+(26,79): Type error in infix application
+ expression       : evalueer p bedeling : evalueer (En ps) bedeling
+ operator         : :
+   type           : a -> [a] -> [a]
+ right operand    : evalueer (En ps) bedeling
+   type           : Bool
+   does not match : [a] 
+
+Compilation failed with 2 errors

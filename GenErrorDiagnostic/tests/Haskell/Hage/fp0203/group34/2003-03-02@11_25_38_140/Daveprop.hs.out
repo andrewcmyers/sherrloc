@@ -1,0 +1,11 @@
+Compiling ./group34/2003-03-02@11:25:38:140/Daveprop.hs
+(12,15): Warning: Variable "vartje" is not used
+(14,66): Type error in application
+ expression       : evalueer vartje xs
+ function         : evalueer
+   type           : Prop -> Bedeling -> Bool
+ 1st argument     : vartje
+   type           : String
+   does not match : Prop  
+
+Compilation failed with 1 error
