@@ -1,6 +1,7 @@
 package sherrloc.constraint.analysis;
 
 import java.util.List;
+import java.util.Set;
 
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Edge;
@@ -33,6 +34,16 @@ public interface PathFinder {
 	 * @return True if an LEQ edge can be inferred on the end nodes
 	 */
 	public boolean hasLeqEdge (Node from, Node end);
+	
+	/**
+	 * @return A set of nodes such that an LEQ edge node can be inferred between from and them
+	 */
+	public Set<Node> getFlowsTo (Node from); 
+	
+	/**
+	 * @return A set of nodes such that an LEQ edge node can be inferred between them and to
+	 */
+	public Set<Node> getFlowsFrom (Node to);
 	
 	/**
 	 * @return Length of an LEQ edge inferred on the end nodes

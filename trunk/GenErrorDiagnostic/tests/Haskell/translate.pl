@@ -76,7 +76,7 @@ sub transList {
 		my $parsed = transList ($2); # potentially nested lists
 	 	# match the first ]
 		$parsed =~ m/([^\]]*)\](.*)/;
-		return ("$pre(list $1)$2");	
+		return ("$pre(list ($1))$2");	
 	}
 	else {
 		return $str;

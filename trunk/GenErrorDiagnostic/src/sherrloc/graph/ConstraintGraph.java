@@ -17,7 +17,6 @@ import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.EnumerableElement;
-import sherrloc.constraint.ast.Function;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.JoinElement;
@@ -44,6 +43,7 @@ public class ConstraintGraph extends Graph {
     private boolean generated;                                   		// if the graph has been generated already, just reuse it
     private final boolean PRINT_SRC = false;                     		// print corresponding source code in DOT files
     private Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
+    private Map<Integer, Node> idxToNode = new HashMap<Integer, Node>(); // map from integers to graph nodes
     private int varCounter = 0;
     private boolean isSymmetric=true;
     
@@ -88,7 +88,7 @@ public class ConstraintGraph extends Graph {
     public Node getNode (Element e) {
     	return getNode(e, false);
     }
-    
+        
     /**
 	 * Lookup a node representing element <code>e</code> in graph. Create a
 	 * fresh node if no such node exists
@@ -105,8 +105,20 @@ public class ConstraintGraph extends Graph {
             addNode(n);
             varCounter++;
             eleToNode.put(e, n);
+            idxToNode.put(n.getIndex(), n);
         }
         return eleToNode.get(e);
+    }
+    
+    /**
+	 * Return a node with index idx. Return null if no such node exists
+	 * 
+	 * @param idx
+	 *            Index of a node to be found
+	 * @return The node with index idx. Null if no such node exists
+	 */
+    public Node getNode (int idx) {
+    	return idxToNode.get(idx);
     }
 
 	/**
