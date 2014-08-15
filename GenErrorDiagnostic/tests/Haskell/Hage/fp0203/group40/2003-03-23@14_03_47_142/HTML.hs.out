@@ -1,0 +1,8 @@
+Compiling ./group40/2003-03-23@14:03:47:142/HTML.hs
+(147,46): Type error in variable
+ expression       : ++
+   type           : [a]       -> [a        ] -> [a        ]
+   expected type  : (b, b, b) -> [(b, b, b)] -> [(b, b, b)]
+ probable fix     : use : instead
+
+Compilation failed with 1 error

@@ -1,0 +1,10 @@
+Maybe is up to date
+List is up to date
+Compiling ./group44/2003-02-28@09:38:21:379/FQL2.hs
+(181,43): Type error in constructor
+ expression       : :
+   type           : a          -> [a]   -> [a]  
+   expected type  : [[String]] -> Table -> Table
+ probable fix     : use ++ instead
+
+Compilation failed with 1 error
