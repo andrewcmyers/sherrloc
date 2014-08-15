@@ -1,0 +1,10 @@
+Compiling ./group32/2003-03-25@14:10:55:123/JeffHTML.hs
+(96,49): Type error in application
+ expression       : Dtag ("TITLE", []) hoofd "/TITLE"
+ function         : Dtag
+   type           : (String, [Attrib]) -> [HTML] -> String -> HTML
+ 2nd argument     : hoofd
+   type           : String
+   does not match : [HTML]
+
+Compilation failed with 1 error

@@ -1,0 +1,13 @@
+Maybe is up to date
+List is up to date
+Compiling ./group36/2003-02-20@11:41:24:927/Fql.hs
+(39,19): Type error in application
+ expression       : maximum map length strings
+ term             : maximum
+   type           : [Int]                   
+                    -> Int                            
+   does not match : ((a -> b) -> [a] -> [b])
+                    -> ([c] -> Int) -> [String] -> Int
+ because          : too many arguments are given
+
+Compilation failed with 1 error
