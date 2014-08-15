@@ -226,18 +226,13 @@ foreach my $group (@groups) {
             }
         }
         open IN, "<$file";
-        my $noOra = 0;
-        while (<IN>) {
-                if (/No oracle given./) {
-                        $noOra = 1;
-                }
-        }
-        close IN;
-        # skip the files without oracle 
-        if ($noOra) {
-                next;
-        }
         my ($prefix) = $file =~ m/(.+)\.hs$/;
+        # skip already tested files
+        if (-e "$prefix.con") {
+            close IN;
+            chdir "../../..";
+            next;
+        }
         print (substr $group, 0, $prettylen);
         print ":";
         print ' ' x ($filename_length-length($file));
