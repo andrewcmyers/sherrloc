@@ -170,7 +170,7 @@ public class ConstraintPath {
 				}
 
 				if (!leqElements.empty()
-						&& !assumption.leq(leqElements.peek(), eto)
+						&& !assumption.satisfiable(leqElements.peek(), eto)
 						&& !(leqElements.peek().equals(getFirstElement()) && eto.equals(getLastElement())))
 					return false;
 				else if (!eto.hasVars()){
@@ -183,9 +183,9 @@ public class ConstraintPath {
 	}
 	
 	/**
-	 * @return True if the relation on end nodes start <= end is satisfiable
+	 * @return True if the relation on end nodes start <= end is derivable
 	 */
-	public boolean isSatPath() {
+	public boolean isValidPath() {
 		if (edges.size() == 0)
 			return false;
 		
@@ -196,6 +196,16 @@ public class ConstraintPath {
 
 		return assumption.leq(getFirst().getElement(), getLast().getElement());
 	}
+	
+	/**
+	 * @return True if the relation on end nodes start <= end is satisfiable
+	 */
+	public boolean isSatPath() {
+		if (edges.size() == 0)
+			return false;
+
+		return assumption.satisfiable(getFirstElement(), getLastElement());
+	}
 
 	/**
 	 * @return True if the relation on end nodes start <= end is not provable
@@ -204,7 +214,7 @@ public class ConstraintPath {
 		if (edges.size() == 0)
 			return false;
 
-		return !assumption.leq(getFirst().getElement(), getLast().getElement());
+		return !isSatPath();
 	}
 
 	/**

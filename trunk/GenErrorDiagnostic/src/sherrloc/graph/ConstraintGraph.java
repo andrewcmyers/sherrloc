@@ -167,6 +167,15 @@ public class ConstraintGraph extends Graph {
 	public void addRules(List<Axiom> lst) {
 		rules.addAll(lst);
 	}
+	
+	/**
+	 * Add a one implication rule
+	 * 
+	 * @param lst A list of implication rules to be added
+	 */
+	public void addOneRule(Axiom a) {
+		rules.add(a);
+	}
     
     /**
      * @return A list of implication rules
