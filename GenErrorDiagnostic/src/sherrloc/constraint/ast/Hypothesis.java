@@ -26,7 +26,6 @@ public class Hypothesis {
 	private Hypothesis parent = null; 	// used to reduce shared environments
 										// (e.g., to store global assumptions)
 	private boolean USE_GRAPH = true;	// set true to use hypothesis graph to infer provable relations
-	private Set<Function> functions;
 
 	/**
 	 * Construct an empty hypothesis
@@ -42,7 +41,6 @@ public class Hypothesis {
 		assertions = new HashSet<Inequality>();
 		this.axioms = axioms;
 		elmts = new HashSet<Element>();
-		functions = new HashSet<Function>();
 	}
 
 	/**
@@ -105,16 +103,6 @@ public class Hypothesis {
 		}
 	}
 	
-	/**
-	 * Add all functions to the environment
-	 * 
-	 * @param functions
-	 *            A set of functions
-	 */
-	public void addFunctions (Collection<Function> functions) {
-		this.functions.addAll(functions);
-	}
-
 	/**
 	 * Return a fresh hypothesis where an inequality <code>e1 <= e2</code> is
 	 * added to the current hypothesis
@@ -313,20 +301,6 @@ public class Hypothesis {
 			return ret;
 		}
 	}
-	
-	/**
-	 * @return All functions in the hypothesis
-	 */
-	public Set<Function> getFunctions() {
-		if (parent == null)
-			return functions;
-		else {
-			Set<Function> ret = new HashSet<Function>();
-			ret.addAll(functions);
-			ret.addAll(parent.getFunctions());
-			return ret;
-		}
-	}
 
 	/**
 	 * Saturate a hypothesis graph to test if <code>e1<=e2</code> can be
@@ -339,8 +313,6 @@ public class Hypothesis {
 	 * @return True if <code>e1 <= e2</code> can be inferred from the hypothesis
 	 */
 	private boolean leqApplyAssertions(Element e1, Element e2) {
-
-		Set<Function> funcs = getFunctions();
 		if (finder == null) {
 			graph = new ConstraintGraph (null, getAxioms());
 			for (Inequality c : getInequalities()) {
@@ -350,33 +322,6 @@ public class Hypothesis {
 				for (Element e : getElements()) {
 					graph.getNode(e); // create new node when necessary
 				}
-				// create function applications infer more relations
-//				for (Function f : funcs) {
-//					if (f.getArity() == 1) {
-//						for (Element e : getElements()) {
-//							if (! (e instanceof FunctionApplication)) {
-//								List<Element> lst = new ArrayList<Element>();
-//								lst.add(e);
-//								graph.getNode(new FunctionApplication(f, lst));
-//							}
-//						}
-//					}
-//					else if (f.getArity() == 2) {
-//						for (Element ele1 : getElements()) {
-//							for (Element ele2 : getElements()) {
-//							if (!(ele1 instanceof FunctionApplication) && !(ele2 instanceof FunctionApplication)) {							
-//								List<Element> lst = new ArrayList<Element>();
-//								lst.add(ele1);
-//								lst.add(ele2);
-//								graph.getNode(new FunctionApplication(f, lst));
-//							}
-//						}
-//						}
-//					}
-//					else {
-//						System.out.println("Warning: maynot handle functions with more than 2 parameters correctly");
-//					}
-//				}
 			}
 			graph.generateGraph();
 			finder = new ShortestPathFinder(graph, false, true);
@@ -399,20 +344,29 @@ public class Hypothesis {
 					return true;
 			}
 		}
+		return false;
+	}
+	
+	/**
+	 * Since we are actually testing the satisfiability of the relation e1
+	 * <= e2, it is possible that the relation is satisfiable, though the
+	 * relation is not derivable from the hypotheses. For instance, consider
+	 * type-class constraints: list x <= Ord, with hypothesis \forall a . a
+	 * <= Ord; => (list a) <= Ord and Int <= Ord;;
+	 * 
+	 * We cannot *derive* that list x <= Ord, since x is a variable. But
+	 * it's apparently satisfiable when x = Int.
+	 * 
+	 * So here, we try to unify e1 and e2 with nodes in the constraint graph
+	 * to test satisfiability
+	 */
+	public boolean satisfiable (Element p1, Element p2) {
+		Element e1 = p1.getBaseElement();
+		Element e2 = p2.getBaseElement();
 		
-		/**
-		 * Since we are actually testing the satisfiability of the relation e1
-		 * <= e2, it is possible that the relation is satisfiable, though the
-		 * relation is not derivable from the hypotheses. For instance, consider
-		 * type-class constraints: list x <= Ord, with hypothesis \forall a . a
-		 * <= Ord; => (list a) <= Ord and Int <= Ord;;
-		 * 
-		 * We cannot *derive* that list x <= Ord, since x is a variable. But
-		 * it's apparently satisfiable when x = Int.
-		 * 
-		 * So here, we try to unify e1 and e2 with nodes in the constraint graph
-		 * to test satisfiability
-		 */
+		if (leq(e1, e2))
+			return true;
+		
 		if (e1.hasVars() || e2.hasVars()) {
 			for (Node n1 : graph.getAllNodes()) {
 				for (Node n2 : graph.getAllNodes()) {
@@ -426,6 +380,7 @@ public class Hypothesis {
 				}
 			}
 		}
+			
 		return false;
 	}
 

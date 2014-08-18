@@ -30,7 +30,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private boolean isVerbose;
 	private boolean isRec;
 	private boolean DEBUG = false;
-	private boolean PASSIVE = true;
+	private boolean PASSIVE = false;
 
 	/** Reuse saturated hypothesis graph when possible */
 	private HashMap<Hypothesis, Hypothesis> cachedEnv;
@@ -173,11 +173,11 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				path.setCause();
 			}
 			else {
-				if (path.isSatPath()) {
+				if (path.isValidPath()) {
 					if (!rec)
 						path.incSuccCounter();
-				} 
-				if (PASSIVE) {
+				}
+				else if (PASSIVE && path.isSatPath()) {
 					expandGraph(e1, e2, l, graph, finder, unsatPaths);
 				}
 			}
