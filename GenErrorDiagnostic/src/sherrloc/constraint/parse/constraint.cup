@@ -86,7 +86,6 @@ cons_spec 	::= declaration
 			:} 
 				SEPERATION assumptions SEPERATION equations:l
 			{: 
-			    env.addFunctions(functions.values());
 			    env.addAxioms(axioms);
 			    RESULT = new DiagnosisInput (env, l, axioms); :}			
 			| 	declaration 
@@ -99,7 +98,6 @@ cons_spec 	::= declaration
 			:} 
 				equations:l
 			{: 
-			    env.addFunctions(functions.values());
 			    env.addAxioms(axioms);
 			    RESULT = new DiagnosisInput (env, l, axioms); :}
 			;
