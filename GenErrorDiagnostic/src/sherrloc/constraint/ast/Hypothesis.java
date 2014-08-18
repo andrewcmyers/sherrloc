@@ -1,7 +1,6 @@
 package sherrloc.constraint.ast;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -21,12 +20,13 @@ public class Hypothesis {
 	private Set<Inequality> assertions;
 	private List<Axiom> axioms;
 	private Set<Element> elmts;			// elements whose relation is of interest
-	private ConstraintGraph graph = null;
-	private PathFinder finder = null;
 	private Hypothesis parent = null; 	// used to reduce shared environments
 										// (e.g., to store global assumptions)
 	private boolean USE_GRAPH = true;	// set true to use hypothesis graph to infer provable relations
-
+	
+	/** Reuse saturated hypothesis graph when possible */
+	private static Map<Hypothesis, PathFinder> saturatedGraphs = new HashMap<Hypothesis, PathFinder>();
+	
 	/**
 	 * Construct an empty hypothesis
 	 */
@@ -313,8 +313,8 @@ public class Hypothesis {
 	 * @return True if <code>e1 <= e2</code> can be inferred from the hypothesis
 	 */
 	private boolean leqApplyAssertions(Element e1, Element e2) {
-		if (finder == null) {
-			graph = new ConstraintGraph (null, getAxioms());
+		if (!saturatedGraphs.containsKey(this)) {
+			ConstraintGraph graph = new ConstraintGraph (null, getAxioms());
 			for (Inequality c : getInequalities()) {
 				graph.addOneInequality(c);
 			}
@@ -324,9 +324,11 @@ public class Hypothesis {
 				}
 			}
 			graph.generateGraph();
-			finder = new ShortestPathFinder(graph, false, true);
+			saturatedGraphs.put(this, new ShortestPathFinder(graph, false, true));
 		}
 
+		PathFinder finder = saturatedGraphs.get(this);
+		ConstraintGraph graph = finder.getGraph();
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 			if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e2)))
 				return true;
@@ -367,6 +369,8 @@ public class Hypothesis {
 		if (leq(e1, e2))
 			return true;
 		
+		PathFinder finder = saturatedGraphs.get(this);
+		ConstraintGraph graph = finder.getGraph();
 		if (e1.hasVars() || e2.hasVars()) {
 			for (Node n1 : graph.getAllNodes()) {
 				for (Node n2 : graph.getAllNodes()) {
@@ -390,9 +394,6 @@ public class Hypothesis {
 		for (Inequality cons : assertions)
 			sb.append(cons.toString() + "; ");
 		sb.append("\n");
-		for (Element ele : graph.getAllElements()) {
-			sb.append(ele.toString() + "; ");
-		}
 		return sb.toString();
 	}
 
