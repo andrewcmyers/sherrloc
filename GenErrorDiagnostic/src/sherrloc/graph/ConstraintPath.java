@@ -33,8 +33,7 @@ public class ConstraintPath {
 	 * @param cachedEnv
 	 *            Saturated hypothesis graphs for better performance
 	 */
-	public ConstraintPath(List<Edge> edges, PathFinder finder,
-			Hypothesis globalEnv, HashMap<Hypothesis, Hypothesis> cachedEnv) {
+	public ConstraintPath(List<Edge> edges, PathFinder finder, Hypothesis globalEnv) {
 		this.edges = edges;
 		assumption = new Hypothesis();
 		assumption.addEnv(globalEnv);
@@ -43,7 +42,6 @@ public class ConstraintPath {
 			for (Inequality ieq : edge.getHypothesis())
 				assumption.addInequality(ieq);
 		}
-		assumption = getEnv_(cachedEnv);
 		this.finder = finder;
 	}
 	
@@ -340,17 +338,5 @@ public class ConstraintPath {
 		}
 		ret += "----End of one path----\n";
 		return ret;
-	}
-	
-	/**
-	 * Reuse saturated hypothesis graph when possible
-	 */
-	private Hypothesis getEnv_(HashMap<Hypothesis, Hypothesis> cachedEnv) {
-		if (cachedEnv.containsKey(assumption))
-			return cachedEnv.get(assumption);
-		else {
-			cachedEnv.put(assumption, assumption);
-			return assumption;
-		}
 	}
 }

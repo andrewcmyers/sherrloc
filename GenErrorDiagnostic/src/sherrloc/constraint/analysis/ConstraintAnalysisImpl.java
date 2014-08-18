@@ -30,10 +30,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private boolean isVerbose;
 	private boolean isRec;
 	private boolean DEBUG = false;
-	private boolean PASSIVE = false;
-
-	/** Reuse saturated hypothesis graph when possible */
-	private HashMap<Hypothesis, Hypothesis> cachedEnv;
+	private boolean PASSIVE = true;
 
 	/**
 	 * @param isSym
@@ -48,7 +45,6 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 		this.isSym = isSym;
 		this.isVerbose = isVerbose;
 		this.isRec = isRec;
-		cachedEnv = new HashMap<Hypothesis, Hypothesis>();
 	}
 
 	/**
@@ -96,8 +92,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 			if (finder.hasLeftEdge(node, node)) {
 				List<List<Edge>> paths = finder.getLeftPaths(node, node);
 				for (List<Edge> l : paths) {
-					ConstraintPath path = new ConstraintPath(l, finder,
-							graph.getEnv(), cachedEnv);
+					ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
 					unsatPaths.addUnsatPath(path);
 					if (DEBUG) {
 						System.out.println("****** Infinite path ******");
@@ -116,7 +111,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 								List<Edge> lst = new ArrayList<Edge>();
 								lst.addAll(l1);
 								lst.addAll(l2);
-								ConstraintPath path = new ConstraintPath(lst, finder, graph.getEnv(), cachedEnv);
+								ConstraintPath path = new ConstraintPath(lst, finder, graph.getEnv());
 								unsatPaths.addUnsatPath(path);
 								if (DEBUG) {
 									System.out.println("****** Infinite path ******");
@@ -159,7 +154,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 		if (e1.isBottom() || e2.isTop())
 			return;
 
-		ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv(), cachedEnv);
+		ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
 
 		if (path.isInformative()) {
 			if (path.isUnsatPath()) {
