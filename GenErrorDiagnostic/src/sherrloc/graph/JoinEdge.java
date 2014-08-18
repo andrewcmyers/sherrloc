@@ -44,4 +44,17 @@ public class JoinEdge extends Edge {
 	public Edge getReverse() {
 		return new JoinEdge(to, from);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof JoinEdge) {
+			return super.equals(obj);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode()+67733;
+	}
 }

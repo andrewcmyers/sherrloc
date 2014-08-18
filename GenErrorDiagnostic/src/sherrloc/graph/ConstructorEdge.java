@@ -48,14 +48,16 @@ public class ConstructorEdge extends Edge {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof ConstructorEdge)
-			return condition.equals(((ConstructorEdge)obj).getCondition());
-		return super.equals(obj);
+		if (obj instanceof ConstructorEdge) {
+			return condition.equals(((ConstructorEdge)obj).getCondition())
+					&& super.equals(obj);
+		}
+		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return condition.hashCode();
+		return super.hashCode()*7 + condition.hashCode();
 	}
 	
 	@Override

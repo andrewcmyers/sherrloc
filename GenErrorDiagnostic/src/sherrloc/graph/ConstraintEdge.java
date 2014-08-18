@@ -40,14 +40,16 @@ public class ConstraintEdge extends Edge {
     
     @Override
     public boolean equals(Object obj) {
-    	if (obj instanceof ConstraintEdge)
-    		return equ.equals(((ConstraintEdge) obj).getConstraint());
+    	if (obj instanceof ConstraintEdge) {
+    		return equ.equals(((ConstraintEdge) obj).getConstraint())
+    				&& super.equals(obj);
+    	}
     	return false;
     }
     
     @Override
     public int hashCode() {
-    	return equ.hashCode();
+    	return super.hashCode() * 29 + equ.hashCode();
     }
     
     @Override

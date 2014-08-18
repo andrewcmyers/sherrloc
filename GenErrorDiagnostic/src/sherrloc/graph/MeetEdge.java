@@ -44,4 +44,17 @@ public class MeetEdge extends Edge {
 	public Edge getReverse() {
 		return new MeetEdge(to, from);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof MeetEdge) {
+			return super.equals(obj);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode() + 21737;
+	}
 }
