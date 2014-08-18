@@ -104,7 +104,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	/**
 	 * initialize the lookup tables
 	 */
-	private void initTables() {
+	public void initTables() {
 		for (Node n : g.getAllNodes()) {
 			Element element = n.getElement();
 			if (element instanceof JoinElement) {
@@ -316,16 +316,16 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * "Formal-language-constrained path problems". We also handle contravariant
 	 * parameters, "meet" and "join" when id edges are inferred
 	 */
-	protected void saturation() {
+	public void saturation() {
 		Set<Node> allNodes = g.getAllNodes();
 		
+		/* try to apply axioms */
+		for (Axiom rule : g.getRules())
+			applyAxiom(rule);
+		
 		int current_length = 0;
-//		int count = 1;
-//		long startTime = System.currentTimeMillis();
 		while (!queue.isEmpty()) {	
 			ReductionEdge edge = queue.poll();
-//			System.out.println(count++);
-//			startTime = System.currentTimeMillis();
 			
 			if (edge instanceof LeqEdge)
 				tryAddingExtraEdges ((LeqEdge)edge);
@@ -337,10 +337,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 			Node from = edge.getFrom();
 			Node to = edge.getTo();
 				
-			for (Node iNode : allNodes) {
-//				if (iNode.equals(from) || iNode.equals(to))
-//					continue;
-				
+			for (Node iNode : allNodes) {				
 				// first, use the reduction edge as the left part of a reduction rule
 				if (edge instanceof LeqEdge) { 
 					// LEQ = LEQ LEQ
@@ -456,13 +453,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 	 * Try to apply axioms that might utilized the newly added LeqEdge edge to
 	 * infer new edges in the graph
 	 */
-	private void applyAxioms (LeqEdge edge) {
-		for (Axiom rule : g.getRules()) {
-			if (!rule.mayMatch(edge))
-				continue;
-			List<PremiseMatch> pmatches = rule.findMatchesInPremise(this);
+	private void applyAxiom (Axiom rule) {
+		List<PremiseMatch> pmatches = rule.findMatchesInPremise(this);
 			
-			for (PremiseMatch pmatch : pmatches) {
+		for (PremiseMatch pmatch : pmatches) {
 			// apply all substitutions along the unification to conclusion
 			for (Inequality ieq : rule.getConclusion()) {
 				Element e1 = ieq.getFirstElement().subst(pmatch.map);
@@ -486,7 +480,6 @@ public class ShortestPathFinder extends CFLPathFinder {
 						inferEdge(em.n2, em.n1, LeqCondition.getInstance(), pmatch.size, pmatch.evidences, true);
 				}
 			}
-			}
 		}
 	}
 	
@@ -498,7 +491,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 		Node from = edge.getFrom();
 		Node to = edge.getTo();
 		
-		applyAxioms(edge);
+		for (Axiom rule : g.getRules()) {
+			if (rule.mayMatch(edge))
+				applyAxiom(rule);
+		}
 		
 		// if node "to" is an element of a meet label, add an leq edge from node
 		// "from" to the meet element if it flows into all components

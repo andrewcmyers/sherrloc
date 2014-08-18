@@ -188,8 +188,8 @@ public class ConstraintGraph extends Graph {
 	 * Generate a constraint graph from constraints
 	 */
     public void generateGraph ( ) {
-        if (generated)
-            return;
+//        if (generated)
+//            return;
 		
         /**
          * generate extra nodes and edges for constructors, join and meet elements
