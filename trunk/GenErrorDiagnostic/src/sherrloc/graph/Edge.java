@@ -70,4 +70,17 @@ abstract public class Edge {
 	 * @return Reversed edge
 	 */
 	abstract public Edge getReverse();
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Edge)
+			return super.equals(from.equals(((Edge) obj).from) 
+					&& to.equals(((Edge) obj).to));
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return from.hashCode() * 1723 + to.hashCode();
+	}
 }
