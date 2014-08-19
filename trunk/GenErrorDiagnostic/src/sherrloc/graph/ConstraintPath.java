@@ -37,7 +37,6 @@ public class ConstraintPath {
 		this.edges = edges;
 		assumption = new Hypothesis();
 		assumption.addEnv(globalEnv);
-		assumption.addElements(globalEnv.getElements());
 		for (Edge edge : edges) {
 			for (Inequality ieq : edge.getHypothesis())
 				assumption.addInequality(ieq);

@@ -580,31 +580,34 @@ public class ShortestPathFinder extends CFLPathFinder {
 			for (Node cnFrom : consElements.get(from)) {
 				if (!cnFrom.isGray()) {
 					Application app = (Application) cnFrom.getElement();
-					Element newto = app.replace(from.getElement(), to.getElement());
-					if (!g.hasElement(newto)) {
-						Node newnode = g.getNode(newto, true);
-						if (g.getEnv()!=null)
-							g.getEnv().addElement(newto);
-						if (!consElements.containsKey(to))
-							consElements.put(to, new ArrayList<Node>());
-						consElements.get(to).add(newnode);
-					}
+					// replacement is not exclusive. For example,
+					// '(String,String)'.replace('String', 'Name') = '(Name,Name)'. 
+					// But we should also add '(String,Name)' and '(Name,String)' to the graph
+					List<Application> newtos = app.replace(from.getElement(), to.getElement());
+					for (Application newto : newtos) {
+						if (!g.hasElement(newto)) {
+							Node newnode = g.getNode(newto, true);
+							if (!consElements.containsKey(to))
+								consElements.put(to, new ArrayList<Node>());
+								consElements.get(to).add(newnode);
+							}
+						}
 					
+					}
 				}
-			}
 			}
 			if (consElements.containsKey(to) && expand) {     // need to expand both constraint graph and hypothesis graph
 			for (Node cnTo : consElements.get(to)) {
 				if (!cnTo.isGray()) {
 					Application app = (Application) cnTo.getElement();
-					Element newfrom = app.replace(to.getElement(), from.getElement());
-					if (!g.hasElement(newfrom)) {
-						Node newnode = g.getNode(newfrom, true);
-						if (g.getEnv()!=null)
-							g.getEnv().addElement(newfrom);
-						if (!consElements.containsKey(from))
-							consElements.put(from, new ArrayList<Node>());
-						consElements.get(from).add(newnode);
+					List<Application> newfroms = app.replace(to.getElement(), from.getElement());
+					for (Application newfrom : newfroms) {
+						if (!g.hasElement(newfrom)) {
+							Node newnode = g.getNode(newfrom, true);
+							if (!consElements.containsKey(from))
+								consElements.put(from, new ArrayList<Node>());
+							consElements.get(from).add(newnode);
+						}
 					}
 				}
 			}

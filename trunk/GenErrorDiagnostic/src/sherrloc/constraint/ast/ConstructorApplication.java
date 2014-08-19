@@ -145,18 +145,13 @@ public class ConstructorApplication extends Application {
 	}
 	
 	@Override
-	public Application replace(Element e1, Element e2) {
-		List<Element> eles =  new ArrayList<Element>();
-		for (Element e : elements) {
-			if (e.equals(e1))
-				eles.add(e2);
-			else if (e instanceof Application) {
-				Application app = (Application) e;
-				eles.add(app.replace(e1, e2));
-			}
-			else
-				eles.add(e);
+	public List<Application> replace(Element e1, Element e2) {
+		List<List<Element>> replacements =  new ArrayList<List<Element>>();
+		List<Application> ret = new ArrayList<Application>();
+		_replace(elements, 0, e1, e2, replacements);
+		for (List<Element> lst : replacements) {
+			ret.add(new ConstructorApplication(cons, lst));
 		}
-		return new ConstructorApplication(cons, eles) ;
+		return ret;
 	}
 }
