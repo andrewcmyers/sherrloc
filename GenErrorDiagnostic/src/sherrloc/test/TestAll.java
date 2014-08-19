@@ -103,6 +103,7 @@ public class TestAll {
 		testAssumptions("tests/jif/varconstructor.con", "- INT <= BOOL;\n");
 		testAssumptions("tests/jif/consofvar.con", "- CON2 (x2) <= INT;\n");
 		testAssumptions("tests/jif/consofvar2.con", "- list (list (BOOL)) <= Ord;\n");
+		testErrorPaths("tests/jif/consofvar3.con", false);
 		testAssumptions("tests/jif/axiom.con", "- A1 <= E;\n");
 		testAssumptions("tests/jif/axiom2.con", "- list (A) <= C;\n" ); 		
 		testAssumptions("tests/jif/axiom3.con", "- Bool <= Char;Bool <= Collects2;Char <= Bool;Char <= Collects2;\n");		
