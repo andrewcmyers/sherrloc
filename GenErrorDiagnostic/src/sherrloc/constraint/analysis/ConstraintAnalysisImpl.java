@@ -1,15 +1,14 @@
 package sherrloc.constraint.analysis;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import sherrloc.constraint.ast.Application;
 import sherrloc.constraint.ast.Constructor;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Function;
-import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Variable;
@@ -180,7 +179,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	}
 	
 	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
-		if ((e1.hasVars() || e2.hasVars()) && e1 instanceof ConstructorApplication && (e2 instanceof Constructor || e2 instanceof Function)) {
+		if (e1.hasVars() && e1 instanceof ConstructorApplication && (e2 instanceof Constructor || e2 instanceof Function)) {
 			ConstructorApplication app1 = (ConstructorApplication) e1;
 			if (app1.getCons().equals(e2))
 				return;
@@ -193,19 +192,16 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				else
 					replacements = finder.getFlowsFrom(varnode);
 				for (Node n : replacements) {
-					Element newfrom = app1.replace(var, n.getElement());
-					if (!graph.hasElement(newfrom)) {
-						List<Edge> edgessofar = new ArrayList<Edge>();
-						graph.getEnv().addElement(newfrom);
-						edgessofar.add(new DummyEdge(
-								graph.getNode(newfrom), graph.getNode(e1), true));
-						edgessofar.addAll(l);
-						edgessofar.add(new DummyEdge(n, graph.getNode(e2), false));
-						edgessofar.add(new DummyEdge(graph.getNode(e2), varnode, true));
-						edgessofar.addAll(finder.getPath(varnode, n));
-						edgessofar.add(new DummyEdge(n, graph.getNode(e2), true));
-						testConsistency(newfrom, e2, edgessofar, graph,
-								finder, unsatPaths, true);
+					List<Application> newfroms = app1.replace(var, n.getElement());
+					for (Application newfrom : newfroms) {
+						if (!graph.hasElement(newfrom)) {
+							List<Edge> edgessofar = new ArrayList<Edge>();
+							edgessofar.add(new DummyEdge(graph.getNode(newfrom), n, true));
+							edgessofar.addAll(finder.getPath(n, varnode));
+							edgessofar.add(new DummyEdge(varnode, graph.getNode(e1), false));						
+							edgessofar.addAll(l);
+							testConsistency(newfrom, e2, edgessofar, graph, finder, unsatPaths, true);
+						}
 					}
 				}
 			}
