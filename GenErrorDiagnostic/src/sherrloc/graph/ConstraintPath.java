@@ -33,7 +33,7 @@ public class ConstraintPath {
 	 * @param cachedEnv
 	 *            Saturated hypothesis graphs for better performance
 	 */
-	public ConstraintPath(List<Edge> edges, PathFinder finder,Hypothesis globalEnv) {
+	public ConstraintPath(List<Edge> edges, PathFinder finder, Hypothesis globalEnv) {
 		this.edges = edges;
 		assumption = new Hypothesis();
 		assumption.addEnv(globalEnv);
