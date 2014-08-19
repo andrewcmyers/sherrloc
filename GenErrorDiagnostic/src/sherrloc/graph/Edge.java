@@ -74,8 +74,8 @@ abstract public class Edge {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Edge)
-			return super.equals(from.equals(((Edge) obj).from) 
-					&& to.equals(((Edge) obj).to));
+			return from.equals(((Edge) obj).from) 
+					&& to.equals(((Edge) obj).to);
 		return false;
 	}
 	

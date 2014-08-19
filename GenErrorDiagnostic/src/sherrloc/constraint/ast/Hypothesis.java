@@ -25,7 +25,7 @@ public class Hypothesis {
 	private boolean USE_GRAPH = true;	// set true to use hypothesis graph to infer provable relations
 	
 	/** Reuse saturated hypothesis graph when possible */
-	private static Map<Hypothesis, ShortestPathFinder> saturatedGraphs = new HashMap<Hypothesis, ShortestPathFinder>();
+	private static Map<Hypothesis, PathFinder> saturatedGraphs = new HashMap<Hypothesis, PathFinder>();
 	
 	/**
 	 * Construct an empty hypothesis
@@ -73,19 +73,6 @@ public class Hypothesis {
 	public void addElements (Set<Element> elements) {
 		for (Element ele : elements) {
 			addElement(ele);
-		}
-		if (saturatedGraphs.containsKey(this)) {
-			ShortestPathFinder finder = saturatedGraphs.get(this);
-			ConstraintGraph graph = finder.getGraph();
-			for (Element e : getElements()) {
-				graph.getNode(e); // create new node when necessary
-			}
-			graph.generateGraph();
-			finder.initTables();
-			finder.initialize();
-			System.out.println("before saturation");
-			finder.saturation();
-			System.out.println("after saturation");
 		}
 	}
 	
@@ -326,11 +313,8 @@ public class Hypothesis {
 	 * @return True if <code>e1 <= e2</code> can be inferred from the hypothesis
 	 */
 	private boolean leqApplyAssertions(Element e1, Element e2) {
-		ConstraintGraph graph;
-		ShortestPathFinder finder;
-		
 		if (!saturatedGraphs.containsKey(this)) {
-			graph = new ConstraintGraph (null, getAxioms());
+			ConstraintGraph graph = new ConstraintGraph (null, getAxioms());
 			for (Inequality c : getInequalities()) {
 				graph.addOneInequality(c);
 			}
@@ -340,14 +324,11 @@ public class Hypothesis {
 				}
 			}
 			graph.generateGraph();
-			finder = new ShortestPathFinder(graph, false, true);
-			saturatedGraphs.put(this, finder);
+			saturatedGraphs.put(this, new ShortestPathFinder(graph, false, true));
 		}
-		else {
-			finder = saturatedGraphs.get(this);
-			graph = finder.getGraph();
-		}
-		
+
+		PathFinder finder = saturatedGraphs.get(this);
+		ConstraintGraph graph = finder.getGraph();
 		if (graph.hasElement(e1) && graph.hasElement(e2)) {
 			if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e2)))
 				return true;
@@ -421,9 +402,9 @@ public class Hypothesis {
 		if (obj instanceof Hypothesis) {
 			Hypothesis other = (Hypothesis) obj;
 			if (parent != null && other.parent != null)
-				return parent.equals(other.parent) && assertions.equals(other.assertions) && axioms.equals(other.axioms);
+				return parent.equals(other.parent) && assertions.equals(other.assertions);
 			else if (parent == null && other.parent == null ) {
-				return assertions.equals(other.assertions) && axioms.equals(other.axioms);
+				return assertions.equals(other.assertions);
 			}
 		}
 		return true;
@@ -434,7 +415,7 @@ public class Hypothesis {
 		if (parent == null)
 			return assertions.hashCode();
 		else
-			return parent.hashCode() * 511 + assertions.hashCode() * 17 + axioms.hashCode();
+			return parent.hashCode() * 511 + assertions.hashCode();
 	}
 
 }
