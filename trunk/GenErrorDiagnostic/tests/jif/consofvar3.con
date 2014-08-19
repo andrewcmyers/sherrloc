@@ -1,0 +1,22 @@
+VARIABLE x
+VARIABLE y
+VARIABLE z
+VARIABLE w
+VARIABLE u
+FUNCTION Requirement 0
+FUNCTION Name 0
+FUNCTION String 0
+CONSTRUCTOR Ord 0
+
+%%
+Requirement == (String, String);
+String == (list Char);
+Name == String;
+
+%%
+(x, y) == Requirement;
+x == z;
+z == String;
+y == w;
+w == Name; 
+u <= Ord;
