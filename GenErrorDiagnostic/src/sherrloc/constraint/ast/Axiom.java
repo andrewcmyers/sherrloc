@@ -209,7 +209,7 @@ public class Axiom {
 
 		if (!e.hasQVars()) {
 			for (Node node : g.getAllNodes()) {
-				if (node.getElement().getBaseElement().equals(e.getBaseElement()))
+				if (node.getElement().getBaseElement().equals(e))
 					ret.add(new NodeMatch(node,m));
 			}
 		} else {
