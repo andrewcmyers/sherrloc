@@ -12,6 +12,8 @@ import sherrloc.graph.Variance;
  */
 public class ConstructorApplication extends Application {
 	private final Constructor cons;
+	private ConstructorApplication baseelem = null;
+	private boolean bot, top;
 	
 	/**
 	 * @param cons A constructor
@@ -20,6 +22,8 @@ public class ConstructorApplication extends Application {
 	public ConstructorApplication(Constructor cons, List<Element> elements) {
 		super("", elements);
 		this.cons = cons;
+		this.top = _isTop();
+		this.bot = _isBottom();
 	}
 	
 	/**
@@ -67,6 +71,10 @@ public class ConstructorApplication extends Application {
 	 */
 	@Override
 	public boolean isTop() {
+		return top;
+	}
+	
+	public boolean _isTop() {
 		for (Element e : elements) {
 			if (cons.getVariance().equals(Variance.POS) && !e.isTop())
 				return false;
@@ -83,6 +91,10 @@ public class ConstructorApplication extends Application {
 	 */
 	@Override
 	public boolean isBottom() {
+		return bot;
+	}
+	
+	public boolean _isBottom() {
 		for (Element e : elements) {
 			if (cons.getVariance().equals(Variance.POS) && !e.isBottom())
 				return false;
@@ -101,11 +113,15 @@ public class ConstructorApplication extends Application {
 		
 	@Override
 	public Element getBaseElement() {
+		if (baseelem != null)
+			return baseelem;
+		
 		List<Element> baseElements =  new ArrayList<Element>();
 		for (Element e : elements) {
 			baseElements.add(e.getBaseElement());
 		}
-		return new ConstructorApplication((Constructor)cons.getBaseElement(), baseElements) ;
+		baseelem = new ConstructorApplication((Constructor)cons.getBaseElement(), baseElements);
+		return baseelem;
 	}
 	
 	@Override
