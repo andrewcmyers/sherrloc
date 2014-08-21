@@ -1,0 +1,11 @@
+VARIABLE x
+CONSTRUCTOR Char 0
+FUNCTION Table 0
+FUNCTION String 0
+
+%%
+(Table) == ((list ((list (String)))));
+String == (list Char);
+
+%%
+Table == (list (list (list x)));
