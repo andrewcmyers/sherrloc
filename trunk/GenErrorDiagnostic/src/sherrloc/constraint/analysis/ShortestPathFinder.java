@@ -126,13 +126,22 @@ public class ShortestPathFinder extends CFLPathFinder {
 			} else if (element instanceof ConstructorApplication || element instanceof FunctionApplication) {
 				// notice that we only need to infer extra edges for concrete
 				// constructors and functions, so there is no need to collect VariableApplication
-				Application app = (Application) element;
-				for (Element ele : app.getElements()) {
-					Node toadd = g.getNode(ele);
-					if (!consElements.containsKey(toadd))
-						consElements.put(toadd, new ArrayList<Node>());
-					consElements.get(toadd).add(n);
-				}
+				// Need to take care of nested applications (see test "consofvar4").
+				initConsElements ((Application) element, n);
+			}
+		}
+	}
+	
+	private void initConsElements (Application app, Node n) {
+		for (Element ele : app.getElements()) {
+			if (ele instanceof Application) {
+				initConsElements((Application)ele, n);
+			}
+			else {
+				Node toadd = g.getNode(ele);
+				if (!consElements.containsKey(toadd))
+					consElements.put(toadd, new ArrayList<Node>());
+				consElements.get(toadd).add(n);
 			}
 		}
 	}
@@ -491,13 +500,46 @@ public class ShortestPathFinder extends CFLPathFinder {
 	}
 	
 	/**
+	 * Actively create a new gray node (CONS subst.elem) if (CONS n.elem) is
+	 * already in graph, as well as n and subst are not gray nodes. The
+	 * direction between (CONS subst.elem) and (CONS n.elem) is determined by
+	 * ltor and the variance of CONS: (CONS n.elem) --> (CONS subst.elem) iff
+	 * ltor&&COVAR or !ltor&&CONTRA
+	 * 
+	 * @param n
+	 * @param subst
+	 */
+	private void expandOneNode (Node n, Node subst, boolean ltor) {
+		int size = getShortestLeq(n, subst);
+		List<Evidence> evi = new ArrayList<Evidence>();
+		Evidence e = new Evidence(n, subst, LeqCondition.getInstance());
+		evi.add(e);
+		
+		if (consElements.containsKey(n) && !n.isGray() && !subst.isGray()) {
+			for (Node cplxNode : consElements.get(n)) {
+				if (!cplxNode.isGray()) {
+					Application app = (Application) cplxNode.getElement();
+					List<Application> nelems = app.replace(n.getElement(), subst.getElement());
+					boolean direction = (ltor&&(app.getVariance()==Variance.POS)) || (!ltor&&(app.getVariance()==Variance.NEG));
+					for (Application nelem : nelems) {
+						Node newnode =  g.getNode(nelem, true);
+						if (direction && !hasLeftEdge(cplxNode, newnode))
+							inferEdge(cplxNode, newnode, LeqCondition.getInstance(), size, evi, true);
+						else
+							inferEdge(newnode, cplxNode, LeqCondition.getInstance(), size, evi, true);
+					}
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Given a newly discovered LeqEdge, this function tries to identify extra
 	 * LeqEdges by using the properties of meet, join and constructor
 	 */
 	private void tryAddingExtraEdges (LeqEdge edge) {
 		Node from = edge.getFrom();
 		Node to = edge.getTo();
-		
 		applyAxioms(edge);
 		
 		// if node "to" is an element of a meet label, add an leq edge from node
@@ -575,45 +617,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 		// if node "from" and "to" belong to same constructor, check if this new
 		// link enables a leq relation on the constructor application
 		if (actively_expanding && (consElements.containsKey(from) || consElements.containsKey(to))) {
-			boolean expand = !from.isGray() && !to.isGray() && actively_expanding;
-			if (consElements.containsKey(from) && expand) {	// need to expand both constraint graph and hypothesis graph
-			for (Node cnFrom : consElements.get(from)) {
-				if (!cnFrom.isGray()) {
-					Application app = (Application) cnFrom.getElement();
-					// replacement is not exclusive. For example,
-					// '(String,String)'.replace('String', 'Name') = '(Name,Name)'. 
-					// But we should also add '(String,Name)' and '(Name,String)' to the graph
-					List<Application> newtos = app.replace(from.getElement(), to.getElement());
-					for (Application newto : newtos) {
-						if (!g.hasElement(newto)) {
-							Node newnode = g.getNode(newto, true);
-							if (!consElements.containsKey(to))
-								consElements.put(to, new ArrayList<Node>());
-								consElements.get(to).add(newnode);
-							}
-						}
-					
-					}
-				}
-			}
-			if (consElements.containsKey(to) && expand) {     // need to expand both constraint graph and hypothesis graph
-			for (Node cnTo : consElements.get(to)) {
-				if (!cnTo.isGray()) {
-					Application app = (Application) cnTo.getElement();
-					List<Application> newfroms = app.replace(to.getElement(), from.getElement());
-					for (Application newfrom : newfroms) {
-						if (!g.hasElement(newfrom)) {
-							Node newnode = g.getNode(newfrom, true);
-							if (!consElements.containsKey(from))
-								consElements.put(from, new ArrayList<Node>());
-							consElements.get(from).add(newnode);
-						}
-					}
-				}
-			}
-			}
-			if (!consElements.containsKey(from) || !consElements.containsKey(to))
-				return;
+			expandOneNode(from, to, true);
+			expandOneNode(to, from, false);
+
+			if (consElements.containsKey(from) && consElements.containsKey(to)) {
 			for (Node cnFrom : consElements.get(from)) {
 				for (Node cnTo : consElements.get(to)) {
 					// make sure this is "ce1", not the swapped one when the constructor is contravariant
@@ -692,7 +699,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 						}
 					}
 				}
-			}
+			}}
 		}
 	}
 }

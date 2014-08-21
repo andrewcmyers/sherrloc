@@ -124,12 +124,18 @@ sub ghcLocations {
 sub causeLocations {
   my $mlfile = shift;
   open my $fh, '<', $mlfile or die "file not found!";
+  my $prev_line;
   my $last_line;
   while(<$fh>) {
-    $last_line = $_ if eof;
+    if (eof) {
+        $last_line = $_;
+    }
+    else {
+        $prev_line = $_;
+    }
   }
   close $fh;
-  return $last_line; 
+  return ($prev_line, $last_line); 
 }
 
 my %succ_counter;
@@ -235,8 +241,9 @@ foreach my $group (@groups) {
         }
         print (substr $group, 0, $prettylen);
         print ":";
-        print ' ' x ($filename_length-length($file));
-        my $cause = causeLocations($file);
+        #print ' ' x ($filename_length-length($file));
+        my ($reason, $cause) = causeLocations($file);
+        print "\t$reason\n";
         if ($cause =~ m/Type safe in Haskell/) {
 	    print_safe();
 	    next;
@@ -269,7 +276,7 @@ L1:     for my $loc1 (@loc1) {
           print_fail('SHErrLoc');
         }
         else {
-	  print OUT $file."\n";
+	  print OUT $group $file."\n";
           print OUT $toolret;
   	} 
 
