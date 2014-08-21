@@ -192,6 +192,8 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				else
 					replacements = finder.getFlowsFrom(varnode);
 				for (Node n : replacements) {
+					if (n.getElement() instanceof Variable)
+						continue;
 					List<Application> newfroms = app1.replace(var, n.getElement());
 					for (Application newfrom : newfroms) {
 						if (!graph.hasElement(newfrom)) {
