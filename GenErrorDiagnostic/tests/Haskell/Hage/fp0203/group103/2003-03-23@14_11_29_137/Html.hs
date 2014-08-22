@@ -120,4 +120,4 @@ main :: IO ()
 main = layout (ppHTML kleurenTabel)
 
 -- ul [] listItems  should be ul listItems
--- 111,44-55
+-- 111,41-55

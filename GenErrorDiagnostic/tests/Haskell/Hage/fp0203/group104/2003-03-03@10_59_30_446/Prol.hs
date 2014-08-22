@@ -24,4 +24,4 @@ evalueer (Niet x)  bd= not(evalueer x bd)
 evalueer (a:->b)   bd= (not(evalueer a bd)) || ((evalueer  b) bd )
 
 -- x:xs should be (x:xs)
--- 19,14-17   21,14-17
+-- 19,11-17   21,11-17
