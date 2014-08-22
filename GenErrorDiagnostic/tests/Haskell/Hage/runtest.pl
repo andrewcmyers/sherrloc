@@ -276,7 +276,7 @@ L1:     for my $loc1 (@loc1) {
           print_fail('SHErrLoc');
         }
         else {
-	  print OUT $group $file."\n";
+	  print OUT "$group $file\n";
           print OUT $toolret;
   	} 
 
