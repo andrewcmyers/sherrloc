@@ -3,7 +3,7 @@
 use Cwd;
 my $dirname = getcwd;
 my $ghc_modified = "$dirname/../../../../GHC-7.8.2-modified/ghc-7.8.2/inplace/bin";
-my $ghcopt = "-fno-code";
+my $ghcopt = "-fno-code -ferror-spans";
 my $dumpopt = "-ddump-tc-trace";
 my $ghc = "ghc";
 my $translator = "$dirname/../translate.pl";
@@ -114,6 +114,9 @@ sub ghcLocations {
     if (/^$prefix.hs:(\d+):(\d+):/) {
         ($line, $column) = ($1, $2);
         $str .= "$line,$column-$column ";
+    }
+    elsif (/^$prefix.hs:(\d+):(\d+)-(\d+):/) {
+        $str .= "$1,$2-$3 ";
     }
   }
   $total_size{'GHC'} += 1;
@@ -243,7 +246,7 @@ foreach my $group (@groups) {
         print ":";
         #print ' ' x ($filename_length-length($file));
         my ($reason, $cause) = causeLocations($file);
-        print "\t$reason\n";
+        print "\t$reason";
         if ($cause =~ m/Type safe in Haskell/) {
 	    print_safe();
 	    next;
