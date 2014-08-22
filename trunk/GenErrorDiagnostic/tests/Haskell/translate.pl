@@ -472,9 +472,9 @@ while (<TRACE>) {
 				print OUT ("VARIABLE $_\n");
 			}
 			foreach (@functions) {
-				print OUT ("FUNCTION $_\n");
+				print OUT ("CONSTRUCTOR $_\n");
 			}
-			print OUT ("FUNCTION String 0");
+			print OUT ("CONSTRUCTOR String 0");
 
 			print OUT "\n\n%%\n";
 			foreach (@axioms) {
