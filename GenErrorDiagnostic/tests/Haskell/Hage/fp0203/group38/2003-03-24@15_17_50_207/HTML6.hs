@@ -130,4 +130,4 @@ allTrue []= True
 allTrue (x:xs) = x&& allTrue xs
 
 -- missing parenthesis
--- 104,116-131
+-- 104,116-126   104,105-131

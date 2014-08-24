@@ -115,4 +115,4 @@ main :: IO ()
 main = layout (ppHTML kleurenTabel)
 
 -- (Text string) should be [Text string]
--- 50,28-40
+-- 50,29-39

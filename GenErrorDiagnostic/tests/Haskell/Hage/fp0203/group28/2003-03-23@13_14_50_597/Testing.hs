@@ -79,4 +79,4 @@ document :: String -> [HTML] -> HTML
 document titel inhoud = DoubleTag "HTML" [] [DoubleTag "HEAD" [] [DoubleTag "TITLE" [] [Tekst titel]], DoubleTag "Body" [] inhoud]
 
 -- the entire expression in () should be []
--- 62,100-159
+-- 62,101-158

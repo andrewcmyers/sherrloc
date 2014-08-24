@@ -233,4 +233,4 @@ document string htmls = GeslotenTag "HTML" [] [GeslotenTag "HEAD" [] [GeslotenTa
                                               ]
 
 --(map li) htmls should be: (map li htmls)
--- 211,51-64
+-- 211,52-57

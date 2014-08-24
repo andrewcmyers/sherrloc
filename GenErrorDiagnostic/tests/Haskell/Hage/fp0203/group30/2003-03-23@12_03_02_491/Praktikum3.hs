@@ -103,4 +103,4 @@ text :: String -> HTML
 text string = Text string
 
 -- should be: (colorGeheel rgbs)
--- 83,72-130
+-- 83,73-129

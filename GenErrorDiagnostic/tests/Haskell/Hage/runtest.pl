@@ -45,10 +45,12 @@ sub print {
 
 sub contains {
   my ($self, $other) = @_;
-  return (($self->{ln_st} < $other->{ln_st} || 
-		  ($self->{ln_st} == $other->{ln_st} && $self->{col_st} <= $other->{col_st})) 
-       && ($other->{ln_ed} < $self->{ln_ed} || 
-	          ($other->{ln_ed} == $self->{ln_ed} && $other->{col_ed} <= $self->{col_ed})));
+  return (($self->{ln_st} == $other->{ln_st} && $self->{col_st} == $other->{col_st}
+        && $self->{ln_ed} == $other->{ln_ed} && $self->{col_ed} == $other->{col_ed})) 
+#  return (($self->{ln_st} < $other->{ln_st} || 
+#		  ($self->{ln_st} == $other->{ln_st} && $self->{col_st} <= $other->{col_st})) 
+#       && ($other->{ln_ed} < $self->{ln_ed} || 
+#	          ($other->{ln_ed} == $self->{ln_ed} && $other->{col_ed} <= $self->{col_ed})));
 }
 
 #and here is the test
@@ -117,6 +119,9 @@ sub ghcLocations {
     }
     elsif (/^$prefix.hs:(\d+):(\d+)-(\d+):/) {
         $str .= "$1,$2-$3 ";
+    }
+    elsif (/^$prefix.hs:\((\d+),(\d+)\)-\((\d+),(\d+)\):/) {
+        $str .= "$1,$2-$3,$4 ";
     }
   }
   $total_size{'GHC'} += 1;
@@ -278,10 +283,8 @@ L1:     for my $loc1 (@loc1) {
           # remove cmo files
           print_fail('SHErrLoc');
         }
-        else {
-	  print OUT "$group $file\n";
-          print OUT $toolret;
-  	} 
+        print OUT "$group $file\n";
+        print OUT $toolret;
 
         # test the correctness of GHC
         my $ghcret = ghcLocations($file);

@@ -38,5 +38,5 @@ locaties =
 breedte :: [String] -> Int
 breedte strings = maximum map length strings
 
--- should be: (map length strings)
+-- missing () around map length strings
 -- 39,27-44
