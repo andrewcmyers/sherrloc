@@ -1,0 +1,9 @@
+Compiling ./group60/2003-02-13@11:46:56:533/AantalOpl.hs
+(2,19): Type error in application
+ expression       : ((-.b +. ...) /. (2.0 *. a)) ((-.b -. ...) /. (2.0 *. a))
+ term             : ((-.b +. sqrt (b *. b -. 4.0 *. a *. c)) /. (2.0 *. a))
+   type           : Float                  
+   does not match : Float -> Float -> Float
+ because          : it is not a function
+
+Compilation failed with 1 error

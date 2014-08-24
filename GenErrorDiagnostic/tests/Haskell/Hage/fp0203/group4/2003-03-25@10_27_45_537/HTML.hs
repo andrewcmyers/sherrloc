@@ -169,4 +169,4 @@ document title bodyTags                         = DoubleTag "html" [] [
                                                                       ]
 
 -- text should be: tekst
--- 78,50-53
+-- 78,50-53   78,50-86

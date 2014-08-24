@@ -1,0 +1,7 @@
+Compiling ./group59/2003-03-04@08:45:16:400/Prac2lianne.hs
+(66,27): Type error in right hand side
+ term             : concat (alleVariabelen a ++ alleVariabelen b)
+   type           : [Char  ]
+   does not match : [String]
+
+Compilation failed with 1 error

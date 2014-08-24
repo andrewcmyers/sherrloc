@@ -1,0 +1,7 @@
+Compiling ./group58/2003-02-14@10:33:44:239/Testing.hs
+(15,6): Type error in generator
+ expression       : blaat
+   type           : String
+   does not match : IO () 
+
+Compilation failed with 1 error
