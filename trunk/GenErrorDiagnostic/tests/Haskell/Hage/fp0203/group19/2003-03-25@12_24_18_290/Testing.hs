@@ -138,4 +138,4 @@ kleurenTabel = document "Kleurentabel"
                         ]
 
 -- should be: checkReq (map ...)
--- 24,52-91
+-- 24,53-90

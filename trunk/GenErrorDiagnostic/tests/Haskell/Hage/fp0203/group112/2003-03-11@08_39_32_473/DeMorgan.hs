@@ -104,4 +104,4 @@ check (a :-> b) = Niet (a :-> b)
 check (Niet x) = Niet( Niet x)
 
 -- (deMorgan x) --> deMorgan x
--- 86,28-39    87,28-39
+-- 86,29-38    87,29-38

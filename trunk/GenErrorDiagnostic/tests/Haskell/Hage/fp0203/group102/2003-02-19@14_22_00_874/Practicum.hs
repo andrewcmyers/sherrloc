@@ -13,4 +13,4 @@ neemKolom :: Table -> Int -> [String]
 neemKolom (x:xs) k = x!!k-1 : neemKolom xs k
 neemKolom [] _= []
 -- k-1 should be (k-1)
--- 13,25-27 
+-- 13,22-27 

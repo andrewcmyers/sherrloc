@@ -183,4 +183,4 @@ testcase = (Dubbel "UL" [] [
 testcase2 = Dubbel "UL" [] [Enkel "HR" [("WIDTH","50%")],Dubbel "LI" [] [Dubbel "B" [] [Tekst "1"],Tekst "12"],Dubbel "LI" [][Tekst "3"]]
 
 -- should be head(filter ...)
--- 26,47-71
+-- 26,48-70

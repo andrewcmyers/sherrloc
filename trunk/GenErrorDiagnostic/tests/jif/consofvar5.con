@@ -1,0 +1,14 @@
+VARIABLE a_alZ
+VARIABLE a_am2
+CONSTRUCTOR Bedeling 0
+CONSTRUCTOR String 0
+
+%%
+(Bedeling) == ((list (String)));
+String == (list Char);
+
+%%
+(Bedeling)["":64,37-52@Prac2lianne.hs] == ((list (a_am2)))["":64,37-52@Prac2lianne.hs] {};["a type equality Bedeling ~ [a_am2]":64,37-52@Prac2lianne.hs]
+(Bedeling)["":64,57-72@Prac2lianne.hs] == ((list (a_am2)))["":64,57-72@Prac2lianne.hs] {};["a type equality Bedeling ~ [a_am2]":64,57-72@Prac2lianne.hs]
+((list (a_am2)))["":64,37-72@Prac2lianne.hs] == ((list ((list (a_alZ)))))["":64,37-72@Prac2lianne.hs] {};["a type equality [a_am2] ~ [[a_alZ]]":64,37-72@Prac2lianne.hs]
+((list (a_alZ)))["":64,29-73@Prac2lianne.hs] == (Bedeling)["":64,29-73@Prac2lianne.hs] {};["a type equality [a_alZ] ~ Bedeling":64,29-73@Prac2lianne.hs]

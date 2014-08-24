@@ -83,4 +83,4 @@ text ::String -> HTML
 text str = (Tekst str)
 
 -- should be (concat[convertAttributes color]) [colorTable colors])
--- 69,48-92
+-- 69,49-71

@@ -108,4 +108,4 @@ groepeer _ [] = []
 groepeer i x = take i x : groepeer i (drop i x)
 
 -- missing () arond: map toUpper
--- 29,79-89
+-- 29,75-101

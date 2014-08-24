@@ -118,6 +118,9 @@ sub ghcLocations {
     elsif (/^$prefix.hs:(\d+):(\d+)-(\d+):/) {
         $str .= "$1,$2-$3 ";
     }
+    elsif (/^$prefix.hs:\((\d+),(\d+)\)-\((\d+),(\d+)\):/) {
+        $str .= "$1,$2-$3,$4 ";
+    }
   }
   $total_size{'GHC'} += 1;
   return $str; 
