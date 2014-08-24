@@ -105,6 +105,7 @@ public class TestAll {
 		testAssumptions("tests/jif/consofvar2.con", "- list (list (BOOL)) <= Ord;\n");
 		testErrorPaths("tests/jif/consofvar3.con", false);
 		testErrorPaths("tests/jif/consofvar4.con", false);
+		testErrorPaths("tests/jif/consofvar5.con", true);
 		testAssumptions("tests/jif/axiom.con", "- A1 <= E;\n");
 		testAssumptions("tests/jif/axiom2.con", "- list (A) <= C;\n" ); 		
 		testAssumptions("tests/jif/axiom3.con", "- Bool <= Char;Bool <= Collects2;Char <= Bool;Char <= Collects2;\n");		

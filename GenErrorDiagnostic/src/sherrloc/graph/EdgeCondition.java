@@ -75,6 +75,13 @@ public class EdgeCondition {
 		return variance;
 	}
 	
+	/**
+	 * @return Constructor
+	 */
+	public Element getCon() {
+		return con;
+	}
+	
 	@Override
 	public String toString () {
 		if (reverse)
