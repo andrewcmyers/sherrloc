@@ -31,6 +31,18 @@ public abstract class EnumerableElement extends Element {
 	 * @return the symbol of the current element, such as ->, *, meet, join
 	 */
 	abstract String getSymbol();
+	
+//	@Override
+//	public void setPosition(Position pos) {
+//		super.setPosition(pos);
+//		if (!pos.isEmpty()) {
+//			for (Element e : elements) {
+//				if (e.pos.isEmpty()) {
+//					e.setPosition(pos);
+//				}
+//			}
+//		}
+//	}
 
 	@Override
 	public String toString() {

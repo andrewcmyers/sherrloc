@@ -20,6 +20,8 @@ import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Relation;
+import sherrloc.constraint.ast.Variable;
+import sherrloc.constraint.ast.Constructor;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
@@ -270,6 +272,21 @@ public class ShortestPathFinder extends CFLPathFinder {
 			}
 		}
 	}
+	
+	private void applyRightLeft (Node from, Node mid, Node to, EdgeCondition ec) {
+		if (ec != null && hasLeftEdge(mid, to) &&
+				hasRightEdges(from, mid) && getShortestLeft(mid, to, ec) + 1 < getShortestLeq(from, to)) {
+			for (RightEdge e : getRightEdges(from, mid)) {
+				if (e != null && ec.matches(((RightEdge) e).cons)) {
+					setShortestLeq(from, to, getShortestLeft(mid, to, ec) + 1);
+					List<Evidence> evi = new ArrayList<Evidence>();
+					evi.add(new Evidence(from, mid, ((RightEdge) e).cons));
+					evi.add(new Evidence(mid, to, ec));
+					inferEdge(from, to, LeqCondition.getInstance(), getShortestLeft(mid, to, ec) + 1, evi, true);
+				}
+			}
+		}
+	}
 		
 	/**
 	 * apply rule LEFT ::= LEFT LEQ
@@ -389,6 +406,15 @@ public class ShortestPathFinder extends CFLPathFinder {
 								applyLeftLeq(iNode, from, to, ec, ec.getVariance()==Variance.NEG);
 						}
 					}
+				}
+				
+				if (edge instanceof LeftEdge) {
+					EdgeCondition ec = ((LeftEdge)edge).getCondition();
+					Element cons = ec.getCon();
+					// LEQ = RIGHT LEFT
+					if (hasRightEdges(iNode, from) && cons instanceof Constructor 
+							&& ((Constructor)cons).getArity() == 1)
+						applyRightLeft(iNode, from, to, ec);
 				}
 			}
 		}
