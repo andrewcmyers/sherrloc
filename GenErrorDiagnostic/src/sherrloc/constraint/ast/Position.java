@@ -144,7 +144,9 @@ public class Position {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Position) {
-			return toString().equals(obj.toString());
+			Position other = (Position) obj;
+			return file.equals(other.file) && lineStart == other.lineStart && lineEnd == other.lineEnd 
+					&& colStart == other.colStart && colEnd == other.colEnd;
 		}
 		return false;
 	}
