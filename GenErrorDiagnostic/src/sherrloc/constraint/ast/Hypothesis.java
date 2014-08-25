@@ -67,6 +67,17 @@ public class Hypothesis {
 	}
 	
 	/**
+	 * Set the parameter as axioms of the hypothesis
+	 * 
+	 * @param axiom
+	 *            Axioms to be set
+	 */
+	public void setAxioms(List<Axiom> axioms) {
+		this.axioms.clear();
+		this.axioms.addAll(axioms);
+	}
+	
+	/**
 	 * @param s
 	 *            A set of elements
 	 */
