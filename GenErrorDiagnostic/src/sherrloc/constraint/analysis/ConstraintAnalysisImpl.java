@@ -1,7 +1,10 @@
 package sherrloc.constraint.analysis;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import sherrloc.constraint.ast.Application;
@@ -30,6 +33,9 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private boolean isRec;
 	private boolean DEBUG = false;
 	private boolean PASSIVE = true;
+	
+	private Map<Element, Set<Element>> tested = new HashMap<Element, Set<Element>>();
+	private Map<Element, Set<Element>> expanded = new HashMap<Element, Set<Element>>();
 
 	/**
 	 * @param isSym
@@ -154,7 +160,6 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 			return;
 
 		ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
-
 		if (path.isInformative()) {
 			if (path.isUnsatPath()) {
 				if (isVerbose)
@@ -178,7 +183,28 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 		}
 	}
 	
+	private class VisitNode {
+		Application node;
+		List<Edge> path;
+		
+		public VisitNode(Application node, List<Edge> path) {
+			this.node = node;
+			this.path = path;
+		}
+	}
+	
 	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
+		// Tested tracks relations that have already tested
+		// Gray tracks new elements to be explored (on fringe), so that a nested search wouldn't duplicate tests
+		if (!tested.containsKey(e2))
+			tested.put(e2, new HashSet<Element>());
+		if (!expanded.containsKey(e2))
+			expanded.put(e2, new HashSet<Element>());
+		if (tested.get(e2).contains(e1.getBaseElement()))
+			return;
+		tested.get(e2).add(e1.getBaseElement());
+		
+		List<VisitNode> toVisit = new ArrayList<VisitNode>();
 		if (e1.hasVars() && e1 instanceof ConstructorApplication && (e2 instanceof Constructor || e2 instanceof Function)) {
 			ConstructorApplication app1 = (ConstructorApplication) e1;
 			if (app1.getCons().equals(e2))
@@ -192,20 +218,28 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				else
 					replacements = finder.getFlowsFrom(varnode);
 				for (Node n : replacements) {
-					if (n.getElement() instanceof Variable)
-						continue;
 					List<Application> newfroms = app1.replace(var, n.getElement());
 					for (Application newfrom : newfroms) {
-						if (!graph.hasElement(newfrom)) {
+						if (n.getElement() instanceof Variable) {
+							tested.get(e2).add(newfrom.getBaseElement());
+						}
+						else if (!expanded.get(e2).contains(newfrom.getBaseElement()) 
+								&& !graph.hasElement(newfrom)) {
+							expanded.get(e2).add(newfrom.getBaseElement());
 							List<Edge> edgessofar = new ArrayList<Edge>();
 							edgessofar.add(new DummyEdge(graph.getNode(newfrom), n, true));
 							edgessofar.addAll(finder.getPath(n, varnode));
 							edgessofar.add(new DummyEdge(varnode, graph.getNode(e1), false));						
 							edgessofar.addAll(l);
-							testConsistency(newfrom, e2, edgessofar, graph, finder, unsatPaths, true);
+							toVisit.add(new VisitNode(newfrom, edgessofar));
 						}
 					}
 				}
+			}
+			
+			for (VisitNode vnode : toVisit) {
+				if (!tested.get(e2).contains(vnode.node.getBaseElement()))
+					testConsistency(vnode.node, e2, vnode.path, graph, finder, unsatPaths, true);
 			}
 		}
 	}
