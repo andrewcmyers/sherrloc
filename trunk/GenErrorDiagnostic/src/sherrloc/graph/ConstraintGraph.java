@@ -49,6 +49,7 @@ public class ConstraintGraph extends Graph {
     
 	/** Optimizations */
 	private final boolean USE_OPT = false;
+	private boolean OPT_AXIOMS = true;
 	
 	/**
 	 * @param env
@@ -244,6 +245,46 @@ public class ConstraintGraph extends Graph {
         }
         if (USE_OPT)
         	removeDominatedVariables();
+
+        if (OPT_AXIOMS) {
+        	List<Axiom> useless = new ArrayList<Axiom>();
+        	for (Axiom rule : rules) {
+        		for (Inequality ieq : rule.getConclusion()) {
+        			boolean used = true;
+        			if (!ieq.getFirstElement().hasVars() && !ieq.getFirstElement().hasQVars()) {
+        				used = false;
+            			for (Node n : allNodes) {
+            				if (n.getElement().getBaseElement().equals(ieq.getFirstElement())) {
+            					used = true;
+            					break;
+            				}
+            			}	
+        			}
+        			if (used == false) {
+        				useless.add(rule);
+        				break;
+        			}
+        			if (!ieq.getSecondElement().hasVars() && !ieq.getSecondElement().hasQVars()) {
+        				used = false;
+            			for (Node n : allNodes) {
+            				if (n.getElement().getBaseElement().equals(ieq.getSecondElement())) {
+            					used = true;
+            					break;
+            				}
+            			}	
+        			}
+        			if (used == false) {
+        				useless.add(rule);
+        				break;
+        			}
+        		}
+        	}
+        	rules.removeAll(useless);
+        	if (env != null) {
+        		env.setAxioms(rules);
+        	}
+        }
+
         // add base elements to the hypothesis graph
         if (env != null)
         	env.addElements(getAllElements());
