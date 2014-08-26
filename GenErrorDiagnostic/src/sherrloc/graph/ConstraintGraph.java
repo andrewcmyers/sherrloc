@@ -40,7 +40,6 @@ public class ConstraintGraph extends Graph {
 	private List<Axiom> rules;
     
     private Set<String> files;                                          // source codes involved, only used for DOT files
-    private boolean generated;                                   		// if the graph has been generated already, just reuse it
     private final boolean PRINT_SRC = false;                     		// print corresponding source code in DOT files
     private Map<Element, Node> eleToNode = new HashMap<Element, Node>(); // map from AST elements to graph nodes
     private Map<Integer, Node> idxToNode = new HashMap<Integer, Node>(); // map from integers to graph nodes
@@ -50,6 +49,9 @@ public class ConstraintGraph extends Graph {
 	/** Optimizations */
 	private final boolean USE_OPT = false;
 	private boolean OPT_AXIOMS = true;
+	// A map from base elements (elements with no position info) to potentially multiple uses of the element
+	// Useful for matching axioms in a graph.
+	private Map<Element, List<Node>> baseToNodes = new HashMap<Element, List<Node>>();
 	
 	/**
 	 * @param env
@@ -74,7 +76,6 @@ public class ConstraintGraph extends Graph {
     public ConstraintGraph (Hypothesis env, List<Axiom> axioms) {
         this.env = env;
     	this.files = new HashSet<String>();
-        this.generated = false;
         this.rules = axioms;
     }
                 
@@ -107,6 +108,10 @@ public class ConstraintGraph extends Graph {
             varCounter++;
             eleToNode.put(e, n);
             idxToNode.put(n.getIndex(), n);
+            Element baseEle = e.getBaseElement();
+            if (!baseToNodes.containsKey(baseEle))
+            	baseToNodes.put(baseEle, new ArrayList<Node>());
+            baseToNodes.get(baseEle).add(n);
         }
         return eleToNode.get(e);
     }
@@ -130,6 +135,13 @@ public class ConstraintGraph extends Graph {
     public boolean hasElement (Element e) {
     	return eleToNode.containsKey(e);
     }
+    
+    /**
+     * @return A list of elements that represent baseElement. Return null if no such element exists.
+     */
+    public List<Node> getMatchedNodes(Element baseElement) {
+		return baseToNodes.get(baseElement);
+	}
     
 	/**
 	 * Adding a constraint to graph (add edges between nodes representing
@@ -288,7 +300,6 @@ public class ConstraintGraph extends Graph {
         // add base elements to the hypothesis graph
         if (env != null)
         	env.addElements(getAllElements());
-        generated = true;
     }
     
     /**
