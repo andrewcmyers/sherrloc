@@ -37,7 +37,7 @@ public class ErrorDiagnosis implements PrettyPrinter {
 		graph = g;
 		this.option = option;
         util = new HTMLUtil();
-        cana = new ConstraintAnalysisImpl(g.isSymmetric(), option.isVerbose(), option.isRecursive());
+        cana = new ConstraintAnalysisImpl(option.isGenHypothesis(), option.isVerbose(), option.isRecursive());
 	}
 
 	/**

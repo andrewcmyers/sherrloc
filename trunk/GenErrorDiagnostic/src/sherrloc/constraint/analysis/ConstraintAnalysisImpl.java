@@ -8,14 +8,17 @@ import java.util.Map;
 import java.util.Set;
 
 import sherrloc.constraint.ast.Application;
+import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.Constructor;
 import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Function;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
+import sherrloc.constraint.ast.Relation;
 import sherrloc.constraint.ast.Variable;
 import sherrloc.diagnostic.UnsatPaths;
+import sherrloc.graph.ConstraintEdge;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.ConstraintPath;
 import sherrloc.graph.DummyEdge;
@@ -28,9 +31,9 @@ import sherrloc.graph.Variance;
  * constraint graph.
  */
 public class ConstraintAnalysisImpl implements ConstraintAnalysis {
-	private boolean isSym;
 	private boolean isVerbose;
 	private boolean isRec;
+	private boolean isGenHypo;
 	private boolean DEBUG = false;
 	private boolean PASSIVE = true;
 	
@@ -38,16 +41,15 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private Map<Element, Set<Element>> expanded = new HashMap<Element, Set<Element>>();
 
 	/**
-	 * @param isSym
-	 *            True if all constraints are equalities (to avoid duplication
-	 *            in result)
+	 * @param isHypo
+	 *            True if SHErrLoc is inferring missing hypothesis
 	 * @param isVerbose
 	 *            True to collect data for evaluation
 	 * @param isRec
 	 *            True if recursion is allowed
 	 */
-	public ConstraintAnalysisImpl(boolean isSym, boolean isVerbose, boolean isRec) {
-		this.isSym = isSym;
+	public ConstraintAnalysisImpl(boolean isGenHypo, boolean isVerbose, boolean isRec) {
+		this.isGenHypo = isGenHypo;
 		this.isVerbose = isVerbose;
 		this.isRec = isRec;
 	}
@@ -64,33 +66,15 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 
 	@Override
 	public UnsatPaths genErrorPaths(ConstraintGraph graph) {
-		ArrayList<Node> startNodes = new ArrayList<Node>();
-		ArrayList<Node> endNodes = new ArrayList<Node>();
 		UnsatPaths unsatPaths = new UnsatPaths();
+		Set<Node> allNodes = new HashSet<Node>(graph.getAllNodes());
 		
 		if (isVerbose)
 			System.out.println("graph_size: " + graph.getAllNodes().size());
 
 		// saturate constraint graph
 		PathFinder finder = getPathFinder(graph);
-		
-		/** only search for informative paths */
-		for (Node node : graph.getAllNodes()) {
-			if (!(node.getElement() instanceof JoinElement))
-				startNodes.add(node);
-			if (!(node.getElement() instanceof MeetElement))
-				endNodes.add(node);
-		}
 
-		if (DEBUG) {
-			System.out.println("Total start nodes before path generaton: "
-					+ startNodes.size());
-			System.out.println("Total end nodes before path generaton: "
-					+ endNodes.size());
-			System.out.println("Total comparison required: "
-					+ startNodes.size() * endNodes.size());
-		}
-		
 		if (!isRec) {
 		for (Node node : graph.getAllNodes()) {
 			// when recursion is not allowed, constraints such as "x = list x" is unsatisfiable
@@ -131,18 +115,44 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 		}
 		}
 		
-		for (Node start : startNodes) {
-			for (Node end : endNodes) {
+		for (Node start : allNodes) {
+			for (Node end : allNodes) {
 				// avoid returning duplicated edges when only equalities are used
-				if (isSym && (start.getIndex() <= end.getIndex()))
+				if (start.getIndex() <= end.getIndex())
 					continue;
+
+				// the test on the other direction can be avoided if
+				// 1) not inferring missing hypothesis
+				// 2) all constraints along the path are equalities
+				boolean needtest = true;
 				
 				// test if a partial ordering can be inferred
-				if (!finder.hasLeqEdge(start, end))
-					continue;
+				if (!(start.getElement() instanceof JoinElement) && !(end.getElement() instanceof MeetElement) && finder.hasLeqEdge(start, end)) {
+					List<Edge> l = finder.getPath(start, end);
+					testConsistency(start.getElement(), end.getElement(), l, graph, finder, unsatPaths, false);
 				
-				List<Edge> l = finder.getPath(start, end);
-				testConsistency(start.getElement(), end.getElement(), l, graph, finder, unsatPaths, false);
+					if (!isGenHypo) {
+						boolean allEQ = false;
+						for (Edge edge : l) {
+							if (edge instanceof ConstraintEdge) {
+								Constraint cons = ((ConstraintEdge)edge).getConstraint();
+								if (cons.getRelation() == Relation.EQ) {
+									allEQ = true;
+								}
+								else {
+									allEQ = false;
+									break;
+								}
+							}
+						}
+						needtest = !allEQ;
+					}
+				}
+				
+				if (needtest && !(end.getElement() instanceof JoinElement) && !(start.getElement() instanceof MeetElement) && finder.hasLeqEdge(end, start)) {
+					List<Edge> l = finder.getPath(end, start);
+					testConsistency(end.getElement(), start.getElement(), l, graph, finder, unsatPaths, false);
+				}
 			}
 		}
 
