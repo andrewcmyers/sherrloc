@@ -1,0 +1,16 @@
+Maybe is up to date
+List is up to date
+Compiling ./group71/2003-03-04@09:00:58:601/Prop.hs
+(49,20): Type error in application
+ expression       : eqList eqString (vervulbaar p1) (vervulbaar p2)
+ term             : eqList
+   type           : (a      -> a      -> Bool)
+                    -> [a       ]
+                    -> [a       ]
+                    -> Bool
+   does not match : (String -> String -> Bool)
+                    -> [Bedeling]
+                    -> [Bedeling]
+                    -> Bool
+
+Compilation failed with 1 error

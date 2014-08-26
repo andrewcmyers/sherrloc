@@ -1,0 +1,10 @@
+Maybe is up to date
+List is up to date
+Compiling ./group7/2003-03-11@14:08:42:135/Logica.hs
+(105,31): Type error in literal
+ expression       : "("
+   type           : String
+   expected type  : Char  
+ probable fix     : use a char literal instead
+
+Compilation failed with 1 error

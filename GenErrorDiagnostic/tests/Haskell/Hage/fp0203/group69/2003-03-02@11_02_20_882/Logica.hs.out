@@ -1,0 +1,16 @@
+Compiling ./group69/2003-03-02@11:02:20:882/Logica.hs
+(17,42): Type error in application
+ expression       : or (not (evalueer prop1 bedeling))
+ function         : or
+   type           : [Bool] -> Bool
+ 1st argument     : (not (evalueer prop1 bedeling))
+   type           : Bool  
+   does not match : [Bool]
+
+(17,73): Type error in infix application
+ expression       : or (not (... prop1 ...)) : (evalueer prop2 bedeling)
+ operator         : :
+   type           : a -> [a]  -> [a] 
+   does not match : b -> Bool -> Bool
+
+Compilation failed with 2 errors

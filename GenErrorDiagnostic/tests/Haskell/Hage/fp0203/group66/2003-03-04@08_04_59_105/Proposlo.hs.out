@@ -1,0 +1,8 @@
+Compiling ./group66/2003-03-04@08:04:59:105/Proposlo.hs
+(189,85): Type error in constructor
+ expression       : :
+   type           : a      -> [a   ] -> [a   ]
+   expected type  : [Prop] -> [Prop] -> [Prop]
+ probable fix     : use ++ instead
+
+Compilation failed with 1 error
