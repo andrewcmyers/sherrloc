@@ -1,0 +1,8 @@
+Compiling ./group64/2003-03-10@11:13:11:211/PropLog.hs
+(90,34): Type error in application
+ expression       : eqList eqBool
+ term             : eqList
+   type           : (a    -> a    -> Bool) -> [a]  -> [a]  -> Bool
+   does not match : (Bool -> Bool -> Bool) -> Bool -> Bool -> Bool
+
+Compilation failed with 1 error

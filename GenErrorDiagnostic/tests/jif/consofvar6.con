@@ -1,0 +1,19 @@
+VARIABLE a_aCf
+VARIABLE a_aCj
+VARIABLE b_aCk
+CONSTRUCTOR Doc 0
+CONSTRUCTOR Requirement 0
+CONSTRUCTOR Attribute 0
+CONSTRUCTOR String 0
+
+%%
+(Doc) == ((list (String)));
+(Requirement) == ((String, String));
+(Attribute) == ((String, String));
+String == (list Char);
+
+
+%%
+((list (a_aCf)))["":71,144-172@HTML.hs] == (Doc)["":71,144-172@HTML.hs] {};["a type equality [a_aCf] ~ Doc":71,144-172@HTML.hs]
+((list (b_aCk)))["":71,151-171@HTML.hs] == ((list ((list (a_aCf)))))["":71,151-171@HTML.hs] {};["a type equality [b_aCk] ~ [[a_aCf]]":71,151-171@HTML.hs]
+((HTML -> Doc))["":71,162-167@HTML.hs] == ((a_aCj -> (list (b_aCk))))["":71,162-167@HTML.hs] {};["a type equality HTML -> Doc ~ a_aCj -> [b_aCk]":71,162-167@HTML.hs]
