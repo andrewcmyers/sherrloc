@@ -34,6 +34,17 @@ public class ConstructorApplication extends Application {
 	}
 	
 	@Override
+	public void setPosition(Position pos) {
+		super.setPosition(pos);
+		if (pos != Position.EmptyPosition()) {
+			for (Element ele : elements) {
+				if (ele.getPosition() == Position.EmptyPosition())
+					ele.setPosition(pos);
+			}
+		}
+	}
+	
+	@Override
 	String getSymbol() {
 		return cons.toString();
 	}
