@@ -106,6 +106,7 @@ public class TestAll {
 		testErrorPaths("tests/jif/consofvar3.con", false);
 		testErrorPaths("tests/jif/consofvar4.con", false);
 		testErrorPaths("tests/jif/consofvar5.con", true);
+		testErrorPaths("tests/jif/consofvar6.con", true);
 		testAssumptions("tests/jif/axiom.con", "- A1 <= E;\n");
 		testAssumptions("tests/jif/axiom2.con", "- list (A) <= C;\n" ); 		
 		testAssumptions("tests/jif/axiom3.con", "- Bool <= Char;Bool <= Collects2;Char <= Bool;Char <= Collects2;\n");		
@@ -361,7 +362,7 @@ public class TestAll {
 		
 		testErrorPaths("tests/jiftestcases/DynLabel12_1.con", false);
 		testErrorPaths("tests/jiftestcases/DynLabel12_2.con", false);
-		testErrorPaths("tests/jiftestcases/DynLabel12_3.con", false);
+		testErrorPaths("tests/jiftestcases/DynLabel12_3.con", true);
 		testErrorPaths("tests/jiftestcases/DynLabel12_4.con", false);
 		
 		testErrorPaths("tests/jiftestcases/DynLabel13_1.con", true);

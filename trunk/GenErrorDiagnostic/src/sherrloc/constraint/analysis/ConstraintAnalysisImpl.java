@@ -37,8 +37,10 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private boolean DEBUG = false;
 	private boolean PASSIVE = true;
 	
-	private Map<Element, Set<Element>> tested = new HashMap<Element, Set<Element>>();
-	private Map<Element, Set<Element>> expanded = new HashMap<Element, Set<Element>>();
+	private Map<Element, Set<Element>> testedL = new HashMap<Element, Set<Element>>();
+	private Map<Element, Set<Element>> testedR = new HashMap<Element, Set<Element>>();
+	private Map<Element, Set<Element>> expandedL = new HashMap<Element, Set<Element>>();
+	private Map<Element, Set<Element>> expandedR = new HashMap<Element, Set<Element>>();
 
 	/**
 	 * @param isHypo
@@ -194,63 +196,98 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	}
 	
 	private class VisitNode {
-		Application node;
+		Element start;
+		Element end;
 		List<Edge> path;
 		
-		public VisitNode(Application node, List<Edge> path) {
-			this.node = node;
+		public VisitNode(Element start, Element end, List<Edge> path) {
+			this.start = start;
+			this.end = end;
 			this.path = path;
 		}
 	}
 	
-	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
+	/**
+	 * Replace the variable in e with elements that flows into, or flows out of
+	 * the variable, judged by parameter ltor
+	 * 
+	 * @param e Element to be replaced
+	 * @param ltor True if the replacement uses elements that flows into variable in e
+	 */
+	private List<VisitNode> expandElement(Application e, Element other, List<Edge> sofar, boolean ltor, PathFinder finder) {
+		List<VisitNode> ret = new ArrayList<VisitNode>();
+		ConstraintGraph graph = finder.getGraph();
+		
 		// Tested tracks relations that have already tested
 		// Gray tracks new elements to be explored (on fringe), so that a nested search wouldn't duplicate tests
-		if (!tested.containsKey(e2))
-			tested.put(e2, new HashSet<Element>());
-		if (!expanded.containsKey(e2))
-			expanded.put(e2, new HashSet<Element>());
-		if (tested.get(e2).contains(e1.getBaseElement()))
-			return;
-		tested.get(e2).add(e1.getBaseElement());
+		Map<Element, Set<Element>> tested, expanded;
+		if (ltor) {
+			tested = testedL;
+			expanded = expandedL;
+		}
+		else {
+			tested = testedR;
+			expanded = expandedR;
+		}
+		if (!tested.containsKey(other))
+			tested.put(other, new HashSet<Element>());
+		if (!expanded.containsKey(other))
+			expanded.put(other, new HashSet<Element>());
+		if (tested.get(other).contains(e.getBaseElement()))
+			return ret;
+		tested.get(other).add(e.getBaseElement());
 		
-		List<VisitNode> toVisit = new ArrayList<VisitNode>();
-		if (e1.hasVars() && e1 instanceof ConstructorApplication && (e2 instanceof Constructor || e2 instanceof Function)) {
-			ConstructorApplication app1 = (ConstructorApplication) e1;
-			if (app1.getCons().equals(e2))
-				return;
-			boolean isContra = (app1.getVariance() == Variance.NEG);
-			for (Variable var : e1.getVars()) {
-				Node varnode = graph.getNode(var);
-				Set<Node> replacements;
-				if (isContra)
-					replacements = finder.getFlowsTo(varnode);
-				else
-					replacements = finder.getFlowsFrom(varnode);
-				for (Node n : replacements) {
-					List<Application> newfroms = app1.replace(var, n.getElement());
-					for (Application newfrom : newfroms) {
-						if (n.getElement() instanceof Variable) {
-							tested.get(e2).add(newfrom.getBaseElement());
-						}
-						else if (!expanded.get(e2).contains(newfrom.getBaseElement()) 
-								&& !graph.hasElement(newfrom)) {
-							expanded.get(e2).add(newfrom.getBaseElement());
-							List<Edge> edgessofar = new ArrayList<Edge>();
-							edgessofar.add(new DummyEdge(graph.getNode(newfrom), n, true));
+		boolean isContra = (e.getVariance() == Variance.NEG);
+		for (Variable var : e.getVars()) {
+			Node varnode = graph.getNode(var);
+			Set<Node> replacements;
+			if (isContra^ltor) 
+				replacements = finder.getFlowsFrom(varnode);
+			else
+				replacements = finder.getFlowsTo(varnode);
+			for (Node n : replacements) {
+				List<Application> newelems = e.replace(var, n.getElement());
+				for (Application newelem : newelems) {
+					if (n.getElement() instanceof Variable) {
+						tested.get(other).add(newelem.getBaseElement());
+					}
+					else if (!expanded.get(other).contains(newelem.getBaseElement()) 
+							&& !graph.hasElement(newelem)) {
+						expanded.get(other).add(newelem.getBaseElement());
+						List<Edge> edgessofar = new ArrayList<Edge>();
+						if (ltor) {
+							edgessofar.add(new DummyEdge(graph.getNode(newelem), n, true));
 							edgessofar.addAll(finder.getPath(n, varnode));
-							edgessofar.add(new DummyEdge(varnode, graph.getNode(e1), false));						
-							edgessofar.addAll(l);
-							toVisit.add(new VisitNode(newfrom, edgessofar));
+							edgessofar.add(new DummyEdge(varnode, graph.getNode(e), false));						
+							edgessofar.addAll(sofar);
+							ret.add(new VisitNode(newelem, other, edgessofar));
+						}
+						else {
+							edgessofar.addAll(sofar);
+							edgessofar.add(new DummyEdge(graph.getNode(e), n, true));
+							edgessofar.addAll(finder.getPath(n, varnode));
+							edgessofar.add(new DummyEdge(varnode, graph.getNode(newelem), false));						
+							ret.add(new VisitNode(other, newelem, edgessofar));
 						}
 					}
 				}
 			}
-			
-			for (VisitNode vnode : toVisit) {
-				if (!tested.get(e2).contains(vnode.node.getBaseElement()))
-					testConsistency(vnode.node, e2, vnode.path, graph, finder, unsatPaths, true);
-			}
+		}
+		return ret;
+	}
+	
+	void expandGraph (Element e1, Element e2,  List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
+		List<VisitNode> toVisit = null;
+		
+		if (e1.hasVars() && e1 instanceof Application && (e2 instanceof Constructor || e2 instanceof Function))
+			toVisit = expandElement((Application)e1, e2, l, true, finder);
+		else if (e2.hasVars() && e2 instanceof Application && (e1 instanceof Constructor || e1 instanceof Function))
+			toVisit = expandElement((Application)e2, e1, l, false, finder);
+		else
+			return;
+		
+		for (VisitNode vnode : toVisit) {
+			testConsistency(vnode.start, vnode.end, vnode.path, graph, finder, unsatPaths, true);
 		}
 	}
 }
