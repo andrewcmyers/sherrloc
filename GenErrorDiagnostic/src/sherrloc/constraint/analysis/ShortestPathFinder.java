@@ -441,7 +441,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 	@Override
 	public Set<Node> getFlowsTo(Node from) {
 		Set<Node> ret = new HashSet<>();
-		if (shortestLEQ.containsKey(from)) {
+		if (shortestLEQ.containsKey(from.getIndex())) {
 			for (Integer idx : shortestLEQ.get(from.getIndex()).keySet()) {
 				ret.add(getGraph().getNode(idx));
 			}
