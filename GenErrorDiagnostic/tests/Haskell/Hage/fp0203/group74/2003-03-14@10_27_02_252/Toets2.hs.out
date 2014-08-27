@@ -1,0 +1,19 @@
+Maybe is up to date
+List is up to date
+Compiling ./group74/2003-03-14@10:27:02:252/Toets2.hs
+(15,8): Warning: Variable "cmp" is not used
+(21,37): Type error in application
+ expression       : overal li
+ term             : overal
+   type           : (a -> b) -> Boom a -> Boom b
+   does not match : Boom c   -> Boom d          
+ probable fix     : insert a first argument
+
+(21,49): Type error in application
+ expression       : overal re
+ term             : overal
+   type           : (a -> b) -> Boom a -> Boom b
+   does not match : Boom c   -> Boom d          
+ probable fix     : insert a first argument
+
+Compilation failed with 2 errors

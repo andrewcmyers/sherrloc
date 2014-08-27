@@ -1,0 +1,9 @@
+Maybe is up to date
+List is up to date
+Compiling ./group85/2003-02-28@15:57:26:812/Table.hs
+(147,28): Type error in guarded expression
+ expression       : zoek conditie (th)
+   type           : [String  ]
+   does not match : [[String]]
+
+Compilation failed with 1 error

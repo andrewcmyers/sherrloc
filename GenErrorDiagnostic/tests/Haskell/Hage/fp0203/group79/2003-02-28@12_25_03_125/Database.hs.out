@@ -1,0 +1,17 @@
+Maybe is up to date
+List is up to date
+Compiling ./group79/2003-02-28@12:25:03:125/Database.hs
+(136,24): Type error in application
+ expression       : select (... (...) (...)) (eqString (... ...)) tabel2
+ term             : select
+   type           : String
+                    -> (String -> Bool)
+                    -> Table     
+                    -> Table         
+   does not match : String
+                    -> (String -> Bool)
+                    -> [[String]]
+                    -> Table -> Table
+ because          : too many arguments are given
+
+Compilation failed with 1 error

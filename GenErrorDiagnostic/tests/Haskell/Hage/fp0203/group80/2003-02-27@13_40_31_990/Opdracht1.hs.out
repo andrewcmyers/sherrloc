@@ -1,0 +1,16 @@
+Maybe is up to date
+List is up to date
+Compiling ./group80/2003-02-27@13:40:31:990/Opdracht1.hs
+(60,24): Type error in literal
+ expression       : '|'
+   type           : Char  
+   expected type  : String
+ probable fix     : use a string literal instead
+
+(61,56): Type error in infix application
+ expression       : '|' ++ vulAan aantal (... ...) ++ ... ... ...
+ operator         : ++
+   type           : [a]  -> [a   ] -> [a]   
+   does not match : Char -> [Char] -> String
+
+Compilation failed with 2 errors
