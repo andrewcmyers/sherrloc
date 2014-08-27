@@ -36,7 +36,7 @@ ordString = undefined
 Group11,31 are skipped since the only file that has type errors is OK in
 GHC (error due to the misuse of +/* and +./*.)
 
-Group43 only have two files, neither of them are type checking errors.
+Group43, 75 do not have any file that constains type checking errors.
 Group46 only has one file with type checking error. The error cause is
 unclear.
 Group37 is a very concise example where signature is wrong

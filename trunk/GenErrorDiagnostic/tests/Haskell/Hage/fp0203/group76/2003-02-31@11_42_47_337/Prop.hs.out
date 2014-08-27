@@ -1,0 +1,7 @@
+Compiling ./group76/2003-02-31@11:42:47:337/Prop.hs
+(31,22): Type error in variable
+ expression       : varUitProp
+   type           : Prop -> [String  ]
+   expected type  : Prop -> [[String]]
+
+Compilation failed with 1 error

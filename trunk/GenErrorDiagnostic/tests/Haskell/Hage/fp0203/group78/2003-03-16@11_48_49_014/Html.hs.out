@@ -1,0 +1,7 @@
+Compiling ./group78/2003-03-16@11:48:49:014/Html.hs
+(7,5): Type error in list
+ expression       : [SingleTag "Hallo"]
+   type           : [HTML]
+   expected type  : HTML  
+
+Compilation failed with 1 error
