@@ -1,0 +1,8 @@
+Can't find module 'Similarity'
+Import chain: 
+	Cluedo imports Similarity
+Search path:
+	./group81/2003-03-16@14:58:02:563/
+	.
+	/usr/local/helium/lib
+

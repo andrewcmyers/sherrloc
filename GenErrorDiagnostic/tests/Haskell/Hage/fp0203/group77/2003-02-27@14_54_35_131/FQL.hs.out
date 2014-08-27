@@ -1,0 +1,10 @@
+Maybe is up to date
+List is up to date
+Compiling ./group77/2003-02-27@14:54:35:131/FQL.hs
+(50,92): Type error in literal
+ expression       : '-'
+   type           : Char  
+   expected type  : [Char]
+ probable fix     : use a string literal instead
+
+Compilation failed with 1 error

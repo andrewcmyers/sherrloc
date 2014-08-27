@@ -1,0 +1,10 @@
+Compiling ./group83/2003-03-10@17:04:03:091/Logica.hs
+(110,15): Type error in pattern application
+ pattern          : Bool (a)
+ constructor      : Bool
+   type           : Bool -> Prop
+ 1st argument     : (a)
+   type           : Prop
+   does not match : Bool
+
+Compilation failed with 1 error
