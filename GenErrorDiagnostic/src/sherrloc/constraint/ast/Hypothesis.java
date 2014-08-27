@@ -171,10 +171,10 @@ public class Hypothesis {
 			if (e1.isBottom() || e2.isTop())
 				return true;
 
-			if (e1 instanceof Variable || e2 instanceof Variable) {
-				return true;
-			}
-
+//			if (e1 instanceof Variable || e2 instanceof Variable) {
+//				return true;
+//			}
+			
 			if (e1 instanceof ConstructorApplication
 					&& e2 instanceof ConstructorApplication) {
 				if (((ConstructorApplication) e1).getCons().equals(
@@ -352,10 +352,10 @@ public class Hypothesis {
 			 * A better way is to expand such labels to l_o -> l_r, so that 
 			 * the following tweak is not necessary
 			 */
-			for (Element e : graph.getAllElements()) {
-				if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e)) && leq(e, e2, false))
-					return true;
-			}
+//			for (Element e : graph.getAllElements()) {
+//				if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e)) && leq(e, e2, false))
+//					return true;
+//			}
 		}
 		return false;
 	}
