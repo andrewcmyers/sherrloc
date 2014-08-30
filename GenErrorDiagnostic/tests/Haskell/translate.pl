@@ -1,6 +1,47 @@
 #!/usr/bin/perl
 use strict;
 
+my @synonyms = ();      # collected synonyms
+
+package Synonym;
+
+sub new {
+	my $type = shift;
+	my $left = shift;
+        my $right = shift;
+
+        my @left_words = $left =~ /(\S+)/g;
+        my $name = shift @left_words;
+
+	my $self = {
+		name => $name,
+                replacement => $right,
+		paras => \@left_words
+	};
+
+	bless $self, $type;
+}	
+
+# translate synonyms in a constraint
+sub transCtr {
+	my ($self) = shift; 
+	my $ctr = shift;
+
+        while ($ctr =~ m/(.*)\b$self->{name}\b(.*)/) {
+                my $head = $1;
+                my $rest = $2; 
+                my $to_replace = $self->{replacement};
+                my $word;
+                #chew on parameters, and substitute them in the replacement 
+                foreach (@{$self->{paras}}) {
+                        ($word, $rest) = ($rest =~ m/(\(.+\)|\S+)(.*)/); #extract the next word
+                        $to_replace =~ s/\b$_\b/$word/g;
+                }
+                $ctr = $head.$to_replace.$rest; #match whole word only
+        }
+        return $ctr;
+}
+
 package PlainCt;
 
 sub new {
@@ -87,6 +128,10 @@ sub transList {
 sub to_sherrloc_ele {
 	my $ct = shift;
 	$ct = transList $ct; # translate lists
+        foreach (@synonyms) {
+                $ct = $_->transCtr($ct);
+        }
+	$ct =~ s/String/(list Char)/g;
 	$ct =~ s/\(\)/EMPTY/g;
 	return "($ct)";
 }
@@ -229,8 +274,7 @@ my $tracefile;          # GHC trace file
 my @constraints = ();   # collected constraints
 my @assumptions = ();   # collected assumptions
 my @axioms = ();        # collected axioms
-my @synonyms = ();      # collected synonyms
-my @functions = ();     # collected functions
+#my @functions = ();     # collected functions
 my $prev_ct;            # a constraint may occupy multiple lines
 
 # get an input trace file from GHC
@@ -438,11 +482,8 @@ sub trans_AXIOM {
 while (<TRACE>) {
         # collect synonyms 
         if (/^  type (.*) = (.*)/) {
-                my $pct = new PlainCt("$1 ~ $2");
-                push (@synonyms, $pct->print());
-                my @synstr = split(' ', $1);
-		my $size = scalar @synstr - 1;
-                push (@functions, "@synstr[0] $size");
+                push (@synonyms, new Synonym($1, PlainCt::to_sherrloc_ele($2)));
+                #push (@functions, "@synstr[0] $size");
         }
 	
         # translate axioms
@@ -471,19 +512,11 @@ while (<TRACE>) {
 			foreach (@vars) {
 				print OUT ("VARIABLE $_\n");
 			}
-			foreach (@functions) {
-				print OUT ("CONSTRUCTOR $_\n");
-			}
-			print OUT ("CONSTRUCTOR String 0");
 
 			print OUT "\n\n%%\n";
 			foreach (@axioms) {
 				print OUT $_->print().";\n";
 			}
-			foreach (@synonyms) {
-				print OUT $_.";\n";
-			}
-			print OUT "String == (list Char);\n";
 
 			print OUT "\n\n%%\n";
 			foreach (@constraints) {
