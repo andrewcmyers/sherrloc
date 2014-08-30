@@ -1,0 +1,7 @@
+Compiling Logica.hs
+(40,16)-(40,57): Type error in right-hand side
+ expression       : map (evalueer p) (deelRij (variabelen p))
+   type           : [Bool    ]
+   does not match : [Bedeling]
+
+Compilation failed with 1 error

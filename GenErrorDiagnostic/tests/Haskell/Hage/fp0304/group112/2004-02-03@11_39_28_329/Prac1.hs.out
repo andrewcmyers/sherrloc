@@ -1,0 +1,9 @@
+Compiling Prac1.hs
+(177,19)-(177,29): Type error in application
+ expression       : writeTable join a b
+ term             : writeTable
+   type           : Table                     -> String                  
+   does not match : (Table -> Table -> Table) -> Table -> Table -> String
+ because          : too many arguments are given
+
+Compilation failed with 1 error

@@ -1,0 +1,7 @@
+Compiling Stom.hs
+(28,28)-(28,32): Type error in guarded expression
+ expression       : [xs]
+   type           : [[Int]]
+   does not match : [Int  ]
+
+Compilation failed with 1 error
