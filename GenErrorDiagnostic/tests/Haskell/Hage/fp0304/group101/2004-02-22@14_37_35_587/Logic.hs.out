@@ -1,0 +1,9 @@
+Compiling Logic.hs
+(23,42)-(23,43): Type error in infix application
+ expression       : not . evalueer y bed
+ operator         : .
+   type           : (a    -> b   ) -> (c -> a) -> c -> b
+   does not match : (Bool -> Bool) -> Bool     -> Bool  
+ because          : not enough arguments are given
+
+Compilation failed with 1 error

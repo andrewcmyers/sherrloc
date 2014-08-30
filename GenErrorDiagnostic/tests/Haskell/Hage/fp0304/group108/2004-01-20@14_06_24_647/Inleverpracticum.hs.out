@@ -1,0 +1,14 @@
+Compiling Inleverpracticum.hs
+(48,20)-(48,22): Type error in infix application
+ expression       : x ++ "|" : xs ++ "|"
+ operator         : ++
+   type           : [a]  -> [a] -> [a   ]
+   does not match : Char -> b   -> [Char]
+
+(49,20)-(49,21): Type error in infix application
+ expression       : "|" : xs ++ "|"
+ constructor      : :
+   type           : a      -> [a   ] -> [a]
+   does not match : String -> [Char] -> b  
+
+Compilation failed with 2 errors

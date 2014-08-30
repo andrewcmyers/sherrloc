@@ -1,0 +1,11 @@
+Compiling Week1.hs
+(18,20)-(18,26): Type error in application
+ expression       : length abcFormule a b c
+ term             : length
+   type           : [a]                                 
+                    -> Int                           
+   does not match : (Float -> Float -> Float -> [Float])
+                    -> Float -> Float -> Float -> Int
+ because          : too many arguments are given
+
+Compilation failed with 1 error

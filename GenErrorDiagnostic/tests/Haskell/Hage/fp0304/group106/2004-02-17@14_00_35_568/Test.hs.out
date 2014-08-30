@@ -1,0 +1,10 @@
+Compiling Test.hs
+(17,23)-(17,27): Type error in application
+ expression       : foldr (+ 1) 0 lijst
+ function         : foldr
+   type           : (a -> b -> b) -> b -> [a] -> b
+ 1st argument     : (+ 1)
+   type           : Int -> Int   
+   does not match : a   -> b -> b
+
+Compilation failed with 1 error

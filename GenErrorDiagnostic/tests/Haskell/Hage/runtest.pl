@@ -181,7 +181,8 @@ sub print_unsound {
 
 # open my $fh, '<', $Name or die "file not found!";
 my $prettylen = 27;
-my $topdir = "fp0203";
+my @topdirs = ("fp0304"); # ("fp0203", "fp0304");
+foreach my $topdir (@topdirs) {
 my @groups= <$topdir/*>;
 
 # remove cmo files, in case the last run fails
@@ -211,6 +212,7 @@ if (($#ARGV == 0) && ($ARGV[0] eq "clean")) {
           my ($prefix) = $file =~ m/(.+)\.hs$/;
           unlink ("$prefix.con");
           unlink ("$prefix.trace");
+          unlink ("$prefix.ghc");
           unlink ("$prefix.ghc");
           chdir "../../..";
        }
@@ -307,6 +309,7 @@ L1:     for my $loc1 (@loc1) {
         chdir "../../..";
     }
   }
+}
 }
 
 # remove cmo files
