@@ -46,4 +46,4 @@ vervulbaar (Of []) = []
 vervulbaar (Of (x:xs)) =  (concat(concat((vervulbaar x) ++ (vervulbaar (En (xs))))) : [])
 
 -- remove "concat"
--- 46,35-82
+-- 46,28-83

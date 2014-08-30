@@ -1,0 +1,12 @@
+Maybe is up to date
+List is up to date
+Compiling ./group89/2003-03-10@10:37:39:093/Logica.hs
+(95,103): Type error in infix application
+ expression       : prop ++ ")"
+ operator         : ++
+   type           : [a] -> [a] -> [a]
+ left operand     : prop
+   type           : Prop
+   does not match : [a] 
+
+Compilation failed with 1 error
