@@ -1,0 +1,8 @@
+Compiling ./group90/2003-02-25@12:24:23:148/Probeersel.hs
+(46,26): Type error in application
+ expression       : slaPlat (ys : yss)
+ term             : slaPlat
+   type           : [[Int   ]] -> [Int   ]
+   does not match : [[String]] -> [String]
+
+Compilation failed with 1 error
