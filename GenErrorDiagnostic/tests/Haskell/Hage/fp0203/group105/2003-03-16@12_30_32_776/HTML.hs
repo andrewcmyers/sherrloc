@@ -1,4 +1,4 @@
-module HTML(module HTML, module Pretty) where
+module HTML where
 
 import Pretty
 elemBy        :: (a -> a -> Bool) -> a -> [a] -> Bool

@@ -39,4 +39,4 @@ breedte :: [String] -> Int
 breedte strings = maximum map length strings
 
 -- missing () around map length strings
--- 39,27-44
+-- 39,27-29

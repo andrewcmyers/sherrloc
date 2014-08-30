@@ -1,6 +1,8 @@
-module HTML(module Pretty, module HTML) where
-import GHC.Base
+module HTML where
+
 import Pretty
+eqString      :: String -> String -> Bool 
+eqString = undefined
 
 data HTML = Text String
           | SingleTag String [Attribuut]

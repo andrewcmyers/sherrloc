@@ -1,0 +1,8 @@
+Compiling ./group96/2003-02-14@10:25:46:169/Test2.hs
+(1,39): Type error in variable
+ expression       : ++
+   type           : [a] -> [a  ] -> [a  ]
+   expected type  : Int -> [Int] -> [Int]
+ probable fix     : use : instead
+
+Compilation failed with 1 error
