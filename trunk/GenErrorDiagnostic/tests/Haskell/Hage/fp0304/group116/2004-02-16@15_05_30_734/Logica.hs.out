@@ -1,0 +1,14 @@
+Compiling Logica.hs
+(96,26)-(96,32): Type error in application
+ expression       : eqList (eqString) (vervulbaar prop1) (vervulbaar prop2)
+ term             : eqList
+   type           : (a      -> a      -> Bool)
+                    -> [a       ]
+                    -> [a       ]
+                    -> Bool
+   does not match : (String -> String -> Bool)
+                    -> [Bedeling]
+                    -> [Bedeling]
+                    -> Bool
+
+Compilation failed with 1 error

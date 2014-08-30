@@ -1,0 +1,10 @@
+Compiling Propositielogica.hs
+(130,38)-(130,43): Type error in application
+ expression       : wegHaakjes proph 0
+ function         : wegHaakjes
+   type           : (String, String) -> Int -> String
+ 1st argument     : proph
+   type           : String          
+   does not match : ([Char], [Char])
+
+Compilation failed with 1 error

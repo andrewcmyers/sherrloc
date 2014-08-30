@@ -1,0 +1,8 @@
+Compiling Propositielogica.hs
+(69,47)-(69,49): Type error in variable
+ expression       : ++
+   type           : [a]    -> [a]      -> [a]     
+   expected type  : String -> Bedeling -> Bedeling
+ probable fix     : use : instead
+
+Compilation failed with 1 error

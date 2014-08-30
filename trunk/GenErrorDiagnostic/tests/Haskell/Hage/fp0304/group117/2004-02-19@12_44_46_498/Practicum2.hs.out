@@ -1,0 +1,7 @@
+Compiling Practicum2.hs
+(47,24)-(47,29): Type error in right-hand side
+ expression       : ["_"]
+   type           : [String  ]
+   does not match : [Bedeling]
+
+Compilation failed with 1 error

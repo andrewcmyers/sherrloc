@@ -1,5 +1,8 @@
 elemBy        :: (a -> a -> Bool) -> a -> [a] -> Bool
 elemBy = undefined
+eqString      :: String -> String -> Bool 
+eqString = undefined
+
 
 eqMaybe :: (a -> a -> Bool) -> (Maybe a) -> (Maybe a) -> Bool
 eqMaybe = undefined
@@ -10,8 +13,6 @@ eqTuple2 = undefined
 eqList        :: (a -> a -> Bool) -> [a] -> [a] -> Bool
 eqList = undefined
 
-eqString      :: String -> String -> Bool 
-eqString = undefined
 eqChar      :: Char -> Char -> Bool
 eqChar = undefined
 
@@ -35,6 +36,7 @@ ord = undefined
 ordString :: String -> String -> Ordering
 ordString = undefined
 
+fp0203:
 Group11,31,92,97 are skipped since the only file that has type errors is OK in
 GHC (error due to the misuse of +/* and +./*.)
 
@@ -42,3 +44,12 @@ Group43, 75, 93,98 do not have any file that constains type checking errors.
 Group46 only has one file with type checking error. The error cause is
 unclear.
 Group37 is a very concise example where signature is wrong
+
+fp0304:
+group0, 11, 111, 113 have no files with errors
+
+Group110 are skipped since the only file that has type errors is OK in
+GHC (error due to the misuse of +/* and +./*.)
+
+group114 seems the signature is more likely to be wrong, but actually,
+both uses are wrong

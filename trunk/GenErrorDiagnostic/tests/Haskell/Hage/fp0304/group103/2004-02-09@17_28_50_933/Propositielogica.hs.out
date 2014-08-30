@@ -1,0 +1,9 @@
+Compiling Propositielogica.hs
+(93,37)-(93,38): Don't know which instance to choose for Ord
+ function         : <
+   type           : Ord a => a -> a -> Bool
+   used as        :          b -> b -> Bool
+ hint             : write an explicit type for this function
+                       e.g. (show :: [Int] -> String)
+
+Compilation failed with 1 error

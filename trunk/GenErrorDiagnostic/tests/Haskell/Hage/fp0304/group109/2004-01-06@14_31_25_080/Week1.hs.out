@@ -1,0 +1,14 @@
+Compiling Week1.hs
+(41,34)-(41,42): Type error in application
+ expression       : laatste0 x
+ term             : laatste0
+   type           : [Int] -> Bool
+   does not match : Int   -> Bool
+
+(42,38)-(42,46): Type error in application
+ expression       : laatste0 x
+ term             : laatste0
+   type           : [Int] -> Bool
+   does not match : Int   -> Bool
+
+Compilation failed with 2 errors

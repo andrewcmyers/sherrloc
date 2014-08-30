@@ -1,0 +1,12 @@
+Compiling PracticumBETER.hs
+(95,25)-(95,27): Type error in right-hand side
+ expression       : []
+   type           : [a] 
+   does not match : Bool
+
+(96,21)-(96,23): Type error in right-hand side
+ expression       : []
+   type           : [a] 
+   does not match : Bool
+
+Compilation failed with 2 errors
