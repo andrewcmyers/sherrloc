@@ -1,0 +1,12 @@
+Compiling Logica.hs
+(93,34)-(93,35): Type error in right-hand side
+ expression       : p
+   type           : String
+   does not match : Prop  
+
+(94,34)-(94,35): Type error in right-hand side
+ expression       : p
+   type           : Bool
+   does not match : Prop
+
+Compilation failed with 2 errors

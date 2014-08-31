@@ -1,0 +1,10 @@
+Compiling Propositie.hs
+(181,66)-(181,67): Type error in application
+ expression       : telHaakjes n
+ function         : telHaakjes
+   type           : String -> Int
+ 1st argument     : n
+   type           : Int   
+   does not match : [Char]
+
+Compilation failed with 1 error

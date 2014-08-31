@@ -1,0 +1,10 @@
+Compiling PropositieLogica.hs
+(137,29)-(137,42): Type error in application
+ expression       : Of (Var a, Var b)
+ function         : Of
+   type           : [Prop] -> Prop
+ 1st argument     : (Var a, Var b)
+   type           : (Prop, Prop)
+   does not match : [Prop]      
+
+Compilation failed with 1 error

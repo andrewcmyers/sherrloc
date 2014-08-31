@@ -1,0 +1,9 @@
+Compiling Logica.hs
+(31,26)-(31,40): Type error in application
+ expression       : elimDuplicates (variabelen p)
+ term             : elimDuplicates
+   type           : (a -> a -> Bool) -> [a] -> [a]
+   does not match : [String]         -> [String]  
+ probable fix     : insert a first argument
+
+Compilation failed with 1 error

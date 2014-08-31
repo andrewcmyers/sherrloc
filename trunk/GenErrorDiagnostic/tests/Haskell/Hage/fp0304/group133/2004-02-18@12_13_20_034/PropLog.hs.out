@@ -1,0 +1,10 @@
+Compiling PropLog.hs
+(34,52)-(34,53): Type error in application
+ expression       : map (geefVar) p
+ function         : map
+   type           : (a -> b) -> [a] -> [b]
+ 2nd argument     : p
+   type           : Prop
+   does not match : [a] 
+
+Compilation failed with 1 error

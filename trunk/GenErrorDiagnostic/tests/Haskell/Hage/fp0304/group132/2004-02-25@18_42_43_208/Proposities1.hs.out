@@ -1,0 +1,13 @@
+Compiling Proposities1.hs
+(214,13)-(214,17): Type error in pattern of function binding
+ pattern          : prop
+   type           : Prop  
+   does not match : [Prop]
+
+(215,32)-(215,46): Type error in application
+ expression       : testPrioriteit x prop
+ term             : testPrioriteit
+   type           : Int -> [Prop] -> [String]
+   does not match : Int -> Prop   -> [String]
+
+Compilation failed with 2 errors

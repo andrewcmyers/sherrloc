@@ -1,0 +1,8 @@
+Compiling Database.hs
+(239,33)-(239,40): Type error in literal
+ expression       : "Empty"
+   type           : String
+   expected type  : Char  
+ probable fix     : use a char literal instead
+
+Compilation failed with 1 error

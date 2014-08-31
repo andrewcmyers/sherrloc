@@ -1,0 +1,7 @@
+Compiling Inleverpracticum.hs
+(32,1)-(32,12): Type signature is too general
+ function         : lengthTable
+   declared type  : [a  ] -> [Int]
+   inferred type  : [[b]] -> [Int]
+
+Compilation failed with 1 error

@@ -1,0 +1,8 @@
+Compiling FQL.hs
+(77,35)-(77,37): Type error in variable
+ expression       : ++
+   type           : [a     ] -> [a]   -> [a]  
+   expected type  : [String] -> Table -> Table
+ probable fix     : use : instead
+
+Compilation failed with 1 error

@@ -1,0 +1,7 @@
+Compiling Database.hs
+(47,12)-(47,17): Type error in pattern of function binding
+ pattern          : [_ : _]
+   type           : [[a]]
+   does not match : [Int]
+
+Compilation failed with 1 error

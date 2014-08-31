@@ -1,0 +1,11 @@
+Compiling FQL.hs
+(95,18)-(95,26): Warning: Variable "breedtes" is not used
+(96,42)-(96,46): Type error in application
+ expression       : vul_aan (x : xs) breedtes
+ function         : vul_aan
+   type           : [String] -> [Int] -> [String]
+ 1st argument     : x : xs
+   type           : [[String]]
+   does not match : [[Char  ]]
+
+Compilation failed with 1 error

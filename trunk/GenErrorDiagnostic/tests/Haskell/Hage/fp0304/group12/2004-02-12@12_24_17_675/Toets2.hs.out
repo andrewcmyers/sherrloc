@@ -1,0 +1,10 @@
+Compiling Toets2.hs
+(20,46)-(20,47): Type error in infix application
+ expression       : x `cmp` y
+ function         : cmp
+   type           : a -> a -> Bool
+ right operand    : y
+   type           : Boom a
+   does not match : a     
+
+Compilation failed with 1 error

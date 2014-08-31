@@ -1,0 +1,15 @@
+Compiling Propositie.hs
+(40,17)-(40,18): Warning: Variable "x" is not used
+(48,16)-(48,21): Type error in application
+ expression       : foldl (\x y -> toon x ++ " /\\ " ++ y) [] xs
+ term             : foldl
+   type           : (a    -> b      -> a     ) -> a   -> [b   ] -> a     
+   does not match : (Prop -> [Char] -> [Char]) -> [c] -> [Prop] -> String
+
+(49,16)-(49,21): Type error in application
+ expression       : foldl (\x y -> toon x ++ " \\/ " ++ y) [] xs
+ term             : foldl
+   type           : (a    -> b      -> a     ) -> a   -> [b   ] -> a     
+   does not match : (Prop -> [Char] -> [Char]) -> [c] -> [Prop] -> String
+
+Compilation failed with 2 errors

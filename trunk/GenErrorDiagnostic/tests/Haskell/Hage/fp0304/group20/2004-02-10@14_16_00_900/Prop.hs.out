@@ -1,0 +1,7 @@
+Compiling Prop.hs
+(40,25)-(40,53): Type error in right-hand side
+ expression       : concat (map (variabelen) ps)
+   type           : [String  ]
+   does not match : [Bedeling]
+
+Compilation failed with 1 error

@@ -1,0 +1,14 @@
+Compiling Logica.hs
+(88,59)-(88,61): Type error in infix application
+ expression       : (intersperse " /\\ " $ map toon ps) ++ ")"
+ operator         : ++
+   type           : [a     ] -> [a]    -> [a]
+   does not match : [String] -> String -> b  
+
+(89,59)-(89,61): Type error in infix application
+ expression       : (intersperse " \\/ " $ map toon ps) ++ ")"
+ operator         : ++
+   type           : [a     ] -> [a]    -> [a   ]
+   does not match : [String] -> String -> [Char]
+
+Compilation failed with 2 errors

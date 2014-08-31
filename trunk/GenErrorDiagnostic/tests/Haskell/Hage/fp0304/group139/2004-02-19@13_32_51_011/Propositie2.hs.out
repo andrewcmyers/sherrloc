@@ -1,0 +1,8 @@
+Compiling Propositie2.hs
+(85,50)-(85,52): Type error in infix application
+ expression       : (concatMap (++ str) (init xs)) ++ tail xs
+ operator         : ++
+   type           : [a   ] -> [a     ] -> [a]   
+   does not match : [Char] -> [String] -> String
+
+Compilation failed with 1 error
