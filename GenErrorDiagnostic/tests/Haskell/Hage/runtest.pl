@@ -213,7 +213,7 @@ if (($#ARGV == 0) && ($ARGV[0] eq "clean")) {
           unlink ("$prefix.con");
           unlink ("$prefix.trace");
           unlink ("$prefix.ghc");
-          unlink ("$prefix.ghc");
+          unlink ("$prefix.lvm");
           chdir "../../..";
        }
     }
