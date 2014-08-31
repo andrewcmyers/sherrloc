@@ -1,0 +1,7 @@
+Compiling FQL.hs
+(95,13)-(95,58): Type error in right-hand side
+ expression       : [ mergeRows a b | a <- x, b <- y, eqField a b ]
+   type           : [[[String]]]
+   does not match : Table       
+
+Compilation failed with 1 error

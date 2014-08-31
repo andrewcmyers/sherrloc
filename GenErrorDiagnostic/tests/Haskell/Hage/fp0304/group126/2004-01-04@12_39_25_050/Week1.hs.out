@@ -1,0 +1,15 @@
+Compiling Week1.hs
+(38,20)-(38,22): Type error in variable
+ expression       : ++
+   type           : [a]                              -> [a] -> [a]
+   expected type  : ((b -> c -> c) -> c -> [b] -> c) -> d   -> [e]
+ probable fix     : use : instead
+
+(38,23)-(38,25): Type error in application
+ expression       : [] l
+ constructor      : []
+   type           : [a]       
+   does not match : [[b]] -> c
+ because          : it is not a function
+
+Compilation failed with 2 errors

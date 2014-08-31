@@ -1,0 +1,7 @@
+Compiling Prop.hs
+(42,1)-(42,15): Type signature is too general
+ function         : alleBedelingen
+   declared type  : Prop -> [[a     ]]
+   inferred type  : Prop -> [[String]]
+
+Compilation failed with 1 error

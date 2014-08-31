@@ -1,0 +1,10 @@
+Compiling Propositie.hs
+(73,66)-(73,71): Type error in application
+ expression       : concatMap toon (En ps)
+ function         : concatMap
+   type           : (a -> [b]) -> [a] -> [b]
+ 2nd argument     : En ps
+   type           : Prop
+   does not match : [a] 
+
+Compilation failed with 1 error

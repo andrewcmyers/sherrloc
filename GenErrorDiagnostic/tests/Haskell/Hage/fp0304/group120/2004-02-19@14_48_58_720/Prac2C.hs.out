@@ -1,0 +1,8 @@
+Compiling Prac2C.hs
+(106,23)-(106,26): Type error in application
+ expression       : map deM xs
+ term             : map
+   type           : (a    -> b   ) -> [a]  -> [b] 
+   does not match : (Prop -> Prop) -> Prop -> Prop
+
+Compilation failed with 1 error

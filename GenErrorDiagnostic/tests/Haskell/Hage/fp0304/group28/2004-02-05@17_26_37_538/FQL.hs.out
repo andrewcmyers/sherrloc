@@ -1,0 +1,8 @@
+Compiling FQL.hs
+(83,37)-(83,40): Type error in application
+ expression       : not (eqString (gemeen2 x y))
+ term             : not
+   type           : Bool             -> Bool          
+   does not match : (String -> Bool) -> String -> Bool
+
+Compilation failed with 1 error

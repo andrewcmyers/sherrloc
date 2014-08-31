@@ -1,0 +1,14 @@
+Compiling T.hs
+(4,13)-(4,51): Type error in right-hand side
+ expression       : map (\n -> splitAt n xs) [0 length xs]
+   type           : [([a], [a])]
+   does not match : ([a], [a])  
+
+(4,39)-(4,40): Type error in application
+ expression       : 0 length xs
+ term             : 0
+   type           : Int                       
+   does not match : ([a] -> Int) -> [b] -> Int
+ because          : it is not a function
+
+Compilation failed with 2 errors

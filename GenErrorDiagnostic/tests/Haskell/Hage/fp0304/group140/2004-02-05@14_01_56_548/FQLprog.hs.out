@@ -1,0 +1,8 @@
+Compiling FQLprog.hs
+(135,44)-(135,49): Type error in variable
+ expression       : error
+   type           : String -> a
+   expected type  : [b]        
+ probable fix     : insert one argument
+
+Compilation failed with 1 error

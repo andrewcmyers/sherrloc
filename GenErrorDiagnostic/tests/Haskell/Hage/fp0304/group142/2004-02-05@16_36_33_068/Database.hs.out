@@ -1,0 +1,13 @@
+Compiling Database.hs
+(119,1)-(119,10): Type error in explicitly typed binding
+ definition       : eqElement
+   inferred type  : [a] -> [a] -> Bool
+   declared type  : Int -> Int -> Bool
+
+(120,39)-(120,48): Type error in application
+ expression       : eqElement xs xy
+ term             : eqElement
+   type           : Int -> Int -> Bool
+   does not match : [a] -> [a] -> Bool
+
+Compilation failed with 2 errors

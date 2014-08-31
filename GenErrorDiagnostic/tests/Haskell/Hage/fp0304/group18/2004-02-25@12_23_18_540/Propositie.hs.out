@@ -1,0 +1,8 @@
+Compiling Propositie.hs
+(270,45)-(270,46): Type error in infix application
+ expression       : (init z) : [[init z]]
+ constructor      : :
+   type           : a      -> [a       ] -> [a     ]
+   does not match : [Char] -> [[[Char]]] -> [String]
+
+Compilation failed with 1 error

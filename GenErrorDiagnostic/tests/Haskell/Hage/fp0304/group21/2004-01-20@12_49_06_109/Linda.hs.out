@@ -1,0 +1,16 @@
+Compiling Linda.hs
+(42,24)-(42,40): Type error in application
+ expression       : putStr (writeLineTable x)
+ function         : putStr
+   type           : String -> IO ()
+ 1st argument     : writeLineTable x
+   type           : [String]
+   does not match : [Char  ]
+
+(51,20)-(51,29): Type error in variable
+ expression       : concatMap
+   type           : (a   -> [b   ]) -> [a  ] -> [b     ]
+   expected type  : (Int -> [Char]) -> [Int] -> [String]
+ probable fix     : use map instead
+
+Compilation failed with 2 errors

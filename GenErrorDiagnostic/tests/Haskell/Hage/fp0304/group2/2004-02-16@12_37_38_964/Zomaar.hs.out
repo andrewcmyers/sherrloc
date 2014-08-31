@@ -1,0 +1,10 @@
+Compiling Zomaar.hs
+(13,68)-(13,70): Type error in application
+ expression       : w xs
+ function         : w
+   type           : [[Char]] -> String
+ 1st argument     : xs
+   type           : [Char  ]
+   does not match : [[Char]]
+
+Compilation failed with 1 error

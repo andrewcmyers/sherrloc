@@ -1,0 +1,9 @@
+Compiling Proplog.hs
+(52,25)-(52,35): Type error in application
+ expression       : vervulbaar Var (h)
+ term             : vervulbaar
+   type           : Prop             -> [Bedeling]        
+   does not match : (String -> Prop) -> Prop -> [Bedeling]
+ probable fix     : remove first argument
+
+Compilation failed with 1 error

@@ -1,0 +1,14 @@
+Compiling Database2.hs
+(83,33)-(83,44): Type error in application
+ expression       : findIndices (eqString incommon) tab1
+ term             : findIndices
+   type           : (a      -> Bool) -> [a]   -> [Int]
+   does not match : (String -> Bool) -> Table -> b    
+
+(84,33)-(84,44): Type error in application
+ expression       : findIndices (eqString incommon) tab2
+ term             : findIndices
+   type           : (a      -> Bool) -> [a]   -> [Int]
+   does not match : (String -> Bool) -> Table -> b    
+
+Compilation failed with 2 errors
