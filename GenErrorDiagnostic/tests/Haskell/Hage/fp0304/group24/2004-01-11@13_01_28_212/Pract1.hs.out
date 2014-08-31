@@ -1,0 +1,7 @@
+Compiling Pract1.hs
+(32,60)-(32,61): Type error in guarded expression
+ expression       : x
+   type           : [a]
+   does not match : Int
+
+Compilation failed with 1 error

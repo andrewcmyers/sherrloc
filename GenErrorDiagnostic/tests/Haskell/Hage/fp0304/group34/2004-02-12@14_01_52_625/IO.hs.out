@@ -1,0 +1,8 @@
+Compiling IO.hs
+(12,48)-(12,49): Type error in infix application
+ expression       : return x : y
+ constructor      : :
+   type           : a       -> [a]    -> [a]      
+   does not match : IO Char -> String -> IO String
+
+Compilation failed with 1 error

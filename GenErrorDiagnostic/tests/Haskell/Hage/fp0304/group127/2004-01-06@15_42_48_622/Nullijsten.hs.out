@@ -1,0 +1,7 @@
+Compiling Nullijsten.hs
+(5,27)-(5,28): Type error in guarded expression
+ expression       : x
+   type           : Int  
+   does not match : [Int]
+
+Compilation failed with 1 error

@@ -1,0 +1,12 @@
+Compiling PropExt2.hs
+(137,42)-(137,44): Type error in guarded expression
+ expression       : En
+   type           : [Prop] -> Prop
+   does not match : Prop          
+
+(138,42)-(138,44): Type error in guarded expression
+ expression       : Of
+   type           : [Prop] -> Prop
+   does not match : Prop          
+
+Compilation failed with 2 errors

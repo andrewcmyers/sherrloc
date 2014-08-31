@@ -1,0 +1,14 @@
+Compiling Prac1b.hs
+(112,36)-(112,47): Type error in application
+ expression       : lijstFilter ys
+ term             : lijstFilter
+   type           : [Bool    ] -> Table -> Table
+   does not match : [[String]] -> [[String]]    
+
+(113,41)-(113,52): Type error in application
+ expression       : lijstFilter ys
+ term             : lijstFilter
+   type           : [Bool    ] -> Table -> Table
+   does not match : [[String]] -> Table         
+
+Compilation failed with 2 errors

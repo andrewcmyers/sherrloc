@@ -1,0 +1,10 @@
+Compiling Propositielogica.hs
+(70,12)-(70,13): Type error in pattern application
+ pattern          : Bool x
+ constructor      : Bool
+   type           : Bool -> Prop
+ 1st argument     : x
+   type           : String
+   does not match : Bool  
+
+Compilation failed with 1 error

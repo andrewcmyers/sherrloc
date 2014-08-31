@@ -1,0 +1,7 @@
+Compiling Logica.hs
+(103,1)-(103,5): Type signature is too general
+ function         : prop
+   declared type  : String -> [((Char, a), String)]
+   inferred type  : Parser (Char, Prop)            
+
+Compilation failed with 1 error

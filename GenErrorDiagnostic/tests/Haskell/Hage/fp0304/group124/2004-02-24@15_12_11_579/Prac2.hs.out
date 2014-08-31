@@ -1,0 +1,7 @@
+Compiling Prac2.hs
+(162,14)-(162,30): Type error in right-hand side
+ expression       : map fun (words s)
+   type           : [String]
+   does not match : Prop    
+
+Compilation failed with 1 error

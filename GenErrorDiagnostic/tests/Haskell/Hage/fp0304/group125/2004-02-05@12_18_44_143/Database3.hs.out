@@ -1,0 +1,10 @@
+Compiling Database3.hs
+(95,58)-(95,60): Type error in application
+ expression       : zoekVeldnaam s xs
+ function         : zoekVeldnaam
+   type           : String -> Table -> Int
+ 2nd argument     : xs
+   type           : [String  ]
+   does not match : [[[Char]]]
+
+Compilation failed with 1 error

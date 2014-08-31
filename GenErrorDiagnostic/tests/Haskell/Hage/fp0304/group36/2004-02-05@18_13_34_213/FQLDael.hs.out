@@ -1,0 +1,10 @@
+Compiling FQLDael.hs
+(127,76)-(127,77): Type error in application
+ expression       : select kolomnaam conditie (x)
+ function         : select
+   type           : String -> (String -> Bool) -> Table -> Table
+ 3rd argument     : x
+   type           : [String  ]
+   does not match : [[[Char]]]
+
+Compilation failed with 1 error
