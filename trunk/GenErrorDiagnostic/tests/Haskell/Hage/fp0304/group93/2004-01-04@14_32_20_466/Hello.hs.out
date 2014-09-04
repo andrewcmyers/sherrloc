@@ -1,0 +1,9 @@
+Compiling Hello.hs
+(52,18)-(52,27): Type error in application
+ expression       : totEerste reverse x
+ term             : totEerste
+   type           : [Int]        -> [Int]         
+   does not match : ([a] -> [a]) -> [Int] -> [Int]
+ probable fix     : remove first argument
+
+Compilation failed with 1 error

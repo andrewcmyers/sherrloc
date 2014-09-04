@@ -1,0 +1,14 @@
+Compiling Text.hs
+(14,36)-(14,38): Type error in infix application
+ expression       : x ++ kop ++ staart
+ operator         : ++
+   type           : [a] -> [a] -> [a  ]
+   does not match : Int -> b   -> [Int]
+
+(14,43)-(14,45): Type error in infix application
+ expression       : kop ++ staart
+ operator         : ++
+   type           : [a] -> [a  ] -> [a]
+   does not match : Int -> [Int] -> b  
+
+Compilation failed with 2 errors

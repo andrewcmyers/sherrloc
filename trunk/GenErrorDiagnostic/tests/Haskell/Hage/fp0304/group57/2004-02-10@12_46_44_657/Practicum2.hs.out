@@ -1,0 +1,8 @@
+Compiling Practicum2.hs
+(39,21)-(39,31): Type error in application
+ expression       : delDoubles (eqList eqString) (containsVars1 prop)
+ term             : delDoubles
+   type           : (a        -> a        -> Bool) -> [a]      -> [a]     
+   does not match : ([String] -> [String] -> Bool) -> Bedeling -> Bedeling
+
+Compilation failed with 1 error

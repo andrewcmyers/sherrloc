@@ -1,0 +1,14 @@
+Compiling Propositie.hs
+(63,20)-(63,31): Type error in application
+ expression       : intersperse "/\\" (concatMap toon px)
+ term             : intersperse
+   type           : a      -> [a   ] -> [a]   
+   does not match : String -> [Char] -> String
+
+(64,20)-(64,31): Type error in application
+ expression       : intersperse "\\/" (concatMap toon px)
+ term             : intersperse
+   type           : a      -> [a   ] -> [a]
+   does not match : String -> [Char] -> b 
+
+Compilation failed with 2 errors

@@ -1,0 +1,12 @@
+Compiling Propositielogica.hs
+(80,21)-(80,22): Type error in right-hand side
+ expression       : p
+   type           : Bool
+   does not match : Prop
+
+(81,20)-(81,21): Type error in right-hand side
+ expression       : p
+   type           : String
+   does not match : Prop  
+
+Compilation failed with 2 errors

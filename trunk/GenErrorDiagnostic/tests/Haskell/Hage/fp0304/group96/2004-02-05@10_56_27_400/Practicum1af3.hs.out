@@ -1,0 +1,12 @@
+Compiling Practicum1af3.hs
+(112,57)-(112,61): Type error in guarded expression
+ expression       : x : xs
+   type           : [String]
+   does not match : Table   
+
+(118,55)-(118,59): Type error in guarded expression
+ expression       : x : xs
+   type           : [String]
+   does not match : Table   
+
+Compilation failed with 2 errors

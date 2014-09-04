@@ -1,0 +1,8 @@
+Compiling Oefentoets3.hs
+(18,41)-(18,48): Type error in generator
+ statement        : leesMeer <- getLine
+ term             : getLine
+   type           : IO String  
+   does not match : IO [String]
+
+Compilation failed with 1 error

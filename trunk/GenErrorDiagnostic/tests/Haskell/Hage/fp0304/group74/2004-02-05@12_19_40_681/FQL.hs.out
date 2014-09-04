@@ -1,0 +1,8 @@
+Compiling FQL.hs
+(75,32)-(75,42): Type error in variable
+ expression       : aanvullen3
+   type           : [String] -> [String] -> [String]
+   expected type  : [String] -> [String]            
+ probable fix     : insert one argument
+
+Compilation failed with 1 error

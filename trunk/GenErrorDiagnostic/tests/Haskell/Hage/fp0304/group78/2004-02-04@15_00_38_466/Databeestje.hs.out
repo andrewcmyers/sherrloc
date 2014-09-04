@@ -1,0 +1,8 @@
+Compiling Databeestje.hs
+(144,46)-(144,47): Type error in constructor
+ expression       : :
+   type           : a     -> [a]   -> [a]  
+   expected type  : Table -> Table -> Table
+ probable fix     : use ++ instead
+
+Compilation failed with 1 error

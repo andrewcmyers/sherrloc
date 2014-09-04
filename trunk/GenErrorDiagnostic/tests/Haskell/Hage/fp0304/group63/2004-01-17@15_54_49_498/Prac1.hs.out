@@ -1,0 +1,10 @@
+Compiling Prac1.hs
+(34,27)-(34,28): Type error in application
+ expression       : write t (breedteKolommen (t : ts))
+ function         : write
+   type           : Table -> [Int] -> String
+ 1st argument     : t
+   type           : [String  ]
+   does not match : [[[Char]]]
+
+Compilation failed with 1 error

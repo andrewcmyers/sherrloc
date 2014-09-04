@@ -1,0 +1,14 @@
+Compiling Abc.hs
+(21,29)-(21,31): Type error in infix application
+ expression       : a ++ b
+ operator         : ++
+   type           : [a] -> [a  ] -> [a  ]
+   does not match : Int -> [Int] -> [Int]
+
+(22,33)-(22,35): Type error in infix application
+ expression       : head b ++ (voegIn a (tail b))
+ operator         : ++
+   type           : [a] -> [a  ] -> [a  ]
+   does not match : Int -> [Int] -> [Int]
+
+Compilation failed with 2 errors

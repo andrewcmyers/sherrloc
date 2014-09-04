@@ -1,0 +1,18 @@
+Compiling Prop.hs
+(161,48)-(161,57): Type error in application
+ expression       : aVar bedeling1
+ function         : aVar
+   type           : Prop -> [String]
+ 1st argument     : bedeling1
+   type           : [String]
+   does not match : Prop    
+
+(161,65)-(161,74): Type error in application
+ expression       : aVar bedeling2
+ function         : aVar
+   type           : Prop -> [String]
+ 1st argument     : bedeling2
+   type           : [String]
+   does not match : Prop    
+
+Compilation failed with 2 errors

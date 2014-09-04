@@ -1,0 +1,21 @@
+Compiling PropositieLogica.hs
+(52,47)-(52,50): Type error in application
+ expression       : Var x
+ constructor      : Var
+   type           : String -> Prop
+   does not match : Prop   -> Prop
+
+(53,37)-(53,45): Type error in application
+ expression       : evalueer (Bool x)
+ term             : evalueer
+   type           : Prop -> [String] -> Bool
+   does not match : a    -> Bool            
+ probable fix     : insert a second argument
+
+(53,47)-(53,51): Type error in application
+ expression       : Bool x
+ constructor      : Bool
+   type           : Bool -> Prop
+   does not match : Prop -> a   
+
+Compilation failed with 3 errors

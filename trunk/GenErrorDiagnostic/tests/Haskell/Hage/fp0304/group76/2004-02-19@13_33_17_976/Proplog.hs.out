@@ -1,0 +1,8 @@
+Compiling Proplog.hs
+(69,40)-(69,41): Type error in constructor
+ expression       : :
+   type           : a        -> [a     ] -> [a     ]
+   expected type  : [String] -> [String] -> [String]
+ probable fix     : use ++ instead
+
+Compilation failed with 1 error

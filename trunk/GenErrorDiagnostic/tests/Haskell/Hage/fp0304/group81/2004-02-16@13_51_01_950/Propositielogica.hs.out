@@ -1,0 +1,8 @@
+Compiling Propositielogica.hs
+(41,26)-(41,29): Type error in variable
+ expression       : map
+   type           : (a    -> b       ) -> [a   ] -> [b     ]
+   expected type  : (Prop -> [String]) -> [Prop] -> [String]
+ probable fix     : use concatMap instead
+
+Compilation failed with 1 error

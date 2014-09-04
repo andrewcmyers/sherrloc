@@ -1,0 +1,18 @@
+Compiling Prop.hs
+(79,50)-(79,55): Type error in application
+ expression       : toonEnOf (En ps) "/\\"
+ function         : toonEnOf
+   type           : [Prop] -> String -> String
+ 1st argument     : En ps
+   type           : Prop  
+   does not match : [Prop]
+
+(80,50)-(80,55): Type error in application
+ expression       : toonEnOf (Of ps) "\\/"
+ function         : toonEnOf
+   type           : [Prop] -> String -> String
+ 1st argument     : Of ps
+   type           : Prop  
+   does not match : [Prop]
+
+Compilation failed with 2 errors

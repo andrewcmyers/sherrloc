@@ -1,0 +1,8 @@
+(13,20)-(13,21): Type error in application
+ expression       : x vgl a
+ term             : x
+   type           : a                            
+   does not match : (a -> a -> Bool) -> a -> Bool
+ because          : unification would give infinite type
+
+Compilation failed with 1 error

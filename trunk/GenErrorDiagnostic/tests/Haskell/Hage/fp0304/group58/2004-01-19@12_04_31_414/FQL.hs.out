@@ -1,0 +1,7 @@
+Compiling FQL.hs
+(86,24)-(86,25): Type error in guard
+ expression       : s
+   type           : String
+   does not match : Bool  
+
+Compilation failed with 1 error

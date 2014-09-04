@@ -1,0 +1,10 @@
+Compiling Prop.hs
+(131,50)-(131,51): Type error in application
+ expression       : maakProp x
+ function         : maakProp
+   type           : [String] -> String
+ 1st argument     : x
+   type           : String  
+   does not match : [[Char]]
+
+Compilation failed with 1 error

@@ -1,0 +1,10 @@
+Compiling Logica.hs
+(16,21)-(16,22): Type error in application
+ expression       : head p
+ function         : head
+   type           : [a] -> a
+ 1st argument     : p
+   type           : Prop
+   does not match : [a] 
+
+Compilation failed with 1 error

@@ -1,0 +1,7 @@
+Compiling GetLine.hs
+(7,35)-(7,44): Type error in guarded expression
+ expression       : return []
+   type           : IO [a]
+   does not match : IO () 
+
+Compilation failed with 1 error
