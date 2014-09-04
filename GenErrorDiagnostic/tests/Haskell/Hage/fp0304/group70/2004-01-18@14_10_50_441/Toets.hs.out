@@ -1,0 +1,9 @@
+Compiling Toets.hs
+(25,1)-(25,7): Missing class constraint in type signature
+ function         : remove
+   declared type  : [a] -> [a] -> [a]
+ class constraint : Eq a
+   arising from   : ==
+ hint             : add the class constraint to the type signature
+
+Compilation failed with 1 error

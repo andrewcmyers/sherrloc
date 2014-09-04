@@ -1,0 +1,7 @@
+Compiling PropLogic.hs
+(166,55)-(166,60): Type error in right-hand side
+ expression       : False
+   type           : Bool
+   does not match : Prop
+
+Compilation failed with 1 error

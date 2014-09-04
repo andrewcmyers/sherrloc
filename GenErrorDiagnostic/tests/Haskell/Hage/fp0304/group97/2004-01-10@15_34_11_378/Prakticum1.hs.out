@@ -1,0 +1,8 @@
+Compiling Prakticum1.hs
+(15,31)-(15,33): Type error in variable
+ expression       : ++
+   type           : [a] -> [a  ] -> [a  ]
+   expected type  : Int -> [Int] -> [Int]
+ probable fix     : use : instead
+
+Compilation failed with 1 error

@@ -1,0 +1,15 @@
+Compiling Prop2.hs
+(318,55)-(318,91): Type error in infix application
+ expression       : (toon p) ++ (tekenTabel (getWidth (geefAlle p)) p)
+ operator         : ++
+   type           : [a] -> [a] -> [a]
+ right operand    : tekenTabel (getWidth (geefAlle p)) p
+   type           : IO ()
+   does not match : [a]  
+
+(329,18)-(332,43): Type error in right-hand side
+ expression       : "\n+-" ++ (replicate n '-') ++ ... ++ ... ++ ...
+   type           : [Char]
+   does not match : IO () 
+
+Compilation failed with 2 errors

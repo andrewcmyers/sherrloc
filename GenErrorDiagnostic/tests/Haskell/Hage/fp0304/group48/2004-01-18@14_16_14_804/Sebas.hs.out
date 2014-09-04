@@ -1,0 +1,9 @@
+Compiling Sebas.hs
+(9,31)-(9,38): Type error in application
+ expression       : slaPlat tail lijst
+ term             : slaPlat
+   type           : [[Int]]      -> [Int]           
+   does not match : ([a] -> [a]) -> [[Int]] -> [Int]
+ probable fix     : remove first argument
+
+Compilation failed with 1 error

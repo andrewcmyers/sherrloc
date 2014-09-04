@@ -1,0 +1,8 @@
+Compiling Propositie.hs
+(25,45)-(25,53): Type error in variable
+ expression       : eqString
+   type           : String -> String -> Bool
+   expected type  : String -> Bool          
+ probable fix     : insert one argument
+
+Compilation failed with 1 error

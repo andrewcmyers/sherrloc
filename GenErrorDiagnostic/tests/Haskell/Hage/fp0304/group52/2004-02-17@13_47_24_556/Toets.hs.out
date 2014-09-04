@@ -1,0 +1,16 @@
+Compiling Toets.hs
+(37,40)-(37,46): Type error in application
+ expression       : overal a2
+ term             : overal
+   type           : (a -> b) -> Boom a -> Boom b
+   does not match : Boom c   -> Boom d          
+ probable fix     : insert a first argument
+
+(37,52)-(37,58): Type error in application
+ expression       : overal a3
+ term             : overal
+   type           : (a -> b) -> Boom a -> Boom b
+   does not match : Boom c   -> Boom d          
+ probable fix     : insert a first argument
+
+Compilation failed with 2 errors

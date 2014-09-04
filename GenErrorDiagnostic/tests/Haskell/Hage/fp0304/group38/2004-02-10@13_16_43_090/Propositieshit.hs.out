@@ -1,0 +1,7 @@
+Compiling Propositieshit.hs
+(18,14)-(18,18): Type error in right-hand side
+ expression       : True
+   type           : Bool            
+   does not match : Bedeling -> Bool
+
+Compilation failed with 1 error

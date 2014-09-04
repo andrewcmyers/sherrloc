@@ -1,0 +1,7 @@
+Compiling New.hs
+(5,7)-(5,13): Type error in right-hand side
+ expression       : [0 .. x]
+   type           : [Int]
+   does not match : Int  
+
+Compilation failed with 1 error

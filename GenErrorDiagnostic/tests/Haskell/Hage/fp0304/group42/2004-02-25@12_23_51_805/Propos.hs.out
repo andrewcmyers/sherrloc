@@ -1,0 +1,8 @@
+Compiling Propos.hs
+(147,27)-(147,33): Type error in application
+ expression       : elemBy eqString [a] (getPropLetters1 letters)
+ term             : elemBy
+   type           : (a      -> a      -> Bool) -> a        -> [a     ] -> Bool
+   does not match : (String -> String -> Bool) -> [String] -> [String] -> Bool
+
+Compilation failed with 1 error

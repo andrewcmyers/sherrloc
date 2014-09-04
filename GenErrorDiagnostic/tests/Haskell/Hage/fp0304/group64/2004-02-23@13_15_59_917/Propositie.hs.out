@@ -1,0 +1,14 @@
+Compiling Propositie.hs
+(116,43)-(116,51): Type error in application
+ expression       : deMorgan x
+ term             : deMorgan
+   type           : Prop   -> Prop  
+   does not match : [Prop] -> [Prop]
+
+(117,43)-(117,51): Type error in application
+ expression       : deMorgan x
+ term             : deMorgan
+   type           : Prop   -> Prop  
+   does not match : [Prop] -> [Prop]
+
+Compilation failed with 2 errors

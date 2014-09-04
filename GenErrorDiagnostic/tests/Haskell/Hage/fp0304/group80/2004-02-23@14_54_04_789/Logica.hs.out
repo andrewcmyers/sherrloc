@@ -1,0 +1,7 @@
+Compiling Logica.hs
+(145,2)-(145,4): Type signature is too general
+ function         : <@
+   declared type  : Parser a      -> (a      -> b     ) -> Parser b     
+   inferred type  : Parser String -> (String -> String) -> Parser String
+
+Compilation failed with 1 error

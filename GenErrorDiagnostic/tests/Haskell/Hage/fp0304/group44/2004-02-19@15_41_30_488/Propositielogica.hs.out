@@ -1,0 +1,9 @@
+Compiling Propositielogica.hs
+(75,85)-(75,91): Type error in application
+ expression       : eqList x
+ term             : eqList
+   type           : (a -> a -> Bool) -> [a]      -> [a] -> Bool
+   does not match : Bedeling         -> Bedeling -> Bool       
+ probable fix     : insert a first argument
+
+Compilation failed with 1 error

@@ -1,0 +1,9 @@
+Compiling Practicum1.hs
+(31,43)-(31,47): Type error in application
+ expression       : (!!) kolom x
+ term             : (!!)
+   type           : [a] -> Int      -> a  
+   does not match : Int -> [String] -> [b]
+ probable fix     : re-order arguments
+
+Compilation failed with 1 error

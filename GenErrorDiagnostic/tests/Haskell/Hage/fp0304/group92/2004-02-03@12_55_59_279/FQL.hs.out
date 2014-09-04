@@ -1,0 +1,8 @@
+Compiling FQL.hs
+(51,29)-(51,38): Type error in application
+ expression       : writeLine t
+ term             : writeLine
+   type           : [String] -> [Char]
+   does not match : Table    -> [[a] ]
+
+Compilation failed with 1 error
