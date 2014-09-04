@@ -1,0 +1,7 @@
+Compiling Prop2.hs
+(278,26)-(278,54): Type error in guarded expression
+ expression       : "blabalbla " ++ s ++ "blablabal"
+   type           : [Char]
+   does not match : Prop  
+
+Compilation failed with 1 error

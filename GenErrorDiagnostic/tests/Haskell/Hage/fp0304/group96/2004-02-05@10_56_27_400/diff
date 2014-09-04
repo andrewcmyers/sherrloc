@@ -1,0 +1,1065 @@
+3,12c3,11
+< VARIABLE a_aog
+< VARIABLE a_arf
+< VARIABLE t_ari
+< VARIABLE a_ark
+< VARIABLE a_aro
+< VARIABLE a_ars
+< VARIABLE t_arv
+< VARIABLE t_arw
+< VARIABLE t_arx
+< VARIABLE a_arC
+---
+> VARIABLE a_ap6
+> VARIABLE a_ap9
+> VARIABLE a_apo
+> VARIABLE a_arn
+> VARIABLE t_arq
+> VARIABLE t_arr
+> VARIABLE t_ars
+> VARIABLE a_arx
+> VARIABLE a_arB
+14,19c13,17
+< VARIABLE t_arI
+< VARIABLE t_arL
+< VARIABLE t_arN
+< VARIABLE t_arP
+< VARIABLE a_arR
+< VARIABLE a_arV
+---
+> VARIABLE a_arK
+> VARIABLE a_arO
+> VARIABLE t_arS
+> VARIABLE t_arT
+> VARIABLE a_arX
+22,32c20,29
+< VARIABLE t_as8
+< VARIABLE t_as9
+< VARIABLE a_asd
+< VARIABLE a_asg
+< VARIABLE t_asj
+< VARIABLE a_asl
+< VARIABLE a_asp
+< VARIABLE a_ast
+< VARIABLE t_asw
+< VARIABLE t_asx
+< VARIABLE t_asy
+---
+> VARIABLE a_as8
+> VARIABLE t_asb
+> VARIABLE t_asc
+> VARIABLE t_asd
+> VARIABLE a_asi
+> VARIABLE t_asn
+> VARIABLE t_aso
+> VARIABLE t_asp
+> VARIABLE a_asu
+> VARIABLE a_asx
+33a31
+> VARIABLE t_asH
+35,36c33
+< VARIABLE t_asJ
+< VARIABLE t_asK
+---
+> VARIABLE a_asM
+38,39c35,36
+< VARIABLE a_asS
+< VARIABLE t_asV
+---
+> VARIABLE a_asR
+> VARIABLE a_asT
+41,50c38,42
+< VARIABLE a_at3
+< VARIABLE t_at7
+< VARIABLE t_at8
+< VARIABLE t_atc
+< VARIABLE t_ate
+< VARIABLE t_atg
+< VARIABLE t_ati
+< VARIABLE a_atk
+< VARIABLE t_atn
+< VARIABLE t_atp
+---
+> VARIABLE t_at1
+> VARIABLE t_at2
+> VARIABLE a_at8
+> VARIABLE b_at9
+> VARIABLE a_ato
+52,58c44,53
+< VARIABLE a_att
+< VARIABLE a_atv
+< VARIABLE a_atz
+< VARIABLE t_atD
+< VARIABLE t_atE
+< VARIABLE a_atK
+< VARIABLE b_atL
+---
+> VARIABLE b_ats
+> VARIABLE a_atu
+> VARIABLE a_atx
+> VARIABLE t_atA
+> VARIABLE t_atB
+> VARIABLE t_atC
+> VARIABLE a_atH
+> VARIABLE a_atN
+> VARIABLE a_atQ
+> VARIABLE a_atW
+60,71c55,63
+< VARIABLE a_au3
+< VARIABLE b_au4
+< VARIABLE a_au6
+< VARIABLE a_au9
+< VARIABLE t_auc
+< VARIABLE t_aud
+< VARIABLE t_aue
+< VARIABLE t_auj
+< VARIABLE t_aul
+< VARIABLE t_aun
+< VARIABLE t_aup
+< VARIABLE a_aur
+---
+> VARIABLE t_au4
+> VARIABLE t_au5
+> VARIABLE a_aua
+> VARIABLE a_aud
+> VARIABLE a_aui
+> VARIABLE a_aul
+> VARIABLE a_aun
+> VARIABLE a_aup
+> VARIABLE t_auw
+73,77c65,68
+< VARIABLE t_auz
+< VARIABLE t_auB
+< VARIABLE t_auD
+< VARIABLE a_auF
+< VARIABLE a_auI
+---
+> VARIABLE a_auC
+> VARIABLE a_auE
+> VARIABLE t_auJ
+> VARIABLE t_auK
+80,88c71,75
+< VARIABLE t_auW
+< VARIABLE t_auY
+< VARIABLE t_auZ
+< VARIABLE t_av3
+< VARIABLE t_av5
+< VARIABLE t_av7
+< VARIABLE t_av9
+< VARIABLE t_avc
+< VARIABLE t_ave
+---
+> VARIABLE a_auX
+> VARIABLE a_auZ
+> VARIABLE a_av4
+> VARIABLE a_av8
+> VARIABLE a_avd
+90,108c77,82
+< VARIABLE a_avj
+< VARIABLE a_avo
+< VARIABLE a_avr
+< VARIABLE a_avt
+< VARIABLE a_avv
+< VARIABLE t_avC
+< VARIABLE t_avD
+< VARIABLE t_avH
+< VARIABLE t_avJ
+< VARIABLE a_avM
+< VARIABLE a_avO
+< VARIABLE t_avT
+< VARIABLE t_avU
+< VARIABLE t_avY
+< VARIABLE t_aw0
+< VARIABLE t_aw2
+< VARIABLE a_aw4
+< VARIABLE a_aw8
+< VARIABLE a_awd
+---
+> VARIABLE a_avl
+> VARIABLE t_avp
+> VARIABLE t_avN
+> VARIABLE t_aw8
+> VARIABLE t_aw9
+> VARIABLE t_awa
+110,114c84,88
+< VARIABLE a_awk
+< VARIABLE a_awo
+< VARIABLE a_awt
+< VARIABLE a_aww
+< VARIABLE a_awB
+---
+> VARIABLE t_awh
+> VARIABLE t_awi
+> VARIABLE t_awj
+> VARIABLE a_aws
+> VARIABLE a_awC
+116,117c90,93
+< VARIABLE t_awI
+< VARIABLE t_awK
+---
+> VARIABLE t_awG
+> VARIABLE t_awH
+> VARIABLE a_awM
+> VARIABLE t_awO
+119,123c95,100
+< VARIABLE t_awU
+< VARIABLE t_awZ
+< VARIABLE t_ax4
+< VARIABLE t_ax9
+< VARIABLE t_axe
+---
+> VARIABLE t_awQ
+> VARIABLE t_awR
+> VARIABLE a_ax0
+> VARIABLE a_ax2
+> VARIABLE a_axc
+> VARIABLE t_axi
+125,128c102,106
+< VARIABLE t_axm
+< VARIABLE t_axo
+< VARIABLE t_axs
+< VARIABLE t_axw
+---
+> VARIABLE t_axk
+> VARIABLE a_axp
+> VARIABLE a_axt
+> VARIABLE a_axw
+> VARIABLE t_axz
+130,133c108,114
+< VARIABLE t_axE
+< VARIABLE t_axI
+< VARIABLE t_axM
+< VARIABLE t_axQ
+---
+> VARIABLE t_axB
+> VARIABLE a_axG
+> VARIABLE a_axI
+> VARIABLE a_axK
+> VARIABLE a_axP
+> VARIABLE t_axS
+> VARIABLE t_axT
+135,143c116,121
+< VARIABLE t_axY
+< VARIABLE t_axZ
+< VARIABLE t_ay0
+< VARIABLE a_ay5
+< VARIABLE t_ay7
+< VARIABLE t_ay8
+< VARIABLE t_ay9
+< VARIABLE t_aye
+< VARIABLE t_ayg
+---
+> VARIABLE t_axV
+> VARIABLE a_ay1
+> VARIABLE a_ay4
+> VARIABLE a_ay6
+> VARIABLE a_ayd
+> VARIABLE t_ayi
+146,149c124,126
+< VARIABLE a_ayp
+< VARIABLE t_ayz
+< VARIABLE t_ayB
+< VARIABLE a_ayD
+---
+> VARIABLE a_ays
+> VARIABLE a_ayz
+> VARIABLE a_ayB
+150a128
+> VARIABLE t_ayH
+152,212c130,133
+< VARIABLE t_ayK
+< VARIABLE t_ayL
+< VARIABLE t_ayM
+< VARIABLE a_ayR
+< VARIABLE t_ayT
+< VARIABLE t_ayU
+< VARIABLE t_ayV
+< VARIABLE t_ayW
+< VARIABLE t_az2
+< VARIABLE t_az4
+< VARIABLE t_az6
+< VARIABLE a_azb
+< VARIABLE a_azd
+< VARIABLE a_azn
+< VARIABLE t_azt
+< VARIABLE t_azv
+< VARIABLE t_azw
+< VARIABLE t_azx
+< VARIABLE a_azC
+< VARIABLE a_azG
+< VARIABLE a_azJ
+< VARIABLE t_azM
+< VARIABLE t_azN
+< VARIABLE t_azO
+< VARIABLE a_azT
+< VARIABLE a_azV
+< VARIABLE a_azX
+< VARIABLE a_aA2
+< VARIABLE t_aA5
+< VARIABLE t_aA6
+< VARIABLE t_aA7
+< VARIABLE t_aA8
+< VARIABLE a_aAe
+< VARIABLE a_aAh
+< VARIABLE a_aAj
+< VARIABLE a_aAq
+< VARIABLE t_aAv
+< VARIABLE t_aAw
+< VARIABLE t_aAx
+< VARIABLE t_aAC
+< VARIABLE t_aAE
+< VARIABLE t_aAG
+< VARIABLE t_aAI
+< VARIABLE a_aAN
+< VARIABLE a_aAU
+< VARIABLE a_aAW
+< VARIABLE t_aB1
+< VARIABLE t_aB3
+< VARIABLE t_aB4
+< VARIABLE t_aB5
+< VARIABLE t_aB6
+< VARIABLE t_aBc
+< VARIABLE t_aBe
+< VARIABLE t_aBg
+< VARIABLE t_aBi
+< VARIABLE a_aBn
+< VARIABLE a_aBt
+< VARIABLE a_aBx
+< VARIABLE t_aBC
+< VARIABLE t_aBE
+< VARIABLE t_aBJ
+---
+> VARIABLE t_ayJ
+> VARIABLE a_ayS
+> VARIABLE a_ayY
+> VARIABLE a_az2
+227a149
+> (Integer) <= (Eq);
+251d172
+< (Integer) <= (Eq);
+279a201
+> (Integer) <= (Ord);
+303d224
+< (Integer) <= (Ord);
+369,438c290,344
+< (a_aog)["":75,8-8@Practicum1af3.hs] <= (Num)["":75,8-8@Practicum1af3.hs] {};["the literal ‘0’":75,8-8@Practicum1af3.hs]
+< ((Integer -> a_aog))["":75,8-8@Practicum1af3.hs] == ((Integer -> t_am5))["":75,8-8@Practicum1af3.hs] {};["a type equality Integer -> a_aog ~ Integer -> t_am5":75,8-8@Practicum1af3.hs]
+< (a_arf)["":75,8-8@Practicum1af3.hs] <= (Eq)["":75,8-8@Practicum1af3.hs] {};["the literal ‘0’":75,8-8@Practicum1af3.hs]
+< ((a_arf -> a_arf -> Bool))["":75,8-8@Practicum1af3.hs] == ((t_am5 -> t_am5 -> Bool))["":75,8-8@Practicum1af3.hs] {};["a type equality a_arf -> a_arf -> Bool ~ t_am5 -> t_am5 -> Bool":75,8-8@Practicum1af3.hs]
+< ((list (t_ari)))["":75,12-13@Practicum1af3.hs] == (t_am6)["":75,12-13@Practicum1af3.hs] {};["a type equality [t_ari] ~ t_am6":75,12-13@Practicum1af3.hs]
+< ((list (a_ark)))["":76,12-27@Practicum1af3.hs] == (t_am6)["":76,12-27@Practicum1af3.hs] {};["a type equality [a_ark] ~ t_am6":76,12-27@Practicum1af3.hs]
+< (Char)["":76,12-14@Practicum1af3.hs] == (a_ark)["":76,12-14@Practicum1af3.hs] {};["a type equality Char ~ a_ark":76,12-14@Practicum1af3.hs]
+< ((list Char))["":76,17-27@Practicum1af3.hs] == ((list (a_ark)))["":76,17-27@Practicum1af3.hs] {};["a type equality String ~ [a_ark]":76,17-27@Practicum1af3.hs]
+< (a_aro)["":76,25-25@Practicum1af3.hs] <= (Num)["":76,25-25@Practicum1af3.hs] {};["a use of ‘-’":76,25-25@Practicum1af3.hs]
+< (a_aro)["":76,24-26@Practicum1af3.hs] == (Int)["":76,24-26@Practicum1af3.hs] {};["a type equality a_aro ~ Int":76,24-26@Practicum1af3.hs]
+< (t_am5)["":76,24-24@Practicum1af3.hs] == (a_aro)["":76,24-24@Practicum1af3.hs] {};["a type equality t_am5 ~ a_aro":76,24-24@Practicum1af3.hs]
+< (a_ars)["":76,26-26@Practicum1af3.hs] <= (Num)["":76,26-26@Practicum1af3.hs] {};["the literal ‘1’":76,26-26@Practicum1af3.hs]
+< ((Integer -> a_ars))["":76,26-26@Practicum1af3.hs] == ((Integer -> a_aro))["":76,26-26@Practicum1af3.hs] {};["a type equality Integer -> a_ars ~ Integer -> a_aro":76,26-26@Practicum1af3.hs]
+< (Int)["":78,22-43@Practicum1af3.hs] == (t_arv)["":78,22-43@Practicum1af3.hs] {};["a type equality Int ~ t_arv":78,22-43@Practicum1af3.hs]
+< ((list (Int)))["":78,22-43@Practicum1af3.hs] == (t_arw)["":78,22-43@Practicum1af3.hs] {};["a type equality [Int] ~ t_arw":78,22-43@Practicum1af3.hs]
+< ((list Char))["":78,22-43@Practicum1af3.hs] == (t_arx)["":78,22-43@Practicum1af3.hs] {};["a type equality String ~ t_arx":78,22-43@Practicum1af3.hs]
+< (a_arC)["":79,19-19@Practicum1af3.hs] <= (Num)["":79,19-19@Practicum1af3.hs] {};["the literal ‘0’":79,19-19@Practicum1af3.hs]
+< ((Integer -> a_arC))["":79,19-19@Practicum1af3.hs] == ((Integer -> t_arv))["":79,19-19@Practicum1af3.hs] {};["a type equality Integer -> a_arC ~ Integer -> t_arv":79,19-19@Practicum1af3.hs]
+< (a_arF)["":79,19-19@Practicum1af3.hs] <= (Eq)["":79,19-19@Practicum1af3.hs] {};["the literal ‘0’":79,19-19@Practicum1af3.hs]
+< ((a_arF -> a_arF -> Bool))["":79,19-19@Practicum1af3.hs] == ((t_arv -> t_arv -> Bool))["":79,19-19@Practicum1af3.hs] {};["a type equality a_arF -> a_arF -> Bool ~ t_arv -> t_arv -> Bool":79,19-19@Practicum1af3.hs]
+< ((list (t_arI)))["":79,21-22@Practicum1af3.hs] == (t_arw)["":79,21-22@Practicum1af3.hs] {};["a type equality [t_arI] ~ t_arw":79,21-22@Practicum1af3.hs]
+< ((list (Char)))["":79,30-32@Practicum1af3.hs] == (t_arx)["":79,30-32@Practicum1af3.hs] {};["a type equality [Char] ~ t_arx":79,30-32@Practicum1af3.hs]
+< ((list (t_arL)))["":80,21-22@Practicum1af3.hs] == (t_arw)["":80,21-22@Practicum1af3.hs] {};["a type equality [t_arL] ~ t_arw":80,21-22@Practicum1af3.hs]
+< ((list (t_arN)))["":80,30-31@Practicum1af3.hs] == (t_arx)["":80,30-31@Practicum1af3.hs] {};["a type equality [t_arN] ~ t_arx":80,30-31@Practicum1af3.hs]
+< ((list (t_arP)))["":81,22-25@Practicum1af3.hs] == (t_arw)["":81,22-25@Practicum1af3.hs] {};["a type equality [t_arP] ~ t_arw":81,22-25@Practicum1af3.hs]
+< ((list (a_arR)))["":81,30-72@Practicum1af3.hs] == (t_arx)["":81,30-72@Practicum1af3.hs] {};["a type equality [a_arR] ~ t_arx":81,30-72@Practicum1af3.hs]
+< (Char)["":81,30-32@Practicum1af3.hs] == (a_arR)["":81,30-32@Practicum1af3.hs] {};["a type equality Char ~ a_arR":81,30-32@Practicum1af3.hs]
+< ((list (a_arV)))["":81,35-72@Practicum1af3.hs] == ((list (a_arR)))["":81,35-72@Practicum1af3.hs] {};["a type equality [a_arV] ~ [a_arR]":81,35-72@Practicum1af3.hs]
+< ((list Char))["":81,35-42@Practicum1af3.hs] == ((list (a_arV)))["":81,35-42@Practicum1af3.hs] {};["a type equality String ~ [a_arV]":81,35-42@Practicum1af3.hs]
+< (t_arP)["":81,42-42@Practicum1af3.hs] == (Int)["":81,42-42@Practicum1af3.hs] {};["a type equality t_arP ~ Int":81,42-42@Practicum1af3.hs]
+< ((list Char))["":81,47-72@Practicum1af3.hs] == ((list (a_arV)))["":81,47-72@Practicum1af3.hs] {};["a type equality String ~ [a_arV]":81,47-72@Practicum1af3.hs]
+< (a_as0)["":81,67-67@Practicum1af3.hs] <= (Num)["":81,67-67@Practicum1af3.hs] {};["a use of ‘-’":81,67-67@Practicum1af3.hs]
+< (a_as0)["":81,66-68@Practicum1af3.hs] == (Int)["":81,66-68@Practicum1af3.hs] {};["a type equality a_as0 ~ Int":81,66-68@Practicum1af3.hs]
+< (t_arv)["":81,66-66@Practicum1af3.hs] == (a_as0)["":81,66-66@Practicum1af3.hs] {};["a type equality t_arv ~ a_as0":81,66-66@Practicum1af3.hs]
+< (a_as4)["":81,68-68@Practicum1af3.hs] <= (Num)["":81,68-68@Practicum1af3.hs] {};["the literal ‘1’":81,68-68@Practicum1af3.hs]
+< ((Integer -> a_as4))["":81,68-68@Practicum1af3.hs] == ((Integer -> a_as0))["":81,68-68@Practicum1af3.hs] {};["a type equality Integer -> a_as4 ~ Integer -> a_as0":81,68-68@Practicum1af3.hs]
+< ((list (t_arP)))["":81,71-72@Practicum1af3.hs] == ((list (Int)))["":81,71-72@Practicum1af3.hs] {};["a type equality [t_arP] ~ [Int]":81,71-72@Practicum1af3.hs]
+< (Int)["":66,20-32@Practicum1af3.hs] == (t_as8)["":66,20-32@Practicum1af3.hs] {};["a type equality Int ~ t_as8":66,20-32@Practicum1af3.hs]
+< ((list Char))["":66,20-32@Practicum1af3.hs] == (t_as9)["":66,20-32@Practicum1af3.hs] {};["a type equality String ~ t_as9":66,20-32@Practicum1af3.hs]
+< (a_asd)["":67,17-17@Practicum1af3.hs] <= (Num)["":67,17-17@Practicum1af3.hs] {};["the literal ‘0’":67,17-17@Practicum1af3.hs]
+< ((Integer -> a_asd))["":67,17-17@Practicum1af3.hs] == ((Integer -> t_as8))["":67,17-17@Practicum1af3.hs] {};["a type equality Integer -> a_asd ~ Integer -> t_as8":67,17-17@Practicum1af3.hs]
+< (a_asg)["":67,17-17@Practicum1af3.hs] <= (Eq)["":67,17-17@Practicum1af3.hs] {};["the literal ‘0’":67,17-17@Practicum1af3.hs]
+< ((a_asg -> a_asg -> Bool))["":67,17-17@Practicum1af3.hs] == ((t_as8 -> t_as8 -> Bool))["":67,17-17@Practicum1af3.hs] {};["a type equality a_asg -> a_asg -> Bool ~ t_as8 -> t_as8 -> Bool":67,17-17@Practicum1af3.hs]
+< ((list (t_asj)))["":67,21-22@Practicum1af3.hs] == (t_as9)["":67,21-22@Practicum1af3.hs] {};["a type equality [t_asj] ~ t_as9":67,21-22@Practicum1af3.hs]
+< ((list (a_asl)))["":68,21-48@Practicum1af3.hs] == (t_as9)["":68,21-48@Practicum1af3.hs] {};["a type equality [a_asl] ~ t_as9":68,21-48@Practicum1af3.hs]
+< ((list (Char)))["":68,21-23@Practicum1af3.hs] == ((list (a_asl)))["":68,21-23@Practicum1af3.hs] {};["a type equality [Char] ~ [a_asl]":68,21-23@Practicum1af3.hs]
+< ((list Char))["":68,28-48@Practicum1af3.hs] == ((list (a_asl)))["":68,28-48@Practicum1af3.hs] {};["a type equality String ~ [a_asl]":68,28-48@Practicum1af3.hs]
+< (a_asp)["":68,46-46@Practicum1af3.hs] <= (Num)["":68,46-46@Practicum1af3.hs] {};["a use of ‘-’":68,46-46@Practicum1af3.hs]
+< (a_asp)["":68,45-47@Practicum1af3.hs] == (Int)["":68,45-47@Practicum1af3.hs] {};["a type equality a_asp ~ Int":68,45-47@Practicum1af3.hs]
+< (t_as8)["":68,45-45@Practicum1af3.hs] == (a_asp)["":68,45-45@Practicum1af3.hs] {};["a type equality t_as8 ~ a_asp":68,45-45@Practicum1af3.hs]
+< (a_ast)["":68,47-47@Practicum1af3.hs] <= (Num)["":68,47-47@Practicum1af3.hs] {};["the literal ‘1’":68,47-47@Practicum1af3.hs]
+< ((Integer -> a_ast))["":68,47-47@Practicum1af3.hs] == ((Integer -> a_asp))["":68,47-47@Practicum1af3.hs] {};["a type equality Integer -> a_ast ~ Integer -> a_asp":68,47-47@Practicum1af3.hs]
+< (Int)["":63,19-35@Practicum1af3.hs] == (t_asw)["":63,19-35@Practicum1af3.hs] {};["a type equality Int ~ t_asw":63,19-35@Practicum1af3.hs]
+< (Int)["":63,19-35@Practicum1af3.hs] == (t_asx)["":63,19-35@Practicum1af3.hs] {};["a type equality Int ~ t_asx":63,19-35@Practicum1af3.hs]
+< (Int)["":63,19-35@Practicum1af3.hs] == (t_asy)["":63,19-35@Practicum1af3.hs] {};["a type equality Int ~ t_asy":63,19-35@Practicum1af3.hs]
+< (a_asD)["":64,23-23@Practicum1af3.hs] <= (Num)["":64,23-23@Practicum1af3.hs] {};["a use of ‘-’":64,23-23@Practicum1af3.hs]
+< (a_asD)["":64,22-24@Practicum1af3.hs] == (t_asy)["":64,22-24@Practicum1af3.hs] {};["a type equality a_asD ~ t_asy":64,22-24@Practicum1af3.hs]
+< (t_asx)["":64,22-22@Practicum1af3.hs] == (a_asD)["":64,22-22@Practicum1af3.hs] {};["a type equality t_asx ~ a_asD":64,22-22@Practicum1af3.hs]
+< (t_asw)["":64,24-24@Practicum1af3.hs] == (a_asD)["":64,24-24@Practicum1af3.hs] {};["a type equality t_asw ~ a_asD":64,24-24@Practicum1af3.hs]
+< ((list Char))["":70,14-36@Practicum1af3.hs] == (t_asI)["":70,14-36@Practicum1af3.hs] {};["a type equality String ~ t_asI":70,14-36@Practicum1af3.hs]
+< (Int)["":70,14-36@Practicum1af3.hs] == (t_asJ)["":70,14-36@Practicum1af3.hs] {};["a type equality Int ~ t_asJ":70,14-36@Practicum1af3.hs]
+< ((list Char))["":70,14-36@Practicum1af3.hs] == (t_asK)["":70,14-36@Practicum1af3.hs] {};["a type equality String ~ t_asK":70,14-36@Practicum1af3.hs]
+< (a_asP)["":71,13-13@Practicum1af3.hs] <= (Num)["":71,13-13@Practicum1af3.hs] {};["the literal ‘0’":71,13-13@Practicum1af3.hs]
+< ((Integer -> a_asP))["":71,13-13@Practicum1af3.hs] == ((Integer -> t_asJ))["":71,13-13@Practicum1af3.hs] {};["a type equality Integer -> a_asP ~ Integer -> t_asJ":71,13-13@Practicum1af3.hs]
+< (a_asS)["":71,13-13@Practicum1af3.hs] <= (Eq)["":71,13-13@Practicum1af3.hs] {};["the literal ‘0’":71,13-13@Practicum1af3.hs]
+< ((a_asS -> a_asS -> Bool))["":71,13-13@Practicum1af3.hs] == ((t_asJ -> t_asJ -> Bool))["":71,13-13@Practicum1af3.hs] {};["a type equality a_asS -> a_asS -> Bool ~ t_asJ -> t_asJ -> Bool":71,13-13@Practicum1af3.hs]
+< ((list (t_asV)))["":71,17-18@Practicum1af3.hs] == (t_asK)["":71,17-18@Practicum1af3.hs] {};["a type equality [t_asV] ~ t_asK":71,17-18@Practicum1af3.hs]
+< ((list (a_asX)))["":72,17-64@Practicum1af3.hs] == (t_asK)["":72,17-64@Practicum1af3.hs] {};["a type equality [a_asX] ~ t_asK":72,17-64@Practicum1af3.hs]
+< (t_asI)["":72,17-17@Practicum1af3.hs] == ((list (a_asX)))["":72,17-17@Practicum1af3.hs] {};["a type equality t_asI ~ [a_asX]":72,17-17@Practicum1af3.hs]
+< ((list Char))["":72,20-64@Practicum1af3.hs] == ((list (a_asX)))["":72,20-64@Practicum1af3.hs] {};["a type equality String ~ [a_asX]":72,20-64@Practicum1af3.hs]
+---
+> (a_ap6)["":75,8-8@Practicum1af3.hs] <= (Eq)["":75,8-8@Practicum1af3.hs] {};["the literal ‘0’":75,8-8@Practicum1af3.hs]
+> ((a_ap6 -> a_ap6 -> Bool))["":75,8-8@Practicum1af3.hs] == ((Int -> Int -> Bool))["":75,8-8@Practicum1af3.hs] {};["a type equality a_ap6 -> a_ap6 -> Bool ~ Int -> Int -> Bool":75,8-8@Practicum1af3.hs]
+> ((list (a_ap9)))["":76,12-27@Practicum1af3.hs] == ((list Char))["":76,12-27@Practicum1af3.hs] {};["a type equality [a_ap9] ~ String":76,12-27@Practicum1af3.hs]
+> (Char)["":76,12-14@Practicum1af3.hs] == (a_ap9)["":76,12-14@Practicum1af3.hs] {};["a type equality Char ~ a_ap9":76,12-14@Practicum1af3.hs]
+> ((list Char))["":76,17-27@Practicum1af3.hs] == ((list (a_ap9)))["":76,17-27@Practicum1af3.hs] {};["a type equality String ~ [a_ap9]":76,17-27@Practicum1af3.hs]
+> (a_apo)["":76,25-25@Practicum1af3.hs] <= (Num)["":76,25-25@Practicum1af3.hs] {};["a use of ‘-’":76,25-25@Practicum1af3.hs]
+> (a_apo)["":76,24-26@Practicum1af3.hs] == (Int)["":76,24-26@Practicum1af3.hs] {};["a type equality a_apo ~ Int":76,24-26@Practicum1af3.hs]
+> (Int)["":76,24-24@Practicum1af3.hs] == (a_apo)["":76,24-24@Practicum1af3.hs] {};["a type equality Int ~ a_apo":76,24-24@Practicum1af3.hs]
+> (a_arn)["":76,26-26@Practicum1af3.hs] <= (Num)["":76,26-26@Practicum1af3.hs] {};["the literal ‘1’":76,26-26@Practicum1af3.hs]
+> ((Integer -> a_arn))["":76,26-26@Practicum1af3.hs] == ((Integer -> a_apo))["":76,26-26@Practicum1af3.hs] {};["a type equality Integer -> a_arn ~ Integer -> a_apo":76,26-26@Practicum1af3.hs]
+> (Int)["":78,22-43@Practicum1af3.hs] == (t_arq)["":78,22-43@Practicum1af3.hs] {};["a type equality Int ~ t_arq":78,22-43@Practicum1af3.hs]
+> ((list (Int)))["":78,22-43@Practicum1af3.hs] == (t_arr)["":78,22-43@Practicum1af3.hs] {};["a type equality [Int] ~ t_arr":78,22-43@Practicum1af3.hs]
+> ((list Char))["":78,22-43@Practicum1af3.hs] == (t_ars)["":78,22-43@Practicum1af3.hs] {};["a type equality String ~ t_ars":78,22-43@Practicum1af3.hs]
+> (a_arx)["":79,19-19@Practicum1af3.hs] <= (Eq)["":79,19-19@Practicum1af3.hs] {};["the literal ‘0’":79,19-19@Practicum1af3.hs]
+> ((a_arx -> a_arx -> Bool))["":79,19-19@Practicum1af3.hs] == ((Int -> Int -> Bool))["":79,19-19@Practicum1af3.hs] {};["a type equality a_arx -> a_arx -> Bool ~ Int -> Int -> Bool":79,19-19@Practicum1af3.hs]
+> ((list (Char)))["":79,30-32@Practicum1af3.hs] == ((list Char))["":79,30-32@Practicum1af3.hs] {};["a type equality [Char] ~ String":79,30-32@Practicum1af3.hs]
+> ((list (a_arB)))["":81,30-72@Practicum1af3.hs] == ((list Char))["":81,30-72@Practicum1af3.hs] {};["a type equality [a_arB] ~ String":81,30-72@Practicum1af3.hs]
+> (Char)["":81,30-32@Practicum1af3.hs] == (a_arB)["":81,30-32@Practicum1af3.hs] {};["a type equality Char ~ a_arB":81,30-32@Practicum1af3.hs]
+> ((list (a_arF)))["":81,35-72@Practicum1af3.hs] == ((list (a_arB)))["":81,35-72@Practicum1af3.hs] {};["a type equality [a_arF] ~ [a_arB]":81,35-72@Practicum1af3.hs]
+> ((list Char))["":81,35-42@Practicum1af3.hs] == ((list (a_arF)))["":81,35-42@Practicum1af3.hs] {};["a type equality String ~ [a_arF]":81,35-42@Practicum1af3.hs]
+> (Int)["":81,42-42@Practicum1af3.hs] == (Int)["":81,42-42@Practicum1af3.hs] {};["a type equality Int ~ Int":81,42-42@Practicum1af3.hs]
+> ((list Char))["":81,47-72@Practicum1af3.hs] == ((list (a_arF)))["":81,47-72@Practicum1af3.hs] {};["a type equality String ~ [a_arF]":81,47-72@Practicum1af3.hs]
+> (a_arK)["":81,67-67@Practicum1af3.hs] <= (Num)["":81,67-67@Practicum1af3.hs] {};["a use of ‘-’":81,67-67@Practicum1af3.hs]
+> (a_arK)["":81,66-68@Practicum1af3.hs] == (Int)["":81,66-68@Practicum1af3.hs] {};["a type equality a_arK ~ Int":81,66-68@Practicum1af3.hs]
+> (Int)["":81,66-66@Practicum1af3.hs] == (a_arK)["":81,66-66@Practicum1af3.hs] {};["a type equality Int ~ a_arK":81,66-66@Practicum1af3.hs]
+> (a_arO)["":81,68-68@Practicum1af3.hs] <= (Num)["":81,68-68@Practicum1af3.hs] {};["the literal ‘1’":81,68-68@Practicum1af3.hs]
+> ((Integer -> a_arO))["":81,68-68@Practicum1af3.hs] == ((Integer -> a_arK))["":81,68-68@Practicum1af3.hs] {};["a type equality Integer -> a_arO ~ Integer -> a_arK":81,68-68@Practicum1af3.hs]
+> ((list (Int)))["":81,71-72@Practicum1af3.hs] == ((list (Int)))["":81,71-72@Practicum1af3.hs] {};["a type equality [Int] ~ [Int]":81,71-72@Practicum1af3.hs]
+> (Int)["":66,20-32@Practicum1af3.hs] == (t_arS)["":66,20-32@Practicum1af3.hs] {};["a type equality Int ~ t_arS":66,20-32@Practicum1af3.hs]
+> ((list Char))["":66,20-32@Practicum1af3.hs] == (t_arT)["":66,20-32@Practicum1af3.hs] {};["a type equality String ~ t_arT":66,20-32@Practicum1af3.hs]
+> (a_arX)["":67,17-17@Practicum1af3.hs] <= (Eq)["":67,17-17@Practicum1af3.hs] {};["the literal ‘0’":67,17-17@Practicum1af3.hs]
+> ((a_arX -> a_arX -> Bool))["":67,17-17@Practicum1af3.hs] == ((Int -> Int -> Bool))["":67,17-17@Practicum1af3.hs] {};["a type equality a_arX -> a_arX -> Bool ~ Int -> Int -> Bool":67,17-17@Practicum1af3.hs]
+> ((list (a_as0)))["":68,21-48@Practicum1af3.hs] == ((list Char))["":68,21-48@Practicum1af3.hs] {};["a type equality [a_as0] ~ String":68,21-48@Practicum1af3.hs]
+> ((list (Char)))["":68,21-23@Practicum1af3.hs] == ((list (a_as0)))["":68,21-23@Practicum1af3.hs] {};["a type equality [Char] ~ [a_as0]":68,21-23@Practicum1af3.hs]
+> ((list Char))["":68,28-48@Practicum1af3.hs] == ((list (a_as0)))["":68,28-48@Practicum1af3.hs] {};["a type equality String ~ [a_as0]":68,28-48@Practicum1af3.hs]
+> (a_as4)["":68,46-46@Practicum1af3.hs] <= (Num)["":68,46-46@Practicum1af3.hs] {};["a use of ‘-’":68,46-46@Practicum1af3.hs]
+> (a_as4)["":68,45-47@Practicum1af3.hs] == (Int)["":68,45-47@Practicum1af3.hs] {};["a type equality a_as4 ~ Int":68,45-47@Practicum1af3.hs]
+> (Int)["":68,45-45@Practicum1af3.hs] == (a_as4)["":68,45-45@Practicum1af3.hs] {};["a type equality Int ~ a_as4":68,45-45@Practicum1af3.hs]
+> (a_as8)["":68,47-47@Practicum1af3.hs] <= (Num)["":68,47-47@Practicum1af3.hs] {};["the literal ‘1’":68,47-47@Practicum1af3.hs]
+> ((Integer -> a_as8))["":68,47-47@Practicum1af3.hs] == ((Integer -> a_as4))["":68,47-47@Practicum1af3.hs] {};["a type equality Integer -> a_as8 ~ Integer -> a_as4":68,47-47@Practicum1af3.hs]
+> (Int)["":63,19-35@Practicum1af3.hs] == (t_asb)["":63,19-35@Practicum1af3.hs] {};["a type equality Int ~ t_asb":63,19-35@Practicum1af3.hs]
+> (Int)["":63,19-35@Practicum1af3.hs] == (t_asc)["":63,19-35@Practicum1af3.hs] {};["a type equality Int ~ t_asc":63,19-35@Practicum1af3.hs]
+> (Int)["":63,19-35@Practicum1af3.hs] == (t_asd)["":63,19-35@Practicum1af3.hs] {};["a type equality Int ~ t_asd":63,19-35@Practicum1af3.hs]
+> (a_asi)["":64,23-23@Practicum1af3.hs] <= (Num)["":64,23-23@Practicum1af3.hs] {};["a use of ‘-’":64,23-23@Practicum1af3.hs]
+> (a_asi)["":64,22-24@Practicum1af3.hs] == (Int)["":64,22-24@Practicum1af3.hs] {};["a type equality a_asi ~ Int":64,22-24@Practicum1af3.hs]
+> (Int)["":64,22-22@Practicum1af3.hs] == (a_asi)["":64,22-22@Practicum1af3.hs] {};["a type equality Int ~ a_asi":64,22-22@Practicum1af3.hs]
+> (Int)["":64,24-24@Practicum1af3.hs] == (a_asi)["":64,24-24@Practicum1af3.hs] {};["a type equality Int ~ a_asi":64,24-24@Practicum1af3.hs]
+> ((list Char))["":70,14-36@Practicum1af3.hs] == (t_asn)["":70,14-36@Practicum1af3.hs] {};["a type equality String ~ t_asn":70,14-36@Practicum1af3.hs]
+> (Int)["":70,14-36@Practicum1af3.hs] == (t_aso)["":70,14-36@Practicum1af3.hs] {};["a type equality Int ~ t_aso":70,14-36@Practicum1af3.hs]
+> ((list Char))["":70,14-36@Practicum1af3.hs] == (t_asp)["":70,14-36@Practicum1af3.hs] {};["a type equality String ~ t_asp":70,14-36@Practicum1af3.hs]
+> (a_asu)["":71,13-13@Practicum1af3.hs] <= (Eq)["":71,13-13@Practicum1af3.hs] {};["the literal ‘0’":71,13-13@Practicum1af3.hs]
+> ((a_asu -> a_asu -> Bool))["":71,13-13@Practicum1af3.hs] == ((Int -> Int -> Bool))["":71,13-13@Practicum1af3.hs] {};["a type equality a_asu -> a_asu -> Bool ~ Int -> Int -> Bool":71,13-13@Practicum1af3.hs]
+> ((list (a_asx)))["":72,17-64@Practicum1af3.hs] == ((list Char))["":72,17-64@Practicum1af3.hs] {};["a type equality [a_asx] ~ String":72,17-64@Practicum1af3.hs]
+> ((list Char))["":72,17-17@Practicum1af3.hs] == ((list (a_asx)))["":72,17-17@Practicum1af3.hs] {};["a type equality String ~ [a_asx]":72,17-17@Practicum1af3.hs]
+> ((list Char))["":72,20-64@Practicum1af3.hs] == ((list (a_asx)))["":72,20-64@Practicum1af3.hs] {};["a type equality String ~ [a_asx]":72,20-64@Practicum1af3.hs]
+441,510c347,399
+< (t_asI)["":72,60-60@Practicum1af3.hs] == ((list (a_at3)))["":72,60-60@Practicum1af3.hs] {};["a type equality t_asI ~ [a_at3]":72,60-60@Practicum1af3.hs]
+< (t_asJ)["":72,63-63@Practicum1af3.hs] == (Int)["":72,63-63@Practicum1af3.hs] {};["a type equality t_asJ ~ Int":72,63-63@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":60,18-31@Practicum1af3.hs] == (t_atD)["":60,18-31@Practicum1af3.hs] {};["a type equality Table ~ t_atD":60,18-31@Practicum1af3.hs]
+< ((list (Int)))["":60,18-31@Practicum1af3.hs] == (t_atE)["":60,18-31@Practicum1af3.hs] {};["a type equality [Int] ~ t_atE":60,18-31@Practicum1af3.hs]
+< ((list (b_atL)))["":61,19-59@Practicum1af3.hs] == (t_atE)["":61,19-59@Practicum1af3.hs] {};["a type equality [b_atL] ~ t_atE":61,19-59@Practicum1af3.hs]
+< (a_au0)["":61,23-29@Practicum1af3.hs] <= (Ord)["":61,23-29@Practicum1af3.hs] {};["a use of ‘maximum’":61,23-29@Practicum1af3.hs]
+< (((list (a_au0)) -> a_au0))["":61,23-29@Practicum1af3.hs] == ((a_atK -> b_atL))["":61,23-29@Practicum1af3.hs] {};["a type equality [a_au0] -> a_au0 ~ a_atK -> b_atL":61,23-29@Practicum1af3.hs]
+< ((list (b_au4)))["":61,32-58@Practicum1af3.hs] == ((list (a_atK)))["":61,32-58@Practicum1af3.hs] {};["a type equality [b_au4] ~ [a_atK]":61,32-58@Practicum1af3.hs]
+< (((list ((list (a_au6)))) -> (list (Int))))["":61,36-45@Practicum1af3.hs] == ((a_au3 -> b_au4))["":61,36-45@Practicum1af3.hs] {};["a type equality [[a_au6]] -> [Int] ~ a_au3 -> b_au4":61,36-45@Practicum1af3.hs]
+< ((list ((list (a_au9)))))["":61,47-57@Practicum1af3.hs] == ((list (a_au3)))["":61,47-57@Practicum1af3.hs] {};["a type equality [[a_au9]] ~ [a_au3]":61,47-57@Practicum1af3.hs]
+< (t_atD)["":61,57-57@Practicum1af3.hs] == ((list ((list (a_au9)))))["":61,57-57@Practicum1af3.hs] {};["a type equality t_atD ~ [[a_au9]]":61,57-57@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":50,14-39@Practicum1af3.hs] == (t_auc)["":50,14-39@Practicum1af3.hs] {};["a type equality Table ~ t_auc":50,14-39@Practicum1af3.hs]
+< ((list ((list (Int)))))["":50,14-39@Practicum1af3.hs] == (t_aud)["":50,14-39@Practicum1af3.hs] {};["a type equality [[Int]] ~ t_aud":50,14-39@Practicum1af3.hs]
+< ((list Char))["":50,14-39@Practicum1af3.hs] == (t_aue)["":50,14-39@Practicum1af3.hs] {};["a type equality String ~ t_aue":50,14-39@Practicum1af3.hs]
+< ((list (t_auj)))["":51,12-19@Practicum1af3.hs] == (t_auc)["":51,12-19@Practicum1af3.hs] {};["a type equality [t_auj] ~ t_auc":51,12-19@Practicum1af3.hs]
+< ((list (t_aul)))["":51,12-13@Practicum1af3.hs] == (t_auj)["":51,12-13@Practicum1af3.hs] {};["a type equality [t_aul] ~ t_auj":51,12-13@Practicum1af3.hs]
+< ((list (t_aun)))["":51,23-30@Practicum1af3.hs] == (t_aud)["":51,23-30@Practicum1af3.hs] {};["a type equality [t_aun] ~ t_aud":51,23-30@Practicum1af3.hs]
+< ((list (t_aup)))["":51,23-24@Practicum1af3.hs] == (t_aun)["":51,23-24@Practicum1af3.hs] {};["a type equality [t_aup] ~ t_aun":51,23-24@Practicum1af3.hs]
+< ((list (a_aur)))["":51,39-64@Practicum1af3.hs] == (t_aue)["":51,39-64@Practicum1af3.hs] {};["a type equality [a_aur] ~ t_aue":51,39-64@Practicum1af3.hs]
+< ((list (Char)))["":51,39-43@Practicum1af3.hs] == ((list (a_aur)))["":51,39-43@Practicum1af3.hs] {};["a type equality [Char] ~ [a_aur]":51,39-43@Practicum1af3.hs]
+< ((list Char))["":51,48-64@Practicum1af3.hs] == ((list (a_aur)))["":51,48-64@Practicum1af3.hs] {};["a type equality String ~ [a_aur]":51,48-64@Practicum1af3.hs]
+< ((list (t_auj)))["":51,58-60@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":51,58-60@Practicum1af3.hs] {};["a type equality [t_auj] ~ Table":51,58-60@Practicum1af3.hs]
+< ((list (t_aun)))["":51,62-64@Practicum1af3.hs] == ((list ((list (Int)))))["":51,62-64@Practicum1af3.hs] {};["a type equality [t_aun] ~ [[Int]]":51,62-64@Practicum1af3.hs]
+< ((list (t_aux)))["":52,12-21@Practicum1af3.hs] == (t_auc)["":52,12-21@Practicum1af3.hs] {};["a type equality [t_aux] ~ t_auc":52,12-21@Practicum1af3.hs]
+< ((list (t_auz)))["":52,13-16@Practicum1af3.hs] == (t_aux)["":52,13-16@Practicum1af3.hs] {};["a type equality [t_auz] ~ t_aux":52,13-16@Practicum1af3.hs]
+< ((list (t_auB)))["":52,25-34@Practicum1af3.hs] == (t_aud)["":52,25-34@Practicum1af3.hs] {};["a type equality [t_auB] ~ t_aud":52,25-34@Practicum1af3.hs]
+< ((list (t_auD)))["":52,26-29@Practicum1af3.hs] == (t_auB)["":52,26-29@Practicum1af3.hs] {};["a type equality [t_auD] ~ t_auB":52,26-29@Practicum1af3.hs]
+< ((list (a_auF)))["":52,39-88@Practicum1af3.hs] == (t_aue)["":52,39-88@Practicum1af3.hs] {};["a type equality [a_auF] ~ t_aue":52,39-88@Practicum1af3.hs]
+< (Char)["":52,39-41@Practicum1af3.hs] == (a_auF)["":52,39-41@Practicum1af3.hs] {};["a type equality Char ~ a_auF":52,39-41@Practicum1af3.hs]
+< ((list (a_auI)))["":52,45-88@Practicum1af3.hs] == ((list (a_auF)))["":52,45-88@Practicum1af3.hs] {};["a type equality [a_auI] ~ [a_auF]":52,45-88@Practicum1af3.hs]
+< ((list Char))["":52,45-57@Practicum1af3.hs] == ((list (a_auI)))["":52,45-57@Practicum1af3.hs] {};["a type equality String ~ [a_auI]":52,45-57@Practicum1af3.hs]
+< (t_auz)["":52,55-55@Practicum1af3.hs] == ((list Char))["":52,55-55@Practicum1af3.hs] {};["a type equality t_auz ~ String":52,55-55@Practicum1af3.hs]
+< (t_auD)["":52,57-57@Practicum1af3.hs] == (Int)["":52,57-57@Practicum1af3.hs] {};["a type equality t_auD ~ Int":52,57-57@Practicum1af3.hs]
+< ((list Char))["":52,62-88@Practicum1af3.hs] == ((list (a_auI)))["":52,62-88@Practicum1af3.hs] {};["a type equality String ~ [a_auI]":52,62-88@Practicum1af3.hs]
+< ((list (a_auO)))["":52,73-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":52,73-78@Practicum1af3.hs] {};["a type equality [a_auO] ~ Table":52,73-78@Practicum1af3.hs]
+< ((list (t_auz)))["":52,73-74@Practicum1af3.hs] == (a_auO)["":52,73-74@Practicum1af3.hs] {};["a type equality [t_auz] ~ a_auO":52,73-74@Practicum1af3.hs]
+< ((list (t_aux)))["":52,76-78@Practicum1af3.hs] == ((list (a_auO)))["":52,76-78@Practicum1af3.hs] {};["a type equality [t_aux] ~ [a_auO]":52,76-78@Practicum1af3.hs]
+< ((list (a_auS)))["":52,82-87@Practicum1af3.hs] == ((list ((list (Int)))))["":52,82-87@Practicum1af3.hs] {};["a type equality [a_auS] ~ [[Int]]":52,82-87@Practicum1af3.hs]
+< ((list (t_auD)))["":52,82-83@Practicum1af3.hs] == (a_auS)["":52,82-83@Practicum1af3.hs] {};["a type equality [t_auD] ~ a_auS":52,82-83@Practicum1af3.hs]
+< ((list (t_auB)))["":52,85-87@Practicum1af3.hs] == ((list (a_auS)))["":52,85-87@Practicum1af3.hs] {};["a type equality [t_auB] ~ [a_auS]":52,85-87@Practicum1af3.hs]
+< ((list (t_auW)))["":53,17-18@Practicum1af3.hs] == (t_aue)["":53,17-18@Practicum1af3.hs] {};["a type equality [t_auW] ~ t_aue":53,17-18@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":45,14-28@Practicum1af3.hs] == (t_auY)["":45,14-28@Practicum1af3.hs] {};["a type equality Table ~ t_auY":45,14-28@Practicum1af3.hs]
+< ((list Char))["":45,14-28@Practicum1af3.hs] == (t_auZ)["":45,14-28@Practicum1af3.hs] {};["a type equality String ~ t_auZ":45,14-28@Practicum1af3.hs]
+< ((list (t_av3)))["":46,12-17@Practicum1af3.hs] == (t_auY)["":46,12-17@Practicum1af3.hs] {};["a type equality [t_av3] ~ t_auY":46,12-17@Practicum1af3.hs]
+< ((list (t_av5)))["":46,12-13@Practicum1af3.hs] == (t_av3)["":46,12-13@Practicum1af3.hs] {};["a type equality [t_av5] ~ t_av3":46,12-13@Practicum1af3.hs]
+< ((list (t_av7)))["":46,26-27@Practicum1af3.hs] == (t_auZ)["":46,26-27@Practicum1af3.hs] {};["a type equality [t_av7] ~ t_auZ":46,26-27@Practicum1af3.hs]
+< ((list (t_av9)))["":47,11-12@Practicum1af3.hs] == (t_auY)["":47,11-12@Practicum1af3.hs] {};["a type equality [t_av9] ~ t_auY":47,11-12@Practicum1af3.hs]
+< ((list (Char)))["":47,26-28@Practicum1af3.hs] == (t_auZ)["":47,26-28@Practicum1af3.hs] {};["a type equality [Char] ~ t_auZ":47,26-28@Practicum1af3.hs]
+< ((list (t_avc)))["":48,12-21@Practicum1af3.hs] == (t_auY)["":48,12-21@Practicum1af3.hs] {};["a type equality [t_avc] ~ t_auY":48,12-21@Practicum1af3.hs]
+< ((list (t_ave)))["":48,13-16@Practicum1af3.hs] == (t_avc)["":48,13-16@Practicum1af3.hs] {};["a type equality [t_ave] ~ t_avc":48,13-16@Practicum1af3.hs]
+< ((list (a_avg)))["":48,26-107@Practicum1af3.hs] == (t_auZ)["":48,26-107@Practicum1af3.hs] {};["a type equality [a_avg] ~ t_auZ":48,26-107@Practicum1af3.hs]
+< (Char)["":48,26-28@Practicum1af3.hs] == (a_avg)["":48,26-28@Practicum1af3.hs] {};["a type equality Char ~ a_avg":48,26-28@Practicum1af3.hs]
+< ((list (a_avj)))["":48,32-107@Practicum1af3.hs] == ((list (a_avg)))["":48,32-107@Practicum1af3.hs] {};["a type equality [a_avj] ~ [a_avg]":48,32-107@Practicum1af3.hs]
+< ((list Char))["":48,32-90@Practicum1af3.hs] == ((list (a_avj)))["":48,32-90@Practicum1af3.hs] {};["a type equality String ~ [a_avj]":48,32-90@Practicum1af3.hs]
+< (t_ave)["":48,42-42@Practicum1af3.hs] == ((list Char))["":48,42-42@Practicum1af3.hs] {};["a type equality t_ave ~ String":48,42-42@Practicum1af3.hs]
+< (a_avo)["":48,45-89@Practicum1af3.hs] == (Int)["":48,45-89@Practicum1af3.hs] {};["a type equality a_avo ~ Int":48,45-89@Practicum1af3.hs]
+< ((list (Int)))["":48,51-88@Practicum1af3.hs] == ((list (a_avo)))["":48,51-88@Practicum1af3.hs] {};["a type equality [Int] ~ [a_avo]":48,51-88@Practicum1af3.hs]
+< ((list ((list (a_avr)))))["":48,66-87@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":48,66-87@Practicum1af3.hs] {};["a type equality [[a_avr]] ~ Table":48,66-87@Practicum1af3.hs]
+< ((list (a_avt)))["":48,77-86@Practicum1af3.hs] == ((list ((list (a_avr)))))["":48,77-86@Practicum1af3.hs] {};["a type equality [a_avt] ~ [[a_avr]]":48,77-86@Practicum1af3.hs]
+< ((list (a_avv)))["":48,78-81@Practicum1af3.hs] == (a_avt)["":48,78-81@Practicum1af3.hs] {};["a type equality [a_avv] ~ a_avt":48,78-81@Practicum1af3.hs]
+< (t_ave)["":48,78-78@Practicum1af3.hs] == (a_avv)["":48,78-78@Practicum1af3.hs] {};["a type equality t_ave ~ a_avv":48,78-78@Practicum1af3.hs]
+< ((list (t_ave)))["":48,80-81@Practicum1af3.hs] == ((list (a_avv)))["":48,80-81@Practicum1af3.hs] {};["a type equality [t_ave] ~ [a_avv]":48,80-81@Practicum1af3.hs]
+< ((list (t_avc)))["":48,84-86@Practicum1af3.hs] == ((list (a_avt)))["":48,84-86@Practicum1af3.hs] {};["a type equality [t_avc] ~ [a_avt]":48,84-86@Practicum1af3.hs]
+< ((list Char))["":48,95-107@Practicum1af3.hs] == ((list (a_avj)))["":48,95-107@Practicum1af3.hs] {};["a type equality String ~ [a_avj]":48,95-107@Practicum1af3.hs]
+< ((list (t_avc)))["":48,105-107@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":48,105-107@Practicum1af3.hs] {};["a type equality [t_avc] ~ Table":48,105-107@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":41,17-31@Practicum1af3.hs] == (t_avC)["":41,17-31@Practicum1af3.hs] {};["a type equality Table ~ t_avC":41,17-31@Practicum1af3.hs]
+< ((list Char))["":41,17-31@Practicum1af3.hs] == (t_avD)["":41,17-31@Practicum1af3.hs] {};["a type equality String ~ t_avD":41,17-31@Practicum1af3.hs]
+< ((list (t_avH)))["":42,14-15@Practicum1af3.hs] == (t_avC)["":42,14-15@Practicum1af3.hs] {};["a type equality [t_avH] ~ t_avC":42,14-15@Practicum1af3.hs]
+< ((list (t_avJ)))["":42,23-24@Practicum1af3.hs] == (t_avD)["":42,23-24@Practicum1af3.hs] {};["a type equality [t_avJ] ~ t_avD":42,23-24@Practicum1af3.hs]
+< ((list Char))["":43,23-79@Practicum1af3.hs] == (t_avD)["":43,23-79@Practicum1af3.hs] {};["a type equality String ~ t_avD":43,23-79@Practicum1af3.hs]
+---
+> ((list Char))["":72,60-60@Practicum1af3.hs] == ((list (a_asD)))["":72,60-60@Practicum1af3.hs] {};["a type equality String ~ [a_asD]":72,60-60@Practicum1af3.hs]
+> (Int)["":72,63-63@Practicum1af3.hs] == (Int)["":72,63-63@Practicum1af3.hs] {};["a type equality Int ~ Int":72,63-63@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":60,18-31@Practicum1af3.hs] == (t_at1)["":60,18-31@Practicum1af3.hs] {};["a type equality Table ~ t_at1":60,18-31@Practicum1af3.hs]
+> ((list (Int)))["":60,18-31@Practicum1af3.hs] == (t_at2)["":60,18-31@Practicum1af3.hs] {};["a type equality [Int] ~ t_at2":60,18-31@Practicum1af3.hs]
+> ((list (b_at9)))["":61,19-59@Practicum1af3.hs] == ((list (Int)))["":61,19-59@Practicum1af3.hs] {};["a type equality [b_at9] ~ [Int]":61,19-59@Practicum1af3.hs]
+> (a_ato)["":61,23-29@Practicum1af3.hs] <= (Ord)["":61,23-29@Practicum1af3.hs] {};["a use of ‘maximum’":61,23-29@Practicum1af3.hs]
+> (((list (a_ato)) -> a_ato))["":61,23-29@Practicum1af3.hs] == ((a_at8 -> b_at9))["":61,23-29@Practicum1af3.hs] {};["a type equality [a_ato] -> a_ato ~ a_at8 -> b_at9":61,23-29@Practicum1af3.hs]
+> ((list (b_ats)))["":61,32-58@Practicum1af3.hs] == ((list (a_at8)))["":61,32-58@Practicum1af3.hs] {};["a type equality [b_ats] ~ [a_at8]":61,32-58@Practicum1af3.hs]
+> (((list ((list (a_atu)))) -> (list (Int))))["":61,36-45@Practicum1af3.hs] == ((a_atr -> b_ats))["":61,36-45@Practicum1af3.hs] {};["a type equality [[a_atu]] -> [Int] ~ a_atr -> b_ats":61,36-45@Practicum1af3.hs]
+> ((list ((list (a_atx)))))["":61,47-57@Practicum1af3.hs] == ((list (a_atr)))["":61,47-57@Practicum1af3.hs] {};["a type equality [[a_atx]] ~ [a_atr]":61,47-57@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":61,57-57@Practicum1af3.hs] == ((list ((list (a_atx)))))["":61,57-57@Practicum1af3.hs] {};["a type equality Table ~ [[a_atx]]":61,57-57@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":50,14-39@Practicum1af3.hs] == (t_atA)["":50,14-39@Practicum1af3.hs] {};["a type equality Table ~ t_atA":50,14-39@Practicum1af3.hs]
+> ((list ((list (Int)))))["":50,14-39@Practicum1af3.hs] == (t_atB)["":50,14-39@Practicum1af3.hs] {};["a type equality [[Int]] ~ t_atB":50,14-39@Practicum1af3.hs]
+> ((list Char))["":50,14-39@Practicum1af3.hs] == (t_atC)["":50,14-39@Practicum1af3.hs] {};["a type equality String ~ t_atC":50,14-39@Practicum1af3.hs]
+> ((list (a_atH)))["":51,39-64@Practicum1af3.hs] == ((list Char))["":51,39-64@Practicum1af3.hs] {};["a type equality [a_atH] ~ String":51,39-64@Practicum1af3.hs]
+> ((list (Char)))["":51,39-43@Practicum1af3.hs] == ((list (a_atH)))["":51,39-43@Practicum1af3.hs] {};["a type equality [Char] ~ [a_atH]":51,39-43@Practicum1af3.hs]
+> ((list Char))["":51,48-64@Practicum1af3.hs] == ((list (a_atH)))["":51,48-64@Practicum1af3.hs] {};["a type equality String ~ [a_atH]":51,48-64@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":51,58-60@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":51,58-60@Practicum1af3.hs] {};["a type equality [[String]] ~ Table":51,58-60@Practicum1af3.hs]
+> ((list ((list (Int)))))["":51,62-64@Practicum1af3.hs] == ((list ((list (Int)))))["":51,62-64@Practicum1af3.hs] {};["a type equality [[Int]] ~ [[Int]]":51,62-64@Practicum1af3.hs]
+> ((list (a_atN)))["":52,39-88@Practicum1af3.hs] == ((list Char))["":52,39-88@Practicum1af3.hs] {};["a type equality [a_atN] ~ String":52,39-88@Practicum1af3.hs]
+> (Char)["":52,39-41@Practicum1af3.hs] == (a_atN)["":52,39-41@Practicum1af3.hs] {};["a type equality Char ~ a_atN":52,39-41@Practicum1af3.hs]
+> ((list (a_atQ)))["":52,45-88@Practicum1af3.hs] == ((list (a_atN)))["":52,45-88@Practicum1af3.hs] {};["a type equality [a_atQ] ~ [a_atN]":52,45-88@Practicum1af3.hs]
+> ((list Char))["":52,45-57@Practicum1af3.hs] == ((list (a_atQ)))["":52,45-57@Practicum1af3.hs] {};["a type equality String ~ [a_atQ]":52,45-57@Practicum1af3.hs]
+> ((list Char))["":52,55-55@Practicum1af3.hs] == ((list Char))["":52,55-55@Practicum1af3.hs] {};["a type equality String ~ String":52,55-55@Practicum1af3.hs]
+> (Int)["":52,57-57@Practicum1af3.hs] == (Int)["":52,57-57@Practicum1af3.hs] {};["a type equality Int ~ Int":52,57-57@Practicum1af3.hs]
+> ((list Char))["":52,62-88@Practicum1af3.hs] == ((list (a_atQ)))["":52,62-88@Practicum1af3.hs] {};["a type equality String ~ [a_atQ]":52,62-88@Practicum1af3.hs]
+> ((list (a_atW)))["":52,73-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":52,73-78@Practicum1af3.hs] {};["a type equality [a_atW] ~ Table":52,73-78@Practicum1af3.hs]
+> ((list ((list Char))))["":52,73-74@Practicum1af3.hs] == (a_atW)["":52,73-74@Practicum1af3.hs] {};["a type equality [String] ~ a_atW":52,73-74@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":52,76-78@Practicum1af3.hs] == ((list (a_atW)))["":52,76-78@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_atW]":52,76-78@Practicum1af3.hs]
+> ((list (a_au0)))["":52,82-87@Practicum1af3.hs] == ((list ((list (Int)))))["":52,82-87@Practicum1af3.hs] {};["a type equality [a_au0] ~ [[Int]]":52,82-87@Practicum1af3.hs]
+> ((list (Int)))["":52,82-83@Practicum1af3.hs] == (a_au0)["":52,82-83@Practicum1af3.hs] {};["a type equality [Int] ~ a_au0":52,82-83@Practicum1af3.hs]
+> ((list ((list (Int)))))["":52,85-87@Practicum1af3.hs] == ((list (a_au0)))["":52,85-87@Practicum1af3.hs] {};["a type equality [[Int]] ~ [a_au0]":52,85-87@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":45,14-28@Practicum1af3.hs] == (t_au4)["":45,14-28@Practicum1af3.hs] {};["a type equality Table ~ t_au4":45,14-28@Practicum1af3.hs]
+> ((list Char))["":45,14-28@Practicum1af3.hs] == (t_au5)["":45,14-28@Practicum1af3.hs] {};["a type equality String ~ t_au5":45,14-28@Practicum1af3.hs]
+> ((list (Char)))["":47,26-28@Practicum1af3.hs] == ((list Char))["":47,26-28@Practicum1af3.hs] {};["a type equality [Char] ~ String":47,26-28@Practicum1af3.hs]
+> ((list (a_aua)))["":48,26-107@Practicum1af3.hs] == ((list Char))["":48,26-107@Practicum1af3.hs] {};["a type equality [a_aua] ~ String":48,26-107@Practicum1af3.hs]
+> (Char)["":48,26-28@Practicum1af3.hs] == (a_aua)["":48,26-28@Practicum1af3.hs] {};["a type equality Char ~ a_aua":48,26-28@Practicum1af3.hs]
+> ((list (a_aud)))["":48,32-107@Practicum1af3.hs] == ((list (a_aua)))["":48,32-107@Practicum1af3.hs] {};["a type equality [a_aud] ~ [a_aua]":48,32-107@Practicum1af3.hs]
+> ((list Char))["":48,32-90@Practicum1af3.hs] == ((list (a_aud)))["":48,32-90@Practicum1af3.hs] {};["a type equality String ~ [a_aud]":48,32-90@Practicum1af3.hs]
+> ((list Char))["":48,42-42@Practicum1af3.hs] == ((list Char))["":48,42-42@Practicum1af3.hs] {};["a type equality String ~ String":48,42-42@Practicum1af3.hs]
+> (a_aui)["":48,45-89@Practicum1af3.hs] == (Int)["":48,45-89@Practicum1af3.hs] {};["a type equality a_aui ~ Int":48,45-89@Practicum1af3.hs]
+> ((list (Int)))["":48,51-88@Practicum1af3.hs] == ((list (a_aui)))["":48,51-88@Practicum1af3.hs] {};["a type equality [Int] ~ [a_aui]":48,51-88@Practicum1af3.hs]
+> ((list ((list (a_aul)))))["":48,66-87@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":48,66-87@Practicum1af3.hs] {};["a type equality [[a_aul]] ~ Table":48,66-87@Practicum1af3.hs]
+> ((list (a_aun)))["":48,77-86@Practicum1af3.hs] == ((list ((list (a_aul)))))["":48,77-86@Practicum1af3.hs] {};["a type equality [a_aun] ~ [[a_aul]]":48,77-86@Practicum1af3.hs]
+> ((list (a_aup)))["":48,78-81@Practicum1af3.hs] == (a_aun)["":48,78-81@Practicum1af3.hs] {};["a type equality [a_aup] ~ a_aun":48,78-81@Practicum1af3.hs]
+> ((list Char))["":48,78-78@Practicum1af3.hs] == (a_aup)["":48,78-78@Practicum1af3.hs] {};["a type equality String ~ a_aup":48,78-78@Practicum1af3.hs]
+> ((list ((list Char))))["":48,80-81@Practicum1af3.hs] == ((list (a_aup)))["":48,80-81@Practicum1af3.hs] {};["a type equality [String] ~ [a_aup]":48,80-81@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":48,84-86@Practicum1af3.hs] == ((list (a_aun)))["":48,84-86@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_aun]":48,84-86@Practicum1af3.hs]
+> ((list Char))["":48,95-107@Practicum1af3.hs] == ((list (a_aud)))["":48,95-107@Practicum1af3.hs] {};["a type equality String ~ [a_aud]":48,95-107@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":48,105-107@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":48,105-107@Practicum1af3.hs] {};["a type equality [[String]] ~ Table":48,105-107@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":41,17-31@Practicum1af3.hs] == (t_auw)["":41,17-31@Practicum1af3.hs] {};["a type equality Table ~ t_auw":41,17-31@Practicum1af3.hs]
+> ((list Char))["":41,17-31@Practicum1af3.hs] == (t_aux)["":41,17-31@Practicum1af3.hs] {};["a type equality String ~ t_aux":41,17-31@Practicum1af3.hs]
+> ((list Char))["":43,23-79@Practicum1af3.hs] == ((list Char))["":43,23-79@Practicum1af3.hs] {};["a type equality String ~ String":43,23-79@Practicum1af3.hs]
+512,513c401,402
+< ((list ((list (a_avO)))))["":43,49-59@Practicum1af3.hs] == ((list (a_avM)))["":43,49-59@Practicum1af3.hs] {};["a type equality [[a_avO]] ~ [a_avM]":43,49-59@Practicum1af3.hs]
+< (t_avC)["":43,59-59@Practicum1af3.hs] == ((list ((list (a_avO)))))["":43,59-59@Practicum1af3.hs] {};["a type equality t_avC ~ [[a_avO]]":43,59-59@Practicum1af3.hs]
+---
+> ((list ((list (a_auE)))))["":43,49-59@Practicum1af3.hs] == ((list (a_auC)))["":43,49-59@Practicum1af3.hs] {};["a type equality [[a_auE]] ~ [a_auC]":43,49-59@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":43,59-59@Practicum1af3.hs] == ((list ((list (a_auE)))))["":43,59-59@Practicum1af3.hs] {};["a type equality Table ~ [[a_auE]]":43,59-59@Practicum1af3.hs]
+515,522c404,408
+< (t_avC)["":43,78-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":43,78-78@Practicum1af3.hs] {};["a type equality t_avC ~ Table":43,78-78@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":37,15-29@Practicum1af3.hs] == (t_avT)["":37,15-29@Practicum1af3.hs] {};["a type equality Table ~ t_avT":37,15-29@Practicum1af3.hs]
+< ((list Char))["":37,15-29@Practicum1af3.hs] == (t_avU)["":37,15-29@Practicum1af3.hs] {};["a type equality String ~ t_avU":37,15-29@Practicum1af3.hs]
+< ((list (t_avY)))["":38,12-13@Practicum1af3.hs] == (t_avT)["":38,12-13@Practicum1af3.hs] {};["a type equality [t_avY] ~ t_avT":38,12-13@Practicum1af3.hs]
+< ((list (t_aw0)))["":38,21-22@Practicum1af3.hs] == (t_avU)["":38,21-22@Practicum1af3.hs] {};["a type equality [t_aw0] ~ t_avU":38,21-22@Practicum1af3.hs]
+< ((list (t_aw2)))["":39,13-16@Practicum1af3.hs] == (t_avT)["":39,13-16@Practicum1af3.hs] {};["a type equality [t_aw2] ~ t_avT":39,13-16@Practicum1af3.hs]
+< ((list (a_aw4)))["":39,21-166@Practicum1af3.hs] == (t_avU)["":39,21-166@Practicum1af3.hs] {};["a type equality [a_aw4] ~ t_avU":39,21-166@Practicum1af3.hs]
+< ((list Char))["":39,21-97@Practicum1af3.hs] == ((list (a_aw4)))["":39,21-97@Practicum1af3.hs] {};["a type equality String ~ [a_aw4]":39,21-97@Practicum1af3.hs]
+---
+> (((list ((list ((list Char)))))))["":43,78-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":43,78-78@Practicum1af3.hs] {};["a type equality Table ~ Table":43,78-78@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":37,15-29@Practicum1af3.hs] == (t_auJ)["":37,15-29@Practicum1af3.hs] {};["a type equality Table ~ t_auJ":37,15-29@Practicum1af3.hs]
+> ((list Char))["":37,15-29@Practicum1af3.hs] == (t_auK)["":37,15-29@Practicum1af3.hs] {};["a type equality String ~ t_auK":37,15-29@Practicum1af3.hs]
+> ((list (a_auO)))["":39,21-166@Practicum1af3.hs] == ((list Char))["":39,21-166@Practicum1af3.hs] {};["a type equality [a_auO] ~ String":39,21-166@Practicum1af3.hs]
+> ((list Char))["":39,21-97@Practicum1af3.hs] == ((list (a_auO)))["":39,21-97@Practicum1af3.hs] {};["a type equality String ~ [a_auO]":39,21-97@Practicum1af3.hs]
+524,526c410,412
+< ((list (a_aw8)))["":39,43-46@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,43-46@Practicum1af3.hs] {};["a type equality [a_aw8] ~ Table":39,43-46@Practicum1af3.hs]
+< (t_aw2)["":39,43-43@Practicum1af3.hs] == (a_aw8)["":39,43-43@Practicum1af3.hs] {};["a type equality t_aw2 ~ a_aw8":39,43-43@Practicum1af3.hs]
+< ((list (t_aw2)))["":39,45-46@Practicum1af3.hs] == ((list (a_aw8)))["":39,45-46@Practicum1af3.hs] {};["a type equality [t_aw2] ~ [a_aw8]":39,45-46@Practicum1af3.hs]
+---
+> ((list (a_auS)))["":39,43-46@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,43-46@Practicum1af3.hs] {};["a type equality [a_auS] ~ Table":39,43-46@Practicum1af3.hs]
+> ((list ((list Char))))["":39,43-43@Practicum1af3.hs] == (a_auS)["":39,43-43@Practicum1af3.hs] {};["a type equality [String] ~ a_auS":39,43-43@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":39,45-46@Practicum1af3.hs] == ((list (a_auS)))["":39,45-46@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_auS]":39,45-46@Practicum1af3.hs]
+528,531c414,417
+< ((list ((list (a_awd)))))["":39,60-75@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,60-75@Practicum1af3.hs] {};["a type equality [[a_awd]] ~ Table":39,60-75@Practicum1af3.hs]
+< ((list (a_awf)))["":39,71-74@Practicum1af3.hs] == ((list ((list (a_awd)))))["":39,71-74@Practicum1af3.hs] {};["a type equality [a_awf] ~ [[a_awd]]":39,71-74@Practicum1af3.hs]
+< (t_aw2)["":39,71-71@Practicum1af3.hs] == (a_awf)["":39,71-71@Practicum1af3.hs] {};["a type equality t_aw2 ~ a_awf":39,71-71@Practicum1af3.hs]
+< ((list (t_aw2)))["":39,73-74@Practicum1af3.hs] == ((list (a_awf)))["":39,73-74@Practicum1af3.hs] {};["a type equality [t_aw2] ~ [a_awf]":39,73-74@Practicum1af3.hs]
+---
+> ((list ((list (a_auX)))))["":39,60-75@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,60-75@Practicum1af3.hs] {};["a type equality [[a_auX]] ~ Table":39,60-75@Practicum1af3.hs]
+> ((list (a_auZ)))["":39,71-74@Practicum1af3.hs] == ((list ((list (a_auX)))))["":39,71-74@Practicum1af3.hs] {};["a type equality [a_auZ] ~ [[a_auX]]":39,71-74@Practicum1af3.hs]
+> ((list ((list Char))))["":39,71-71@Practicum1af3.hs] == (a_auZ)["":39,71-71@Practicum1af3.hs] {};["a type equality [String] ~ a_auZ":39,71-71@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":39,73-74@Practicum1af3.hs] == ((list (a_auZ)))["":39,73-74@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_auZ]":39,73-74@Practicum1af3.hs]
+533,615c419,481
+< ((list (a_awk)))["":39,92-95@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,92-95@Practicum1af3.hs] {};["a type equality [a_awk] ~ Table":39,92-95@Practicum1af3.hs]
+< (t_aw2)["":39,92-92@Practicum1af3.hs] == (a_awk)["":39,92-92@Practicum1af3.hs] {};["a type equality t_aw2 ~ a_awk":39,92-92@Practicum1af3.hs]
+< ((list (t_aw2)))["":39,94-95@Practicum1af3.hs] == ((list (a_awk)))["":39,94-95@Practicum1af3.hs] {};["a type equality [t_aw2] ~ [a_awk]":39,94-95@Practicum1af3.hs]
+< ((list (a_awo)))["":39,102-166@Practicum1af3.hs] == ((list (a_aw4)))["":39,102-166@Practicum1af3.hs] {};["a type equality [a_awo] ~ [a_aw4]":39,102-166@Practicum1af3.hs]
+< ((list Char))["":39,102-143@Practicum1af3.hs] == ((list (a_awo)))["":39,102-143@Practicum1af3.hs] {};["a type equality String ~ [a_awo]":39,102-143@Practicum1af3.hs]
+< ((list (t_aw2)))["":39,112-113@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,112-113@Practicum1af3.hs] {};["a type equality [t_aw2] ~ Table":39,112-113@Practicum1af3.hs]
+< ((list (a_awt)))["":39,116-142@Practicum1af3.hs] == ((list ((list (Int)))))["":39,116-142@Practicum1af3.hs] {};["a type equality [a_awt] ~ [[Int]]":39,116-142@Practicum1af3.hs]
+< ((list (Int)))["":39,123-141@Practicum1af3.hs] == (a_awt)["":39,123-141@Practicum1af3.hs] {};["a type equality [Int] ~ a_awt":39,123-141@Practicum1af3.hs]
+< ((list (a_aww)))["":39,137-140@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,137-140@Practicum1af3.hs] {};["a type equality [a_aww] ~ Table":39,137-140@Practicum1af3.hs]
+< (t_aw2)["":39,137-137@Practicum1af3.hs] == (a_aww)["":39,137-137@Practicum1af3.hs] {};["a type equality t_aw2 ~ a_aww":39,137-137@Practicum1af3.hs]
+< ((list (t_aw2)))["":39,139-140@Practicum1af3.hs] == ((list (a_aww)))["":39,139-140@Practicum1af3.hs] {};["a type equality [t_aw2] ~ [a_aww]":39,139-140@Practicum1af3.hs]
+< ((list Char))["":39,148-166@Practicum1af3.hs] == ((list (a_awo)))["":39,148-166@Practicum1af3.hs] {};["a type equality String ~ [a_awo]":39,148-166@Practicum1af3.hs]
+< ((list (a_awB)))["":39,162-165@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,162-165@Practicum1af3.hs] {};["a type equality [a_awB] ~ Table":39,162-165@Practicum1af3.hs]
+< (t_aw2)["":39,162-162@Practicum1af3.hs] == (a_awB)["":39,162-162@Practicum1af3.hs] {};["a type equality t_aw2 ~ a_awB":39,162-162@Practicum1af3.hs]
+< ((list (t_aw2)))["":39,164-165@Practicum1af3.hs] == ((list (a_awB)))["":39,164-165@Practicum1af3.hs] {};["a type equality [t_aw2] ~ [a_awB]":39,164-165@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":24,13-17@Practicum1af3.hs] == (t_awF)["":24,13-17@Practicum1af3.hs] {};["a type equality Table ~ t_awF":24,13-17@Practicum1af3.hs]
+< ((list (t_awI)))["":26,3-33,3@Practicum1af3.hs] == (t_awF)["":26,3-33,3@Practicum1af3.hs] {};["a type equality [t_awI] ~ t_awF":26,3-33,3@Practicum1af3.hs]
+< ((list (t_awK)))["":26,5-44@Practicum1af3.hs] == (t_awI)["":26,5-44@Practicum1af3.hs] {};["a type equality [t_awK] ~ t_awI":26,5-44@Practicum1af3.hs]
+< ((list (Char)))["":26,6-27@Practicum1af3.hs] == (t_awK)["":26,6-27@Practicum1af3.hs] {};["a type equality [Char] ~ t_awK":26,6-27@Practicum1af3.hs]
+< ((list (Char)))["":26,30-35@Practicum1af3.hs] == (t_awK)["":26,30-35@Practicum1af3.hs] {};["a type equality [Char] ~ t_awK":26,30-35@Practicum1af3.hs]
+< ((list (Char)))["":26,38-43@Practicum1af3.hs] == (t_awK)["":26,38-43@Practicum1af3.hs] {};["a type equality [Char] ~ t_awK":26,38-43@Practicum1af3.hs]
+< ((list (t_awP)))["":27,5-56@Practicum1af3.hs] == (t_awI)["":27,5-56@Practicum1af3.hs] {};["a type equality [t_awP] ~ t_awI":27,5-56@Practicum1af3.hs]
+< ((list (Char)))["":27,6-31@Practicum1af3.hs] == (t_awP)["":27,6-31@Practicum1af3.hs] {};["a type equality [Char] ~ t_awP":27,6-31@Practicum1af3.hs]
+< ((list (Char)))["":27,34-44@Practicum1af3.hs] == (t_awP)["":27,34-44@Practicum1af3.hs] {};["a type equality [Char] ~ t_awP":27,34-44@Practicum1af3.hs]
+< ((list (Char)))["":27,47-55@Practicum1af3.hs] == (t_awP)["":27,47-55@Practicum1af3.hs] {};["a type equality [Char] ~ t_awP":27,47-55@Practicum1af3.hs]
+< ((list (t_awU)))["":28,5-46@Practicum1af3.hs] == (t_awI)["":28,5-46@Practicum1af3.hs] {};["a type equality [t_awU] ~ t_awI":28,5-46@Practicum1af3.hs]
+< ((list (Char)))["":28,6-25@Practicum1af3.hs] == (t_awU)["":28,6-25@Practicum1af3.hs] {};["a type equality [Char] ~ t_awU":28,6-25@Practicum1af3.hs]
+< ((list (Char)))["":28,28-37@Practicum1af3.hs] == (t_awU)["":28,28-37@Practicum1af3.hs] {};["a type equality [Char] ~ t_awU":28,28-37@Practicum1af3.hs]
+< ((list (Char)))["":28,40-45@Practicum1af3.hs] == (t_awU)["":28,40-45@Practicum1af3.hs] {};["a type equality [Char] ~ t_awU":28,40-45@Practicum1af3.hs]
+< ((list (t_awZ)))["":29,5-51@Practicum1af3.hs] == (t_awI)["":29,5-51@Practicum1af3.hs] {};["a type equality [t_awZ] ~ t_awI":29,5-51@Practicum1af3.hs]
+< ((list (Char)))["":29,6-25@Practicum1af3.hs] == (t_awZ)["":29,6-25@Practicum1af3.hs] {};["a type equality [Char] ~ t_awZ":29,6-25@Practicum1af3.hs]
+< ((list (Char)))["":29,28-37@Practicum1af3.hs] == (t_awZ)["":29,28-37@Practicum1af3.hs] {};["a type equality [Char] ~ t_awZ":29,28-37@Practicum1af3.hs]
+< ((list (Char)))["":29,40-50@Practicum1af3.hs] == (t_awZ)["":29,40-50@Practicum1af3.hs] {};["a type equality [Char] ~ t_awZ":29,40-50@Practicum1af3.hs]
+< ((list (t_ax4)))["":30,5-59@Practicum1af3.hs] == (t_awI)["":30,5-59@Practicum1af3.hs] {};["a type equality [t_ax4] ~ t_awI":30,5-59@Practicum1af3.hs]
+< ((list (Char)))["":30,6-25@Practicum1af3.hs] == (t_ax4)["":30,6-25@Practicum1af3.hs] {};["a type equality [Char] ~ t_ax4":30,6-25@Practicum1af3.hs]
+< ((list (Char)))["":30,28-45@Practicum1af3.hs] == (t_ax4)["":30,28-45@Practicum1af3.hs] {};["a type equality [Char] ~ t_ax4":30,28-45@Practicum1af3.hs]
+< ((list (Char)))["":30,48-58@Practicum1af3.hs] == (t_ax4)["":30,48-58@Practicum1af3.hs] {};["a type equality [Char] ~ t_ax4":30,48-58@Practicum1af3.hs]
+< ((list (t_ax9)))["":31,5-66@Practicum1af3.hs] == (t_awI)["":31,5-66@Practicum1af3.hs] {};["a type equality [t_ax9] ~ t_awI":31,5-66@Practicum1af3.hs]
+< ((list (Char)))["":31,6-32@Practicum1af3.hs] == (t_ax9)["":31,6-32@Practicum1af3.hs] {};["a type equality [Char] ~ t_ax9":31,6-32@Practicum1af3.hs]
+< ((list (Char)))["":31,35-52@Practicum1af3.hs] == (t_ax9)["":31,35-52@Practicum1af3.hs] {};["a type equality [Char] ~ t_ax9":31,35-52@Practicum1af3.hs]
+< ((list (Char)))["":31,55-65@Practicum1af3.hs] == (t_ax9)["":31,55-65@Practicum1af3.hs] {};["a type equality [Char] ~ t_ax9":31,55-65@Practicum1af3.hs]
+< ((list (t_axe)))["":32,5-63@Practicum1af3.hs] == (t_awI)["":32,5-63@Practicum1af3.hs] {};["a type equality [t_axe] ~ t_awI":32,5-63@Practicum1af3.hs]
+< ((list (Char)))["":32,6-40@Practicum1af3.hs] == (t_axe)["":32,6-40@Practicum1af3.hs] {};["a type equality [Char] ~ t_axe":32,6-40@Practicum1af3.hs]
+< ((list (Char)))["":32,43-50@Practicum1af3.hs] == (t_axe)["":32,43-50@Practicum1af3.hs] {};["a type equality [Char] ~ t_axe":32,43-50@Practicum1af3.hs]
+< ((list (Char)))["":32,53-62@Practicum1af3.hs] == (t_axe)["":32,53-62@Practicum1af3.hs] {};["a type equality [Char] ~ t_axe":32,53-62@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":11,14-18@Practicum1af3.hs] == (t_axj)["":11,14-18@Practicum1af3.hs] {};["a type equality Table ~ t_axj":11,14-18@Practicum1af3.hs]
+< ((list (t_axm)))["":13,3-22,3@Practicum1af3.hs] == (t_axj)["":13,3-22,3@Practicum1af3.hs] {};["a type equality [t_axm] ~ t_axj":13,3-22,3@Practicum1af3.hs]
+< ((list (t_axo)))["":13,5-40@Practicum1af3.hs] == (t_axm)["":13,5-40@Practicum1af3.hs] {};["a type equality [t_axo] ~ t_axm":13,5-40@Practicum1af3.hs]
+< ((list (Char)))["":13,6-15@Practicum1af3.hs] == (t_axo)["":13,6-15@Practicum1af3.hs] {};["a type equality [Char] ~ t_axo":13,6-15@Practicum1af3.hs]
+< ((list (Char)))["":13,18-39@Practicum1af3.hs] == (t_axo)["":13,18-39@Practicum1af3.hs] {};["a type equality [Char] ~ t_axo":13,18-39@Practicum1af3.hs]
+< ((list (t_axs)))["":14,5-42@Practicum1af3.hs] == (t_axm)["":14,5-42@Practicum1af3.hs] {};["a type equality [t_axs] ~ t_axm":14,5-42@Practicum1af3.hs]
+< ((list (Char)))["":14,6-13@Practicum1af3.hs] == (t_axs)["":14,6-13@Practicum1af3.hs] {};["a type equality [Char] ~ t_axs":14,6-13@Practicum1af3.hs]
+< ((list (Char)))["":14,16-41@Practicum1af3.hs] == (t_axs)["":14,16-41@Practicum1af3.hs] {};["a type equality [Char] ~ t_axs":14,16-41@Practicum1af3.hs]
+< ((list (t_axw)))["":15,5-33@Practicum1af3.hs] == (t_axm)["":15,5-33@Practicum1af3.hs] {};["a type equality [t_axw] ~ t_axm":15,5-33@Practicum1af3.hs]
+< ((list (Char)))["":15,6-10@Practicum1af3.hs] == (t_axw)["":15,6-10@Practicum1af3.hs] {};["a type equality [Char] ~ t_axw":15,6-10@Practicum1af3.hs]
+< ((list (Char)))["":15,13-32@Practicum1af3.hs] == (t_axw)["":15,13-32@Practicum1af3.hs] {};["a type equality [Char] ~ t_axw":15,13-32@Practicum1af3.hs]
+< ((list (t_axA)))["":16,5-33@Practicum1af3.hs] == (t_axm)["":16,5-33@Practicum1af3.hs] {};["a type equality [t_axA] ~ t_axm":16,5-33@Practicum1af3.hs]
+< ((list (Char)))["":16,6-10@Practicum1af3.hs] == (t_axA)["":16,6-10@Practicum1af3.hs] {};["a type equality [Char] ~ t_axA":16,6-10@Practicum1af3.hs]
+< ((list (Char)))["":16,13-32@Practicum1af3.hs] == (t_axA)["":16,13-32@Practicum1af3.hs] {};["a type equality [Char] ~ t_axA":16,13-32@Practicum1af3.hs]
+< ((list (t_axE)))["":17,5-34@Practicum1af3.hs] == (t_axm)["":17,5-34@Practicum1af3.hs] {};["a type equality [t_axE] ~ t_axm":17,5-34@Practicum1af3.hs]
+< ((list (Char)))["":17,6-11@Practicum1af3.hs] == (t_axE)["":17,6-11@Practicum1af3.hs] {};["a type equality [Char] ~ t_axE":17,6-11@Practicum1af3.hs]
+< ((list (Char)))["":17,14-33@Practicum1af3.hs] == (t_axE)["":17,14-33@Practicum1af3.hs] {};["a type equality [Char] ~ t_axE":17,14-33@Practicum1af3.hs]
+< ((list (t_axI)))["":18,5-38@Practicum1af3.hs] == (t_axm)["":18,5-38@Practicum1af3.hs] {};["a type equality [t_axI] ~ t_axm":18,5-38@Practicum1af3.hs]
+< ((list (Char)))["":18,6-15@Practicum1af3.hs] == (t_axI)["":18,6-15@Practicum1af3.hs] {};["a type equality [Char] ~ t_axI":18,6-15@Practicum1af3.hs]
+< ((list (Char)))["":18,18-37@Practicum1af3.hs] == (t_axI)["":18,18-37@Practicum1af3.hs] {};["a type equality [Char] ~ t_axI":18,18-37@Practicum1af3.hs]
+< ((list (t_axM)))["":19,5-46@Practicum1af3.hs] == (t_axm)["":19,5-46@Practicum1af3.hs] {};["a type equality [t_axM] ~ t_axm":19,5-46@Practicum1af3.hs]
+< ((list (Char)))["":19,6-16@Practicum1af3.hs] == (t_axM)["":19,6-16@Practicum1af3.hs] {};["a type equality [Char] ~ t_axM":19,6-16@Practicum1af3.hs]
+< ((list (Char)))["":19,19-45@Practicum1af3.hs] == (t_axM)["":19,19-45@Practicum1af3.hs] {};["a type equality [Char] ~ t_axM":19,19-45@Practicum1af3.hs]
+< ((list (t_axQ)))["":20,5-54@Practicum1af3.hs] == (t_axm)["":20,5-54@Practicum1af3.hs] {};["a type equality [t_axQ] ~ t_axm":20,5-54@Practicum1af3.hs]
+< ((list (Char)))["":20,6-16@Practicum1af3.hs] == (t_axQ)["":20,6-16@Practicum1af3.hs] {};["a type equality [Char] ~ t_axQ":20,6-16@Practicum1af3.hs]
+< ((list (Char)))["":20,19-53@Practicum1af3.hs] == (t_axQ)["":20,19-53@Practicum1af3.hs] {};["a type equality [Char] ~ t_axQ":20,19-53@Practicum1af3.hs]
+< ((list (t_axU)))["":21,5-48@Practicum1af3.hs] == (t_axm)["":21,5-48@Practicum1af3.hs] {};["a type equality [t_axU] ~ t_axm":21,5-48@Practicum1af3.hs]
+< ((list (Char)))["":21,6-10@Practicum1af3.hs] == (t_axU)["":21,6-10@Practicum1af3.hs] {};["a type equality [Char] ~ t_axU":21,6-10@Practicum1af3.hs]
+< ((list (Char)))["":21,13-47@Practicum1af3.hs] == (t_axU)["":21,13-47@Practicum1af3.hs] {};["a type equality [Char] ~ t_axU":21,13-47@Practicum1af3.hs]
+< (Bool)["":8,16-35@Practicum1af3.hs] == (t_axY)["":8,16-35@Practicum1af3.hs] {};["a type equality Bool ~ t_axY":8,16-35@Practicum1af3.hs]
+< (Bool)["":8,16-35@Practicum1af3.hs] == (t_axZ)["":8,16-35@Practicum1af3.hs] {};["a type equality Bool ~ t_axZ":8,16-35@Practicum1af3.hs]
+< (Bool)["":8,16-35@Practicum1af3.hs] == (t_ay0)["":8,16-35@Practicum1af3.hs] {};["a type equality Bool ~ t_ay0":8,16-35@Practicum1af3.hs]
+< (a_ay5)["":9,10-18@Practicum1af3.hs] == ((t_axY -> t_axZ -> t_ay0))["":9,10-18@Practicum1af3.hs] {};["a type equality a_ay5 ~ t_axY -> t_axZ -> t_ay0":9,10-18@Practicum1af3.hs]
+< (((list Char) -> Bool))["":98,15-48@Practicum1af3.hs] == (t_ay7)["":98,15-48@Practicum1af3.hs] {};["a type equality String -> Bool ~ t_ay7":98,15-48@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":98,15-48@Practicum1af3.hs] == (t_ay8)["":98,15-48@Practicum1af3.hs] {};["a type equality Table ~ t_ay8":98,15-48@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":98,15-48@Practicum1af3.hs] == (t_ay9)["":98,15-48@Practicum1af3.hs] {};["a type equality Table ~ t_ay9":98,15-48@Practicum1af3.hs]
+< ((list (t_aye)))["":99,21-30@Practicum1af3.hs] == (t_ay8)["":99,21-30@Practicum1af3.hs] {};["a type equality [t_aye] ~ t_ay8":99,21-30@Practicum1af3.hs]
+< ((list (t_ayg)))["":99,22-25@Practicum1af3.hs] == (t_aye)["":99,22-25@Practicum1af3.hs] {};["a type equality [t_ayg] ~ t_aye":99,22-25@Practicum1af3.hs]
+---
+> ((list (a_av4)))["":39,92-95@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,92-95@Practicum1af3.hs] {};["a type equality [a_av4] ~ Table":39,92-95@Practicum1af3.hs]
+> ((list ((list Char))))["":39,92-92@Practicum1af3.hs] == (a_av4)["":39,92-92@Practicum1af3.hs] {};["a type equality [String] ~ a_av4":39,92-92@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":39,94-95@Practicum1af3.hs] == ((list (a_av4)))["":39,94-95@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_av4]":39,94-95@Practicum1af3.hs]
+> ((list (a_av8)))["":39,102-166@Practicum1af3.hs] == ((list (a_auO)))["":39,102-166@Practicum1af3.hs] {};["a type equality [a_av8] ~ [a_auO]":39,102-166@Practicum1af3.hs]
+> ((list Char))["":39,102-143@Practicum1af3.hs] == ((list (a_av8)))["":39,102-143@Practicum1af3.hs] {};["a type equality String ~ [a_av8]":39,102-143@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":39,112-113@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,112-113@Practicum1af3.hs] {};["a type equality [[String]] ~ Table":39,112-113@Practicum1af3.hs]
+> ((list (a_avd)))["":39,116-142@Practicum1af3.hs] == ((list ((list (Int)))))["":39,116-142@Practicum1af3.hs] {};["a type equality [a_avd] ~ [[Int]]":39,116-142@Practicum1af3.hs]
+> ((list (Int)))["":39,123-141@Practicum1af3.hs] == (a_avd)["":39,123-141@Practicum1af3.hs] {};["a type equality [Int] ~ a_avd":39,123-141@Practicum1af3.hs]
+> ((list (a_avg)))["":39,137-140@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,137-140@Practicum1af3.hs] {};["a type equality [a_avg] ~ Table":39,137-140@Practicum1af3.hs]
+> ((list ((list Char))))["":39,137-137@Practicum1af3.hs] == (a_avg)["":39,137-137@Practicum1af3.hs] {};["a type equality [String] ~ a_avg":39,137-137@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":39,139-140@Practicum1af3.hs] == ((list (a_avg)))["":39,139-140@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_avg]":39,139-140@Practicum1af3.hs]
+> ((list Char))["":39,148-166@Practicum1af3.hs] == ((list (a_av8)))["":39,148-166@Practicum1af3.hs] {};["a type equality String ~ [a_av8]":39,148-166@Practicum1af3.hs]
+> ((list (a_avl)))["":39,162-165@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":39,162-165@Practicum1af3.hs] {};["a type equality [a_avl] ~ Table":39,162-165@Practicum1af3.hs]
+> ((list ((list Char))))["":39,162-162@Practicum1af3.hs] == (a_avl)["":39,162-162@Practicum1af3.hs] {};["a type equality [String] ~ a_avl":39,162-162@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":39,164-165@Practicum1af3.hs] == ((list (a_avl)))["":39,164-165@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_avl]":39,164-165@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":24,13-17@Practicum1af3.hs] == (t_avp)["":24,13-17@Practicum1af3.hs] {};["a type equality Table ~ t_avp":24,13-17@Practicum1af3.hs]
+> ((list (Char)))["":26,6-27@Practicum1af3.hs] == ((list Char))["":26,6-27@Practicum1af3.hs] {};["a type equality [Char] ~ String":26,6-27@Practicum1af3.hs]
+> ((list (Char)))["":26,30-35@Practicum1af3.hs] == ((list Char))["":26,30-35@Practicum1af3.hs] {};["a type equality [Char] ~ String":26,30-35@Practicum1af3.hs]
+> ((list (Char)))["":26,38-43@Practicum1af3.hs] == ((list Char))["":26,38-43@Practicum1af3.hs] {};["a type equality [Char] ~ String":26,38-43@Practicum1af3.hs]
+> ((list (Char)))["":27,6-31@Practicum1af3.hs] == ((list Char))["":27,6-31@Practicum1af3.hs] {};["a type equality [Char] ~ String":27,6-31@Practicum1af3.hs]
+> ((list (Char)))["":27,34-44@Practicum1af3.hs] == ((list Char))["":27,34-44@Practicum1af3.hs] {};["a type equality [Char] ~ String":27,34-44@Practicum1af3.hs]
+> ((list (Char)))["":27,47-55@Practicum1af3.hs] == ((list Char))["":27,47-55@Practicum1af3.hs] {};["a type equality [Char] ~ String":27,47-55@Practicum1af3.hs]
+> ((list (Char)))["":28,6-25@Practicum1af3.hs] == ((list Char))["":28,6-25@Practicum1af3.hs] {};["a type equality [Char] ~ String":28,6-25@Practicum1af3.hs]
+> ((list (Char)))["":28,28-37@Practicum1af3.hs] == ((list Char))["":28,28-37@Practicum1af3.hs] {};["a type equality [Char] ~ String":28,28-37@Practicum1af3.hs]
+> ((list (Char)))["":28,40-45@Practicum1af3.hs] == ((list Char))["":28,40-45@Practicum1af3.hs] {};["a type equality [Char] ~ String":28,40-45@Practicum1af3.hs]
+> ((list (Char)))["":29,6-25@Practicum1af3.hs] == ((list Char))["":29,6-25@Practicum1af3.hs] {};["a type equality [Char] ~ String":29,6-25@Practicum1af3.hs]
+> ((list (Char)))["":29,28-37@Practicum1af3.hs] == ((list Char))["":29,28-37@Practicum1af3.hs] {};["a type equality [Char] ~ String":29,28-37@Practicum1af3.hs]
+> ((list (Char)))["":29,40-50@Practicum1af3.hs] == ((list Char))["":29,40-50@Practicum1af3.hs] {};["a type equality [Char] ~ String":29,40-50@Practicum1af3.hs]
+> ((list (Char)))["":30,6-25@Practicum1af3.hs] == ((list Char))["":30,6-25@Practicum1af3.hs] {};["a type equality [Char] ~ String":30,6-25@Practicum1af3.hs]
+> ((list (Char)))["":30,28-45@Practicum1af3.hs] == ((list Char))["":30,28-45@Practicum1af3.hs] {};["a type equality [Char] ~ String":30,28-45@Practicum1af3.hs]
+> ((list (Char)))["":30,48-58@Practicum1af3.hs] == ((list Char))["":30,48-58@Practicum1af3.hs] {};["a type equality [Char] ~ String":30,48-58@Practicum1af3.hs]
+> ((list (Char)))["":31,6-32@Practicum1af3.hs] == ((list Char))["":31,6-32@Practicum1af3.hs] {};["a type equality [Char] ~ String":31,6-32@Practicum1af3.hs]
+> ((list (Char)))["":31,35-52@Practicum1af3.hs] == ((list Char))["":31,35-52@Practicum1af3.hs] {};["a type equality [Char] ~ String":31,35-52@Practicum1af3.hs]
+> ((list (Char)))["":31,55-65@Practicum1af3.hs] == ((list Char))["":31,55-65@Practicum1af3.hs] {};["a type equality [Char] ~ String":31,55-65@Practicum1af3.hs]
+> ((list (Char)))["":32,6-40@Practicum1af3.hs] == ((list Char))["":32,6-40@Practicum1af3.hs] {};["a type equality [Char] ~ String":32,6-40@Practicum1af3.hs]
+> ((list (Char)))["":32,43-50@Practicum1af3.hs] == ((list Char))["":32,43-50@Practicum1af3.hs] {};["a type equality [Char] ~ String":32,43-50@Practicum1af3.hs]
+> ((list (Char)))["":32,53-62@Practicum1af3.hs] == ((list Char))["":32,53-62@Practicum1af3.hs] {};["a type equality [Char] ~ String":32,53-62@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":11,14-18@Practicum1af3.hs] == (t_avN)["":11,14-18@Practicum1af3.hs] {};["a type equality Table ~ t_avN":11,14-18@Practicum1af3.hs]
+> ((list (Char)))["":13,6-15@Practicum1af3.hs] == ((list Char))["":13,6-15@Practicum1af3.hs] {};["a type equality [Char] ~ String":13,6-15@Practicum1af3.hs]
+> ((list (Char)))["":13,18-39@Practicum1af3.hs] == ((list Char))["":13,18-39@Practicum1af3.hs] {};["a type equality [Char] ~ String":13,18-39@Practicum1af3.hs]
+> ((list (Char)))["":14,6-13@Practicum1af3.hs] == ((list Char))["":14,6-13@Practicum1af3.hs] {};["a type equality [Char] ~ String":14,6-13@Practicum1af3.hs]
+> ((list (Char)))["":14,16-41@Practicum1af3.hs] == ((list Char))["":14,16-41@Practicum1af3.hs] {};["a type equality [Char] ~ String":14,16-41@Practicum1af3.hs]
+> ((list (Char)))["":15,6-10@Practicum1af3.hs] == ((list Char))["":15,6-10@Practicum1af3.hs] {};["a type equality [Char] ~ String":15,6-10@Practicum1af3.hs]
+> ((list (Char)))["":15,13-32@Practicum1af3.hs] == ((list Char))["":15,13-32@Practicum1af3.hs] {};["a type equality [Char] ~ String":15,13-32@Practicum1af3.hs]
+> ((list (Char)))["":16,6-10@Practicum1af3.hs] == ((list Char))["":16,6-10@Practicum1af3.hs] {};["a type equality [Char] ~ String":16,6-10@Practicum1af3.hs]
+> ((list (Char)))["":16,13-32@Practicum1af3.hs] == ((list Char))["":16,13-32@Practicum1af3.hs] {};["a type equality [Char] ~ String":16,13-32@Practicum1af3.hs]
+> ((list (Char)))["":17,6-11@Practicum1af3.hs] == ((list Char))["":17,6-11@Practicum1af3.hs] {};["a type equality [Char] ~ String":17,6-11@Practicum1af3.hs]
+> ((list (Char)))["":17,14-33@Practicum1af3.hs] == ((list Char))["":17,14-33@Practicum1af3.hs] {};["a type equality [Char] ~ String":17,14-33@Practicum1af3.hs]
+> ((list (Char)))["":18,6-15@Practicum1af3.hs] == ((list Char))["":18,6-15@Practicum1af3.hs] {};["a type equality [Char] ~ String":18,6-15@Practicum1af3.hs]
+> ((list (Char)))["":18,18-37@Practicum1af3.hs] == ((list Char))["":18,18-37@Practicum1af3.hs] {};["a type equality [Char] ~ String":18,18-37@Practicum1af3.hs]
+> ((list (Char)))["":19,6-16@Practicum1af3.hs] == ((list Char))["":19,6-16@Practicum1af3.hs] {};["a type equality [Char] ~ String":19,6-16@Practicum1af3.hs]
+> ((list (Char)))["":19,19-45@Practicum1af3.hs] == ((list Char))["":19,19-45@Practicum1af3.hs] {};["a type equality [Char] ~ String":19,19-45@Practicum1af3.hs]
+> ((list (Char)))["":20,6-16@Practicum1af3.hs] == ((list Char))["":20,6-16@Practicum1af3.hs] {};["a type equality [Char] ~ String":20,6-16@Practicum1af3.hs]
+> ((list (Char)))["":20,19-53@Practicum1af3.hs] == ((list Char))["":20,19-53@Practicum1af3.hs] {};["a type equality [Char] ~ String":20,19-53@Practicum1af3.hs]
+> ((list (Char)))["":21,6-10@Practicum1af3.hs] == ((list Char))["":21,6-10@Practicum1af3.hs] {};["a type equality [Char] ~ String":21,6-10@Practicum1af3.hs]
+> ((list (Char)))["":21,13-47@Practicum1af3.hs] == ((list Char))["":21,13-47@Practicum1af3.hs] {};["a type equality [Char] ~ String":21,13-47@Practicum1af3.hs]
+> (Bool)["":8,16-35@Practicum1af3.hs] == (t_aw8)["":8,16-35@Practicum1af3.hs] {};["a type equality Bool ~ t_aw8":8,16-35@Practicum1af3.hs]
+> (Bool)["":8,16-35@Practicum1af3.hs] == (t_aw9)["":8,16-35@Practicum1af3.hs] {};["a type equality Bool ~ t_aw9":8,16-35@Practicum1af3.hs]
+> (Bool)["":8,16-35@Practicum1af3.hs] == (t_awa)["":8,16-35@Practicum1af3.hs] {};["a type equality Bool ~ t_awa":8,16-35@Practicum1af3.hs]
+> (a_awf)["":9,10-18@Practicum1af3.hs] == ((Bool -> Bool -> Bool))["":9,10-18@Practicum1af3.hs] {};["a type equality a_awf ~ Bool -> Bool -> Bool":9,10-18@Practicum1af3.hs]
+> (((list Char) -> Bool))["":98,15-48@Practicum1af3.hs] == (t_awh)["":98,15-48@Practicum1af3.hs] {};["a type equality String -> Bool ~ t_awh":98,15-48@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":98,15-48@Practicum1af3.hs] == (t_awi)["":98,15-48@Practicum1af3.hs] {};["a type equality Table ~ t_awi":98,15-48@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":98,15-48@Practicum1af3.hs] == (t_awj)["":98,15-48@Practicum1af3.hs] {};["a type equality Table ~ t_awj":98,15-48@Practicum1af3.hs]
+617,619c483,484
+< (t_ay7)["":99,43-51@Practicum1af3.hs] == ((t_ayj -> t_ayk))["":99,43-51@Practicum1af3.hs] {};["a type equality t_ay7 ~ t_ayj -> t_ayk":99,43-51@Practicum1af3.hs]
+< (t_ayk)["":99,43-51@Practicum1af3.hs] == (Bool)["":99,43-51@Practicum1af3.hs] {};["a type equality t_ayk ~ Bool":99,43-51@Practicum1af3.hs]
+< (t_ayg)["":99,51-51@Practicum1af3.hs] == (t_ayj)["":99,51-51@Practicum1af3.hs] {};["a type equality t_ayg ~ t_ayj":99,51-51@Practicum1af3.hs]
+---
+> (Bool)["":99,43-51@Practicum1af3.hs] == (Bool)["":99,43-51@Practicum1af3.hs] {};["a type equality Bool ~ Bool":99,43-51@Practicum1af3.hs]
+> ((list Char))["":99,51-51@Practicum1af3.hs] == ((list Char))["":99,51-51@Practicum1af3.hs] {};["a type equality String ~ String":99,51-51@Practicum1af3.hs]
+621,625c486,490
+< ((list (a_ayp)))["":99,61-87@Practicum1af3.hs] == (t_ay9)["":99,61-87@Practicum1af3.hs] {};["a type equality [a_ayp] ~ t_ay9":99,61-87@Practicum1af3.hs]
+< ((list (t_ayg)))["":99,61-62@Practicum1af3.hs] == (a_ayp)["":99,61-62@Practicum1af3.hs] {};["a type equality [t_ayg] ~ a_ayp":99,61-62@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":99,66-87@Practicum1af3.hs] == ((list (a_ayp)))["":99,66-87@Practicum1af3.hs] {};["a type equality Table ~ [a_ayp]":99,66-87@Practicum1af3.hs]
+< (t_ay7)["":99,77-83@Practicum1af3.hs] == (((list Char) -> Bool))["":99,77-83@Practicum1af3.hs] {};["a type equality t_ay7 ~ String -> Bool":99,77-83@Practicum1af3.hs]
+< ((list (t_aye)))["":99,85-87@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":99,85-87@Practicum1af3.hs] {};["a type equality [t_aye] ~ Table":99,85-87@Practicum1af3.hs]
+---
+> ((list (a_aws)))["":99,61-87@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":99,61-87@Practicum1af3.hs] {};["a type equality [a_aws] ~ Table":99,61-87@Practicum1af3.hs]
+> ((list ((list Char))))["":99,61-62@Practicum1af3.hs] == (a_aws)["":99,61-62@Practicum1af3.hs] {};["a type equality [String] ~ a_aws":99,61-62@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":99,66-87@Practicum1af3.hs] == ((list (a_aws)))["":99,66-87@Practicum1af3.hs] {};["a type equality Table ~ [a_aws]":99,66-87@Practicum1af3.hs]
+> (((list Char) -> Bool))["":99,77-83@Practicum1af3.hs] == (((list Char) -> Bool))["":99,77-83@Practicum1af3.hs] {};["a type equality String -> Bool ~ String -> Bool":99,77-83@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":99,85-87@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":99,85-87@Practicum1af3.hs] {};["a type equality [[String]] ~ Table":99,85-87@Practicum1af3.hs]
+627,632c492,495
+< (((list ((list ((list Char)))))))["":100,61-82@Practicum1af3.hs] == (t_ay9)["":100,61-82@Practicum1af3.hs] {};["a type equality Table ~ t_ay9":100,61-82@Practicum1af3.hs]
+< (t_ay7)["":100,72-78@Practicum1af3.hs] == (((list Char) -> Bool))["":100,72-78@Practicum1af3.hs] {};["a type equality t_ay7 ~ String -> Bool":100,72-78@Practicum1af3.hs]
+< ((list (t_aye)))["":100,80-82@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":100,80-82@Practicum1af3.hs] {};["a type equality [t_aye] ~ Table":100,80-82@Practicum1af3.hs]
+< ((list (t_ayz)))["":102,15-20@Practicum1af3.hs] == (t_ay8)["":102,15-20@Practicum1af3.hs] {};["a type equality [t_ayz] ~ t_ay8":102,15-20@Practicum1af3.hs]
+< ((list (t_ayB)))["":102,15-16@Practicum1af3.hs] == (t_ayz)["":102,15-16@Practicum1af3.hs] {};["a type equality [t_ayB] ~ t_ayz":102,15-16@Practicum1af3.hs]
+< (a_ayD)["":102,25-37@Practicum1af3.hs] == (t_ay9)["":102,25-37@Practicum1af3.hs] {};["a type equality a_ayD ~ t_ay9":102,25-37@Practicum1af3.hs]
+---
+> (((list ((list ((list Char)))))))["":100,61-82@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":100,61-82@Practicum1af3.hs] {};["a type equality Table ~ Table":100,61-82@Practicum1af3.hs]
+> (((list Char) -> Bool))["":100,72-78@Practicum1af3.hs] == (((list Char) -> Bool))["":100,72-78@Practicum1af3.hs] {};["a type equality String -> Bool ~ String -> Bool":100,72-78@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":100,80-82@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":100,80-82@Practicum1af3.hs] {};["a type equality [[String]] ~ Table":100,80-82@Practicum1af3.hs]
+> (a_awC)["":102,25-37@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":102,25-37@Practicum1af3.hs] {};["a type equality a_awC ~ Table":102,25-37@Practicum1af3.hs]
+634,646c497,504
+< ((list (t_ayG)))["":103,14-15@Practicum1af3.hs] == (t_ay8)["":103,14-15@Practicum1af3.hs] {};["a type equality [t_ayG] ~ t_ay8":103,14-15@Practicum1af3.hs]
+< ((list (t_ayI)))["":103,25-26@Practicum1af3.hs] == (t_ay9)["":103,25-26@Practicum1af3.hs] {};["a type equality [t_ayI] ~ t_ay9":103,25-26@Practicum1af3.hs]
+< ((list Char))["":6,18-41@Practicum1af3.hs] == (t_ayK)["":6,18-41@Practicum1af3.hs] {};["a type equality String ~ t_ayK":6,18-41@Practicum1af3.hs]
+< ((list Char))["":6,18-41@Practicum1af3.hs] == (t_ayL)["":6,18-41@Practicum1af3.hs] {};["a type equality String ~ t_ayL":6,18-41@Practicum1af3.hs]
+< (Bool)["":6,18-41@Practicum1af3.hs] == (t_ayM)["":6,18-41@Practicum1af3.hs] {};["a type equality Bool ~ t_ayM":6,18-41@Practicum1af3.hs]
+< (a_ayR)["":7,12-20@Practicum1af3.hs] == ((t_ayK -> t_ayL -> t_ayM))["":7,12-20@Practicum1af3.hs] {};["a type equality a_ayR ~ t_ayK -> t_ayL -> t_ayM":7,12-20@Practicum1af3.hs]
+< ((list ((list Char))))["":88,16-50@Practicum1af3.hs] == (t_ayT)["":88,16-50@Practicum1af3.hs] {};["a type equality [String] ~ t_ayT":88,16-50@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":88,16-50@Practicum1af3.hs] == (t_ayU)["":88,16-50@Practicum1af3.hs] {};["a type equality Table ~ t_ayU":88,16-50@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":88,16-50@Practicum1af3.hs] == (t_ayV)["":88,16-50@Practicum1af3.hs] {};["a type equality Table ~ t_ayV":88,16-50@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":88,16-50@Practicum1af3.hs] == (t_ayW)["":88,16-50@Practicum1af3.hs] {};["a type equality Table ~ t_ayW":88,16-50@Practicum1af3.hs]
+< ((list (t_az2)))["":89,14-17@Practicum1af3.hs] == (t_ayT)["":89,14-17@Practicum1af3.hs] {};["a type equality [t_az2] ~ t_ayT":89,14-17@Practicum1af3.hs]
+< ((list (t_az4)))["":89,21-30@Practicum1af3.hs] == (t_ayU)["":89,21-30@Practicum1af3.hs] {};["a type equality [t_az4] ~ t_ayU":89,21-30@Practicum1af3.hs]
+< ((list (t_az6)))["":89,22-25@Practicum1af3.hs] == (t_az4)["":89,22-25@Practicum1af3.hs] {};["a type equality [t_az6] ~ t_az4":89,22-25@Practicum1af3.hs]
+---
+> ((list Char))["":6,18-41@Practicum1af3.hs] == (t_awF)["":6,18-41@Practicum1af3.hs] {};["a type equality String ~ t_awF":6,18-41@Practicum1af3.hs]
+> ((list Char))["":6,18-41@Practicum1af3.hs] == (t_awG)["":6,18-41@Practicum1af3.hs] {};["a type equality String ~ t_awG":6,18-41@Practicum1af3.hs]
+> (Bool)["":6,18-41@Practicum1af3.hs] == (t_awH)["":6,18-41@Practicum1af3.hs] {};["a type equality Bool ~ t_awH":6,18-41@Practicum1af3.hs]
+> (a_awM)["":7,12-20@Practicum1af3.hs] == (((list Char) -> (list Char) -> Bool))["":7,12-20@Practicum1af3.hs] {};["a type equality a_awM ~ String -> String -> Bool":7,12-20@Practicum1af3.hs]
+> ((list ((list Char))))["":88,16-50@Practicum1af3.hs] == (t_awO)["":88,16-50@Practicum1af3.hs] {};["a type equality [String] ~ t_awO":88,16-50@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":88,16-50@Practicum1af3.hs] == (t_awP)["":88,16-50@Practicum1af3.hs] {};["a type equality Table ~ t_awP":88,16-50@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":88,16-50@Practicum1af3.hs] == (t_awQ)["":88,16-50@Practicum1af3.hs] {};["a type equality Table ~ t_awQ":88,16-50@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":88,16-50@Practicum1af3.hs] == (t_awR)["":88,16-50@Practicum1af3.hs] {};["a type equality Table ~ t_awR":88,16-50@Practicum1af3.hs]
+648,657c506,515
+< (t_az2)["":89,46-46@Practicum1af3.hs] == ((list Char))["":89,46-46@Practicum1af3.hs] {};["a type equality t_az2 ~ String":89,46-46@Practicum1af3.hs]
+< (t_az6)["":89,48-48@Practicum1af3.hs] == ((list Char))["":89,48-48@Practicum1af3.hs] {};["a type equality t_az6 ~ String":89,48-48@Practicum1af3.hs]
+< ((list (a_azb)))["":89,52-78@Practicum1af3.hs] == (t_ayW)["":89,52-78@Practicum1af3.hs] {};["a type equality [a_azb] ~ t_ayW":89,52-78@Practicum1af3.hs]
+< ((list (a_azd)))["":89,53-56@Practicum1af3.hs] == (a_azb)["":89,53-56@Practicum1af3.hs] {};["a type equality [a_azd] ~ a_azb":89,53-56@Practicum1af3.hs]
+< (t_az6)["":89,53-53@Practicum1af3.hs] == (a_azd)["":89,53-53@Practicum1af3.hs] {};["a type equality t_az6 ~ a_azd":89,53-53@Practicum1af3.hs]
+< ((list (t_az6)))["":89,55-56@Practicum1af3.hs] == ((list (a_azd)))["":89,55-56@Practicum1af3.hs] {};["a type equality [t_az6] ~ [a_azd]":89,55-56@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":89,61-78@Practicum1af3.hs] == ((list (a_azb)))["":89,61-78@Practicum1af3.hs] {};["a type equality Table ~ [a_azb]":89,61-78@Practicum1af3.hs]
+< ((list (t_az2)))["":89,73-74@Practicum1af3.hs] == ((list ((list Char))))["":89,73-74@Practicum1af3.hs] {};["a type equality [t_az2] ~ [String]":89,73-74@Practicum1af3.hs]
+< (t_ayV)["":89,76-76@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":89,76-76@Practicum1af3.hs] {};["a type equality t_ayV ~ Table":89,76-76@Practicum1af3.hs]
+< (t_ayV)["":89,78-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":89,78-78@Practicum1af3.hs] {};["a type equality t_ayV ~ Table":89,78-78@Practicum1af3.hs]
+---
+> ((list Char))["":89,46-46@Practicum1af3.hs] == ((list Char))["":89,46-46@Practicum1af3.hs] {};["a type equality String ~ String":89,46-46@Practicum1af3.hs]
+> ((list Char))["":89,48-48@Practicum1af3.hs] == ((list Char))["":89,48-48@Practicum1af3.hs] {};["a type equality String ~ String":89,48-48@Practicum1af3.hs]
+> ((list (a_ax0)))["":89,52-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":89,52-78@Practicum1af3.hs] {};["a type equality [a_ax0] ~ Table":89,52-78@Practicum1af3.hs]
+> ((list (a_ax2)))["":89,53-56@Practicum1af3.hs] == (a_ax0)["":89,53-56@Practicum1af3.hs] {};["a type equality [a_ax2] ~ a_ax0":89,53-56@Practicum1af3.hs]
+> ((list Char))["":89,53-53@Practicum1af3.hs] == (a_ax2)["":89,53-53@Practicum1af3.hs] {};["a type equality String ~ a_ax2":89,53-53@Practicum1af3.hs]
+> ((list ((list Char))))["":89,55-56@Practicum1af3.hs] == ((list (a_ax2)))["":89,55-56@Practicum1af3.hs] {};["a type equality [String] ~ [a_ax2]":89,55-56@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":89,61-78@Practicum1af3.hs] == ((list (a_ax0)))["":89,61-78@Practicum1af3.hs] {};["a type equality Table ~ [a_ax0]":89,61-78@Practicum1af3.hs]
+> ((list ((list Char))))["":89,73-74@Practicum1af3.hs] == ((list ((list Char))))["":89,73-74@Practicum1af3.hs] {};["a type equality [String] ~ [String]":89,73-74@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":89,76-76@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":89,76-76@Practicum1af3.hs] {};["a type equality Table ~ Table":89,76-76@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":89,78-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":89,78-78@Practicum1af3.hs] {};["a type equality Table ~ Table":89,78-78@Practicum1af3.hs]
+659,709c517,562
+< (((list ((list ((list Char)))))))["":90,52-75@Practicum1af3.hs] == (t_ayW)["":90,52-75@Practicum1af3.hs] {};["a type equality Table ~ t_ayW":90,52-75@Practicum1af3.hs]
+< ((list (a_azn)))["":90,65-68@Practicum1af3.hs] == ((list ((list Char))))["":90,65-68@Practicum1af3.hs] {};["a type equality [a_azn] ~ [String]":90,65-68@Practicum1af3.hs]
+< (t_az2)["":90,65-65@Practicum1af3.hs] == (a_azn)["":90,65-65@Practicum1af3.hs] {};["a type equality t_az2 ~ a_azn":90,65-65@Practicum1af3.hs]
+< ((list (t_az2)))["":90,67-68@Practicum1af3.hs] == ((list (a_azn)))["":90,67-68@Practicum1af3.hs] {};["a type equality [t_az2] ~ [a_azn]":90,67-68@Practicum1af3.hs]
+< ((list (t_az4)))["":90,71-73@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":90,71-73@Practicum1af3.hs] {};["a type equality [t_az4] ~ Table":90,71-73@Practicum1af3.hs]
+< (t_ayV)["":90,75-75@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":90,75-75@Practicum1af3.hs] {};["a type equality t_ayV ~ Table":90,75-75@Practicum1af3.hs]
+< ((list (t_azt)))["":91,21-22@Practicum1af3.hs] == (t_ayW)["":91,21-22@Practicum1af3.hs] {};["a type equality [t_azt] ~ t_ayW":91,21-22@Practicum1af3.hs]
+< ((list ((list Char))))["":85,12-37@Practicum1af3.hs] == (t_azv)["":85,12-37@Practicum1af3.hs] {};["a type equality [String] ~ t_azv":85,12-37@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":85,12-37@Practicum1af3.hs] == (t_azw)["":85,12-37@Practicum1af3.hs] {};["a type equality Table ~ t_azw":85,12-37@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":85,12-37@Practicum1af3.hs] == (t_azx)["":85,12-37@Practicum1af3.hs] {};["a type equality Table ~ t_azx":85,12-37@Practicum1af3.hs]
+< ((list ((list (a_azC)))))["":86,16-68@Practicum1af3.hs] == (t_azx)["":86,16-68@Practicum1af3.hs] {};["a type equality [[a_azC]] ~ t_azx":86,16-68@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":86,27-67@Practicum1af3.hs] == ((list ((list (a_azC)))))["":86,27-67@Practicum1af3.hs] {};["a type equality Table ~ [[a_azC]]":86,27-67@Practicum1af3.hs]
+< (t_azv)["":86,39-39@Practicum1af3.hs] == ((list ((list Char))))["":86,39-39@Practicum1af3.hs] {};["a type equality t_azv ~ [String]":86,39-39@Practicum1af3.hs]
+< ((list ((list (a_azG)))))["":86,42-52@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":86,42-52@Practicum1af3.hs] {};["a type equality [[a_azG]] ~ Table":86,42-52@Practicum1af3.hs]
+< (t_azw)["":86,52-52@Practicum1af3.hs] == ((list ((list (a_azG)))))["":86,52-52@Practicum1af3.hs] {};["a type equality t_azw ~ [[a_azG]]":86,52-52@Practicum1af3.hs]
+< ((list ((list (a_azJ)))))["":86,56-66@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":86,56-66@Practicum1af3.hs] {};["a type equality [[a_azJ]] ~ Table":86,56-66@Practicum1af3.hs]
+< (t_azw)["":86,66-66@Practicum1af3.hs] == ((list ((list (a_azJ)))))["":86,66-66@Practicum1af3.hs] {};["a type equality t_azw ~ [[a_azJ]]":86,66-66@Practicum1af3.hs]
+< ((list ((list Char))))["":105,25-50@Practicum1af3.hs] == (t_azM)["":105,25-50@Practicum1af3.hs] {};["a type equality [String] ~ t_azM":105,25-50@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":105,25-50@Practicum1af3.hs] == (t_azN)["":105,25-50@Practicum1af3.hs] {};["a type equality Table ~ t_azN":105,25-50@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":105,25-50@Practicum1af3.hs] == (t_azO)["":105,25-50@Practicum1af3.hs] {};["a type equality Table ~ t_azO":105,25-50@Practicum1af3.hs]
+< ((list ((list (a_azT)))))["":106,28-77@Practicum1af3.hs] == (t_azO)["":106,28-77@Practicum1af3.hs] {};["a type equality [[a_azT]] ~ t_azO":106,28-77@Practicum1af3.hs]
+< ((list (a_azV)))["":106,39-76@Practicum1af3.hs] == ((list ((list (a_azT)))))["":106,39-76@Practicum1af3.hs] {};["a type equality [a_azV] ~ [[a_azT]]":106,39-76@Practicum1af3.hs]
+< ((list ((list (a_azX)))))["":106,39-61@Practicum1af3.hs] == ((list (a_azV)))["":106,39-61@Practicum1af3.hs] {};["a type equality [[a_azX]] ~ [a_azV]":106,39-61@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":106,50-60@Practicum1af3.hs] == ((list ((list (a_azX)))))["":106,50-60@Practicum1af3.hs] {};["a type equality Table ~ [[a_azX]]":106,50-60@Practicum1af3.hs]
+< (t_azM)["":106,58-58@Practicum1af3.hs] == ((list ((list Char))))["":106,58-58@Practicum1af3.hs] {};["a type equality t_azM ~ [String]":106,58-58@Practicum1af3.hs]
+< (t_azN)["":106,60-60@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":106,60-60@Practicum1af3.hs] {};["a type equality t_azN ~ Table":106,60-60@Practicum1af3.hs]
+< ((list ((list (a_aA2)))))["":106,66-76@Practicum1af3.hs] == ((list (a_azV)))["":106,66-76@Practicum1af3.hs] {};["a type equality [[a_aA2]] ~ [a_azV]":106,66-76@Practicum1af3.hs]
+< (t_azN)["":106,76-76@Practicum1af3.hs] == ((list ((list (a_aA2)))))["":106,76-76@Practicum1af3.hs] {};["a type equality t_azN ~ [[a_aA2]]":106,76-76@Practicum1af3.hs]
+< ((list Char))["":95,11-54@Practicum1af3.hs] == (t_aA5)["":95,11-54@Practicum1af3.hs] {};["a type equality String ~ t_aA5":95,11-54@Practicum1af3.hs]
+< (((list Char) -> Bool))["":95,11-54@Practicum1af3.hs] == (t_aA6)["":95,11-54@Practicum1af3.hs] {};["a type equality String -> Bool ~ t_aA6":95,11-54@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":95,11-54@Practicum1af3.hs] == (t_aA7)["":95,11-54@Practicum1af3.hs] {};["a type equality Table ~ t_aA7":95,11-54@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":95,11-54@Practicum1af3.hs] == (t_aA8)["":95,11-54@Practicum1af3.hs] {};["a type equality Table ~ t_aA8":95,11-54@Practicum1af3.hs]
+< ((list (a_aAe)))["":96,22-118@Practicum1af3.hs] == (t_aA8)["":96,22-118@Practicum1af3.hs] {};["a type equality [a_aAe] ~ t_aA8":96,22-118@Practicum1af3.hs]
+< ((list (a_aAh)))["":96,22-61@Practicum1af3.hs] == (a_aAe)["":96,22-61@Practicum1af3.hs] {};["a type equality [a_aAh] ~ a_aAe":96,22-61@Practicum1af3.hs]
+< (a_aAj)["":96,28-60@Practicum1af3.hs] == ((list (a_aAh)))["":96,28-60@Practicum1af3.hs] {};["a type equality a_aAj ~ [a_aAh]":96,28-60@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":96,34-59@Practicum1af3.hs] == ((list (a_aAj)))["":96,34-59@Practicum1af3.hs] {};["a type equality Table ~ [a_aAj]":96,34-59@Practicum1af3.hs]
+< (t_aA5)["":96,56-56@Practicum1af3.hs] == ((list Char))["":96,56-56@Practicum1af3.hs] {};["a type equality t_aA5 ~ String":96,56-56@Practicum1af3.hs]
+< (t_aA7)["":96,59-59@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":96,59-59@Practicum1af3.hs] {};["a type equality t_aA7 ~ Table":96,59-59@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":96,65-118@Practicum1af3.hs] == ((list (a_aAe)))["":96,65-118@Practicum1af3.hs] {};["a type equality Table ~ [a_aAe]":96,65-118@Practicum1af3.hs]
+< (t_aA6)["":96,76-82@Practicum1af3.hs] == (((list Char) -> Bool))["":96,76-82@Practicum1af3.hs] {};["a type equality t_aA6 ~ String -> Bool":96,76-82@Practicum1af3.hs]
+< ((list (a_aAq)))["":96,85-117@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":96,85-117@Practicum1af3.hs] {};["a type equality [a_aAq] ~ Table":96,85-117@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":96,91-116@Practicum1af3.hs] == ((list (a_aAq)))["":96,91-116@Practicum1af3.hs] {};["a type equality Table ~ [a_aAq]":96,91-116@Practicum1af3.hs]
+< (t_aA5)["":96,113-113@Practicum1af3.hs] == ((list Char))["":96,113-113@Practicum1af3.hs] {};["a type equality t_aA5 ~ String":96,113-113@Practicum1af3.hs]
+< (t_aA7)["":96,116-116@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":96,116-116@Practicum1af3.hs] {};["a type equality t_aA7 ~ Table":96,116-116@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":117,14-36@Practicum1af3.hs] == (t_aAv)["":117,14-36@Practicum1af3.hs] {};["a type equality Table ~ t_aAv":117,14-36@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":117,14-36@Practicum1af3.hs] == (t_aAw)["":117,14-36@Practicum1af3.hs] {};["a type equality Table ~ t_aAw":117,14-36@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":117,14-36@Practicum1af3.hs] == (t_aAx)["":117,14-36@Practicum1af3.hs] {};["a type equality Table ~ t_aAx":117,14-36@Practicum1af3.hs]
+< ((list (t_aAC)))["":118,12-21@Practicum1af3.hs] == (t_aAv)["":118,12-21@Practicum1af3.hs] {};["a type equality [t_aAC] ~ t_aAv":118,12-21@Practicum1af3.hs]
+< ((list (t_aAE)))["":118,13-16@Practicum1af3.hs] == (t_aAC)["":118,13-16@Practicum1af3.hs] {};["a type equality [t_aAE] ~ t_aAC":118,13-16@Practicum1af3.hs]
+< ((list (t_aAG)))["":118,25-34@Practicum1af3.hs] == (t_aAw)["":118,25-34@Practicum1af3.hs] {};["a type equality [t_aAG] ~ t_aAw":118,25-34@Practicum1af3.hs]
+< ((list (t_aAI)))["":118,26-29@Practicum1af3.hs] == (t_aAG)["":118,26-29@Practicum1af3.hs] {};["a type equality [t_aAI] ~ t_aAG":118,26-29@Practicum1af3.hs]
+---
+> (((list ((list ((list Char)))))))["":90,52-75@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":90,52-75@Practicum1af3.hs] {};["a type equality Table ~ Table":90,52-75@Practicum1af3.hs]
+> ((list (a_axc)))["":90,65-68@Practicum1af3.hs] == ((list ((list Char))))["":90,65-68@Practicum1af3.hs] {};["a type equality [a_axc] ~ [String]":90,65-68@Practicum1af3.hs]
+> ((list Char))["":90,65-65@Practicum1af3.hs] == (a_axc)["":90,65-65@Practicum1af3.hs] {};["a type equality String ~ a_axc":90,65-65@Practicum1af3.hs]
+> ((list ((list Char))))["":90,67-68@Practicum1af3.hs] == ((list (a_axc)))["":90,67-68@Practicum1af3.hs] {};["a type equality [String] ~ [a_axc]":90,67-68@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":90,71-73@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":90,71-73@Practicum1af3.hs] {};["a type equality [[String]] ~ Table":90,71-73@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":90,75-75@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":90,75-75@Practicum1af3.hs] {};["a type equality Table ~ Table":90,75-75@Practicum1af3.hs]
+> ((list ((list Char))))["":85,12-37@Practicum1af3.hs] == (t_axi)["":85,12-37@Practicum1af3.hs] {};["a type equality [String] ~ t_axi":85,12-37@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":85,12-37@Practicum1af3.hs] == (t_axj)["":85,12-37@Practicum1af3.hs] {};["a type equality Table ~ t_axj":85,12-37@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":85,12-37@Practicum1af3.hs] == (t_axk)["":85,12-37@Practicum1af3.hs] {};["a type equality Table ~ t_axk":85,12-37@Practicum1af3.hs]
+> ((list ((list (a_axp)))))["":86,16-68@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":86,16-68@Practicum1af3.hs] {};["a type equality [[a_axp]] ~ Table":86,16-68@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":86,27-67@Practicum1af3.hs] == ((list ((list (a_axp)))))["":86,27-67@Practicum1af3.hs] {};["a type equality Table ~ [[a_axp]]":86,27-67@Practicum1af3.hs]
+> ((list ((list Char))))["":86,39-39@Practicum1af3.hs] == ((list ((list Char))))["":86,39-39@Practicum1af3.hs] {};["a type equality [String] ~ [String]":86,39-39@Practicum1af3.hs]
+> ((list ((list (a_axt)))))["":86,42-52@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":86,42-52@Practicum1af3.hs] {};["a type equality [[a_axt]] ~ Table":86,42-52@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":86,52-52@Practicum1af3.hs] == ((list ((list (a_axt)))))["":86,52-52@Practicum1af3.hs] {};["a type equality Table ~ [[a_axt]]":86,52-52@Practicum1af3.hs]
+> ((list ((list (a_axw)))))["":86,56-66@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":86,56-66@Practicum1af3.hs] {};["a type equality [[a_axw]] ~ Table":86,56-66@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":86,66-66@Practicum1af3.hs] == ((list ((list (a_axw)))))["":86,66-66@Practicum1af3.hs] {};["a type equality Table ~ [[a_axw]]":86,66-66@Practicum1af3.hs]
+> ((list ((list Char))))["":105,25-50@Practicum1af3.hs] == (t_axz)["":105,25-50@Practicum1af3.hs] {};["a type equality [String] ~ t_axz":105,25-50@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":105,25-50@Practicum1af3.hs] == (t_axA)["":105,25-50@Practicum1af3.hs] {};["a type equality Table ~ t_axA":105,25-50@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":105,25-50@Practicum1af3.hs] == (t_axB)["":105,25-50@Practicum1af3.hs] {};["a type equality Table ~ t_axB":105,25-50@Practicum1af3.hs]
+> ((list ((list (a_axG)))))["":106,28-77@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":106,28-77@Practicum1af3.hs] {};["a type equality [[a_axG]] ~ Table":106,28-77@Practicum1af3.hs]
+> ((list (a_axI)))["":106,39-76@Practicum1af3.hs] == ((list ((list (a_axG)))))["":106,39-76@Practicum1af3.hs] {};["a type equality [a_axI] ~ [[a_axG]]":106,39-76@Practicum1af3.hs]
+> ((list ((list (a_axK)))))["":106,39-61@Practicum1af3.hs] == ((list (a_axI)))["":106,39-61@Practicum1af3.hs] {};["a type equality [[a_axK]] ~ [a_axI]":106,39-61@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":106,50-60@Practicum1af3.hs] == ((list ((list (a_axK)))))["":106,50-60@Practicum1af3.hs] {};["a type equality Table ~ [[a_axK]]":106,50-60@Practicum1af3.hs]
+> ((list ((list Char))))["":106,58-58@Practicum1af3.hs] == ((list ((list Char))))["":106,58-58@Practicum1af3.hs] {};["a type equality [String] ~ [String]":106,58-58@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":106,60-60@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":106,60-60@Practicum1af3.hs] {};["a type equality Table ~ Table":106,60-60@Practicum1af3.hs]
+> ((list ((list (a_axP)))))["":106,66-76@Practicum1af3.hs] == ((list (a_axI)))["":106,66-76@Practicum1af3.hs] {};["a type equality [[a_axP]] ~ [a_axI]":106,66-76@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":106,76-76@Practicum1af3.hs] == ((list ((list (a_axP)))))["":106,76-76@Practicum1af3.hs] {};["a type equality Table ~ [[a_axP]]":106,76-76@Practicum1af3.hs]
+> ((list Char))["":95,11-54@Practicum1af3.hs] == (t_axS)["":95,11-54@Practicum1af3.hs] {};["a type equality String ~ t_axS":95,11-54@Practicum1af3.hs]
+> (((list Char) -> Bool))["":95,11-54@Practicum1af3.hs] == (t_axT)["":95,11-54@Practicum1af3.hs] {};["a type equality String -> Bool ~ t_axT":95,11-54@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":95,11-54@Practicum1af3.hs] == (t_axU)["":95,11-54@Practicum1af3.hs] {};["a type equality Table ~ t_axU":95,11-54@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":95,11-54@Practicum1af3.hs] == (t_axV)["":95,11-54@Practicum1af3.hs] {};["a type equality Table ~ t_axV":95,11-54@Practicum1af3.hs]
+> ((list (a_ay1)))["":96,22-118@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":96,22-118@Practicum1af3.hs] {};["a type equality [a_ay1] ~ Table":96,22-118@Practicum1af3.hs]
+> ((list (a_ay4)))["":96,22-61@Practicum1af3.hs] == (a_ay1)["":96,22-61@Practicum1af3.hs] {};["a type equality [a_ay4] ~ a_ay1":96,22-61@Practicum1af3.hs]
+> (a_ay6)["":96,28-60@Practicum1af3.hs] == ((list (a_ay4)))["":96,28-60@Practicum1af3.hs] {};["a type equality a_ay6 ~ [a_ay4]":96,28-60@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":96,34-59@Practicum1af3.hs] == ((list (a_ay6)))["":96,34-59@Practicum1af3.hs] {};["a type equality Table ~ [a_ay6]":96,34-59@Practicum1af3.hs]
+> ((list Char))["":96,56-56@Practicum1af3.hs] == ((list Char))["":96,56-56@Practicum1af3.hs] {};["a type equality String ~ String":96,56-56@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":96,59-59@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":96,59-59@Practicum1af3.hs] {};["a type equality Table ~ Table":96,59-59@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":96,65-118@Practicum1af3.hs] == ((list (a_ay1)))["":96,65-118@Practicum1af3.hs] {};["a type equality Table ~ [a_ay1]":96,65-118@Practicum1af3.hs]
+> (((list Char) -> Bool))["":96,76-82@Practicum1af3.hs] == (((list Char) -> Bool))["":96,76-82@Practicum1af3.hs] {};["a type equality String -> Bool ~ String -> Bool":96,76-82@Practicum1af3.hs]
+> ((list (a_ayd)))["":96,85-117@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":96,85-117@Practicum1af3.hs] {};["a type equality [a_ayd] ~ Table":96,85-117@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":96,91-116@Practicum1af3.hs] == ((list (a_ayd)))["":96,91-116@Practicum1af3.hs] {};["a type equality Table ~ [a_ayd]":96,91-116@Practicum1af3.hs]
+> ((list Char))["":96,113-113@Practicum1af3.hs] == ((list Char))["":96,113-113@Practicum1af3.hs] {};["a type equality String ~ String":96,113-113@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":96,116-116@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":96,116-116@Practicum1af3.hs] {};["a type equality Table ~ Table":96,116-116@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":117,14-36@Practicum1af3.hs] == (t_ayi)["":117,14-36@Practicum1af3.hs] {};["a type equality Table ~ t_ayi":117,14-36@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":117,14-36@Practicum1af3.hs] == (t_ayj)["":117,14-36@Practicum1af3.hs] {};["a type equality Table ~ t_ayj":117,14-36@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":117,14-36@Practicum1af3.hs] == (t_ayk)["":117,14-36@Practicum1af3.hs] {};["a type equality Table ~ t_ayk":117,14-36@Practicum1af3.hs]
+711,715c564,568
+< (t_aAE)["":118,48-48@Practicum1af3.hs] == ((list Char))["":118,48-48@Practicum1af3.hs] {};["a type equality t_aAE ~ String":118,48-48@Practicum1af3.hs]
+< (t_aAI)["":118,50-50@Practicum1af3.hs] == ((list Char))["":118,50-50@Practicum1af3.hs] {};["a type equality t_aAI ~ String":118,50-50@Practicum1af3.hs]
+< ((list (a_aAN)))["":118,55-58@Practicum1af3.hs] == (t_aAx)["":118,55-58@Practicum1af3.hs] {};["a type equality [a_aAN] ~ t_aAx":118,55-58@Practicum1af3.hs]
+< (t_aAE)["":118,55-55@Practicum1af3.hs] == (a_aAN)["":118,55-55@Practicum1af3.hs] {};["a type equality t_aAE ~ a_aAN":118,55-55@Practicum1af3.hs]
+< ((list (t_aAE)))["":118,57-58@Practicum1af3.hs] == ((list (a_aAN)))["":118,57-58@Practicum1af3.hs] {};["a type equality [t_aAE] ~ [a_aAN]":118,57-58@Practicum1af3.hs]
+---
+> ((list Char))["":118,48-48@Practicum1af3.hs] == ((list Char))["":118,48-48@Practicum1af3.hs] {};["a type equality String ~ String":118,48-48@Practicum1af3.hs]
+> ((list Char))["":118,50-50@Practicum1af3.hs] == ((list Char))["":118,50-50@Practicum1af3.hs] {};["a type equality String ~ String":118,50-50@Practicum1af3.hs]
+> ((list (a_ays)))["":118,55-58@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":118,55-58@Practicum1af3.hs] {};["a type equality [a_ays] ~ Table":118,55-58@Practicum1af3.hs]
+> ((list Char))["":118,55-55@Practicum1af3.hs] == (a_ays)["":118,55-55@Practicum1af3.hs] {};["a type equality String ~ a_ays":118,55-55@Practicum1af3.hs]
+> ((list ((list Char))))["":118,57-58@Practicum1af3.hs] == ((list (a_ays)))["":118,57-58@Practicum1af3.hs] {};["a type equality [String] ~ [a_ays]":118,57-58@Practicum1af3.hs]
+717,732c570,580
+< (((list ((list ((list Char)))))))["":119,54-79@Practicum1af3.hs] == (t_aAx)["":119,54-79@Practicum1af3.hs] {};["a type equality Table ~ t_aAx":119,54-79@Practicum1af3.hs]
+< ((list (t_aAC)))["":119,64-66@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":119,64-66@Practicum1af3.hs] {};["a type equality [t_aAC] ~ Table":119,64-66@Practicum1af3.hs]
+< ((list (a_aAU)))["":119,69-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":119,69-78@Practicum1af3.hs] {};["a type equality [a_aAU] ~ Table":119,69-78@Practicum1af3.hs]
+< ((list (a_aAW)))["":119,70-73@Practicum1af3.hs] == (a_aAU)["":119,70-73@Practicum1af3.hs] {};["a type equality [a_aAW] ~ a_aAU":119,70-73@Practicum1af3.hs]
+< (t_aAI)["":119,70-70@Practicum1af3.hs] == (a_aAW)["":119,70-70@Practicum1af3.hs] {};["a type equality t_aAI ~ a_aAW":119,70-70@Practicum1af3.hs]
+< ((list (t_aAI)))["":119,72-73@Practicum1af3.hs] == ((list (a_aAW)))["":119,72-73@Practicum1af3.hs] {};["a type equality [t_aAI] ~ [a_aAW]":119,72-73@Practicum1af3.hs]
+< ((list (t_aAG)))["":119,76-78@Practicum1af3.hs] == ((list (a_aAU)))["":119,76-78@Practicum1af3.hs] {};["a type equality [t_aAG] ~ [a_aAU]":119,76-78@Practicum1af3.hs]
+< ((list (t_aB1)))["":120,17-18@Practicum1af3.hs] == (t_aAx)["":120,17-18@Practicum1af3.hs] {};["a type equality [t_aB1] ~ t_aAx":120,17-18@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":111,14-45@Practicum1af3.hs] == (t_aB3)["":111,14-45@Practicum1af3.hs] {};["a type equality Table ~ t_aB3":111,14-45@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":111,14-45@Practicum1af3.hs] == (t_aB4)["":111,14-45@Practicum1af3.hs] {};["a type equality Table ~ t_aB4":111,14-45@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":111,14-45@Practicum1af3.hs] == (t_aB5)["":111,14-45@Practicum1af3.hs] {};["a type equality Table ~ t_aB5":111,14-45@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":111,14-45@Practicum1af3.hs] == (t_aB6)["":111,14-45@Practicum1af3.hs] {};["a type equality Table ~ t_aB6":111,14-45@Practicum1af3.hs]
+< ((list (t_aBc)))["":112,12-21@Practicum1af3.hs] == (t_aB3)["":112,12-21@Practicum1af3.hs] {};["a type equality [t_aBc] ~ t_aB3":112,12-21@Practicum1af3.hs]
+< ((list (t_aBe)))["":112,13-16@Practicum1af3.hs] == (t_aBc)["":112,13-16@Practicum1af3.hs] {};["a type equality [t_aBe] ~ t_aBc":112,13-16@Practicum1af3.hs]
+< ((list (t_aBg)))["":112,25-34@Practicum1af3.hs] == (t_aB4)["":112,25-34@Practicum1af3.hs] {};["a type equality [t_aBg] ~ t_aB4":112,25-34@Practicum1af3.hs]
+< ((list (t_aBi)))["":112,26-29@Practicum1af3.hs] == (t_aBg)["":112,26-29@Practicum1af3.hs] {};["a type equality [t_aBi] ~ t_aBg":112,26-29@Practicum1af3.hs]
+---
+> (((list ((list ((list Char)))))))["":119,54-79@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":119,54-79@Practicum1af3.hs] {};["a type equality Table ~ Table":119,54-79@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":119,64-66@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":119,64-66@Practicum1af3.hs] {};["a type equality [[String]] ~ Table":119,64-66@Practicum1af3.hs]
+> ((list (a_ayz)))["":119,69-78@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":119,69-78@Practicum1af3.hs] {};["a type equality [a_ayz] ~ Table":119,69-78@Practicum1af3.hs]
+> ((list (a_ayB)))["":119,70-73@Practicum1af3.hs] == (a_ayz)["":119,70-73@Practicum1af3.hs] {};["a type equality [a_ayB] ~ a_ayz":119,70-73@Practicum1af3.hs]
+> ((list Char))["":119,70-70@Practicum1af3.hs] == (a_ayB)["":119,70-70@Practicum1af3.hs] {};["a type equality String ~ a_ayB":119,70-70@Practicum1af3.hs]
+> ((list ((list Char))))["":119,72-73@Practicum1af3.hs] == ((list (a_ayB)))["":119,72-73@Practicum1af3.hs] {};["a type equality [String] ~ [a_ayB]":119,72-73@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":119,76-78@Practicum1af3.hs] == ((list (a_ayz)))["":119,76-78@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_ayz]":119,76-78@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":111,14-45@Practicum1af3.hs] == (t_ayG)["":111,14-45@Practicum1af3.hs] {};["a type equality Table ~ t_ayG":111,14-45@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":111,14-45@Practicum1af3.hs] == (t_ayH)["":111,14-45@Practicum1af3.hs] {};["a type equality Table ~ t_ayH":111,14-45@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":111,14-45@Practicum1af3.hs] == (t_ayI)["":111,14-45@Practicum1af3.hs] {};["a type equality Table ~ t_ayI":111,14-45@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":111,14-45@Practicum1af3.hs] == (t_ayJ)["":111,14-45@Practicum1af3.hs] {};["a type equality Table ~ t_ayJ":111,14-45@Practicum1af3.hs]
+734,738c582,586
+< (t_aBe)["":112,50-50@Practicum1af3.hs] == ((list Char))["":112,50-50@Practicum1af3.hs] {};["a type equality t_aBe ~ String":112,50-50@Practicum1af3.hs]
+< (t_aBi)["":112,52-52@Practicum1af3.hs] == ((list Char))["":112,52-52@Practicum1af3.hs] {};["a type equality t_aBi ~ String":112,52-52@Practicum1af3.hs]
+< ((list (a_aBn)))["":112,57-60@Practicum1af3.hs] == (t_aB6)["":112,57-60@Practicum1af3.hs] {};["a type equality [a_aBn] ~ t_aB6":112,57-60@Practicum1af3.hs]
+< (t_aBe)["":112,57-57@Practicum1af3.hs] == (a_aBn)["":112,57-57@Practicum1af3.hs] {};["a type equality t_aBe ~ a_aBn":112,57-57@Practicum1af3.hs]
+< ((list (t_aBe)))["":112,59-60@Practicum1af3.hs] == ((list (a_aBn)))["":112,59-60@Practicum1af3.hs] {};["a type equality [t_aBe] ~ [a_aBn]":112,59-60@Practicum1af3.hs]
+---
+> ((list Char))["":112,50-50@Practicum1af3.hs] == ((list Char))["":112,50-50@Practicum1af3.hs] {};["a type equality String ~ String":112,50-50@Practicum1af3.hs]
+> ((list Char))["":112,52-52@Practicum1af3.hs] == ((list Char))["":112,52-52@Practicum1af3.hs] {};["a type equality String ~ String":112,52-52@Practicum1af3.hs]
+> ((list (a_ayS)))["":112,57-60@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":112,57-60@Practicum1af3.hs] {};["a type equality [a_ayS] ~ Table":112,57-60@Practicum1af3.hs]
+> ((list Char))["":112,57-57@Practicum1af3.hs] == (a_ayS)["":112,57-57@Practicum1af3.hs] {};["a type equality String ~ a_ayS":112,57-57@Practicum1af3.hs]
+> ((list ((list Char))))["":112,59-60@Practicum1af3.hs] == ((list (a_ayS)))["":112,59-60@Practicum1af3.hs] {};["a type equality [String] ~ [a_ayS]":112,59-60@Practicum1af3.hs]
+740,770c588,609
+< (((list ((list ((list Char)))))))["":113,56-84@Practicum1af3.hs] == (t_aB6)["":113,56-84@Practicum1af3.hs] {};["a type equality Table ~ t_aB6":113,56-84@Practicum1af3.hs]
+< ((list (a_aBt)))["":113,67-72@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":113,67-72@Practicum1af3.hs] {};["a type equality [a_aBt] ~ Table":113,67-72@Practicum1af3.hs]
+< ((list (t_aBe)))["":113,67-68@Practicum1af3.hs] == (a_aBt)["":113,67-68@Practicum1af3.hs] {};["a type equality [t_aBe] ~ a_aBt":113,67-68@Practicum1af3.hs]
+< ((list (t_aBc)))["":113,70-72@Practicum1af3.hs] == ((list (a_aBt)))["":113,70-72@Practicum1af3.hs] {};["a type equality [t_aBc] ~ [a_aBt]":113,70-72@Practicum1af3.hs]
+< ((list (a_aBx)))["":113,76-81@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":113,76-81@Practicum1af3.hs] {};["a type equality [a_aBx] ~ Table":113,76-81@Practicum1af3.hs]
+< ((list (t_aBi)))["":113,76-77@Practicum1af3.hs] == (a_aBx)["":113,76-77@Practicum1af3.hs] {};["a type equality [t_aBi] ~ a_aBx":113,76-77@Practicum1af3.hs]
+< ((list (t_aBg)))["":113,79-81@Practicum1af3.hs] == ((list (a_aBx)))["":113,79-81@Practicum1af3.hs] {};["a type equality [t_aBg] ~ [a_aBx]":113,79-81@Practicum1af3.hs]
+< (t_aB5)["":113,84-84@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":113,84-84@Practicum1af3.hs] {};["a type equality t_aB5 ~ Table":113,84-84@Practicum1af3.hs]
+< ((list (t_aBC)))["":114,12-17@Practicum1af3.hs] == (t_aB3)["":114,12-17@Practicum1af3.hs] {};["a type equality [t_aBC] ~ t_aB3":114,12-17@Practicum1af3.hs]
+< ((list (t_aBE)))["":114,12-13@Practicum1af3.hs] == (t_aBC)["":114,12-13@Practicum1af3.hs] {};["a type equality [t_aBE] ~ t_aBC":114,12-13@Practicum1af3.hs]
+< (((list ((list ((list Char)))))))["":114,26-40@Practicum1af3.hs] == (t_aB6)["":114,26-40@Practicum1af3.hs] {};["a type equality Table ~ t_aB6":114,26-40@Practicum1af3.hs]
+< ((list (t_aBC)))["":114,36-38@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":114,36-38@Practicum1af3.hs] {};["a type equality [t_aBC] ~ Table":114,36-38@Practicum1af3.hs]
+< (t_aB5)["":114,40-40@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":114,40-40@Practicum1af3.hs] {};["a type equality t_aB5 ~ Table":114,40-40@Practicum1af3.hs]
+< ((list (t_aBJ)))["":115,19-20@Practicum1af3.hs] == (t_aB6)["":115,19-20@Practicum1af3.hs] {};["a type equality [t_aBJ] ~ t_aB6":115,19-20@Practicum1af3.hs]
+< ((list ((list (a)))))["":55,15-28@Practicum1af3.hs] == (t_at7)["":55,15-28@Practicum1af3.hs] {};["a type equality [[a]] ~ t_at7":55,15-28@Practicum1af3.hs]
+< ((list (Int)))["":55,15-28@Practicum1af3.hs] == (t_at8)["":55,15-28@Practicum1af3.hs] {};["a type equality [Int] ~ t_at8":55,15-28@Practicum1af3.hs]
+< ((list (t_atc)))["":56,12-13@Practicum1af3.hs] == (t_at7)["":56,12-13@Practicum1af3.hs] {};["a type equality [t_atc] ~ t_at7":56,12-13@Practicum1af3.hs]
+< ((list (t_ate)))["":56,27-28@Practicum1af3.hs] == (t_at8)["":56,27-28@Practicum1af3.hs] {};["a type equality [t_ate] ~ t_at8":56,27-28@Practicum1af3.hs]
+< ((list (t_atg)))["":57,13-16@Practicum1af3.hs] == (t_at7)["":57,13-16@Practicum1af3.hs] {};["a type equality [t_atg] ~ t_at7":57,13-16@Practicum1af3.hs]
+< ((list (t_ati)))["":57,13-14@Practicum1af3.hs] == (t_atg)["":57,13-14@Practicum1af3.hs] {};["a type equality [t_ati] ~ t_atg":57,13-14@Practicum1af3.hs]
+< ((list (Int)))["":57,27-38@Practicum1af3.hs] == (t_at8)["":57,27-38@Practicum1af3.hs] {};["a type equality [Int] ~ t_at8":57,27-38@Practicum1af3.hs]
+< ((list (t_atg)))["":57,38-38@Practicum1af3.hs] == ((list ((list (a_atk)))))["":57,38-38@Practicum1af3.hs] {};["a type equality [t_atg] ~ [[a_atk]]":57,38-38@Practicum1af3.hs]
+< ((list (t_atn)))["":58,13-22@Practicum1af3.hs] == (t_at7)["":58,13-22@Practicum1af3.hs] {};["a type equality [t_atn] ~ t_at7":58,13-22@Practicum1af3.hs]
+< ((list (t_atp)))["":58,14-17@Practicum1af3.hs] == (t_atn)["":58,14-17@Practicum1af3.hs] {};["a type equality [t_atp] ~ t_atn":58,14-17@Practicum1af3.hs]
+< ((list (a_atr)))["":58,27-55@Practicum1af3.hs] == (t_at8)["":58,27-55@Practicum1af3.hs] {};["a type equality [a_atr] ~ t_at8":58,27-55@Practicum1af3.hs]
+< (Int)["":58,27-38@Practicum1af3.hs] == (a_atr)["":58,27-38@Practicum1af3.hs] {};["a type equality Int ~ a_atr":58,27-38@Practicum1af3.hs]
+< ((list (a_atv)))["":58,34-37@Practicum1af3.hs] == ((list (a_att)))["":58,34-37@Practicum1af3.hs] {};["a type equality [a_atv] ~ [a_att]":58,34-37@Practicum1af3.hs]
+< (t_atp)["":58,34-34@Practicum1af3.hs] == (a_atv)["":58,34-34@Practicum1af3.hs] {};["a type equality t_atp ~ a_atv":58,34-34@Practicum1af3.hs]
+< ((list (t_atp)))["":58,36-37@Practicum1af3.hs] == ((list (a_atv)))["":58,36-37@Practicum1af3.hs] {};["a type equality [t_atp] ~ [a_atv]":58,36-37@Practicum1af3.hs]
+< ((list (Int)))["":58,42-55@Practicum1af3.hs] == ((list (a_atr)))["":58,42-55@Practicum1af3.hs] {};["a type equality [Int] ~ [a_atr]":58,42-55@Practicum1af3.hs]
+< ((list (t_atn)))["":58,53-55@Practicum1af3.hs] == ((list ((list (a_atz)))))["":58,53-55@Practicum1af3.hs] {};["a type equality [t_atn] ~ [[a_atz]]":58,53-55@Practicum1af3.hs]
+---
+> (((list ((list ((list Char)))))))["":113,56-84@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":113,56-84@Practicum1af3.hs] {};["a type equality Table ~ Table":113,56-84@Practicum1af3.hs]
+> ((list (a_ayY)))["":113,67-72@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":113,67-72@Practicum1af3.hs] {};["a type equality [a_ayY] ~ Table":113,67-72@Practicum1af3.hs]
+> ((list ((list Char))))["":113,67-68@Practicum1af3.hs] == (a_ayY)["":113,67-68@Practicum1af3.hs] {};["a type equality [String] ~ a_ayY":113,67-68@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":113,70-72@Practicum1af3.hs] == ((list (a_ayY)))["":113,70-72@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_ayY]":113,70-72@Practicum1af3.hs]
+> ((list (a_az2)))["":113,76-81@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":113,76-81@Practicum1af3.hs] {};["a type equality [a_az2] ~ Table":113,76-81@Practicum1af3.hs]
+> ((list ((list Char))))["":113,76-77@Practicum1af3.hs] == (a_az2)["":113,76-77@Practicum1af3.hs] {};["a type equality [String] ~ a_az2":113,76-77@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":113,79-81@Practicum1af3.hs] == ((list (a_az2)))["":113,79-81@Practicum1af3.hs] {};["a type equality [[String]] ~ [a_az2]":113,79-81@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":113,84-84@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":113,84-84@Practicum1af3.hs] {};["a type equality Table ~ Table":113,84-84@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":114,26-40@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":114,26-40@Practicum1af3.hs] {};["a type equality Table ~ Table":114,26-40@Practicum1af3.hs]
+> ((list ((list ((list Char))))))["":114,36-38@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":114,36-38@Practicum1af3.hs] {};["a type equality [[String]] ~ Table":114,36-38@Practicum1af3.hs]
+> (((list ((list ((list Char)))))))["":114,40-40@Practicum1af3.hs] == (((list ((list ((list Char)))))))["":114,40-40@Practicum1af3.hs] {};["a type equality Table ~ Table":114,40-40@Practicum1af3.hs]
+> ((list ((list (a)))))["":55,15-28@Practicum1af3.hs] == (t_asH)["":55,15-28@Practicum1af3.hs] {};["a type equality [[a]] ~ t_asH":55,15-28@Practicum1af3.hs]
+> ((list (Int)))["":55,15-28@Practicum1af3.hs] == (t_asI)["":55,15-28@Practicum1af3.hs] {};["a type equality [Int] ~ t_asI":55,15-28@Practicum1af3.hs]
+> ((list (Int)))["":57,27-38@Practicum1af3.hs] == ((list (Int)))["":57,27-38@Practicum1af3.hs] {};["a type equality [Int] ~ [Int]":57,27-38@Practicum1af3.hs]
+> ((list ((list (a)))))["":57,38-38@Practicum1af3.hs] == ((list ((list (a_asM)))))["":57,38-38@Practicum1af3.hs] {};["a type equality [[a]] ~ [[a_asM]]":57,38-38@Practicum1af3.hs]
+> ((list (a_asP)))["":58,27-55@Practicum1af3.hs] == ((list (Int)))["":58,27-55@Practicum1af3.hs] {};["a type equality [a_asP] ~ [Int]":58,27-55@Practicum1af3.hs]
+> (Int)["":58,27-38@Practicum1af3.hs] == (a_asP)["":58,27-38@Practicum1af3.hs] {};["a type equality Int ~ a_asP":58,27-38@Practicum1af3.hs]
+> ((list (a_asT)))["":58,34-37@Practicum1af3.hs] == ((list (a_asR)))["":58,34-37@Practicum1af3.hs] {};["a type equality [a_asT] ~ [a_asR]":58,34-37@Practicum1af3.hs]
+> (a)["":58,34-34@Practicum1af3.hs] == (a_asT)["":58,34-34@Practicum1af3.hs] {};["a type equality a ~ a_asT":58,34-34@Practicum1af3.hs]
+> ((list (a)))["":58,36-37@Practicum1af3.hs] == ((list (a_asT)))["":58,36-37@Practicum1af3.hs] {};["a type equality [a] ~ [a_asT]":58,36-37@Practicum1af3.hs]
+> ((list (Int)))["":58,42-55@Practicum1af3.hs] == ((list (a_asP)))["":58,42-55@Practicum1af3.hs] {};["a type equality [Int] ~ [a_asP]":58,42-55@Practicum1af3.hs]
+> ((list ((list (a)))))["":58,53-55@Practicum1af3.hs] == ((list ((list (a_asX)))))["":58,53-55@Practicum1af3.hs] {};["a type equality [[a]] ~ [[a_asX]]":58,53-55@Practicum1af3.hs]

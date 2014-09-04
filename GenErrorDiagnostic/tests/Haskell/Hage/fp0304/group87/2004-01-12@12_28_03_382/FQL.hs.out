@@ -1,0 +1,8 @@
+Compiling FQL.hs
+(44,28)-(44,29): Type error in constructor
+ expression       : :
+   type           : a        -> [a     ] -> [a     ]
+   expected type  : [String] -> [String] -> [String]
+ probable fix     : use ++ instead
+
+Compilation failed with 1 error

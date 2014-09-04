@@ -1,0 +1,9 @@
+Compiling Test.hs
+(8,16)-(8,23): Type error in application
+ expression       : showInt length (naam)
+ term             : showInt
+   type           : Int          -> String          
+   does not match : ([a] -> Int) -> String -> String
+ because          : too many arguments are given
+
+Compilation failed with 1 error

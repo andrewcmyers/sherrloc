@@ -1,0 +1,14 @@
+Compiling Proposia.hs
+(39,41)-(39,44): Type error in variable
+ expression       : map
+   type           : (a    -> b       ) -> [a   ] -> [b     ]
+   expected type  : (Prop -> [String]) -> [Prop] -> [String]
+ probable fix     : use concatMap instead
+
+(40,41)-(40,44): Type error in variable
+ expression       : map
+   type           : (a    -> b       ) -> [a   ] -> [b     ]
+   expected type  : (Prop -> [String]) -> [Prop] -> [String]
+ probable fix     : use concatMap instead
+
+Compilation failed with 2 errors

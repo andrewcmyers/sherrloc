@@ -1,0 +1,9 @@
+Compiling Practicum1raar6.hs
+(139,53)-(139,66): Type error in application
+ expression       : verwijderElem xs
+ term             : verwijderElem
+   type           : [a] -> Int -> [a]
+   does not match : [a] -> [a]       
+ probable fix     : insert a second argument
+
+Compilation failed with 1 error

@@ -1,0 +1,7 @@
+Compiling Database2.hs
+(38,1)-(38,7): Type signature is too general
+ function         : lengte
+   declared type  : Int -> [[b  ]] -> Int
+   inferred type  : Int -> [[[a]]] -> Int
+
+Compilation failed with 1 error

@@ -1,0 +1,9 @@
+Compiling Tent1.hs
+(8,41)-(8,42): Type error in application
+ expression       : q r
+ term             : q
+   type           : a -> a -> Bool
+   does not match : a -> Bool     
+ because          : not enough arguments are given
+
+Compilation failed with 1 error

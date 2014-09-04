@@ -1,0 +1,9 @@
+Compiling Practicum1.hs
+(50,32)-(50,33): Type error in application
+ expression       : x eqString y
+ term             : x
+   type           : String                                      
+   does not match : (String -> String -> Bool) -> String -> Bool
+ because          : it is not a function
+
+Compilation failed with 1 error

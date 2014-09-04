@@ -1,0 +1,9 @@
+Compiling Tables.hs
+(18,28)-(18,29): Type error in application
+ expression       : n (eqString) (getname x)
+ term             : n
+   type           : String                                      
+   does not match : (String -> String -> Bool) -> String -> Bool
+ because          : it is not a function
+
+Compilation failed with 1 error

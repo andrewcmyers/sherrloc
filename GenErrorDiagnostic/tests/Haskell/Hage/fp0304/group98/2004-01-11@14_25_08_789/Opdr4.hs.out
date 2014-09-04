@@ -1,0 +1,10 @@
+Compiling Opdr4.hs
+(5,13)-(5,14): Type error in infix pattern application
+ pattern          : x : y
+ constructor      : :
+   type           : a -> [a] -> [a]
+ right operand    : y
+   type           : Int
+   does not match : [a]
+
+Compilation failed with 1 error

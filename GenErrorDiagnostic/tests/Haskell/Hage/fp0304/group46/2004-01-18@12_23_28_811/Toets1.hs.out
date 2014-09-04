@@ -1,0 +1,7 @@
+Compiling Toets1.hs
+(14,22)-(14,37): Type error in right-hand side
+ expression       : x : take (n - 1) xs
+   type           : [Int  ]
+   does not match : [[Int]]
+
+Compilation failed with 1 error

@@ -1,0 +1,18 @@
+Compiling Database.hs
+(135,40)-(135,42): Type error in application
+ expression       : veldNummer t1 (gemVeldnaam t1 t2)
+ function         : veldNummer
+   type           : [String] -> String -> Int
+ 1st argument     : t1
+   type           : [[String]]
+   does not match : [[Char  ]]
+
+(136,40)-(136,42): Type error in application
+ expression       : veldNummer t2 (gemVeldnaam t1 t2)
+ function         : veldNummer
+   type           : [String] -> String -> Int
+ 1st argument     : t2
+   type           : [[String]]
+   does not match : [[Char  ]]
+
+Compilation failed with 2 errors

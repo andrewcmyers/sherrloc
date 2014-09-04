@@ -1,0 +1,9 @@
+Compiling Verwijder.hs
+(14,36)-(14,44): Type error in application
+ expression       : groepeer (drop a lijst)
+ term             : groepeer
+   type           : Int   -> [Int] -> [[Int]]
+   does not match : [Int] -> [[Int]]         
+ probable fix     : insert a first argument
+
+Compilation failed with 1 error

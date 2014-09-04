@@ -1,0 +1,7 @@
+Compiling En.hs
+(130,19)-(130,21): Type error in right-hand side
+ expression       : []
+   type           : [a] 
+   does not match : Prop
+
+Compilation failed with 1 error

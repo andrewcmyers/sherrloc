@@ -1,0 +1,8 @@
+Compiling FQLprog.hs
+(116,85)-(116,102): Type error in application
+ expression       : gemeenschappelijk (head tabel1) (tail (head tabel2))
+ term             : gemeenschappelijk
+   type           : [[String]] -> [[String]] -> String
+   does not match : [String  ] -> [String  ] -> String
+
+Compilation failed with 1 error

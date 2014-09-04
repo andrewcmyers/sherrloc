@@ -1,0 +1,18 @@
+Compiling FQL.hs
+(112,51)-(112,54): Type error in application
+ expression       : kolomNummer dub (head tabel1)
+ function         : kolomNummer
+   type           : String -> [String] -> Int
+ 1st argument     : dub
+   type           : [String]
+   does not match : [Char  ]
+
+(113,51)-(113,54): Type error in application
+ expression       : kolomNummer dub (head tabel2)
+ function         : kolomNummer
+   type           : String -> [String] -> Int
+ 1st argument     : dub
+   type           : [String]
+   does not match : [Char  ]
+
+Compilation failed with 2 errors

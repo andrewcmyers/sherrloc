@@ -1,0 +1,18 @@
+Compiling Prop.hs
+(53,72)-(53,77): Type error in application
+ expression       : toon props
+ function         : toon
+   type           : Prop -> String
+ 1st argument     : props
+   type           : [Prop]
+   does not match : Prop  
+
+(55,72)-(55,77): Type error in application
+ expression       : toon props
+ function         : toon
+   type           : Prop -> String
+ 1st argument     : props
+   type           : [Prop]
+   does not match : Prop  
+
+Compilation failed with 2 errors
