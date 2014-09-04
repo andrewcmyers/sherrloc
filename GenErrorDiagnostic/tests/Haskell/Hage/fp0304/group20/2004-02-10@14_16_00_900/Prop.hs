@@ -49,4 +49,4 @@ variabelen (Of q)     = concat [variabelen p | p <- q]
 variabelen (p :-> q)  = variabelen p ++ variabelen q
 
 -- should delete concat
--- 40,25-52
+-- 40,25-52   40,25-30
