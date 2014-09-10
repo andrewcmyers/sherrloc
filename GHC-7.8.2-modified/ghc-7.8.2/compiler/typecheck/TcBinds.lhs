@@ -10,7 +10,7 @@ module TcBinds ( tcLocalBinds, tcTopBinds, tcRecSelBinds,
                  PragFun, tcSpecPrags, tcVectDecls, mkPragFun, 
                  TcSigInfo(..), TcSigFun, 
                  instTcTySig, instTcTySigFromId, findScopedTyVars,
-                 badBootDeclErr ) where
+                 badBootDeclErr, tcSigFreshVars ) where
 
 import {-# SOURCE #-} TcMatches ( tcGRHSsPat, tcMatchesFun )
 import {-# SOURCE #-} TcExpr  ( tcMonoExpr )
@@ -525,7 +525,7 @@ tcPolyCheck rec_tc prag_fn
             <- setSrcSpan loc $  
                checkConstraints skol_info tvs ev_vars $
                tcExtendTyVarEnv2 [(n,tv) | (Just n, tv) <- tvs_w_scoped] $
-               (do {tau <- tcSigFreshVars tau loc
+               (do {tau <- setSrcSpan loc $ tcSigFreshVars tau
                    ; let new_sig = TcSigInfo { sig_id = poly_id, sig_tvs = tvs_w_scoped 
                            , sig_theta = theta, sig_tau = tau, sig_loc = loc }
                    ; tcMonoBinds rec_tc (\_ -> Just new_sig) LetLclBndr [bind] })
@@ -1259,27 +1259,26 @@ instTcTySig hs_ty@(L loc _) sigma_ty name
                            , sig_tvs = findScopedTyVars hs_ty sigma_ty inst_tvs
                            , sig_theta = theta, sig_tau = tau }) }
 
-tcSigFreshVars :: Type -> SrcSpan -> TcM Type
+tcSigFreshVars :: Type -> TcM Type
 -- we keep the shape of a type signature for two reasons:
 -- 1) it makes error message more precise
 -- 2) the GHC compiler only instantiates types whose skolems are exposed at the top level
-tcSigFreshVars ty loc
+tcSigFreshVars ty
   | isSigmaTy ty 
     = return ty -- polymorphic types are ignored for now
   | otherwise
     = do  { let (args, res) = tcSplitFunTys ty
         ; arg_tys <- newFlexiTyVarTys (length args) openTypeKind
         ; res_ty <- newFlexiTyVarTy openTypeKind
-        ; traceTc "Before unification" empty
-        ; unifyTypeLists args arg_tys
-        ; _ <- setSrcSpan loc $ unifyType res res_ty
-        ; return (mkFunTys arg_tys res_ty) }
+        ; let new_ty = (mkFunTys arg_tys res_ty) 
+        ; _ <- unifyType ty new_ty
+        ; return new_ty }
 
-  where unifyTypeLists :: [TcTauType] -> [TcTauType] -> TcM ()
-        unifyTypeLists _ [] = return ()
-        unifyTypeLists [] _ = return ()
-        unifyTypeLists (ty1:tys1) (ty2:tys2) = do { _ <- setSrcSpan loc $ unifyType ty1 ty2
-                                                  ; unifyTypeLists tys1 tys2 }
+--  where unifyTypeLists :: [TcTauType] -> [TcTauType] -> TcM ()
+--        unifyTypeLists _ [] = return ()
+--        unifyTypeLists [] _ = return ()
+--        unifyTypeLists (ty1:tys1) (ty2:tys2) = do { _ <- setSrcSpan loc $ unifyType ty1 ty2
+--                                                  ; unifyTypeLists tys1 tys2 }
 
 -------------------------------
 data GeneralisationPlan
