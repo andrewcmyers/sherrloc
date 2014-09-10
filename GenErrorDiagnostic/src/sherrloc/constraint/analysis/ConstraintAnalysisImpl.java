@@ -8,11 +8,13 @@ import java.util.Map;
 import java.util.Set;
 
 import sherrloc.constraint.ast.Application;
+import sherrloc.constraint.ast.Axiom;
+import sherrloc.constraint.ast.Axiom.PremiseMatch;
 import sherrloc.constraint.ast.Constraint;
 import sherrloc.constraint.ast.Constructor;
-import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Function;
+import sherrloc.constraint.ast.Inequality;
 import sherrloc.constraint.ast.JoinElement;
 import sherrloc.constraint.ast.MeetElement;
 import sherrloc.constraint.ast.Relation;
@@ -115,6 +117,35 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 			}
 			// TODO: need to generalize the algorithm to more general cases
 		}
+		}
+		
+		for (Axiom rule : graph.getRules()) {
+			List<PremiseMatch> pmatches = rule.findMatchesInPremise(finder);
+			
+			for (PremiseMatch pmatch : pmatches) {
+			// apply all substitutions along the unification to conclusion
+			for (Inequality ieq : rule.getConclusion()) {
+				Element m1 = ieq.getFirstElement().subst(pmatch.map);
+				Element m2 = ieq.getSecondElement().subst(pmatch.map);
+
+				if (m1 instanceof Application && (m2 instanceof Constructor || m2 instanceof Function)) {
+					List<Node> matched = graph.getMatchedNodes(m2);
+					for (Node n : matched) {
+						if (!testedL.containsKey(n.getElement()))
+							testedL.put(n.getElement(), new HashSet<Element>());
+						testedL.get(n.getElement()).add(m1);
+					}
+				}
+				else if (m2 instanceof Application && (m1 instanceof Constructor || m1 instanceof Function)) {
+					List<Node> matched = graph.getMatchedNodes(m1);
+					for (Node n : matched) {
+						if (!testedR.containsKey(n.getElement()))
+							testedR.put(n.getElement(), new HashSet<Element>());
+						testedR.get(n.getElement()).add(m2);
+					}
+				}				
+			}
+			}
 		}
 		
 		for (Node start : allNodes) {
