@@ -1060,31 +1060,32 @@ tcInferIdWithOrig :: CtOrigin -> Name -> TcM (HsExpr TcId, TcRhoType)
 -- Look up an occurrence of an Id, and instantiate it (deeply)
 
 tcInferIdWithOrig orig id_name
-  = do { id <- lookup_id
+  = do { (id, gen_fresh) <- lookup_id
        ; (id_expr, id_rho) <- instantiateOuter orig id
        ; (wrap, rho) <- deeplyInstantiate orig id_rho
+       ; rho <- fresh_ty rho gen_fresh
        ; return (mkHsWrap wrap id_expr, rho) }
   where
-    lookup_id :: TcM TcId
+    lookup_id :: TcM (TcId, Bool)
     lookup_id
        = do { thing <- tcLookup id_name
             ; case thing of
                  ATcId { tct_id = id }
                    -> do { check_naughty id        -- Note [Local record selectors]
                          ; checkThLocalId id
-                         ; return id }
+                         ; return (id, False) }
 
                  AGlobal (AnId id)
-                   -> do { check_naughty id; return id }
+                   -> do { check_naughty id; return (id, True) }
                         -- A global cannot possibly be ill-staged
                         -- nor does it need the 'lifting' treatment
                         -- hence no checkTh stuff here
 
                  AGlobal (AConLike cl) -> case cl of
-                     RealDataCon con -> return (dataConWrapId con)
+                     RealDataCon con -> return (dataConWrapId con, True)
                      PatSynCon ps -> case patSynWrapper ps of
                          Nothing -> failWithTc (bad_patsyn ps)
-                         Just id -> return id
+                         Just id -> return (id, False)
 
                  other -> failWithTc (bad_lookup other) }
 
@@ -1095,6 +1096,11 @@ tcInferIdWithOrig orig id_name
     check_naughty id
       | isNaughtyRecordSelector id = failWithTc (naughtyRecordSel id)
       | otherwise                  = return ()
+
+    fresh_ty ty glb_con
+      | glb_con, isFunTy ty = do { ret <- tcSigFreshVars ty
+                              ; return ret }
+      | otherwise           = return ty
 
 ------------------------
 instantiateOuter :: CtOrigin -> TcId -> TcM (HsExpr TcId, TcSigmaType)
