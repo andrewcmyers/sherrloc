@@ -21,6 +21,7 @@ public class EntityExplanationFinder extends HeuristicSearch {
     // The usefulness of this tweak is still to be proven
     private boolean dup_en = false;
     private double increment = 1;
+    private double dup_increment = 1;
     
 	/**
 	 * @see #EntityExplanationFinder(UnsatPaths, Entity[], int, double, double). Use
@@ -39,7 +40,7 @@ public class EntityExplanationFinder extends HeuristicSearch {
 			}
     	}
     	if (dup_en)
-    		increment = 0.5;
+    		increment = dup_increment;
     	metric = new RankingMetric();
     }
     
@@ -67,7 +68,7 @@ public class EntityExplanationFinder extends HeuristicSearch {
 			}
     	}
     	if (dup_en)
-    		increment = 0.5;
+    		increment = dup_increment;
     	metric = new RankingMetric(C1, C2);
     }
     	
