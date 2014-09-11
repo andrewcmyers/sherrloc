@@ -162,4 +162,4 @@ sorteer [] _ = []
 sorteer (x:xs) tabel2 = ((vergelijk2 x tabel2) : (sorteer xs tabel2))
 
 -- Table -> Table -> Int should be: Table -> Table -> String
--- 131,20-40
+-- 131,1-15   131,20-40   131,38-40
