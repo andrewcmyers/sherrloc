@@ -1,8 +1,8 @@
 Can't find module 'Pretty'
 Import chain: 
-	Htmlprac imports Pretty
+	HTML3 imports Pretty
 Search path:
-	./group101/2003-03-25@14:48:09:694/
+	./group0/2003-03-23@12:07:35:686/
 	.
 	/usr/local/helium/lib
 

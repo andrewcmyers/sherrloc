@@ -1,8 +1,7 @@
-module Htmlprac(module Pretty, module Htmlprac) where
-import GHC.Base
+module Htmlprac where
+
 import Pretty
-eqMaybe :: (a -> a -> Bool) -> (Maybe a) -> (Maybe a) -> Bool
-eqMaybe = undefined
+
 
 data HTML
  = Tekst String
@@ -11,11 +10,12 @@ data HTML
 
 type Attribute = (String, String)
 
-
-
-
-
-
+eqString      :: String -> String -> Bool 
+eqString = undefined
+eqMaybe :: (a -> a -> Bool) -> (Maybe a) -> (Maybe a) -> Bool
+eqMaybe = undefined
+showInt       :: Int -> String
+showInt = undefined
 
 
 
@@ -58,7 +58,7 @@ ppHTML1 html = layout (ppHTML html)
 
 
 ppHTML :: HTML -> Doc
-ppHTML (Tekst text)                        = tekst (text)
+ppHTML (Tekst woorden)                        = tekst (woorden)
 ppHTML (EnkeleTag naam attLijst)           = openTag naam attLijst
 ppHTML (DubbelTag naam attLijst htmlLijst) | simpelLijst htmlLijst
                                               = openTag naam attLijst <|> printHtml htmlLijst <|> closeTag naam
@@ -95,7 +95,7 @@ printHtml (kopHtml:staartHtml) = ppHTML kopHtml <|> printHtml staartHtml
 
 printAtts :: [Attribute] -> Doc
 printAtts []                               = leeg
-printAtts ((attNaam, attWaarde):staartAtt) = tekst " " <|> tekst attNaam <|> tekst "=" <|> tekst attWaarde <|> printAtts staartAtt
+printAtts ((attNaam, attWaarde):staartAtt) = tekst " " <|> "/"" <|> tekst attNaam <|> "/"" <|> tekst "=" <|> tekst attWaarde <|> printAtts staartAtt
 
 
 color :: Int -> Int -> Int -> String
@@ -121,17 +121,60 @@ hexTabel =
 
 
 colorTable :: [[(Int, Int, Int)]] -> HTML
-colorTable kleuren = DubbelTag "TABLE" [("WIDTH","400"),("HEIGTH","400")] (kleurTabel kleuren)
+colorTable kleuren = DubbelTag "TABLE" [("WIDTH","400"),("HEIGHT","400")] (kleurTabel kleuren)
 
 kleurTabel :: [[(Int, Int, Int)]] -> [HTML]
-kleurTabel [] = []
-kleurTabel (kopRij:staartTabel) = kleurRij kopRij : kleurTabel staartTabel
+kleurTabel []                   = []
+kleurTabel (kopRij:staartTabel) = DubbelTag "TR" [] (kleurRij kopRij) : kleurTabel staartTabel
 
-kleurRij :: [(Int, Int, Int)] -> HTML
-kleurRij (kopCel:staartRij) = DubbelTag "TR" [] (kleurCel kopCel : kleurRij staartRij)
+kleurRij :: [(Int, Int, Int)] -> [HTML]
+kleurRij []                 = []
+kleurRij (kopCel:staartRij) = (kleurCel kopCel : kleurRij staartRij)
 
 kleurCel :: (Int, Int, Int) -> HTML
 kleurCel (r,g,b) = DubbelTag "TD" [("BGCOLOR",color r g b)] []
 
--- kleurRij :: [(Int, Int, Int)] -> [HTML]
--- 130,13-37 
+
+ul :: [[HTML]] -> HTML
+ul html = DubbelTag "UL" [] (li html)
+
+li :: [[HTML]] -> [HTML]
+li []                   = []
+li (kopHtml:staartHtml) = DubbelTag "LI" [] kopHtml : li staartHtml
+
+
+h :: Int -> String -> HTML
+h niveau kopje = DubbelTag ("H" ++ (showInt niveau)) [] [Tekst kopje]
+
+
+font :: [Attribute] -> [HTML] -> HTML
+font attLijst htmlLijst = DubbelTag "FONT" attLijst htmlLijst
+
+
+text :: String -> HTML
+text woorden = Tekst woorden
+
+
+document :: String -> [HTML] -> HTML
+document titel inhoud = DubbelTag "HTML" [] [DubbelTag "HEAD" [] [DubbelTag "TITLE" [] [Tekst titel] ], DubbelTag "BODY" [] inhoud ]
+
+
+kleurenTabel :: HTML
+kleurenTabel = document "kleurentabel"
+                 [ h 1 "kleurentabel"
+                 , ul [ [font [("COLOR","#FF0000")] [text "Rood"], text "loopt van boven naar onder van 0 tot en met 250 in stappen van 25"]
+                      , [font [("COLOR","#00FF00")] [text "Groen"], text "loopt van links naar rechts van 0 tot en met 250 in stappen van 25"]
+                      , [font [("COLOR","#0000FF")] [text "Blauw"], text "is overal 0"]
+                      ]
+                 , colorTable maakKleurenTabel
+                 ]
+
+maakKleurenTabel :: [[(Int,Int,Int)]]
+maakKleurenTabel = groepeer 11 [ (r,g,0) | r <- [0,25..250], g <- [0,25..250] ]
+
+groepeer :: Int -> [a] -> [[a]]
+groepeer _ [] = []
+groepeer aantal lijst = take aantal lijst : groepeer aantal (drop aantal lijst)
+
+-- missing tekst before the strings
+-- 98,60-63   98,87-90
