@@ -2,22 +2,18 @@ elemBy        :: (a -> a -> Bool) -> a -> [a] -> Bool
 elemBy = undefined
 eqString      :: String -> String -> Bool 
 eqString = undefined
-
+eqList        :: (a -> a -> Bool) -> [a] -> [a] -> Bool
+eqList = undefined
+eqChar      :: Char -> Char -> Bool
+eqChar = undefined
+eqBool      :: Bool -> Bool -> Bool 
+eqBool = undefined
 
 eqMaybe :: (a -> a -> Bool) -> (Maybe a) -> (Maybe a) -> Bool
 eqMaybe = undefined
 
 eqTuple2 :: (a -> a -> Bool) -> (b -> b -> Bool) -> ((a,b) -> (a,b) -> Bool)
 eqTuple2 = undefined
-
-eqList        :: (a -> a -> Bool) -> [a] -> [a] -> Bool
-eqList = undefined
-
-eqChar      :: Char -> Char -> Bool
-eqChar = undefined
-
-eqBool      :: Bool -> Bool -> Bool 
-eqBool = undefined
 
 showInt       :: Int -> String
 showInt = undefined
@@ -49,12 +45,14 @@ Group37 is a very concise example where signature is wrong
 
 
 fp0304:
-group0, 11, 15, 27, 32, 111, 113, 137 have no files with errors
+group0, 6, 11, 15, 27, 32, 40, 55, 86, 88, 111, 113, 137 have no files with type checking errors
 
-Group14, 110, 128 are skipped since the only file that has type errors is OK in
+Group14, 54, 110, 128 are skipped since the only file that has type errors is OK in
 GHC (error due to the misuse of +/* and +./*.)
 
 group114 seems the signature is more likely to be wrong, but actually,
 both uses are wrong
 
 group19 no correct programs available
+
+group73, 94 unclear where the error is

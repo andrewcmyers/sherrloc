@@ -125,5 +125,5 @@ deMorgan prop                     = prop
 doe::String -> String -> Prop
 doe operator string = En[unwords((takeWhile (eqString operator) (words string))),unwords((drop 1(dropWhile(eqString operator) (words string))))]
 
--- should be: unwords(...), unwords(...)
+-- should be: Var(unwords(...)), Var(unwords(...))
 -- 126,26-80   126,82-143
