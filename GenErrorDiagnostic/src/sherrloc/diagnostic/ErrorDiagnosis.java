@@ -94,7 +94,7 @@ public class ErrorDiagnosis implements PrettyPrinter {
     		sb.append((new MissingHypoInfer(paths, option)).infer());
     	}
     	if (option.isGenConstraints()) {
-    		sb.append((new ConstraintInfer(paths, option)).infer());
+    		sb.append((new ConstraintInfer(paths, graph.getAllEdges(), option)).infer());
     	}
     	if (option.isGenElements()) {
     		sb.append((new ExprInfer(paths, graph.getAllNodes(), option)).infer());

@@ -1,6 +1,9 @@
 package sherrloc.diagnostic;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import sherrloc.constraint.ast.Constraint;
@@ -14,13 +17,29 @@ import sherrloc.graph.Edge;
  * Infer the most likely wrong constraint in a program
  */
 public class ConstraintInfer extends InferenceEngine {
+	private Map<String, Integer> succCount;
 	
 	/**
 	 * @param paths
 	 *            All unsatisfiable paths identified in constraint analysis
 	 */
-	public ConstraintInfer(UnsatPaths paths, DiagnosticOptions opt) {
-		super(paths, opt);		
+	public ConstraintInfer(UnsatPaths paths, List<Edge> allEdges, DiagnosticOptions opt) {
+		super(paths, opt);	
+		
+		// gather # satisfiable paths using an expression (represented by string)
+		succCount = new HashMap<String, Integer>();
+		for (Edge e : allEdges) {
+			if (e instanceof ConstraintEdge) {
+				succCount.put(((ConstraintEdge) e).getConstraint().getPos().toString(), 0);
+			}
+		}
+		for (Edge e : allEdges) {
+			if (e instanceof ConstraintEdge) {
+				Constraint cons = ((ConstraintEdge) e).getConstraint();
+				int count = succCount.get(cons.getPos().toString());
+				succCount.put(cons.getPos().toString(), count + cons.getNumSuccPaths());
+			}
+		}
 	}
 	
 	@Override
@@ -31,7 +50,8 @@ public class ConstraintInfer extends InferenceEngine {
     		for (Edge edge : path.getEdges()) {
     			if (edge instanceof ConstraintEdge) {
     				Constraint cons = ((ConstraintEdge) edge).getConstraint();
-    				cand.add(new ConstraintEntity(cons, cons.getNumSuccPaths()));
+    				String str = cons.getPos().toString();
+    				cand.add(new ConstraintEntity(str, cons.toHTMLString(), cons.toConsoleString(), succCount.get(str)));
     			}
     		}
     	}
