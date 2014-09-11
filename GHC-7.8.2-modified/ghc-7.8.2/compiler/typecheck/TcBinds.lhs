@@ -1270,15 +1270,15 @@ tcSigFreshVars ty
     = do  { let (args, res) = tcSplitFunTys ty
         ; arg_tys <- newFlexiTyVarTys (length args) openTypeKind
         ; res_ty <- newFlexiTyVarTy openTypeKind
-        ; let new_ty = (mkFunTys arg_tys res_ty) 
-        ; _ <- unifyType ty new_ty
-        ; return new_ty }
+        ; _ <- unifyTypeLists args arg_tys 
+        ; _ <- unifyType res res_ty
+        ; return (mkFunTys arg_tys res_ty) }
 
---  where unifyTypeLists :: [TcTauType] -> [TcTauType] -> TcM ()
---        unifyTypeLists _ [] = return ()
---        unifyTypeLists [] _ = return ()
---        unifyTypeLists (ty1:tys1) (ty2:tys2) = do { _ <- setSrcSpan loc $ unifyType ty1 ty2
---                                                  ; unifyTypeLists tys1 tys2 }
+  where unifyTypeLists :: [TcTauType] -> [TcTauType] -> TcM ()
+        unifyTypeLists _ [] = return ()
+        unifyTypeLists [] _ = return ()
+        unifyTypeLists (ty1:tys1) (ty2:tys2) = do { _ <- unifyType ty1 ty2
+                                                  ; unifyTypeLists tys1 tys2 }
 
 -------------------------------
 data GeneralisationPlan
