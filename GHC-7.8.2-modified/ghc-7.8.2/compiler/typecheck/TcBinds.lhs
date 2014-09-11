@@ -525,10 +525,7 @@ tcPolyCheck rec_tc prag_fn
             <- setSrcSpan loc $  
                checkConstraints skol_info tvs ev_vars $
                tcExtendTyVarEnv2 [(n,tv) | (Just n, tv) <- tvs_w_scoped] $
-               (do {tau <- setSrcSpan loc $ tcSigFreshVars tau
-                   ; let new_sig = TcSigInfo { sig_id = poly_id, sig_tvs = tvs_w_scoped 
-                           , sig_theta = theta, sig_tau = tau, sig_loc = loc }
-                   ; tcMonoBinds rec_tc (\_ -> Just new_sig) LetLclBndr [bind] })
+               tcMonoBinds rec_tc (\_ -> Just sig) LetLclBndr [bind]
 
        ; spec_prags <- tcSpecPrags poly_id prag_sigs
        ; poly_id    <- addInlinePrags poly_id prag_sigs
@@ -1016,7 +1013,7 @@ tcMonoBinds is_rec sig_fn no_gen
                                  -- We extend the error context even for a non-recursive 
                                  -- function so that in type error messages we show the 
                                  -- type of the thing whose rhs we are type checking
-                               tcMatchesFun name inf matches rhs_ty
+                               tcMatchesFun name inf matches rhs_ty Nothing
 
         ; return (unitBag (origin,
                            L b_loc (FunBind { fun_id = L nm_loc mono_id, fun_infix = inf,
@@ -1102,16 +1099,20 @@ tcRhs :: TcMonoBind -> TcM (HsBind TcId)
 -- we *don't* bring any scoped type variables into scope
 -- Wny not?  They are not completely rigid.
 -- That's why we have the special case for a single FunBind in tcMonoBinds
-tcRhs (TcFunBind (_,_,mono_id) loc inf matches)
+tcRhs (TcFunBind (_,sig,mono_id) loc inf matches)
   = tcExtendIdBndrs [TcIdBndr mono_id NotTopLevel] $
             -- NotTopLevel: it's a monomorphic binding
     do  { traceTc "tcRhs: fun bind" (ppr mono_id $$ ppr (idType mono_id))
+        ; let lhs_ty = get_lhs_ty sig
         ; (co_fn, matches') <- tcMatchesFun (idName mono_id) inf 
-                                            matches (idType mono_id)
+                                            matches (idType mono_id) lhs_ty
         ; return (FunBind { fun_id = L loc mono_id, fun_infix = inf
                           , fun_matches = matches'
                           , fun_co_fn = co_fn 
                           , bind_fvs = placeHolderNames, fun_tick = Nothing }) }
+
+    where get_lhs_ty (Just (TcSigInfo {sig_lhs_ty = lty})) = Just lty
+          get_lhs_ty Nothing                               = Nothing
 
 tcRhs (TcPatBind infos pat' grhss pat_ty)
   = tcExtendIdBndrs [ TcIdBndr mono_id NotTopLevel | (_,_,mono_id) <- infos ] $
@@ -1243,7 +1244,8 @@ instTcTySigFromId loc id
                                          (idType id)
        ; return (TcSigInfo { sig_id = id, sig_loc = loc
                            , sig_tvs = [(Nothing, tv) | tv <- tvs]
-                           , sig_theta = theta, sig_tau = tau }) }
+                           , sig_theta = theta, sig_tau = tau 
+                           , sig_lhs_ty = L loc (HsTyVar (idName id)) }) }
   where
     -- Hack: in an instance decl we use the selector id as
     -- the template; but we do *not* want the SrcSpan on the Name of
@@ -1257,7 +1259,8 @@ instTcTySig hs_ty@(L loc _) sigma_ty name
        ; return (TcSigInfo { sig_id = mkLocalId name sigma_ty
                            , sig_loc = loc
                            , sig_tvs = findScopedTyVars hs_ty sigma_ty inst_tvs
-                           , sig_theta = theta, sig_tau = tau }) }
+                           , sig_theta = theta, sig_tau = tau 
+                           , sig_lhs_ty = hs_ty }) }
 
 tcSigFreshVars :: Type -> TcM Type
 -- we keep the shape of a type signature for two reasons:
@@ -1270,15 +1273,9 @@ tcSigFreshVars ty
     = do  { let (args, res) = tcSplitFunTys ty
         ; arg_tys <- newFlexiTyVarTys (length args) openTypeKind
         ; res_ty <- newFlexiTyVarTy openTypeKind
-        ; _ <- unifyTypeLists args arg_tys 
+        ; _ <- mapM (\(x, y) -> unifyType x y) (zip args arg_tys)
         ; _ <- unifyType res res_ty
         ; return (mkFunTys arg_tys res_ty) }
-
-  where unifyTypeLists :: [TcTauType] -> [TcTauType] -> TcM ()
-        unifyTypeLists _ [] = return ()
-        unifyTypeLists [] _ = return ()
-        unifyTypeLists (ty1:tys1) (ty2:tys2) = do { _ <- unifyType ty1 ty2
-                                                  ; unifyTypeLists tys1 tys2 }
 
 -------------------------------
 data GeneralisationPlan

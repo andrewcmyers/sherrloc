@@ -155,7 +155,9 @@ data TcSigInfo
         sig_tau    :: TcSigmaType,  -- Instantiated tau
 		      		    -- See Note [sig_tau may be polymorphic]
 
-        sig_loc    :: SrcSpan       -- The location of the signature
+        sig_loc    :: SrcSpan,      -- The location of the signature
+
+        sig_lhs_ty :: LHsType Name  -- Signature type with detailed location information
     }
 
 findScopedTyVars  -- See Note [Binding scoped type variables]
