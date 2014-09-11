@@ -1,6 +1,6 @@
 \begin{code}
 module TcMatches where
-import HsSyn    ( GRHSs, MatchGroup, LHsExpr )
+import HsSyn    ( GRHSs, MatchGroup, LHsExpr, LHsType )
 import TcEvidence( HsWrapper )
 import Name     ( Name )
 import TcType   ( TcRhoType )
@@ -14,5 +14,6 @@ tcGRHSsPat    :: GRHSs Name (LHsExpr Name)
 tcMatchesFun :: Name -> Bool
              -> MatchGroup Name (LHsExpr Name)
              -> TcRhoType
+             -> Maybe (LHsType Name)
              -> TcM (HsWrapper, MatchGroup TcId (LHsExpr TcId))
 \end{code}
