@@ -140,4 +140,4 @@ versimpelString (k:s) | eqChar k ' '     = versimpelString s
                       | otherwise = k : versimpelString s
 
 -- signature should be: String -> String
--- 117,13-26
+-- 117,1-8  117,13-26   117,23-26
