@@ -170,4 +170,4 @@ fun ding | eqChar (head ding) '!' =  "Niet (" ++ (fun (tail ding)) ++ ")"
 
 
 -- signature should be: String -> [String]
--- 160,12-25
+-- 160,1-7   160,22-25

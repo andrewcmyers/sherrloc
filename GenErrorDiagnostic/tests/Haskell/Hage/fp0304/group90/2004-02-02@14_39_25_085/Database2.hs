@@ -40,4 +40,4 @@ lengte _ [] = 0
 lengte n xs = maximum (map length (kolom n xs))
 
 -- signature should be:  lengte :: Int -> [[[b]]] -> Int
--- 38,1-6   38,11-29
+-- 38,1-6   38,11-29   38,18-22
