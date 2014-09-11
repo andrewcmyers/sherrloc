@@ -23,4 +23,4 @@ whitespace xs = satisfy isSpace  xs
 
 
 -- signature should be: Parser Char Char
--- 21,14-31
+-- 21,14-31   21,26-31   21,1-10

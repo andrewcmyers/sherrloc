@@ -120,4 +120,4 @@ eqElement (x:xs) (y:xy) | x == y = True
                         | otherwise = eqElement xs xy
 
 -- signature should be [Int] -> [Int] -> Bool
--- 118,14-31
+-- 118,14-16   118,21-23    118,14-16   118,21-23

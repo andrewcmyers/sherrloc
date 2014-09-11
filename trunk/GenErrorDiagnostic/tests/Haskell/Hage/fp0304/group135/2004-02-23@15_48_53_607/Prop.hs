@@ -99,4 +99,4 @@ equivalent p q = eqList eqBool (map (evalueer p) a) (map (evalueer q) a)
                  where a = alleBedelingen (En [p, q])
 
 -- signature should be: Prop -> [Bedeling]
--- 42,1-14   42,19-31
+-- 42,1-14   42,19-31   42,27-31

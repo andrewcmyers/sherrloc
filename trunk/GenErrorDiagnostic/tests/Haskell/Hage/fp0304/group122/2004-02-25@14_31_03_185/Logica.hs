@@ -110,4 +110,4 @@ constants:: Parser Prop
 constants  = bool `doe` (\e1 -> Bool e1)`orelse` variabele `doe` (\e1 -> Var e1)
 
 -- signature should be: String -> [((Char, Prop), String)]
--- 103,1-4   103,8-38 
+-- 103,1-4   103,8-38   103,18-38

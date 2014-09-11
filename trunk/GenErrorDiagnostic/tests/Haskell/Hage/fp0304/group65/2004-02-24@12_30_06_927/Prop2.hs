@@ -383,4 +383,4 @@ contr :: Prop
 contr = (En [Var "p", Niet (Var "p")])
 
 -- signature should be: Int -> Prop -> String
--- 328,15-33
+-- 328,1-10   328,15-33   328,30-33
