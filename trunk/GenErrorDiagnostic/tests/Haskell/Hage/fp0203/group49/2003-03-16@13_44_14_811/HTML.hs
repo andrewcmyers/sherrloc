@@ -14,4 +14,4 @@ tag :: String -> String
 tag a = "<" ++ a ++ ">"
 
 -- signature should be: String -> String
--- 10,17-40
+-- 10,1-12   10,17-40    10,37-40
