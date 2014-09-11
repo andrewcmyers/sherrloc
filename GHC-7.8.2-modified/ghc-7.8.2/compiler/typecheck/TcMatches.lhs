@@ -196,8 +196,9 @@ tcMatches ctxt pat_tys rhs_ty lhs_ty (MG { mg_alts = matches })
 
       fresh_ty_vars :: [TcSigmaType] -> TcRhoType -> Maybe (LHsType Name) -> TcM ([TcSigmaType], TcRhoType)
       fresh_ty_vars pat_tys rhs_ty lhs_ty 
-        | (Just hs_ty) <- lhs_ty
-          = do { let (arg_tys, res_ty) = splitHsFunType hs_ty 
+        | valid_sig lhs_ty
+        , Just hs_ty <- lhs_ty
+          = do { let (arg_tys, res_ty) = splitSig hs_ty 
                ; pat_tys' <- newFlexiTyVarTys (length pat_tys) openTypeKind
                ; rhs_ty' <- newFlexiTyVarTy openTypeKind
                ; _ <- mapM (\(x, y, z) -> unifySigType x y z) (zip3 pat_tys pat_tys' arg_tys)
@@ -205,6 +206,18 @@ tcMatches ctxt pat_tys rhs_ty lhs_ty (MG { mg_alts = matches })
                ; return (pat_tys', rhs_ty') }
         | otherwise 
           = do { return (pat_tys, rhs_ty) }
+
+      valid_sig :: Maybe (LHsType Name) -> Bool
+      valid_sig (Just (L _ (HsFunTy _ _))) = True
+      valid_sig (Just (L _ (HsParTy _))) = True
+      valid_sig (Just (L _ (HsForAllTy _ _ _ _))) = True
+      valid_sig _ = False
+
+      splitSig :: LHsType Name -> ([LHsType Name], LHsType Name)
+      splitSig hs_ty@(L _ (HsFunTy _ _)) = splitHsFunType hs_ty
+      splitSig hs_ty@(L _ (HsParTy _)) = splitHsFunType hs_ty
+      splitSig (L _ (HsForAllTy _ _ _ ty)) = splitSig ty
+      splitSig hs_ty = ([], hs_ty)
 
       unifySigType :: TcType -> TcType -> LHsType Name -> TcM()
       unifySigType ty1 ty1' ty2 
