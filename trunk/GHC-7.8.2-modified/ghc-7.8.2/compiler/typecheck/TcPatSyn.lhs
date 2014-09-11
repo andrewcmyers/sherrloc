@@ -221,6 +221,7 @@ tc_pat_syn_wrapper_from_expr (L loc name) lexpr args univ_tvs ex_tvs theta pat_t
                             , sig_theta = wrapper_theta
                             , sig_tau = wrapper_tau
                             , sig_loc = loc
+                            , sig_lhs_ty = L loc (HsTyVar wrapper_name)
                             }
        ; (wrapper_binds, _, _) <- tcPolyCheck NonRecursive (const []) sig (Generated, lbind)
        ; traceTc "tcPatSynDecl wrapper" $ ppr wrapper_binds

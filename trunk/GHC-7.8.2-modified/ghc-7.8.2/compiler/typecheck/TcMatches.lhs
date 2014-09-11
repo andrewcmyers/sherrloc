@@ -71,9 +71,10 @@ See Note [sig_tau may be polymorphic] in TcPat.
 tcMatchesFun :: Name -> Bool
              -> MatchGroup Name (LHsExpr Name)
              -> TcSigmaType     -- Expected type of function
+             -> Maybe (LHsType Name)    -- HsType with location information
              -> TcM (HsWrapper, MatchGroup TcId (LHsExpr TcId))
                                 -- Returns type of body
-tcMatchesFun fun_name inf matches exp_ty
+tcMatchesFun fun_name inf matches exp_ty lhs_ty
   = do	{  -- Check that they all have the same no of arguments
 	   -- Location is in the monad, set the caller so that 
 	   -- any inter-equation error messages get some vaguely
@@ -87,13 +88,15 @@ tcMatchesFun fun_name inf matches exp_ty
             <- tcGen (FunSigCtxt fun_name) exp_ty $ \ _ exp_rho ->
 	          -- Note [Polymorphic expected type for tcMatchesFun]
                matchFunTys herald arity exp_rho $ \ pat_tys rhs_ty -> 
-	       tcMatches match_ctxt pat_tys rhs_ty matches 
+	       tcMatches match_ctxt pat_tys rhs_ty lhs_ty matches 
+        ; traceTc "After tcGen" empty
         ; return (wrap_gen <.> wrap_fun, group) }
   where
     arity = matchGroupArity matches
     herald = ptext (sLit "The equation(s) for")
              <+> quotes (ppr fun_name) <+> ptext (sLit "have")
     match_ctxt = MC { mc_what = FunRhs fun_name inf, mc_body = tcBody }
+ 
 \end{code}
 
 @tcMatchesCase@ doesn't do the argument-count check because the
@@ -112,13 +115,13 @@ tcMatchesCase ctxt scrut_ty matches res_ty
   = return (MG { mg_alts = [], mg_arg_tys = [scrut_ty], mg_res_ty = res_ty }) 
 
   | otherwise
-  = tcMatches ctxt [scrut_ty] res_ty matches
+  = tcMatches ctxt [scrut_ty] res_ty Nothing matches
 
 tcMatchLambda :: MatchGroup Name (LHsExpr Name) -> TcRhoType 
               -> TcM (HsWrapper, MatchGroup TcId (LHsExpr TcId))
 tcMatchLambda match res_ty 
   = matchFunTys herald n_pats res_ty  $ \ pat_tys rhs_ty ->
-    tcMatches match_ctxt pat_tys rhs_ty match
+    tcMatches match_ctxt pat_tys rhs_ty Nothing match
   where
     n_pats = matchGroupArity match
     herald = sep [ ptext (sLit "The lambda expression")
@@ -170,6 +173,7 @@ matchFunTys herald arity res_ty thing_inside
 tcMatches :: (Outputable (body Name)) => TcMatchCtxt body
           -> [TcSigmaType]      -- Expected pattern types
           -> TcRhoType          -- Expected result-type of the Match.
+          -> Maybe (LHsType Name)    -- HsType with location information
           -> MatchGroup Name (Located (body Name))
           -> TcM (MatchGroup TcId (Located (body TcId)))
 
@@ -180,10 +184,33 @@ data TcMatchCtxt body   -- c.f. TcStmtCtxt, also in this module
                  -> TcRhoType
                  -> TcM (Located (body TcId)) }
 
-tcMatches ctxt pat_tys rhs_ty (MG { mg_alts = matches })
+tcMatches ctxt pat_tys rhs_ty lhs_ty (MG { mg_alts = matches })
   = ASSERT( not (null matches) )	-- Ensure that rhs_ty is filled in
-    do	{ matches' <- mapM (tcMatch ctxt pat_tys rhs_ty) matches
+    do	{ matches' <- mapM (one_match ctxt pat_tys rhs_ty lhs_ty) matches
 	; return (MG { mg_alts = matches', mg_arg_tys = pat_tys, mg_res_ty = rhs_ty }) }
+
+    where
+      one_match ctxt pat_tys rhs_ty lhs_ty match 
+        = do { (fresh_pat_tys, fresh_rhs_ty) <- fresh_ty_vars pat_tys rhs_ty lhs_ty
+             ; tcMatch ctxt fresh_pat_tys fresh_rhs_ty match }
+
+      fresh_ty_vars :: [TcSigmaType] -> TcRhoType -> Maybe (LHsType Name) -> TcM ([TcSigmaType], TcRhoType)
+      fresh_ty_vars pat_tys rhs_ty lhs_ty 
+        | (Just hs_ty) <- lhs_ty
+          = do { let (arg_tys, res_ty) = splitHsFunType hs_ty 
+               ; pat_tys' <- newFlexiTyVarTys (length pat_tys) openTypeKind
+               ; rhs_ty' <- newFlexiTyVarTy openTypeKind
+               ; _ <- mapM (\(x, y, z) -> unifySigType x y z) (zip3 pat_tys pat_tys' arg_tys)
+               ; unifySigType rhs_ty rhs_ty' res_ty
+               ; return (pat_tys', rhs_ty') }
+        | otherwise 
+          = do { return (pat_tys, rhs_ty) }
+
+      unifySigType :: TcType -> TcType -> LHsType Name -> TcM()
+      unifySigType ty1 ty1' ty2 
+        = do { let (L loc _) = ty2
+             ; _ <- setSrcSpan loc $ unifyType ty1 ty1' 
+             ; return () }
 
 -------------
 tcMatch :: (Outputable (body Name)) => TcMatchCtxt body
