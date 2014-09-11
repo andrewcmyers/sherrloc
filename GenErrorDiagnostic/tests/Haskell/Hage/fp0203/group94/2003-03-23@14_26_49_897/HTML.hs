@@ -90,4 +90,4 @@ zooi x = ["A","B","C","D","E","F"] !! (x-10)
 
 
 -- signature should be Int -> String
--- 88,9-19
+-- 88,1-4   88,9-19   88,16-19
