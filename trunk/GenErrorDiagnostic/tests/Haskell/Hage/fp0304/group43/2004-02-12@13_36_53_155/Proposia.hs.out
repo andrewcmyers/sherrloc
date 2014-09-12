@@ -1,0 +1,9 @@
+Compiling Proposia.hs
+(36,41)-(36,45): Type error in application
+ expression       : subs delDubbels (getVars a)
+ term             : subs
+   type           : [a]                    -> [[a]]        
+   does not match : (Bedeling -> Bedeling) -> Bedeling -> b
+ probable fix     : remove first argument
+
+Compilation failed with 1 error

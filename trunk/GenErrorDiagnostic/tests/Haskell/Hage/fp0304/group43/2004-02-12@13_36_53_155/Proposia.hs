@@ -13,7 +13,7 @@ type Bedeling = [String]
 
 elemBy        :: (a -> a -> Bool) -> a -> [a] -> Bool
 elemBy = undefined
-eqString      :: String -> String -> Bool 
+eqString      :: String -> String -> Bool
 eqString = undefined
 
 evalueer               :: Prop -> Bedeling -> Bool
@@ -31,16 +31,28 @@ evalueer (x :<-> y) b  =  evalueer (Of [(En [(Niet x), (Niet y)]), (En [x , y])]
 
 
 
+vervulbaar             :: Prop -> [Bedeling]
+vervulbaar a           =  [ x | x <- y , evalueer a x]
+                              where y = subs delDubbels(getVars a)
 
+subs                   :: [a] -> [[a]]
+subs []                =  [[]]
+subs (x:xs)            =  map (x:) subsxs ++ subsxs
+                              where subsxs = subs xs
 
-getVars                :: Prop -> [String]
+delDubbels             :: Bedeling -> Bedeling
+delDubbels []          =  []
+delDubbels (x:xs)      |  elemBy eqString x xs  = delDubbels xs
+                       |  otherwise             = x:delDubbels xs
+
+getVars                :: Prop -> Bedeling
 getVars (Var a)        =  [a]
-getVars (Bool a)       =  []
-getVars (En a)         =  foldr (:) [] (map getVars a)
-getVars (Of a)         =  foldr (:) [] (map getVars a)
+getVars (Bool _)       =  []
+getVars (En a)         =  concat (map getVars a)
+getVars (Of a)         =  concat (map getVars a)
 getVars (x :-> y)      =  (getVars x)++(getVars y)
 getVars (Niet a)       =  getVars a
 getVars (x :<-> y)     =  (getVars x)++(getVars y)
 
--- line 39 should have (Of a); line 40 should have (Of a)
--- 39,10-13   40,10-13
+-- missing () around delDubbels(getVars a)
+-- 36,46-66   36,41-66
