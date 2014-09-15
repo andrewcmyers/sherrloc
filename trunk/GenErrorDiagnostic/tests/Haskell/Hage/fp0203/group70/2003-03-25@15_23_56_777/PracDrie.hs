@@ -164,4 +164,4 @@ main :: IO ()
 main = layout(ppHTML(kleurenTabel))
 
 -- the parameter [[x]] should be: [x]
--- 122,6-10
+-- 122,6-10   122,7-9
