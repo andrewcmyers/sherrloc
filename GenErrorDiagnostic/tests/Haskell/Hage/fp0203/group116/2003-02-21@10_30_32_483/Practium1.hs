@@ -34,4 +34,4 @@ lengthColumn :: [[String]] -> [Int]
 lengthColumn n = map length firstColumn n
 
 -- missing () around firstColumn n
--- 34,29-39   34,18-41
+-- 34,29-39   34,18-41   34,18-20

@@ -182,6 +182,10 @@ sub print_unsound {
 # open my $fh, '<', $Name or die "file not found!";
 my $prettylen = 27;
 my @topdirs = ("fp0203", "fp0304");
+
+open OUT, ">$outfile" or die "oped failed : $outfile\n";
+OUT->autoflush(1);
+
 foreach my $topdir (@topdirs) {
 my @groups= <$topdir/*>;
 
@@ -219,9 +223,6 @@ if (($#ARGV == 0) && ($ARGV[0] eq "clean")) {
     }
   }
 }
-
-open OUT, ">$outfile" or die "oped failed : $outfile\n";
-OUT->autoflush(1);
 
 my $filename_length = 10; # for pretty print
 # iterate to the deepest level of directory

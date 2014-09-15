@@ -114,4 +114,4 @@ join tabel1 tabel2 = [ x++y | x<-compilers, y<-locaties, eqString (x!!kn1) (y!!k
                                 dub = bepaalDubbel tabel1 tabel2
 
 -- bepaalDubbel should return String; line 108 should be: head [...]
--- 107,17-52   108,30-90
+-- 107,1-12   107,17-52   107,45-52   108,30-90

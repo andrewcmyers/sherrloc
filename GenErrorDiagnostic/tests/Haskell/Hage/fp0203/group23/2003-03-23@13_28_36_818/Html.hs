@@ -95,4 +95,4 @@ test5 = DT "HTML" [("bgcolor","red")]
                                  ]
 
 -- should be False
--- 68,24-36
+-- 68,24-36   68,31-36

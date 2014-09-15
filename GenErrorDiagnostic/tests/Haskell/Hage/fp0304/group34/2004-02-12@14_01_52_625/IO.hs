@@ -11,5 +11,5 @@ getLn = do
                                        y <- getLn
                                        return x:y
 
--- "" should be []
--- 9,44-45
+-- "" should be []; x:y should be (x:y)
+-- 9,44-45   9,37-45   12,40-49   12,47-49
