@@ -100,4 +100,4 @@ eqStrLists [[]] _ = False
 eqStrLists lvl1 lvl2 = eqList eqString (concat lvl1) (concat lvl2)
 
 -- tail should be: last
--- 85,53-56
+-- 85,53-56   85,53-59

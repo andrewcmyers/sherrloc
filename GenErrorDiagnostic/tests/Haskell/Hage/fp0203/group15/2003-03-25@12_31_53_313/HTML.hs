@@ -83,4 +83,4 @@ text       :: String -> HTML
 text t     = Tekst t
 
 -- missing () around "H"++ showInt size
--- 77,20-37
+-- 77,20-37   77,14-50

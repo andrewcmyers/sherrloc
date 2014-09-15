@@ -110,4 +110,4 @@ deMorgan (Var a)    = Var a
 deMorgan (Bool a)   = Bool a
 
 -- eqString should be: (eqString a)
--- 25,45-52
+-- 25,45-52   25,41-55

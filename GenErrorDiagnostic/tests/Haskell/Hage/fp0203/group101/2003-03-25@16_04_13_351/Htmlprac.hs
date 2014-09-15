@@ -177,4 +177,4 @@ groepeer _ [] = []
 groepeer aantal lijst = take aantal lijst : groepeer aantal (drop aantal lijst)
 
 -- missing tekst before the strings
--- 98,60-63   98,87-90
+-- 98,60-62   98,87-90

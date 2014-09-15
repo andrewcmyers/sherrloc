@@ -551,4 +551,4 @@ charToTableStrings clr = case clr of
             _   -> [" 11 ", "1  1", "   1", "  1 ", " 1  ", "    ", " 1  "]
 
 -- concatMap should be: map
--- 187,54-62
+-- 187,54-62   187,54-77
