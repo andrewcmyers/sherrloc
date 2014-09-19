@@ -41,6 +41,7 @@ import Outputable
 import Util
 import SrcLoc
 import FastString
+import TypeRep ( Type( TyConApp, FunTy))
 
 -- Create chunkified tuple tybes for monad comprehensions
 import MkCore
@@ -198,32 +199,56 @@ tcMatches ctxt pat_tys rhs_ty lhs_ty (MG { mg_alts = matches })
       fresh_ty_vars pat_tys rhs_ty lhs_ty 
         | valid_sig lhs_ty
         , Just hs_ty <- lhs_ty
-          = do { let (arg_tys, res_ty) = splitSig hs_ty 
-               ; pat_tys' <- newFlexiTyVarTys (length pat_tys) openTypeKind
-               ; rhs_ty' <- newFlexiTyVarTy openTypeKind
-               ; _ <- mapM (\(x, y, z) -> unifySigType x y z) (zip3 pat_tys pat_tys' arg_tys)
-               ; unifySigType rhs_ty rhs_ty' res_ty
+          = do { let (arg_tys, res_ty) = splitSig hs_ty (length pat_tys)
+               ; pat_tys' <- mapM (\(x, y) -> unifySigType x y) (zip pat_tys (arg_tys++[res_ty]))
+               ; rhs_ty' <- unifySigType rhs_ty res_ty
+               ; traceTc "Return type " $ ppr rhs_ty'
                ; return (pat_tys', rhs_ty') }
         | otherwise 
           = do { return (pat_tys, rhs_ty) }
 
       valid_sig :: Maybe (LHsType Name) -> Bool
       valid_sig (Just (L _ (HsFunTy _ _))) = True
-      valid_sig (Just (L _ (HsParTy _))) = True
       valid_sig (Just (L _ (HsForAllTy _ _ _ _))) = True
       valid_sig _ = False
 
-      splitSig :: LHsType Name -> ([LHsType Name], LHsType Name)
-      splitSig hs_ty@(L _ (HsFunTy _ _)) = splitHsFunType hs_ty
-      splitSig hs_ty@(L _ (HsParTy _)) = splitHsFunType hs_ty
-      splitSig (L _ (HsForAllTy _ _ _ ty)) = splitSig ty
-      splitSig hs_ty = ([], hs_ty)
+      splitSig :: LHsType Name -> Arity -> ([LHsType Name], LHsType Name)
+      splitSig (L _ (HsForAllTy _ _ _ ty)) arity = splitSig ty arity
+      splitSig hs_ty 0                           = ([], hs_ty)
+      splitSig (L _ (HsFunTy ty1 ty2)) arity     = let (tys, ty_r) = splitSig ty2 (arity-1) in
+                                                   (ty1:tys, ty_r)
+      splitSig hs_ty arity                       = let (tys, ty_r) = splitSig hs_ty (arity-1) in
+                                                   (hs_ty:tys, ty_r)
 
-      unifySigType :: TcType -> TcType -> LHsType Name -> TcM()
-      unifySigType ty1 ty1' ty2 
-        = do { let (L loc _) = ty2
-             ; _ <- setSrcSpan loc $ unifyType ty1 ty1' 
-             ; return () }
+      unifySigType :: TcType -> LHsType Name -> TcM TcType
+      unifySigType ty@(FunTy ty1 ty2) lhs@(L loc (HsFunTy lty1 lty2))
+         = do { traceTc "unifying1 " (ppr ty $$ ppr lhs)
+              ; ty1' <- unifySigType ty1 lty1
+              ; ty2' <- unifySigType ty2 lty2
+              ; rty <- newFlexiTyVarTy openTypeKind
+              ; _ <- setSrcSpan loc $ unifyType (FunTy ty1' ty2') rty
+              ; return rty }
+
+      unifySigType ty@(TyConApp tc (ety:[])) lhs@(L loc (HsListTy lety))
+         = do { traceTc "unifying2 " (ppr ty $$ ppr lhs)
+              ; ety' <- unifySigType ety lety
+              ; rty <- newFlexiTyVarTy openTypeKind
+              ; _ <- setSrcSpan loc $ unifyType (TyConApp tc [ety']) rty
+              ; return rty }
+
+      unifySigType ty@(TyConApp tc tys) lhs@(L loc (HsTupleTy _ ltys))
+         | length tys == length ltys
+         = do { traceTc "unifying3 " (ppr ty $$ ppr lhs)
+              ; tys' <- mapM (\(x,y) -> unifySigType x y) (zip tys ltys)
+              ; rty <- newFlexiTyVarTy openTypeKind
+              ; _ <- setSrcSpan loc $ unifyType (TyConApp tc tys') rty
+              ; return rty }
+
+      unifySigType ty lhs@(L loc _)
+          = do { traceTc "unifying4 " (ppr ty $$ ppr lhs)
+               ; ty' <- newFlexiTyVarTy openTypeKind
+               ; _ <- setSrcSpan loc $ unifyType ty ty'
+               ; return ty' }
 
 -------------
 tcMatch :: (Outputable (body Name)) => TcMatchCtxt body
