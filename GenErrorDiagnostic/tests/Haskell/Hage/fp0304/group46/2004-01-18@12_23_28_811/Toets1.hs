@@ -14,4 +14,4 @@ groepeer n [] = []
 groepeer n (x:xs) = (x:take (n-1) xs)
 
 -- signature should be: Int -> [Int] -> [Int]
--- 12,13-35   12,29-35   12,1-8
+-- 12,13-35   12,29-35   12,30-34    12,1-8

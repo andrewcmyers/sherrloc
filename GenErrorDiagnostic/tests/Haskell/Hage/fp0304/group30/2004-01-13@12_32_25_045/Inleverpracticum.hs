@@ -34,4 +34,4 @@ lengthTable [] =  [0]
 lengthTable (x:xs) = [length x] ++ [length xs]
 
 -- signature should be [[a]] -> [Int]
--- 32,16-27   32,1-12   32,16-18
+-- 32,16-27   32,1-12   32,16-18    32,17-17
