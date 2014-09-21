@@ -59,4 +59,4 @@ replicate1 :: Int -> Char -> [Char]
 replicate1 n x = ['+'] ++ take (n) (repeat x)
 
 -- signature should be: Table -> [Char]
--- 50,19-35   50,28-35   50,1-54
+-- 50,19-35   50,28-35   50,1-54    50,29-34

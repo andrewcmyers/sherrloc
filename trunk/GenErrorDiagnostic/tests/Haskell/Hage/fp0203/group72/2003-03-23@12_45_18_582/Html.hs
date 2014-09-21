@@ -174,4 +174,4 @@ h :: Int -> String -> Html
 h int string = Tag2 ("H" ++ [(digitChar int)]) [] [Tekst string]
 
 -- should be: f x = Tag2 "LI" [] x
--- 171,21-37
+-- 171,21-37    171,27-37
