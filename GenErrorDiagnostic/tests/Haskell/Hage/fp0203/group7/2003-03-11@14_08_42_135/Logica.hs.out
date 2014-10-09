@@ -1,7 +1,5 @@
-Maybe is up to date
-List is up to date
-Compiling ./group7/2003-03-11@14:08:42:135/Logica.hs
-(105,31): Type error in literal
+Compiling Logica.hs
+(109,31)-(109,34): Type error in literal
  expression       : "("
    type           : String
    expected type  : Char  

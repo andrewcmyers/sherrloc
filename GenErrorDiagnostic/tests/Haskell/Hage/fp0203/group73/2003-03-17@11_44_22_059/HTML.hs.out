@@ -1,8 +1,14 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group73/2003-03-17@11:44:22:059/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(71,151)-(71,160): Type error in variable
+ expression       : concatMap
+   type           : (a    -> [b]) -> [a   ] -> [b       ]
+   expected type  : (HTML -> Doc) -> [HTML] -> [[String]]
+ probable fix     : use map instead
 
+(166,21)-(166,22): Type error in infix application
+ expression       : num / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+Compilation failed with 2 errors

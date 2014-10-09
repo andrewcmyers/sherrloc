@@ -1,8 +1,21 @@
-Can't find module 'Pretty'
-Import chain: 
-	Practicum3 imports Pretty
-Search path:
-	./group21/2003-03-25@14:13:27:176/
-	.
-	/usr/local/helium/lib
+(37,145)-(37,153): Type error in application
+ expression       : verticaleLijst (ppHTML x)
+ function         : verticaleLijst
+   type           : [Doc] -> Doc
+ 1st argument     : ppHTML x
+   type           : Doc       
+   does not match : [[[Char]]]
 
+(56,56)-(56,57): Type error in infix application
+ expression       : getal / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : a     -> Int   -> Int  
+
+(56,100)-(56,101): Type error in infix application
+ expression       : getal / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : a     -> Int   -> Int  
+
+Compilation failed with 3 errors

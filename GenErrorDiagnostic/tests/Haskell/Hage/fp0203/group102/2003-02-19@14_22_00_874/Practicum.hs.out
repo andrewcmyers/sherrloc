@@ -1,8 +1,8 @@
-Compiling ./group102/2003-02-19@14:22:00:874/Practicum.hs
-(13,26): Type error in infix application
+Compiling Practicum.hs
+(13,26)-(13,27): Type error in infix application
  expression       : x !! k - 1
  operator         : -
-   type           : Int    -> Int -> Int   
+   type           : a      -> a   -> a     
    does not match : String -> Int -> String
 
 Compilation failed with 1 error

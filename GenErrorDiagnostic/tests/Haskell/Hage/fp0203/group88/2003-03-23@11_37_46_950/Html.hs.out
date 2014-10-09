@@ -1,8 +1,8 @@
-Can't find module 'Pretty'
-Import chain: 
-	Html imports Pretty
-Search path:
-	./group88/2003-03-23@11:37:46:950/
-	.
-	/usr/local/helium/lib
+Compiling Html.hs
+(74,95)-(74,98): Type error in variable
+ expression       : map
+   type           : (a    -> b  ) -> [a   ] -> [b]
+   expected type  : (HTML -> Doc) -> [HTML] -> Doc
+ probable fix     : use concatMap instead
 
+Compilation failed with 1 error

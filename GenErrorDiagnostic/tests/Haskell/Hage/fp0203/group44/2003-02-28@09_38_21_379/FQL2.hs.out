@@ -1,10 +1,8 @@
-Maybe is up to date
-List is up to date
-Compiling ./group44/2003-02-28@09:38:21:379/FQL2.hs
-(181,43): Type error in constructor
- expression       : :
-   type           : a          -> [a]   -> [a]  
-   expected type  : [[String]] -> Table -> Table
- probable fix     : use ++ instead
+Compiling FQL2.hs
+(178,24)-(178,27): Type error in variable
+ expression       : map
+   type           : (a        -> b       ) -> [a]   -> [b     ]
+   expected type  : ([String] -> [String]) -> Table -> [String]
+ probable fix     : use concatMap instead
 
 Compilation failed with 1 error

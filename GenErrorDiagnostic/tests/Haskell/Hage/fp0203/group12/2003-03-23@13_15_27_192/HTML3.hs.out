@@ -1,8 +1,16 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML3 imports Pretty
-Search path:
-	./group12/2003-03-23@13:15:27:192/
-	.
-	/usr/local/helium/lib
+Compiling HTML3.hs
+(50,29)-(50,40): Type error in pattern application
+ pattern          : DoubleTag tag atts (Text string)
+ constructor      : DoubleTag
+   type           : String -> [Attribute] -> [HTML] -> HTML
+ 3rd argument     : Text string
+   type           : HTML  
+   does not match : [HTML]
 
+(70,52)-(70,53): Type error in infix application
+ expression       : getal / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+Compilation failed with 2 errors

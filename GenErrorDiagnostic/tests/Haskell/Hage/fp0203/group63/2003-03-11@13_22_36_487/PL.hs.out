@@ -1,5 +1,5 @@
-Compiling ./group63/2003-03-11@13:22:36:487/PL.hs
-(115,39): Type error in application
+Compiling PL.hs
+(120,39)-(120,40): Type error in application
  expression       : Niet p
  function         : Niet
    type           : Prop -> Prop
@@ -7,7 +7,7 @@ Compiling ./group63/2003-03-11@13:22:36:487/PL.hs
    type           : String
    does not match : Prop  
 
-(115,48): Type error in application
+(120,48)-(120,49): Type error in application
  expression       : Niet q
  function         : Niet
    type           : Prop -> Prop

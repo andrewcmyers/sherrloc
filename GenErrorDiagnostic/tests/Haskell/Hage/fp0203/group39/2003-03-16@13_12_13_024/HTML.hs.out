@@ -1,8 +1,16 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group39/2003-03-16@13:12:13:024/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(65,48)-(65,49): Type error in infix application
+ expression       : x / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(90,59)-(90,67): Type error in application
+ expression       : TagDubbel (Open "LI") [attrib] html (Sluit "/LI")
+ function         : TagDubbel
+   type           : Open -> [Attrib] -> [HTML] -> Sluit -> HTML
+ 2nd argument     : [attrib]
+   type           : [Attributes]
+   does not match : [Attrib    ]
+
+Compilation failed with 2 errors

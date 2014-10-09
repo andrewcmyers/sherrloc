@@ -1,5 +1,5 @@
-Compiling ./group118/2003-02-27@13:49:52:580/Database.hs
-(31,15): Type error in application
+Compiling Database.hs
+(31,15)-(31,18): Type error in application
  expression       : map (concat x ++ ["\n"])
  term             : map
    type           : (a -> b  ) -> [a] -> [b]

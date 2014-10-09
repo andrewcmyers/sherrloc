@@ -1,25 +1,6 @@
-Maybe is up to date
-List is up to date
-Compiling ./group65/2003-02-27@13:49:24:335/Write.hs
-(6,8): Warning: Variable "cmp" is not used
-(75,10): Warning: Variable "a" is not used
-(91,30): Warning: Variable "a" is not used
-(97,27): Warning: Variable "a" is not used
-(106,14): Warning: Variable "a" is not used
-(124,11): Warning: Variable "a" is not used
-(136,23): Warning: Variable "a" is not used
-(136,25): Warning: Variable "b" is not used
-(137,23): Warning: Variable "a" is not used
-(138,23): Warning: Variable "a" is not used
-(138,28): Warning: Variable "b" is not used
-(144,10): Warning: Variable "a" is not used
-(144,12): Warning: Variable "b" is not used
-(145,10): Warning: Variable "a" is not used
-(145,15): Warning: Variable "b" is not used
-(146,10): Warning: Variable "a" is not used
-(85,15): Type error in right hand side
- term             : putStr " "
+(91,17)-(91,27): Type error in right-hand side
+ expression       : putStr " "
    type           : IO () 
-   does not match : [Char]
+   does not match : String
 
 Compilation failed with 1 error

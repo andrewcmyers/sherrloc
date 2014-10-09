@@ -1,8 +1,9 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group29/2003-03-23@12:36:08:592/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(55,31)-(55,33): Type error in application
+ expression       : s2 ""
+ term             : s2
+   type           : String          
+   does not match : String -> [Char]
+ because          : it is not a function
 
+Compilation failed with 1 error

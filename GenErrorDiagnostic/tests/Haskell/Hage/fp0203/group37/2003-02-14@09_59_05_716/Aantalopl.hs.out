@@ -1,7 +1,7 @@
-Compiling ./group37/2003-02-14@09:59:05:716/Aantalopl.hs
-(5,1): Type error in explicitly typed binding
- term             : aantalOpl
-   type           : Float -> Float -> Float -> Int
-   does not match : Int   -> Int   -> Int   -> Int
+Compiling Aantalopl.hs
+(6,1)-(6,10): Type error in explicitly typed binding
+ definition       : aantalOpl
+   inferred type  : Int   -> Int   -> Int   -> Int
+   declared type  : Float -> Float -> Float -> Int
 
 Compilation failed with 1 error

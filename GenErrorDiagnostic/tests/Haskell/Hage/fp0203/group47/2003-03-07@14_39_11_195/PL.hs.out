@@ -1,5 +1,5 @@
-Compiling ./group47/2003-03-07@14:39:11:195/PL.hs
-(23,78): Type error in infix application
+Compiling PL.hs
+(25,78)-(25,103): Type error in infix application
  expression       : evalueer p bedeling : evalueer (Of ps) bedeling
  operator         : :
    type           : a -> [a] -> [a]
@@ -7,7 +7,7 @@ Compiling ./group47/2003-03-07@14:39:11:195/PL.hs
    type           : Bool
    does not match : [a] 
 
-(26,79): Type error in infix application
+(28,79)-(28,104): Type error in infix application
  expression       : evalueer p bedeling : evalueer (En ps) bedeling
  operator         : :
    type           : a -> [a] -> [a]
