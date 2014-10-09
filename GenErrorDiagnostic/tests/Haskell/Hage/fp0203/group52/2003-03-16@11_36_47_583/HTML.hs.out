@@ -1,8 +1,14 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group52/2003-03-16@11:36:47:583/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(119,92)-(119,93): Type error in infix application
+ expression       : not . eqString
+ operator         : .
+   type           : (a    -> b   )
+                    -> (c      -> a             )
+                    -> c     
+                    -> b             
+   does not match : (Bool -> Bool)
+                    -> (String -> String -> Bool)
+                    -> String
+                    -> String -> Bool
 
+Compilation failed with 1 error

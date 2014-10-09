@@ -1,8 +1,9 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group41/2003-03-23@13:35:16:304/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(110,92)-(110,106): Type error in application
+ expression       : verticaleLijst map toDoc htmls
+ term             : verticaleLijst
+   type           : [Doc]                    -> Doc                           
+   does not match : ((a -> b) -> [a] -> [b]) -> (HTML -> Doc) -> [HTML] -> Doc
+ because          : too many arguments are given
 
+Compilation failed with 1 error

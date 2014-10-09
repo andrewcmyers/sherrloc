@@ -1,9 +1,7 @@
-Maybe is up to date
-List is up to date
-Compiling ./group22/2003-03-09@12:49:16:643/Propositie.hs
-(103,27): Type error in application
+Compiling Propositie.hs
+(102,27)-(102,31): Type error in application
  expression       : Niet Var p
- term             : Niet
+ constructor      : Niet
    type           : Prop             -> Prop          
    does not match : (String -> Prop) -> String -> Prop
  because          : too many arguments are given

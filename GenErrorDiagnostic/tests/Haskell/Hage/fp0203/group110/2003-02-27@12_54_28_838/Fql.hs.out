@@ -1,7 +1,5 @@
-Maybe is up to date
-List is up to date
-Compiling ./group110/2003-02-27@12:54:28:838/Fql.hs
-(122,20): Type error in application
+Compiling Fql.hs
+(122,20)-(122,31): Type error in application
  expression       : findIndices (eqBool True) [(map (... ...) (... ...))]
  term             : findIndices
    type           : (a    -> Bool) -> [a     ] -> [Int]

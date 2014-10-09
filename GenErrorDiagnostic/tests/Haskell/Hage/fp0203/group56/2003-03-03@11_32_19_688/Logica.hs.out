@@ -1,7 +1,7 @@
-Compiling ./group56/2003-03-03@11:32:19:688/Logica.hs
-(46,24): Type error in right hand side
- term             : (concat (concat ((vervulbaar x) ++ (... (...)))) : [])
-   type           : [[Char  ]]
-   does not match : [[String]]
+Compiling Logica.hs
+(46,28)-(46,89): Type error in right-hand side
+ expression       : concat (concat ((vervulbaar x) ++ (... (En ...)))) : []
+   type           : [[Char]  ]
+   does not match : [Bedeling]
 
 Compilation failed with 1 error

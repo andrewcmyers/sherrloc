@@ -1,10 +1,8 @@
-Maybe is up to date
-List is up to date
-Compiling ./group9/2003-02-28@09:54:20:327/Database.hs
-(269,40): Type error in variable
- expression       : eqChar
-   type           : Char   -> Char   -> Bool
-   expected type  : String -> String -> Bool
- probable fix     : use eqString instead
+Compiling Database.hs
+(271,33)-(271,39): Type error in application
+ expression       : eqList eqChar lijst kolom
+ term             : eqList
+   type           : (a    -> a    -> Bool) -> [a     ] -> [a     ] -> Bool
+   does not match : (Char -> Char -> Bool) -> [String] -> [String] -> Bool
 
 Compilation failed with 1 error

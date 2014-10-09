@@ -1,7 +1,5 @@
-Maybe is up to date
-List is up to date
-Compiling ./group53/2003-03-11@11:51:02:211/Propositie.hs
-(196,54): Type error in application
+Compiling Propositie.hs
+(197,54)-(197,79): Type error in application
  expression       : Of [linkerterm, rechterterm]
  function         : Of
    type           : [Prop] -> Prop
@@ -9,7 +7,7 @@ Compiling ./group53/2003-03-11@11:51:02:211/Propositie.hs
    type           : [Int -> Prop]
    does not match : [Prop       ]
 
-(197,54): Type error in application
+(198,54)-(198,79): Type error in application
  expression       : En [linkerterm, rechterterm]
  function         : En
    type           : [Prop] -> Prop

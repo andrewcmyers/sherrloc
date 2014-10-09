@@ -1,5 +1,5 @@
-Compiling ./group10/2003-03-03@10:26:04:543/HaskellProp.hs
-(38,37): Type error in application
+Compiling HaskellProp.hs
+(38,37)-(38,38): Type error in application
  expression       : alleVariabelen p
  function         : alleVariabelen
    type           : Prop -> Bedeling

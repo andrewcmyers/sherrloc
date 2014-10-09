@@ -1,8 +1,8 @@
-Can't find module 'Pretty'
-Import chain: 
-	Html imports Pretty
-Search path:
-	./group72/2003-03-23@12:45:18:582/
-	.
-	/usr/local/helium/lib
+Compiling Html.hs
+(170,32)-(170,33): Type error in variable
+ expression       : f
+   type           : [Attribute] -> [Html] -> Html
+   expected type  : [Html     ] -> Html          
+ probable fix     : insert one argument
 
+Compilation failed with 1 error

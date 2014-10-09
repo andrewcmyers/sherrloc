@@ -1,12 +1,12 @@
-Compiling ./group35/2003-03-02@12:10:12:877/Logica.hs
-(109,20): Type error in guarded expression
+Compiling Logica.hs
+(118,34)-(118,37): Type error in guarded expression
  expression       : [k]
    type           : [Char]
    does not match : Prop  
 
-(110,38): Type error in infix application
+(119,38)-(119,39): Type error in infix application
  expression       : k : (ontleed1 s)
- operator         : :
+ constructor      : :
    type           : a    -> [a]  -> [a] 
    does not match : Char -> Prop -> Prop
 

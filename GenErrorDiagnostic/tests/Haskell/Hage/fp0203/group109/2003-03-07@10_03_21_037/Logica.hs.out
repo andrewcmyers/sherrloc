@@ -1,11 +1,11 @@
-Compiling ./group109/2003-03-07@10:03:21:037/Logica.hs
-(146,43): Type error in literal
+Compiling Logica.hs
+(156,43)-(156,46): Type error in literal
  expression       : 1.5
    type           : Float
    expected type  : Int  
  probable fix     : use an int literal instead
 
-(146,70): Type error in literal
+(156,70)-(156,73): Type error in literal
  expression       : 1.5
    type           : Float
    expected type  : Int  

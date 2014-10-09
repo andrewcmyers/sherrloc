@@ -1,8 +1,16 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group84/2003-03-23@10:52:11:920/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(169,33)-(169,68): Type error in application
+ expression       : ul2 [[tagRood], [tagGroen], [tagBlauw]]
+ function         : ul2
+   type           : [HTML] -> HTML
+ 1st argument     : [[tagRood], [tagGroen], [tagBlauw]]
+   type           : [[HTML]]
+   does not match : [HTML  ]
 
+(199,21)-(199,22): Type error in infix application
+ expression       : num / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+Compilation failed with 2 errors

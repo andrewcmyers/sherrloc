@@ -1,5 +1,5 @@
-Compiling ./group62/2003-03-10@11:57:32:111/Propositie.hs
-(123,25): Type error in application
+Compiling Propositie.hs
+(126,25)-(126,145): Type error in application
  expression       : En [unwords ((... ... ...)), unwords ((drop 1 (...)))]
  function         : En
    type           : [Prop] -> Prop

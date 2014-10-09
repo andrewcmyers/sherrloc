@@ -1,8 +1,14 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group26/2003-03-25@10:18:04:963/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(209,45)-(209,46): Type error in infix application
+ expression       : x / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(225,30)-(225,33): Type error in application
+ expression       : map liCreator [Text "listOfLists"]
+ term             : map
+   type           : (a      -> b   ) -> [a   ] -> [b   ]
+   does not match : ([HTML] -> HTML) -> [HTML] -> [HTML]
+
+Compilation failed with 2 errors

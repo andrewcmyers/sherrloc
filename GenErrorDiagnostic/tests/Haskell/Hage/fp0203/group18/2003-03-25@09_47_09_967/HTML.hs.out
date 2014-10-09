@@ -1,8 +1,21 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group18/2003-03-25@09:47:09:967/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(188,29)-(188,30): Type error in infix application
+ expression       : (n - mod16 n) / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(211,23)-(211,34): Type error in application
+ expression       : GeslotenTag "UL" attributen (map li) htmls
+ constructor      : GeslotenTag
+   type           : Tag   
+                    -> [Attribuut]
+                    -> [HTML]              
+                    -> HTML            
+   does not match : String
+                    -> [Attribuut]
+                    -> ([[HTML]] -> [HTML])
+                    -> [[HTML]] -> HTML
+ because          : too many arguments are given
+
+Compilation failed with 2 errors

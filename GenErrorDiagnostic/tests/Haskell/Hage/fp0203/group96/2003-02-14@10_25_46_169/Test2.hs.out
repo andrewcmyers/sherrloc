@@ -1,8 +1,9 @@
-Compiling ./group96/2003-02-14@10:25:46:169/Test2.hs
-(1,39): Type error in variable
+Compiling Test2.hs
+(3,39)-(3,41): Type error in variable
  expression       : ++
-   type           : [a] -> [a  ] -> [a  ]
-   expected type  : Int -> [Int] -> [Int]
+   type           : [a] -> [a] -> [a]
+   expected type  : b   -> [b] -> [b]
+ because          : unification would give infinite type
  probable fix     : use : instead
 
 Compilation failed with 1 error

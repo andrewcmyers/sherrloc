@@ -1,11 +1,11 @@
-Compiling ./group61/2003-03-11@12:07:41:060/Practicum2b.hs
-(171,49): Type error in application
+Compiling Practicum2b.hs
+(185,49)-(185,59): Type error in application
  expression       : maakSimpel props
  term             : maakSimpel
    type           : Prop   -> Prop  
    does not match : [Prop] -> [Prop]
 
-(175,49): Type error in application
+(189,49)-(189,59): Type error in application
  expression       : maakSimpel props
  term             : maakSimpel
    type           : Prop   -> Prop  

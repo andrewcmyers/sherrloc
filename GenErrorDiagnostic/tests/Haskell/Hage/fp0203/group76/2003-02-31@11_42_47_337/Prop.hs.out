@@ -1,7 +1,7 @@
-Compiling ./group76/2003-02-31@11:42:47:337/Prop.hs
-(31,22): Type error in variable
- expression       : varUitProp
-   type           : Prop -> [String  ]
-   expected type  : Prop -> [[String]]
+Compiling Prop.hs
+(38,22)-(38,34): Type error in right-hand side
+ expression       : varUitProp p
+   type           : [String  ]
+   does not match : [Bedeling]
 
 Compilation failed with 1 error

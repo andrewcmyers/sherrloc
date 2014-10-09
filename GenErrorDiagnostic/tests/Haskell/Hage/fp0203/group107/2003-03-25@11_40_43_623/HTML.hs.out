@@ -1,8 +1,14 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group107/2003-03-25@11:40:43:623/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(40,29)-(40,30): Type error in infix application
+ expression       : getal / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(186,22)-(186,28): Type error in application
+ expression       : putStr (ppHTML kleurenTabel)
+ term             : putStr
+   type           : String -> IO () 
+   does not match : Doc    -> String
+
+Compilation failed with 2 errors

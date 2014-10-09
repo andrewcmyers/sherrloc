@@ -1,8 +1,19 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group25/2003-03-23@12:54:12:914/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(29,75)-(29,78): Type error in application
+ expression       : map map toUpper [tag, a, b]
+ term             : map
+   type           : (a        -> b         )
+                    -> [a]           
+                    -> [b]            
+   does not match : ((c -> d) -> [c] -> [d])
+                    -> (Char -> Char)
+                    -> [String] -> [e]
+ because          : too many arguments are given
 
+(59,28)-(59,29): Type error in infix application
+ expression       : i / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+Compilation failed with 2 errors

@@ -1,8 +1,9 @@
-Can't find module 'Pretty'
-Import chain: 
-	PpHTML imports Pretty
-Search path:
-	./group13/2003-03-23@12:03:36:527/
-	.
-	/usr/local/helium/lib
+Compiling PpHTML.hs
+(24,84)-(24,90): Type error in application
+ expression       : simpel head (html)
+ term             : simpel
+   type           : HTML       -> Bool          
+   does not match : ([a] -> a) -> [HTML] -> Bool
+ because          : too many arguments are given
 
+Compilation failed with 1 error

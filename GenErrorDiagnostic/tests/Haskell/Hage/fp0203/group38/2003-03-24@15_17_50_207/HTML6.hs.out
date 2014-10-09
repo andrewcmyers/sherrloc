@@ -1,8 +1,9 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML6 imports Pretty
-Search path:
-	./group38/2003-03-24@15:17:50:207/
-	.
-	/usr/local/helium/lib
+Compiling HTML6.hs
+(104,105)-(104,113): Type error in application
+ expression       : springIn 1 ppLijstHTML html
+ term             : springIn
+   type           : Int -> Doc             -> Doc          
+   does not match : Int -> ([HTML] -> Doc) -> [HTML] -> Doc
+ because          : too many arguments are given
 
+Compilation failed with 1 error

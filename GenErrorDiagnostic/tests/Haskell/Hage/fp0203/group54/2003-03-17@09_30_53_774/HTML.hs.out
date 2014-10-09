@@ -1,9 +1,15 @@
-Maybe is up to date
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group54/2003-03-17@09:30:53:774/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(82,29)-(82,30): Type error in infix application
+ expression       : x / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : a     -> Int   -> Int  
 
+(95,34)-(95,40): Type error in application
+ expression       : Dubbel "TD" [("BGCOLOR", color rood groen blauw)]
+ constructor      : Dubbel
+   type           : String -> [Attribuut       ] -> [HTML] -> HTML
+   does not match : String -> [(String, String)] -> HTML          
+ probable fix     : insert a third argument
+
+Compilation failed with 2 errors

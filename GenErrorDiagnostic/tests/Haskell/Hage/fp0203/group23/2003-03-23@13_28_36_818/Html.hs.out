@@ -1,8 +1,10 @@
-Can't find module 'Pretty'
-Import chain: 
-	Html imports Pretty
-Search path:
-	./group23/2003-03-23@13:28:36:818/
-	.
-	/usr/local/helium/lib
+Compiling Html.hs
+(68,31)-(68,37): Type error in application
+ expression       : simpel [html]
+ function         : simpel
+   type           : HTML -> Bool
+ 1st argument     : [html]
+   type           : [[HTML]]
+   does not match : HTML    
 
+Compilation failed with 1 error
