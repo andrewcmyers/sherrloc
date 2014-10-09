@@ -1,5 +1,5 @@
-Compiling ./group100/2003-03-16@13:32:04:252/HTML.hs
-(22,58): Type error in application
+Compiling HTML.hs
+(22,58)-(22,62): Type error in application
  expression       : test DubbelTag "LI" [] xs
  term             : test
    type           : HTML                                  

@@ -1,10 +1,16 @@
-Maybe is up to date
-List is up to date
-Can't find module 'Pretty'
-Import chain: 
-	PracDrie imports Pretty
-Search path:
-	./group70/2003-03-25@15:23:56:777/
-	.
-	/usr/local/helium/lib
+Compiling PracDrie.hs
+(88,29)-(88,30): Type error in infix application
+ expression       : b / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(122,32)-(122,33): Type error in application
+ expression       : TwoTag "FONT" x [y]
+ function         : TwoTag
+   type           : String -> Attribute -> [HTML] -> HTML
+ 2nd argument     : x
+   type           : (String, String)  
+   does not match : [([Char], [Char])]
+
+Compilation failed with 2 errors
