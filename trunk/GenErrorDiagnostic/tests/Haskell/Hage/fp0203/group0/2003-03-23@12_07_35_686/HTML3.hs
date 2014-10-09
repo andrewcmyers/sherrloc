@@ -121,4 +121,4 @@ kleurenTabel = document "Kleurentabel" [(h 1 "Kleurentabel"),
                                        (ul [[font [("COLOR","#FF0000")] [text "Rood"], text "loopt van boven naar onder van 0 tot en met 250 in stappen van 25"],[font [("COLOR","#00FF00")] [text "Groen"], text "loopt van boven naar onder van 0 tot en met 250 in stappen van 25"],[font ["COLOR","#0000FF"] [text "Blauw"], text "is overal 0"]])]
 
 -- missing () around: "COLOR","#0000FF"
--- 121,287-293   121,295-303   121,287-303
+-- 121,287-293   121,295-303   121,287-303   121,286-304

@@ -25,4 +25,4 @@ simpel (TweeTags _ attributen html) | (length attributen) + (length html) == 1 &
                                     | otherwise = False
 
 -- (simpel head(html should be simpel (head(html
--- 24,84-100
+-- 24,84-100    24,84-101
