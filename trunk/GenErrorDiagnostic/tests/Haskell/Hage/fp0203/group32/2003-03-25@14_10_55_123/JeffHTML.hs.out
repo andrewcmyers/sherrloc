@@ -1,5 +1,17 @@
-Compiling ./group32/2003-03-25@14:10:55:123/JeffHTML.hs
-(96,49): Type error in application
+Compiling JeffHTML.hs
+(47,27)-(47,28): Type error in infix application
+ expression       : r / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> a    
+
+(49,27)-(49,28): Type error in infix application
+ expression       : g / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> a    
+
+(96,49)-(96,54): Type error in application
  expression       : Dtag ("TITLE", []) hoofd "/TITLE"
  function         : Dtag
    type           : (String, [Attrib]) -> [HTML] -> String -> HTML
@@ -7,4 +19,6 @@ Compiling ./group32/2003-03-25@14:10:55:123/JeffHTML.hs
    type           : String
    does not match : [HTML]
 
-Compilation failed with 1 error
+(...)
+
+Compilation failed with 4 errors

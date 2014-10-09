@@ -1,12 +1,10 @@
-Maybe is up to date
-List is up to date
-Compiling ./group87/2003-03-10@15:39:45:494/Practium2.hs
-(169,29): Type error in application
+Compiling Practium2.hs
+(174,29)-(174,30): Type error in application
  expression       : eqString x ""
  function         : eqString
    type           : String -> String -> Bool
  1st argument     : x
    type           : [String]
-   does not match : String  
+   does not match : [Char  ]
 
 Compilation failed with 1 error

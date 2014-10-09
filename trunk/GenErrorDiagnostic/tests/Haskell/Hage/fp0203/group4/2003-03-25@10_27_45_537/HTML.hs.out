@@ -1,8 +1,13 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group4/2003-03-25@10:27:45:537/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(78,50)-(78,87): Type error in right-hand side
+ expression       : text $ name ++ "=\"" ++ value ++ "\""
+   type           : HTML
+   does not match : Doc 
 
+(140,94)-(140,95): Type error in infix application
+ expression       : dec / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+Compilation failed with 2 errors

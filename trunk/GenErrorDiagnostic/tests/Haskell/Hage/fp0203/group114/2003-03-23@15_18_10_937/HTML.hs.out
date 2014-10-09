@@ -1,8 +1,10 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group114/2003-03-23@15:18:10:937/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(51,37)-(51,55): Type error in infix application
+ expression       : tekst " " <|> unwords attributen
+ operator         : <|>
+   type           : Doc -> Doc -> Doc
+ right operand    : unwords attributen
+   type           : String  
+   does not match : [[Char]]
 
+Compilation failed with 1 error

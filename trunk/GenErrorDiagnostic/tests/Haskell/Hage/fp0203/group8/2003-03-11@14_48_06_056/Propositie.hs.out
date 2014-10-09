@@ -1,7 +1,5 @@
-Maybe is up to date
-List is up to date
-Compiling ./group8/2003-03-11@14:48:06:056/Propositie.hs
-(59,38): Type error in application
+Compiling Propositie.hs
+(63,38)-(63,43): Type error in application
  expression       : nubBy eqString alleVariabelen
  term             : nubBy
    type           : (a      -> a      -> Bool)
@@ -10,6 +8,5 @@ Compiling ./group8/2003-03-11@14:48:06:056/Propositie.hs
    does not match : (String -> String -> Bool)
                     -> (Prop -> [String])
                     -> Prop -> [String]
- because          : too many arguments are given
 
 Compilation failed with 1 error

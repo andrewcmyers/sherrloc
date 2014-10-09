@@ -1,5 +1,6 @@
 module HaskellProp where
-import GHC.Base
+eqString      :: String -> String -> Bool 
+eqString = undefined
 data Prop
   = En [Prop]
   | Of [Prop]
@@ -20,7 +21,6 @@ evalueer (Niet p) bed = not (evalueer p bed)
 evalueer (a :-> b) bed = evalueer b bed || (not (evalueer a bed))
 evalueer (Var s) bed = elemBy eqString s bed
 evalueer (Bool b) _ = b
-
 verwijderDuplicaten [] = []
 verwijderDuplicaten (x:xs) | (elemBy eqString x xs) = verwijderDuplicaten xs
                            | otherwise = x: verwijderDuplicaten xs

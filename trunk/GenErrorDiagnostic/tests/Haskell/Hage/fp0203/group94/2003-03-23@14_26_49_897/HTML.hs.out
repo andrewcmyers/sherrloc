@@ -1,8 +1,7 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group94/2003-03-23@14:26:49:897/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(89,10)-(89,45): Type error in right-hand side
+ expression       : ["A", "B", "C", "D", "E", "F"] !! (x - 10)
+   type           : String
+   does not match : Char  
 
+Compilation failed with 1 error

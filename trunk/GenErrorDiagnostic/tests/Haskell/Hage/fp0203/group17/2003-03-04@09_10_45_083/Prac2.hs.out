@@ -1,7 +1,7 @@
-Compiling ./group17/2003-03-04@09:10:45:083/Prac2.hs
-(37,43): Type error in element of list
+Compiling Prac2.hs
+(38,43)-(38,47): Type error in element of list
  expression       : [Niet (Var "p"), Var "q", True]
- term             : True
+ constructor      : True
    type           : Bool
    does not match : Prop
 

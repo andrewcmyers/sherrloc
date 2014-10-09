@@ -1,5 +1,5 @@
-Compiling ./group113/2003-03-16@12:57:33:412/Html.hs
-(12,63): Type error in application
+Compiling Html.hs
+(13,63)-(13,81): Type error in application
  expression       : DubbelTag "font" [("color", "red")] [Text "Hoi \n boe"]
  function         : DubbelTag
    type           : Naam -> [Attribuut] -> [HTML] -> HTML

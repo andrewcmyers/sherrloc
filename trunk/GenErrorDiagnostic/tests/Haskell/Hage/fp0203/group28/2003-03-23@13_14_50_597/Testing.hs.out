@@ -1,8 +1,13 @@
-Can't find module 'Pretty'
-Import chain: 
-	Testing imports Pretty
-Search path:
-	./group28/2003-03-23@13:14:50:597/
-	.
-	/usr/local/helium/lib
+(50,33)-(50,34): Type error in infix application
+ expression       : getal / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(62,131)-(62,136): Type error in application
+ expression       : color elem
+ term             : color
+   type           : Int               -> Int -> Int -> String
+   does not match : [(Int, Int, Int)] -> [Attribuut]         
+
+Compilation failed with 2 errors

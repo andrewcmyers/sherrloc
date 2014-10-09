@@ -1,8 +1,22 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group95/2003-03-24@15:03:48:205/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(81,22)-(81,23): Type error in infix application
+ expression       : r / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(81,52)-(81,53): Type error in infix application
+ expression       : g / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+(81,82)-(81,83): Type error in infix application
+ expression       : b / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+(...)
+
+Compilation failed with 4 errors

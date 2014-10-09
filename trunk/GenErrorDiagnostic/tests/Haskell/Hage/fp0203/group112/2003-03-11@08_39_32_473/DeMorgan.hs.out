@@ -1,27 +1,25 @@
-Maybe is up to date
-List is up to date
-Compiling ./group112/2003-03-11@08:39:32:473/DeMorgan.hs
-(87,29): Type error in application
- expression       : deMorgan x
- term             : deMorgan
-   type           : Prop   -> Prop  
-   does not match : [Prop] -> a -> b
- probable fix     : remove first argument
+Compiling DeMorgan.hs
+(86,24)-(86,27): Type error in application
+ expression       : map (deMorgan x)
+ term             : map
+   type           : (a -> b) -> [a] -> [b]
+   does not match : Prop     -> [Prop]    
+ because          : not enough arguments are given
 
-(88,23): Type error in application
- expression       : Of (map (deMorgan x))
- function         : Of
+(87,14)-(87,15): Type error in pattern application
+ pattern          : Of x
+ constructor      : Of
    type           : [Prop] -> Prop
- 1st argument     : (map (deMorgan x))
-   type           : [a] -> [b]
-   does not match : [Prop]    
+ 1st argument     : x
+   type           : Prop  
+   does not match : [Prop]
 
-(88,29): Type error in application
- expression       : deMorgan x
- term             : deMorgan
-   type           : Prop   -> Prop  
-   does not match : [Prop] -> a -> b
- probable fix     : remove first argument
+(87,24)-(87,27): Type error in application
+ expression       : map (deMorgan x)
+ term             : map
+   type           : (a -> b) -> [a] -> [b]
+   does not match : Prop     -> [Prop]    
+ because          : not enough arguments are given
 
 (...)
 

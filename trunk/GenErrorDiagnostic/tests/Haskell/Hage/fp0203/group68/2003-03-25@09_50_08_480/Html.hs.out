@@ -1,8 +1,10 @@
-Can't find module 'Pretty'
-Import chain: 
-	Html imports Pretty
-Search path:
-	./group68/2003-03-25@09:50:08:480/
-	.
-	/usr/local/helium/lib
+Compiling Html.hs
+(153,96)-(153,104): Type error in application
+ expression       : DT "BODY" [] [inhoud]
+ function         : DT
+   type           : String -> [Attribuut] -> [HTML] -> HTML
+ 3rd argument     : [inhoud]
+   type           : [[HTML]]
+   does not match : [HTML  ]
 
+Compilation failed with 1 error

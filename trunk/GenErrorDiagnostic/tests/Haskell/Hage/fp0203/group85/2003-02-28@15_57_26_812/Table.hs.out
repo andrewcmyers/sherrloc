@@ -1,9 +1,7 @@
-Maybe is up to date
-List is up to date
-Compiling ./group85/2003-02-28@15:57:26:812/Table.hs
-(147,28): Type error in guarded expression
+Compiling Table.hs
+(144,50)-(144,68): Type error in guarded expression
  expression       : zoek conditie (th)
-   type           : [String  ]
-   does not match : [[String]]
+   type           : [String]
+   does not match : Table   
 
 Compilation failed with 1 error

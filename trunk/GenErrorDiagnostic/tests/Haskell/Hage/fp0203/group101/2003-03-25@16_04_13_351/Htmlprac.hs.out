@@ -1,8 +1,20 @@
-Can't find module 'Pretty'
-Import chain: 
-	Htmlprac imports Pretty
-Search path:
-	./group101/2003-03-25@16:04:13:351/
-	.
-	/usr/local/helium/lib
+(98,60)-(98,63): Type error in application
+ expression       : "/" " <|> tekst attNaam <|> "
+ term             : "/"
+   type           : String     
+   does not match : String -> a
+ because          : it is not a function
 
+(98,88)-(98,89): Type error in infix application
+ expression       : "/" " <|> tekst attNaam <|> " / ""
+ operator         : /
+   type           : Float -> Float  -> Float
+   does not match : a     -> String -> Doc  
+
+(110,45)-(110,46): Type error in infix application
+ expression       : rgbWaarde / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+Compilation failed with 3 errors

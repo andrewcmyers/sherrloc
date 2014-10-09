@@ -1,9 +1,14 @@
-Compiling ./group3/2003-03-23@14:22:57:504/HTML.hs
-(147,10): Warning: Variable "a" is not used
-(147,19): Type error in application
+Compiling HTML.hs
+(100,25)-(100,26): Type error in infix application
+ expression       : x / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+(147,19)-(147,23): Type error in application
  expression       : zip3 (take 11 (iterate (+ 25) 0)) b c
  term             : zip3
    type           : [a  ] -> [b] -> [c] -> [(a   , b   , c  )]
    does not match : [Int] -> Int -> Int -> [(Int , Int , Int)]
 
-Compilation failed with 1 error
+Compilation failed with 2 errors

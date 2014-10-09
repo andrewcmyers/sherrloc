@@ -1,7 +1,7 @@
-Compiling ./group78/2003-03-16@11:48:49:014/Html.hs
-(7,5): Type error in list
+Compiling Html.hs
+(9,5)-(9,26): Type error in right-hand side
  expression       : [SingleTag "Hallo"]
    type           : [HTML]
-   expected type  : HTML  
+   does not match : HTML  
 
 Compilation failed with 1 error

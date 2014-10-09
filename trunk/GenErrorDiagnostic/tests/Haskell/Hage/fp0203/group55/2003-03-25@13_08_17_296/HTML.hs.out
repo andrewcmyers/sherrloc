@@ -1,10 +1,8 @@
-Maybe is up to date
-List is up to date
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group55/2003-03-25@13:08:17:296/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(153,40)-(153,49): Type error in application
+ expression       : DubbelTag "LI" [] lis
+ constructor      : DubbelTag
+   type           : TagNaam -> [Att] -> [HTML  ] -> HTML  
+   does not match : String  -> [a  ] -> [[HTML]] -> [HTML]
 
+Compilation failed with 1 error

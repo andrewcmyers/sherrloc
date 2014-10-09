@@ -1,10 +1,21 @@
-Maybe is up to date
-List is up to date
-Can't find module 'Pretty'
-Import chain: 
-	Fp3 imports Pretty
-Search path:
-	./group45/2003-03-25@14:08:50:510/
-	.
-	/usr/local/helium/lib
+(70,39)-(70,40): Type error in infix application
+ expression       : num / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(116,37)-(116,41): Type error in element of list
+ expression       : [html, (colorTable genList)]
+ term             : html
+   type           : [a] 
+   does not match : HTML
+
+(138,40)-(138,73): Type error in application
+ expression       : font [("color", color 21 22 0)] (h 1 ...)
+ function         : font
+   type           : [Attributen] -> [HTML] -> HTML
+ 2nd argument     : h 1 "dit is something about me !"
+   type           : HTML  
+   does not match : [HTML]
+
+Compilation failed with 3 errors

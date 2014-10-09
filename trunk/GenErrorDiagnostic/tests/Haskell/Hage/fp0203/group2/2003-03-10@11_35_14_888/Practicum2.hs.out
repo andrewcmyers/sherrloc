@@ -1,9 +1,7 @@
-Maybe is up to date
-List is up to date
-Compiling ./group2/2003-03-10@11:35:14:888/Practicum2.hs
-(82,36): Type error in application
+Compiling Practicum2.hs
+(89,36)-(89,40): Type error in application
  expression       : Niet proplijst
- term             : Niet
+ constructor      : Niet
    type           : Prop   -> Prop  
    does not match : [Prop] -> [Prop]
 

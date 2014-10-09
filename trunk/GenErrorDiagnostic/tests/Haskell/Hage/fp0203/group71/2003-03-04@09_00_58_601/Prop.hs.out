@@ -1,7 +1,5 @@
-Maybe is up to date
-List is up to date
-Compiling ./group71/2003-03-04@09:00:58:601/Prop.hs
-(49,20): Type error in application
+Compiling Prop.hs
+(56,20)-(56,26): Type error in application
  expression       : eqList eqString (vervulbaar p1) (vervulbaar p2)
  term             : eqList
    type           : (a      -> a      -> Bool)

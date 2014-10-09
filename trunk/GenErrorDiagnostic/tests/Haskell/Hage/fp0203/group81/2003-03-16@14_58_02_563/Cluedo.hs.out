@@ -1,8 +1,9 @@
-Can't find module 'Similarity'
-Import chain: 
-	Cluedo imports Similarity
-Search path:
-	./group81/2003-03-16@14:58:02:563/
-	.
-	/usr/local/helium/lib
+Compiling Cluedo.hs
+(91,15)-(91,23): Type error in application
+ expression       : eqString " " checkKamer y
+ term             : eqString
+   type           : String -> String                 -> Bool              
+   does not match : String -> ((Int, Int) -> [Char]) -> (Int, Int) -> Bool
+ because          : too many arguments are given
 
+Compilation failed with 1 error

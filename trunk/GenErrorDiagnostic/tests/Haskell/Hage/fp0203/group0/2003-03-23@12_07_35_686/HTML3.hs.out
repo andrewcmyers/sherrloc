@@ -1,8 +1,16 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML3 imports Pretty
-Search path:
-	./group0/2003-03-23@12:07:35:686/
-	.
-	/usr/local/helium/lib
+Compiling HTML3.hs
+(80,52)-(80,53): Type error in infix application
+ expression       : getal / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(121,286)-(121,305): Type error in application
+ expression       : font ["COLOR", "#0000FF"] [text "Blauw"]
+ function         : font
+   type           : [Attribute] -> [HTML] -> HTML
+ 1st argument     : ["COLOR", "#0000FF"]
+   type           : [String          ]
+   does not match : [([Char], [Char])]
+
+Compilation failed with 2 errors

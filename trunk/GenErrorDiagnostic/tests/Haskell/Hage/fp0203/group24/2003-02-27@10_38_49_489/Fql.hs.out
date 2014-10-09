@@ -1,7 +1,5 @@
-Maybe is up to date
-List is up to date
-Compiling ./group24/2003-02-27@10:38:49:489/Fql.hs
-(173,53): Type error in constructor
+Compiling Fql.hs
+(171,53)-(171,54): Type error in constructor
  expression       : :
    type           : a        -> [a     ] -> [a     ]
    expected type  : [String] -> [String] -> [String]

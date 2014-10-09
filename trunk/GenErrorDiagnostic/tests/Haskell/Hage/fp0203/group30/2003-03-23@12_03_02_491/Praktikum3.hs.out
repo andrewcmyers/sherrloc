@@ -1,8 +1,21 @@
-Can't find module 'Pretty'
-Import chain: 
-	Praktikum3 imports Pretty
-Search path:
-	./group30/2003-03-23@12:03:02:491/
-	.
-	/usr/local/helium/lib
+Compiling Praktikum3.hs
+(66,65)-(66,66): Type error in infix application
+ expression       : num / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
 
+(77,84)-(77,85): Type error in infix application
+ expression       : (/ 10)
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+(83,73)-(83,84): Type error in application
+ expression       : colorGeheel rgbs (length rgbs) (maximum (map length rgbs))
+ term             : colorGeheel
+   type           : [[(Int , Int , Int)]] -> [HTML]              
+   does not match : [[(Int , Int , Int)]] -> Int -> Int -> [HTML]
+ probable fix     : remove second and third argument
+
+Compilation failed with 3 errors

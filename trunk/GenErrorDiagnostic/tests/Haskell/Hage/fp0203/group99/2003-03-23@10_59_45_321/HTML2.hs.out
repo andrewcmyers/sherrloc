@@ -1,8 +1,19 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML2 imports Pretty
-Search path:
-	./group99/2003-03-23@10:59:45:321/
-	.
-	/usr/local/helium/lib
+Compiling HTML2.hs
+(199,78)-(202,84): Type error in right-hand side
+ expression       : if any (\x -> not ...) (map fst (...)) then child else []
+   type           : String  
+   does not match : [String]
 
+(251,18)-(251,19): Type error in infix application
+ expression       : x / 16
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+(411,22)-(411,23): Type error in infix application
+ expression       : (/ 10)
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Int   -> Int  
+
+Compilation failed with 3 errors

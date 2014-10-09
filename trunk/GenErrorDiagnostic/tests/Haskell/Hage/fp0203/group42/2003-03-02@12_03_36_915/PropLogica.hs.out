@@ -1,8 +1,5 @@
-Maybe is up to date
-List is up to date
-Compiling ./group42/2003-03-02@12:03:36:915/PropLogica.hs
-(22,22): Warning: Variable "bed" is not used
-(26,36): Type error in application
+Compiling PropLogica.hs
+(28,36)-(28,40): Type error in application
  expression       : flip evalueer props
  term             : flip
    type           : (a    -> b        -> c   ) -> b      -> a      -> c   

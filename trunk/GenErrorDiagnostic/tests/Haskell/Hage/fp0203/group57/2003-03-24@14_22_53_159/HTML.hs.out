@@ -1,8 +1,7 @@
-Can't find module 'Pretty'
-Import chain: 
-	HTML imports Pretty
-Search path:
-	./group57/2003-03-24@14:22:53:159/
-	.
-	/usr/local/helium/lib
+Compiling HTML.hs
+(73,31)-(73,32): Type error in guarded expression
+ expression       : x
+   type           : Int   
+   does not match : String
 
+Compilation failed with 1 error

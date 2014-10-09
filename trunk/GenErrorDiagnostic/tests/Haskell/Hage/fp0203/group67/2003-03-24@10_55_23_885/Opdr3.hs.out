@@ -1,8 +1,8 @@
-Can't find module 'Pretty'
-Import chain: 
-	Opdr3 imports Pretty
-Search path:
-	./group67/2003-03-24@10:55:23:885/
-	.
-	/usr/local/helium/lib
+Compiling Opdr3.hs
+(50,82)-(50,84): Type error in infix application
+ expression       : ([(...)] <|> [... ...]) ++ "\n</" ++ (fst tag) ++ ">"
+ operator         : ++
+   type           : [a] -> [a   ] -> [a]   
+   does not match : Doc -> [Char] -> String
 
+Compilation failed with 1 error

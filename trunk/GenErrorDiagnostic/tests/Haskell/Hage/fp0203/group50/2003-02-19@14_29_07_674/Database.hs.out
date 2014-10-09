@@ -1,7 +1,5 @@
-Maybe is up to date
-List is up to date
-Compiling ./group50/2003-02-19@14:29:07:674/Database.hs
-(34,34): Type error in application
+Compiling Database.hs
+(37,34)-(37,37): Type error in application
  expression       : chr "-"
  function         : chr
    type           : Int -> Char
