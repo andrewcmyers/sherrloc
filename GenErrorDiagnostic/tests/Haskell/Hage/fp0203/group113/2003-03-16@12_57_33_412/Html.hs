@@ -13,4 +13,4 @@ type Requirement = (String, String)
 test = DubbelTag "ul" [] [DubbelTag "li" [] [DubbelTag "font" [("color", "red")] [Text "Hoi \n boe"] ]]
 
 -- should be Attribuut (...)
--- 13,64-79
+-- 13,64-79   13,63-80

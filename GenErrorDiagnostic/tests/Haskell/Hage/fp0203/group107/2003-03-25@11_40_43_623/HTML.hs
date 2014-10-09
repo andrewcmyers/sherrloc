@@ -226,4 +226,4 @@ schrijfAttr [] = ""
 schrijfAttr ((arg,waarde):attrs) = (" "++arg++"=\""++waarde++"\"")++schrijfAttr attrs
 
 -- putStr should be unlines
--- 186,22-48   186,22-27
+-- 186,22-48   186,22-27    186,22-49
