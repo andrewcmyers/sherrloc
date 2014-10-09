@@ -128,6 +128,46 @@ sub ghcLocations {
   return $str; 
 }
 
+# read the location results from Helium
+sub heliumLocations {
+  my $heliumfile = shift;
+  open HELIUM_REPORT, '<', "$heliumfile" or die "file not found!";
+  my @heliumlocs = ();
+
+  my $str = "";
+  my ($line, $column, $lineend, $columnend);
+  for(<HELIUM_REPORT>) {
+    if (/^\((\d+),(\d+)\)-\((\d+),(\d+)\):/) {
+        ($line, $column, $lineend, $columnend) = ($1,$2,$3,$4-1);
+        push(@heliumlocs, "$line,$column-$lineend,$columnend ");
+    }
+    elsif (/expression\s*: (.*)/) {
+        if ($line eq $lineend and $column+length($1)>$columnend) {
+            $columnend = $column+length($1)-1;
+        }
+    }
+    elsif (/term\s*: (.*)/) {
+        # helium report the location of the first term when it really
+        # means the whole application is wrong. so we fixed the
+        # location in such case
+        pop(@heliumlocs);
+        push(@heliumlocs, "$line,$column-$lineend,$columnend ");
+    }
+  }
+  foreach my $loc (@heliumlocs) {
+      $str .= $loc;
+  }
+  if ($str eq "") {
+     die " unrecognized location format ";
+  }
+  #else {
+  #   print "helium locs: $str\n";
+  #}
+
+  $total_size{'Helium'} += 1;
+  return $str; 
+}
+
 # read the manually labeled cause location
 sub causeLocations {
   my $mlfile = shift;
@@ -150,8 +190,10 @@ my %succ_counter;
 my %fail_counter;
 $succ_counter{'SHErrLoc'} = 0;
 $succ_counter{'GHC'} = 0;
+$succ_counter{'Helium'} = 0;
 $fail_counter{'SHErrLoc'} = 0;
 $fail_counter{'GHC'} = 0;
+$fail_counter{'Helium'} = 0;
 
 sub print_ok {
   my $name = shift;
@@ -305,6 +347,25 @@ L1:     for my $loc1 (@loc1) {
           # remove cmo files
           print_fail('GHC');
         }
+
+        # test the correctness of Helium
+        my $heliumret = heliumLocations($file.".out");
+        my @loc4 = parse ($heliumret);
+        $succ = 0;
+L1:     for my $loc1 (@loc1) {
+          for my $loc4 (@loc4) {
+            if ($loc1->contains ($loc4)) {
+              print_ok('Helium', 1); # GHC only return one suggestion per error
+              $succ = 1;
+              last L1;
+            }
+          }
+        }
+        if ($succ == 0) {
+          # remove cmo files
+          print_fail('Helium');
+        }
+
         print "\n";
         chdir "../../..";
     }
