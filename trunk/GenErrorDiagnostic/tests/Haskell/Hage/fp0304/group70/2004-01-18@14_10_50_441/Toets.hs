@@ -28,4 +28,4 @@ remove (x:xs) (y:ys) | x == y = remove (x:xs) ys
                      | otherwise = x:remove xs ys
 
 -- signature should be: [Int] -> [Int] -> [Int]
--- 25,11-23   25,1-7   25,11-13   25,16-18   25,21-23
+-- 25,11-23   25,1-6   25,11-13   25,16-18   25,21-23

@@ -204,4 +204,4 @@ test8 :: HTML
 test8 = DT "UL" [] [DT "LI" [] [DT "B" [] [Tekst "1"], Tekst "12"], DT "LI" [] [Tekst "3"]]
 
 -- [inhoud] should be: inhoud
--- 153,97-102
+-- 153,97-102   153,96-103

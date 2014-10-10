@@ -1,11 +1,11 @@
-Compiling Logica2.hs
-(76,27): Type error in infix application
+ompiling Logica2.hs
+(76,27)-(76,29): Type error in infix application
  expression       : toon p ++ map (("/\\ " ++) . toon) ps
  operator         : ++
    type           : [a]    -> [a     ] -> [a]
    does not match : String -> [[Char]] -> b  
 
-(77,27): Type error in infix application
+(77,27)-(77,29): Type error in infix application
  expression       : toon p ++ map (("\\/ " ++) . toon) ps
  operator         : ++
    type           : [a]    -> [a     ] -> [a]

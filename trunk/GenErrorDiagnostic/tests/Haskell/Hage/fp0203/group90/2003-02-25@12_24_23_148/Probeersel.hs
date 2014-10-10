@@ -52,4 +52,4 @@ slaPlat2  []    = []
 slaPlat2 (x:xs) = x ++ slaPlat2 xs
 
 -- slaPlat should be: slaPlat2
--- 46,26-32   46,26-41
+-- 46,26-32   46,26-41   46,26-43

@@ -28,4 +28,4 @@ evalueer (Niet prop) bed | (evalueer prop bed) `eqBool` True = False
 evalueer (En props) bed = and(map (flip evalueer props) bed)
 
 -- and(map (flip evalueer props) bed) should be: and(map ((flip evalueer) bed) props)
--- 28,50-54   28,57-59   28,41-48
+-- 28,50-54   28,57-59   28,41-48   28,36-54

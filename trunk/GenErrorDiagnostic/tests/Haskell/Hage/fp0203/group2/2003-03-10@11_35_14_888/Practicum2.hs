@@ -89,4 +89,4 @@ deMorgan (En proplijst) = (En proplijst)
 deMorgan (Niet (En proplijst))= Of(Niet proplijst)
 
 -- Niet proplijst should be: map Niet proplijst
--- 89,36-49
+-- 89,36-49    89,36-39
