@@ -95,4 +95,4 @@ colorCell :: (Int, Int, Int) -> HTML
 colorCell (rood, groen, blauw) = Dubbel "TD" [("BGCOLOR", color rood groen blauw)]
 
 -- the last parameter [] is missing
--- 95,34-82
+-- 95,34-82    95,34-39

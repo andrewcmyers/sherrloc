@@ -6,4 +6,4 @@ filteren p = concat . map f
               | otherwise = []
 
 -- signature should be: (a -> Bool) -> [a] -> [a]
--- 3,13-37   3,1-9   3,35-37    3,36-36
+-- 3,13-37   3,1-8   3,35-37    3,36-36

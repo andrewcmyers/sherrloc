@@ -106,4 +106,4 @@ deMorgan (Niet (En [p, q])) = Of [deMorgan (Niet p), deMorgan (Niet q)]
 deMorgan (Niet (Of [p, q])) = En [deMorgan (Niet p), deMorgan (Niet q)]
 
 -- missing ()
--- 102,27-36
+-- 102,27-36    102,27-31

@@ -174,4 +174,4 @@ toHex num = rnd(num / 16) : [rnd(num `mod` 16)]
                       | otherwise = chr(n+48)
 
 -- missing []
--- 71,144-172
+-- 71,144-172    71,151-159

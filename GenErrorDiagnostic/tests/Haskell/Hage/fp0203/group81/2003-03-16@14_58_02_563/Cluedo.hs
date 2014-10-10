@@ -99,4 +99,4 @@ check x y | elemBy (eqTuple2  (==) (==)) x (snd y) = fst y
           | otherwise = " "
 
 -- missing () round checkKamer y
--- 91,29-38
+-- 91,29-38    91,15-39

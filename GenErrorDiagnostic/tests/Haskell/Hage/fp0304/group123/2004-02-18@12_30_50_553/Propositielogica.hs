@@ -72,4 +72,4 @@ toon (x :-> y) = "(" ++ toon x ++ " -> " ++ toon y ++ ")"
 toon (Var x)   = x
 
 -- x should be "True"
--- 70,18-18
+-- 70,18-18    70,12-12

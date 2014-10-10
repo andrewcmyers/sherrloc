@@ -159,4 +159,4 @@ select :: String -> (String -> Bool) -> Table -> Table
 select x y z = goedPrinten z (rijNummer x z (pasToe x y z))
 
 -- should delete 'map'
--- 75,28-55   75,28-30
+-- 75,28-55   75,28-30   75,32-41

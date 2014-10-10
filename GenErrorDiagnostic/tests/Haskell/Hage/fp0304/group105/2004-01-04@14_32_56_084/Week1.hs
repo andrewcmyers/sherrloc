@@ -19,4 +19,4 @@ aantalOpl2 a b c = length  abcFormule a b c
 
 
 -- missing () around abcFormule a b c
--- 18,20-43   18,20-25
+-- 18,20-43   18,20-25   18,20-42

@@ -291,4 +291,4 @@ ontleed2 (x:xs) y
    where q                                = seperateElem xs 1 []
 
 -- [[init z]] should be [init z]
--- 270,48-53   270,47-54   270,46-55
+-- 270,48-53   270,47-54   270,46-55   270,45-45

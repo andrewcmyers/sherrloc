@@ -23,4 +23,4 @@ evalueer (En (x:xs)) bed = case x of
                            Niet y -> (not.evalueer y bed ) && evalueer (En xs) bed
 
 -- not.evalueer y bed should be: not (evalueer y bed )
--- 23,39-56
+-- 23,39-56    23,42-42
