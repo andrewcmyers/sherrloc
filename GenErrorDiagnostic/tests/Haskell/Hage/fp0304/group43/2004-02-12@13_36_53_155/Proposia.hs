@@ -55,4 +55,4 @@ getVars (Niet a)       =  getVars a
 getVars (x :<-> y)     =  (getVars x)++(getVars y)
 
 -- missing () around delDubbels(getVars a)
--- 36,46-66   36,41-66
+-- 36,46-66   36,41-66   36,41-67

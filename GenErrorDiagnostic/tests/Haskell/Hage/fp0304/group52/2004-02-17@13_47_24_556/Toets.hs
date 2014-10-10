@@ -38,4 +38,4 @@ overal f (Tak a1 a2 a3) = (Tak (f a1) (overal a2) (overal a3))
 overal f Blad = Blad
 
 -- should be: (overal f a2) (overal f a3)
--- 37,47-48   37,59-60
+-- 37,47-48   37,40-48   37,59-60   37,52-60

@@ -39,4 +39,4 @@ getCellWidths []     = []
 getCellWidths (x:xs) = getRowWidths x ++ getCellWidths xs
 
 -- missing []
--- 39,24-37
+-- 39,24-37   39,39-40

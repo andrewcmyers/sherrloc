@@ -240,4 +240,4 @@ deMorgan'     :: String -> String
 deMorgan'     s = toon(deMorgan(ontleed s))
 
 -- missing parameters i2, i3 respectively
--- 197,55-64   197,67-77   198,55-64   198,67-77
+-- 197,55-64   197,67-77   197,54-78   198,55-64   198,67-77   198,54-78

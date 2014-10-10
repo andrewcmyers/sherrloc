@@ -8,4 +8,4 @@ test = do
        putStr (showInt length(naam))
 
 -- missing () around length(naam)
--- 8,16-35   8,16-22
+-- 8,16-35   8,16-36   8,16-22

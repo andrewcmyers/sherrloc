@@ -120,4 +120,4 @@ validateReq (DoubleTag naam _ ((DoubleTag cnaam _ _):xs)) (a,b) | naam `eqString
                                                                 | otherwise = Nothing
 
 -- should be: eqString
--- 119,89-91
+-- 119,89-91    119,92-92

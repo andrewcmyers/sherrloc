@@ -93,4 +93,4 @@ toon (Var v) = "(" ++ v ++ ")"
 toon (Bool b) = "(" ++ boolToString b ++ ")"
 
 -- (intersperse " /\\ " $ map toon ps) should be:  (concat $ intersperse " /\\ " $ map toon ps)
--- 88,24-56   89,24-56
+-- 88,24-56   89,24-56    88,59-60    89,59-60

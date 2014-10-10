@@ -94,4 +94,4 @@ gemeen2 (a:as) b | elemBy eqString a b = a
                 | otherwise = gemeen2 as b
 
 -- should delete "not"
--- 83,37-39   83,37-63
+-- 83,37-39   83,37-63   83,37-64

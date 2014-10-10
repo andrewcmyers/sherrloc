@@ -166,4 +166,4 @@ document titel body = DubbelTag "HTML" [] [(DubbelTag "HEAD" [] [DubbelTag "TITL
                                           ,(DubbelTag "BODY" [] body)]
 
 -- DubbelTag "LI" [] lis should be: ulLI lis
--- 153,40-60
+-- 153,40-60    153,40-48

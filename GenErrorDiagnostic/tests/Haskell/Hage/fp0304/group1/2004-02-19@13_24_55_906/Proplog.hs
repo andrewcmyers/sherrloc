@@ -69,4 +69,4 @@ subs (x:xs) = map (x:) subsxs ++ subsxs
          where subsxs = subs xs
 
 -- Var(h) should be: (h)
--- 52,36-38   52,36-41
+-- 52,36-38   52,36-41    52,25-42

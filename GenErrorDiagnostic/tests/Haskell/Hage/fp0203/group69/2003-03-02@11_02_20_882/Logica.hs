@@ -22,4 +22,4 @@ evalueer (Niet propositie) bedeling = not (evalueer propositie bedeling)
 evalueer (prop1 :-> prop2) bedeling = or (not (evalueer prop1 bedeling)):(evalueer prop2 bedeling)
 
 -- the parameter of 'or' should be: [not (evalueer prop1 bedeling),evalueer prop2 bedeling]
--- 22,39-98
+-- 22,39-98    22,73-73
