@@ -381,7 +381,7 @@ L1:     for my $loc1 (@loc1) {
 #    }
 #}
 
-for my $name ('SHErrLoc', 'GHC') {
+for my $name ('SHErrLoc', 'GHC', 'Helium') {
     print OUT "$name:\n";
     print OUT (($succ_counter{$name}+$fail_counter{$name}) . " programs evaluated. " . ($fail_counter{$name}) . " of them fails.\n");
     print OUT "Average top rank size is: " . ($total_size{$name}/($succ_counter{$name}+$fail_counter{$name})) . "\n";

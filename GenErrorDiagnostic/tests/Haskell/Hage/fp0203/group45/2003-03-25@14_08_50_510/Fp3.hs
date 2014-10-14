@@ -138,4 +138,4 @@ main = layout(ppHTML(kleurenTabel))
 html = [font [("color",color 21 22 0)](h 1 "dit is something about me !")]
 
 -- should be: font [("color",color 21 22 0)][(h 1 "dit is something about me !")] 
--- 138,8-74
+-- 138,8-74    138,40-72
