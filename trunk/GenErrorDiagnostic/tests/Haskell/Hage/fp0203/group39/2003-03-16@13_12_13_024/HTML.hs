@@ -182,4 +182,4 @@ makeKleur :: Int -> Int -> Int -> [(Int,Int,Int)]
 makeKleur aantal stap r = [(r , groen , 0) | groen <- [0,stap..(aantal*stap)]]
 
 -- [attrib] should be: attrib
--- 90,60-65
+-- 90,60-65   90,59-66
