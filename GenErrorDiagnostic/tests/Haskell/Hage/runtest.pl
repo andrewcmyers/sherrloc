@@ -188,12 +188,25 @@ sub causeLocations {
 
 my %succ_counter;
 my %fail_counter;
+my %better_counter;
+my %both_correct_counter;
+my %both_wrong_counter;
+my %worse_counter;
+
 $succ_counter{'SHErrLoc'} = 0;
 $succ_counter{'GHC'} = 0;
 $succ_counter{'Helium'} = 0;
 $fail_counter{'SHErrLoc'} = 0;
 $fail_counter{'GHC'} = 0;
 $fail_counter{'Helium'} = 0;
+$better_counter{'GHC'} = 0;
+$better_counter{'Helium'} = 0;
+$both_correct_counter{'GHC'} = 0;
+$both_correct_counter{'Helium'} = 0;
+$both_wrong_counter{'GHC'} = 0;
+$both_wrong_counter{'Helium'} = 0;
+$worse_counter{'GHC'} = 0;
+$worse_counter{'Helium'} = 0;
 
 sub print_ok {
   my $name = shift;
@@ -323,6 +336,7 @@ L1:     for my $loc1 (@loc1) {
             }
           }
         }
+	my $sherrloc_succ = $succ;
         if ($succ == 0) {
           # remove cmo files
           print_fail('SHErrLoc');
@@ -343,6 +357,7 @@ L1:     for my $loc1 (@loc1) {
             }
           }
         }
+	my $ghc_succ = $succ;
         if ($succ == 0) {
           # remove cmo files
           print_fail('GHC');
@@ -361,6 +376,7 @@ L1:     for my $loc1 (@loc1) {
             }
           }
         }
+	my $helium_succ = $succ;
         if ($succ == 0) {
           # remove cmo files
           print_fail('Helium');
@@ -368,6 +384,32 @@ L1:     for my $loc1 (@loc1) {
 
         print "\n";
         chdir "../../..";
+
+        if ($sherrloc_succ > $ghc_succ) {
+	    $better_counter{'GHC'} ++;
+	}
+	elsif ($sherrloc_succ < $ghc_succ) {
+	    $worse_counter{'GHC'} ++;
+	}
+	elsif ($sherrloc_succ == 1 and $ghc_succ == 1) {
+            $both_correct_counter{'GHC'} ++;
+	}
+	else {
+	    $both_wrong_counter{'GHC'} ++;
+	}
+
+        if ($sherrloc_succ > $helium_succ) {
+	    $better_counter{'Helium'} ++;
+	}
+	elsif ($sherrloc_succ < $helium_succ) {
+	    $worse_counter{'Helium'} ++;
+	}
+	elsif ($sherrloc_succ == 1 and $helium_succ == 1) {
+            $both_correct_counter{'Helium'} ++;
+	}
+	else {
+	    $both_wrong_counter{'Helium'} ++;
+	}
     }
   }
 }
@@ -386,6 +428,12 @@ for my $name ('SHErrLoc', 'GHC', 'Helium') {
     print OUT (($succ_counter{$name}+$fail_counter{$name}) . " programs evaluated. " . ($fail_counter{$name}) . " of them fails.\n");
     print OUT "Average top rank size is: " . ($total_size{$name}/($succ_counter{$name}+$fail_counter{$name})) . "\n";
 }
+print OUT "Comparison with GHC:\n";
+print OUT "better: ".$better_counter{'GHC'}.", both correct: ".$both_correct_counter{'GHC'}.", both wrong ".$both_wrong_counter{'GHC'}.", worse: ".$worse_counter{'GHC'}."\n\n";
+
+print OUT "Comparison with Helium:\n";
+print OUT "better: ".$better_counter{'Helium'}.", both correct: ".$both_correct_counter{'Helium'}.", both wrong ".$both_wrong_counter{'Helium'}.", worse: ".$worse_counter{'Helium'}."\n";
+
 close OUT;
 
 =comment
