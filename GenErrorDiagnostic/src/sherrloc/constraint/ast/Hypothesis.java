@@ -178,7 +178,7 @@ public class Hypothesis {
 			if (e1 instanceof ConstructorApplication
 					&& e2 instanceof ConstructorApplication) {
 				if (((ConstructorApplication) e1).getCons().equals(
-						((ConstructorApplication) e2).getCons()) && (e1.hasVars() || e2.hasVars()))
+						((ConstructorApplication) e2).getCons()))
 					return true;
 			}
 
