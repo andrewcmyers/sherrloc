@@ -1,13 +1,13 @@
 package sherrloc.graph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
 import sherrloc.constraint.analysis.PathFinder;
+import sherrloc.constraint.ast.ConstructorApplication;
 import sherrloc.constraint.ast.Element;
 import sherrloc.constraint.ast.Hypothesis;
 import sherrloc.constraint.ast.Inequality;
@@ -115,6 +115,15 @@ public class ConstraintPath {
 		}
 		if (!hasEqu)
 			return false;
+		
+		Element e1 = getFirstElement();
+		Element e2 = getLastElement();
+		if (e1 instanceof ConstructorApplication
+				&& e2 instanceof ConstructorApplication) {
+			if (((ConstructorApplication) e1).getCons().equals(
+					((ConstructorApplication) e2).getCons()))
+				return false;
+		}
 
 		// we'd like to eliminate apparent dependencies on the satisfiability of paths
 		// 1. Any path that uses unsat path is not informative
