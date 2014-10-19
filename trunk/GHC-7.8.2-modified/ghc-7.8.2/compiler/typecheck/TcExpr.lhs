@@ -1063,7 +1063,7 @@ tcInferIdWithOrig orig id_name
   = do { (id, gen_fresh) <- lookup_id
        ; (id_expr, id_rho) <- instantiateOuter orig id
        ; (wrap, rho) <- deeplyInstantiate orig id_rho
-       ; rho <- fresh_ty rho gen_fresh
+       -- ; rho <- fresh_ty rho gen_fresh
        ; return (mkHsWrap wrap id_expr, rho) }
   where
     lookup_id :: TcM (TcId, Bool)
