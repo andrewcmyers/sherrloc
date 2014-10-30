@@ -68,3 +68,4 @@ print "All data generated!\n";
 # call gnuplot
 print "Generating graph.\n";
 system "gnuplot runtime.plot";
+system "gnuplot precision.plot";
