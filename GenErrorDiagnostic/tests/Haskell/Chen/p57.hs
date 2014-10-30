@@ -23,4 +23,4 @@ option = undefined
 test13 :: Parser Char String                        
 test13 = option "" (token "hello!")
 
--- 24,17-35
+-- 24,17-35    24,10-35
