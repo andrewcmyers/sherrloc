@@ -1,0 +1,8 @@
+Compiling p117.hs
+(7,52)-(7,53): Type error in infix application
+ expression       : z + 1
+ operator         : +
+   type           : a    -> a   -> a   
+   does not match : Bool -> Int -> Bool
+
+Compilation failed with 1 error

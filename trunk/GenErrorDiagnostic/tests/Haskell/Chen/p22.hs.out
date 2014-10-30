@@ -1,0 +1,8 @@
+Compiling p22.hs
+(6,35)-(6,39): Type error in then branch of conditional
+ expression       : if True then True else 1
+ constructor      : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error

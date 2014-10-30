@@ -1,0 +1,10 @@
+Compiling p24.hs
+(6,36)-(6,57): Type error in application
+ expression       : (\x -> [x, True, False, True]) (if True then 1 else 2)
+ function         : \x -> [x, True, False, True]
+   type           : Bool -> [Bool]
+ 1st argument     : if True then 1 else 2
+   type           : Int 
+   does not match : Bool
+
+Compilation failed with 1 error

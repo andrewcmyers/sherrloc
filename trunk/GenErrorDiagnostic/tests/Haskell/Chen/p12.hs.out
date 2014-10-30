@@ -1,0 +1,10 @@
+Compiling p12.hs
+(7,21)-(7,25): Type error in application
+ expression       : g True
+ function         : g
+   type           : Int -> [Int]
+ 1st argument     : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error

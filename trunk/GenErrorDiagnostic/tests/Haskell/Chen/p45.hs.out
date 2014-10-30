@@ -1,0 +1,8 @@
+Compiling p45.hs
+(6,13)-(6,16): Type error in conditional
+ expression       : if "b" then "yes!" else "no!"
+ term             : "b"
+   type           : String
+   does not match : Bool  
+
+Compilation failed with 1 error

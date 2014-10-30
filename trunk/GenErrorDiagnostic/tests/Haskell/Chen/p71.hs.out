@@ -1,0 +1,10 @@
+Compiling p71.hs
+(6,38)-(6,43): Type error in application
+ expression       : g "abc"
+ function         : g
+   type           : Bool -> a
+ 1st argument     : "abc"
+   type           : String
+   does not match : Bool  
+
+Compilation failed with 1 error

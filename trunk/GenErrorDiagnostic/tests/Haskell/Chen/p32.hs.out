@@ -1,0 +1,8 @@
+Compiling p32.hs
+(8,28)-(8,29): Type error in else branch of conditional
+ expression       : if z then x else y
+ term             : y
+   type           : Bool
+   does not match : Char
+
+Compilation failed with 1 error

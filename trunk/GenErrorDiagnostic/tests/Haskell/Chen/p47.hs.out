@@ -1,0 +1,9 @@
+Compiling p47.hs
+(6,16)-(6,19): Type error in application
+ expression       : map [1, n] (^ 2)
+ term             : map
+   type           : (a -> b) -> [a]      -> [b]
+   does not match : [Int]    -> (c -> c) -> d  
+ probable fix     : re-order arguments
+
+Compilation failed with 1 error

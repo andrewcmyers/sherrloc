@@ -1,0 +1,9 @@
+Compiling p26.hs
+(6,16)-(6,17): Don't know which instance to choose for Num
+ function         : +
+   type           : Num a => a -> a -> a
+   used as        :          b -> b -> b
+ hint             : write an explicit type for this function
+                       e.g. (show :: [Int] -> String)
+
+Compilation failed with 1 error

@@ -1,0 +1,9 @@
+Compiling p5.hs
+(7,6)-(7,13): Type error in application
+ expression       : addList "a" ["b"]
+ term             : addList
+   type           : [a]    -> a        -> [a]
+   does not match : String -> [String] -> b  
+ probable fix     : re-order arguments
+
+Compilation failed with 1 error

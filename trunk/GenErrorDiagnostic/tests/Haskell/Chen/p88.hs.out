@@ -1,0 +1,20 @@
+Compiling p88.hs
+(7,34)-(7,35): Type error in infix application
+ expression       : x + 1
+ operator         : +
+   type           : a    -> a   -> a   
+   does not match : Bool -> Int -> Bool
+
+(8,32)-(8,33): Type error in else branch of conditional
+ expression       : if True then not x else 2
+ term             : 2
+   type           : Int 
+   does not match : Bool
+
+(9,7)-(9,9): Type error in application
+ expression       : ff 3
+ term             : ff
+   type           : Bool -> Bool
+   does not match : Int  -> Bool
+
+Compilation failed with 3 errors

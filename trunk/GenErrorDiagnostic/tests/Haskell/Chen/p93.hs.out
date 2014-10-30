@@ -1,0 +1,8 @@
+Compiling p93.hs
+(7,18)-(7,22): Type error in infix application
+ expression       : x `plus` sum' xs
+ term             : plus
+   type           : Int -> Int -> Int
+   does not match : a   -> [b] -> [b]
+
+Compilation failed with 1 error

@@ -198,7 +198,7 @@ OUT->autoflush(1);
 my $filename_length = 10; # for pretty print
 
 foreach my $file (@files) {
-      if ($file =~ /\.hs$/ and $file ne "AllExamples.hs" and $file ne "Class.hs") {
+      if ($file =~ /p.+\.hs$/ and $file ne "AllExamples.hs" and $file ne "Class.hs") {
         open IN, "<$file";
         my $noOra = 0;
         while (<IN>) {

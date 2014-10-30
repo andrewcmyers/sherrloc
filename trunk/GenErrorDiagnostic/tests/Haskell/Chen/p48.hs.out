@@ -1,0 +1,8 @@
+Compiling p48.hs
+(7,12)-(7,15): Type error in application
+ expression       : not i
+ term             : not
+   type           : Bool -> Bool
+   does not match : Int  -> Int 
+
+Compilation failed with 1 error

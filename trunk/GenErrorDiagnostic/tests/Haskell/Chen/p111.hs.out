@@ -1,0 +1,14 @@
+Compiling p111.hs
+(6,25)-(6,26): Type error in infix application
+ expression       : x + 1
+ operator         : +
+   type           : a    -> a   -> a
+   does not match : Bool -> Int -> b
+
+(6,35)-(6,36): Type error in infix application
+ expression       : x - 2.2
+ operator         : -
+   type           : a    -> a     -> a
+   does not match : Bool -> Float -> b
+
+Compilation failed with 2 errors

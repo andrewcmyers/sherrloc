@@ -1,0 +1,9 @@
+Compiling p60.hs
+(6,7)-(6,10): Type error in application
+ expression       : map [1 .. 5] ((> 10) . (^ 2))
+ term             : map
+   type           : (a -> b) -> [a]           -> [b]
+   does not match : [Int]    -> (Int -> Bool) -> c  
+ probable fix     : re-order arguments
+
+Compilation failed with 1 error

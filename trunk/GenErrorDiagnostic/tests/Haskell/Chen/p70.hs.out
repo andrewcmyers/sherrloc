@@ -1,0 +1,17 @@
+(14,41)-(14,46): Type error in application
+ expression       : doRow r ys
+ term             : doRow
+   type           : [a] -> a   -> String
+   does not match : a   -> [a] -> [Char]
+ because          : unification would give infinite type
+ probable fix     : re-order arguments
+
+(16,33)-(16,34): Type error in infix application
+ expression       : (+) . 5
+ operator         : .
+   type           : (a -> b) -> (c -> a) -> c -> b
+ right operand    : 5
+   type           : Int   
+   does not match : c -> a
+
+Compilation failed with 2 errors

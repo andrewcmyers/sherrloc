@@ -1,0 +1,8 @@
+Compiling p81.hs
+(6,31)-(6,36): Type error in then branch of conditional
+ expression       : if True then False else 1
+ constructor      : False
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error

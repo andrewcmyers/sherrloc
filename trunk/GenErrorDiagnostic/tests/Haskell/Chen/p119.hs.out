@@ -1,0 +1,10 @@
+Compiling p119.hs
+(7,42)-(7,43): Type error in application
+ expression       : a 2
+ function         : a
+   type           : Bool -> a
+ 1st argument     : 2
+   type           : Int 
+   does not match : Bool
+
+Compilation failed with 1 error

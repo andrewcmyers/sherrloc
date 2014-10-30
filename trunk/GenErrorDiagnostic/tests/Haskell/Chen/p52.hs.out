@@ -1,0 +1,8 @@
+Compiling p52.hs
+(6,35)-(6,40): Type error in else branch of conditional
+ expression       : if c then [1 .. 10] else "abc"
+ term             : "abc"
+   type           : String
+   does not match : [Int] 
+
+Compilation failed with 1 error

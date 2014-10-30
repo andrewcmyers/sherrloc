@@ -1,0 +1,9 @@
+Compiling p63.hs
+(10,36)-(10,37): Type error in constructor
+ expression       : :
+   type           : a   -> [a] -> [a]
+   expected type  : [b] -> [b] -> [b]
+ because          : unification would give infinite type
+ probable fix     : use ++ instead
+
+Compilation failed with 1 error

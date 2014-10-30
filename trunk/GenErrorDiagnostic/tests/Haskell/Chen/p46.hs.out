@@ -1,0 +1,9 @@
+Compiling p46.hs
+(6,13)-(6,18): Type error in application
+ expression       : foldr 0 (+) is
+ term             : foldr
+   type           : (a -> b -> b) -> b             -> [a] -> b
+   does not match : Int           -> (c -> c -> c) -> d   -> e
+ probable fix     : re-order arguments
+
+Compilation failed with 1 error

@@ -1,0 +1,12 @@
+Compiling p56.hs
+(25,15)-(25,18): Type error in infix application
+ expression       : (++) <$> token "hello world" <*> symbol '!'
+ operator         : <*>
+   type           : Parser a    (b      -> c     )
+                    -> Parser a    b   
+                    -> Parser a    c     
+   does not match : Parser Char ([Char] -> [Char])
+                    -> Parser Char Char
+                    -> Parser Char String
+
+Compilation failed with 1 error

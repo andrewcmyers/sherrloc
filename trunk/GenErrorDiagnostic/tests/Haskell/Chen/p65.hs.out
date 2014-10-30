@@ -1,0 +1,8 @@
+Compiling p65.hs
+(6,11)-(6,12): Type error in conditional
+ expression       : if x then (toUpper x) else (toLower x)
+ term             : x
+   type           : Char
+   does not match : Bool
+
+Compilation failed with 1 error

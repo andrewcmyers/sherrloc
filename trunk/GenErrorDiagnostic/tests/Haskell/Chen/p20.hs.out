@@ -1,0 +1,8 @@
+Compiling p20.hs
+(6,16)-(6,19): Type error in variable
+ expression       : max
+   type           : Ord a => a     -> a -> a
+   expected type  :          [Int] -> Int   
+ probable fix     : use maximum instead
+
+Compilation failed with 1 error

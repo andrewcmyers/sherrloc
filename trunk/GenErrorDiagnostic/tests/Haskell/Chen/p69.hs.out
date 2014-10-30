@@ -1,0 +1,10 @@
+Compiling p69.hs
+(6,15)-(6,44): Type error in application
+ expression       : ord (if x then x else null ys == x)
+ function         : ord
+   type           : Char -> Int
+ 1st argument     : if x then x else null ys == x
+   type           : Bool
+   does not match : Char
+
+Compilation failed with 1 error

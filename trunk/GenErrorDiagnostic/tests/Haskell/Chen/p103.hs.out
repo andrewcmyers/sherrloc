@@ -1,0 +1,10 @@
+Compiling p103.hs
+(7,34)-(7,38): Type error in application
+ expression       : x True
+ function         : x
+   type           : Int -> a
+ 1st argument     : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error
