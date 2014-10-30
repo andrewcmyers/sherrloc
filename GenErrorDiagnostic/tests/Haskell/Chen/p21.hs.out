@@ -1,0 +1,14 @@
+Compiling p21.hs
+(6,10)-(6,13): Type error in element of list
+ expression       : [1, [1], True]
+ term             : [1]
+   type           : [Int]
+   does not match : Int  
+
+(6,14)-(6,18): Type error in element of list
+ expression       : [1, [1], True]
+ constructor      : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 2 errors

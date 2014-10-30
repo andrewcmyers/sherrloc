@@ -1,0 +1,8 @@
+Compiling p49.hs
+(7,15)-(7,20): Type error in application
+ expression       : foldr (+) xs 0
+ term             : foldr
+   type           : (a -> b -> b) -> b       -> [a] -> b    
+   does not match : (c -> c -> c) -> [Float] -> Int -> Float
+
+Compilation failed with 1 error

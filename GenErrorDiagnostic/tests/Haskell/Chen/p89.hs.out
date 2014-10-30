@@ -1,0 +1,12 @@
+Compiling p89.hs
+(8,10)-(8,11): Type error in right-hand side
+ expression       : 1
+   type           : Int  
+   does not match : [Int]
+
+(12,10)-(12,20): Type error in right-hand side
+ expression       : head (f x)
+   type           : Int  
+   does not match : [Int]
+
+Compilation failed with 2 errors

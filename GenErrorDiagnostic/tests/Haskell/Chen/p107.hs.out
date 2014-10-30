@@ -1,0 +1,8 @@
+Compiling p107.hs
+(8,15)-(8,16): Type error in infix application
+ expression       : h / 2.0
+ operator         : /
+   type           : Float -> Float -> Float
+   does not match : Int   -> Float -> [a]  
+
+Compilation failed with 1 error

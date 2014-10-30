@@ -1,0 +1,8 @@
+Compiling p19.hs
+(6,11)-(6,12): Type error in constructor
+ expression       : :
+   type           : a      -> [a]    -> [a]
+   expected type  : String -> String -> b  
+ probable fix     : use ++ instead
+
+Compilation failed with 1 error

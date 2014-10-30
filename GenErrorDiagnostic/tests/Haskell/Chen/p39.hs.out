@@ -1,0 +1,10 @@
+Compiling p39.hs
+(6,35)-(6,39): Type error in application
+ expression       : g True
+ function         : g
+   type           : Int -> a
+ 1st argument     : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error

@@ -1,0 +1,8 @@
+Compiling p31.hs
+(9,19)-(9,34): Type error in else branch of conditional
+ expression       : if x then string2bool "False" else fst ("True", 1)
+ term             : fst ("True", 1)
+   type           : String
+   does not match : Bool  
+
+Compilation failed with 1 error

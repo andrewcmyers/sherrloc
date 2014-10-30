@@ -1,0 +1,8 @@
+Compiling p73.hs
+(6,22)-(6,29): Type error in variable
+ expression       : biggest
+   type           : Ord a => [a] -> a
+   expected type  :          Float   
+ probable fix     : insert one argument
+
+Compilation failed with 1 error

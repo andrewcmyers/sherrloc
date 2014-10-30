@@ -1,0 +1,10 @@
+Compiling p114.hs
+(7,25)-(7,26): Type error in application
+ expression       : m f x
+ function         : m
+   type           : ([a] -> b) -> [a] -> [b]
+ 2nd argument     : x
+   type           : a  
+   does not match : [a]
+
+Compilation failed with 1 error

@@ -1,0 +1,8 @@
+Compiling p62.hs
+(6,19)-(6,20): Type error in infix application
+ expression       : x + 1
+ operator         : +
+   type           : a    -> a   -> a   
+   does not match : Bool -> Int -> Bool
+
+Compilation failed with 1 error

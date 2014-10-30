@@ -1,0 +1,8 @@
+Compiling p74.hs
+(7,15)-(7,19): Type error in right-hand side
+ expression       : [xs]
+   type           : [[a]]
+   does not match : [a  ]
+ because          : unification would give infinite type
+
+Compilation failed with 1 error

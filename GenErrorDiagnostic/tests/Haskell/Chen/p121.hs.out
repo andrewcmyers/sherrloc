@@ -1,0 +1,10 @@
+Compiling p121.hs
+(10,11)-(10,16): Type error in application
+ expression       : len "abc"
+ function         : len
+   type           : [Int] -> Int
+ 1st argument     : "abc"
+   type           : String
+   does not match : [Int] 
+
+Compilation failed with 1 error

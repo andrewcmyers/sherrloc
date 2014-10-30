@@ -1,0 +1,9 @@
+Compiling p38.hs
+(9,21)-(9,22): Type error in application
+ expression       : a 1
+ term             : a
+   type           : (a -> b -> b) -> Int -> Bool -> c
+   does not match : Int           -> Int             
+ probable fix     : insert a first and third argument
+
+Compilation failed with 1 error

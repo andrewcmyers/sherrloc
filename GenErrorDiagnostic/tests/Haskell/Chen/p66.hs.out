@@ -1,0 +1,9 @@
+Compiling p66.hs
+(7,17)-(7,29): Type error in else branch of conditional
+ expression       : if c then \g x -> g x else \e y -> y e
+ term             : \e y -> y e
+   type           : a        -> (a -> b) -> b
+   does not match : (c -> d) -> c        -> d
+ because          : unification would give infinite type
+
+Compilation failed with 1 error

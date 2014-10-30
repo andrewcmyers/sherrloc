@@ -1,0 +1,10 @@
+Compiling p100.hs
+(8,12)-(8,13): Type error in application
+ expression       : f 3
+ function         : f
+   type           : (Int -> a) -> a
+ 1st argument     : 3
+   type           : Int     
+   does not match : Int -> a
+
+Compilation failed with 1 error

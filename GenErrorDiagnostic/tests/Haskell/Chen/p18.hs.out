@@ -1,0 +1,9 @@
+Compiling p18.hs
+(6,8)-(6,11): Type error in application
+ expression       : map [1 .. 10] even
+ term             : map
+   type           : (a -> b) -> [a]           -> [b]
+   does not match : [Int]    -> (Int -> Bool) -> c  
+ probable fix     : re-order arguments
+
+Compilation failed with 1 error

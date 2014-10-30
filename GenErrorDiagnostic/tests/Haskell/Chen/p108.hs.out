@@ -1,0 +1,9 @@
+Compiling p108.hs
+(7,20)-(7,21): Type error in application
+ expression       : p True
+ term             : p
+   type           : [a]         
+   does not match : Bool -> Bool
+ because          : it is not a function
+
+Compilation failed with 1 error

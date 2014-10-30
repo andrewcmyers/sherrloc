@@ -1,0 +1,10 @@
+Compiling p15.hs
+(6,13)-(6,14): Type error in infix application
+ expression       : sin . 2
+ operator         : .
+   type           : (a -> b) -> (c -> a) -> c -> b
+ right operand    : 2
+   type           : Int   
+   does not match : c -> a
+
+Compilation failed with 1 error

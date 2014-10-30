@@ -1,0 +1,7 @@
+Compiling p54.hs
+(8,11)-(8,19): Type error in pattern of function binding
+ pattern          : (x, xs)
+   type           : (a, [a])
+   does not match : [a]     
+
+Compilation failed with 1 error

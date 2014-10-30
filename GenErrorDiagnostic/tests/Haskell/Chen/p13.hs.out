@@ -1,0 +1,10 @@
+Compiling p13.hs
+(6,12)-(6,13): Type error in application
+ expression       : map x [x + 2]
+ function         : map
+   type           : (a -> b) -> [a] -> [b]
+ 1st argument     : x
+   type           : Int   
+   does not match : a -> b
+
+Compilation failed with 1 error

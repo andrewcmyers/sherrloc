@@ -1,0 +1,8 @@
+Compiling p84.hs
+(8,14)-(8,21): Type error in guarded expression
+ expression       : str : lst
+   type           : [a  ]
+   does not match : [[a]]
+ because          : unification would give infinite type
+
+Compilation failed with 1 error

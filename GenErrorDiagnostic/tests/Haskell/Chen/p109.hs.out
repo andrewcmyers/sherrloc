@@ -1,0 +1,8 @@
+Compiling p109.hs
+(7,13)-(7,14): Type error in infix application
+ expression       : n * x + f (n - 1) x
+ operator         : +
+   type           : a   -> a       -> a      
+   does not match : Int -> [Float] -> [Float]
+
+Compilation failed with 1 error

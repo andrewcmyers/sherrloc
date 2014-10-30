@@ -1,0 +1,10 @@
+Compiling p95.hs
+(6,36)-(6,37): Type error in application
+ expression       : not x
+ function         : not
+   type           : Bool -> Bool
+ 1st argument     : x
+   type           : Int 
+   does not match : Bool
+
+Compilation failed with 1 error

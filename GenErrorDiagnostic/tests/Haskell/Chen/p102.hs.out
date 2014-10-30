@@ -1,0 +1,9 @@
+Compiling p102.hs
+(7,16)-(7,17): Type error in application
+ expression       : f (\z -> z) (f (\u -> u))
+ term             : f
+   type           : (a -> b) -> b     
+   does not match : (c -> c) -> a -> d
+ because          : unification would give infinite type
+
+Compilation failed with 1 error

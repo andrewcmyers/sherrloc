@@ -1,0 +1,10 @@
+Compiling p72.hs
+(6,20)-(6,38): Type error in application
+ expression       : pop (push undefined stk)
+ function         : pop
+   type           : (a, b) -> b
+ 1st argument     : push undefined stk
+   type           : [c]   
+   does not match : (a, b)
+
+Compilation failed with 1 error

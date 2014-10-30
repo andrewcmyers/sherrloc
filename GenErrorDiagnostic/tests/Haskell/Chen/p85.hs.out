@@ -1,0 +1,10 @@
+Compiling p85.hs
+(7,29)-(7,33): Type error in application
+ expression       : g True
+ function         : g
+   type           : Int -> Int
+ 1st argument     : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error

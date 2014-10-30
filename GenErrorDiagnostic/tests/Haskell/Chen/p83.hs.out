@@ -1,0 +1,9 @@
+Compiling p83.hs
+(9,7)-(9,11): Type error in application
+ expression       : add1 ["error"] "location"
+ term             : add1
+   type           : a        -> [a]    -> [a]
+   does not match : [String] -> String -> b  
+ probable fix     : re-order arguments
+
+Compilation failed with 1 error

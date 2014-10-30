@@ -1,0 +1,8 @@
+Compiling p113.hs
+(7,42)-(7,45): Type error in literal
+ expression       : 2.2
+   type           : Float
+   expected type  : Int  
+ probable fix     : use an int literal instead
+
+Compilation failed with 1 error

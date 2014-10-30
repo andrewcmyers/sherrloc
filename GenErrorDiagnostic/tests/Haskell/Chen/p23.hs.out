@@ -1,0 +1,14 @@
+Compiling p23.hs
+(6,19)-(6,20): Type error in application
+ expression       : x 4
+ term             : x
+   type           : Int       
+   does not match : Int -> Int
+
+(6,39)-(6,43): Type error in then branch of conditional
+ expression       : if True then True else 1
+ constructor      : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 2 errors

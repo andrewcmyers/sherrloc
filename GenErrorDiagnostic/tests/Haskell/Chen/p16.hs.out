@@ -1,0 +1,8 @@
+Compiling p16.hs
+(6,39)-(6,42): Type error in else branch of conditional
+ expression       : if even x then True else x + 1
+ term             : x + 1
+   type           : Int 
+   does not match : Bool
+
+Compilation failed with 1 error

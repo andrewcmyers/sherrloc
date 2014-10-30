@@ -1,0 +1,18 @@
+Compiling p86.hs
+(7,37)-(7,41): Type error in application
+ expression       : g True
+ function         : g
+   type           : Int -> Int
+ 1st argument     : True
+   type           : Bool
+   does not match : Int 
+
+(8,10)-(8,13): Type error in application
+ expression       : h not
+ function         : h
+   type           : (Int -> Int) -> Int
+ 1st argument     : not
+   type           : Bool -> Bool
+   does not match : Int  -> Int 
+
+Compilation failed with 2 errors

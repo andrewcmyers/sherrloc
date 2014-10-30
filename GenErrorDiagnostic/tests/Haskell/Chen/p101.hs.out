@@ -1,0 +1,10 @@
+Compiling p101.hs
+(8,24)-(8,28): Type error in application
+ expression       : y True
+ function         : y
+   type           : Int -> a -> a
+ 1st argument     : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error

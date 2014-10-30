@@ -1,0 +1,10 @@
+Compiling p1.hs
+(6,6)-(6,15): Type error in infix application
+ expression       : print "a" ++ "b"
+ operator         : ++
+   type           : [a] -> [a] -> [a]
+ left operand     : print "a"
+   type           : IO ()
+   does not match : [a]  
+
+Compilation failed with 1 error

@@ -1,0 +1,7 @@
+Compiling p44.hs
+(8,14)-(8,19): Type error in right-hand side
+ expression       : False
+   type           : Bool  
+   does not match : String
+
+Compilation failed with 1 error

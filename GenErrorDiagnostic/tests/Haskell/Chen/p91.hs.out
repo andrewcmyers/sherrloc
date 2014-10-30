@@ -1,0 +1,10 @@
+Compiling p91.hs
+(6,39)-(6,43): Type error in application
+ expression       : fac (n == 1)
+ function         : fac
+   type           : Int -> Int
+ 1st argument     : n == 1
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error

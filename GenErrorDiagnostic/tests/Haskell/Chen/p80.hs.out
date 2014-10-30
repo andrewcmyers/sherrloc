@@ -1,0 +1,16 @@
+Compiling p80.hs
+(7,23)-(7,27): Type error in application
+ expression       : map2 xs
+ term             : map2
+   type           : (a -> b) -> [a] -> [b]
+   does not match : [a]      -> [b]       
+ probable fix     : insert a first argument
+
+(8,8)-(8,12): Type error in application
+ expression       : map2 "abc" toLower
+ term             : map2
+   type           : (a -> b) -> [a]            -> [b]
+   does not match : String   -> (Char -> Char) -> c  
+ probable fix     : re-order arguments
+
+Compilation failed with 2 errors

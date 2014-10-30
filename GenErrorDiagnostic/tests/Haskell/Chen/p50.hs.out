@@ -1,0 +1,9 @@
+Compiling p50.hs
+(7,20)-(7,23): Type error in application
+ expression       : map (+ 1)
+ term             : map
+   type           : (a   -> b  ) -> [a] -> [b]
+   does not match : (Int -> Int) -> [Int]     
+ probable fix     : insert a second argument
+
+Compilation failed with 1 error

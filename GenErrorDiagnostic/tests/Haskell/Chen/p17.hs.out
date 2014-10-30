@@ -1,0 +1,10 @@
+Compiling p17.hs
+(6,19)-(6,20): Type error in application
+ expression       : f i
+ function         : f
+   type           : Int -> a
+ 1st argument     : i
+   type           : Int -> a
+   does not match : Int     
+
+Compilation failed with 1 error

@@ -1,0 +1,8 @@
+Compiling p82.hs
+(6,15)-(6,16): Type error in right-hand side
+ expression       : x
+   type           : a  
+   does not match : [a]
+ because          : unification would give infinite type
+
+Compilation failed with 1 error

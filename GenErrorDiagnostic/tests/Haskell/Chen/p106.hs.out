@@ -1,0 +1,8 @@
+Compiling p106.hs
+(6,29)-(6,32): Type error in literal
+ expression       : 1.1
+   type           : Float
+   expected type  : Int  
+ probable fix     : use an int literal instead
+
+Compilation failed with 1 error

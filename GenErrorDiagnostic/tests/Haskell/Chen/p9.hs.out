@@ -1,0 +1,10 @@
+Compiling p9.hs
+(10,31)-(10,35): Type error in application
+ expression       : foldleft zero addReciprocals intList
+ function         : foldleft
+   type           : (a -> b -> a) -> a -> [b] -> a
+ 1st argument     : zero
+   type           : Float      
+   does not match : a -> b -> a
+
+Compilation failed with 1 error
