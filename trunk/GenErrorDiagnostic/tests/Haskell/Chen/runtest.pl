@@ -11,6 +11,7 @@ my $diagnostic = "$dirname/../../../sherrloc";
 my $sherrlocopt = "-c -v";
 my $mlfile;
 my $outfile = "data";
+my $cmpfile = "precision.dat";
 
 use strict;
 use warnings;
@@ -126,6 +127,46 @@ sub ghcLocations {
   return $str; 
 }
 
+# read the location results from Helium
+sub heliumLocations {
+  my $heliumfile = shift;
+  open HELIUM_REPORT, '<', "$heliumfile" or die "file not found!";
+  my @heliumlocs = ();
+
+  my $str = "";
+  my ($line, $column, $lineend, $columnend);
+  for(<HELIUM_REPORT>) {
+    if (/^\((\d+),(\d+)\)-\((\d+),(\d+)\):/) {
+        ($line, $column, $lineend, $columnend) = ($1,$2,$3,$4-1);
+        push(@heliumlocs, "$line,$column-$lineend,$columnend ");
+    }
+    elsif (/expression\s*: (.*)/) {
+        if ($line eq $lineend and $column+length($1)>$columnend) {
+            $columnend = $column+length($1)-1;
+        }
+    }
+    elsif (/term\s*: (.*)/) {
+        # helium report the location of the first term when it really
+        # means the whole application is wrong. so we fixed the
+        # location in such case
+        pop(@heliumlocs);
+        push(@heliumlocs, "$line,$column-$lineend,$columnend ");
+    }
+  }
+  foreach my $loc (@heliumlocs) {
+      $str .= $loc;
+  }
+  if ($str eq "") {
+     die " unrecognized location format ";
+  }
+  #else {
+  #   print "helium locs: $str\n";
+  #}
+
+  $total_size{'Helium'} += 1;
+  return $str; 
+}
+
 # read the manually labeled cause location
 sub causeLocations {
   my $mlfile = shift;
@@ -140,10 +181,25 @@ sub causeLocations {
 
 my %succ_counter;
 my %fail_counter;
+my %better_counter;
+my %both_correct_counter;
+my %both_wrong_counter;
+my %worse_counter;
+
 $succ_counter{'SHErrLoc'} = 0;
 $succ_counter{'GHC'} = 0;
+$succ_counter{'Helium'} = 0;
 $fail_counter{'SHErrLoc'} = 0;
 $fail_counter{'GHC'} = 0;
+$fail_counter{'Helium'} = 0;
+$better_counter{'GHC'} = 0;
+$better_counter{'Helium'} = 0;
+$both_correct_counter{'GHC'} = 0;
+$both_correct_counter{'Helium'} = 0;
+$both_wrong_counter{'GHC'} = 0;
+$both_wrong_counter{'Helium'} = 0;
+$worse_counter{'GHC'} = 0;
+$worse_counter{'Helium'} = 0;
 
 sub print_ok {
   my $name = shift;
@@ -243,6 +299,7 @@ L1:     for my $loc1 (@loc1) {
             }
           }
         }
+	my $sherrloc_succ = $succ;
         if ($succ == 0) {
           # remove cmo files
           print_fail('SHErrLoc');
@@ -256,20 +313,67 @@ L1:     for my $loc1 (@loc1) {
         my $ghcret = ghcLocations($file);
         my @loc3 = parse ($ghcret);
         $succ = 0;
-L1:     for my $loc1 (@loc1) {
+L2:     for my $loc1 (@loc1) {
           for my $loc3 (@loc3) {
             if ($loc1->contains ($loc3)) {
               print_ok('GHC', 1); # GHC only return one suggestion per error
               $succ = 1;
-              last L1;
+              last L2;
             }
           }
         }
+	my $ghc_succ = $succ;
         if ($succ == 0) {
           # remove cmo files
           print_fail('GHC');
         }
+
+        # test the correctness of Helium
+        my $heliumret = heliumLocations($file.".out");
+        my @loc4 = parse ($heliumret);
+        $succ = 0;
+L3:     for my $loc1 (@loc1) {
+          for my $loc4 (@loc4) {
+            if ($loc1->contains ($loc4)) {
+              print_ok('Helium', 1); # GHC only return one suggestion per error
+              $succ = 1;
+              last L3;
+            }
+          }
+        }
+	my $helium_succ = $succ;
+        if ($succ == 0) {
+          # remove cmo files
+          print_fail('Helium');
+        }
+
         print "\n";
+
+        if ($sherrloc_succ > $ghc_succ) {
+	    $better_counter{'GHC'} ++;
+	}
+	elsif ($sherrloc_succ < $ghc_succ) {
+	    $worse_counter{'GHC'} ++;
+	}
+	elsif ($sherrloc_succ == 1 and $ghc_succ == 1) {
+            $both_correct_counter{'GHC'} ++;
+	}
+	else {
+	    $both_wrong_counter{'GHC'} ++;
+	}
+
+        if ($sherrloc_succ > $helium_succ) {
+	    $better_counter{'Helium'} ++;
+	}
+	elsif ($sherrloc_succ < $helium_succ) {
+	    $worse_counter{'Helium'} ++;
+	}
+	elsif ($sherrloc_succ == 1 and $helium_succ == 1) {
+            $both_correct_counter{'Helium'} ++;
+	}
+	else {
+	    $both_wrong_counter{'Helium'} ++;
+	}
     }
 }
 
@@ -286,7 +390,20 @@ for my $name ('SHErrLoc', 'GHC') {
     print OUT (($succ_counter{$name}+$fail_counter{$name}) . " programs evaluated. " . ($fail_counter{$name}) . " of them fails.\n");
     print OUT "Average top rank size is: " . ($total_size{$name}/($succ_counter{$name}+$fail_counter{$name})) . "\n";
 }
+print OUT "Comparison with GHC:\n";
+print OUT "better: ".$better_counter{'GHC'}.", both correct: ".$both_correct_counter{'GHC'}.", both wrong ".$both_wrong_counter{'GHC'}.", worse: ".$worse_counter{'GHC'}."\n\n";
+
+print OUT "Comparison with Helium:\n";
+print OUT "better: ".$better_counter{'Helium'}.", both correct: ".$both_correct_counter{'Helium'}.", both wrong ".$both_wrong_counter{'Helium'}.", worse: ".$worse_counter{'Helium'}."\n";
+
 close OUT;
+
+open COMP, ">$cmpfile" or die "oped failed : $cmpfile\n";
+print COMP "Tool\tWorse\t\"Both Wrong\"\t\"Both Correct\"\tBetter\tTotal\n";
+print COMP "GHC\t$worse_counter{'GHC'}\t$both_wrong_counter{'GHC'}\t$both_correct_counter{'GHC'}\t$better_counter{'GHC'}\t".($better_counter{'GHC'}+$both_correct_counter{'GHC'}+$both_wrong_counter{'GHC'}+$worse_counter{'GHC'})."\n";
+print COMP "Helium\t$worse_counter{'Helium'}\t$both_wrong_counter{'Helium'}\t$both_correct_counter{'Helium'}\t$better_counter{'Helium'}\t".($better_counter{'Helium'}+$both_correct_counter{'Helium'}+$both_wrong_counter{'Helium'}+$worse_counter{'Helium'})."\n";
+close COMP;
+
 
 =comment
 my @loc1 = parse ("(* 9,1-12 5,14-18 *)");

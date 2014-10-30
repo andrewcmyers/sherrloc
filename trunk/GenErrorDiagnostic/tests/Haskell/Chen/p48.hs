@@ -6,4 +6,4 @@ import Data.Char
 isZero :: Int -> Bool                             
 isZero i = not i == 0
 
--- 7,16-21
+-- 7,16-21    7,12-21

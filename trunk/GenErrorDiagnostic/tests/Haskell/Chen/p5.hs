@@ -6,4 +6,4 @@ import Data.Char
 addList ls s = if s `elem` ls then ls else s : ls
 v5 = addList "a" ["b"]                                 
 
--- 7,14-22 
+-- 7,14-22    7,6-22
