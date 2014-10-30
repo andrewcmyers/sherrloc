@@ -1,0 +1,10 @@
+Compiling p77.hs
+(9,13)-(9,20): Type error in application
+ expression       : rever [1, 2, 3]
+ function         : rever
+   type           : [[a]] -> [a]
+ 1st argument     : [1, 2, 3]
+   type           : [Int]
+   does not match : [[a]]
+
+Compilation failed with 1 error

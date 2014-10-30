@@ -1,0 +1,14 @@
+Compiling p28.hs
+(7,19)-(7,20): Type error in conditional
+ expression       : if w then [1, True] else [4]
+ term             : w
+   type           : Int 
+   does not match : Bool
+
+(7,29)-(7,33): Type error in element of list
+ expression       : [1, True]
+ constructor      : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 2 errors

@@ -1,0 +1,9 @@
+Compiling p36.hs
+(10,24)-(10,26): Type error in infix application
+ expression       : reverse2 xs == xs
+ operator         : ==
+   type           : a     -> a   -> Bool
+   does not match : [[b]] -> [b] -> c   
+ because          : unification would give infinite type
+
+Compilation failed with 1 error

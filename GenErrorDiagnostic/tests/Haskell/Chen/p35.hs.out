@@ -1,0 +1,10 @@
+Compiling p35.hs
+(6,16)-(6,17): Type error in overloaded function
+ function         : <
+   type           : Ord a => a        -> a        -> Bool
+   used as        :          (b -> b) -> (b -> b) -> Bool
+ problem          : b -> b is not an instance of class Ord
+ hint             : valid instances of Ord are Bool, Char, Float, Int, [a] and
+                    tuples
+
+Compilation failed with 1 error

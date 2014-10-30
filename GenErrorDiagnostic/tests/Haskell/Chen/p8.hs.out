@@ -1,0 +1,30 @@
+Compiling p8.hs
+(7,11)-(7,12): Type error in overloaded function
+ function         : +
+   type           : Num a => a      -> a      -> a     
+   used as        :          String -> String -> String
+ problem          : String is not an instance of class Num
+ hint             : valid instances of Num are Float and Int
+
+(8,13)-(8,14): Type error in overloaded function
+ function         : +
+   type           : Num a => a      -> a      -> a     
+   used as        :          String -> String -> String
+ problem          : String is not an instance of class Num
+ hint             : valid instances of Num are Float and Int
+
+(9,14)-(9,15): Type error in overloaded function
+ function         : +
+   type           : Num a => a      -> a      -> a     
+   used as        :          String -> String -> String
+ problem          : String is not an instance of class Num
+ hint             : valid instances of Num are Float and Int
+
+(10,13)-(10,14): Type error in overloaded function
+ function         : +
+   type           : Num a => a      -> a      -> a     
+   used as        :          String -> String -> String
+ problem          : String is not an instance of class Num
+ hint             : valid instances of Num are Float and Int
+
+Compilation failed with 4 errors

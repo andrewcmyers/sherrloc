@@ -1,0 +1,16 @@
+Compiling p4.hs
+(6,16)-(6,17): Don't know which instance to choose for Num
+ function         : +
+   type           : Num a => a -> a -> a
+   used as        :          b -> b -> b
+ hint             : write an explicit type for this function
+                       e.g. (show :: [Int] -> String)
+
+(6,28)-(6,29): Don't know which instance to choose for Num
+ function         : +
+   type           : Num a => a -> a -> a
+   used as        :          b -> b -> b
+ hint             : write an explicit type for this function
+                       e.g. (show :: [Int] -> String)
+
+Compilation failed with 2 errors

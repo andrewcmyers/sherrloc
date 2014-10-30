@@ -1,0 +1,9 @@
+Compiling p57.hs
+(24,10)-(24,16): Type error in application
+ expression       : option "" (token "hello!")
+ term             : option
+   type           : Parser a b -> b                  -> Parser a    b     
+   does not match : String     -> Parser Char String -> Parser Char String
+ probable fix     : re-order arguments
+
+Compilation failed with 1 error

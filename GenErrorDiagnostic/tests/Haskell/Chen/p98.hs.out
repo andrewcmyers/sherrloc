@@ -1,0 +1,8 @@
+Compiling p98.hs
+(6,30)-(6,31): Type error in element of list
+ expression       : [x, 2]
+ term             : 2
+   type           : Int     
+   does not match : Int -> a
+
+Compilation failed with 1 error

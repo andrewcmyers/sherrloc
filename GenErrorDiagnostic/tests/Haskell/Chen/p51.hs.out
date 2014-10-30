@@ -1,0 +1,10 @@
+Compiling p51.hs
+(7,25)-(7,27): Type error in application
+ expression       : map (-1) xs
+ function         : map
+   type           : (a -> b) -> [a] -> [b]
+ 1st argument     : -1
+   type           : Int   
+   does not match : a -> b
+
+Compilation failed with 1 error

@@ -1,0 +1,8 @@
+Compiling p64.hs
+(7,33)-(7,34): Type error in infix application
+ expression       : length xs + sumLengths xss
+ operator         : +
+   type           : a   -> a   -> a  
+   does not match : Int -> [b] -> [b]
+
+Compilation failed with 1 error

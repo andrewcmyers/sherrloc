@@ -1,0 +1,8 @@
+Compiling p53.hs
+(6,17)-(6,19): Type error in variable
+ expression       : id
+   type           : a -> a
+   expected type  : String
+ probable fix     : insert one argument
+
+Compilation failed with 1 error

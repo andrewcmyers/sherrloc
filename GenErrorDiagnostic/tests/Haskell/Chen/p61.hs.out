@@ -1,0 +1,9 @@
+Compiling p61.hs
+(6,10)-(6,12): Type error in infix application
+ expression       : 0 !! xs
+ operator         : !!
+   type           : [a] -> Int -> a
+   does not match : Int -> b   -> c
+ probable fix     : swap the two arguments
+
+Compilation failed with 1 error

@@ -1,0 +1,10 @@
+Compiling p76.hs
+(10,18)-(10,54): Type error in application
+ expression       : plus ((\b -> if b then b else a) True, 3)
+ function         : plus
+   type           : Int -> Int -> Int
+ 1st argument     : ((\b -> if b then b else a) True, 3)
+   type           : (Bool, Int)
+   does not match : Int        
+
+Compilation failed with 1 error

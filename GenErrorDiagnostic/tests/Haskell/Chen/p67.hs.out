@@ -1,0 +1,9 @@
+Compiling p67.hs
+(6,17)-(6,19): Type error in infix application
+ expression       : x == [x]
+ operator         : ==
+   type           : a -> a   -> Bool
+   does not match : b -> [b] -> c   
+ because          : unification would give infinite type
+
+Compilation failed with 1 error

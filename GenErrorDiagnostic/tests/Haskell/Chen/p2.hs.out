@@ -1,0 +1,10 @@
+Compiling p2.hs
+(6,10)-(6,17): Type error in application
+ expression       : sum (5, 6, 7)
+ function         : sum
+   type           : [a] -> a
+ 1st argument     : (5, 6, 7)
+   type           : (Int, Int, Int)
+   does not match : [a]            
+
+Compilation failed with 1 error

@@ -1,0 +1,8 @@
+Compiling p96.hs
+(6,35)-(6,36): Type error in else branch of conditional
+ expression       : if x then succ x else 2
+ term             : 2
+   type           : Int 
+   does not match : Bool
+
+Compilation failed with 1 error

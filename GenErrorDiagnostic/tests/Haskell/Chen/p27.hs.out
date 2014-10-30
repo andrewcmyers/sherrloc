@@ -1,0 +1,8 @@
+Compiling p27.hs
+(7,20)-(7,38): Type error in else branch of conditional
+ expression       : if True then \f -> f 1 2 else \g -> g True False
+ term             : \g -> g True False
+   type           : (Bool -> Bool -> a) -> a
+   does not match : (Int  -> Int  -> b) -> b
+
+Compilation failed with 1 error

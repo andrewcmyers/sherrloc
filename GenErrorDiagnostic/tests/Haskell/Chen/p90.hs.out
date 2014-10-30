@@ -1,0 +1,10 @@
+Compiling p90.hs
+(6,20)-(6,44): Type error in application
+ expression       : (\f -> f 1) (\y -> if y then 1 else 0)
+ function         : \f -> f 1
+   type           : (Int -> a) -> a
+ 1st argument     : \y -> if y then 1 else 0
+   type           : Bool -> Int
+   does not match : Int  -> a  
+
+Compilation failed with 1 error

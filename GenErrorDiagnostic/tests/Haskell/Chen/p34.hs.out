@@ -1,0 +1,10 @@
+Compiling p34.hs
+(7,7)-(7,10): Type error in application
+ expression       : f 'a'
+ function         : f
+   type           : Bool -> Bool
+ 1st argument     : 'a'
+   type           : Char
+   does not match : Bool
+
+Compilation failed with 1 error

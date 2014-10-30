@@ -1,0 +1,10 @@
+Compiling p55.hs
+(24,26)-(24,41): Type error in infix application
+ expression       : map toUpper <$> "hello, world!"
+ operator         : <$>
+   type           : (a -> b) -> Parser c a -> Parser c b
+ right operand    : "hello, world!"
+   type           : String           
+   does not match : [c] -> [(a, [c])]
+
+Compilation failed with 1 error

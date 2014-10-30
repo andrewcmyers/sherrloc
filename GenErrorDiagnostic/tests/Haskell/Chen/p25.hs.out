@@ -1,0 +1,8 @@
+Compiling p25.hs
+(6,19)-(6,23): Type error in element of list
+ expression       : [1, x, True]
+ constructor      : True
+   type           : Bool
+   does not match : Int 
+
+Compilation failed with 1 error

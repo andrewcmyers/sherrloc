@@ -1,0 +1,13 @@
+Compiling p78.hs
+(8,10)-(8,11): Type error in right-hand side
+ expression       : 1
+   type           : Int  
+   does not match : [Int]
+
+(14,21)-(14,25): Type error in infix application
+ expression       : fib (n - 1) `plus` fib (n - 2)
+ term             : plus
+   type           : Int   -> Int   -> Int  
+   does not match : [Int] -> [Int] -> [Int]
+
+Compilation failed with 2 errors

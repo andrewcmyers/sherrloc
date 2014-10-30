@@ -1,0 +1,10 @@
+Compiling p37.hs
+(6,19)-(6,23): Type error in application
+ expression       : foldl succ 0 n
+ function         : foldl
+   type           : (a -> b -> a) -> a -> [b] -> a
+ 1st argument     : succ
+   type           : c -> c     
+   does not match : a -> b -> a
+
+Compilation failed with 1 error

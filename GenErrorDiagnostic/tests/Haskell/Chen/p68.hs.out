@@ -1,0 +1,10 @@
+Compiling p68.hs
+(8,13)-(8,17): Type error in application
+ expression       : map1 True ['a', 'b', 'c']
+ function         : map1
+   type           : (a -> b) -> [a] -> [b]
+ 1st argument     : True
+   type           : Bool  
+   does not match : a -> b
+
+Compilation failed with 1 error

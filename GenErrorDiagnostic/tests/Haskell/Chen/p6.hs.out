@@ -1,0 +1,10 @@
+Compiling p6.hs
+(10,11)-(10,14): Type error in application
+ expression       : nth search
+ term             : nth
+   type           : [a] -> Int -> a
+   does not match : [b] -> b       
+ because          : unification would give infinite type
+ probable fix     : insert a second argument
+
+Compilation failed with 1 error

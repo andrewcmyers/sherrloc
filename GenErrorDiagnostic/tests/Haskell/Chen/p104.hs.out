@@ -1,0 +1,9 @@
+Compiling p104.hs
+(6,21)-(6,22): Type error in application
+ expression       : t y
+ term             : t
+   type           : [a]   
+   does not match : b -> c
+ because          : it is not a function
+
+Compilation failed with 1 error

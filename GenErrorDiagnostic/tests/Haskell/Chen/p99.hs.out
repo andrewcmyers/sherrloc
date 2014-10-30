@@ -1,0 +1,10 @@
+Compiling p99.hs
+(6,22)-(6,23): Type error in application
+ expression       : f t
+ function         : f
+   type           : a -> b
+ 1st argument     : t
+   type           : [a]
+   does not match : a  
+
+Compilation failed with 1 error

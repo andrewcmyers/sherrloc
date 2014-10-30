@@ -1,0 +1,8 @@
+Compiling p115.hs
+(8,19)-(8,21): Type error in infix application
+ expression       : h1 `gt` h2
+ term             : gt
+   type           : Int  -> Int  -> Bool
+   does not match : Bool -> Bool -> Bool
+
+Compilation failed with 1 error

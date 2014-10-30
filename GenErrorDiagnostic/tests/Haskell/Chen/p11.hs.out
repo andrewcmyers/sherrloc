@@ -1,0 +1,8 @@
+(6,26)-(6,27): Type error in infix application
+ expression       : (map toUpper) . (++)
+ operator         : .
+   type           : (a      -> b     ) -> (c   -> a         ) -> c -> b     
+   does not match : ([Char] -> [Char]) -> ([d] -> [d] -> [d]) -> e -> f -> g
+ probable fix     : swap the two arguments
+
+Compilation failed with 1 error
