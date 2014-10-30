@@ -6,4 +6,4 @@ import Data.Char
 sumFloat :: [Float ] -> Float                     
 sumFloat xs = foldr (+) xs 0 + 0.0
 
--- 7,25-28
+-- 7,25-28   7,15-28
