@@ -349,12 +349,12 @@ L1:     for my $loc1 (@loc1) {
         my $ghcret = ghcLocations($file);
         my @loc3 = parse ($ghcret);
         $succ = 0;
-L1:     for my $loc1 (@loc1) {
+L2:     for my $loc1 (@loc1) {
           for my $loc3 (@loc3) {
             if ($loc1->contains ($loc3)) {
               print_ok('GHC', 1); # GHC only return one suggestion per error
               $succ = 1;
-              last L1;
+              last L2;
             }
           }
         }
@@ -368,12 +368,12 @@ L1:     for my $loc1 (@loc1) {
         my $heliumret = heliumLocations($file.".out");
         my @loc4 = parse ($heliumret);
         $succ = 0;
-L1:     for my $loc1 (@loc1) {
+L3:     for my $loc1 (@loc1) {
           for my $loc4 (@loc4) {
             if ($loc1->contains ($loc4)) {
               print_ok('Helium', 1); # GHC only return one suggestion per error
               $succ = 1;
-              last L1;
+              last L3;
             }
           }
         }
@@ -438,9 +438,9 @@ print OUT "better: ".$better_counter{'Helium'}.", both correct: ".$both_correct_
 close OUT;
 
 open COMP, ">$cmpfile" or die "oped failed : $cmpfile\n";
-print COMP "\tBetter\tCorrect\tWrong\tWorse\tTotal\n";
-print COMP "GHC\t$better_counter{'GHC'}\t$both_correct_counter{'GHC'}\t$both_wrong_counter{'GHC'}\t$worse_counter{'GHC'}\t".($better_counter{'GHC'}+$both_correct_counter{'GHC'}+$both_wrong_counter{'GHC'}+$worse_counter{'GHC'})."\n";
-print COMP "Helium\t$better_counter{'Helium'}\t$both_correct_counter{'Helium'}\t$both_wrong_counter{'Helium'}\t$worse_counter{'Helium'}\t".($better_counter{'Helium'}+$both_correct_counter{'Helium'}+$both_wrong_counter{'Helium'}+$worse_counter{'Helium'})."\n";
+print COMP "Tool\tBetter\t\"Both Correct\"\t\"Both Wrong\"\tWorse\tTotal\n";
+print COMP "GHC\t$worse_counter{'GHC'}\t$both_wrong_counter{'GHC'}\t$both_correct_counter{'GHC'}\t$better_counter{'GHC'}\t".($better_counter{'GHC'}+$both_correct_counter{'GHC'}+$both_wrong_counter{'GHC'}+$worse_counter{'GHC'})."\n";
+print COMP "Helium\t$worse_counter{'Helium'}\t$both_wrong_counter{'Helium'}\t$both_correct_counter{'Helium'}\t$better_counter{'Helium'}\t".($better_counter{'Helium'}+$both_correct_counter{'Helium'}+$both_wrong_counter{'Helium'}+$worse_counter{'Helium'})."\n";
 close COMP;
 
 
