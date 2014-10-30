@@ -11,6 +11,7 @@ my $diagnostic = "$dirname/../../../sherrloc";
 my $sherrlocopt = "-c -v";
 my $mlfile;
 my $outfile = "data";
+my $cmpfile = "precision.dat";
 
 use strict;
 use warnings;
@@ -435,6 +436,13 @@ print OUT "Comparison with Helium:\n";
 print OUT "better: ".$better_counter{'Helium'}.", both correct: ".$both_correct_counter{'Helium'}.", both wrong ".$both_wrong_counter{'Helium'}.", worse: ".$worse_counter{'Helium'}."\n";
 
 close OUT;
+
+open COMP, ">$cmpfile" or die "oped failed : $cmpfile\n";
+print COMP "\tBetter\tCorrect\tWrong\tWorse\tTotal\n";
+print COMP "GHC\t$better_counter{'GHC'}\t$both_correct_counter{'GHC'}\t$both_wrong_counter{'GHC'}\t$worse_counter{'GHC'}\t".($better_counter{'GHC'}+$both_correct_counter{'GHC'}+$both_wrong_counter{'GHC'}+$worse_counter{'GHC'})."\n";
+print COMP "Helium\t$better_counter{'Helium'}\t$both_correct_counter{'Helium'}\t$both_wrong_counter{'Helium'}\t$worse_counter{'Helium'}\t".($better_counter{'Helium'}+$both_correct_counter{'Helium'}+$both_wrong_counter{'Helium'}+$worse_counter{'Helium'})."\n";
+close COMP;
+
 
 =comment
 my @loc1 = parse ("(* 9,1-12 5,14-18 *)");
