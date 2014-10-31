@@ -43,7 +43,7 @@ import sherrloc.graph.Variance;
 public class ShortestPathFinder extends CFLPathFinder {
 	
 	/** length of shortest paths */
-//	private int[][] shortestLEQ;
+	private int[][] shortestLEQArray;
 //	private Map<EdgeCondition, Integer>[][] shortestLeft;
 	private Map<Integer, Map<Integer, Integer>> shortestLEQ;
 	private Map<Integer, Map<Integer, Map<EdgeCondition, Integer>>> shortestLeft;
@@ -424,8 +424,8 @@ public class ShortestPathFinder extends CFLPathFinder {
 	@Override
 	public boolean hasLeqEdge(Node from, Node end) {
 		return from.getElement().isBottom() || end.getElement().isTop() 
-				|| from.getElement().equals(end.getElement()) 
 				|| getShortestLeq(from, end) != MAX;
+//				|| from.getElement().equals(end.getElement());
 	}
 	
 	@Override
@@ -578,10 +578,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 				int meetIndex = meetnode.getIndex();
 				boolean success = true;
 				
-				if (hasLeqEdge(candidate, meetnode) || candIndex == meetIndex)
+				if (getShortestLeq(candidate, meetnode)<MAX || candIndex == meetIndex)
 					continue;
 				for (Element e : me.getElements()) {
-					if (!hasLeqEdge(candidate, g.getNode(e))) {
+					if (getShortestLeq(candidate, g.getNode(e))>=MAX) {
 						success = false;
 						break;
 					}
@@ -598,7 +598,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							size ++;
 						}
 					}
-					if (!hasLeqEdge(candidate, meetnode))
+					if (getShortestLeq(candidate, meetnode)>=MAX)
 						inferEdge(candidate, meetnode, LeqCondition.getInstance(), size, evidences, true);
 				}
 			}
@@ -614,10 +614,10 @@ public class ShortestPathFinder extends CFLPathFinder {
 				int joinIndex = joinnode.getIndex();
 				boolean success = true;
 
-				if (hasLeqEdge(joinnode, candidate) || joinIndex == candIndex)
+				if (getShortestLeq(joinnode, candidate)<MAX || joinIndex == candIndex)
 					continue;
 				for (Element e : je.getElements()) {
-					if (!hasLeqEdge(g.getNode(e), candidate)) {
+					if (getShortestLeq(g.getNode(e), candidate)>=MAX) {
 						success = false;
 						break;
 					}
@@ -634,7 +634,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 							size++;
 						}
 					}
-					if (!hasLeqEdge(joinnode, candidate))
+					if (getShortestLeq(joinnode, candidate)>=MAX)
 						inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences, true);
 				}
 			}
@@ -683,7 +683,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 					} 
 
 					// only infer new edges when none already exists
-					if ( (ltor && !hasLeqEdge(cnFrom, cnTo)) || (rtol && !hasLeqEdge(cnTo, cnFrom)) ) {
+					if ( (ltor && (getShortestLeq(cnFrom, cnTo)>=MAX)) || (rtol && (getShortestLeq(cnTo, cnFrom)>=MAX)) ) {
 						// check if all elements flows into another constructor
 						boolean success = true;
 
@@ -691,13 +691,13 @@ public class ShortestPathFinder extends CFLPathFinder {
 							Element e1 = ce1.getElements().get(i);
 							Element e2 = ce2.getElements().get(i);
 							/* it seems we shouldn't test if e1 and e2 are Variables. But it breaks 2 ocaml test cases. Need to justify this change */
-							if (!hasLeqEdge(g.getNode(e1), g.getNode(e2)) /*|| e1 instanceof Variable || e2 instanceof Variable*/) {
+							if (getShortestLeq(g.getNode(e1), g.getNode(e2))>=MAX /*|| e1 instanceof Variable || e2 instanceof Variable*/) {
 								success = false;
 								break;
 							}
 							// test the other direction for invariant parameters
 							if (ce1.getVariance().equals(Variance.NONE)) {
-								if (!hasLeqEdge(g.getNode(e2), g.getNode(e1))) {
+								if (getShortestLeq(g.getNode(e2), g.getNode(e1))>=MAX) {
 									success = false;
 									break;
 								}
@@ -718,9 +718,9 @@ public class ShortestPathFinder extends CFLPathFinder {
 									size ++;
 								}
 							}
-							if (ltor && !hasLeqEdge(cnFrom, cnTo))
+							if (ltor && getShortestLeq(cnFrom, cnTo)>=MAX)
 								inferEdge(cnFrom, cnTo, LeqCondition.getInstance(), size, evidences, true);
-							if (rtol && !hasLeqEdge(cnTo, cnFrom))
+							if (rtol && getShortestLeq(cnTo, cnFrom)>=MAX)
 								inferEdge(cnTo, cnFrom, LeqCondition.getInstance(), size, evidences, true);
 						}
 					}
