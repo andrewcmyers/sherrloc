@@ -103,8 +103,14 @@ public class ConstraintPath {
 		// at least one of the edges should be equation edge, since otherwise,
 		// the path is not informative
 		boolean hasEqu = false;
-		if (getFirst().isGray())
-			return false;
+		if (getFirst().isGray() || getLast().isGray()) {
+			if (getFirstElement() instanceof ConstructorApplication && getLastElement() instanceof ConstructorApplication) {
+				ConstructorApplication ca1 = (ConstructorApplication) getFirstElement();
+				ConstructorApplication ca2 = (ConstructorApplication) getLastElement();
+				if (ca1.getCons().equals(ca2.getCons()))
+					return false;
+			}
+		}
 		for (Edge e : edges) {
 			if (e instanceof ConstraintEdge) {
 				hasEqu = true;
@@ -116,15 +122,6 @@ public class ConstraintPath {
 		if (!hasEqu)
 			return false;
 		
-		Element e1 = getFirstElement();
-		Element e2 = getLastElement();
-		if (e1 instanceof ConstructorApplication
-				&& e2 instanceof ConstructorApplication) {
-			if (((ConstructorApplication) e1).getCons().equals(
-					((ConstructorApplication) e2).getCons()))
-				return false;
-		}
-
 		// we'd like to eliminate apparent dependencies on the satisfiability of paths
 		// 1. Any path that uses unsat path is not informative
 		// 2. If the hypothesis *derives* A->B and B->C, the path from A->C is ignored
