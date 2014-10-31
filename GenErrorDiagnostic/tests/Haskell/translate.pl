@@ -98,6 +98,17 @@ sub new {
 			die "Cannot translate constraint $ct";
 		}
 	}
+
+        # GHC produces constraints like Integer -> x ~ Integer -> y,
+        # where the structure is not informative at all. We remove
+        # this source
+	if ($left =~ /Integer -> ([^)]*)/) {
+		my $temp = $1;
+		if ($right =~ /Integer -> ([^)]*)/) {
+			$left = "($temp)";
+			$right = "($1)";
+		}
+	}
 	
 	my $self = {
 		left => $left,
