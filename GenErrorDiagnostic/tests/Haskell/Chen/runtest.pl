@@ -400,8 +400,8 @@ close OUT;
 
 open COMP, ">$cmpfile" or die "oped failed : $cmpfile\n";
 print COMP "Tool\tWorse\t\"Both Wrong\"\t\"Both Correct\"\tBetter\tTotal\n";
-print COMP "GHC\t$worse_counter{'GHC'}\t$both_wrong_counter{'GHC'}\t$both_correct_counter{'GHC'}\t$better_counter{'GHC'}\t".($better_counter{'GHC'}+$both_correct_counter{'GHC'}+$both_wrong_counter{'GHC'}+$worse_counter{'GHC'})."\n";
-print COMP "Helium\t$worse_counter{'Helium'}\t$both_wrong_counter{'Helium'}\t$both_correct_counter{'Helium'}\t$better_counter{'Helium'}\t".($better_counter{'Helium'}+$both_correct_counter{'Helium'}+$both_wrong_counter{'Helium'}+$worse_counter{'Helium'})."\n";
+print COMP "\"vs GHC\"\t$worse_counter{'GHC'}\t$both_wrong_counter{'GHC'}\t$both_correct_counter{'GHC'}\t$better_counter{'GHC'}\t".($better_counter{'GHC'}+$both_correct_counter{'GHC'}+$both_wrong_counter{'GHC'}+$worse_counter{'GHC'})."\n";
+print COMP "\"vs Helium\"\t$worse_counter{'Helium'}\t$both_wrong_counter{'Helium'}\t$both_correct_counter{'Helium'}\t$better_counter{'Helium'}\t".($better_counter{'Helium'}+$both_correct_counter{'Helium'}+$both_wrong_counter{'Helium'}+$worse_counter{'Helium'})."\n";
 close COMP;
 
 
