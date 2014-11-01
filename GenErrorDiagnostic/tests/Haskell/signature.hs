@@ -15,4 +15,4 @@ vergelijk :: String -> String -> Bool
 vergelijk x y = varErAf x `eqString` y
 
 -- type should be Prop -> String -> String
--- 14,14-19 
+-- 14,14-37

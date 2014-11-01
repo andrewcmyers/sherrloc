@@ -2,7 +2,7 @@
 # Stacked histograms by percent
 #
 set term postscript color solid
-set output "Helium-programs-precision.eps"
+set output "Small-programs-precision.eps"
 set title "Comparison with GHC and Helium"
 set key invert reverse Left outside
 set size 0.6,0.5
@@ -28,7 +28,7 @@ plot for [i=2:5] 'precision.dat' using (100.*column(i)/column(6)):xtic(1) fillco
      '' using ($0-1):(100.*$2/$6+100.*$3/$6+50.*$4/$6):4 with labels notitle, \
      '' using ($0-1):(100.*$2/$6+100.*$3/$6+100.*$4/$6+50.*$5/$6):5 with labels notitle
 
-!epstopdf "Helium-programs-precision.eps"
-!pdftk Helium-programs-precision.pdf cat 1-endeast output Helium-programs-precision-rotate.pdf
-!mv Helium-programs-precision-rotate.pdf Helium-programs-precision.pdf
-!evince "Helium-programs-precision.pdf"
+!epstopdf "Small-programs-precision.eps"
+!pdftk Small-programs-precision.pdf cat 1-endeast output Small-programs-precision-rotate.pdf
+!mv Small-programs-precision-rotate.pdf Small-programs-precision.pdf
+!evince "Small-programs-precision.pdf"

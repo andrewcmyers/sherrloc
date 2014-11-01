@@ -343,6 +343,8 @@ L1:     for my $loc1 (@loc1) {
           print_fail('SHErrLoc');
         }
         print OUT "$group $file\n";
+        my $lines = `wc -l $file 2>&1`;
+        print OUT "LOC: $lines\n";
         print OUT $toolret;
 
         # test the correctness of GHC
