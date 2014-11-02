@@ -94,6 +94,7 @@ public class TestAll {
 	
 	@Test
 	public void regressionTests () {
+		testErrorPaths("tests/jif/skolemcheck.con", true);
 		testErrorPaths("tests/jif/DashedPaths.con", false);
 		testAssumptions("tests/jif/cluster.con", "- a <= c;a <= d;b <= c;b <= d;\n");
 		testAssumptions("tests/jif/induction.con", "- A <= B;\n");		

@@ -78,6 +78,13 @@ public abstract class Element {
 		return toSnippetString()+pos.toString();
 	}
 	
+	/*
+	 * @ return the maximum level of skolems used in an element
+	 */
+	public int getSkolemLevel () {
+		return 0;
+	}
+	
 	/**
 	 * @return Dot-friendly string of the element.
 	 */

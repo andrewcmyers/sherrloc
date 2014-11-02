@@ -11,7 +11,7 @@ public class Bottom extends Constructor {
 	 * @param p Position of the element in source code
 	 */
 	public Bottom(Position p) {
-		super("⊥", 0, Variance.POS, p);
+		super("⊥", 0, 0, Variance.POS, p);
 	}
 	
 	@Override
