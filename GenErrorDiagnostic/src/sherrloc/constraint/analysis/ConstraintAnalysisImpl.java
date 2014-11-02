@@ -38,6 +38,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private boolean isGenHypo;
 	private boolean DEBUG = false;
 	private boolean PASSIVE = true;
+	private int expansion_time = 0;
 	
 	private Map<Element, Set<Element>> testedL = new HashMap<Element, Set<Element>>();
 	private Map<Element, Set<Element>> testedR = new HashMap<Element, Set<Element>>();
@@ -206,6 +207,9 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				}
 			}
 		}
+		
+		if (isVerbose)
+			System.out.println("expansion_time: " + expansion_time);
 
 		return unsatPaths;
 	}
@@ -251,7 +255,12 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 						path.incSuccCounter();
 				}
 				else if (PASSIVE && path.isSatPath()) {
+					long startTime = System.currentTimeMillis();
 					expandGraph(e1, e2, l, graph, finder, unsatPaths);
+					
+					long endTime = System.currentTimeMillis();
+					if (!rec)
+						expansion_time += (endTime - startTime);
 				}
 			}
 		}
