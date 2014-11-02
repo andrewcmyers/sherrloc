@@ -1,0 +1,4 @@
+CONSTRUCTOR A 0  level 1 
+VARIABLE    x    level 0
+
+x == A;
