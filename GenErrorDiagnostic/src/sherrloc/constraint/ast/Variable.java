@@ -10,12 +10,18 @@ import sherrloc.util.StringUtil;
  * This class represents constraint variable to be inferred
  */
 public class Variable extends Element {
+	private final int level;
 	
 	/**
 	 * @param name Variable name
 	 */
-	public Variable(String name) {
+	public Variable(String name, int level) {
 		super(name, Position.EmptyPosition());
+		this.level = level;
+	}
+	
+	public int getVarLevel() {
+		return level;
 	}
 		
 	@Override

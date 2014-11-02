@@ -162,7 +162,16 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				// test if a partial ordering can be inferred
 				if (!(start.getElement() instanceof JoinElement) && !(end.getElement() instanceof MeetElement) && finder.hasLeqEdge(start, end)) {
 					List<Edge> l = finder.getPath(start, end);
-					testConsistency(start.getElement(), end.getElement(), l, graph, finder, unsatPaths, false);
+					if (skolemCheck(start.getElement(), end.getElement()))
+						testConsistency(start.getElement(), end.getElement(), l, graph, finder, unsatPaths, false);
+					else {
+						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
+						unsatPaths.addUnsatPath(path);
+						if (DEBUG) {
+							System.out.println("****** Skolem check fails ******");
+							System.out.println(path);
+						}
+					}
 				
 					if (!isGenHypo) {
 						boolean allEQ = false;
@@ -184,12 +193,34 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 				
 				if (needtest && !(end.getElement() instanceof JoinElement) && !(start.getElement() instanceof MeetElement) && finder.hasLeqEdge(end, start)) {
 					List<Edge> l = finder.getPath(end, start);
-					testConsistency(end.getElement(), start.getElement(), l, graph, finder, unsatPaths, false);
+					if (skolemCheck(start.getElement(), end.getElement()))
+						testConsistency(end.getElement(), start.getElement(), l, graph, finder, unsatPaths, false);
+					else {
+						ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
+						unsatPaths.addUnsatPath(path);
+						if (DEBUG) {
+							System.out.println("****** Skolem check fails ******");
+							System.out.println(path);
+						}
+					}
 				}
 			}
 		}
 
 		return unsatPaths;
+	}
+	
+	/**
+	 * Return true if the skolem check succeeds
+	 */
+	boolean skolemCheck (Element e1, Element e2) {
+		if (e1 instanceof Variable) {
+			return ((Variable)e1).getVarLevel() >= e2.getSkolemLevel();
+		}
+		if (e2 instanceof Variable) {
+			return ((Variable)e2).getVarLevel() >= e1.getSkolemLevel();
+		}
+		return true;
 	}
 	
 	void testConsistency (Element e1, Element e2, List<Edge> l, ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths, boolean rec) {

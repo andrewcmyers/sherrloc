@@ -14,6 +14,7 @@ public class ConstructorApplication extends Application {
 	private final Constructor cons;
 	private ConstructorApplication baseelem = null;
 	private boolean bot, top;
+	private int level=0;
 	
 	/**
 	 * @param cons A constructor
@@ -24,6 +25,11 @@ public class ConstructorApplication extends Application {
 		this.cons = cons;
 		this.top = _isTop();
 		this.bot = _isBottom();
+		for (Element e : elements) {
+			if (level < e.getSkolemLevel()) {
+				level = e.getSkolemLevel();
+			}
+		}
 	}
 	
 	/**
@@ -180,5 +186,10 @@ public class ConstructorApplication extends Application {
 			ret.add(new ConstructorApplication(cons, lst));
 		}
 		return ret;
+	}
+	
+	@Override
+	public int getSkolemLevel() {
+		return level;
 	}
 }

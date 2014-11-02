@@ -11,6 +11,7 @@ import sherrloc.graph.Variance;
  */
 public class FunctionApplication extends Application {
 	private final Function func;
+	private int level=0;
 	
 	/**
 	 * @param cons A constructor
@@ -19,6 +20,11 @@ public class FunctionApplication extends Application {
 	public FunctionApplication(Function f, List<Element> elements) {
 		super("", elements);
 		this.func = f;
+		for (Element e : elements) {
+			if (level < e.getSkolemLevel()) {
+				level = e.getSkolemLevel();
+			}
+		}
 	}
 	
 	/**
@@ -124,5 +130,10 @@ public class FunctionApplication extends Application {
 			ret.add(new FunctionApplication(func, lst));
 		}
 		return ret;
+	}
+	
+	@Override
+	public int getSkolemLevel() {
+		return level;
 	}
 }

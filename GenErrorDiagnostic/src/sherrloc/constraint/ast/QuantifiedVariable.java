@@ -5,7 +5,7 @@ import java.util.Map;
 public class QuantifiedVariable extends Variable {
 	
 	public QuantifiedVariable(String name) {
-		super(name);
+		super(name, 0);
 	}
 	
 	@Override

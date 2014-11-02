@@ -9,7 +9,7 @@ public class LeqRevCondition extends EdgeCondition {
 	private static LeqRevCondition instance = null;
 	
 	private LeqRevCondition() {
-		super(new Variable(""), 0, false, null);
+		super(new Variable("",0), 0, false, null);
 	}
 	
 	public static LeqRevCondition getInstance () {

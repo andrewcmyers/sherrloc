@@ -50,7 +50,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
 <YYINITIAL> "%%"					{ return symbol(sym.SEPERATION); }
 <YYINITIAL> "AXIOM"                { return symbol(sym.AXIOM); }
 <YYINITIAL> "axiom"                { return symbol(sym.AXIOM); }
-
+<YYINITIAL> "level"                { return symbol(sym.LEVEL); }
 
 <YYINITIAL> {
   	/* identifiers */ 
