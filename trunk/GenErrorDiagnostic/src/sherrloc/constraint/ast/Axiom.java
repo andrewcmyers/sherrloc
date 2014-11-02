@@ -176,10 +176,9 @@ public class Axiom {
 					int size = pmatch.size;
 					List<Evidence> evidences = new ArrayList<Evidence>(pmatch.evidences); 	// track evidences that lead to the inference
 					if ((finder.hasLeqEdge(n1, n2) && (ieq.r != Relation.EQ || finder.hasLeqEdge(n2, n1)))) {
-						if (finder.hasLeqEdge(n1, n2)) {
-							size += finder.leqEdgeLength(n1, n2);
-							evidences.add(new Evidence(n1, n2, LeqCondition.getInstance()));
-						}
+						size += finder.leqEdgeLength(n1, n2);
+						evidences.add(new Evidence(n1, n2, LeqCondition.getInstance()));
+						
 						if (ieq.r == Relation.EQ && finder.hasLeqEdge(n2, n1)) {
 							size += finder.leqEdgeLength(n2, n1);
 							evidences.add(new Evidence(n2, n1, LeqCondition.getInstance()));
