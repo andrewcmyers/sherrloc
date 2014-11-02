@@ -13,6 +13,7 @@ import sherrloc.graph.Variance;
 public class Constructor extends Element {
 	private int arity;
 	private final Variance variance;
+	private final int level;
 	
 	/**
 	 * @param name Constructor name
@@ -20,10 +21,11 @@ public class Constructor extends Element {
 	 * @param variance The variance of all parameters
 	 * @param p Position of the element in source code
 	 */
-	public Constructor(String name, int arity, Variance variance, Position p) {
+	public Constructor(String name, int arity, int level, Variance variance, Position p) {
 		super(name, p);
 		this.arity = arity;
 		this.variance = variance;
+		this.level = level;
 	}
 	
 	/**
@@ -107,7 +109,7 @@ public class Constructor extends Element {
 		
 	@Override
 	public Constructor clone ( ) {
-		return new Constructor(name, arity, variance, pos);
+		return new Constructor(name, arity, level, variance, pos);
 	}
 	
 	@Override
@@ -127,7 +129,7 @@ public class Constructor extends Element {
 	
 	@Override
 	public Element getBaseElement() {
-		return new Constructor(name, arity, variance, Position.EmptyPosition());
+		return new Constructor(name, arity, level, variance, Position.EmptyPosition());
 	}	
 	
 	@Override
@@ -147,5 +149,10 @@ public class Constructor extends Element {
 		if (e instanceof Variable)
 			return e.matches(this, map);
 		else return equals(e);
+	}
+	
+	@Override
+	public int getSkolemLevel() {
+		return level;
 	}
 }

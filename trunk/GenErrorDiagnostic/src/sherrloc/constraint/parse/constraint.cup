@@ -53,7 +53,7 @@ terminal            ARROW, LARROW, JOIN, MEET;
 terminal            SEMICOLON, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, DOT, DASH, COLON, AT, LBRACE, RBRACE;
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
-terminal            AXIOM, IMPLIES;
+terminal            AXIOM, IMPLIES, LEVEL;
 
 /* Non terminals */
 non terminal DiagnosisInput     cons_spec;
@@ -67,7 +67,7 @@ non terminal 					declaration, declarations, one_declaration, constructor, funct
 non terminal				    assumptions, assumption;
 non terminal Element			term, element, ele_pos;
 non terminal String           	id;
-non terminal Integer			arity;
+non terminal Integer			arity, level;
 non terminal List<Element>		ele_pos_list, join_list, meet_list;
 non terminal Position           range, position;
 
@@ -78,9 +78,9 @@ precedence left COMMA;
 /* The grammar */
 cons_spec 	::= declaration 	
 			{: 
-					constructors.put("arrow", new Constructor("arrow", 2, Variance.POS, Position.EmptyPosition()));
-					constructors.put("larrow", new Constructor("larrow", 2, Variance.NEG, Position.EmptyPosition()));
-					constructors.put("pair",  new Constructor("pair", 2, Variance.POS, Position.EmptyPosition()));
+					constructors.put("arrow", new Constructor("arrow", 2, 0, Variance.POS, Position.EmptyPosition()));
+					constructors.put("larrow", new Constructor("larrow", 2, 0, Variance.NEG, Position.EmptyPosition()));
+					constructors.put("pair",  new Constructor("pair", 2, 0, Variance.POS, Position.EmptyPosition()));
 					constructors.put("_",  new Bottom(Position.EmptyPosition())); 
 					constructors.put("*",  new Top(Position.EmptyPosition())); 
 			:} 
@@ -90,9 +90,9 @@ cons_spec 	::= declaration
 			    RESULT = new DiagnosisInput (env, l, axioms); :}			
 			| 	declaration 
 			{: 
-					constructors.put("arrow", new Constructor("arrow", 2, Variance.POS, Position.EmptyPosition()));
-					constructors.put("larrow", new Constructor("larrow", 2, Variance.NEG, Position.EmptyPosition()));
-					constructors.put("pair",  new Constructor("pair", 2, Variance.POS, Position.EmptyPosition())); 
+					constructors.put("arrow", new Constructor("arrow", 2, 0, Variance.POS, Position.EmptyPosition()));
+					constructors.put("larrow", new Constructor("larrow", 2, 0, Variance.NEG, Position.EmptyPosition()));
+					constructors.put("pair",  new Constructor("pair", 2, 0, Variance.POS, Position.EmptyPosition())); 
 					constructors.put("_",  new Bottom(Position.EmptyPosition())); 
 					constructors.put("*",  new Top(Position.EmptyPosition())); 
 			:} 
@@ -118,7 +118,9 @@ one_declaration ::= constructor
             ;
             			
 constructor  ::= CONSTRUCTOR id:s arity:a
-			{: constructors.put( s, new Constructor(s, a, Variance.POS, Position.EmptyPosition())); :}
+			{: constructors.put( s, new Constructor(s, a, 0, Variance.POS, Position.EmptyPosition())); :}
+			| CONSTRUCTOR id:s arity:a LEVEL level:l
+			{: constructors.put( s, new Constructor(s, a, l, Variance.POS, Position.EmptyPosition())); :}
 			;
 			
 function    ::= FUNCTION id:s arity:a
@@ -126,7 +128,11 @@ function    ::= FUNCTION id:s arity:a
 			;
 			            
 variable  ::= VARIABLE id:s
-            {: variables.put( s, new Variable(s)); 
+            {: variables.put( s, new Variable(s, 0)); 
+               varMode = true;
+            :}
+            | VARIABLE id:s LEVEL level:l
+            {: variables.put( s, new Variable(s, l)); 
                varMode = true;
             :}
             ;
@@ -137,6 +143,9 @@ id        	::= IDENTIFIER:s
 			
 arity		::= INTEGER_LITERAL:a
 			{: RESULT = a; :};
+			
+level        ::= INTEGER_LITERAL:l
+            {: RESULT = l; :};
 			
 assumptions ::= assumptions assumption
             | assumption
@@ -374,12 +383,12 @@ element		::= IDENTIFIER:s
 					e = functions.get(s).clone();
 				}
 				else if (varMode && !(variables.containsKey(s))) {
-				    e = new Constructor(s, 0, Variance.POS, Position.EmptyPosition());
+				    e = new Constructor(s, 0, 0, Variance.POS, Position.EmptyPosition());
 				    constructors.put(s, (Constructor)e);
 				}
 				else {
 			   		if (!(variables.containsKey(s)))
-			   			variables.put (s, new Variable(s));
+			   			variables.put (s, new Variable(s,0));
 			   		e = variables.get(s);
 			   	}		
 			   	RESULT = e;
