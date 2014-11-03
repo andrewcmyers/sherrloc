@@ -306,6 +306,8 @@ L1:     for my $loc1 (@loc1) {
         }
         else {
 	  print OUT $file."\n";
+          my $lines = `wc -l $file 2>&1`;
+          print OUT "LOC: $lines\n";
           print OUT $toolret;
   	} 
 
