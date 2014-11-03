@@ -27,8 +27,12 @@ sub by_range {
 }
 
 while (<DATA>) {
-    if (/^graph_size: /) { 
-        @size= m/^graph_size: (.*)$/;
+#    if (/^graph_size: /) { 
+#        @size= m/^graph_size: (.*)$/;
+#        printf OUT ("\n%d\t", @size);
+#    }
+    if (/^LOC: /) {
+        @size= m/^LOC: (.*)$/;
         printf OUT ("\n%d\t", @size);
     }
     if (/^path_finding time: /) { 
@@ -40,6 +44,11 @@ while (<DATA>) {
         }
         printf OUT ("%f\t", @ptime[0]/1000.0);
     }
+    if (/^expansion_time: /) { 
+         @etime= m/^expansion_time: (.*)$/;
+         printf OUT ("%f\t", @etime[0]/1000.0);
+    }
+
     if (/^ranking_time: /) { 
         @rtime= m/^ranking_time: (.*)$/;
         by_range(\%freq_r,@rtime[0]/1000.0);
