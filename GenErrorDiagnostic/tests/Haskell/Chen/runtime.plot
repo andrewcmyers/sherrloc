@@ -1,15 +1,20 @@
 set term postscript color
-set output "haskell-runtime.eps"
+set output "performance.eps"
 set log xy
-set size 0.58,0.58
-set key left top
-set xlabel "constraint graph size (# of nodes)"
-set ylabel "time (in seconds)"
-set xrange [10:1400]
+set size 0.58,0.5
+set key top left samplen 1 box
+set xlabel "program size (LOC)" offset -0.1,0.4
+set ylabel "time (in seconds)" offset 2,-0.5
+set xrange [5:600]
+set xtics add ("600" 600)
+set xtics add ("50" 50)
+set xtics add ("200" 200)
+set xtics add ("400" 400)
 
-plot 'runtime.dat' u 1:2 title "graph building time", \
-     'runtime.dat' u 1:3 title "ranking time" ls 3
+plot 'runtime.dat' u 1:2 title "analysis time" ls 1, \
+     'runtime.dat' u 1:4 title "ranking time" ls 3
 
-!epstopdf "haskell-runtime.eps"
-!evince "haskell-runtime.eps"
-
+!epstopdf "performance.eps"
+!pdftk performance.pdf cat 1-endeast output performance-rotate.pdf
+!mv performance-rotate.pdf performance.pdf
+!evince "performance.pdf"
