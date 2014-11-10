@@ -14,8 +14,9 @@ opendir(DIR, ".") or die $!;
 
 while (my $file = readdir(DIR)) {
     if ($file =~ /(.*).hs/) {
-        `$ghc $opt $_.hs 2> $_.trace`;
-        `perl ../../translate.pl $_.trace`;
+        print $1."\n";
+        `$ghc $opt $1.hs 2> $1.trace`;
+        `perl ../../translate.pl $1.trace`;
     }
 }
 
