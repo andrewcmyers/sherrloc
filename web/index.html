@@ -36,11 +36,14 @@ flow analysis and dataflow analysis.
 </p>
 
 <p>
-The SHErrLoc tool analyzes a system of constraints in a constraint language
-that is expressive enough for a large class of static program analyses. Both
-satisfiable and unsatisfiable constraints are analyzed to identify the most
-likely cause of errors. Based on Bayesian grounds, the likelihood of different
-error explanations is evaluated via two general heuristics:
+The SHErrLoc tool analyzes a system of constraints in a constraint
+language that is expressive enough for a large class of static program
+analyses, including the highly expressive type system implemented by
+the Glasgow Haskell Compiler (GHC) (with type classes, GADTs, and type
+families). Both satisfiable and unsatisfiable constraints are analyzed
+to identify the most likely cause of errors. Based on Bayesian
+grounds, the likelihood of different error explanations is evaluated
+via two general heuristics:
 <ul>
 <li> 
 All else equal, an explanation in which programmers have made fewer mistakes is
@@ -62,10 +65,18 @@ likely programmer mistakes, as illustrate in the overview graph. Please try our
 identifies assumptions likely to have been omitted.-->
 
 <p>
-Evaluation on two very different program analyses, type inference in OCaml and
-information flow analysis in Jif, suggests that this general approach
-identifies error locations significantly more accurately than existing tools.
+Less compiler modifications are required for diagnosing Haskell type
+errors, since existing compilers, such as GHC, already generate
+type-checking constraints. A light-weight constraint translator then
+feeds these constraints to the general SHErrLoc tool, in order to
+better localize programmer mistakes. (A tool release is coming soon.)
 </p>
+
+<p>
+Evaluation on very different program analyses, type inference in OCaml
+and Haskell, as well as information flow analysis in Jif, suggests
+that this general approach identifies error locations significantly
+more accurately than existing tools.  </p>
 
 <h2>Downloads</h2>
 
@@ -107,11 +118,21 @@ identifies error locations significantly more accurately than existing tools.
 <ul>
 <li>
     <cite>
+    <a href="http://www.cs.cornell.edu/andru/papers/tc_diagnostic/">
+    Diagnosing Type Errors with Class
+    </a></cite> <br>
+    <i> Proceedings of the 36th ACM SIGPLAN conference on Programming
+    Language Design and Implementation</i> (PLDI'15), June 2015. <br>
+    Danfeng Zhang, Andrew C. Myers, Dimitrios Vytiniotis and Simon Peyton‑Jones.
+</li>
+
+<li>
+    <cite>
     <a href="http://www.cs.cornell.edu/andru/papers/diagnostic/">
     Toward General Diagnosis of Static Errors
-    </a></cite><br>
+    </a></cite> [<a href="http://www.cs.cornell.edu/~zhangdf/pub/popl14-slides.pdf">Slides</a>] <br>
     <i> Proceedings of the 41st ACM SIGPLAN-SIGACT Symposium on Principles of
-	    Programming Languages</i> (POPL'14), pages 569&ndash;581, January 2014. 
+	    Programming Languages</i> (POPL'14), pages 569&ndash;581, January 2014. <br>
     Danfeng Zhang and Andrew C. Myers.
 </li>
 </ul>
