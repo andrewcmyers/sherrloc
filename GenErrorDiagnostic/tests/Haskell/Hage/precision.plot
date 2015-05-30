@@ -19,7 +19,7 @@ unset key
 
 set lmargin at screen .08
 set rmargin at screen .33
-set title "Chen's Benchmark"
+set title "The CE Benchmark"
 
 color(i) = (i==2)? 'red' : \
            (i==3)? 'orange': \
@@ -35,7 +35,7 @@ plot for [i=2:5] '../Chen/precision.dat' using (100.*column(i)/column(6)):xtic(1
 
 set lmargin at screen .33
 set rmargin at screen .58
-set title "Hage's Benchmark"
+set title "The Helium Benchmark"
 unset ylabel
 set format y ""
 set boxwidth 0.75

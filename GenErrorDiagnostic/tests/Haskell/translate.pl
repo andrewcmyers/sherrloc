@@ -477,9 +477,12 @@ sub trans_AXIOM {
 	while ($line !~ /^End .*InstEnvs \}/) {
 		$line =~ s/(.*instance) //g;
 		$line =~ s/(\[overlap ok\])//g;
+                
 		if ($line =~ /(.*) -- Defined /) {
 			$ct .= $1;
-			push (@axioms, _transAxiom($ct));
+			if ($ct !~ /GHC\.Generics/ and $ct !~ /Data\.Type\.Equality/ ) {
+				push (@axioms, _transAxiom($ct));
+			}
 			$ct = "";
 		}
 		else {	# collect the constraint
