@@ -49,6 +49,7 @@ sub new {
 	my $ct = shift;
 	my ($left, $right, $rel);
 	$ct =~ s/\R//g; # remove line breaks
+	$ct =~ s/\n//g; # remove line breaks
 	
 	if ($ct =~ /(.*) ~ (.*)/) {
 		$left = $1;
@@ -429,6 +430,7 @@ sub _transAxiom {
 	my $ct = shift;
 	# print "@@@@ translating $ct\n";
 	$ct =~ s/\R//g; # remove line breaks
+	$ct =~ s/\n//g; # remove line breaks
 	$ct =~ s/\(->\)/arrow/g; # replace (->) by "arrow"
 	$ct =~ s/\(,\)/pair/g;   # replace (,) by "pair"
 	my @qvars = ($ct =~ /[( ]([a-z])[ )]/g);
