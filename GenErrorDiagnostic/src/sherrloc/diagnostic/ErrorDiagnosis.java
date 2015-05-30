@@ -157,7 +157,7 @@ public class ErrorDiagnosis implements PrettyPrinter {
 		UnsatPaths paths = cana.genErrorPaths(graph);
         
         sb.append(HTMLUtil.getHeader());
-//        sb.append(HTMLUtil.getFeedback());
+        sb.append(HTMLUtil.getFeedback());
     	
     	sb.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
     			"<H2>\n" +
