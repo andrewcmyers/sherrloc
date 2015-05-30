@@ -37,7 +37,7 @@ public class ConstraintEntity extends Entity {
 	@Override
 	public void toHTML(StringBuffer locBuf, StringBuffer expBuf) {
 		locBuf.append("['left', \'"+pos+"\'], ");
-		expBuf.append(html);
+		expBuf.append(html + " [loc: " + pos + "]    ");
 	}
 	
 	@Override
