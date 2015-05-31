@@ -162,7 +162,7 @@ public class ErrorDiagnosis implements PrettyPrinter {
     	sb.append( "<!-- ======== START OF ERROR REPORT ======== -->\n" +
     			"<H2>\n" +
     			"<BR>\n" +
-    			"Error Diagnostic Report </H2>\n" +
+    			"SHErrLoc Report </H2>\n" +
     			"<HR>\n");
     	
     	// type check succeeded
