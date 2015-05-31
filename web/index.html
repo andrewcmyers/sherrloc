@@ -69,7 +69,9 @@ Less compiler modifications are required for diagnosing Haskell type
 errors, since existing compilers, such as GHC, already generate
 type-checking constraints. A light-weight constraint translator then
 feeds these constraints to the general SHErrLoc tool, in order to
-better localize programmer mistakes. (A tool release is coming soon.)
+better localize programmer mistakes. Please try our <a
+href="http://apl.cs.cornell.edu/~zhangdf/haskelldiagnostic">demo for
+Haskell</a>.
 </p>
 
 <p>
@@ -79,6 +81,9 @@ that this general approach identifies error locations significantly
 more accurately than existing tools.  </p>
 
 <h2>Downloads</h2>
+
+A new version of SHErrLoc, as described in our PLDI'15 paper, will be
+released soon. Stay tuned.
 
 <form method="POST" 
       action="http://www.cs.cornell.edu/w8/~andru/cgi-bin/download.pl"
@@ -122,7 +127,7 @@ more accurately than existing tools.  </p>
     Diagnosing Type Errors with Class
     </a></cite> <br>
     <i> Proceedings of the 36th ACM SIGPLAN conference on Programming
-    Language Design and Implementation</i> (PLDI'15), June 2015. <br>
+    Language Design and Implementation</i> (PLDI'15), pages 12&ndash;21, June 2015. <br>
     Danfeng Zhang, Andrew C. Myers, Dimitrios Vytiniotis and Simon Peyton‑Jones.
 </li>
 
