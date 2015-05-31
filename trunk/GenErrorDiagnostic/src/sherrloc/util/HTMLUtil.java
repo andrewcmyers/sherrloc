@@ -136,10 +136,12 @@ public class HTMLUtil {
 	 *            Unsatisfiable paths identified by constraint analysis
 	 * @param sourceName
 	 *            Source file
+	 * @param isElem
+	 *            True for element candidates; False for constraint elements           
 	 * @return Annotated source code so that all locations needed to be
 	 *         highlighted are properly labeled
 	 */
-    public String genAnnotatedCode (UnsatPaths unsatPaths, String sourceName) {
+    public String genAnnotatedCode (UnsatPaths unsatPaths, String sourceName, boolean isElem) {
     	StringBuffer sb = new StringBuffer();
     	sb.append("\n<pre class=\"code\" id=\"code\">\n");
     	
@@ -150,23 +152,26 @@ public class HTMLUtil {
     	Set<Position> posSet = new HashSet<Position>();						// positions require highlighting
   
     	for (ConstraintPath path : unsatPaths.getPaths()) {
-    		Set<Node> nodes = path.getAllNodes();
-    		for (Node node : nodes) {
-    			Position p = node.getElement().getPosition();
-    			if (sourceName.contains(p.getFile())) {
-    				posSet.add(p);
-    			}
-    		}
-    		
-    		List<Edge> edges = path.getEdges();
-    		for (Edge edge : edges) {
-    			if(edge instanceof ConstraintEdge) {
-    				Position p = ((ConstraintEdge)edge).getConstraint().getPos(); 
-    				if (sourceName.contains(p.getFile())) {
-    					posSet.add(p);
-    				}
-    			}
-    		}
+			if (isElem) {
+				Set<Node> nodes = path.getAllNodes();
+				for (Node node : nodes) {
+					Position p = node.getElement().getPosition();
+					if (sourceName.contains(p.getFile())) {
+						posSet.add(p);
+					}
+				}
+			} else {
+				List<Edge> edges = path.getEdges();
+				for (Edge edge : edges) {
+					if (edge instanceof ConstraintEdge) {
+						Position p = ((ConstraintEdge) edge).getConstraint()
+								.getPos();
+						if (sourceName.contains(p.getFile())) {
+							posSet.add(p);
+						}
+					}
+				}
+			}
     	}
     	
     	for (Position pos : posSet) {
