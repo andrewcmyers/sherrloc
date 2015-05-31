@@ -70,7 +70,7 @@ public class HTMLUtil {
     			"<HEAD>\n" +
     			"<meta http-equiv=\"Content-Type\" content=\"text/html\"; charset=\"utf-8\" />\n" +
     			"<TITLE>\n" +
-    			"Error Diagnostic Report\n" +
+    			"SHErrLoc Report\n" +
     			"</TITLE>\n" +
     			"<SCRIPT type=\"text/javascript\">\n" +
     					"function windowTitle()\n" +
