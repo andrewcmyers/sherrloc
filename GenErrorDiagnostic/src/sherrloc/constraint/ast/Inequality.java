@@ -2,6 +2,8 @@ package sherrloc.constraint.ast;
 
 import java.util.List;
 
+import java_cup.internal_error;
+
 import sherrloc.util.PrettyPrinter;
 
 /**
@@ -64,8 +66,12 @@ public class Inequality implements PrettyPrinter {
 
 	@Override
 	public String toHTMLString() {
-		return ("<code>" + e1.toString()
-				+ "</code> is less or equal than <code>" + e2.toString() + "</code>");
+		String e1s = ((e1 instanceof Variable)?"(variable)":"")+e1.toString();
+		String e2s = ((e2 instanceof Variable)?"(variable)":"")+e2.toString();
+		if (r == Relation.EQ)
+			return ("<code>" + e1s + " == " + e2s + "</code>");
+		else
+			return ("<code>" + e1s + " <= " + e2s + "</code>");
 	}
 
 	@Override
