@@ -30,7 +30,7 @@ public class HTMLUtil {
     	sb.append("<div id=feedback class=feedback>\r\n");
     	sb.append("<form method=\"POST\" action=\"submit.pl\" accept-charset=\"UTF-8\">");
 
-    	sb.append("Please rate this error diagnosis:<br>\r\n");
+    	sb.append("Please rate SHErrLoc:<br>\r\n");
 
     	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"1\"> 1. not helpful\r\n");
     	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"2\"> 2. somewhat helpful\r\n");
@@ -38,7 +38,7 @@ public class HTMLUtil {
     	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"4\"> 4. very helpful\r\n");
     	sb.append("<input type=\"radio\" name=\"helpfulness\" value=\"5\"> 5. extremely helpful\r\n");
     	
-    	sb.append("<p>How does it compare in usefulness to the error message you get from OCaml?<br>\r\n");
+    	sb.append("<p>How does it compare in usefulness to the error message you get from (e.g., OCaml, GHC)?<br>\r\n");
     	sb.append("<input type=\"radio\" name=\"comparison\" value=\"1\"> 1. much worse\r\n");
     	sb.append("<input type=\"radio\" name=\"comparison\" value=\"2\"> 2. worse\r\n");
     	sb.append("<input type=\"radio\" name=\"comparison\" value=\"3\"> 3. about the same\r\n");
@@ -48,8 +48,8 @@ public class HTMLUtil {
     	sb.append("<p>If you think you know where the error is in the program, please enter the line number:</p>");
     	sb.append("<input type=\"text\" name=\"errorloc\" />");
     	
-    	sb.append("<p>If you have any other comments about how this diagnosis " +
-    			"(or this tool) could be improved, you may enter them here:</p>\r\n");
+    	sb.append("<p>If you have any other comments about how SHErrLoc " +
+    			" could be improved, you may enter them here:</p>\r\n");
     	sb.append("<textarea name=\"comments\" rows=\"2\" cols=\"50\" /></textarea>\r\n");
     	sb.append("<input type=\"submit\" value=\"Submit\"></div>\r\n");
     	sb.append("</form>\r\n");
