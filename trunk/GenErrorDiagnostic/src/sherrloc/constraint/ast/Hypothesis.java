@@ -14,12 +14,15 @@ import sherrloc.graph.Node;
 import sherrloc.graph.Variance;
 
 /**
- * Hypothesis consists a conjunction of inequalities
+ * Hypothesis is a conjunction of inequalities and axioms. Since an hypothesis
+ * is used to reason about provable inequalities in a constraint graph, relevant
+ * constraint elements are also added into the hypothesis graph for a more
+ * complete reasoning.
  */
 public class Hypothesis {
 	private Set<Inequality> assertions;
 	private List<Axiom> axioms;
-	private Set<Element> elmts;			// elements whose relation is of interest
+	private Set<Element> elmts;			// elements in the corresponding constraint graph
 	private Hypothesis parent = null; 	// used to reduce shared environments
 										// (e.g., to store global assumptions)
 	private boolean USE_GRAPH = true;	// set true to use hypothesis graph to infer provable relations
@@ -35,7 +38,10 @@ public class Hypothesis {
 	}
 	
 	/**
-	 * Construct an empty hypothesis
+	 * Construct an empty hypothesis, initialized with axioms
+	 * 
+	 * @param axioms
+	 *            Initial axioms
 	 */
 	public Hypothesis(List<Axiom> axioms) {
 		assertions = new HashSet<Inequality>();
@@ -67,17 +73,20 @@ public class Hypothesis {
 	}
 	
 	/**
-	 * Set the parameter as axioms of the hypothesis
+	 * Set the parameter as axioms of the hypothesis; existing axioms are
+	 * cleared
 	 * 
 	 * @param axiom
 	 *            Axioms to be set
 	 */
 	public void setAxioms(List<Axiom> axioms) {
 		this.axioms.clear();
-		this.axioms.addAll(axioms);
+		addAxioms(axioms);
 	}
 	
 	/**
+	 * Add constraint elements from the corresponding constraint graph
+	 * 
 	 * @param s
 	 *            A set of elements
 	 */
@@ -88,10 +97,12 @@ public class Hypothesis {
 	}
 	
 	/**
+	 * Add one constraint element
+	 * 
 	 * @param ele
-	 *            One element
+	 *            One element to be added
 	 */
-	public void addElement (Element ele) {
+	private void addElement (Element ele) {
 		if (parent == null)
 			elmts.add(ele.getBaseElement());
 		else
@@ -109,8 +120,8 @@ public class Hypothesis {
 			parent = e;
 		} else {
 			assertions.addAll(e.getInequalities());
-			elmts.addAll(e.elmts);
-			axioms.addAll(e.axioms);
+			elmts.addAll(e.getElements());
+			axioms.addAll(e.getAxioms());
 		}
 	}
 	
@@ -164,36 +175,19 @@ public class Hypothesis {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
 		
-		if (USE_GRAPH) {
-			if (e1.equals(e2))
-				return true;
-
-			if (e1.isBottom() || e2.isTop())
-				return true;
-
-//			if (e1 instanceof Variable || e2 instanceof Variable) {
-//				return true;
-//			}
-			
-			if (e1 instanceof ConstructorApplication
-					&& e2 instanceof ConstructorApplication) {
-				if (((ConstructorApplication) e1).getCons().equals(
-						((ConstructorApplication) e2).getCons()) && (e1.hasVars() || e2.hasVars()))
-					return true;
-			}
-
-			if (rec && leqApplyAssertions(e1, e2))
-				return true;
-			return false;
-		}
-		else {
-		// simple cases
 		if (e1.equals(e2))
 			return true;
 
 		if (e1.isBottom() || e2.isTop())
 			return true;
-
+		
+		if (USE_GRAPH) {
+			if (rec && leqApplyAssertions(e1, e2))
+				return true;
+			return false;
+		}
+		
+		// else, try to simplify the inequality being tested. This code is now obsolete 
 		if (e1 instanceof Variable || e2 instanceof Variable) {
 			return true;
 		}
@@ -268,7 +262,6 @@ public class Hypothesis {
 		}
 
 		return false;
-		}
 	}
 
 	/**
@@ -376,6 +369,24 @@ public class Hypothesis {
 	public boolean satisfiable (Element p1, Element p2) {
 		Element e1 = p1.getBaseElement();
 		Element e2 = p2.getBaseElement();
+
+		if (e1 instanceof Variable || e2 instanceof Variable) {
+		   return true;
+		}
+		
+		if (e1 instanceof ConstructorApplication
+				&& e2 instanceof ConstructorApplication) {
+			if (((ConstructorApplication) e1).getCons().equals(
+					((ConstructorApplication) e2).getCons())) {
+				List<Element> l1 = ((ConstructorApplication) e1).elements;
+				List<Element> l2 = ((ConstructorApplication) e2).elements;
+				for (int i=0; i<l1.size(); i++) {
+					if (!satisfiable(l1.get(i), l2.get(i)))
+						return false;
+				}
+				return true;
+			}
+		}
 		
 		if (leq(e1, e2))
 			return true;
