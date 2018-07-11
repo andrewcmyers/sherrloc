@@ -68,8 +68,9 @@ ifneq "$(OMIT_PHASE_1)" "YES"
 	@echo "===--- building phase 1"
 	$(MAKE) -r --no-print-directory -f ghc.mk phase=1 phase_1_builds
 endif
-	@echo "===--- building final phase"
-	$(MAKE) -r --no-print-directory -f ghc.mk phase=final $@
+	@echo "===--- skipping phase 2"
+	# @echo "===--- building final phase"
+	# $(MAKE) -r --no-print-directory -f ghc.mk phase=final $@
 
 binary-dist: binary-dist-prep
 	mv bindistprep/*.tar.$(TAR_COMP_EXT) .
