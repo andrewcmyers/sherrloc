@@ -109,7 +109,8 @@ public class DiagnosticOptions {
 			toConsole = false;
 
 		if (cmd.getArgs().length == 0) {
-			System.out.println("Reading constraints from standard input");
+            if (isVerbose())
+			  System.out.println("Reading constraints from standard input");
             consFile = null;
 		} else {
             consFile = cmd.getArgs()[0];
