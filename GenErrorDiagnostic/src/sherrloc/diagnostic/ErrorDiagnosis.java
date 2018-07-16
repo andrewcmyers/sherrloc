@@ -1,6 +1,7 @@
 package sherrloc.diagnostic;
 
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,7 +50,10 @@ public class ErrorDiagnosis implements PrettyPrinter {
 	 * @throws Exception
 	 */
 	static public ErrorDiagnosis getAnalysisInstance (DiagnosticOptions option) throws Exception {
-	    parser p = new parser(new GrmLexer(new InputStreamReader(new FileInputStream(option.getConsFile()), "UTF-8")));
+        InputStream inp = option.getConsFile() == null
+          ? System.in
+          : new FileInputStream(option.getConsFile());
+	    parser p = new parser(new GrmLexer(new InputStreamReader(inp, "UTF-8")));
 	    DiagnosisInput result = (DiagnosisInput) p.parse().value;
 
 	    ConstraintGraph graph = new ConstraintGraph(result.getEnv(), result.getConstraints(), result.getAxioms());
