@@ -1,4 +1,3 @@
-
 package sherrloc.diagnostic;
 
 import org.apache.commons.cli.CommandLine;
@@ -33,9 +32,8 @@ public class DiagnosticOptions {
 	 * 
 	 * @param consFile
 	 *            Input constraint file name
-	 * @param isExpr
-	 *            Set "True" to infer likely wrong expressions in program; set
-	 *            "False" to infer likely missing hypothesis
+	 * @param mode
+	 *            Set the diagnostic mode
 	 */
 	public DiagnosticOptions(String consFile, Mode mode) {
 		setDefault();
