@@ -98,7 +98,6 @@ public class Explanation implements Comparable<Explanation>, PrettyPrinter {
 
 		for (String str : list)
 			sb.append(str + ";");
-		//sb.append("\n");
 
 		return sb.toString();
 	}

@@ -114,7 +114,7 @@ public class DiagnosticOptions {
             consFile = cmd.getArgs()[0];
         }
         if (mode == null) {
-			System.out.println("Please set at least one of report type: -c -e -h or -u");
+			System.out.println("Please set at least one report type: -c -e -h or -u");
 			System.exit(0);
 		}
 	}
@@ -148,7 +148,6 @@ public class DiagnosticOptions {
         if (consFile != null) return consFile;
         return "<standard input>";
 	}
-
 
 	/**
 	 * @return Output HTML file when provided. The default value "error.html" is
