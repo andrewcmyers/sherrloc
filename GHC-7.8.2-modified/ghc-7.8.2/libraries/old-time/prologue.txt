@@ -1,2 +1,0 @@
-This package provides the old time library.
-For new code, the new time library is recommended.

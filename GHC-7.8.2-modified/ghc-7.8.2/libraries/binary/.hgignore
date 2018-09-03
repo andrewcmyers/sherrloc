@@ -1,5 +1,0 @@
-^dist$
-syntax: glob
-.*.swp
-*~
-\#*
