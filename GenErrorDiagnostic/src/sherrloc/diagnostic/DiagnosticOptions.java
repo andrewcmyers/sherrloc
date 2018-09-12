@@ -26,7 +26,7 @@ public class DiagnosticOptions {
 	/** input/output files */
 	private String sourceName;
 	private String htmlFileName;
-	private String consFile;
+	private String consFile; // may be null to indicate standard input
 
 	/**
 	 * Setup configuration without a command line. Used for unit tests
@@ -71,7 +71,7 @@ public class DiagnosticOptions {
 			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
 			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("diagnostic <options> <constraint file>", options);
+			formatter.printHelp("diagnostic <options> [constraint file]", options);
 			System.exit(-1);
 		}
 
@@ -109,13 +109,16 @@ public class DiagnosticOptions {
 			toConsole = false;
 
 		if (cmd.getArgs().length == 0) {
-			System.out.println("Please privide a constraint file to be analyzed");
-			System.exit(0);
-		} else if (mode == null) {
+            if (isVerbose())
+			  System.out.println("Reading constraints from standard input");
+            consFile = null;
+		} else {
+            consFile = cmd.getArgs()[0];
+        }
+        if (mode == null) {
 			System.out.println("Please set at least one of report type: -c -e -h or -u");
 			System.exit(0);
 		}
-		consFile = cmd.getArgs()[0];
 	}
 
 	/**
@@ -132,11 +135,22 @@ public class DiagnosticOptions {
 	}
 
 	/**
-	 * @return Input constraint file
+	 * @return Input constraint file or null
+     *   if input comes from standard input.
 	 */
 	public String getConsFile() {
 		return consFile;
 	}
+
+	/**
+	 * @return Input constraint file or null
+     *   if input comes from standard input.
+	 */
+	public String getConsFileName() {
+        if (consFile != null) return consFile;
+        return "<standard input>";
+	}
+
 
 	/**
 	 * @return Output HTML file when provided. The default value "error.html" is
