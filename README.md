@@ -1,7 +1,7 @@
 SHErrLoc 1.0.0
 
-			     The SHErrLoc Tool
-			     ----------------
+# The SHErrLoc Tool
+-------------------------
 
 SHErrLoc (Static Holistic Error Locator) is an implementation of the general
 error diagnostic approach described in the 2014 paper, "Toward General Diagnosis
@@ -12,7 +12,7 @@ file describing program analysis, and diagnoses the most likely cause of
 errors detected by the static analysis.
 
 
-Contents
+## Contents
 ------------------------------------------------------------------------
 
 - The SHErrLoc tool
@@ -27,7 +27,7 @@ separately at
 http://www.cs.cornell.edu/projects/sherrloc/EasyOCaml++.tar.gz
 
 The constraint generator for the Jif compiler is currently not released. Please
-refer to the Jif homepage, http://www.cs.cornell.edu/jif/, for future release.
+refer to [the Jif homepage](http://www.cs.cornell.edu/jif/), for future release.
 
 The OCaml test cases used in the POPL paper are provided by Ben Lerner and Dan
 Grossman. Please acquire these test cases from them, and use EasyOcaml++ and
@@ -46,16 +46,15 @@ Your installation directory contains the following sub-directories:
   - examples: SHErrLoc examples
   - tests:    a collection of test cases and constraint files
 
-The installation directory also contains a script "sherrloc" to run the
+The installation directory also contains a script `sherrloc` to run the
 SHErrLoc tool in a convenient way.
 
 
 Requirements
 ------------------------------------------------------------------------
 
-The SHErrLoc tool is compiled with the Ant build tool
-(http://jakarta.apache.org/ant). You must ensure that java and javac are in
-your path.
+The SHErrLoc tool is compiled with the [Ant build tool](http://jakarta.apache.org/ant).
+You must ensure that java and javac are in your path.
 
 Softare Versions: We recommend that you use JDK 1.6.0 or later.  Ant
    1.8.2 is known to work with SHErrLoc 1.0.0.
@@ -67,7 +66,7 @@ junit-4.5.jar and commons-cli-1.2.jar. These files are required to build.
 Building SHErrLoc
 ------------------------------------------------------------------------
 
-SHErrLoc is compiled with the Ant build tool (http://jakarta.apache.org/ant).
+SHErrLoc is compiled with the [Ant build tool](http://jakarta.apache.org/ant).
 Follow these steps to build the SHErrLoc tool:
 
 1. Ensure javac is on your path and that you are using JDK 1.6.0 or
@@ -89,20 +88,20 @@ Follow these steps to build the SHErrLoc tool:
    in `$HOME/build`.
 
 4. You are now ready to try out SHErrLoc. A suggested starting point is the
-   examples in the directory $HOME/examples. See the README file in that
+   examples in the directory `$HOME/examples`. See the README file in that
    directory for more detailed instructions.
 
 
 Running SHErrLoc
 ------------------------------------------------------------------------
 
-A script named "sherrloc" is available in the $HOME directory. The sherrloc
+A script named `sherrloc` is available in the `$HOME` directory. The sherrloc
 script provides a convenient way to execute the compiled SHErrLoc code.
 
 The command line options for SHErrLoc can be viewed by running sherrloc with
 the "-h" flag:
     $ $HOME/sherrloc -h
-
+```
 usage: diagnostic <options> <constraint file>
  -c         generate likely wrong constraints
  -d         output the constraint graph as a DOT file
@@ -118,6 +117,7 @@ usage: diagnostic <options> <constraint file>
             hypothesis (experimental)
  -v         verbose mode (for evaluation)
  -w         HTML report
+```
 
 See the SHErrLoc documentation ($HOME/doc/index.html) for more information
 about the SHErrLoc source code. See the directory $HOME/examples for some
