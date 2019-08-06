@@ -77,16 +77,16 @@ Follow these steps to build the SHErrLoc tool:
 2. Go to the root directory of the SHErrLoc installation (the directory
    this README is in). We'll call this directory $HOME from now on.
 
-    $ cd $HOME
+        $ cd $HOME
 
 3. Run ant to build the SHErrLoc tool.
 
         $ ant
 
-   This compiles the $HOME/src.
+   This compiles in `$HOME/src`.
 
-   The resulting .class files for the source code in $HOME/src, will be stored
-   in $HOME/build.
+   The resulting .class files for the source code in `$HOME/src` will be stored
+   in `$HOME/build`.
 
 4. You are now ready to try out SHErrLoc. A suggested starting point is the
    examples in the directory $HOME/examples. See the README file in that
