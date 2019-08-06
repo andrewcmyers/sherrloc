@@ -46,7 +46,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	private Map<Element, Set<Element>> expandedR = new HashMap<Element, Set<Element>>();
 
 	/**
-	 * @param isHypo
+	 * @param isGenHypo
 	 *            True if SHErrLoc is inferring missing hypothesis
 	 * @param isVerbose
 	 *            True to collect data for evaluation
@@ -72,7 +72,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	@Override
 	public UnsatPaths genErrorPaths(ConstraintGraph graph) {
 		UnsatPaths unsatPaths = new UnsatPaths();
-		Set<Node> allNodes = new HashSet<Node>(graph.getAllNodes());
+		Set<Node> allNodes = new HashSet<>(graph.getAllNodes());
 		
 		if (isVerbose)
 			System.out.println("graph_size: " + graph.getAllNodes().size());
@@ -102,7 +102,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 						List<List<Edge>> paths = finder.getLeftPaths(node, m);
 						for (List<Edge> l1 : paths) {
 							for (List<Edge> l2 : finder.getLeftPaths(m, node)) {
-								List<Edge> lst = new ArrayList<Edge>();
+								List<Edge> lst = new ArrayList<>();
 								lst.addAll(l1);
 								lst.addAll(l2);
 								ConstraintPath path = new ConstraintPath(lst, finder, graph.getEnv());
@@ -133,7 +133,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					List<Node> matched = graph.getMatchedNodes(m2);
 					for (Node n : matched) {
 						if (!testedL.containsKey(n.getElement()))
-							testedL.put(n.getElement(), new HashSet<Element>());
+							testedL.put(n.getElement(), new HashSet<>());
 						testedL.get(n.getElement()).add(m1);
 					}
 				}
@@ -141,7 +141,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 					List<Node> matched = graph.getMatchedNodes(m1);
 					for (Node n : matched) {
 						if (!testedR.containsKey(n.getElement()))
-							testedR.put(n.getElement(), new HashSet<Element>());
+							testedR.put(n.getElement(), new HashSet<>());
 						testedR.get(n.getElement()).add(m2);
 					}
 				}				
@@ -217,7 +217,7 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
 	/**
 	 * Return true if the skolem check succeeds
 	 */
-	boolean skolemCheck (Element e1, Element e2) {
+	private boolean skolemCheck(Element e1, Element e2) {
 		if (e1 instanceof Variable) {
 			return ((Variable)e1).getVarLevel() >= e2.getSkolemLevel();
 		}

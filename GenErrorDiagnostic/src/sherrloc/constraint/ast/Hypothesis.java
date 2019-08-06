@@ -14,12 +14,15 @@ import sherrloc.graph.Node;
 import sherrloc.graph.Variance;
 
 /**
- * Hypothesis consists a conjunction of inequalities
+ * A Hypothesis is a conjunction of inequalities and axioms. Since an hypothesis
+ * is used to reason about provable inequalities in a constraint graph, relevant
+ * constraint elements are also added into the hypothesis graph for a more
+ * complete reasoning.
  */
 public class Hypothesis {
 	private Set<Inequality> assertions;
 	private List<Axiom> axioms;
-	private Set<Element> elmts;			// elements whose relation is of interest
+	private Set<Element> elmts;			// elements in the corresponding constraint graph
 	private Hypothesis parent = null; 	// used to reduce shared environments
 										// (e.g., to store global assumptions)
 	private boolean USE_GRAPH = true;	// set true to use hypothesis graph to infer provable relations
@@ -35,7 +38,10 @@ public class Hypothesis {
 	}
 	
 	/**
-	 * Construct an empty hypothesis
+	 * Construct an empty hypothesis, initialized with axioms
+	 * 
+	 * @param axioms
+	 *            Initial axioms
 	 */
 	public Hypothesis(List<Axiom> axioms) {
 		assertions = new HashSet<Inequality>();
@@ -67,7 +73,8 @@ public class Hypothesis {
 	}
 	
 	/**
-	 * Set the parameter as axioms of the hypothesis
+	 * Set the parameter as axioms of the hypothesis; existing axioms are
+	 * cleared
 	 * 
 	 * @param axiom
 	 *            Axioms to be set
@@ -78,6 +85,8 @@ public class Hypothesis {
 	}
 	
 	/**
+	 * Add constraint elements from the corresponding constraint graph
+	 * 
 	 * @param s
 	 *            A set of elements
 	 */
@@ -88,10 +97,12 @@ public class Hypothesis {
 	}
 	
 	/**
+	 * Add one constraint element
+	 * 
 	 * @param ele
-	 *            One element
+	 *            One element to be added
 	 */
-	public void addElement (Element ele) {
+	private void addElement (Element ele) {
 		if (parent == null)
 			elmts.add(ele.getBaseElement());
 		else
@@ -194,6 +205,7 @@ public class Hypothesis {
 		if (e1.isBottom() || e2.isTop())
 			return true;
 
+		// else, try to simplify the inequality being tested. This code is now obsolete 
 		if (e1 instanceof Variable || e2 instanceof Variable) {
 			return true;
 		}

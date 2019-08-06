@@ -1,4 +1,3 @@
-
 package sherrloc.diagnostic;
 
 import org.apache.commons.cli.CommandLine;
@@ -33,9 +32,8 @@ public class DiagnosticOptions {
 	 * 
 	 * @param consFile
 	 *            Input constraint file name
-	 * @param isExpr
-	 *            Set "True" to infer likely wrong expressions in program; set
-	 *            "False" to infer likely missing hypothesis
+	 * @param mode
+	 *            Set the diagnostic mode
 	 */
 	public DiagnosticOptions(String consFile, Mode mode) {
 		setDefault();
@@ -116,7 +114,7 @@ public class DiagnosticOptions {
             consFile = cmd.getArgs()[0];
         }
         if (mode == null) {
-			System.out.println("Please set at least one of report type: -c -e -h or -u");
+			System.out.println("Please set at least one report type: -c -e -h or -u");
 			System.exit(0);
 		}
 	}
@@ -150,7 +148,6 @@ public class DiagnosticOptions {
         if (consFile != null) return consFile;
         return "<standard input>";
 	}
-
 
 	/**
 	 * @return Output HTML file when provided. The default value "error.html" is

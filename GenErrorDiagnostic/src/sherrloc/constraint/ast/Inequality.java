@@ -2,8 +2,6 @@ package sherrloc.constraint.ast;
 
 import java.util.List;
 
-import java_cup.internal_error;
-
 import sherrloc.util.PrettyPrinter;
 
 /**

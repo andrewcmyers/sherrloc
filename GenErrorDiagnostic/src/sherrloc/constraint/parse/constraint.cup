@@ -46,7 +46,7 @@ action code {:
 			:};
 						
 /* Terminals (tokens returned by the scanner). */
-terminal 			SEPERATION;
+terminal 			SEPARATION;
 terminal            CONSTRUCTOR, FUNCTION, VARIABLE;
 terminal            EQ, LEQ, GEQ;
 terminal            ARROW, LARROW, JOIN, MEET;
@@ -84,7 +84,7 @@ cons_spec 	::= declaration
 					constructors.put("_",  new Bottom(Position.EmptyPosition())); 
 					constructors.put("*",  new Top(Position.EmptyPosition())); 
 			:} 
-				SEPERATION assumptions SEPERATION equations:l
+				SEPARATION assumptions SEPARATION equations:l
 			{: 
 			    env.addAxioms(axioms);
 			    RESULT = new DiagnosisInput (env, l, axioms); :}			

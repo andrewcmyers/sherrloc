@@ -134,6 +134,12 @@ public class ShortestPathFinder extends CFLPathFinder {
 		}
 	}
 	
+	/**
+	 * Add n as the super-element of all its sub-elements.
+	 * 
+	 * @param app An application element
+	 * @param n The node for parameter app
+	 */
 	private void initConsElements (Application app, Node n) {
 		for (Element ele : app.getElements()) {
 			if (ele instanceof Application) {
