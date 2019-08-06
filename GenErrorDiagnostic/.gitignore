@@ -1,1 +1,6 @@
-build
+.idea/
+
+build/
+src/sherrloc/constraint/parse/GrmLexer.java
+src/sherrloc/constraint/parse/parser.java
+src/sherrloc/constraint/parse/sym.java

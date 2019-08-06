@@ -1,0 +1,4 @@
+CONSTRUCTOR bool 0
+CONSTRUCTOR int 0
+
+a == bool;
