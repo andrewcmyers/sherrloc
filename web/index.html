@@ -58,8 +58,10 @@ Erroneous expressions are less likely to appear in satisfiable constraints.
 For example, the <a href="#EasyOCaml++">EasyOCaml++</a> tool generates
 constraints in the constraint language format from OCaml programs. The SHErrLoc
 tool then analyzes these application-agnostic constraints to locate the most
-likely programmer mistakes, as illustrate in the overview graph. Please try our 
+likely programmer mistakes, as illustrate in the overview graph.
+<!--Please try our 
 <a href="http://apl.cs.cornell.edu/~zhangdf/diagnostic">demo for OCaml</a>.
+-->
 </p>
 <!-- For analyses that rely on programmer-stated assumptions, the SHErrLoc tool also
 identifies assumptions likely to have been omitted.-->
@@ -69,9 +71,11 @@ Less compiler modifications are required for diagnosing Haskell type
 errors, since existing compilers, such as GHC, already generate
 type-checking constraints. A light-weight constraint translator then
 feeds these constraints to the general SHErrLoc tool, in order to
-better localize programmer mistakes. Please try our <a
+better localize programmer mistakes.
+<!--Please try our <a
 href="http://apl.cs.cornell.edu/~zhangdf/haskelldiagnostic">demo for
 Haskell</a>.
+-->
 </p>
 
 <p>
@@ -83,8 +87,17 @@ more accurately than existing tools.  </p>
 <h2>Downloads</h2>
 
 <p>
-A new version of SHErrLoc, as described in our PLDI'15 paper, will be
-released soon. Stay tuned. </p>
+<p>The SHErrLoc tool takes a constraint file describing program analysis, and diagnoses the
+most likely cause of errors detected by the static program analysis.
+The latest version of SHErrLoc, as described in our PLDI'15 paper, is available
+at <a href="https://github.com/andrewcmyers/sherrloc">the SHErrLoc GitHub repository</a>.
+</p>
+
+<div class=download_button>
+<a class=download_button href="https://github.com/andrewcmyers/sherrloc">SHErrLoc GitHub repository</a>
+</div>
+
+<p>The version used in our POPL'14 paper is packaged here:</p>
 
 <form method="POST" 
       action="http://www.cs.cornell.edu/w8/~andru/cgi-bin/download.pl"
@@ -94,8 +107,6 @@ released soon. Stay tuned. </p>
 	 value="http://www.cs.cornell.edu/jif/jif.css">
   <input type="hidden" name="url"
          value="http://www.cs.cornell.edu/projects/sherrloc/SHErrLoc-1.0.0.tar.gz">
-  <p>The SHErrLoc tool takes a constraint file describing program analysis, and diagnoses the
-  most likely cause of errors detected by the static program analysis.</p>
   <div class="download_button">
   <input class="download_button" type="submit" value="Download SHErrLoc 1.0" >
   </div>

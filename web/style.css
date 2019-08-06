@@ -32,12 +32,16 @@ div.figure {
 
 div.download_button {max-width: 80ex; text-align: center}
 
-input.download_button {
+input.download_button, a.download_button {
     background-color: #006295;
     color: white;
+    padding: 3px;
+    border-width: 1px;
     border-style: outset;
-    border-color: blue;
-    font-size: 130%
+    border-color: black;
+    font-size: 130%;
+    font-family: sans-serif;
+    font-weight: 400;
 }
 
 div.publist { margin-right: 3em }
