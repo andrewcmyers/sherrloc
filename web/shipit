@@ -1,13 +1,18 @@
 #!/bin/sh
-dir=/usr/local/www/projects/SHErrLoc
+dir=/usr/local/www/research/SHErrLoc
 
-if test -z "$WEBHOST"
+if [[ -r shipit.local ]]
 then
-    WEBHOST=hyena
+    . shipit.local
 fi
-if test -z "$real_web"
+
+if [[ -z "$WEBHOST" ]]
 then
-    real_web=zhangdf@$WEBHOST:$dir
+    WEBHOST=cslinux
+fi
+if [[ -z "$real_web" ]]
+then
+    real_web=$USER@$WEBHOST:$dir
 fi
 svn update
 rsync "$@" -truvlC --exclude '*.cfg'					      \
@@ -18,4 +23,4 @@ rsync "$@" -truvlC --exclude '*.cfg'					      \
 	      --exclude '.nfs*'						      \
               --exclude '*~'						      \
               --exclude '.*'						      \
-    . "$real_web"
+    ./ "$real_web"/
