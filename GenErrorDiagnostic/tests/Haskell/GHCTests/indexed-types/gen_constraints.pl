@@ -2,7 +2,7 @@
 
 print "Start generating constraints for all examples\n";
 
-$ghchome="../../../../../GHC-7.8.2-modified/ghc-7.8.2/inplace/bin/";
+$ghchome="../../../../../ghc-modified/ghc-7.8.2/inplace/bin/";
 $ghc = $ghchome."ghc-stage1";
 $opt="-ddump-tc-trace -fno-code -c";
 
