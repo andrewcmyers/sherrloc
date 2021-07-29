@@ -58,8 +58,13 @@ public abstract class InferenceEngine {
 			if (list.get(i).getWeight() > best)
 				break;
 			best = list.get(i).getWeight();
-			if (options.isToConsole())
-				sb.append("- " + list.get(i).toConsoleString() + "\n");
+			if (options.isToConsole()) {
+				//FIXME : HAOBIN : HACK
+				String buf = list.get(i).toConsoleString();
+				if (!buf.equals("")) {
+					sb.append("- " + list.get(i).toConsoleString() + "\n");
+				}
+			}
 			else
 				sb.append("<LI> " + list.get(i).toHTMLString());
 		}

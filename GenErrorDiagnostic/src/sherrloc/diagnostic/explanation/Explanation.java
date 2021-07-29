@@ -87,8 +87,14 @@ public class Explanation implements Comparable<Explanation>, PrettyPrinter {
 		for (Entity en : entities) {
 			en.toConsole(locBuffer, exprBuffer);
 			String loc = locBuffer.toString();
-			list.add(exprBuffer.toString()
-					+ (loc.equals("") ? "" : ":[" + loc + "]"));
+			//FIXME : HAOBIN : HACK!
+			if (!loc.equals(", ")) {
+				String es = exprBuffer.toString();
+				es = es.substring(0, es.length() - 2); //get rid of comma
+				loc = loc.substring(0, loc.length() - 2); //get rid of yet another comma
+				list.add(es
+						+ (loc.equals("") ? "" : " :[" + loc + "]"));
+			}
 			locBuffer.setLength(0);
 			exprBuffer.setLength(0);
 		}

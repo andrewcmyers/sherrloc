@@ -134,11 +134,17 @@ public class Position {
 		if (!file.equals(""))
 			ret += file + ":";
 
-		if (sameline())
-			return ret + lineStart + "," + colStart + "-" + colEnd;
-		else
+		//FIXME : HAOBIN : HACK!
+		if (sameline()) {
+			if (colStart == colEnd) {
+				return ret + "Line " + lineStart + ", col " + colStart;
+			} else {
+				return ret + "Line " + lineStart + ", col " + colStart + "-" + colEnd;
+			}
+		} else {
 			return ret + lineStart + "," + colStart + "-" + lineEnd + ","
 					+ colEnd;
+		}
 	}
 
 	@Override

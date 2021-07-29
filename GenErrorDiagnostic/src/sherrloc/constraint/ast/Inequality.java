@@ -74,7 +74,7 @@ public class Inequality implements PrettyPrinter {
 
 	@Override
 	public String toConsoleString() {
-		return e1.toSnippetString() + r.toString() + e2.toSnippetString();
+		return e1.toSnippetString() + " " + r.toString() + " " + e2.toSnippetString();
 	}
 
 	@Override
