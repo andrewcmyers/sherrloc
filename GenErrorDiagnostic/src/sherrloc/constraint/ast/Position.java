@@ -131,8 +131,9 @@ public class Position {
 			return "";
 
 		String ret = "";
-		if (!file.equals(""))
-			ret += file + ":";
+		// if (!file.equals(""))
+		// ret += file + ":";
+		ret += "\"" + snippet + "\"" + ":";
 
 		if (sameline())
 			return ret + lineStart + "," + colStart + "-" + colEnd;
