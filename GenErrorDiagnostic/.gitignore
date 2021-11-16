@@ -1,4 +1,5 @@
 .idea/
+*.iml
 
 build/
 src/sherrloc/constraint/parse/GrmLexer.java

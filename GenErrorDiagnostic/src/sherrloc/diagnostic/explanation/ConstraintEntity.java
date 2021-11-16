@@ -9,10 +9,10 @@ import sherrloc.graph.Edge;
  * A basic unit of constraint explanation
  */
 public class ConstraintEntity extends Entity {
-	final private String pos;
+	final private String pos, posWithExp;
 	final private String html;
 	final private String console;
-	
+
 	/**
 	 * @param cons A constraint
 	 * @param succ # satisfiable paths using the constraint
@@ -20,6 +20,18 @@ public class ConstraintEntity extends Entity {
 	public ConstraintEntity(String pos, String html, String console, int succ) {
 		super(succ);
 		this.pos = pos;
+		this.posWithExp = pos;
+		this.html = html;
+		this.console = console;
+	}
+	/**
+	 * @param cons A constraint
+	 * @param succ # satisfiable paths using the constraint
+	 */
+	public ConstraintEntity(String pos, String posWithExp, String html, String console, int succ) {
+		super(succ);
+		this.pos = pos;
+		this.posWithExp = posWithExp;
 		this.html = html;
 		this.console = console;
 	}
@@ -43,6 +55,11 @@ public class ConstraintEntity extends Entity {
 	@Override
 	public void toConsole(StringBuffer locBuf, StringBuffer expBuf) {
 		locBuf.append(pos + ", ");
+		expBuf.append(console + ", ");
+	}
+	@Override
+	public void toConsoleWithExp(StringBuffer locBuf, StringBuffer expBuf) {
+		locBuf.append(posWithExp + ", ");
 		expBuf.append(console + ", ");
 	}
 

@@ -54,6 +54,8 @@ public abstract class Entity {
 	 *            Explanation
 	 */
 	public abstract void toConsole(StringBuffer locBuf, StringBuffer expBuf);
+	public abstract void toConsoleWithExp(StringBuffer locBuf, StringBuffer expBuf);
+
 
 	/**
 	 * Forces subclass to implement equals

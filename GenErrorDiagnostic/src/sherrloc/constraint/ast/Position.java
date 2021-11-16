@@ -131,6 +131,21 @@ public class Position {
 			return "";
 
 		String ret = "";
+		if (!file.equals(""))
+			ret += file + ":";
+
+		if (sameline())
+			return ret + lineStart + "," + colStart + "-" + colEnd;
+		else
+			return ret + lineStart + "," + colStart + "-" + lineEnd + ","
+					+ colEnd;
+	}
+
+	public String toStringWithExp() {
+		if (lineStart == -1)
+			return "";
+
+		String ret = "";
 		// if (!file.equals(""))
 		// ret += file + ":";
 		ret += "\"" + snippet + "\"" + ":";

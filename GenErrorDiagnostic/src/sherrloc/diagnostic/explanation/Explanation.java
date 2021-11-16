@@ -102,6 +102,33 @@ public class Explanation implements Comparable<Explanation>, PrettyPrinter {
 		return sb.toString();
 	}
 
+	public String toConsoleStringWithExp() {
+		StringBuffer sb = new StringBuffer();
+		StringBuffer locBuffer = new StringBuffer();
+		StringBuffer exprBuffer = new StringBuffer();
+		List<String> list = new ArrayList<String>();
+
+		if (DEBUG) {
+			sb.append("(score " + weight + ") ");
+		}
+		for (Entity en : entities) {
+			en.toConsoleWithExp(locBuffer, exprBuffer);
+			String loc = locBuffer.toString();
+			list.add(exprBuffer.toString()
+					+ (loc.equals("") ? "" : ":[" + loc + "]"));
+			locBuffer.setLength(0);
+			exprBuffer.setLength(0);
+		}
+		// set the order so that the result is deterministic. The main purpose
+		// of doing this is for unit test
+		Collections.sort(list);
+
+		for (String str : list)
+			sb.append(str + ";");
+
+		return sb.toString();
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer exprBuffer = new StringBuffer();

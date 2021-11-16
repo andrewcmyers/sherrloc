@@ -60,9 +60,13 @@ public class HypothesisEntity extends Entity {
 	public void toHTML(StringBuffer locBuf, StringBuffer exprBuf) {
 		exprBuf.append(toString());
 	}
-	
+
 	@Override
 	public void toConsole(StringBuffer locBuf, StringBuffer exprBuf) {
+		exprBuf.append(toString());
+	}
+	@Override
+	public void toConsoleWithExp(StringBuffer locBuf, StringBuffer exprBuf) {
 		exprBuf.append(toString());
 	}
 	

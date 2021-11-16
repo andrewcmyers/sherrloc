@@ -51,7 +51,7 @@ public class ConstraintInfer extends InferenceEngine {
     			if (edge instanceof ConstraintEdge) {
     				Constraint cons = ((ConstraintEdge) edge).getConstraint();
     				String str = cons.getPos().toString();
-    				cand.add(new ConstraintEntity(str, cons.toHTMLString(), cons.toConsoleString(), succCount.get(str)));
+    				cand.add(new ConstraintEntity(str, cons.getPos().toStringWithExp(), cons.toHTMLString(), cons.toConsoleString(), succCount.get(str)));
     			}
     		}
     	}

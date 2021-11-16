@@ -59,7 +59,7 @@ public abstract class InferenceEngine {
 				break;
 			best = list.get(i).getWeight();
 			if (options.isToConsole())
-				sb.append("- " + list.get(i).toConsoleString() + "\n");
+				sb.append("- " + list.get(i).toConsoleStringWithExp() + " #"+ String.valueOf(best) + "\n");
 			else
 				sb.append("<LI> " + list.get(i).toHTMLString());
 		}

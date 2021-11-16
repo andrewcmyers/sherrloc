@@ -46,6 +46,11 @@ public class ExprEntity extends Entity {
 		locBuf.append(loc);
 		expBuf.append(snippet);
 	}
+	@Override
+	public void toConsoleWithExp(StringBuffer locBuf, StringBuffer expBuf) {
+		locBuf.append(loc);
+		expBuf.append(snippet);
+	}
 
 	@Override
 	public String toString() {
