@@ -142,7 +142,7 @@ public class EntityExplanationFinder extends HeuristicSearch {
 			}
 			else {
 				candStr.add(candidates[i].toString());
-				size += 1;
+				size += candidates[i].weight;
 			}
 		}
 		double real = metric.getScore(size, succSum);

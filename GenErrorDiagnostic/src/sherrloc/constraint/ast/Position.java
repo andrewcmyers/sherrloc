@@ -13,6 +13,7 @@ public class Position {
 	private final int colEnd;
 	private String snippet;
 	private String file;
+	private int weight = 1;
 	private static Position emptyPosition = null;
 
 	/**
@@ -96,6 +97,10 @@ public class Position {
 		this.snippet = snippet;
 	}
 
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
 	/**
 	 * @return Source file name
 	 */
@@ -170,5 +175,9 @@ public class Position {
 	@Override
 	public int hashCode() {
 		return toString().hashCode();
+	}
+
+	public int getWeight() {
+		return weight;
 	}
 }

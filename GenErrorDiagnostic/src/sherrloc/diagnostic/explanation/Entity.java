@@ -12,13 +12,15 @@ import sherrloc.graph.ConstraintPath;
  */
 public abstract class Entity {
 	private int succ; // # satisfiable paths using the entity
+	public final int weight;
 
 	/**
 	 * @param succ
 	 *            # satisfiable paths using the entity
 	 */
-	public Entity(int succ) {
+	public Entity(int succ, int weight) {
 		this.succ = succ;
+		this.weight = weight;
 	}
 
 	/**

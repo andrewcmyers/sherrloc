@@ -18,7 +18,7 @@ public class HypothesisEntity extends Entity {
 	 * @param cachedEnv: reuse saturated hypothesis graph for better performance
 	 */
 	public HypothesisEntity(Inequality ieq, Map<Hypothesis, Hypothesis> cachedEnv) {
-		super(0);
+		super(0, 1);
 		this.ieq = ieq;
 		this.cachedEnv = cachedEnv;
 	}

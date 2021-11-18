@@ -18,8 +18,8 @@ public class ConstraintEntity extends Entity {
 	 * @param cons A constraint
 	 * @param succ # satisfiable paths using the constraint
 	 */
-	public ConstraintEntity(Constraint cons, String pos, String html, String console, int succ) {
-		super(succ);
+	public ConstraintEntity(Constraint cons, String pos, String html, String console, int succ, int weight) {
+		super(succ, weight);
 		this.cons = cons;
 		this.pos = pos;
 		this.posWithExp = pos;
@@ -30,8 +30,8 @@ public class ConstraintEntity extends Entity {
 	 * @param cons A constraint
 	 * @param succ # satisfiable paths using the constraint
 	 */
-	public ConstraintEntity(Constraint cons, String pos, String posWithExp, String html, String console, int succ) {
-		super(succ);
+	public ConstraintEntity(Constraint cons, String pos, String posWithExp, String html, String console, int succ, int weight) {
+		super(succ, weight);
 		this.cons = cons;
 		this.pos = pos;
 		this.posWithExp = posWithExp;

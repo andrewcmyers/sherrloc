@@ -71,6 +71,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	"."                            { return symbol(sym.DOT); }
   	":"							   { return symbol(sym.COLON); }
   	"@"							   { return symbol(sym.AT); }
+    "#"                            { return symbol(sym.WEIGHT); }
   	"=>"                           { return symbol(sym.IMPLIES); }
   	
   	/* parentheses */

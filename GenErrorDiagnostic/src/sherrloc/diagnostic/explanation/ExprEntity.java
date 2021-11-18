@@ -20,7 +20,7 @@ public class ExprEntity extends Entity {
 	 *            # satisfiable paths using the constraint
 	 */
 	public ExprEntity(String snippet, String loc, int succ) {
-		super(succ);
+		super(succ, 1);
 		this.snippet = snippet;
 		this.expr = snippet + loc;
 		this.loc = loc;

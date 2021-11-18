@@ -54,6 +54,7 @@ terminal            SEMICOLON, LPAREN, RPAREN, LBRACK, RBRACK, COMMA, DOT, DASH,
 terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 terminal            AXIOM, IMPLIES, LEVEL;
+terminal            WEIGHT;
 
 /* Non terminals */
 non terminal DiagnosisInput     cons_spec;
@@ -215,25 +216,49 @@ env         ::= LBRACE inequalities:l RBRACE
 			:}
 			;
 						
-position	::= LBRACK STRING_LITERAL:snippet COLON range:p AT IDENTIFIER:s RBRACK
-			{: 
-			   p.setFile(s);
-			   p.setSnippet(snippet); 
+position	::= LBRACK STRING_LITERAL:snippet COLON range:p AT IDENTIFIER:s WEIGHT INTEGER_LITERAL:w RBRACK
+             {:
+               p.setFile(s);
+               p.setSnippet(snippet);
+               p.setWeight(w);
+               RESULT = p;
+            :}
+            | LBRACK STRING_LITERAL:snippet COLON range:p AT IDENTIFIER:s RBRACK
+            {:
+               p.setFile(s);
+               p.setSnippet(snippet);
+               RESULT = p;
+            :}
+            | LBRACK STRING_LITERAL:snippet COLON range:p WEIGHT INTEGER_LITERAL:w RBRACK
+            {:
+			   p.setSnippet(snippet);
+               p.setWeight(w);
 			   RESULT = p; 
 			:}
-			| LBRACK STRING_LITERAL:snippet COLON range:p RBRACK
+            | LBRACK STRING_LITERAL:snippet COLON range:p RBRACK
+            {:
+			   p.setSnippet(snippet);
+			   RESULT = p;
+			:}
+			| LBRACK range:p AT IDENTIFIER:s WEIGHT INTEGER_LITERAL:w RBRACK
 			{: 
-			   p.setSnippet(snippet); 
+			   p.setFile(s);
+               p.setWeight(w);
 			   RESULT = p; 
 			:}
 			| LBRACK range:p AT IDENTIFIER:s RBRACK
-			{: 
+			{:
 			   p.setFile(s);
+			   RESULT = p;
+			:}
+			| LBRACK range:p WEIGHT INTEGER_LITERAL:w RBRACK
+			{:
+               p.setWeight(w);
 			   RESULT = p; 
 			:}
 			| LBRACK range:p RBRACK
-			{: 
-			   RESULT = p; 
+			{:
+			   RESULT = p;
 			:}
 			|
 			{:
