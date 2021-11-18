@@ -12,13 +12,15 @@ public class ConstraintEntity extends Entity {
 	final private String pos, posWithExp;
 	final private String html;
 	final private String console;
+	final private Constraint cons;
 
 	/**
 	 * @param cons A constraint
 	 * @param succ # satisfiable paths using the constraint
 	 */
-	public ConstraintEntity(String pos, String html, String console, int succ) {
+	public ConstraintEntity(Constraint cons, String pos, String html, String console, int succ) {
 		super(succ);
+		this.cons = cons;
 		this.pos = pos;
 		this.posWithExp = pos;
 		this.html = html;
@@ -28,8 +30,9 @@ public class ConstraintEntity extends Entity {
 	 * @param cons A constraint
 	 * @param succ # satisfiable paths using the constraint
 	 */
-	public ConstraintEntity(String pos, String posWithExp, String html, String console, int succ) {
+	public ConstraintEntity(Constraint cons, String pos, String posWithExp, String html, String console, int succ) {
 		super(succ);
+		this.cons = cons;
 		this.pos = pos;
 		this.posWithExp = posWithExp;
 		this.html = html;

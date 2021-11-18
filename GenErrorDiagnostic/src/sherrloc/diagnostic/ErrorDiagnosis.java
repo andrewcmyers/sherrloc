@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 import sherrloc.constraint.analysis.ConstraintAnalysis;
 import sherrloc.constraint.analysis.ConstraintAnalysisImpl;
@@ -109,6 +110,15 @@ public class ErrorDiagnosis implements PrettyPrinter {
     	
     	return sb.toString();
     }
+
+	public DiagnosticConstraintResult getConstraintResult() {
+		UnsatPaths paths = cana.genErrorPaths(graph);
+		if (paths.size() > 0) {
+			return new DiagnosticConstraintResult(false, new ConstraintInfer(paths, graph.getAllEdges(), option).inferResult());
+		} else {
+			return new DiagnosticConstraintResult(true, new ArrayList<>());
+		}
+	}
     
     /**
      * Output the result into a format specified in configuration

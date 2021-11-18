@@ -1,14 +1,11 @@
 package sherrloc.diagnostic;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import sherrloc.constraint.ast.Constraint;
 import sherrloc.diagnostic.explanation.ConstraintEntity;
 import sherrloc.diagnostic.explanation.Entity;
+import sherrloc.diagnostic.explanation.Explanation;
 import sherrloc.graph.ConstraintEdge;
 import sherrloc.graph.ConstraintPath;
 import sherrloc.graph.Edge;
@@ -51,7 +48,7 @@ public class ConstraintInfer extends InferenceEngine {
     			if (edge instanceof ConstraintEdge) {
     				Constraint cons = ((ConstraintEdge) edge).getConstraint();
     				String str = cons.getPos().toString();
-    				cand.add(new ConstraintEntity(str, cons.getPos().toStringWithExp(), cons.toHTMLString(), cons.toConsoleString(), succCount.get(str)));
+    				cand.add(new ConstraintEntity(cons, str, cons.getPos().toStringWithExp(), cons.toHTMLString(), cons.toConsoleString(), succCount.get(str)));
     			}
     		}
     	}
@@ -73,5 +70,21 @@ public class ConstraintInfer extends InferenceEngine {
 	@Override
 	public String info() {
 		return "Constraints in the source code that appear most likely to be wrong: \n";
-	}	
+	}
+
+	public ArrayList<Explanation> inferResult() {
+		ArrayList<Explanation> ret = new ArrayList<>();
+
+		final Set<Entity> cand = getCandidates();
+		HeuristicSearch algorithm = getAlogithm(cand);
+
+		Set<Explanation> results = algorithm.findOptimal();
+
+		ArrayList<Explanation> list = new ArrayList<Explanation>();
+		for (Explanation set : results) {
+			list.add(set);
+		}
+		Collections.sort(list);
+		return list;
+	}
 }
