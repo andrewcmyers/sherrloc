@@ -57,7 +57,7 @@ EndOfLineComment     = "//" {InputCharacter}* {LineBreak}
   	{Identifier}                   { return symbol(sym.IDENTIFIER, yytext()); }
  
   	/* literals */
-  	{DecIntegerLiteral}            { return symbol(sym.INTEGER_LITERAL, new Integer(yytext())); }
+  	{DecIntegerLiteral}            { return symbol(sym.INTEGER_LITERAL, Integer.parseInt(yytext())); }
   	"\""                           { string.setLength(0); yybegin(INFO); }
 
   	/* operators */
