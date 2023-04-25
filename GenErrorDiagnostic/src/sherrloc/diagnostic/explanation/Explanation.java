@@ -46,7 +46,7 @@ public class Explanation implements Comparable<Explanation>, PrettyPrinter {
 
 	@Override
 	public int compareTo(Explanation o) {
-		return new Double(weight).compareTo(o.weight);
+		return Double.valueOf(weight).compareTo(o.weight);
 	}
 
 	@Override
