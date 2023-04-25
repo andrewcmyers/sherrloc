@@ -295,14 +295,14 @@ public class HTMLUtil {
     	
     	public int compareTo(LineColumnPair p) {
     		if (line!=p.line)
-    			return new Integer(line).compareTo(p.line);
+    			return Integer.valueOf(line).compareTo(p.line);
     		if (column!=p.column)
-    			return new Integer(column).compareTo(p.column);
+    			return Integer.valueOf(column).compareTo(p.column);
     		// order is reverse
     		if (endline!=p.endline)
-    			return new Integer(p.endline).compareTo(endline);
+    			return Integer.valueOf(p.endline).compareTo(endline);
     		if (endcol!=p.endcol)
-    			return new Integer(p.endcol).compareTo(endcol);
+    			return Integer.valueOf(p.endcol).compareTo(endcol);
     		return 0;
     	}
     	    	
