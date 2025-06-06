@@ -50,7 +50,7 @@
   </target>
 
   <target name="sherrloc" depends="init, javacup" description="build the diagnostic tool">
-    <javac srcdir="${src}" destdir="${build}">
+    <javac srcdir="${src}" destdir="${build}" release="21">
       <classpath refid="libraries"/>
     </javac>
   </target>
