@@ -10,131 +10,131 @@ import sherrloc.util.HTMLUtil;
 import sherrloc.util.PrettyPrinter;
 
 /**
- * The result of the error diagnosis algorithm. An explanation consists of a set
- * of entities (e.g., expressions, constraints, hypotheses) and a weight w.r.t.
- * ranking metric {@link RankingMetric}
+ * The result of the error diagnosis algorithm. An explanation consists of a set of entities (e.g.,
+ * expressions, constraints, hypotheses) and a weight w.r.t. ranking metric {@link RankingMetric}
  */
 public class Explanation implements Comparable<Explanation>, PrettyPrinter {
-	private final double weight;
-	private Set<Entity> entities;
-	private boolean DEBUG = false;
 
-	/**
-	 * @param entities
-	 *            a set of entities (e.g., expressions, constraints, hypotheses)
-	 * @param weight
-	 *            a weight w.r.t. ranking metric {@link RankingMetric}
-	 */
-	public Explanation(Set<Entity> entities, double weight) {
-		this.entities = entities;
-		this.weight = weight;
-	}
+    private final double weight;
+    private Set<Entity> entities;
+    private boolean DEBUG = false;
 
-	/**
-	 * @return Weight
-	 */
-	public double getWeight() {
-		return weight;
-	}
+    /**
+     * @param entities a set of entities (e.g., expressions, constraints, hypotheses)
+     * @param weight   a weight w.r.t. ranking metric {@link RankingMetric}
+     */
+    public Explanation(Set<Entity> entities, double weight) {
+        this.entities = entities;
+        this.weight = weight;
+    }
 
-	/**
-	 * @return A set of entities
-	 */
-	public Set<Entity> getEntities() {
-		return entities;
-	}
+    /**
+     * @return Weight
+     */
+    public double getWeight() {
+        return weight;
+    }
 
-	@Override
-	public int compareTo(Explanation o) {
-		return Double.valueOf(weight).compareTo(o.weight);
-	}
+    /**
+     * @return A set of entities
+     */
+    public Set<Entity> getEntities() {
+        return entities;
+    }
 
-	@Override
-	public String toHTMLString() {
-		StringBuffer sb = new StringBuffer();
+    @Override
+    public int compareTo(Explanation o) {
+        return Double.valueOf(weight).compareTo(o.weight);
+    }
 
-		if (DEBUG) {
-			sb.append("<span class=\"rank\">(score " + weight + ")</span> ");
-		}
+    @Override
+    public String toHTMLString() {
+        StringBuffer sb = new StringBuffer();
 
-		StringBuffer locBuffer = new StringBuffer();
-		StringBuffer exprBuffer = new StringBuffer();
-		for (Entity en : entities) {
-			en.toHTML(locBuffer, exprBuffer);
-		}
-		sb.append("<span class=\"path\" ");
-		HTMLUtil.setShowHideActions(sb, false, locBuffer.toString(), 0);
-		sb.append(">");
-		sb.append(exprBuffer.toString() + "</span>");
-		sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
-		sb.append(locBuffer.toString());
-		sb.append("])\" ");
-		sb.append(">show it</button><br>\n");
+        if (DEBUG) {
+            sb.append("<span class=\"rank\">(score " + weight + ")</span> ");
+        }
 
-		return sb.toString();
-	}
+        StringBuffer locBuffer = new StringBuffer();
+        StringBuffer exprBuffer = new StringBuffer();
+        for (Entity en : entities) {
+            en.toHTML(locBuffer, exprBuffer);
+        }
+        sb.append("<span class=\"path\" ");
+        HTMLUtil.setShowHideActions(sb, false, locBuffer.toString(), 0);
+        sb.append(">");
+        sb.append(exprBuffer.toString() + "</span>");
+        sb.append("<button onclick=\"hide_all();show_elements_perm(true, [");
+        sb.append(locBuffer.toString());
+        sb.append("])\" ");
+        sb.append(">show it</button><br>\n");
 
-	@Override
-	public String toConsoleString() {
-		StringBuffer sb = new StringBuffer();
-		StringBuffer locBuffer = new StringBuffer();
-		StringBuffer exprBuffer = new StringBuffer();
-		List<String> list = new ArrayList<String>();
+        return sb.toString();
+    }
 
-		if (DEBUG) {
-			sb.append("(score " + weight + ") ");
-		}
-		for (Entity en : entities) {
-			en.toConsole(locBuffer, exprBuffer);
-			String loc = locBuffer.toString();
-			list.add(exprBuffer.toString()
-					+ (loc.equals("") ? "" : ":[" + loc + "]"));
-			locBuffer.setLength(0);
-			exprBuffer.setLength(0);
-		}
-		// set the order so that the result is deterministic. The main purpose
-		// of doing this is for unit test
-		Collections.sort(list);
+    @Override
+    public String toConsoleString() {
+        StringBuffer sb = new StringBuffer();
+        StringBuffer locBuffer = new StringBuffer();
+        StringBuffer exprBuffer = new StringBuffer();
+        List<String> list = new ArrayList<String>();
 
-		for (String str : list)
-			sb.append(str + ";");
+        if (DEBUG) {
+            sb.append("(score " + weight + ") ");
+        }
+        for (Entity en : entities) {
+            en.toConsole(locBuffer, exprBuffer);
+            String loc = locBuffer.toString();
+            list.add(exprBuffer.toString()
+                    + (loc.equals("") ? "" : ":[" + loc + "]"));
+            locBuffer.setLength(0);
+            exprBuffer.setLength(0);
+        }
+        // set the order so that the result is deterministic. The main purpose
+        // of doing this is for unit test
+        Collections.sort(list);
 
-		return sb.toString();
-	}
+        for (String str : list) {
+            sb.append(str + ";");
+        }
 
-	public String toConsoleStringWithExp() {
-		StringBuffer sb = new StringBuffer();
-		StringBuffer locBuffer = new StringBuffer();
-		StringBuffer exprBuffer = new StringBuffer();
-		List<String> list = new ArrayList<String>();
+        return sb.toString();
+    }
 
-		if (DEBUG) {
-			sb.append("(score " + weight + ") ");
-		}
-		for (Entity en : entities) {
-			en.toConsoleWithExp(locBuffer, exprBuffer);
-			String loc = locBuffer.toString();
-			list.add(exprBuffer.toString()
-					+ (loc.equals("") ? "" : ":[" + loc + "]"));
-			locBuffer.setLength(0);
-			exprBuffer.setLength(0);
-		}
-		// set the order so that the result is deterministic. The main purpose
-		// of doing this is for unit test
-		Collections.sort(list);
+    public String toConsoleStringWithExp() {
+        StringBuffer sb = new StringBuffer();
+        StringBuffer locBuffer = new StringBuffer();
+        StringBuffer exprBuffer = new StringBuffer();
+        List<String> list = new ArrayList<String>();
 
-		for (String str : list)
-			sb.append(str + ";");
+        if (DEBUG) {
+            sb.append("(score " + weight + ") ");
+        }
+        for (Entity en : entities) {
+            en.toConsoleWithExp(locBuffer, exprBuffer);
+            String loc = locBuffer.toString();
+            list.add(exprBuffer.toString()
+                    + (loc.equals("") ? "" : ":[" + loc + "]"));
+            locBuffer.setLength(0);
+            exprBuffer.setLength(0);
+        }
+        // set the order so that the result is deterministic. The main purpose
+        // of doing this is for unit test
+        Collections.sort(list);
 
-		return sb.toString();
-	}
+        for (String str : list) {
+            sb.append(str + ";");
+        }
 
-	@Override
-	public String toString() {
-		StringBuffer exprBuffer = new StringBuffer();
-		for (Entity en : entities) {
-			exprBuffer.append(en.toString() + "(" + en.getSuccCount() + ")    ");
-		}
-		return exprBuffer.toString();
-	}
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer exprBuffer = new StringBuffer();
+        for (Entity en : entities) {
+            exprBuffer.append(en.toString() + "(" + en.getSuccCount() + ")    ");
+        }
+        return exprBuffer.toString();
+    }
 }

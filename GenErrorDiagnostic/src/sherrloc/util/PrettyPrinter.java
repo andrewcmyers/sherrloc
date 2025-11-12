@@ -5,13 +5,13 @@ package sherrloc.util;
  */
 public interface PrettyPrinter {
 
-	/**
-	 * Proper string for the HTML format
-	 */
-	public String toHTMLString ();
-		
-	/**
-	 * Proper string for the console (plain text)
-	 */
-	public String toConsoleString ();
+    /**
+     * Proper string for the HTML format
+     */
+    public String toHTMLString();
+
+    /**
+     * Proper string for the console (plain text)
+     */
+    public String toConsoleString();
 }

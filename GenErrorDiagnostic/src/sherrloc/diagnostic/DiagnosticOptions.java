@@ -11,228 +11,254 @@ import org.apache.commons.cli.PosixParser;
  * A configuration of the error diagnostic tool
  */
 public class DiagnosticOptions {
-	public enum Mode {EXPR, CONS, HYPO, BOTH}
-	
-	/** a set of options */
-	private boolean wholeGraph;
-	private Mode mode=null;
-	private boolean recursive;
-	private boolean verbose;
-	private boolean dotFile;
-	private boolean toConsole;
-	private int nSubopt;
 
-	/** input/output files */
-	private String sourceName;
-	private String htmlFileName;
-	private String consFile; // may be null to indicate standard input
+    public enum Mode {EXPR, CONS, HYPO, BOTH}
 
-	/**
-	 * Setup configuration without a command line. Used for unit tests
-	 * 
-	 * @param consFile
-	 *            Input constraint file name
-	 * @param mode
-	 *            Set the diagnostic mode
-	 */
-	public DiagnosticOptions(String consFile, Mode mode) {
-		setDefault();
-		this.consFile = consFile;
-		this.mode = mode;
-		this.toConsole = true;
-	}
+    /**
+     * a set of options
+     */
+    private boolean wholeGraph;
+    private Mode mode = null;
+    private boolean recursive;
+    private boolean verbose;
+    private boolean dotFile;
+    private boolean toConsole;
+    private int nSubopt;
 
-	/**
-	 * Get options from command line
-	 * 
-	 * @param args
-	 *            Command line input
-	 */
-	public DiagnosticOptions(String[] args) {
-		Options options = new Options();		
-		options.addOption("c", false, "generate likely wrong constraints");
-		options.addOption("d", false, "output the constraint graph as a DOT file");
-		options.addOption("e", false, "generate likely wrong constraint elements");
-		options.addOption("f", false, "show full constraint graph (use with -d)");
-		options.addOption("h", false, "generate likely missing hypothesis");
-		options.addOption("n", true,  "number of suboptimal suggestions to report. Default value is zero");
-		options.addOption("o", true,  "output file");
-		options.addOption("r", false, "allow recursion (e.g., x = list x)");
-		options.addOption("s", true,  "the source file that generated the constraints (use with -w)");
-		options.addOption("u", false, "unified report with wrong constraint elements and missing hypothesis (experimental)");
-		options.addOption("v", false, "verbose mode (for evaluation)");
-		options.addOption("w", false, "HTML report");
+    /**
+     * input/output files
+     */
+    private String sourceName;
+    private String htmlFileName;
+    private String consFile; // may be null to indicate standard input
 
-		CommandLineParser parser = new PosixParser();
-		CommandLine cmd = null;
-		try {
-			cmd = parser.parse(options, args);
-		} catch (ParseException e) {
-			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("diagnostic <options> [constraint file]", options);
-			System.exit(-1);
-		}
+    /**
+     * Setup configuration without a command line. Used for unit tests
+     *
+     * @param consFile Input constraint file name
+     * @param mode     Set the diagnostic mode
+     */
+    public DiagnosticOptions(String consFile, Mode mode) {
+        setDefault();
+        this.consFile = consFile;
+        this.mode = mode;
+        this.toConsole = true;
+    }
 
-		setDefault();
-		if (cmd.hasOption("c"))
-			mode = Mode.CONS;
-		if (cmd.hasOption("d"))
-			dotFile = true;
-		if (cmd.hasOption("e"))
-			mode = Mode.EXPR;
-		if (cmd.hasOption("f"))
-			wholeGraph = true;
-		if (cmd.hasOption("h"))
-			mode = Mode.HYPO;
-		if (cmd.hasOption("n")) {
-			try {
-				nSubopt = Integer.parseInt(cmd.getOptionValue("n"));
-			}
-			catch (NumberFormatException exp) {
-				System.out.println("-n requires an integer parameter");
-				System.exit(0);
-			}
-		}
-		if (cmd.hasOption("o"))
-			htmlFileName = cmd.getOptionValue("o");
-		if (cmd.hasOption("r"))
-			recursive = true;
-		if (cmd.hasOption("s"))
-			sourceName = cmd.getOptionValue("s");
-		if (cmd.hasOption("u"))
-			mode = Mode.BOTH;
-		if (cmd.hasOption("v"))
-			verbose = true;
-		if (cmd.hasOption("w"))
-			toConsole = false;
+    /**
+     * Get options without command line, with explicit environment, hypothesis, and axioms.
+     */
 
-		if (cmd.getArgs().length == 0) {
-            if (isVerbose())
-			  System.out.println("Reading constraints from standard input");
+    /**
+     * Get options from command line
+     *
+     * @param args Command line input
+     */
+    public DiagnosticOptions(String[] args) {
+        Options options = new Options();
+        options.addOption("c", false, "generate likely wrong constraints");
+        options.addOption("d", false, "output the constraint graph as a DOT file");
+        options.addOption("e", false, "generate likely wrong constraint elements");
+        options.addOption("f", false, "show full constraint graph (use with -d)");
+        options.addOption("h", false, "generate likely missing hypothesis");
+        options.addOption("n", true,
+                "number of suboptimal suggestions to report. Default value is zero");
+        options.addOption("o", true, "output file");
+        options.addOption("r", false, "allow recursion (e.g., x = list x)");
+        options.addOption("s", true,
+                "the source file that generated the constraints (use with -w)");
+        options.addOption("u", false,
+                "unified report with wrong constraint elements and missing hypothesis (experimental)");
+        options.addOption("v", false, "verbose mode (for evaluation)");
+        options.addOption("w", false, "HTML report");
+
+        CommandLineParser parser = new PosixParser();
+        CommandLine cmd = null;
+        try {
+            cmd = parser.parse(options, args);
+        } catch (ParseException e) {
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("diagnostic <options> [constraint file]", options);
+            System.exit(-1);
+        }
+
+        setDefault();
+        if (cmd.hasOption("c")) {
+            mode = Mode.CONS;
+        }
+        if (cmd.hasOption("d")) {
+            dotFile = true;
+        }
+        if (cmd.hasOption("e")) {
+            mode = Mode.EXPR;
+        }
+        if (cmd.hasOption("f")) {
+            wholeGraph = true;
+        }
+        if (cmd.hasOption("h")) {
+            mode = Mode.HYPO;
+        }
+        if (cmd.hasOption("n")) {
+            try {
+                nSubopt = Integer.parseInt(cmd.getOptionValue("n"));
+            } catch (NumberFormatException exp) {
+                System.out.println("-n requires an integer parameter");
+                System.exit(0);
+            }
+        }
+        if (cmd.hasOption("o")) {
+            htmlFileName = cmd.getOptionValue("o");
+        }
+        if (cmd.hasOption("r")) {
+            recursive = true;
+        }
+        if (cmd.hasOption("s")) {
+            sourceName = cmd.getOptionValue("s");
+        }
+        if (cmd.hasOption("u")) {
+            mode = Mode.BOTH;
+        }
+        if (cmd.hasOption("v")) {
+            verbose = true;
+        }
+        if (cmd.hasOption("w")) {
+            toConsole = false;
+        }
+
+        if (cmd.getArgs().length == 0) {
+            if (isVerbose()) {
+                System.out.println("Reading constraints from standard input");
+            }
             consFile = null;
-		} else {
+        } else {
             consFile = cmd.getArgs()[0];
         }
         if (mode == null) {
-			System.out.println("Please set at least one report type: -c -e -h or -u");
-			System.exit(0);
-		}
-	}
+            System.out.println("Please set at least one report type: -c -e -h or -u");
+            System.exit(0);
+        }
+    }
 
-	/**
-	 * Set all options to default values
-	 */
-	private void setDefault() {
-		dotFile = false;
-		wholeGraph = false;
-		toConsole = true;
-		recursive = false;
-		verbose = false;
-		htmlFileName = "error.html";
-		nSubopt = 0;
-	}
+    /**
+     * Set all options to default values
+     */
+    private void setDefault() {
+        dotFile = false;
+        wholeGraph = false;
+        toConsole = true;
+        recursive = false;
+        verbose = false;
+        htmlFileName = "error.html";
+        nSubopt = 0;
+    }
 
-	/**
-	 * @return Input constraint file or null
-     *   if input comes from standard input.
-	 */
-	public String getConsFile() {
-		return consFile;
-	}
+    /**
+     * @return Input constraint file or null if input comes from standard input.
+     */
+    public String getConsFile() {
+        return consFile;
+    }
 
-	/**
-	 * @return Input constraint file or null
-     *   if input comes from standard input.
-	 */
-	public String getConsFileName() {
-        if (consFile != null) return consFile;
+    /**
+     * @return Input constraint file or null if input comes from standard input.
+     */
+    public String getConsFileName() {
+        if (consFile != null) {
+            return consFile;
+        }
         return "<standard input>";
-	}
+    }
 
-	/**
-	 * @return Output HTML file when provided. The default value "error.html" is
-	 *         returned otherwise
-	 */
-	public String getHtmlFileName() {
-		return htmlFileName;
-	}
+    /**
+     * @return Output HTML file when provided. The default value "error.html" is returned otherwise
+     */
+    public String getHtmlFileName() {
+        return htmlFileName;
+    }
 
-	/**
-	 * @return The source file of program analysis (e.g., OCaml, Jif programs)
-	 *         for locating error cause in source file in the HTML output format
-	 */
-	public String getSourceName() {
-		return sourceName;
-	}
+    /**
+     * @return The source file of program analysis (e.g., OCaml, Jif programs) for locating error
+     * cause in source file in the HTML output format
+     */
+    public String getSourceName() {
+        return sourceName;
+    }
 
-	/**
-	 * @return True to output the constraint graph as a DOT file
-	 */
-	public boolean isDotFile() {
-		return dotFile;
-	}
+    /**
+     * @return True to output the constraint graph as a DOT file
+     */
+    public boolean isDotFile() {
+        return dotFile;
+    }
 
-	/**
-	 * @return True to generate combined explanations (a mix of wrong
-	 *         expressions and missing hypothesis in general)
-	 */
-	public boolean isGenBoth() {
-		return mode == Mode.BOTH;
-	}
+    /**
+     * @return True to generate combined explanations (a mix of wrong expressions and missing
+     * hypothesis in general)
+     */
+    public boolean isGenBoth() {
+        return mode == Mode.BOTH;
+    }
 
-	/**
-	 * @return True to generate likely wrong constraints
-	 */
-	public boolean isGenConstraints() {
-		return mode == Mode.CONS;
-	}
-	
-	/**
-	 * @return True to generate likely wrong expressions
-	 */
-	public boolean isGenElements() {
-		return mode == Mode.EXPR;
-	}
+    /**
+     * @return True to generate likely wrong constraints
+     */
+    public boolean isGenConstraints() {
+        return mode == Mode.CONS;
+    }
 
-	/**
-	 * @return True to generate likely missing hypothesis
-	 */
-	public boolean isGenHypothesis() {
-		return mode == Mode.HYPO;
-	}
+    /**
+     * @return True to generate likely wrong expressions
+     */
+    public boolean isGenElements() {
+        return mode == Mode.EXPR;
+    }
 
-	/**
-	 * @return True to allow recursion in constraints (e.g., x = list x)
-	 */
-	public boolean isRecursive() {
-		return recursive;
-	}
+    /**
+     * @return True to generate likely missing hypothesis
+     */
+    public boolean isGenHypothesis() {
+        return mode == Mode.HYPO;
+    }
 
-	/**
-	 * @return True to show the error report on console
-	 */
-	public boolean isToConsole() {
-		return toConsole;
-	}
+    /**
+     * @return True to allow recursion in constraints (e.g., x = list x)
+     */
+    public boolean isRecursive() {
+        return recursive;
+    }
 
-	/**
-	 * @return True to collect data for evaluation
-	 */
-	public boolean isVerbose() {
-		return verbose;
-	}
+    /**
+     * @return True to show the error report on console
+     */
+    public boolean isToConsole() {
+        return toConsole;
+    }
 
-	/**
-	 * @return True to output the entire constraint graph when -d is set
-	 */
-	public boolean isWholeGraph() {
-		return wholeGraph;
-	}
-	
-	/**
-	 * @return Number of suboptimal suggestions to report
-	 */
-	public int getNSubopt() {
-		return nSubopt;
-	}
+    /**
+     * @return True to collect data for evaluation
+     */
+    public boolean isVerbose() {
+        return verbose;
+    }
+
+    /**
+     * @return True to output the entire constraint graph when -d is set
+     */
+    public boolean isWholeGraph() {
+        return wholeGraph;
+    }
+
+    /**
+     * @return Number of suboptimal suggestions to report
+     */
+    public int getNSubopt() {
+        return nSubopt;
+    }
+
+    /**
+     * @return The chosen error diagnosis mode
+     */
+    public Mode getMode() {
+        return mode;
+    }
 }

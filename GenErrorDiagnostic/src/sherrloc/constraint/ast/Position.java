@@ -1,183 +1,182 @@
 package sherrloc.constraint.ast;
 
 /**
- * The position of constraint elements and constraints in the source code. The
- * position information is used to 1) map errors in constraints back into source
- * code 2) distinguish uses of same constructor at different locations to
- * improve precision
+ * The position of constraint elements and constraints in the source code. The position information
+ * is used to 1) map errors in constraints back into source code 2) distinguish uses of same
+ * constructor at different locations to improve precision
  */
 public class Position {
-	private final int lineStart;
-	private final int colStart;
-	private final int lineEnd;
-	private final int colEnd;
-	private String snippet;
-	private String file;
-	private int weight = 1;
-	private static Position emptyPosition = null;
 
-	/**
-	 * @param snippet
-	 *            A snippet of source code for more meaningful error reports
-	 * @param file
-	 *            The source file
-	 * @param lStart
-	 *            Line start
-	 * @param colStart
-	 *            Column start
-	 * @param lEnd
-	 *            Line end
-	 * @param colEnd
-	 *            Column end
-	 */
-	public Position(String snippet, String file, int lStart, int colStart,
-			int lEnd, int colEnd) {
-		this.snippet = snippet;
-		this.file = file;
-		this.lineStart = lStart;
-		this.lineEnd = lEnd;
-		if (colStart < colEnd) {
-			this.colStart = colStart;
-			this.colEnd = colEnd;
-		} else {
-			this.colEnd = colStart;
-			this.colStart = colEnd;
-		}
-	}
+    private final int lineStart;
+    private final int colStart;
+    private final int lineEnd;
+    private final int colEnd;
+    private String snippet;
+    private String file;
+    private int weight = 1;
+    private static Position emptyPosition = null;
 
-	/**
-	 * @return A singleton for empty position
-	 */
-	public static Position EmptyPosition() {
-		if (emptyPosition == null)
-			emptyPosition = new Position("", "", -1, -1, -1, -1);
-		return emptyPosition;
-	}
+    /**
+     * @param snippet  A snippet of source code for more meaningful error reports
+     * @param file     The source file
+     * @param lStart   Line start
+     * @param colStart Column start
+     * @param lEnd     Line end
+     * @param colEnd   Column end
+     */
+    public Position(String snippet, String file, int lStart, int colStart,
+            int lEnd, int colEnd) {
+        this.snippet = snippet;
+        this.file = file;
+        this.lineStart = lStart;
+        this.lineEnd = lEnd;
+        if (colStart < colEnd) {
+            this.colStart = colStart;
+            this.colEnd = colEnd;
+        } else {
+            this.colEnd = colStart;
+            this.colStart = colEnd;
+        }
+    }
 
-	/**
-	 * @return Start line number
-	 */
-	public int getLineStart() {
-		return lineStart;
-	}
+    /**
+     * @return A singleton for empty position
+     */
+    public static Position EmptyPosition() {
+        if (emptyPosition == null) {
+            emptyPosition = new Position("", "", -1, -1, -1, -1);
+        }
+        return emptyPosition;
+    }
 
-	/**
-	 * @return End line number
-	 */
-	public int getLineEnd() {
-		return lineEnd;
-	}
+    /**
+     * @return Start line number
+     */
+    public int getLineStart() {
+        return lineStart;
+    }
 
-	/**
-	 * @return Start column number
-	 */
-	public int getColStart() {
-		return colStart;
-	}
+    /**
+     * @return End line number
+     */
+    public int getLineEnd() {
+        return lineEnd;
+    }
 
-	/**
-	 * @return End column number
-	 */
-	public int getColEnd() {
-		return colEnd;
-	}
+    /**
+     * @return Start column number
+     */
+    public int getColStart() {
+        return colStart;
+    }
 
-	/**
-	 * @return Code snippet when availble in the constraints
-	 */
-	public String getSnippet() {
-		return snippet;
-	}
+    /**
+     * @return End column number
+     */
+    public int getColEnd() {
+        return colEnd;
+    }
 
-	/**
-	 * @param snippet
-	 *            Code snippet for the position
-	 */
-	public void setSnippet(String snippet) {
-		this.snippet = snippet;
-	}
+    /**
+     * @return Code snippet when availble in the constraints
+     */
+    public String getSnippet() {
+        return snippet;
+    }
 
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
+    /**
+     * @param snippet Code snippet for the position
+     */
+    public void setSnippet(String snippet) {
+        this.snippet = snippet;
+    }
 
-	/**
-	 * @return Source file name
-	 */
-	public String getFile() {
-		return file;
-	}
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
-	/**
-	 * @param file
-	 *            Source file name
-	 */
-	public void setFile(String file) {
-		this.file = file;
-	}
+    /**
+     * @return Source file name
+     */
+    public String getFile() {
+        return file;
+    }
 
-	/**
-	 * @return True if the position is in a single line
-	 */
-	public boolean sameline() {
-		return lineStart == lineEnd;
-	}
+    /**
+     * @param file Source file name
+     */
+    public void setFile(String file) {
+        this.file = file;
+    }
 
-	/**
-	 * @return True if no position information is available
-	 */
-	public boolean isEmpty() {
-		return lineStart == -1 || snippet.equals("");
-	}
+    /**
+     * @return True if the position is in a single line
+     */
+    public boolean sameline() {
+        return lineStart == lineEnd;
+    }
 
-	@Override
-	public String toString() {
-		if (lineStart == -1)
-			return "";
+    /**
+     * @return True if no position information is available
+     */
+    public boolean isEmpty() {
+        return lineStart == -1 || snippet.equals("");
+    }
 
-		String ret = "";
-		if (!file.equals(""))
-			ret += file + ":";
+    @Override
+    public String toString() {
+        if (lineStart == -1) {
+            return "";
+        }
 
-		if (sameline())
-			return ret + lineStart + "," + colStart + "-" + colEnd;
-		else
-			return ret + lineStart + "," + colStart + "-" + lineEnd + ","
-					+ colEnd;
-	}
+        String ret = "";
+        if (!file.equals("")) {
+            ret += file + ":";
+        }
 
-	public String toStringWithExp() {
-		if (lineStart == -1)
-			return "";
+        if (sameline()) {
+            return ret + lineStart + "," + colStart + "-" + colEnd;
+        } else {
+            return ret + lineStart + "," + colStart + "-" + lineEnd + ","
+                    + colEnd;
+        }
+    }
 
-		String ret = "";
-		// if (!file.equals(""))
-		// ret += file + ":";
-		ret += "\"" + snippet + "\"" + ":";
+    public String toStringWithExp() {
+        if (lineStart == -1) {
+            return "";
+        }
 
-		if (sameline())
-			return ret + lineStart + "," + colStart + "-" + colEnd;
-		else
-			return ret + lineStart + "," + colStart + "-" + lineEnd + ","
-					+ colEnd;
-	}
+        String ret = "";
+        // if (!file.equals(""))
+        // ret += file + ":";
+        ret += "\"" + snippet + "\"" + ":";
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Position) {
-			Position other = (Position) obj;
-			return file.equals(other.file) && lineStart == other.lineStart && lineEnd == other.lineEnd 
-					&& colStart == other.colStart && colEnd == other.colEnd;
-		}
-		return false;
-	}
+        if (sameline()) {
+            return ret + lineStart + "," + colStart + "-" + colEnd;
+        } else {
+            return ret + lineStart + "," + colStart + "-" + lineEnd + ","
+                    + colEnd;
+        }
+    }
 
-	@Override
-	public int hashCode() {
-		return toString().hashCode();
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Position) {
+            Position other = (Position) obj;
+            return file.equals(other.file) && lineStart == other.lineStart
+                    && lineEnd == other.lineEnd
+                    && colStart == other.colStart && colEnd == other.colEnd;
+        }
+        return false;
+    }
 
-	public int getWeight() {
-		return weight;
-	}
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    public int getWeight() {
+        return weight;
+    }
 }

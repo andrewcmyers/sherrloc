@@ -5,6 +5,7 @@ import sherrloc.diagnostic.explanation.Explanation;
 import java.util.ArrayList;
 
 public class DiagnosticConstraintResult {
+
     boolean succ;
     ArrayList<Explanation> suggestions;
 
