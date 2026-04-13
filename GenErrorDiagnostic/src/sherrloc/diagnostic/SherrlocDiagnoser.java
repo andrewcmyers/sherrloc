@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import sherrloc.constraint.analysis.ConstraintAnalysis;
 import sherrloc.constraint.analysis.ConstraintAnalysisImpl;
 import sherrloc.constraint.ast.Axiom;
@@ -30,33 +31,27 @@ import sherrloc.diagnostic.DiagnosticOptions.Mode;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Variance;
 
-public class Sherrloc {
+public class SherrlocDiagnoser {
 
     private final Mode mode;
     private final ConstraintAnalysis constraintAnalysis;
     private boolean tryReducing;
 
-    // final things
     private final Hypothesis env = new Hypothesis();
     private final Set<Constraint> constraints = new HashSet<>();
     private final List<Axiom> axioms = new ArrayList<>();
 
-    // helpers
     private final Map<String, Constructor> constructors = new HashMap<>();
     private final Map<String, Function> functions = new HashMap<>();
     private final Map<String, Variable> variables = new HashMap<>();
     private final Map<String, QuantifiedVariable> qvars = new HashMap<>();
 
-    private boolean varMode = false;
+    private boolean constructorsDeclared = false;
 
-    /**
-     * Create a sherrloc instance with hypothesis `env`, constraints `constraints`, and axioms
-     * `axioms`.
-     */
-    public Sherrloc(Mode mode, boolean tryReducing) {
+    public SherrlocDiagnoser(Mode mode, boolean tryReducing, boolean isRecursive) {
         this.mode = mode;
         constraintAnalysis = new ConstraintAnalysisImpl(mode == Mode.HYPO, false,
-                true);
+                isRecursive);
         this.tryReducing = tryReducing;
 
         constructors.put("arrow", new Constructor("arrow", 2, 0, Variance.POS, Position.EmptyPosition()));
@@ -71,15 +66,16 @@ public class Sherrloc {
     }
 
     public void defineConstructor(String id, int arity, int level) {
-        if (!varMode) {
-            constructors.put(id, new Constructor(id, arity, level, Variance.POS, Position.EmptyPosition()));
-        }
+        defineConstructor(id, arity, level, Variance.POS);
+    }
+
+    public void defineConstructor(String id, int arity, int level, Variance variance) {
+        constructors.put(id, new Constructor(id, arity, level, variance, Position.EmptyPosition()));
+        constructorsDeclared = true;
     }
 
     public void defineFunction(String id, int arity) {
-        if (!varMode) {
-            functions.put(id, new Function(id, arity, Position.EmptyPosition()));
-        }
+        functions.put(id, new Function(id, arity, Position.EmptyPosition()));
     }
 
     public void defineExplicitVariable(String id) {
@@ -88,10 +84,8 @@ public class Sherrloc {
 
     public void defineExplicitVariable(String id, int level) {
         variables.put(id, new Variable(id, level));
-        varMode = true;
     }
 
-    // assumptions
     public void addAxiom(List<String> qv, Set<Inequality> conclusion) {
         addAxiom(qv, new HashSet<>(), conclusion);
     }
@@ -160,7 +154,7 @@ public class Sherrloc {
         else if (functions.containsKey(id)) {
             e = functions.get(id).clone();
         }
-        else if (varMode && !(variables.containsKey(id))) { // declaring ocnstructors
+        else if (!constructorsDeclared && !(variables.containsKey(id))) {
             e = new Constructor(id, 0, 0, Variance.POS, Position.EmptyPosition());
             constructors.put(id, (Constructor) e);
         }
@@ -179,7 +173,7 @@ public class Sherrloc {
     }
 
     public Element createLArrowElement(Element e1, Element e2) {
-        return new ConstructorApplication(constructors.get("larrow"), List.of(e2, e1));
+        return new ConstructorApplication(constructors.get("larrow"), List.of(e1, e2));
     }
 
     public Element createPairElement(Element e1, Element e2) {
@@ -196,7 +190,7 @@ public class Sherrloc {
 
     public Element createConstructorApplication(String id, List<Element> es) {
         Constructor c = constructors.get(id);
-        if (varMode && constructors.get(c.getName()).getArity() == 0) {
+        if (!constructorsDeclared && constructors.get(c.getName()).getArity() == 0) {
             c.setArity(es.size());
             constructors.get(c.getName()).setArity(es.size());
         } if (c.getArity() < es.size()) {
@@ -207,7 +201,7 @@ public class Sherrloc {
 
     public Element createFunctionApplication(String id, List<Element> es) {
         Function f = functions.get(id);
-        if (varMode && functions.get(f.getName()).getArity() == 0) {
+        if (!constructorsDeclared && functions.get(f.getName()).getArity() == 0) {
             f.setArity(es.size());
             functions.get(f.getName()).setArity(es.size());
         } if (f.getArity() < es.size()) {
@@ -222,19 +216,22 @@ public class Sherrloc {
     }
 
     public DiagnosticConstraintResult getConstraintResult() {
+        env.addAxioms(axioms);
         ConstraintGraph graph = new ConstraintGraph(env, constraints, axioms);
         graph.generateGraph();
-        if (tryReducing && isSatisfiable(graph)) {
-            return new DiagnosticConstraintResult(true, new ArrayList<>()); // TODO: return inferred types
-        } else {
-            graph = new ConstraintGraph(env, constraints, axioms);
-            graph.generateGraph();
-            ErrorDiagnosis errorDiagnosis = ErrorDiagnosis.getAnalysisInstance(graph, mode);
-            return errorDiagnosis.getConstraintResult();
-        }
-    }
 
-    private boolean isSatisfiable(ConstraintGraph graph) {
-        return constraintAnalysis.genErrorPaths(graph).size() == 0;
+        if (tryReducing) {
+            graph.reduce();
+            if (constraintAnalysis.genErrorPaths(graph).size() == 0) {
+                return new DiagnosticConstraintResult(true, new ArrayList<>()); // TODO: return inferred types
+            } else {
+                graph = new ConstraintGraph(env, constraints, axioms);
+                graph.generateGraph();
+            }
+        }
+
+        ErrorDiagnosis errorDiagnosis = ErrorDiagnosis.getAnalysisInstance(graph, mode);
+        DiagnosticConstraintResult result = errorDiagnosis.getConstraintResult();
+        return result;
     }
 }

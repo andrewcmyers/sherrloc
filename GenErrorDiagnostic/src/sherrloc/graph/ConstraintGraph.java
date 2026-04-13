@@ -3,8 +3,10 @@ package sherrloc.graph;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -52,7 +54,6 @@ public class ConstraintGraph extends Graph {
     /**
      * Optimizations
      */
-    private final boolean USE_OPT = false;
     private boolean OPT_AXIOMS = true;
     // A map from base elements (elements with no position info) to potentially multiple uses of the element
     // Useful for matching axioms in a graph.
@@ -260,10 +261,6 @@ public class ConstraintGraph extends Graph {
                 }
             }
         }
-        if (USE_OPT) {
-            removeDominatedVariables();
-        }
-
         if (OPT_AXIOMS) {
             List<Axiom> useless = new ArrayList<Axiom>();
             for (Axiom rule : rules) {
@@ -306,225 +303,6 @@ public class ConstraintGraph extends Graph {
         // add base elements to the hypothesis graph
         if (env != null) {
             env.addElements(getAllElements());
-        }
-    }
-
-    /**
-     * Return a unique neighbor except prev, if such neighbor exists
-     *
-     * @param current Current node
-     * @param prev    Previous node to exclude
-     * @return A unique neighbor of current
-     */
-    private List<Node> getNewOutNodes(Node current, Node prev, List<Node> chain) {
-        if (leqEdges.get(current) == null) {
-            return new ArrayList<Node>();
-        }
-        List<Node> neighbors = new ArrayList<Node>(leqEdges.get(current).keySet());
-        neighbors.remove(current);
-        neighbors.remove(prev);
-        for (Node n : chain) {
-            neighbors.remove(n);
-        }
-        return neighbors;
-    }
-
-    private List<Node> getNewInNodes(Node current, Node prev, List<Node> chain, List<Node> outs,
-            Set<Node> indeg) {
-        if (indeg.size() == 0) {
-            return new ArrayList<Node>();
-        }
-        List<Node> neighbors = new ArrayList<Node>(indeg);
-        neighbors.remove(prev);
-        neighbors.remove(current);
-        for (Node n : chain) {
-            neighbors.remove(n);
-        }
-        for (Node n : outs) {
-            neighbors.remove(n);
-        }
-        return neighbors;
-    }
-
-    /**
-     * Sanity check
-     */
-    private void checkRemovedNodes() {
-        for (Node node : allNodes) {
-            if (!leqEdges.containsKey(node)) {
-                throw new RuntimeException("an node in allNodes is removed from edges");
-            }
-            for (Node n2 : leqEdges.get(node).keySet()) {
-                if (!allNodes.contains(n2)) {
-                    throw new RuntimeException("Node " + node + " still has " + n2);
-                }
-            }
-        }
-    }
-
-    /**
-     * A node n is entry only iff 1. there is only one out edge 2. there are two out edges, and both
-     * of the out nodes are in the innodes
-     *
-     * @param n
-     * @return
-     */
-    private boolean entryOnly(Node n, Set<Node> innodes) {
-        if (leqEdges.get(n).size() == 1) {
-            return true;
-        }
-        if (leqEdges.get(n).size() == 2) {
-            for (Node in : innodes) {
-                if (!leqEdges.get(n).keySet().contains(in)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * A node n is entry only iff 1. there is only no in edge other than that already in chain 2.
-     * there is one in edge, other than that in chain, and it's the only way out
-     *
-     * @param n
-     * @return
-     */
-    private boolean exitOnly(Node n, List<Node> chain, List<Node> innodes) {
-        if (innodes.size() == 0) {
-            return true;
-        }
-        if (innodes.size() == 1) {
-            Node from = innodes.iterator().next();
-            if (getNewOutNodes(n, from, chain).isEmpty()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Combine two variables A and B if they show up in the following pattern: in -- A -- B -- out
-     */
-    private void removeDominatedVariables() {
-        int nodesBefore = allNodes.size();
-
-        Set<Node>[] indeg = new Set[nodesBefore];
-        Set<Node>[] incon = new Set[nodesBefore];
-        for (int i = 0; i < nodesBefore; i++) {
-            indeg[i] = new HashSet<Node>();
-            incon[i] = new HashSet<Node>();
-        }
-        for (Node n1 : allNodes) {
-            for (Node n2 : allNodes) {
-                if (!n1.equals(n2) && hasLeqEdge(n1, n2)) {
-                    indeg[n2.getIndex()].add(n1);
-                }
-                if (!n1.equals(n2) && hasConEdge(n1, n2)) {
-                    incon[n2.getIndex()].add(n1);
-                }
-            }
-        }
-
-        boolean modified;
-        do {
-            List<Node> chain = new ArrayList<Node>();
-            modified = false;
-
-            for (Node n1 : allNodes) {
-                // the first node must be "entrance only", meaning that either
-                // it has a single out edge, edge to the next node in chain, or
-                // it has two out edges, and one of them is the only way to get in
-                if (!(n1.getElement() instanceof Variable)) {
-                    continue;
-                }
-
-                if (!entryOnly(n1, indeg[n1.getIndex()]) || !incon[n1.getIndex()].isEmpty()
-                        || !conEdges.get(n1).keySet().isEmpty()) {
-                    continue;
-                }
-
-//        		if (indeg[n1.getIndex()].size()==1)
-//        			continue;
-
-                Map<Node, Edge> outs = leqEdges.get(n1);
-                for (Node n2 : outs.keySet()) {
-                    // identify a chain of variables n1 -- n2 --
-                    // ... -- nm -- .. such that all of n1 to nm have at most 1
-                    // unique neighbor besides the previous node and itself
-                    if (n2.equals(n1)) {
-                        continue;
-                    }
-                    chain.clear();
-                    chain.add(n1);
-
-                    Node next = n2, prev = n1;
-                    List<Node> outNodes = getNewOutNodes(next, prev, chain);
-                    if (outNodes.size() > 1) {
-                        continue;
-                    }
-                    List<Node> inNodes = getNewInNodes(next, prev, chain, outNodes,
-                            indeg[next.getIndex()]);
-                    while (outNodes.size() <= 1 && (next.getElement() instanceof Variable)
-                            && (chain.isEmpty() || inNodes.isEmpty())
-                            && incon[next.getIndex()].isEmpty()
-                            && conEdges.get(next).keySet().isEmpty()) {
-//							&& (indeg[next.getIndex()].size() == 1 || //false)) {
-//							(indeg[next.getIndex()].size() == 2 && outNodes.size() == 1 && 
-//							edges.get(outNodes.get(0)).containsKey(next)))) {
-                        chain.add(next);
-                        prev = next;
-                        if (outNodes.size() == 1) {
-                            next = outNodes.get(0);
-                        } else {
-                            break;
-                        }
-                        outNodes = getNewOutNodes(next, prev, chain);
-                        inNodes = getNewInNodes(next, prev, chain, outNodes,
-                                indeg[next.getIndex()]);
-                    }
-                    // the last node should have no incoming edges except that from the chain
-                    if (outNodes.size() != 0 && exitOnly(next, chain, inNodes)
-                            && incon[next.getIndex()].isEmpty()
-                            && conEdges.get(next).keySet().isEmpty()) {
-                        chain.add(next);
-                    }
-
-                    if (chain.size() > 1) {
-                        modified = true;
-                        break;
-                    }
-                }
-                if (modified) {
-                    break;
-                }
-            }
-
-            // remove nodes
-            if (chain.size() > 1) {
-//        		Node last=chain.get(chain.size()-1);
-//        		for (Node node : chain) {
-//        			System.out.print(node.getElement().toDetailString()+ "-->");
-//        		}
-//        		System.out.println("");
-                collapse(chain, indeg, eleToNode);
-//				checkRemovedNodes();
-            }
-        }
-        while (modified);
-
-        // fix indices
-        int count = 0;
-        for (Node n : allNodes) {
-            n.setIndex(count);
-            count++;
-        }
-
-        int nodesAfter = allNodes.size();
-        if (nodesAfter < nodesBefore) {
-            System.out.println("[Remove dominated] Reduced node size from " + nodesBefore + " to "
-                    + nodesAfter);
         }
     }
 
@@ -630,153 +408,370 @@ public class ConstraintGraph extends Graph {
     }
 
     /**
-     * Removes a Node `n` by connecting each in-edge with each out-edge.
+     * Removes a node `n` by splicing all edges going in/out of it. Assumes `n` is droppable.
+     * @param n
      */
     private void removeNode(Node n) {
-        allNodes.remove(n);
+        Set<Node> preds = new HashSet<>(leqIn.get(n));
+        Map<Node, Edge> outgoingMap = leqEdges.get(n);
+        Set<Node> succs = new HashSet<>(outgoingMap.keySet());
 
-        Collection<Edge> leqOut = leqEdges.remove(n).values();
-        leqEdges.put(n, new HashMap<>());
-
-        Collection<Edge> leqIn = new HashSet<>();
-        for (Node m : allNodes) {
-            if (!m.equals(n)) {
-                Edge in = leqEdges.get(m).remove(n);
-                if (in != null) {
-                    leqIn.add(in);
-                }
+        List<Edge> inEdges = new ArrayList<>(preds.size());
+        for (Node from : preds) {
+            Edge in = leqEdges.get(from).get(n);
+            if (in != null) {
+                inEdges.add(in);
             }
         }
+        List<Edge> outEdges = new ArrayList<>(outgoingMap.values());
 
-        for (Edge first : leqIn) {
+        allNodes.remove(n);
+        for (Node from : preds) {
+            leqEdges.get(from).remove(n);
+        }
+        for (Node to : succs) {
+            Set<Node> toPreds = leqIn.get(to);
+            if (toPreds != null) {
+                toPreds.remove(n);
+            }
+        }
+        leqEdges.remove(n);
+        conEdges.remove(n);
+        leqIn.remove(n);
+
+        for (Edge first : inEdges) {
             Node from = first.getFrom();
-            for (Edge second : leqOut) {
+            for (Edge second : outEdges) {
                 Node to = second.getTo();
+                if (from.equals(to)) {
+                    continue;
+                }
+                if (hasLeqEdge(from, to)) {
+                    continue;
+                }
+                ConstraintEdge spliced = buildSplicedEdge(first, second, from, to);
+                leqEdges.get(from).put(to, spliced);
+                leqIn.get(to).add(from);
+            }
+        }
+    }
 
-                if (!from.equals(to)) {
-                    Relation r = Relation.LEQ;
-                    Hypothesis h = new Hypothesis();
-                    if (first instanceof ConstraintEdge && second instanceof ConstraintEdge) {
-                        Constraint fcons = ((ConstraintEdge) first).getConstraint();
-                        Constraint scons = ((ConstraintEdge) second).getConstraint();
-                        if (fcons.getRelation() == scons.getRelation()) {
-                            r = fcons.getRelation();
-                        }
-                        if (fcons.getAssumption() != null) {
-                            h.addEnv(fcons.getAssumption());
-                        }
-                        if (scons.getAssumption() != null) {
-                            h.addEnv(scons.getAssumption());
-                        }
-                    } else if (first instanceof ConstraintEdge
-                            || second instanceof ConstraintEdge) {
-                        if (first instanceof ConstraintEdge) {
-                            Constraint fcons = ((ConstraintEdge) first).getConstraint();
-                            if (fcons.getAssumption() != null) {
-                                h.addEnv(fcons.getAssumption());
-                            }
-                        } else {
-                            Constraint scons = ((ConstraintEdge) second).getConstraint();
-                            if (scons.getAssumption() != null) {
-                                h.addEnv(scons.getAssumption());
-                            }
-                        }
-                    }
-                    Constraint c = new Constraint(from.getElement(), to.getElement(), r, h,
-                            Position.EmptyPosition());
-                    ConstraintEdge through = new ConstraintEdge(c, from, to);
-                    leqEdges.get(from).put(to, through);
-                    leqEdges.get(from).remove(n);
+    /**
+     * Build a {@link ConstraintEdge} that stands in for the composition of {@code first} and
+     * {@code second}, merging any assumption hypotheses along the way. Used by
+     * {@link #removeNode}.
+     */
+
+    /**
+     * Combines two edges, `first.from = from -> first.to = second.from` and
+     * `second.from -> to = second.to` into one edge `from -> to`.
+     */
+    private ConstraintEdge buildSplicedEdge(Edge first, Edge second, Node from, Node to) {
+        Relation r = Relation.LEQ;
+        Hypothesis h = new Hypothesis();
+        if (first instanceof ConstraintEdge && second instanceof ConstraintEdge) {
+            Constraint fcons = ((ConstraintEdge) first).getConstraint();
+            Constraint scons = ((ConstraintEdge) second).getConstraint();
+            if (fcons.getRelation() == scons.getRelation()) {
+                r = fcons.getRelation();
+            }
+            if (fcons.getAssumption() != null) {
+                h.addEnv(fcons.getAssumption());
+            }
+            if (scons.getAssumption() != null) {
+                h.addEnv(scons.getAssumption());
+            }
+        } else if (first instanceof ConstraintEdge) {
+            Constraint fcons = ((ConstraintEdge) first).getConstraint();
+            if (fcons.getAssumption() != null) {
+                h.addEnv(fcons.getAssumption());
+            }
+        } else if (second instanceof ConstraintEdge) {
+            Constraint scons = ((ConstraintEdge) second).getConstraint();
+            if (scons.getAssumption() != null) {
+                h.addEnv(scons.getAssumption());
+            }
+        }
+        Constraint c = new Constraint(from.getElement(), to.getElement(), r, h,
+                Position.EmptyPosition());
+        return new ConstraintEdge(c, from, to);
+    }
+
+    /**
+     * Returns true if `n` is a trivial node which is droppable. This is the case when
+     * - its element is trivial and can be unified with anything (but is not a Join or Meet)
+     * - it has no constructor edges
+     * - it is not a component of a join or meet element
+     */
+    private boolean isDroppableTrivial(Node n) {
+        Element e = n.getElement();
+        return e.trivialEnd()
+                && !(e instanceof JoinElement)
+                && !(e instanceof MeetElement)
+                && conEdges.get(n).isEmpty()
+                && !isJoinOrMeetComponent(n);
+    }
+
+    private boolean isJoinOrMeetComponent(Node n) {
+        for (Edge e : leqEdges.get(n).values()) {
+            if (e instanceof JoinEdge || e instanceof MeetEdge) {
+                return true;
+            }
+        }
+        for (Node pred : leqIn.get(n)) {
+            Edge e = leqEdges.get(pred).get(n);
+            if (e instanceof JoinEdge || e instanceof MeetEdge) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Reduces the constraint graph in-place while preserving satisfiability. This is done in three
+     * phases:
+     * 1. Collapse any strongly-connected components of just variables
+     * 2. Remove any trivially removable nodes
+     * 3. Remove any disconnected nodes that would not provide insight
+     */
+    public void reduce() {
+        collapseLeqSCCs();
+        Set<Node> visitedByBfs = pruneTrivialLeaves();
+        pruneOrphans(visitedByBfs);
+    }
+
+    /**
+     * Collapse strongly-connected components of leq edges which contain only variable nodes.
+     */
+    private void collapseLeqSCCs() {
+        List<Set<Node>> sccs = computeLeqSCCs();
+        for (Set<Node> scc : sccs) {
+            if (scc.size() < 2) {
+                continue;
+            }
+            if (!isVariableOnlyLeqScc(scc)) {
+                continue;
+            }
+            Node rep = pickSccRepresentative(scc);
+            for (Node member : new ArrayList<>(scc)) {
+                if (member != rep) {
+                    mergeNodeInto(rep, member, scc);
                 }
             }
         }
     }
 
     /**
-     * Reduces the graph.
+     * Uses Tarjan's algorithm to find strongly-connected components of the leq graph.
      */
-    public void reduce() {
+    private List<Set<Node>> computeLeqSCCs() {
+        Map<Node, Integer> index = new HashMap<>();
+        Map<Node, Integer> lowlink = new HashMap<>();
+        Set<Node> onStack = new HashSet<>();
+        Deque<Node> stack = new ArrayDeque<>();
+        int[] counter = {0};
+        List<Set<Node>> sccs = new ArrayList<>();
+
+        for (Node v : new ArrayList<>(allNodes)) {
+            if (!index.containsKey(v)) {
+                strongConnect(v, index, lowlink, onStack, stack, counter, sccs);
+            }
+        }
+        return sccs;
+    }
+
+    private void strongConnect(Node v, Map<Node, Integer> index, Map<Node, Integer> lowlink,
+            Set<Node> onStack, Deque<Node> stack, int[] counter, List<Set<Node>> sccs) {
+        int vIndex = counter[0]++;
+        index.put(v, vIndex);
+        lowlink.put(v, vIndex);
+        stack.push(v);
+        onStack.add(v);
+
+        for (Node w : new ArrayList<>(leqEdges.get(v).keySet())) {
+            if (!index.containsKey(w)) {
+                strongConnect(w, index, lowlink, onStack, stack, counter, sccs);
+                lowlink.put(v, Math.min(lowlink.get(v), lowlink.get(w)));
+            } else if (onStack.contains(w)) {
+                lowlink.put(v, Math.min(lowlink.get(v), index.get(w)));
+            }
+        }
+
+        if (lowlink.get(v).equals(index.get(v))) {
+            Set<Node> scc = new HashSet<>();
+            Node w;
+            do {
+                w = stack.pop();
+                onStack.remove(w);
+                scc.add(w);
+            } while (w != v);
+            sccs.add(scc);
+        }
+    }
+
+    /**
+     * True if this strongly-connected set of nodes `scc` is collapsable. This is the case when it
+     * contains only variable nodes without outgoing constructor edges.
+     */
+    private boolean isVariableOnlyLeqScc(Set<Node> scc) {
+        for (Node n : scc) {
+            if (!(n.getElement() instanceof Variable)) {
+                return false;
+            }
+            if (!conEdges.get(n).isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Node pickSccRepresentative(Set<Node> scc) {
+        Node best = null;
+        for (Node n : scc) {
+            if (best == null || n.getIndex() < best.getIndex()) {
+                best = n;
+            }
+        }
+        return best;
+    }
+
+    /**
+     * Merge `rep` into `member`, deleting any edges with an opposite edge in `sccMembers`.
+     */
+    private void mergeNodeInto(Node rep, Node member, Set<Node> sccMembers) {
+        for (Node pred : new ArrayList<>(leqIn.get(member))) {
+            Edge edge = leqEdges.get(pred).remove(member);
+            leqIn.get(member).remove(pred);
+            if (edge == null) {
+                continue;
+            }
+            if (sccMembers.contains(pred) || pred.equals(rep)) {
+                continue;
+            }
+            if (leqEdges.get(pred).containsKey(rep)) {
+                continue;
+            }
+            edge.to = rep;
+            leqEdges.get(pred).put(rep, edge);
+            leqIn.get(rep).add(pred);
+        }
+
+        for (Node succ : new ArrayList<>(leqEdges.get(member).keySet())) {
+            Edge edge = leqEdges.get(member).remove(succ);
+            Set<Node> succPreds = leqIn.get(succ);
+            if (succPreds != null) {
+                succPreds.remove(member);
+            }
+            if (edge == null) {
+                continue;
+            }
+            if (sccMembers.contains(succ) || succ.equals(rep)) {
+                continue;
+            }
+            if (leqEdges.get(rep).containsKey(succ)) {
+                continue;
+            }
+            edge.from = rep;
+            leqEdges.get(rep).put(succ, edge);
+            if (succPreds != null) {
+                succPreds.add(rep);
+            }
+        }
+
+        for (Map.Entry<Element, Node> entry : eleToNode.entrySet()) {
+            if (entry.getValue() == member) {
+                entry.setValue(rep);
+            }
+        }
+        for (List<Node> nodes : baseToNodes.values()) {
+            for (int i = 0; i < nodes.size(); i++) {
+                if (nodes.get(i) == member) {
+                    nodes.set(i, rep);
+                }
+            }
+        }
+        idxToNode.remove(member.getIndex());
+
+        allNodes.remove(member);
+        leqEdges.remove(member);
+        conEdges.remove(member);
+        leqIn.remove(member);
+    }
+
+    /**
+     * BFS from non-trivial nodes dropping all trivial nodes.
+     */
+    private Set<Node> pruneTrivialLeaves() {
         Queue<Node> queue = new LinkedList<>();
-        Set<Node> queueSet = new HashSet<>();
-        Set<Node> handled = new HashSet<>();
+        Set<Node> queued = new HashSet<>();
+        Set<Node> visited = new HashSet<>();
 
         for (Node n : allNodes) {
             if (!n.getElement().trivialEnd()) {
                 queue.add(n);
-                queueSet.add(n);
+                queued.add(n);
             }
         }
 
         while (!queue.isEmpty()) {
             Node curr = queue.remove();
-            queueSet.remove(curr);
+            queued.remove(curr);
 
             for (Node neighbor : getNeighbors(curr)) {
-                if (!handled.contains(neighbor)) {
-                    Element neighborElement = neighbor.getElement();
-                    boolean condition = neighborElement.trivialEnd() && !(neighborElement instanceof JoinElement) && !(neighborElement instanceof MeetElement);
-                    if (condition && conEdges.get(neighbor).isEmpty()) {
-                        removeNode(neighbor);
-                        handled.add(neighbor);
-                        if (!queueSet.contains(curr)) {
-                            queue.add(curr);
-                            queueSet.add(curr);
-                        }
+                if (visited.contains(neighbor)) {
+                    continue;
+                }
+                visited.add(neighbor);
+                if (isDroppableTrivial(neighbor)) {
+                    removeNode(neighbor);
+                    if (!queued.contains(curr)) {
+                        queue.add(curr);
+                        queued.add(curr);
                     }
-//                    else if (condition && leqEdges.get(neighbor).isEmpty() && conEdges.get(neighbor).size() == 1 && conEdges.get(neighbor).get(curr).size() < 4) {
-//                        allNodes.remove(curr);
-//                        conEdges.get(neighbor).remove(curr);
-//                        conEdges.get(curr).remove(neighbor);
-//                        handled.add(neighbor);
-//                        if (!queueSet.contains(curr)) {
-//                            queue.add(curr);
-//                            queueSet.add(curr);
-//                        }
-//                    }
-                    else {
-                        queue.add(neighbor);
-                        queueSet.add(neighbor);
-                        handled.add(neighbor);
-                    }
+                } else {
+                    queue.add(neighbor);
+                    queued.add(neighbor);
                 }
             }
-            curr.setCause();
-            handled.add(curr);
+            visited.add(curr);
         }
+        return visited;
+    }
 
-        Map<Node, Set<Node>> leqIn = new HashMap<>();
-        for (Node n : allNodes) {
-            for (Node m : allNodes) {
-                if (hasLeqEdge(n, m)) {
-                    leqIn.computeIfAbsent(m, k -> new HashSet<>()).add(n);
-                }
-            }
-        }
-
+    /**
+     * Remove nodes unreached by the previous BFS stage or any node that is completely disconnected
+     * from the rest of the graph. These nodes are not reachable from any information-providing
+     * edges, so do not generate any interesting constraints and thus can be removed.
+     */
+    private void pruneOrphans(Set<Node> visitedByBfs) {
         Set<Node> toRemove = new HashSet<>();
         for (Node n : allNodes) {
-            if (leqEdges.get(n).isEmpty() && conEdges.get(n).isEmpty() && !leqIn.containsKey(n) /* && !conIn.containsKey(n) */) {
+            boolean hasLeqOut = !leqEdges.get(n).isEmpty();
+            boolean hasCon = !conEdges.get(n).isEmpty();
+            boolean hasLeqIn = !leqIn.get(n).isEmpty();
+
+            if (isJoinOrMeetComponent(n)) {
+                continue;
+            }
+
+            if (!hasLeqOut && !hasCon && !hasLeqIn) {
                 toRemove.add(n);
-            } else if (!handled.contains(n) && leqIn.containsKey(n)) {
+            } else if (!visitedByBfs.contains(n) && hasLeqIn) {
                 toRemove.add(n);
             }
         }
 
         for (Node n : toRemove) {
             allNodes.remove(n);
-            leqEdges.remove(n);
-            conEdges.remove(n);
-            if (leqIn.containsKey(n)) {
-                for (Node m : leqIn.get(n)) {
-                    if (leqEdges.containsKey(m)) {
-                        leqEdges.get(m).remove(n);
-                    }
+            for (Node pred : leqIn.get(n)) {
+                Map<Node, Edge> predOut = leqEdges.get(pred);
+                if (predOut != null) {
+                    predOut.remove(n);
                 }
             }
+            leqEdges.remove(n);
+            conEdges.remove(n);
+            leqIn.remove(n);
         }
-    }
-
-    private boolean isJoinOrMeet(Node n) {
-        return !(n.getElement() instanceof JoinElement || n.getElement() instanceof MeetElement);
     }
 }
