@@ -55,8 +55,10 @@ terminal Integer    INTEGER_LITERAL;
 terminal String     IDENTIFIER, STRING_LITERAL;
 terminal            AXIOM, IMPLIES, LEVEL;
 terminal            WEIGHT;
+terminal            PARSE_ELEMENT;
 
 /* Non terminals */
+non terminal Object             result;
 non terminal DiagnosisInput     cons_spec;
 non terminal Constraint         equation;
 non terminal Set<Constraint>	equations;
@@ -77,6 +79,9 @@ precedence right ARROW, LARROW, MEET, JOIN;
 precedence left COMMA;
 
 /* The grammar */
+result          ::= cons_spec:cons {: RESULT = cons; :}
+                  | PARSE_ELEMENT term:t {: RESULT = t; :};
+
 cons_spec 	::= declaration 	
 			{: 
 					constructors.put("arrow", new Constructor("arrow", 2, 0, Variance.POS, Position.EmptyPosition()));

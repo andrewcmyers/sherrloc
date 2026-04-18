@@ -45,7 +45,7 @@ public class Variable extends Element {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Variable) {
-            return this.name == ((Variable) o).name;
+            return this.name.equals(((Variable) o).name);
         }
         return false;
     }

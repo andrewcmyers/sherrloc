@@ -27,6 +27,7 @@ import sherrloc.constraint.ast.Relation;
 import sherrloc.constraint.ast.Top;
 import sherrloc.constraint.ast.Variable;
 import sherrloc.constraint.ast.VariableApplication;
+import sherrloc.constraint.parse.ElementParser;
 import sherrloc.diagnostic.DiagnosticOptions.Mode;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Variance;
@@ -160,9 +161,12 @@ public class SherrlocDiagnoser {
         }
         else if (variables.containsKey(id)) {
             e = variables.get(id);
-        } else {
-            e = new Variable(id, 0);
-            variables.put(id, (Variable) e);
+        }
+        else {
+            e = ElementParser.parse(id);
+            if (e instanceof Variable v) {
+                variables.put(id, v);
+            }
         }
         e.setPosition(pos);
         return e;
