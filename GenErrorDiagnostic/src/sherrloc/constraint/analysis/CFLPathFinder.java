@@ -16,6 +16,7 @@ import sherrloc.graph.ConstructorEdge;
 import sherrloc.graph.DummyEdge;
 import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
+import sherrloc.graph.HypothesisSet;
 import sherrloc.graph.JoinEdge;
 import sherrloc.graph.LeftEdge;
 import sherrloc.graph.LeqCondition;
@@ -42,7 +43,7 @@ abstract public class CFLPathFinder implements PathFinder {
     /**
      * Edges used in CFL-reachablity algorithm
      */
-    protected Map<Integer, Map<Integer, Map<EdgeCondition, List<Evidence>>>> nextHop;
+    protected Map<Integer, Map<Integer, Map<EdgeCondition, Map<HypothesisSet, List<Evidence>>>>> nextHop;
     // since the RIGHT edges are rare in a graph, and no right edges are
     // inferred, using HashMap can be more memory efficient than arrays
     protected Map<Integer, Map<Integer, List<RightEdge>>> rightPath;
@@ -62,7 +63,7 @@ abstract public class CFLPathFinder implements PathFinder {
      */
     public CFLPathFinder(ConstraintGraph graph) {
         g = graph;
-        nextHop = new HashMap<Integer, Map<Integer, Map<EdgeCondition, List<Evidence>>>>();
+        nextHop = new HashMap<>();
         rightPath = new HashMap<Integer, Map<Integer, List<RightEdge>>>();
         inferredLR = new HashMap<Integer, Set<Integer>>();
 //		for (Node start : g.getAllNodes()) {
@@ -81,7 +82,19 @@ abstract public class CFLPathFinder implements PathFinder {
      * @param edge An edge to be added
      */
     abstract protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size,
-            List<Evidence> evidence, boolean isInit);
+            List<Evidence> evidence, boolean isInit, HypothesisSet hypotheses);
+
+    /**
+     * The hypotheses of the shortest derivation of an edge of type {@code type} from {@code start}
+     * to {@code end}. Assumes there is such a derivation.
+     */
+    abstract protected HypothesisSet shortestHypotheses(Node start, Node end, EdgeCondition type);
+
+    /**
+     * The minimal hypothesis sets with which an LEQ edge from {@code start} to {@code end} can be
+     * derived, one per derivation that is not subsumed by a derivation with fewer hypotheses.
+     */
+    abstract protected List<HypothesisSet> leqHypotheses(Node start, Node end);
 
     /**
      * Return all {@link RightEdge}s from <code>fIndex</code> to
@@ -119,30 +132,28 @@ abstract public class CFLPathFinder implements PathFinder {
     }
 
     protected void addNextHop(Node start, Node end, EdgeCondition inferredType,
-            List<Evidence> evidence) {
-        if (!nextHop.containsKey(start.getIndex())) {
-            nextHop.put(start.getIndex(),
-                    new HashMap<Integer, Map<EdgeCondition, List<Evidence>>>());
-        }
-        if (!nextHop.get(start.getIndex()).containsKey(end.getIndex())) {
-            nextHop.get(start.getIndex())
-                    .put(end.getIndex(), new HashMap<EdgeCondition, List<Evidence>>());
-        }
-        nextHop.get(start.getIndex()).get(end.getIndex()).put(inferredType, evidence);
+            HypothesisSet hypotheses, List<Evidence> evidence) {
+        nextHop.computeIfAbsent(start.getIndex(), k -> new HashMap<>())
+                .computeIfAbsent(end.getIndex(), k -> new HashMap<>())
+                .computeIfAbsent(inferredType, k -> new HashMap<>())
+                .put(hypotheses, evidence);
     }
 
-    protected boolean hasNextHop(Node start, Node end, EdgeCondition inferredType) {
-        if (nextHop.containsKey(start.getIndex()) && nextHop.get(start.getIndex())
-                .containsKey(end.getIndex())
-                && nextHop.get(start.getIndex()).get(end.getIndex()).containsKey(inferredType)) {
-            return true;
-        } else {
-            return false;
-        }
+    protected boolean hasNextHop(Node start, Node end, EdgeCondition inferredType,
+            HypothesisSet hypotheses) {
+        return getNextHop(start, end, inferredType, hypotheses) != null;
     }
 
-    protected List<Evidence> getNextHop(Node start, Node end, EdgeCondition inferredType) {
-        return nextHop.get(start.getIndex()).get(end.getIndex()).get(inferredType);
+    /** The evidence for the derivation with the given hypotheses, or null if there is none. */
+    protected List<Evidence> getNextHop(Node start, Node end, EdgeCondition inferredType,
+            HypothesisSet hypotheses) {
+        Map<Integer, Map<EdgeCondition, Map<HypothesisSet, List<Evidence>>>> fromStart =
+                nextHop.get(start.getIndex());
+        if (fromStart == null || !fromStart.containsKey(end.getIndex())) {
+            return null;
+        }
+        Map<HypothesisSet, List<Evidence>> byHyps = fromStart.get(end.getIndex()).get(inferredType);
+        return byHyps == null ? null : byHyps.get(hypotheses);
     }
 
     /**
@@ -153,16 +164,17 @@ abstract public class CFLPathFinder implements PathFinder {
         List<Edge> edges = g.getAllEdges();
 
         for (Edge edge : edges) {
+            HypothesisSet hyps = HypothesisSet.of(edge.getHypothesis());
             if (edge instanceof ConstraintEdge || edge instanceof MeetEdge
                     || edge instanceof JoinEdge) {
                 if (!edge.getFrom().equals(edge.getTo())) {
                     inferEdge(edge.getFrom(), edge.getTo(), LeqCondition.getInstance(), 1,
-                            new ArrayList<Evidence>(), true);
+                            new ArrayList<Evidence>(), true, hyps);
                 }
             } else if (edge instanceof ConstructorEdge) {
                 ConstructorEdge e = (ConstructorEdge) edge;
                 inferEdge(edge.getFrom(), edge.getTo(), e.getCondition(), 1,
-                        new ArrayList<Evidence>(), true);
+                        new ArrayList<Evidence>(), true, hyps);
             }
         }
     }
@@ -174,8 +186,26 @@ abstract public class CFLPathFinder implements PathFinder {
      */
     public List<Edge> getPath(Node start, Node end) {
         List<Edge> path = new ArrayList<Edge>();
-        getLeqPath(start, end, LeqCondition.getInstance(), path, false);
+        getLeqPath(start, end, LeqCondition.getInstance(), null, path, false);
         return path;
+    }
+
+    /**
+     * Return one path for each minimal set of hypotheses with which a partial ordering on
+     * <code>start, end</code> can be derived. Return a single empty path when the ordering holds
+     * without constraints.
+     */
+    public List<List<Edge>> getPaths(Node start, Node end) {
+        List<List<Edge>> paths = new ArrayList<>();
+        for (HypothesisSet hyps : leqHypotheses(start, end)) {
+            List<Edge> path = new ArrayList<Edge>();
+            getLeqPath(start, end, LeqCondition.getInstance(), hyps, path, false);
+            paths.add(path);
+        }
+        if (paths.isEmpty()) {
+            paths.add(getPath(start, end));
+        }
+        return paths;
     }
 
     /**
@@ -185,8 +215,8 @@ abstract public class CFLPathFinder implements PathFinder {
      * @param end   End node
      * @return An LEQ path
      */
-    protected void getLeqPath(Node start, Node end, EdgeCondition ec, List<Edge> ret,
-            boolean isRev) {
+    protected void getLeqPath(Node start, Node end, EdgeCondition ec, HypothesisSet hyps,
+            List<Edge> ret, boolean isRev) {
 //		int sIndex = start.getIndex();
 //		int eIndex = end.getIndex();
         if (ec instanceof LeqRevCondition) {
@@ -199,15 +229,20 @@ abstract public class CFLPathFinder implements PathFinder {
             isRev = !isRev;
         }
 
-        if (ec instanceof LeqCondition && !hasNextHop(start, end, ec)) {
+        if (hyps == null) {
+            if (ec instanceof LeqCondition && leqHypotheses(start, end).isEmpty()) {
+                return;
+            }
+            hyps = shortestHypotheses(start, end, ec);
+        }
+        if (ec instanceof LeqCondition && !hasNextHop(start, end, ec, hyps)) {
             return;
         }
-//		assert (nextHop[sIndex][eIndex] != null && nextHop[sIndex][eIndex].containsKey(ec));
 
-        List<Evidence> evis = getNextHop(start, end, ec);
+        List<Evidence> evis = getNextHop(start, end, ec, hyps);
         // base condition
         if (evis.isEmpty()) {
-            Edge current = getOriginalEdge(start, end, ec);
+            Edge current = getOriginalEdge(start, end, ec, hyps);
             if (current != null) {
                 if (isRev) {
                     current = current.getReverse();
@@ -233,7 +268,8 @@ abstract public class CFLPathFinder implements PathFinder {
                     if (needDummy) {
                         ret.add(new DummyEdge(start, evidence.start, true));
                     }
-                    getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
+                    getLeqPath(evidence.start, evidence.end, evidence.ty, evidence.hypotheses,
+                            ret, isRev);
                     if (needDummy) {
                         ret.add(new DummyEdge(evidence.end, next, false));
                     }
@@ -252,7 +288,8 @@ abstract public class CFLPathFinder implements PathFinder {
                     if (needDummy) {
                         ret.add(new DummyEdge(start, evidence.start, true));
                     }
-                    getLeqPath(evidence.start, evidence.end, evidence.ty, ret, isRev);
+                    getLeqPath(evidence.start, evidence.end, evidence.ty, evidence.hypotheses,
+                            ret, isRev);
                     if (needDummy) {
                         ret.add(new DummyEdge(evidence.end, next, false));
                     }
@@ -291,23 +328,34 @@ abstract public class CFLPathFinder implements PathFinder {
      */
     abstract protected void saturation();
 
-    protected Edge getOriginalEdge(Node start, Node end, EdgeCondition type) {
+    /**
+     * An original edge of type {@code type} from {@code start} to {@code end} whose hypotheses are
+     * {@code hyps}, or failing that any original edge of that type, or null.
+     */
+    protected Edge getOriginalEdge(Node start, Node end, EdgeCondition type, HypothesisSet hyps) {
         if (g.getEdges(start, end) == null) {
             return null;
         }
         for (Edge edge : g.getEdges(start, end)) {
-            if (type instanceof LeqCondition
-                    && (edge instanceof JoinEdge
-                    || edge instanceof MeetEdge || edge instanceof ConstraintEdge)) {
+            if (HypothesisSet.of(edge.getHypothesis()).equals(hyps)
+                    && isOriginalEdgeOfType(edge, type)) {
                 return edge;
-            } else if (edge instanceof ConstructorEdge) {
-                ConstructorEdge ce = (ConstructorEdge) edge;
-                if (ce.getCondition().equals(type)) {
-                    return edge;
-                }
+            }
+        }
+        for (Edge edge : g.getEdges(start, end)) {
+            if (isOriginalEdgeOfType(edge, type)) {
+                return edge;
             }
         }
         return null;
+    }
+
+    private static boolean isOriginalEdgeOfType(Edge edge, EdgeCondition type) {
+        if (type instanceof LeqCondition) {
+            return edge instanceof JoinEdge || edge instanceof MeetEdge
+                    || edge instanceof ConstraintEdge;
+        }
+        return edge instanceof ConstructorEdge ce && ce.getCondition().equals(type);
     }
 
     public static boolean isDashedEdge(Node start) {

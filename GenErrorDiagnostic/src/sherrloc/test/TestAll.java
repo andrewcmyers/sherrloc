@@ -1,17 +1,53 @@
 package sherrloc.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import sherrloc.diagnostic.DiagnosticOptions.Mode;
 import sherrloc.diagnostic.ErrorDiagnosis;
 
 /**
- * Tests
+ * Tests. Each test method checks many cases; every failing case is reported, not just the first.
  */
 public class TestAll {
+
+    /** The failures recorded by the current test method. */
+    private List<String> failures;
+
+    @Before
+    public void clearFailures() {
+        failures = new ArrayList<>();
+    }
+
+    @After
+    public void reportFailures() {
+        if (!failures.isEmpty()) {
+            fail(failures.size() + " case(s) failed:\n" + String.join("\n", failures));
+        }
+    }
+
+    /** Diagnostic output without the scores that follow each reported item. */
+    private static String withoutScores(String result) {
+        return result.replaceAll(" #[0-9.]+", "");
+    }
+
+    /**
+     * Whether diagnostic output reports the location {@code loc}, written as
+     * {@code file:line,cols}. The output may omit the file name.
+     */
+    private static boolean reportsLocation(String result, String loc) {
+        if (result.contains(loc)) {
+            return true;
+        }
+        int colon = loc.indexOf(':');
+        return colon >= 0 && result.contains(loc.substring(colon));
+    }
 
     /**
      * Test if there is an error in the program analysis
@@ -22,10 +58,11 @@ public class TestAll {
     public void testErrorPaths(String filename, boolean expectederror) {
         try {
             ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, Mode.EXPR);
-            assertEquals(filename, expectederror, ana.getUnsatPathNumber() > 0);
+            if (expectederror != (ana.getUnsatPathNumber() > 0)) {
+                failures.add(filename + ": expected " + (expectederror ? "an error" : "no error"));
+            }
         } catch (Exception e) {
-            System.out.println(filename);
-            e.printStackTrace();
+            failures.add(filename + ": " + e);
         }
     }
 
@@ -39,10 +76,11 @@ public class TestAll {
         try {
             ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, Mode.EXPR);
             String result = ana.toConsoleString();
-            assertTrue("Expected (" + loc + "), but got (" + result + ")", result.contains(loc));
+            if (!reportsLocation(result, loc)) {
+                failures.add(filename + ": expected (" + loc + "), but got (" + result + ")");
+            }
         } catch (Exception e) {
-            System.out.println(filename);
-            e.printStackTrace();
+            failures.add(filename + ": " + e);
         }
     }
 
@@ -56,10 +94,11 @@ public class TestAll {
         try {
             ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, Mode.CONS);
             String result = ana.toConsoleString();
-            assertTrue("Expected (" + loc + "), but got (" + result + ")", result.contains(loc));
+            if (!reportsLocation(result, loc)) {
+                failures.add(filename + ": expected (" + loc + "), but got (" + result + ")");
+            }
         } catch (Exception e) {
-            System.out.println(filename);
-            e.printStackTrace();
+            failures.add(filename + ": " + e);
         }
     }
 
@@ -72,12 +111,12 @@ public class TestAll {
     public void testAssumptions(String filename, String expected) {
         try {
             ErrorDiagnosis ana = ErrorDiagnosis.getAnalysisInstance(filename, Mode.HYPO);
-            String result = ana.toConsoleString();
-            assertTrue("Expected (" + expected + "), but got (" + result + ")",
-                    result.contains(expected));
+            String result = withoutScores(ana.toConsoleString());
+            if (!result.contains(expected)) {
+                failures.add(filename + ": expected (" + expected + "), but got (" + result + ")");
+            }
         } catch (Exception e) {
-            System.out.println(filename);
-            e.printStackTrace();
+            failures.add(filename + ": " + e);
         }
     }
 

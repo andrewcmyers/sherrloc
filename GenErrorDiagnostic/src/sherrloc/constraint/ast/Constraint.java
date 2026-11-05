@@ -139,14 +139,21 @@ public class Constraint implements PrettyPrinter {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Constraint) {
+            // constraints differing only in their hypotheses are different constraints
             return conclusion.equals(((Constraint) obj).conclusion)
-                    && pos.equals(((Constraint) obj).pos);
+                    && pos.equals(((Constraint) obj).pos)
+                    && hypotheses().equals(((Constraint) obj).hypotheses());
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return conclusion.hashCode() + pos.hashCode() * 3;
+        return conclusion.hashCode() + pos.hashCode() * 3 + hypotheses().hashCode() * 7;
+    }
+
+    private sherrloc.graph.HypothesisSet hypotheses() {
+        return sherrloc.graph.HypothesisSet.of(
+                assumption == null ? null : assumption.getInequalities());
     }
 }

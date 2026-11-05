@@ -413,17 +413,20 @@ public class ConstraintGraph extends Graph {
      */
     private void removeNode(Node n) {
         Set<Node> preds = new HashSet<>(leqIn.get(n));
-        Map<Node, Edge> outgoingMap = leqEdges.get(n);
+        Map<Node, List<Edge>> outgoingMap = leqEdges.get(n);
         Set<Node> succs = new HashSet<>(outgoingMap.keySet());
 
         List<Edge> inEdges = new ArrayList<>(preds.size());
         for (Node from : preds) {
-            Edge in = leqEdges.get(from).get(n);
+            List<Edge> in = leqEdges.get(from).get(n);
             if (in != null) {
-                inEdges.add(in);
+                inEdges.addAll(in);
             }
         }
-        List<Edge> outEdges = new ArrayList<>(outgoingMap.values());
+        List<Edge> outEdges = new ArrayList<>();
+        for (List<Edge> out : outgoingMap.values()) {
+            outEdges.addAll(out);
+        }
 
         allNodes.remove(n);
         for (Node from : preds) {
@@ -446,25 +449,15 @@ public class ConstraintGraph extends Graph {
                 if (from.equals(to)) {
                     continue;
                 }
-                if (hasLeqEdge(from, to)) {
-                    continue;
-                }
-                ConstraintEdge spliced = buildSplicedEdge(first, second, from, to);
-                leqEdges.get(from).put(to, spliced);
-                leqIn.get(to).add(from);
+                insertLeqEdge(buildSplicedEdge(first, second, from, to));
             }
         }
     }
 
     /**
-     * Build a {@link ConstraintEdge} that stands in for the composition of {@code first} and
-     * {@code second}, merging any assumption hypotheses along the way. Used by
-     * {@link #removeNode}.
-     */
-
-    /**
      * Combines two edges, `first.from = from -> first.to = second.from` and
-     * `second.from -> to = second.to` into one edge `from -> to`.
+     * `second.from -> to = second.to` into one edge `from -> to`, whose hypotheses are those of
+     * both.
      */
     private ConstraintEdge buildSplicedEdge(Edge first, Edge second, Node from, Node to) {
         Relation r = Relation.LEQ;
@@ -513,13 +506,21 @@ public class ConstraintGraph extends Graph {
     }
 
     private boolean isJoinOrMeetComponent(Node n) {
-        for (Edge e : leqEdges.get(n).values()) {
-            if (e instanceof JoinEdge || e instanceof MeetEdge) {
+        for (List<Edge> bundle : leqEdges.get(n).values()) {
+            if (hasJoinOrMeetEdge(bundle)) {
                 return true;
             }
         }
         for (Node pred : leqIn.get(n)) {
-            Edge e = leqEdges.get(pred).get(n);
+            if (hasJoinOrMeetEdge(leqEdges.get(pred).get(n))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasJoinOrMeetEdge(List<Edge> edges) {
+        for (Edge e : edges) {
             if (e instanceof JoinEdge || e instanceof MeetEdge) {
                 return true;
             }
@@ -528,7 +529,7 @@ public class ConstraintGraph extends Graph {
     }
 
     /**
-     * Reduces the constraint graph in-place while preserving satisfiability. This is done in three
+     * Reduces the constraint graph in-place, preserving its satisfiability. This is done in three
      * phases:
      * 1. Collapse any strongly-connected components of just variables
      * 2. Remove any trivially removable nodes
@@ -549,7 +550,7 @@ public class ConstraintGraph extends Graph {
             if (scc.size() < 2) {
                 continue;
             }
-            if (!isVariableOnlyLeqScc(scc)) {
+            if (!isVariableOnlyLeqScc(scc) || hasHypothesisInside(scc)) {
                 continue;
             }
             Node rep = pickSccRepresentative(scc);
@@ -559,6 +560,26 @@ public class ConstraintGraph extends Graph {
                 }
             }
         }
+    }
+
+    /**
+     * True if some edge between members of {@code scc} has hypotheses. Its members are then equal
+     * only under those hypotheses, so they cannot be collapsed into one node.
+     */
+    private boolean hasHypothesisInside(Set<Node> scc) {
+        for (Node n : scc) {
+            for (Map.Entry<Node, List<Edge>> e : leqEdges.get(n).entrySet()) {
+                if (!scc.contains(e.getKey())) {
+                    continue;
+                }
+                for (Edge edge : e.getValue()) {
+                    if (HypothesisSet.of(edge.getHypothesis()).size() > 0) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -640,41 +661,35 @@ public class ConstraintGraph extends Graph {
      */
     private void mergeNodeInto(Node rep, Node member, Set<Node> sccMembers) {
         for (Node pred : new ArrayList<>(leqIn.get(member))) {
-            Edge edge = leqEdges.get(pred).remove(member);
+            List<Edge> bundle = leqEdges.get(pred).remove(member);
             leqIn.get(member).remove(pred);
-            if (edge == null) {
+            if (bundle == null) {
                 continue;
             }
             if (sccMembers.contains(pred) || pred.equals(rep)) {
                 continue;
             }
-            if (leqEdges.get(pred).containsKey(rep)) {
-                continue;
+            for (Edge edge : bundle) {
+                edge.to = rep;
+                insertLeqEdge(edge);
             }
-            edge.to = rep;
-            leqEdges.get(pred).put(rep, edge);
-            leqIn.get(rep).add(pred);
         }
 
         for (Node succ : new ArrayList<>(leqEdges.get(member).keySet())) {
-            Edge edge = leqEdges.get(member).remove(succ);
+            List<Edge> bundle = leqEdges.get(member).remove(succ);
             Set<Node> succPreds = leqIn.get(succ);
             if (succPreds != null) {
                 succPreds.remove(member);
             }
-            if (edge == null) {
+            if (bundle == null) {
                 continue;
             }
             if (sccMembers.contains(succ) || succ.equals(rep)) {
                 continue;
             }
-            if (leqEdges.get(rep).containsKey(succ)) {
-                continue;
-            }
-            edge.from = rep;
-            leqEdges.get(rep).put(succ, edge);
-            if (succPreds != null) {
-                succPreds.add(rep);
+            for (Edge edge : bundle) {
+                edge.from = rep;
+                insertLeqEdge(edge);
             }
         }
 
@@ -764,7 +779,7 @@ public class ConstraintGraph extends Graph {
         for (Node n : toRemove) {
             allNodes.remove(n);
             for (Node pred : leqIn.get(n)) {
-                Map<Node, Edge> predOut = leqEdges.get(pred);
+                Map<Node, List<Edge>> predOut = leqEdges.get(pred);
                 if (predOut != null) {
                     predOut.remove(n);
                 }

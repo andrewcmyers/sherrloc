@@ -163,54 +163,30 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
                 // 2) all constraints along the path are equalities
                 boolean needtest = true;
 
-                // test if a partial ordering can be inferred
+                // test if a partial ordering can be inferred. Each path carries its own
+                // hypotheses, so every path between the nodes must be checked.
                 if (!(start.getElement() instanceof JoinElement)
                         && !(end.getElement() instanceof MeetElement) && finder.hasLeqEdge(start,
                         end)) {
-                    List<Edge> l = finder.getPath(start, end);
-                    if (skolemCheck(start.getElement(), end.getElement())) {
-                        testConsistency(start.getElement(), end.getElement(), l, graph, finder,
-                                unsatPaths, false);
-                    } else {
-                        ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
-                        unsatPaths.addUnsatPath(path);
-                        if (DEBUG) {
-                            System.out.println("****** Skolem check fails ******");
-                            System.out.println(path);
-                        }
+                    boolean allPathsEQ = true;
+                    boolean skolemOk = skolemCheck(start.getElement(), end.getElement());
+                    for (List<Edge> l : finder.getPaths(start, end)) {
+                        checkPath(start.getElement(), end.getElement(), skolemOk, l, graph,
+                                finder, unsatPaths);
+                        allPathsEQ = allPathsEQ && onlyEqualities(l);
                     }
-
                     if (!isGenHypo) {
-                        boolean allEQ = false;
-                        for (Edge edge : l) {
-                            if (edge instanceof ConstraintEdge) {
-                                Constraint cons = ((ConstraintEdge) edge).getConstraint();
-                                if (cons.getRelation() == Relation.EQ) {
-                                    allEQ = true;
-                                } else {
-                                    allEQ = false;
-                                    break;
-                                }
-                            }
-                        }
-                        needtest = !allEQ;
+                        needtest = !allPathsEQ;
                     }
                 }
 
                 if (needtest && !(end.getElement() instanceof JoinElement)
                         && !(start.getElement() instanceof MeetElement) && finder.hasLeqEdge(end,
                         start)) {
-                    List<Edge> l = finder.getPath(end, start);
-                    if (skolemCheck(start.getElement(), end.getElement())) {
-                        testConsistency(end.getElement(), start.getElement(), l, graph, finder,
-                                unsatPaths, false);
-                    } else {
-                        ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
-                        unsatPaths.addUnsatPath(path);
-                        if (DEBUG) {
-                            System.out.println("****** Skolem check fails ******");
-                            System.out.println(path);
-                        }
+                    boolean skolemOk = skolemCheck(start.getElement(), end.getElement());
+                    for (List<Edge> l : finder.getPaths(end, start)) {
+                        checkPath(end.getElement(), start.getElement(), skolemOk, l, graph,
+                                finder, unsatPaths);
                     }
                 }
             }
@@ -221,6 +197,41 @@ public class ConstraintAnalysisImpl implements ConstraintAnalysis {
         }
 
         return unsatPaths;
+    }
+
+    /**
+     * Checks the path {@code l} from {@code e1} to {@code e2}, recording it in {@code unsatPaths}
+     * if the skolem check on its ends failed ({@code skolemOk} is false) or it is unsatisfiable
+     * under its hypotheses.
+     */
+    private void checkPath(Element e1, Element e2, boolean skolemOk, List<Edge> l,
+            ConstraintGraph graph, PathFinder finder, UnsatPaths unsatPaths) {
+        if (skolemOk) {
+            testConsistency(e1, e2, l, graph, finder, unsatPaths, false);
+        } else {
+            ConstraintPath path = new ConstraintPath(l, finder, graph.getEnv());
+            unsatPaths.addUnsatPath(path);
+            if (DEBUG) {
+                System.out.println("****** Skolem check fails ******");
+                System.out.println(path);
+            }
+        }
+    }
+
+    /** Whether every constraint along {@code l} is an equality. */
+    private static boolean onlyEqualities(List<Edge> l) {
+        boolean allEQ = false;
+        for (Edge edge : l) {
+            if (edge instanceof ConstraintEdge) {
+                Constraint cons = ((ConstraintEdge) edge).getConstraint();
+                if (cons.getRelation() == Relation.EQ) {
+                    allEQ = true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return allEQ;
     }
 
     /**

@@ -51,8 +51,9 @@
     </target>
 
     <target name="sherrloc" depends="init, javacup" description="build the diagnostic tool">
-        <javac srcdir="${src}" destdir="${build}" release="21">
+        <javac srcdir="${src}" destdir="${build}" release="21" includeantruntime="false">
             <classpath refid="libraries"/>
+            <compilerarg value="-Xlint:-unchecked"/>
         </javac>
     </target>
 

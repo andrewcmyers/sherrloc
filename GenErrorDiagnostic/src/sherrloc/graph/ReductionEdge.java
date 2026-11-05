@@ -13,14 +13,23 @@ import sherrloc.constraint.ast.Inequality;
 abstract public class ReductionEdge extends Edge {
 
     protected final int size;
+    protected final HypothesisSet hypotheses;
 
     /**
      * @param first  First edge based on which the constructed edge is derived from
      * @param second Second edge based on which the constructed edge is derived from
      */
-    public ReductionEdge(Node from, Node to, int size) {
+    public ReductionEdge(Node from, Node to, int size, HypothesisSet hypotheses) {
         super(from, to);
         this.size = size;
+        this.hypotheses = hypotheses;
+    }
+
+    /**
+     * @return The hypotheses of the derivation this edge represents
+     */
+    public HypothesisSet getHypotheses() {
+        return hypotheses;
     }
 
     @Override

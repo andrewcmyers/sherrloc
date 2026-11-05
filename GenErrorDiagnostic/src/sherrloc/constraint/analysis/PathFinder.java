@@ -26,6 +26,15 @@ public interface PathFinder {
     public List<Edge> getPath(Node start, Node end);
 
     /**
+     * @param start Node on LHS
+     * @param end   Node on RHS
+     * @return One constraint path for each minimal set of hypotheses with which
+     * <code>start <= end</code> is derivable. Each path's hypotheses are in force along it, so
+     * <code>start <= end</code> holds only if it is satisfiable along every one of them.
+     */
+    public List<List<Edge>> getPaths(Node start, Node end);
+
+    /**
      * @return True if an LEQ edge can be inferred on the end nodes
      */
     public boolean hasLeqEdge(Node from, Node end);

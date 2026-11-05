@@ -1,0 +1,10 @@
+CONSTRUCTOR pa 0
+CONSTRUCTOR pb 0
+CONSTRUCTOR top 0
+
+%%
+_ <= *;
+
+%%
+pa <= top {pa <= top;};
+pa <= top {pb <= top;};

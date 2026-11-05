@@ -13,13 +13,19 @@ import java.util.Set;
 public abstract class Graph {
 
     protected Set<Node> allNodes;
-    protected Map<Node, Map<Node, Edge>> leqEdges;
+    /**
+     * The LEQ edges between each pair of nodes. The edges from one node to another form a
+     * disjunction: the flow they represent holds under the hypotheses of any one of them. No
+     * edge's hypotheses contain another's, since a path through the edge with more hypotheses is
+     * satisfiable whenever the same path through the other one is.
+     */
+    protected Map<Node, Map<Node, List<Edge>>> leqEdges;
     protected Map<Node, Set<Node>> leqIn;
     protected Map<Node, Map<Node, Set<ConstructorEdge>>> conEdges;
 
     protected Graph() {
         allNodes = new HashSet<Node>();
-        leqEdges = new HashMap<Node, Map<Node, Edge>>();
+        leqEdges = new HashMap<Node, Map<Node, List<Edge>>>();
         conEdges = new HashMap<Node, Map<Node, Set<ConstructorEdge>>>();
         leqIn = new HashMap<Node, Set<Node>>();
     }
@@ -31,14 +37,14 @@ public abstract class Graph {
      */
     protected void addNode(Node n) {
         allNodes.add(n);
-        leqEdges.put(n, new HashMap<Node, Edge>());
+        leqEdges.put(n, new HashMap<Node, List<Edge>>());
         conEdges.put(n, new HashMap<Node, Set<ConstructorEdge>>());
         leqIn.put(n, new HashSet<Node>());
     }
 
     /**
      * Add edge <code>edge</code> to the graph. End nodes are added as well if they are not
-     * represented in graph
+     * represented in graph. A self loop is not added.
      *
      * @param edge Edge to be added
      */
@@ -51,11 +57,36 @@ public abstract class Graph {
         if (!allNodes.contains(to)) {
             addNode(to);
         }
-        if (!hasLeqEdge(from, to) && !from.equals(to)) {
-            leqEdges.get(from).put(to, edge);
-            leqIn.get(to).add(from);
+        if (from.equals(to)) {
+            return;
         }
+        insertLeqEdge(edge);
     }
+
+    /**
+     * Adds {@code edge} as a disjunct of the LEQ edges between its end nodes, which must be in
+     * the graph. It is not added if some edge between them has a subset of its hypotheses;
+     * otherwise every edge between them whose hypotheses contain its hypotheses is removed.
+     */
+    protected void insertLeqEdge(Edge edge) {
+        List<Edge> bundle = leqEdges.get(edge.from).get(edge.to);
+        if (bundle == null) {
+            bundle = new ArrayList<Edge>(1);
+            leqEdges.get(edge.from).put(edge.to, bundle);
+            leqIn.get(edge.to).add(edge.from);
+            bundle.add(edge);
+            return;
+        }
+        HypothesisSet hyps = HypothesisSet.of(edge.getHypothesis());
+        for (Edge e : bundle) {
+            if (HypothesisSet.of(e.getHypothesis()).isSubsetOf(hyps)) {
+                return;
+            }
+        }
+        bundle.removeIf(e -> hyps.isSubsetOf(HypothesisSet.of(e.getHypothesis())));
+        bundle.add(edge);
+    }
+
     /**
      * Add edge <code>edge</code> to the graph. End nodes are added as well if they are not
      * represented in graph
@@ -90,8 +121,8 @@ public abstract class Graph {
     public List<Edge> getAllEdges() {
         List<Edge> ret = new ArrayList<Edge>();
         for (Node n1 : leqEdges.keySet()) {
-            for (Node n2 : leqEdges.get(n1).keySet()) {
-                ret.add(leqEdges.get(n1).get(n2));
+            for (List<Edge> bundle : leqEdges.get(n1).values()) {
+                ret.addAll(bundle);
             }
         }
         for (Node n1 : conEdges.keySet()) {
@@ -113,17 +144,6 @@ public abstract class Graph {
      */
     public boolean hasLeqEdge(Node from, Node to) {
         return leqEdges.get(from).containsKey(to);
-    }
-
-    /**
-     * Get all edges between <code>from</code> and <code>to</code>
-     *
-     * @param from Start node
-     * @param to   End node
-     * @return All edges between <code>from</code> and <code>to</code>
-     */
-    public Edge getLeqEdge(Node from, Node to) {
-        return leqEdges.get(from).get(to);
     }
 
     /**
@@ -149,7 +169,7 @@ public abstract class Graph {
     public List<Edge> getEdges(Node from, Node to) {
         List<Edge> ret = new ArrayList<Edge>();
         if (hasLeqEdge(from, to)) {
-            ret.add(leqEdges.get(from).get(to));
+            ret.addAll(leqEdges.get(from).get(to));
         }
         if (hasConEdge(from, to)) {
             ret.addAll(conEdges.get(from).get(to));

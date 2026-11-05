@@ -11,8 +11,8 @@ public class LeqEdge extends ReductionEdge {
      * @param first  Start node
      * @param second End node
      */
-    public LeqEdge(Node from, Node to, int size) {
-        super(from, to, size);
+    public LeqEdge(Node from, Node to, int size, HypothesisSet hypotheses) {
+        super(from, to, size, hypotheses);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class LeqEdge extends ReductionEdge {
 
     @Override
     public Edge getReverse() {
-        return new LeqEdge(to, from, size);
+        return new LeqEdge(to, from, size, hypotheses);
     }
 }

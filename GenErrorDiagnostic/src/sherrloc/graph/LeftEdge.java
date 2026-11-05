@@ -14,8 +14,8 @@ public class LeftEdge extends ReductionEdge {
      * @param first  Start node
      * @param second End node
      */
-    public LeftEdge(Node from, Node to, int size, EdgeCondition cons) {
-        super(from, to, size);
+    public LeftEdge(Node from, Node to, int size, EdgeCondition cons, HypothesisSet hypotheses) {
+        super(from, to, size, hypotheses);
         this.cons = cons;
     }
 
@@ -48,6 +48,6 @@ public class LeftEdge extends ReductionEdge {
 
     @Override
     public Edge getReverse() {
-        return new LeftEdge(to, from, size, cons);
+        return new LeftEdge(to, from, size, cons, hypotheses);
     }
 }

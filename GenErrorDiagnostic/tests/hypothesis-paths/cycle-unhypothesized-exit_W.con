@@ -1,0 +1,12 @@
+CONSTRUCTOR pa 0
+CONSTRUCTOR top 0
+
+%%
+_ <= *;
+
+%%
+pa <= vx;
+vx <= vy {pa <= top;};
+vy <= vx {pa <= top;};
+vy <= top {pa <= top;};
+vx <= top;

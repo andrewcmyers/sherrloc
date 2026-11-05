@@ -25,6 +25,7 @@ import sherrloc.constraint.ast.Constructor;
 import sherrloc.graph.ConstraintGraph;
 import sherrloc.graph.Edge;
 import sherrloc.graph.EdgeCondition;
+import sherrloc.graph.HypothesisSet;
 import sherrloc.graph.LeftEdge;
 import sherrloc.graph.LeqCondition;
 import sherrloc.graph.LeqEdge;
@@ -46,8 +47,10 @@ public class ShortestPathFinder extends CFLPathFinder {
      */
 //	private int[][] shortestLEQ;
 //	private Map<EdgeCondition, Integer>[][] shortestLeft;
-    private Map<Integer, Map<Integer, Integer>> shortestLEQ;
-    private Map<Integer, Map<Integer, Map<EdgeCondition, Integer>>> shortestLeft;
+    // For each pair of nodes (and edge condition), the length of the shortest derivation for each
+    // minimal set of hypotheses: no recorded set contains another.
+    private Map<Integer, Map<Integer, Map<HypothesisSet, Integer>>> shortestLEQ;
+    private Map<Integer, Map<Integer, Map<EdgeCondition, Map<HypothesisSet, Integer>>>> shortestLeft;
 
     /**
      * Lookup tables to find enumerable elements from components. These tables are used to infer
@@ -86,8 +89,8 @@ public class ShortestPathFinder extends CFLPathFinder {
                 return o1.getLength() - o2.getLength();
             }
         });
-        shortestLEQ = new HashMap<Integer, Map<Integer, Integer>>();
-        shortestLeft = new HashMap<Integer, Map<Integer, Map<EdgeCondition, Integer>>>();
+        shortestLEQ = new HashMap<>();
+        shortestLeft = new HashMap<>();
 //		for (int i=0; i<size; i++) {
 //			for (int j=0; j<size; j++) {
 //				if (i == j)
@@ -165,82 +168,151 @@ public class ShortestPathFinder extends CFLPathFinder {
         }
     }
 
-    private int getShortestLeq(Node start, Node end) {
-        if (shortestLEQ.containsKey(start.getIndex()) && shortestLEQ.get(start.getIndex())
-                .containsKey(end.getIndex())) {
-            return shortestLEQ.get(start.getIndex()).get(end.getIndex());
-        } else {
-            return MAX;
-        }
-//		return shortestLEQ[start.getIndex()][end.getIndex()];
+    /** The derivations of LEQ edges from {@code start} to {@code end}; do not modify. */
+    private Map<HypothesisSet, Integer> leqTable(Node start, Node end) {
+        Map<Integer, Map<HypothesisSet, Integer>> m = shortestLEQ.get(start.getIndex());
+        Map<HypothesisSet, Integer> t = m == null ? null : m.get(end.getIndex());
+        return t == null ? Map.of() : t;
     }
 
-    private void setShortestLeq(Node start, Node end, int size) {
-        if (!shortestLEQ.containsKey(start.getIndex())) {
-            shortestLEQ.put(start.getIndex(), new HashMap<Integer, Integer>());
+    /** The derivations of LEFT edges with condition {@code ec}; do not modify. */
+    private Map<HypothesisSet, Integer> leftTable(Node start, Node end, EdgeCondition ec) {
+        Map<Integer, Map<EdgeCondition, Map<HypothesisSet, Integer>>> m =
+                shortestLeft.get(start.getIndex());
+        Map<EdgeCondition, Map<HypothesisSet, Integer>> byCond = m == null ? null
+                : m.get(end.getIndex());
+        Map<HypothesisSet, Integer> t = byCond == null ? null : byCond.get(ec);
+        return t == null ? Map.of() : t;
+    }
+
+    private static int shortest(Map<HypothesisSet, Integer> table) {
+        int min = Integer.MAX_VALUE;
+        for (int d : table.values()) {
+            min = Math.min(min, d);
         }
-        shortestLEQ.get(start.getIndex()).put(end.getIndex(), size);
+        return min;
+    }
+
+    private int getShortestLeq(Node start, Node end) {
+        Map<HypothesisSet, Integer> t = leqTable(start, end);
+        return t.isEmpty() ? MAX : shortest(t);
     }
 
     // assume hasLeft(start, end)
     private int getShortestLeft(Node start, Node end, EdgeCondition inferredType) {
-        return shortestLeft.get(start.getIndex()).get(end.getIndex()).get(inferredType);
+        return shortest(leftTable(start, end, inferredType));
     }
 
     private boolean hasShortestLeft(Node start, Node end, EdgeCondition inferredType) {
-        if (shortestLeft.containsKey(start.getIndex()) && shortestLeft.get(start.getIndex())
-                .containsKey(end.getIndex())
-                && shortestLeft.get(start.getIndex()).get(end.getIndex())
-                .containsKey(inferredType)) {
-            return true;
-        } else {
-            return false;
-        }
+        return !leftTable(start, end, inferredType).isEmpty();
     }
 
-    private void setShortestLeft(Node start, Node end, EdgeCondition inferredType, int size) {
-        if (!shortestLeft.containsKey(start.getIndex())) {
-            shortestLeft.put(start.getIndex(), new HashMap<Integer, Map<EdgeCondition, Integer>>());
+    /**
+     * Whether a derivation with hypotheses {@code hyps} and length {@code size} should be recorded
+     * in {@code table}: no recorded derivation has fewer hypotheses, or the same hypotheses and a
+     * length no greater.
+     */
+    private static boolean improves(Map<HypothesisSet, Integer> table, HypothesisSet hyps,
+            int size) {
+        for (Map.Entry<HypothesisSet, Integer> e : table.entrySet()) {
+            if (e.getKey().equals(hyps)) {
+                if (e.getValue() <= size) {
+                    return false;
+                }
+            } else if (e.getKey().isSubsetOf(hyps)) {
+                return false;
+            }
         }
-        if (!shortestLeft.get(start.getIndex()).containsKey(end.getIndex())) {
-            shortestLeft.get(start.getIndex())
-                    .put(end.getIndex(), new HashMap<EdgeCondition, Integer>());
+        return true;
+    }
+
+    /** Records a derivation in {@code table}, dropping derivations with more hypotheses. */
+    private static void record(Map<HypothesisSet, Integer> table, HypothesisSet hyps, int size) {
+        table.keySet().removeIf(h -> !h.equals(hyps) && hyps.isSubsetOf(h));
+        table.put(hyps, size);
+    }
+
+    @Override
+    protected HypothesisSet shortestHypotheses(Node start, Node end, EdgeCondition type) {
+        Map<HypothesisSet, Integer> table = type instanceof LeqCondition ? leqTable(start, end)
+                : leftTable(start, end, type);
+        HypothesisSet best = null;
+        int bestSize = Integer.MAX_VALUE;
+        for (Map.Entry<HypothesisSet, Integer> e : table.entrySet()) {
+            if (e.getValue() < bestSize || (e.getValue() == bestSize
+                    && e.getKey().size() < best.size())) {
+                best = e.getKey();
+                bestSize = e.getValue();
+            }
         }
-        shortestLeft.get(start.getIndex()).get(end.getIndex()).put(inferredType, size);
+        if (best == null) {
+            // a RIGHT edge, or an original edge only: use its recorded evidence
+            Map<Integer, Map<EdgeCondition, Map<HypothesisSet, List<Evidence>>>> fromStart =
+                    nextHop.get(start.getIndex());
+            if (fromStart != null && fromStart.containsKey(end.getIndex())
+                    && fromStart.get(end.getIndex()).containsKey(type)) {
+                return fromStart.get(end.getIndex()).get(type).keySet().iterator().next();
+            }
+            return HypothesisSet.EMPTY;
+        }
+        return best;
+    }
+
+    @Override
+    protected List<HypothesisSet> leqHypotheses(Node start, Node end) {
+        List<HypothesisSet> ret = new ArrayList<>(leqTable(start, end).keySet());
+        // a deterministic order: fewest hypotheses first
+        ret.sort(Comparator.comparingInt(HypothesisSet::size)
+                .thenComparing(HypothesisSet::toString));
+        return ret;
     }
 
     @Override
     protected void inferEdge(Node start, Node end, EdgeCondition inferredType, int size,
-            List<Evidence> evidence, boolean isAtomic) {
-        addNextHop(start, end, inferredType, evidence);
-
+            List<Evidence> evidence, boolean isAtomic, HypothesisSet hyps) {
         if (inferredType instanceof LeqCondition) {
             if (start.equals(end)) {
+                addNextHop(start, end, inferredType, hyps, evidence);
                 return;
             }
-            queue.offer(new LeqEdge(start, end, size));
-            setShortestLeq(start, end, size);
             if (isAtomic) {
                 addAtomicLeqEdge(start.getIndex(), end.getIndex());
             }
+            Map<HypothesisSet, Integer> table = shortestLEQ
+                    .computeIfAbsent(start.getIndex(), k -> new HashMap<>())
+                    .computeIfAbsent(end.getIndex(), k -> new HashMap<>());
+            if (!improves(table, hyps, size)) {
+                return;
+            }
+            record(table, hyps, size);
+            addNextHop(start, end, inferredType, hyps, evidence);
+            queue.offer(new LeqEdge(start, end, size, hyps));
         } else if (!inferredType.isReverse()) {
-            queue.offer(new LeftEdge(start, end, size, inferredType));
-            setShortestLeft(start, end, inferredType, size);
+            Map<HypothesisSet, Integer> table = shortestLeft
+                    .computeIfAbsent(start.getIndex(), k -> new HashMap<>())
+                    .computeIfAbsent(end.getIndex(), k -> new HashMap<>())
+                    .computeIfAbsent(inferredType, k -> new HashMap<>());
+            if (!improves(table, hyps, size)) {
+                return;
+            }
+            record(table, hyps, size);
+            addNextHop(start, end, inferredType, hyps, evidence);
+            queue.offer(new LeftEdge(start, end, size, inferredType, hyps));
         } else {
-            RightEdge newedge = new RightEdge(start, end, size, inferredType);
+            addNextHop(start, end, inferredType, hyps, evidence);
+            RightEdge newedge = new RightEdge(start, end, size, inferredType, hyps);
             int fIndex = start.getIndex(), tIndex = end.getIndex();
-            if (!rightPath.containsKey(fIndex)) {
-                rightPath.put(fIndex, new HashMap<Integer, List<RightEdge>>());
+            List<RightEdge> edges = rightPath.computeIfAbsent(fIndex, k -> new HashMap<>())
+                    .computeIfAbsent(tIndex, k -> new ArrayList<>());
+            if (!edges.contains(newedge) || edges.stream()
+                    .noneMatch(e -> e.equals(newedge) && e.getHypotheses().equals(hyps))) {
+                edges.add(newedge);
             }
-            if (!rightPath.get(fIndex).containsKey(tIndex)) {
-                rightPath.get(fIndex).put(tIndex, new ArrayList<RightEdge>());
-            }
-            rightPath.get(fIndex).get(tIndex).add(newedge);
         }
 
         if (DEBUG) {
             List<Edge> lst = new ArrayList<Edge>();
-            getLeqPath(start, end, inferredType, lst, false);
+            getLeqPath(start, end, inferredType, hyps, lst, false);
             for (Edge e : lst) {
                 System.out.print(e.getFrom() + " --> " + e.getTo());
             }
@@ -260,54 +332,56 @@ public class ShortestPathFinder extends CFLPathFinder {
         if (from.equals(to)) {
             return;
         }
-        int disSF = getShortestLeq(from, mid), disFT = getShortestLeq(mid,
-                to), disST = getShortestLeq(from, to);
-        if (disSF + disFT < disST) {
-            setShortestLeq(from, to, disSF + disFT);
-            List<Evidence> evi = new ArrayList<Evidence>();
-            evi.add(new Evidence(from, mid, LeqCondition.getInstance()));
-            evi.add(new Evidence(mid, to, LeqCondition.getInstance()));
-            inferEdge(from, to, LeqCondition.getInstance(), disSF + disFT, evi, false);
+        for (Map.Entry<HypothesisSet, Integer> sf : List.copyOf(leqTable(from, mid).entrySet())) {
+            for (Map.Entry<HypothesisSet, Integer> ft : List.copyOf(leqTable(mid, to).entrySet())) {
+                List<Evidence> evi = new ArrayList<Evidence>();
+                evi.add(new Evidence(from, mid, LeqCondition.getInstance(), sf.getKey()));
+                evi.add(new Evidence(mid, to, LeqCondition.getInstance(), ft.getKey()));
+                inferEdge(from, to, LeqCondition.getInstance(), sf.getValue() + ft.getValue(), evi,
+                        false, sf.getKey().union(ft.getKey()));
+            }
         }
     }
 
     /**
      * apply rule LEQ ::= LEFT RIGHT
      *
-     * @param leftS  Start node of the LEFT edge
-     * @param leftE  End node of the LEFT edge (the same as the start node of the RIGHT edge
-     * @param rightE End node of the RIGHT edge
-     * @param ec     Edge condition ({@link EdgeCondition}) of the LEFT edge
+     * @param from Start node of the LEFT edge
+     * @param mid  End node of the LEFT edge (the same as the start node of the RIGHT edge
+     * @param to   End node of the RIGHT edge
+     * @param ec   Edge condition ({@link EdgeCondition}) of the LEFT edge
      */
     private void applyLeftRight(Node from, Node mid, Node to, EdgeCondition ec) {
-        if (ec != null && hasLeftEdge(from, mid) &&
-                hasRightEdges(mid, to) && getShortestLeft(from, mid, ec) + 1 < getShortestLeq(from,
-                to)) {
-            for (RightEdge e : getRightEdges(mid, to)) {
-                if (e != null && ec.matches(((RightEdge) e).cons)) {
-                    setShortestLeq(from, to, getShortestLeft(from, mid, ec) + 1);
+        if (ec == null || !hasShortestLeft(from, mid, ec) || !hasRightEdges(mid, to)) {
+            return;
+        }
+        for (Map.Entry<HypothesisSet, Integer> left
+                : List.copyOf(leftTable(from, mid, ec).entrySet())) {
+            for (RightEdge e : List.copyOf(getRightEdges(mid, to))) {
+                if (e != null && ec.matches(e.cons)) {
                     List<Evidence> evi = new ArrayList<Evidence>();
-                    evi.add(new Evidence(from, mid, ec));
-                    evi.add(new Evidence(mid, to, ((RightEdge) e).cons));
-                    inferEdge(from, to, LeqCondition.getInstance(),
-                            getShortestLeft(from, mid, ec) + 1, evi, true);
+                    evi.add(new Evidence(from, mid, ec, left.getKey()));
+                    evi.add(new Evidence(mid, to, e.cons, e.getHypotheses()));
+                    inferEdge(from, to, LeqCondition.getInstance(), left.getValue() + 1, evi, true,
+                            left.getKey().union(e.getHypotheses()));
                 }
             }
         }
     }
 
     private void applyRightLeft(Node from, Node mid, Node to, EdgeCondition ec) {
-        if (ec != null && hasLeftEdge(mid, to) &&
-                hasRightEdges(from, mid) && getShortestLeft(mid, to, ec) + 1 < getShortestLeq(from,
-                to)) {
-            for (RightEdge e : getRightEdges(from, mid)) {
-                if (e != null && ec.matches(((RightEdge) e).cons)) {
-                    setShortestLeq(from, to, getShortestLeft(mid, to, ec) + 1);
+        if (ec == null || !hasShortestLeft(mid, to, ec) || !hasRightEdges(from, mid)) {
+            return;
+        }
+        for (Map.Entry<HypothesisSet, Integer> left
+                : List.copyOf(leftTable(mid, to, ec).entrySet())) {
+            for (RightEdge e : List.copyOf(getRightEdges(from, mid))) {
+                if (e != null && ec.matches(e.cons)) {
                     List<Evidence> evi = new ArrayList<Evidence>();
-                    evi.add(new Evidence(from, mid, ((RightEdge) e).cons));
-                    evi.add(new Evidence(mid, to, ec));
-                    inferEdge(from, to, LeqCondition.getInstance(),
-                            getShortestLeft(mid, to, ec) + 1, evi, true);
+                    evi.add(new Evidence(from, mid, e.cons, e.getHypotheses()));
+                    evi.add(new Evidence(mid, to, ec, left.getKey()));
+                    inferEdge(from, to, LeqCondition.getInstance(), left.getValue() + 1, evi, true,
+                            left.getKey().union(e.getHypotheses()));
                 }
             }
         }
@@ -316,37 +390,40 @@ public class ShortestPathFinder extends CFLPathFinder {
     /**
      * apply rule LEFT ::= LEFT LEQ
      *
-     * @param leftS      Start node of the LEFT edge
-     * @param leftE      End node of the LEFT edge
-     * @param newE       End node of the inferred LEFT edge
-     * @param ec         Edge condition ({@link EdgeCondition}) of the LEFT edge
-     * @param useReverse Use the reverse of LEQ edge, since the negative LEQ edges are not
-     *                   explicitly represented in graph to save space
+     * @param from          Start node of the LEFT edge
+     * @param mid           End node of the LEFT edge
+     * @param to            End node of the inferred LEFT edge
+     * @param ec            Edge condition ({@link EdgeCondition}) of the LEFT edge
+     * @param useReverse    Use the reverse of LEQ edge, since the negative LEQ edges are not
+     *                      explicitly represented in graph to save space
+     * @param onlyAtomicLeft Use only LEFT edges of length 1
      */
-    private void applyLeftLeq(Node from, Node mid, Node to, EdgeCondition ec, boolean useReverse) {
+    private void applyLeftLeq(Node from, Node mid, Node to, EdgeCondition ec, boolean useReverse,
+            boolean onlyAtomicLeft) {
         Node leqS = mid, leqE = to;
         if (useReverse) {
             leqS = to;
             leqE = mid;
         }
-
-        if (ec != null && hasShortestLeft(from, mid, ec)
-                && getShortestLeq(leqS, leqE) < MAX) {
-            int newDis = getShortestLeft(from, mid, ec) + getShortestLeq(leqS, leqE);
-            int oldDis = MAX;
-            if (hasShortestLeft(from, to, ec)) {
-                oldDis = getShortestLeft(from, to, ec);
+        if (ec == null) {
+            return;
+        }
+        for (Map.Entry<HypothesisSet, Integer> left
+                : List.copyOf(leftTable(from, mid, ec).entrySet())) {
+            if (onlyAtomicLeft && left.getValue() != 1) {
+                continue;
             }
-            if (newDis < oldDis) {
-                setShortestLeft(from, to, ec, newDis);
+            for (Map.Entry<HypothesisSet, Integer> leq
+                    : List.copyOf(leqTable(leqS, leqE).entrySet())) {
                 List<Evidence> evi = new ArrayList<Evidence>();
-                evi.add(new Evidence(from, mid, ec));
+                evi.add(new Evidence(from, mid, ec, left.getKey()));
                 if (!useReverse) {
-                    evi.add(new Evidence(mid, to, LeqCondition.getInstance()));
+                    evi.add(new Evidence(mid, to, LeqCondition.getInstance(), leq.getKey()));
                 } else {
-                    evi.add(new Evidence(mid, to, LeqRevCondition.getInstance()));
+                    evi.add(new Evidence(mid, to, LeqRevCondition.getInstance(), leq.getKey()));
                 }
-                inferEdge(from, to, ec, newDis, evi, false);
+                inferEdge(from, to, ec, left.getValue() + leq.getValue(), evi, false,
+                        left.getKey().union(leq.getKey()));
             }
         }
     }
@@ -406,7 +483,7 @@ public class ShortestPathFinder extends CFLPathFinder {
 
                     // LEFT = LEFT LEQ (this reduction is redundant)
                     if (standardForm && hasAtomicLeqEdge(to.getIndex(), iNode.getIndex())) {
-                        applyLeftLeq(from, to, iNode, ec, ec.getVariance() == Variance.NEG);
+                        applyLeftLeq(from, to, iNode, ec, ec.getVariance() == Variance.NEG, false);
                     }
                 }
 
@@ -427,11 +504,10 @@ public class ShortestPathFinder extends CFLPathFinder {
                         // sure either LEFT or LEQ is atomic. But it turns out a test program
                         // STUDENT08/20060408-23:13:58 takes longer to run.
 //						&& (!StandardForm || hasAtomicLeqEdge(from.getIndex(), to.getIndex()))) {
-                        for (EdgeCondition ec : shortestLeft.get(iNode.getIndex())
-                                .get(from.getIndex()).keySet()) {
-                            if (getShortestLeft(iNode, from, ec) == 1) {
-                                applyLeftLeq(iNode, from, to, ec, ec.getVariance() == Variance.NEG);
-                            }
+                        for (EdgeCondition ec : List.copyOf(shortestLeft.get(iNode.getIndex())
+                                .get(from.getIndex()).keySet())) {
+                            applyLeftLeq(iNode, from, to, ec, ec.getVariance() == Variance.NEG,
+                                    true);
                         }
                     }
                 }
@@ -513,9 +589,11 @@ public class ShortestPathFinder extends CFLPathFinder {
         } else {
             for (EdgeCondition con : shortestLeft.get(start.getIndex()).get(end.getIndex())
                     .keySet()) {
-                List<Edge> lst = new ArrayList<Edge>();
-                getLeqPath(start, end, con, lst, false);
-                paths.add(lst);
+                for (HypothesisSet hyps : leftTable(start, end, con).keySet()) {
+                    List<Edge> lst = new ArrayList<Edge>();
+                    getLeqPath(start, end, con, hyps, lst, false);
+                    paths.add(lst);
+                }
             }
         }
         return paths;
@@ -551,19 +629,98 @@ public class ShortestPathFinder extends CFLPathFinder {
                     }
                     List<EdgeMatch> emlst = rule.findMatches(ieq.getFirstElement(),
                             ieq.getSecondElement(), this, pmatch.map);
+                    List<Evidence> evidences = resolve(pmatch.evidences);
+                    HypothesisSet hyps = hypothesesOf(evidences);
                     for (EdgeMatch em : emlst) {
                         if (pmatch.size < getShortestLeq(em.n1, em.n2)) {
                             inferEdge(em.n1, em.n2, LeqCondition.getInstance(), pmatch.size,
-                                    pmatch.evidences, true);
+                                    evidences, true, hyps);
                         }
                         if (ieq.getRelation() == Relation.EQ && pmatch.size < getShortestLeq(em.n2,
                                 em.n1)) {
                             inferEdge(em.n2, em.n1, LeqCondition.getInstance(), pmatch.size,
-                                    pmatch.evidences, true);
+                                    evidences, true, hyps);
                         }
                     }
                 }
             }
+        }
+    }
+
+    /** {@code evidences}, with each one that names no hypotheses taken as the shortest. */
+    private List<Evidence> resolve(List<Evidence> evidences) {
+        List<Evidence> ret = new ArrayList<>();
+        for (Evidence e : evidences) {
+            ret.add(e.hypotheses != null ? e
+                    : new Evidence(e.start, e.end, e.ty, shortestHypotheses(e.start, e.end, e.ty)));
+        }
+        return ret;
+    }
+
+    /** The union of the hypotheses of resolved {@code evidences}. */
+    private static HypothesisSet hypothesesOf(List<Evidence> evidences) {
+        HypothesisSet hyps = HypothesisSet.EMPTY;
+        for (Evidence e : evidences) {
+            hyps = hyps.union(e.hypotheses);
+        }
+        return hyps;
+    }
+
+    /** Whether {@code from <= to} holds without any derivation. */
+    private static boolean trivialLeq(Node from, Node to) {
+        return from.getElement().isBottom() || to.getElement().isTop()
+                || from.getElement().equals(to.getElement());
+    }
+
+    /** One way of deriving a component of a compound LEQ edge. */
+    private record Option(HypothesisSet hyps, int size, Evidence evidence) {
+    }
+
+    /**
+     * The ways of deriving {@code from <= to}: one per minimal set of hypotheses, or a single
+     * evidence-free option if it holds without derivation. Empty if it cannot be derived.
+     */
+    private List<Option> leqOptions(Node from, Node to) {
+        List<Option> ret = new ArrayList<>();
+        for (Map.Entry<HypothesisSet, Integer> e : leqTable(from, to).entrySet()) {
+            ret.add(new Option(e.getKey(), e.getValue(),
+                    new Evidence(from, to, LeqCondition.getInstance(), e.getKey())));
+        }
+        if (ret.isEmpty() && trivialLeq(from, to)) {
+            ret.add(new Option(HypothesisSet.EMPTY, 1, null));
+        }
+        return ret;
+    }
+
+    /**
+     * Infers an LEQ edge from {@code from} to {@code to} for each combination of one way of
+     * deriving each of {@code components}, which are all required.
+     */
+    private void inferFromComponents(Node from, Node to, List<List<Option>> components) {
+        List<Option> combos = new ArrayList<>();
+        combos.add(new Option(HypothesisSet.EMPTY, 0, null));
+        List<List<Evidence>> evidences = new ArrayList<>();
+        evidences.add(new ArrayList<>());
+        for (List<Option> options : components) {
+            List<Option> nextCombos = new ArrayList<>();
+            List<List<Evidence>> nextEvidences = new ArrayList<>();
+            for (int i = 0; i < combos.size(); i++) {
+                for (Option o : options) {
+                    nextCombos.add(new Option(combos.get(i).hyps().union(o.hyps()),
+                            combos.get(i).size() + o.size(), null));
+                    List<Evidence> evi = new ArrayList<>(evidences.get(i));
+                    if (o.evidence() != null) {
+                        evi.add(o.evidence());
+                    }
+                    nextEvidences.add(evi);
+                }
+            }
+            combos = nextCombos;
+            evidences = nextEvidences;
+        }
+        for (int i = 0; i < combos.size(); i++) {
+            inferEdge(from, to, LeqCondition.getInstance(), combos.get(i).size(), evidences.get(i),
+                    true, combos.get(i).hyps());
         }
     }
 
@@ -577,10 +734,7 @@ public class ShortestPathFinder extends CFLPathFinder {
      * @param subst
      */
     private void expandOneNode(Node n, Node subst, boolean ltor) {
-        int size = getShortestLeq(n, subst);
-        List<Evidence> evi = new ArrayList<Evidence>();
-        Evidence e = new Evidence(n, subst, LeqCondition.getInstance());
-        evi.add(e);
+        List<Option> options = leqOptions(n, subst);
 
         if (consElements.containsKey(n) && !n.isGray() && !subst.isGray()) {
             for (Node cplxNode : consElements.get(n)) {
@@ -592,11 +746,9 @@ public class ShortestPathFinder extends CFLPathFinder {
                     for (Application nelem : nelems) {
                         Node newnode = g.getNode(nelem, true);
                         if (direction && !hasLeftEdge(cplxNode, newnode)) {
-                            inferEdge(cplxNode, newnode, LeqCondition.getInstance(), size, evi,
-                                    true);
+                            inferFromComponents(cplxNode, newnode, List.of(options));
                         } else {
-                            inferEdge(newnode, cplxNode, LeqCondition.getInstance(), size, evi,
-                                    true);
+                            inferFromComponents(newnode, cplxNode, List.of(options));
                         }
                     }
                 }
@@ -619,35 +771,16 @@ public class ShortestPathFinder extends CFLPathFinder {
             for (Node meetnode : meetElements.get(to)) {
                 MeetElement me = (MeetElement) meetnode.getElement();
                 Node candidate = from;
-                int candIndex = candidate.getIndex();
-                int meetIndex = meetnode.getIndex();
-                boolean success = true;
-
-                if (hasLeqEdge(candidate, meetnode) || candIndex == meetIndex) {
+                if (trivialLeq(candidate, meetnode)
+                        || candidate.getIndex() == meetnode.getIndex()) {
                     continue;
                 }
+                List<List<Option>> components = new ArrayList<>();
                 for (Element e : me.getElements()) {
-                    if (!hasLeqEdge(candidate, g.getNode(e))) {
-                        success = false;
-                        break;
-                    }
+                    components.add(leqOptions(candidate, g.getNode(e)));
                 }
-                if (success) {
-                    List<Evidence> evidences = new ArrayList<Evidence>();
-                    int size = 0;
-                    for (Element e : me.getElements()) {
-                        if (getShortestLeq(candidate, g.getNode(e)) < MAX) {
-                            size += getShortestLeq(candidate, g.getNode(e));
-                            evidences.add(new Evidence(candidate, g.getNode(e),
-                                    LeqCondition.getInstance()));
-                        } else {
-                            size++;
-                        }
-                    }
-                    if (!hasLeqEdge(candidate, meetnode)) {
-                        inferEdge(candidate, meetnode, LeqCondition.getInstance(), size, evidences,
-                                true);
-                    }
+                if (components.stream().noneMatch(List::isEmpty)) {
+                    inferFromComponents(candidate, meetnode, components);
                 }
             }
         }
@@ -658,35 +791,16 @@ public class ShortestPathFinder extends CFLPathFinder {
             for (Node joinnode : joinElements.get(from)) {
                 JoinElement je = (JoinElement) joinnode.getElement();
                 Node candidate = to;
-                int candIndex = candidate.getIndex();
-                int joinIndex = joinnode.getIndex();
-                boolean success = true;
-
-                if (hasLeqEdge(joinnode, candidate) || joinIndex == candIndex) {
+                if (trivialLeq(joinnode, candidate)
+                        || joinnode.getIndex() == candidate.getIndex()) {
                     continue;
                 }
+                List<List<Option>> components = new ArrayList<>();
                 for (Element e : je.getElements()) {
-                    if (!hasLeqEdge(g.getNode(e), candidate)) {
-                        success = false;
-                        break;
-                    }
+                    components.add(leqOptions(g.getNode(e), candidate));
                 }
-                if (success) {
-                    List<Evidence> evidences = new ArrayList<Evidence>();
-                    int size = 0;
-                    for (Element e : je.getElements()) {
-                        if (getShortestLeq(g.getNode(e), candidate) < MAX) {
-                            size += getShortestLeq(g.getNode(e), candidate);
-                            evidences.add(new Evidence(g.getNode(e), candidate,
-                                    LeqCondition.getInstance()));
-                        } else {
-                            size++;
-                        }
-                    }
-                    if (!hasLeqEdge(joinnode, candidate)) {
-                        inferEdge(joinnode, candidate, LeqCondition.getInstance(), size, evidences,
-                                true);
-                    }
+                if (components.stream().noneMatch(List::isEmpty)) {
+                    inferFromComponents(joinnode, candidate, components);
                 }
             }
         }
@@ -739,53 +853,24 @@ public class ShortestPathFinder extends CFLPathFinder {
                             rtol = true;
                         }
 
-                        // only infer new edges when none already exists
-                        if ((ltor && !hasLeqEdge(cnFrom, cnTo)) || (rtol && !hasLeqEdge(cnTo,
-                                cnFrom))) {
-                            // check if all elements flows into another constructor
-                            boolean success = true;
-
-                            for (int i = 0; i < arity; i++) {
-                                Element e1 = ce1.getElements().get(i);
-                                Element e2 = ce2.getElements().get(i);
-                                /* it seems we shouldn't test if e1 and e2 are Variables. But it breaks 2 ocaml test cases. Need to justify this change */
-                                if (!hasLeqEdge(g.getNode(e1), g.getNode(
-                                        e2)) /*|| e1 instanceof Variable || e2 instanceof Variable*/) {
-                                    success = false;
-                                    break;
-                                }
-                                // test the other direction for invariant parameters
-                                if (ce1.getVariance().equals(Variance.NONE)) {
-                                    if (!hasLeqEdge(g.getNode(e2), g.getNode(e1))) {
-                                        success = false;
-                                        break;
-                                    }
-                                }
+                        // every parameter must flow (both ways, for invariant parameters)
+                        List<List<Option>> components = new ArrayList<>();
+                        for (int i = 0; i < arity; i++) {
+                            Node n1 = g.getNode(ce1.getElements().get(i));
+                            Node n2 = g.getNode(ce2.getElements().get(i));
+                            components.add(leqOptions(n1, n2));
+                            if (ce1.getVariance().equals(Variance.NONE)) {
+                                components.add(leqOptions(n2, n1));
                             }
-
-                            if (success) {
-                                List<Evidence> evidences = new ArrayList<Evidence>();
-                                int size = 0;
-                                for (int i = 0; i < arity; i++) {
-                                    Element e1 = ce1.getElements().get(i);
-                                    Element e2 = ce2.getElements().get(i);
-                                    if (getShortestLeq(g.getNode(e1), g.getNode(e2)) < MAX) {
-                                        size += getShortestLeq(g.getNode(e1), g.getNode(e2));
-                                        evidences.add(new Evidence(g.getNode(e1), g.getNode(e2),
-                                                LeqCondition.getInstance()));
-                                    } else {
-                                        size++;
-                                    }
-                                }
-                                if (ltor && !hasLeqEdge(cnFrom, cnTo)) {
-                                    inferEdge(cnFrom, cnTo, LeqCondition.getInstance(), size,
-                                            evidences, true);
-                                }
-                                if (rtol && !hasLeqEdge(cnTo, cnFrom)) {
-                                    inferEdge(cnTo, cnFrom, LeqCondition.getInstance(), size,
-                                            evidences, true);
-                                }
-                            }
+                        }
+                        if (components.stream().anyMatch(List::isEmpty)) {
+                            continue;
+                        }
+                        if (ltor) {
+                            inferFromComponents(cnFrom, cnTo, components);
+                        }
+                        if (rtol) {
+                            inferFromComponents(cnTo, cnFrom, components);
                         }
                     }
                 }
