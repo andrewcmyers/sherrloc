@@ -28,9 +28,14 @@ public class Hypothesis {
     private boolean USE_GRAPH = true;        // set true to use hypothesis graph to infer provable relations
 
     /**
-     * Reuse saturated hypothesis graph when possible
+     * Saturated hypothesis graphs, reused for hypotheses with the same content. A saturated graph
+     * depends on the inequalities, the elements and the axioms it was built from.
      */
-    private static Map<Hypothesis, PathFinder> saturatedGraphs = new HashMap<Hypothesis, PathFinder>();
+    private static Map<GraphKey, PathFinder> saturatedGraphs = new HashMap<GraphKey, PathFinder>();
+
+    private record GraphKey(Set<Inequality> inequalities, Set<Element> elements,
+            List<Axiom> axioms) {
+    }
 
     /**
      * Construct an empty hypothesis
@@ -335,6 +340,33 @@ public class Hypothesis {
     }
 
     /**
+     * @return The saturated hypothesis graph for the current inequalities, elements and axioms of
+     * this hypothesis
+     */
+    private PathFinder saturatedGraph() {
+        Set<Inequality> inequalities = getInequalities();
+        Set<Element> elements = getElements();
+        List<Axiom> allAxioms = getAxioms();
+        PathFinder finder = saturatedGraphs.get(new GraphKey(inequalities, elements, allAxioms));
+        if (finder == null) {
+            ConstraintGraph graph = new ConstraintGraph(null, new ArrayList<Axiom>(allAxioms));
+            for (Inequality c : inequalities) {
+                graph.addOneInequality(c);
+            }
+            if (USE_GRAPH) {
+                for (Element e : elements) {
+                    graph.getNode(e); // create new node when necessary
+                }
+            }
+            graph.generateGraph();
+            finder = new ShortestPathFinder(graph, false, true);
+            saturatedGraphs.put(new GraphKey(new HashSet<Inequality>(inequalities),
+                    new HashSet<Element>(elements), new ArrayList<Axiom>(allAxioms)), finder);
+        }
+        return finder;
+    }
+
+    /**
      * Saturate a hypothesis graph to test if <code>e1<=e2</code> can be inferred
      *
      * @param e1 Element on LHS
@@ -342,21 +374,8 @@ public class Hypothesis {
      * @return True if <code>e1 <= e2</code> can be inferred from the hypothesis
      */
     private boolean leqApplyAssertions(Element e1, Element e2) {
-        if (!saturatedGraphs.containsKey(this)) {
-            ConstraintGraph graph = new ConstraintGraph(null, getAxioms());
-            for (Inequality c : getInequalities()) {
-                graph.addOneInequality(c);
-            }
-            if (USE_GRAPH) {
-                for (Element e : getElements()) {
-                    graph.getNode(e); // create new node when necessary
-                }
-            }
-            graph.generateGraph();
-            saturatedGraphs.put(this, new ShortestPathFinder(graph, false, true));
-        }
+        PathFinder finder = saturatedGraph();
 
-        PathFinder finder = saturatedGraphs.get(this);
         ConstraintGraph graph = finder.getGraph();
         if (graph.hasElement(e1) && graph.hasElement(e2)) {
             if (finder.hasLeqEdge(graph.getNode(e1), graph.getNode(e2))) {
@@ -398,7 +417,7 @@ public class Hypothesis {
             return true;
         }
 
-        PathFinder finder = saturatedGraphs.get(this);
+        PathFinder finder = saturatedGraph();
         ConstraintGraph graph = finder.getGraph();
         if (e1.hasVars() || e2.hasVars()) {
             for (Node n1 : graph.getAllNodes()) {
@@ -439,7 +458,7 @@ public class Hypothesis {
                 return assertions.equals(other.assertions);
             }
         }
-        return true;
+        return false;
     }
 
     @Override

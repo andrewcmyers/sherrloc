@@ -1,0 +1,11 @@
+CONSTRUCTOR top 0
+CONSTRUCTOR owner 0
+CONSTRUCTOR spender 0
+
+%%
+top <= owner;
+top <= spender;
+
+%%
+top <= p;
+p <= (owner join spender);
